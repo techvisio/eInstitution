@@ -1,4 +1,4 @@
-package com.tecvisio.einstitution.db;
+package com.techvisio.einstitution.db;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 
