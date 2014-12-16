@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<properties>
+
+<entry key="getStudentDtlByEnrollNo">
+    <![CDATA[
+Select
+
+Enroll_No
+Uni_Enroll_No
+Photo
+First_Name
+Last_Name
+Father_Name
+Mother_Name
+Gender
+DOB
+Blood_Group
+Father_Occupation
+FixedLine_No
+Self_Mobile_No
+Parent_Mobile_No
+Gaurdian_Mobile_No
+Email_Id
+Gaurdian_Email_Id
+Hostel
+Transportation
+Academic_Year
+Semester
+Management_Approval
+Fee_Paid
+Category_Id
+Course_Id
+Branch_Id
+Created_By
+Created_On
+Updated_By
+Updated_On
+Fee_Received_By
+Fee_Received_On
+Document_Received_By
+Document_Received_On
+Document_verified_By
+Document_Verified_On
+Management_Approved_By
+Management_Approved_On    
+Domicile_State
+
+from StudentDetail where Enroll_No=:Enroll_No;    
+    ]]>
+
+</entry>
+
+<entry key="addStudentDtl">
+    <![CDATA[
+      
+Insert into StudentDetail
+
+(Enroll_No,
+Uni_Enroll_No,
+Photo,
+First_Name,
+Last_Name,
+Father_Name,
+Mother_Name,
+Gender,
+DOB,
+Blood_Group,
+Father_Occupation,
+FixedLine_No,
+Self_Mobile_No,
+Parent_Mobile_No,
+Gaurdian_Mobile_No,
+Email_Id,
+Gaurdian_Email_Id,
+Hostel,
+Transportation,
+Academic_Year,
+Semester,
+Management_Approval,
+Fee_Paid,
+Category_Id,
+Course_Id,
+Branch_Id,
+Created_By,
+Created_On,
+Updated_By,
+Updated_On,
+Fee_Received_By,
+Fee_Received_On,
+Document_Received_By,
+Document_Received_On,
+Document_verified_By,
+Document_Verified_On,
+Management_Approved_By,
+Management_Approved_On,
+Domicile_State) values
+    
+ (:Enroll_No,
+:Uni_Enroll_No,
+:Photo,
+:First_Name,
+:Last_Name,
+:Father_Name,
+:Mother_Name,
+:Gender,
+:DOB,
+:Blood_Group,
+:Father_Occupation,
+:FixedLine_No,
+:Self_Mobile_No,
+:Parent_Mobile_No,
+:Gaurdian_Mobile_No,
+:Email_Id,
+:Gaurdian_Email_Id,
+:Hostel,
+:Transportation,
+:Academic_Year,
+:Semester,
+:Management_Approval,
+:Fee_Paid,
+:Category_Id,
+:Course_Id,
+:Branch_Id,
+:Created_By,
+:Created_On,
+:Updated_By,
+:Updated_On,
+:Fee_Received_By,
+:Fee_Received_On,
+:Document_Received_By,
+:Document_Received_On,
+:Document_verified_By,
+:Document_Verified_On,
+:Management_Approved_By,
+:Management_Approved_On,
+:Domicile_State);
+       
+    ]]>
+
+</entry>
+
+<entry key="updateStudentDtl">
+    <![CDATA[
+      
+Update StudentDetail set
+
+Enroll_No = :Enroll_No,
+Uni_Enroll_No = :Uni_Enroll_No,
+Photo = :Photo,
+First_Name = :First_Name,
+Last_Name = :Last_Name,
+Father_Name = :Father_Name,
+Mother_Name = :Mother_Name,
+Gender = :Gender,
+DOB = :DOB,
+Blood_Group = :Blood_Group,
+Father_Occupation = :Father_Occupation,
+FixedLine_No = :FixedLine_No,
+Self_Mobile_No = :Self_Mobile_No,
+Parent_Mobile_No = :Parent_Mobile_No,
+Gaurdian_Mobile_No = :Gaurdian_Mobile_No,
+Email_Id = :Email_Id,
+Gaurdian_Email_Id = :Gaurdian_Email_Id,
+Hostel = :Hostel,
+Transportation = :Transportation,
+Academic_Year = :Academic_Year,
+Semester = :Semester,
+Management_Approval = :Management_Approval,
+Fee_Paid = :Fee_Paid,
+Category_Id = :Category_Id,
+Course_Id = :Course_Id,
+Branch_Id = :Branch_Id,
+Created_By = :Created_By,
+Created_On = :Created_On,
+Updated_By = :Updated_By,
+Updated_On = :Updated_On,
+Fee_Received_By = :Fee_Received_By,
+Fee_Received_On = :Fee_Received_On,
+Document_Received_By = :Document_Received_By,
+Document_Received_On = :Document_Received_On,
+Document_verified_By = :Document_verified_By,
+Document_Verified_On = :Document_Verified_On,
+Management_Approved_By = :Management_Approved_By,
+Management_Approved_On = :Management_Approved_On,
+   
+ where Enroll_No=:Enroll_No;  
+    ]]>
+
+</entry>
+
+<entry key="deleteConsultantPaymentDtl">
+    <![CDATA[
+      
+Delete from StudentDetail where Enroll_No=:Enroll_No; 
+    ]]>
+
+</entry>
+
+<entry key="getAcademicDtlByEnrollNoAndQualificationId">
+    <![CDATA[
+Select AcademicDetail
+
+University,
+College_Name,
+Passing_Year,
+Percentage,
+Roll_No,
+Enroll_No,
+Qualification_Id    
+from  AcademicDetail where Enroll_No=:Enroll_No and Qualification_Id=:Qualification_Id;    
+    
+    ]]>
+
+</entry>
+
+<entry key="addAcademicDtl">
+    <![CDATA[
+      
+Insert into AcademicDetail
+
+(University,
+College_Name,
+Passing_Year,
+Percentage,
+Roll_No,
+Enroll_No,
+Qualification_Id) values
+    
+(:University,
+:College_Name,
+:Passing_Year,
+:Percentage,
+:Roll_No,
+:Enroll_No,
+:Qualification_Id);   
+    ]]>
+
+</entry>
+
+<entry key="updateAcademicDtl">
+    <![CDATA[
+      
+Update AcademicDetail set
+
+ University=:University, 
+ College_Name=:College_Name, 
+ Passing_Year=:Passing_Year, 
+ Percentage=:Percentage, 
+ Roll_No=:Roll_No
+ Enroll_No=:Enroll_No,
+ Qualification_Id=:Qualification_Id
+ 
+where Enroll_No=:Enroll_No and Qualification_Id=:Qualification_Id;
+    ]]>
+
+</entry>
+
+<entry key="deleteAcademicDtl">
+    <![CDATA[
+      
+Delete from AcademicDetail where Enroll_No=:Enroll_No and Qualification_Id=:Qualification_Id;  
+    ]]>
+
+</entry>
+
+<entry key="getAddressDtlByEnrollNo">
+    <![CDATA[
+      
+Select
+
+House_No
+Locality
+Landmark
+District
+City
+Pincode
+Domcile_State
+Enroll_No
+Address_Type
+State_Id
+
+from AddressDetail where Enroll_No=:Enroll_No;    
+    ]]>
+
+</entry>
+
+<entry key="addAddressDtl">
+    <![CDATA[
+      
+Insert into AddressDetail
+
+(House_No, 
+Locality, 
+Landmark, 
+District, 
+City, 
+Pincode,  
+Enroll_No,
+Address_Type,
+State_Id) values    
+
+(:House_No,
+:Locality,
+:Landmark,
+:District,
+:City,
+:Pincode,
+:Enroll_No,
+:Address_Type
+:State_Id);
+   
+    ]]>
+
+</entry>
+
+<entry key="updateAddressDtl">
+    <![CDATA[
+      
+Update AddressDetail set
+
+House_No=:House_No, 
+Locality=:Locality, 
+Landmark=:Landmark, 
+District=:District, 
+City=:City, 
+Pincode=:Pincode,
+Enroll_No=:Enroll_No,
+Address_Type=:Address_Type,
+State_Id=:State_Id
+    
+where Enroll_No=:Enroll_No;   
+    ]]>
+
+</entry>
+
+<entry key="deleteAddressDtl">
+    <![CDATA[
+      
+Delete from AddressDetail where Enroll_No=:Enroll_No;  
+    ]]>
+
+</entry>
+
+<entry key="getAdmissionDisDtlByEnrollNo">
+    <![CDATA[
+      
+Select  
+
+Enroll_No
+FeeHead_Id
+Amount
+Percent
+    
+from  AdmissionDiscountDtl where Enroll_No=:Enroll_No;    
+    ]]>
+
+</entry>
+
+<entry key="addAdmissionDisDtl">
+    <![CDATA[
+      
+Insert into AdmissionDiscountDtl
+
+(Enroll_No
+FeeHead_Id
+Amount
+Percent) values 
+
+(:Enroll_No,
+:FeeHead_Id,
+:Amount,
+:Percent);
+    
+    ]]>
+
+</entry>
+
+<entry key="updateAdmissionDisDtl">
+    <![CDATA[
+      
+Update AdmissionDiscountDtl set
+
+Enroll_No=:Enroll_No,
+FeeHead_Id=:FeeHead_Id,
+Amount=:Amount,
+Percent=:Percent 
+     
+where Enroll_No=:Enroll_No;
+    ]]>
+
+</entry>
+
+<entry key="deleteAdmissionDisDtl">
+    <![CDATA[
+      
+Delete from AdmissionDiscountDtl where Enroll_No=:Enroll_No;  
+    ]]>
+
+</entry>
+
+<entry key="getQualificationSubjectDtlByEnrollNoAndSubId">
+    <![CDATA[
+ 
+Select      
+
+	Subject_Id, 
+	Enroll_No, 
+	Qualification_Id, 
+	Marks_Obtained, 
+	Max_Marks  
+    
+from QualificationSubjectDtl where Subject_Id=:Subject_Id and Enroll_No=:Enroll_No; 
+    ]]>
+
+</entry>
+
+<entry key="addQualificationSubjectDtl">
+    <![CDATA[
+      
+Insert into QualificationSubjectDtl
+
+    (Subject_Id, 
+	Enroll_No, 
+	Qualification_Id, 
+	Marks_Obtained, 
+	Max_Marks) values 
+   
+   (:Subject_Id, 
+	:Enroll_No, 
+	:Qualification_Id, 
+	:Marks_Obtained, 
+	:Max_Marks); 
+    ]]>
+
+</entry>
+
+<entry key="updateQualificationSubjectDtl">
+    <![CDATA[
+      
+Update QualificationSubjectDtl set
+
+    Subject_Id= :Subject_Id, 
+	Enroll_No=:Enroll_No, 
+	Qualification_Id=:Qualification_Id, 
+	Marks_Obtained=:Marks_Obtained, 
+	Max_Marks=:Max_Marks 
+    
+where Subject_Id=:Subject_Id and Enroll_No=:Enroll_No;    
+    ]]>
+
+</entry>
+
+<entry key="deleteQualificationSubjectDtl">
+    <![CDATA[
+      
+Delete from QualificationSubjectDtl where Subject_Id=:Subject_Id and Enroll_No=:Enroll_No; 
+    ]]>
+
+</entry>
+
+
+</properties>
