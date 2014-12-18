@@ -18,7 +18,9 @@ http://www.springframework.org/schema/tx
  
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<!-- Employee DB data source. -->
+<context:annotation-config />
+
+	<!-- DB data source. -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}" />
@@ -37,4 +39,20 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 			<value>classpath:spring-config/jdbc.properties</value>
 		</property>
 	</bean>
+	
+	<bean id="inquiryQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="locations" value="classpath:db-resource/Inquiry.xml" />
+</bean>
+
+<bean id="inquiryDaoImpl" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">
+  <property name="inquiryQueryProps" ref="inquiryQueryProps" />
+</bean>
+	
+<!-- 	<bean id="queryProps2" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> -->
+<!--     <property name="locations" value="classpath:db-resource/Admission.xml" /> -->
+<!-- </bean> -->
+	
+<!-- 	<bean id="admissionDaoImpl" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl;"> -->
+<!--   <property name="queryProps2" ref="queryProps2" /> -->
+<!-- </bean> -->
 </beans>

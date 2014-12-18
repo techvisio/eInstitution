@@ -11,7 +11,8 @@ public class AdmissionEnquiry {
 	private int contactNo;
 	private String applicationStatus;
 	private Date dueDate;
-	private Date addedDate;
+	private Date createdDate;
+	private String createBy;
 	private Date updatedDate;
 	private String updatedBy;
 	private int intrestedCourseId;
@@ -81,14 +82,6 @@ public class AdmissionEnquiry {
 	}
 	
 	
-	public Date getAddedDate() {
-		return addedDate;
-	}
-	
-	public void setAddedDate(Date addedDate) {
-		this.addedDate = addedDate;
-	}
-	
 	
 	public Date getUpdatedDate() {
 		return updatedDate;
@@ -132,6 +125,26 @@ public class AdmissionEnquiry {
 	
 	public void setFollowupRequired(String followupRequired) {
 		this.followupRequired = followupRequired;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	
+	
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
 	}
 
 }
