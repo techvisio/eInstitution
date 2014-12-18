@@ -47,7 +47,6 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		  .addValue("Application_Status", admissionInquiry.getApplicationStatus());
 		  	 
 		  getNamedParamJdbcTemplate().update(query, namedParameters);
-		  getNamedParamJdbcTemplate().query(sql, paramMap, rse)
 	
 	
 	}
