@@ -17,7 +17,7 @@ public class AdmissionEnquiry {
 	private String updatedBy;
 	private int intrestedCourseId;
 	private int intrestedBranchId;
-	private String followupRequired;
+	private boolean followupRequired;
 	
 	public int getEnquiryId() {
 		return enquiryId;
@@ -119,11 +119,11 @@ public class AdmissionEnquiry {
 	}
 	
 	
-	public String getFollowupRequired() {
+	public boolean getFollowupRequired() {
 		return followupRequired;
 	}
 	
-	public void setFollowupRequired(String followupRequired) {
+	public void setFollowupRequired(boolean followupRequired) {
 		this.followupRequired = followupRequired;
 	}
 

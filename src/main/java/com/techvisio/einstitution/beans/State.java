@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 public class State {
 
 	private int id;
-	private String StateName;
+	private String stateName;
 	
 	
 	public int getId() {
@@ -16,11 +16,11 @@ public class State {
 	
 	
 	public String getStateName() {
-		return StateName;
+		return stateName;
 	}
 	
 	public void setStateName(String stateName) {
-		StateName = stateName;
+		this.stateName = stateName;
 	}
 	
 }

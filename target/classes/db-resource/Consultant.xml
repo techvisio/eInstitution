@@ -1,139 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
 
-<entry key="getConsultantMasterById">
+	<entry key="getConsultantMasterById">
     <![CDATA[
       
 Select 
 
-	Id, Name, Primary_Contact_No, Secondary_contact_No, Address, Email_Id       
+	Id, 
+	Name, 
+	Primary_Contact_No, 
+	Secondary_contact_No, 
+	Address, 
+	Email_Id       
    
  from ConsultantMaster where Id=:Id;
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="addConsultantMaster">
+	<entry key="addConsultantMaster">
     <![CDATA[
       
 Insert into ConsultantMaster
 
-	(Id, Name, Primary_Contact_No, Secondary_contact_No, Address, Email_Id) values
+	(Id,
+	Name, 
+	Primary_Contact_No, 
+	Secondary_contact_No, 
+	Address, 
+	Email_Id) values
 	       
-   (:Id, :Name, :Primary_Contact_No, :Secondary_contact_No, :Address, :Email_Id);
+   (:Id,
+   :Name, 
+   :Primary_Contact_No, 
+   :Secondary_contact_No, 
+   :Address, 
+   :Email_Id)
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="updateConsultantMaster">
+	<entry key="updateConsultantMaster">
     <![CDATA[
       
 Update ConsultantMaster set
-
-	Id=:Id, Name=:Name, Primary_Contact_No=:Primary_Contact_No, Secondary_contact_No=:Secondary_contact_No, Address=:Address, Email_Id=:Email_Id       
+ 
+	Name=:Name, 
+	Primary_Contact_No=:Primary_Contact_No, 
+	Secondary_contact_No=:Secondary_contact_No, 
+	Address=:Address, 
+	Email_Id=:Email_Id       
    
-where Id=:Id;
+where Id=:Id
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteConsultantMaster">
+	<entry key="deleteConsultantMaster">
     <![CDATA[
       
 Delete from ConsultantMaster where Id=:Id;
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="getConsultantDtlByConsultantIdAndFileNo">
+	<entry key="getConsultantDtlByConsultantIdAndFileNo">
     <![CDATA[
       
 Select
 
-	FileNo, Consultant_Id, Consultancy_Agreed, Payment_Mode, Amount_To_Pay, Due_Date
+	File_No, 
+	Consultant_Id, 
+	Consultancy_Agreed, 
+	Payment_Mode, 
+	Amount_To_Pay, 
+	Due_Date
 
 from ConsultantDetail where File_NO=:File_No and Consultant_Id=:Consultant_Id;
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="addConsultantDtl">
+	<entry key="addConsultantDtl">
     <![CDATA[
       
 Insert into ConsultantDetail
 
-   (Consultancy_Agreed, Payment_Mode, Amount_To_Pay, Due_Date) values
+   (File_No, 
+	Consultant_Id, 
+   Consultancy_Agreed, 
+   Payment_Mode, 
+   Amount_To_Pay, 
+   Due_Date) values
    
- (:Consultancy_Agreed, :Payment_Mode, :Amount_To_Pay, :Due_Date);  
+ (:File_No, 
+ :Consultant_Id, 
+ :Consultancy_Agreed, 
+ :Payment_Mode, 
+ :Amount_To_Pay, 
+ :Due_Date)
 
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="updateConsultantDtl">
+	<entry key="updateConsultantDtl">
     <![CDATA[
       
  Update ConsultantDetail set
- 
-    Consultancy_Agreed=:Consultancy_Agreed, Payment_Mode=:Payment_Mode, Amount_To_Pay=:Amount_To_Pay, Due_Date=:Due_Date
+
+    Consultancy_Agreed=:Consultancy_Agreed, 
+    Payment_Mode=:Payment_Mode, 
+    Amount_To_Pay=:Amount_To_Pay, 
+    Due_Date=:Due_Date
     
  where File_NO=:File_No and Consultant_Id=:Consultant_Id;
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteConsultantDtl">
+	<entry key="deleteConsultantDtl">
     <![CDATA[
       
-Delete from ConsultantDetail where File_NO=:File_No and Consultant_Id=:Consultant_Id;
+Delete from ConsultantDetail where File_No=:File_No and Consultant_Id=:Consultant_Id;
 
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="getConsultantPaymentDtlByFileNo">
+	<entry key="getConsultantPaymentDtlByFileNo">
     <![CDATA[
       
 Select
 
-	Amount, Pay_Date, FileNo
+	Amount, 
+	Pay_Date, 
+	FileNo
    
 from ConsultantPaymentDetail where File_No=:File_No;
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="addConsultantPaymentDtl">
+	<entry key="addConsultantPaymentDtl">
     <![CDATA[
       
 Insert into ConsultantPaymentDetail
 
-      (Amount, Pay_Date, FileNo) values 
+      (FileNo,
+      Amount, 
+      Pay_Date) values 
       
- (:Amount, :Pay_Date, :FileNo);
+     (:FileNo,
+     :Amount, 
+     :Pay_Date);
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="updateConsultantPaymentDtl">
+	<entry key="updateConsultantPaymentDtl">
     <![CDATA[
       
 Update ConsultantPaymentDetail set
 
-      Amount=:Amount, Pay_Date=:Pay_Date, File_No=:FileNo
+      Amount=:Amount, 
+      Pay_Date=:Pay_Date
+      
    
 where File_No=:File_No;  
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteConsultantPaymentDtl">
+	<entry key="deleteConsultantPaymentDtl">
     <![CDATA[
       
 Delete from ConsultantPaymentDetail where File_No=:File_No;  
     ]]>
 
-</entry>
+	</entry>
 
 </properties>

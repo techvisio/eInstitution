@@ -3,7 +3,7 @@
 
 <properties>
 
-<entry key="getAdmissionInquiryByInquiryId">
+	<entry key="getAdmissionInquiryByInquiryId">
     <![CDATA[
 Select
 
@@ -25,14 +25,14 @@ FollowUp_Rquired
 from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;    
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="addAdmissionInquiry">
+	<entry key="addAdmissionInquiry">
     <![CDATA[
       
 Insert into AdmissionInquiry
 
-(Inquiry_Id, 
+(Inquiry_Id,
 Name, 
 Father_Name, 
 DOB, 
@@ -47,8 +47,8 @@ Intrested_Course_Id,
 Intrested_Branch_Id, 
 FollowUp_Rquired ) values
     
- (:Inquiry_Id, 
-:Name, 
+ (:Inquiry_Id,
+ :Name, 
 :Father_Name, 
 :DOB, 
 :Contact_No,
@@ -64,14 +64,13 @@ FollowUp_Rquired ) values
        
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="updateAdmissionInquiry">
+	<entry key="updateAdmissionInquiry">
     <![CDATA[
       
 Update AdmissionInquiry set
 
-Inquiry_Id=:Inquiry_Id, 
 Name=:Name, 
 Father_Name=:Father_Name, 
 DOB=:DOB, 
@@ -89,14 +88,14 @@ FollowUp_Rquired=:FollowUp_Rquired
  where Inquiry_Id=:Inquiry_Id;  
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteAdmissionInquiry">
+	<entry key="deleteAdmissionInquiry">
     <![CDATA[
       
 Delete from AdmissionInquiry where Inquiry_Id=:Inquiry_Id; 
     ]]>
 
-</entry>
+	</entry>
 
 </properties>

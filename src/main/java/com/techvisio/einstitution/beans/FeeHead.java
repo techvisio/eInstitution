@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 public class FeeHead {
 	
 	private int id;
-	private String FeeHead;
+	private String feeHead;
 	
 	
 	public int getId() {
@@ -16,11 +16,11 @@ public class FeeHead {
 	
 	
 	public String getFeeHead() {
-		return FeeHead;
+		return feeHead;
 	}
 	
 	public void setFeeHead(String feeHead) {
-		FeeHead = feeHead;
+		this.feeHead = feeHead;
 	}
 
 }

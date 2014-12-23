@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.beans;
 
+import java.util.List;
+
 public class StudentAcademicDetail {
 
 	private String university;
@@ -7,9 +9,9 @@ public class StudentAcademicDetail {
 	private String passingYear;
 	private float percentage;
 	private String rollNo;
-	private String enrollNo;
+	private String fileNo;
 	private int qualificationId;
-	
+	private List<QualificationSubjectDtl> qualificationSubDtl;
 	
 	public String getUniversity() {
 		return university;
@@ -56,12 +58,12 @@ public class StudentAcademicDetail {
 	}
 	
 	
-	public String getEnrollNo() {
-		return enrollNo;
+	public String getFileNo() {
+		return fileNo;
 	}
 	
-	public void setEnrollNo(String enrollNo) {
-		this.enrollNo = enrollNo;
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
 	}
 	
 	
@@ -71,5 +73,13 @@ public class StudentAcademicDetail {
 	
 	public void setQualificationId(int qualificationId) {
 		this.qualificationId = qualificationId;
+	}
+
+	public List<QualificationSubjectDtl> getQualificationSubDtl() {
+		return qualificationSubDtl;
+	}
+
+	public void setQualificationSubDtl(List<QualificationSubjectDtl> qualificationSubDtl) {
+		this.qualificationSubDtl = qualificationSubDtl;
 	} 
 }

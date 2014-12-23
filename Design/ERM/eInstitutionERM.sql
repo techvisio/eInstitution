@@ -2,7 +2,6 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
-DROP TABLE IF EXISTS QualificationSubjectDtl;
 DROP TABLE IF EXISTS AcademicDetail;
 DROP TABLE IF EXISTS AddressDetail;
 DROP TABLE IF EXISTS AdmissionDiscountDtl;
@@ -10,6 +9,9 @@ DROP TABLE IF EXISTS AdmissionInquiry;
 DROP TABLE IF EXISTS QualificationSubjectDtl;
 DROP TABLE IF EXISTS StudentDetail;
 DROP TABLE IF EXISTS CasteCategoryMaster;
+DROP TABLE IF EXISTS ConsultantDetail;
+DROP TABLE IF EXISTS ConsultantMaster;
+DROP TABLE IF EXISTS ConsultantPaymentDetail;
 DROP TABLE IF EXISTS CounsellingMaster;
 DROP TABLE IF EXISTS CourseBranchMaster;
 DROP TABLE IF EXISTS CourseMaster;
@@ -31,9 +33,9 @@ CREATE TABLE AcademicDetail
 	Passing_Year varchar(20),
 	Percentage decimal,
 	Roll_No varchar(50),
-	Enroll_No varchar(50) NOT NULL,
 	Qualification_Id int NOT NULL,
-	PRIMARY KEY (Enroll_No, Qualification_Id)
+	File_No varchar(100) NOT NULL,
+	PRIMARY KEY (Qualification_Id, File_No)
 );
 
 
@@ -45,18 +47,20 @@ CREATE TABLE AddressDetail
 	District varchar(50),
 	City varchar(50),
 	Pincode int,
-	Enroll_No varchar(50) NOT NULL,
 	Address_Type char(1),
-	State_Id int NOT NULL
+	State_Id int NOT NULL,
+	File_No varchar(100) NOT NULL,
+	PRIMARY KEY (State_Id, File_No)
 );
 
 
 CREATE TABLE AdmissionDiscountDtl
 (
-	Enroll_No varchar(50) NOT NULL,
 	FeeHead_Id int NOT NULL,
 	Amount decimal,
-	Percent decimal
+	Percent decimal,
+	File_No varchar(100) NOT NULL,
+	PRIMARY KEY (FeeHead_Id, File_No)
 );
 
 
@@ -85,6 +89,39 @@ CREATE TABLE CasteCategoryMaster
 	Id int NOT NULL,
 	Category varchar(100),
 	PRIMARY KEY (Id)
+);
+
+
+CREATE TABLE ConsultantDetail
+(
+	File_No varchar(100) NOT NULL,
+	Consultant_Id bigint NOT NULL,
+	Consultancy_Agreed varchar(10),
+	Payment_Mode varchar(50),
+	Amount_To_Pay decimal,
+	Due_Date date,
+	PRIMARY KEY (File_No, Consultant_Id)
+);
+
+
+CREATE TABLE ConsultantMaster
+(
+	Id bigint NOT NULL,
+	Name varchar(50),
+	Primary_Contact_No varchar(50),
+	Secondary_contact_No varchar(50),
+	Address varchar(200),
+	Email_Id varchar(100),
+	PRIMARY KEY (Id)
+);
+
+
+CREATE TABLE ConsultantPaymentDetail
+(
+	Amount decimal,
+	Pay_Date date,
+	File_No varchar(100) NOT NULL,
+	PRIMARY KEY (File_No)
 );
 
 
@@ -133,20 +170,11 @@ CREATE TABLE QualificationMaster
 CREATE TABLE QualificationSubjectDtl
 (
 	Subject_Id int NOT NULL,
-	Enroll_No varchar(50) NOT NULL,
 	Qualification_Id int NOT NULL,
 	Marks_Obtained decimal,
-	Max_Marks decimal
-);
-
-
-CREATE TABLE QualificationSubjectDtl
-(
-	Subject_Id int NOT NULL,
-	Qualification_Id int NOT NULL,
-	Enroll_No varchar(50) NOT NULL,
-	Marks_Obtained decimal,
-	Max_Marks decimal
+	Max_Marks decimal,
+	File_No varchar(100) NOT NULL,
+	PRIMARY KEY (Subject_Id, File_No)
 );
 
 
@@ -169,7 +197,7 @@ CREATE TABLE StateMaster
 
 CREATE TABLE StudentDetail
 (
-	FileNo varchar(100) NOT NULL,
+	File_No varchar(100) NOT NULL,
 	Enroll_No varchar(50) NOT NULL,
 	Uni_Enroll_No varchar(50),
 	Photo blob,
@@ -208,8 +236,8 @@ CREATE TABLE StudentDetail
 	Document_Verified_On date,
 	Management_Approved_By varchar(100),
 	Management_Approved_On date,
-	Domicile_State varchar(200),
-	PRIMARY KEY (Enroll_No),
+	Domicile_State_Id int NOT NULL,
+	PRIMARY KEY (File_No),
 	UNIQUE (Uni_Enroll_No)
 );
 
@@ -225,14 +253,6 @@ CREATE TABLE SubjectMaster
 
 /* Create Foreign Keys */
 
-ALTER TABLE QualificationSubjectDtl
-	ADD FOREIGN KEY (Enroll_No, Qualification_Id)
-	REFERENCES AcademicDetail (Enroll_No, Qualification_Id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 ALTER TABLE StudentDetail
 	ADD FOREIGN KEY (Category_Id)
 	REFERENCES CasteCategoryMaster (Id)
@@ -241,9 +261,9 @@ ALTER TABLE StudentDetail
 ;
 
 
-ALTER TABLE AdmissionInquiry
-	ADD FOREIGN KEY (Intrested_Course_Id, Intrested_Branch_Id)
-	REFERENCES CourseBranchMaster (Course_Id, Id)
+ALTER TABLE ConsultantDetail
+	ADD FOREIGN KEY (Consultant_Id)
+	REFERENCES ConsultantMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -251,6 +271,14 @@ ALTER TABLE AdmissionInquiry
 
 ALTER TABLE StudentDetail
 	ADD FOREIGN KEY (Course_Id, Branch_Id)
+	REFERENCES CourseBranchMaster (Course_Id, Id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE AdmissionInquiry
+	ADD FOREIGN KEY (Intrested_Course_Id, Intrested_Branch_Id)
 	REFERENCES CourseBranchMaster (Course_Id, Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -281,33 +309,41 @@ ALTER TABLE AddressDetail
 ;
 
 
-ALTER TABLE AcademicDetail
-	ADD FOREIGN KEY (Enroll_No)
-	REFERENCES StudentDetail (Enroll_No)
+ALTER TABLE StudentDetail
+	ADD FOREIGN KEY (Domicile_State_Id)
+	REFERENCES StateMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
 ALTER TABLE AddressDetail
-	ADD FOREIGN KEY (Enroll_No)
-	REFERENCES StudentDetail (Enroll_No)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE AdmissionDiscountDtl
-	ADD FOREIGN KEY (Enroll_No)
-	REFERENCES StudentDetail (Enroll_No)
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
 ALTER TABLE QualificationSubjectDtl
-	ADD FOREIGN KEY (Enroll_No)
-	REFERENCES StudentDetail (Enroll_No)
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE AcademicDetail
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE AdmissionDiscountDtl
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

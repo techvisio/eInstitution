@@ -3,6 +3,7 @@ package com.techvisio.einstitution.db.impl;
 import java.util.Properties;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.db.InquiryDao;
@@ -29,9 +30,9 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
 	public void addInquiry(AdmissionEnquiry admissionInquiry) {
 		
-		String query = inquiryQueryProps.getProperty("addAdmissionInquiry");	
+		String addQuery = inquiryQueryProps.getProperty("addAdmissionInquiry");	
 		 
-		 MapSqlParameterSource namedParameters=new MapSqlParameterSource("Inquiry_Id",admissionInquiry.getEnquiryId())
+		 SqlParameterSource namedParameters=new MapSqlParameterSource("Inquiry_Id",admissionInquiry.getEnquiryId())
 		  .addValue("Name",admissionInquiry.getName())
 		  .addValue("Father_Name",admissionInquiry.getFatherName())
 		  .addValue("DOB",admissionInquiry.getDob())
@@ -46,19 +47,40 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		  .addValue("FollowUp_Rquired",admissionInquiry.getFollowupRequired())
 		  .addValue("Application_Status", admissionInquiry.getApplicationStatus());
 		  	 
-		  getNamedParamJdbcTemplate().update(query, namedParameters);
+		  getNamedParamJdbcTemplate().update(addQuery, namedParameters);
 	
 	
 	}
 
 	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
-		// TODO Auto-generated method stub
 		
+		String updateQuery = inquiryQueryProps.getProperty("updateAdmissionInquiry");	
+	    
+		 SqlParameterSource namedParameters=new MapSqlParameterSource("Inquiry_Id",admissionInquiry.getEnquiryId())
+		  .addValue("Name",admissionInquiry.getName())
+		  .addValue("Father_Name",admissionInquiry.getFatherName())
+		  .addValue("DOB",admissionInquiry.getDob())
+		  .addValue("Due_Date",admissionInquiry.getDueDate())
+		  .addValue("Intrested_Branch_Id",admissionInquiry.getIntrestedBranchId())
+		  .addValue("Intrested_Course_Id",admissionInquiry.getIntrestedCourseId())
+		  .addValue("Created_On",admissionInquiry.getCreatedDate())
+		  .addValue("Created_By",admissionInquiry.getCreateBy())
+		  .addValue("Updated_On",admissionInquiry.getUpdatedDate())
+		  .addValue("Updated_By",admissionInquiry.getUpdatedBy())
+		  .addValue("Contact_No",admissionInquiry.getContactNo())
+		  .addValue("FollowUp_Rquired",admissionInquiry.getFollowupRequired())
+		  .addValue("Application_Status", admissionInquiry.getApplicationStatus());
+		 
+		 getNamedParamJdbcTemplate().update(updateQuery, namedParameters);
 	}
 
 	public void deleteInquiry(AdmissionEnquiry admissionInquiry) {
-		// TODO Auto-generated method stub
-		
+
+		String deleteQuery = inquiryQueryProps.getProperty("deleteAdmissionInquiry");	
+	    
+		 SqlParameterSource namedParameters=new MapSqlParameterSource("Inquiry_Id",admissionInquiry.getEnquiryId());
+	
+		 getNamedParamJdbcTemplate().update(deleteQuery, namedParameters);		
 	}
 
 }

@@ -8,9 +8,8 @@ public class AddressDeatil {
 	private String district;
 	private String city;
 	private int pincode;
-	private String DomicileState;
 	private String State;
-	private String enrollNo;
+	private String fileNo;
 	private String addressType;
 	
 	
@@ -68,14 +67,6 @@ public class AddressDeatil {
 	}
 	
 	
-	public String getDomicileState() {
-		return DomicileState;
-	}
-	
-	public void setDomicileState(String domicileState) {
-		DomicileState = domicileState;
-	}
-	
 	
 	public String getState() {
 		return State;
@@ -86,12 +77,12 @@ public class AddressDeatil {
 	}
 	
 	
-	public String getEnrollNo() {
-		return enrollNo;
+	public String getFileNo() {
+		return fileNo;
 	}
 	
-	public void setEnrollNo(String enrollNo) {
-		this.enrollNo = enrollNo;
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
 	}
 	
 	

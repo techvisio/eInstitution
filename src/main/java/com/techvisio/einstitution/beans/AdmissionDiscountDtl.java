@@ -2,18 +2,18 @@ package com.techvisio.einstitution.beans;
 
 public class AdmissionDiscountDtl {
 
-	private String enrollNo;
+	private String fileNo;
 	private int feeHeadId;
 	private double amount;
 	private float percent;
 	
 	
-	public String getEnrollNo() {
-		return enrollNo;
+	public String getFileNo() {
+		return fileNo;
 	}
 	
-	public void setEnrollNo(String enrollNo) {
-		this.enrollNo = enrollNo;
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
 	}
 	
 	

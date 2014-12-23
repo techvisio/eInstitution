@@ -4,7 +4,7 @@ public class QualificationSubjectDtl {
 
 	private int subjectId;
 	private int qualificationId;
-	private String enrollNo;
+	private String fileNo;
 	private double marksObtained;
 	private double maxMarks;
 	
@@ -27,12 +27,12 @@ public class QualificationSubjectDtl {
 	}
 	
 	
-	public String getEnrollNo() {
-		return enrollNo;
+	public String getFileNo() {
+		return fileNo;
 	}
 	
-	public void setEnrollNo(String enrollNo) {
-		this.enrollNo = enrollNo;
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
 	}
 	
 	

@@ -44,15 +44,27 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
     <property name="locations" value="classpath:db-resource/Inquiry.xml" />
 </bean>
 
-<bean id="inquiryDaoImpl" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">
+<bean id="inquiryDao" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">
   <property name="inquiryQueryProps" ref="inquiryQueryProps" />
 </bean>
 	
-<!-- 	<bean id="queryProps2" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> -->
-<!--     <property name="locations" value="classpath:db-resource/Admission.xml" /> -->
-<!-- </bean> -->
+	<bean id="admissionQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> 
+     <property name="locations" value="classpath:db-resource/Admission.xml" /> 
+ </bean> 
 	
-<!-- 	<bean id="admissionDaoImpl" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl;"> -->
-<!--   <property name="queryProps2" ref="queryProps2" /> -->
-<!-- </bean> -->
+ 	<bean id="admissionDaoImpl" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl"> 
+ <property name="admissionQueryProps" ref="admissionQueryProps" /> 
+</bean> 
+
+	
+	<bean id="consultantQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> 
+     <property name="locations" value="classpath:db-resource/Consultant.xml" /> 
+ </bean> 
+	
+ 	<bean id="consultantDaoImpl" class="com.techvisio.einstitution.db.impl.ConsultantDaoImpl"> 
+ <property name="consultantQueryProps" ref="consultantQueryProps" /> 
+</bean> 
+
+ 	<bean id="sequenceFactory" class="com.techvisio.einstitution.db.impl.SequenceFactory"> 
+	</bean> 
 </beans>

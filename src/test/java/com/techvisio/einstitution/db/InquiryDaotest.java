@@ -11,7 +11,7 @@ public class InquiryDaotest {
 	@Test
 	public void testAddInquiry(){
 		AdmissionEnquiry enquiry=new AdmissionEnquiry();
-		enquiry.setEnquiryId(1);
+		enquiry.setEnquiryId(5);
 		enquiry.setIntrestedCourseId(1);
 		enquiry.setIntrestedBranchId(1);
 		ApplicationContext ctx=new ClassPathXmlApplicationContext("spring-config/Application-context.xml");
