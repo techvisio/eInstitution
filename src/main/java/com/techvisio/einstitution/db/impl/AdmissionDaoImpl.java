@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-import com.techvisio.einstitution.beans.AddressDeatil;
+import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
@@ -102,7 +102,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		if (studentDtl.getAddressDtl() != null) {
 
-			for (AddressDeatil addressDeatil : studentDtl.getAddressDtl()) {
+			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
 				addAddressDtl(addressDeatil);
 			}
@@ -191,7 +191,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		if (studentDtl.getAddressDtl() != null) {
 
-			for (AddressDeatil addressDeatil : studentDtl.getAddressDtl()) {
+			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
 				deleteAddressDtl(addressDeatil);
 			}
@@ -282,12 +282,12 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	public void getAddressDtl(AddressDeatil addressDtl) {
+	public void getAddressDtl(AddressDetail addressDtl) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private void addAddressDtl(AddressDeatil addressDtl) {
+	private void addAddressDtl(AddressDetail addressDtl) {
 
 		String addQuery = admissionQueryProps.getProperty("addAddressDtl");
 
@@ -306,7 +306,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	private void updateAddressDtl(AddressDeatil addressDtl) {
+	private void updateAddressDtl(AddressDetail addressDtl) {
 
 		deleteAddressDtl(addressDtl);
 
@@ -330,7 +330,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		//
 	}
 
-	private void deleteAddressDtl(AddressDeatil addressDtl) {
+	private void deleteAddressDtl(AddressDetail addressDtl) {
 
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAddressDtl");

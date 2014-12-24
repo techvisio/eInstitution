@@ -47,7 +47,7 @@ public class StudentDetail {
 	private String domicileState;
 	private List<StudentAcademicDetail> academicDtl;
 	private List<AdmissionDiscountDtl> DiscountDtl;
-	private List<AddressDeatil> addressDtl;
+	private List<AddressDetail> addressDtl;
 
 	public List<StudentAcademicDetail> getAcademicDtl() {
 		return academicDtl;
@@ -385,11 +385,11 @@ public class StudentDetail {
 		this.domicileState = domicileState;
 	}
 
-	public List<AddressDeatil> getAddressDtl() {
+	public List<AddressDetail> getAddressDtl() {
 		return addressDtl;
 	}
 
-	public void setAddressDtl(List<AddressDeatil> addressDtl) {
+	public void setAddressDtl(List<AddressDetail> addressDtl) {
 		this.addressDtl = addressDtl;
 	}
 }

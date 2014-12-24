@@ -17,7 +17,7 @@ public class SequenceFactory extends BaseDao {
 	public Long getSequence(String seqName){
 		Long sequence=null;
 		StoredProcedure sp=new SqlFunction(getDataSource(), "getSequence");
-		sp.declareParameter(new SqlOutParameter("seq", Types.VARCHAR));
+		sp.declareParameter(new SqlOutParameter("seq", Types.INTEGER));
 		sp.declareParameter(new SqlParameter("seq_name",Types.VARCHAR));
 		sp.compile();
 		Map inputs = new HashMap();

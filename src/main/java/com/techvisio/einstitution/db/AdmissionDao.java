@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.db;
 
-import com.techvisio.einstitution.beans.AddressDeatil;
+import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
@@ -18,7 +18,7 @@ public interface AdmissionDao {
 	//public void updateAcademicDtl(StudentAcademicDetail academicDtl);
 	//public void deleteAcademicDtl(StudentAcademicDetail academicDtl);
 	
-	public void getAddressDtl(AddressDeatil addressDtl);
+	public void getAddressDtl(AddressDetail addressDtl);
 	//public void addAddressDtl(AddressDeatil addressDtl);
 	//public void updateAddressDtl(AddressDeatil addressDtl);
 	//public void deleteAddressDtl(AddressDeatil addressDtl);

@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.beans;
 
-public class AddressDeatil {
+public class AddressDetail {
 
 	private int houseNo;
 	private String locality;

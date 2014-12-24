@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AdmissionEnquiry {
 	
-	private int enquiryId;
+	private Long enquiryId;
 	private String name;
 	private String fatherName;
 	private Date dob;
@@ -19,11 +19,11 @@ public class AdmissionEnquiry {
 	private int intrestedBranchId;
 	private boolean followupRequired;
 	
-	public int getEnquiryId() {
+	public Long getEnquiryId() {
 		return enquiryId;
 	}
 	
-	public void setEnquiryId(int enquiryId) {
+	public void setEnquiryId(Long enquiryId) {
 		this.enquiryId = enquiryId;
 	}
 	
