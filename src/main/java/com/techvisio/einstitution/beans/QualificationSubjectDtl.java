@@ -2,27 +2,27 @@ package com.techvisio.einstitution.beans;
 
 public class QualificationSubjectDtl {
 
-	private int subjectId;
-	private int qualificationId;
+	private Long subjectId;
+	private Long qualificationId;
 	private String fileNo;
 	private double marksObtained;
 	private double maxMarks;
 	
 	
-	public int getSubjectId() {
+	public Long getSubjectId() {
 		return subjectId;
 	}
 	
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
 	}
 	
 	
-	public int getQualificationId() {
+	public Long getQualificationId() {
 		return qualificationId;
 	}
 	
-	public void setQualificationId(int qualificationId) {
+	public void setQualificationId(Long qualificationId) {
 		this.qualificationId = qualificationId;
 	}
 	

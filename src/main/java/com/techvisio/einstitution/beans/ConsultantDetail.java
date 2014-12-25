@@ -8,7 +8,7 @@ public class ConsultantDetail {
 	private String consultantId;
 	private boolean consultancyAgreed; 
 	private String paymentMode;
-	private long amountToPay; 
+	private Double amountToPay; 
 	private Date dueDate;
 
 	public String getFileNo() {
@@ -19,29 +19,6 @@ public class ConsultantDetail {
 		this.fileNo = fileNo;
 	}
 
-	
-	
-	public String getConsultantId() {
-		return consultantId;
-	}
-
-	
-	public void setConsultantId(String consultantId) {
-		this.consultantId = consultantId;
-	}
-
-	
-	
-	public boolean getConsultancyAgreed() {
-	   return consultancyAgreed;
-	}
-
-
-	public void setConsultancyAgreed(boolean consultancyAgreed) {
-		this.consultancyAgreed = consultancyAgreed;
-	}
-
-	
 	
 	public String getPaymentMode() {
 		return paymentMode;
@@ -54,12 +31,12 @@ public class ConsultantDetail {
 
 	
 	
-	public Long getAmountToPay() {
+	public Double getAmountToPay() {
 		return amountToPay;
 	}
 
 	
-	public void setAmountToPay(long amountToPay) {
+	public void setAmountToPay(Double amountToPay) {
 		this.amountToPay = amountToPay;
 	}
 
@@ -72,6 +49,22 @@ public class ConsultantDetail {
 	
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
+	}
+
+	public boolean isConsultancyAgreed() {
+		return consultancyAgreed;
+	}
+
+	public void setConsultancyAgreed(boolean consultancyAgreed) {
+		this.consultancyAgreed = consultancyAgreed;
+	}
+
+	public String getConsultantId() {
+		return consultantId;
+	}
+
+	public void setConsultantId(String consultantId) {
+		this.consultantId = consultantId;
 	}
 	
 }

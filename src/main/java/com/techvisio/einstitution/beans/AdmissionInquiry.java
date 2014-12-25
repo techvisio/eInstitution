@@ -2,21 +2,21 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class AdmissionEnquiry {
+public class AdmissionInquiry {
 	
 	private Long enquiryId;
 	private String name;
 	private String fatherName;
 	private Date dob;
-	private int contactNo;
+	private String contactNo;
 	private String applicationStatus;
 	private Date dueDate;
 	private Date createdDate;
 	private String createBy;
 	private Date updatedDate;
 	private String updatedBy;
-	private int intrestedCourseId;
-	private int intrestedBranchId;
+	private Long intrestedCourseId;
+	private Long intrestedBranchId;
 	private boolean followupRequired;
 	
 	public Long getEnquiryId() {
@@ -55,11 +55,11 @@ public class AdmissionEnquiry {
 	}
 	
 	
-	public int getContactNo() {
+	public String getContactNo() {
 		return contactNo;
 	}
 	
-	public void setContactNo(int contactNo) {
+	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
 	
@@ -101,31 +101,23 @@ public class AdmissionEnquiry {
 	}
 	
 	
-	public int getIntrestedCourseId() {
+	public Long getIntrestedCourseId() {
 		return intrestedCourseId;
 	}
 	
-	public void setIntrestedCourseId(int intrestedCourseId) {
-		this.intrestedCourseId = intrestedCourseId;
+	public void setIntrestedCourseId(Long i) {
+		this.intrestedCourseId = i;
 	}
 	
 	
-	public int getIntrestedBranchId() {
+	public Long getIntrestedBranchId() {
 		return intrestedBranchId;
 	}
 	
-	public void setIntrestedBranchId(int intrestedBranchId) {
+	public void setIntrestedBranchId(Long intrestedBranchId) {
 		this.intrestedBranchId = intrestedBranchId;
 	}
 	
-	
-	public boolean getFollowupRequired() {
-		return followupRequired;
-	}
-	
-	public void setFollowupRequired(boolean followupRequired) {
-		this.followupRequired = followupRequired;
-	}
 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -145,6 +137,14 @@ public class AdmissionEnquiry {
 	
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
+	}
+
+	public boolean isFollowupRequired() {
+		return followupRequired;
+	}
+
+	public void setFollowupRequired(boolean followupRequired) {
+		this.followupRequired = followupRequired;
 	}
 
 }

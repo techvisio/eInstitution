@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.impl.AdmissionDaoImpl;
 

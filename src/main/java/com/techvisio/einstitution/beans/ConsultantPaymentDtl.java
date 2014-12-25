@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class ConsultantPaymentDtl {
 	
-	private String amount;
+	private Double amount;
     private Date payDate; 
     private String fileNo;
 	
-    public String getAmount() {
+    public Double getAmount() {
 		return amount;
 	}
 	
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	

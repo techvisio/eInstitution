@@ -2,25 +2,25 @@ package com.techvisio.einstitution.beans;
 
 public class QuotaCode {
 
-	private int id;
-	private int code;
+	private Long id;
+	private String code;
 	private String description;
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
 	
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 	
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 	

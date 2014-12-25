@@ -1,15 +1,15 @@
 package com.techvisio.einstitution.db;
 
-import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.AdmissionInquiry;
 
 
 public interface InquiryDao {
 
-	public void getInquiry(AdmissionEnquiry admissionInquiry);
+	public void getInquiry(AdmissionInquiry admissionInquiry);
 	
-	public void addInquiry (AdmissionEnquiry admissionInquiry);
+	public void addInquiry (AdmissionInquiry admissionInquiry);
 	
-	public void updateInquiry(AdmissionEnquiry admissionInquiry);
+	public void updateInquiry(AdmissionInquiry admissionInquiry);
 	
-	public void deleteInquiry(AdmissionEnquiry admissionInquiry);
+	public void deleteInquiry(AdmissionInquiry admissionInquiry);
 }

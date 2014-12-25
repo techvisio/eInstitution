@@ -2,15 +2,15 @@ package com.techvisio.einstitution.beans;
 
 public class Course {
 
-	private int id;
+	private Long id;
 	private String course;
 	private String courseType;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

@@ -2,18 +2,18 @@ package com.techvisio.einstitution.beans;
 
 public class Consultant {
 
-	private String consultantId;
+	private Long consultantId;
 	private String name;
 	private String primaryContactNo;
 	private String secondaryContactNo;
 	private String address;
 	private String emailId ;
 	
-	public String getConsultantId() {
+	public Long getConsultantId() {
 		return consultantId;
 	}
 	
-	public void setConsultantId(String consultantId) {
+	public void setConsultantId(Long consultantId) {
 		this.consultantId = consultantId;
 	}
 	

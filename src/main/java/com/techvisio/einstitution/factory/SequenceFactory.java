@@ -1,4 +1,4 @@
-package com.techvisio.einstitution.db.impl;
+package com.techvisio.einstitution.factory;
 
 import java.sql.Types;
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
+import com.techvisio.einstitution.db.impl.BaseDao;
 import com.techvisio.einstitution.util.SqlFunction;
 
 

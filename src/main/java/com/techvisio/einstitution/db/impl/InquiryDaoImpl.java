@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.db.InquiryDao;
 
 public class InquiryDaoImpl extends BaseDao implements InquiryDao {
@@ -19,7 +19,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 	}
 
 
-	public void getInquiry(AdmissionEnquiry admissionInquiry) {
+	public void getInquiry(AdmissionInquiry admissionInquiry) {
 
 		
 		 
@@ -28,7 +28,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 	} 
 	
 
-	public void addInquiry(AdmissionEnquiry admissionInquiry) {
+	public void addInquiry(AdmissionInquiry admissionInquiry) {
 		
 		String addQuery = inquiryQueryProps.getProperty("addAdmissionInquiry");	
 		 
@@ -44,7 +44,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		  .addValue("Updated_On",admissionInquiry.getUpdatedDate())
 		  .addValue("Updated_By",admissionInquiry.getUpdatedBy())
 		  .addValue("Contact_No",admissionInquiry.getContactNo())
-		  .addValue("FollowUp_Rquired",admissionInquiry.getFollowupRequired())
+		  .addValue("FollowUp_Rquired",admissionInquiry.isFollowupRequired())
 		  .addValue("Application_Status", admissionInquiry.getApplicationStatus());
 		  	 
 		  getNamedParamJdbcTemplate().update(addQuery, namedParameters);
@@ -52,7 +52,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 	
 	}
 
-	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
+	public void updateInquiry(AdmissionInquiry admissionInquiry) {
 		
 		String updateQuery = inquiryQueryProps.getProperty("updateAdmissionInquiry");	
 	    
@@ -68,13 +68,13 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		  .addValue("Updated_On",admissionInquiry.getUpdatedDate())
 		  .addValue("Updated_By",admissionInquiry.getUpdatedBy())
 		  .addValue("Contact_No",admissionInquiry.getContactNo())
-		  .addValue("FollowUp_Rquired",admissionInquiry.getFollowupRequired())
+		  .addValue("FollowUp_Rquired",admissionInquiry.isFollowupRequired())
 		  .addValue("Application_Status", admissionInquiry.getApplicationStatus());
 		 
 		 getNamedParamJdbcTemplate().update(updateQuery, namedParameters);
 	}
 
-	public void deleteInquiry(AdmissionEnquiry admissionInquiry) {
+	public void deleteInquiry(AdmissionInquiry admissionInquiry) {
 
 		String deleteQuery = inquiryQueryProps.getProperty("deleteAdmissionInquiry");	
 	    

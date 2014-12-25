@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 public class AddressDetail {
 
-	private int houseNo;
+	private String houseNo;
 	private String locality;
 	private String landmark;
 	private String district;
@@ -13,11 +13,11 @@ public class AddressDetail {
 	private String addressType;
 	
 	
-	public int getHouseNo() {
+	public String getHouseNo() {
 		return houseNo;
 	}
 	
-	public void setHouseNo(int houseNo) {
+	public void setHouseNo(String houseNo) {
 		this.houseNo = houseNo;
 	}
 	

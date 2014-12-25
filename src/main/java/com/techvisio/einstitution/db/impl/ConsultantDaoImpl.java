@@ -75,7 +75,7 @@ String deleteQuery = consultantQueryProps.getProperty("deleteConsultantMaster");
 		
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId())
 		.addValue("File_No", consultantDetail.getFileNo())
-		.addValue("Consultancy_Agreed", consultantDetail.getConsultancyAgreed())
+		.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
 		.addValue("Payment_Mode", consultantDetail.getPaymentMode())
 		.addValue("Amount_To_Pay", consultantDetail.getAmountToPay())
 		.addValue("Due_Date", consultantDetail.getDueDate());
@@ -91,7 +91,7 @@ String updateQuery = consultantQueryProps.getProperty("updateConsultantDtl");
 		
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId())
 		.addValue("File_No", consultantDetail.getFileNo())
-		.addValue("Consultancy_Agreed", consultantDetail.getConsultancyAgreed())
+		.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
 		.addValue("Payment_Mode", consultantDetail.getPaymentMode())
 		.addValue("Amount_To_Pay", consultantDetail.getAmountToPay())
 		.addValue("Due_Date", consultantDetail.getDueDate());

@@ -3,6 +3,8 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 import java.util.List;
 
+import com.techvisio.einstitution.util.CommonUtil;
+
 public class StudentDetail {
 
 	private String fileNo;
@@ -29,9 +31,9 @@ public class StudentDetail {
 	private String semester;
 	private boolean managementApproval;
 	private boolean feePaid;
-	private String categoryId;
-	private String courseId;
-	private String branchId;
+	private Long categoryId;
+	private Long courseId;
+	private Long branchId;
 	private String createdBy;
 	private Date createdOn;
 	private String updatedBy;
@@ -71,6 +73,8 @@ public class StudentDetail {
 
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
+		CommonUtil.propogateIdentifiertoAdmission(this);
+		
 	}
 
 	public String getEnrollNo() {
@@ -209,22 +213,8 @@ public class StudentDetail {
 		this.gaurdianEmailId = gaurdianEmailId;
 	}
 
-	public boolean getHostel() {
-		return hostel;
-	}
-
-	public void setHostel(boolean hostel) {
-		this.hostel = hostel;
-	}
-
-	public boolean getTransportation() {
-		return transportation;
-	}
-
-	public void setTransportation(boolean transportation) {
-		this.transportation = transportation;
-	}
-
+	
+	
 	public String getAcademicYear() {
 		return academicYear;
 	}
@@ -241,35 +231,21 @@ public class StudentDetail {
 		this.semester = semester;
 	}
 
-	public boolean getManagementApproval() {
-		return managementApproval;
-	}
-
-	public void setManagementApproval(boolean managementApproval) {
-		this.managementApproval = managementApproval;
-	}
-
-	public boolean getFeePaid() {
-		return feePaid;
-	}
-
-	public void setFeePaid(boolean fee_Paid) {
-		this.feePaid = fee_Paid;
-	}
-
-	public String getCategoryId() {
+	
+	
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(String categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 
-	public String getCourseId() {
+	public Long getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(String courseId) {
+	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
 
@@ -281,11 +257,11 @@ public class StudentDetail {
 		this.createdBy = createdBy;
 	}
 
-	public String getBranchId() {
+	public Long getBranchId() {
 		return branchId;
 	}
 
-	public void setBranchId(String branchId) {
+	public void setBranchId(Long branchId) {
 		this.branchId = branchId;
 	}
 
@@ -391,5 +367,37 @@ public class StudentDetail {
 
 	public void setAddressDtl(List<AddressDetail> addressDtl) {
 		this.addressDtl = addressDtl;
+	}
+
+	public boolean isHostel() {
+		return hostel;
+	}
+
+	public void setHostel(boolean hostel) {
+		this.hostel = hostel;
+	}
+
+	public boolean isTransportation() {
+		return transportation;
+	}
+
+	public void setTransportation(boolean transportation) {
+		this.transportation = transportation;
+	}
+
+	public boolean isManagementApproval() {
+		return managementApproval;
+	}
+
+	public void setManagementApproval(boolean managementApproval) {
+		this.managementApproval = managementApproval;
+	}
+
+	public boolean isFeePaid() {
+		return feePaid;
+	}
+
+	public void setFeePaid(boolean feePaid) {
+		this.feePaid = feePaid;
 	}
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.AdmissionInquiry;
 
 @Component
 @RestController
@@ -17,8 +17,8 @@ public class InquiryService {
 	private static final Logger logger = Logger.getLogger(InquiryService.class);
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.GET,headers="Accept=application/json")
-	  public AdmissionEnquiry getInquiry(@PathVariable Long id) {  
-	  AdmissionEnquiry admissionEnquiry= new AdmissionEnquiry();
+	  public AdmissionInquiry getInquiry(@PathVariable Long id) {  
+	  AdmissionInquiry admissionEnquiry= new AdmissionInquiry();
 	  admissionEnquiry.setEnquiryId(id);
 	  return admissionEnquiry;
 	  }
