@@ -65,6 +65,6 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
  <property name="consultantQueryProps" ref="consultantQueryProps" /> 
 </bean> 
 
- 	<bean id="sequenceFactory" class="com.techvisio.einstitution.db.impl.SequenceFactory"> 
+ 	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory"> 
 	</bean> 
 </beans>

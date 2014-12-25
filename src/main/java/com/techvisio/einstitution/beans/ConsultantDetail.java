@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.beans;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ConsultantDetail {
 
@@ -10,6 +11,7 @@ public class ConsultantDetail {
 	private String paymentMode;
 	private Double amountToPay; 
 	private Date dueDate;
+	private List<ConsultantPaymentDtl> consultantPaymentDetail;
 
 	public String getFileNo() {
 		return fileNo;

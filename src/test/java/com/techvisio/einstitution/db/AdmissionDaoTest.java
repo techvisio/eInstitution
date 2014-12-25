@@ -21,11 +21,11 @@ public class AdmissionDaoTest {
 		studentDetail.setFatherName("Chaman Singh Gusain");
 		studentDetail.setMotherName("Beena Gusain");
         studentDetail.setFatherOccupation("Service");
-		studentDetail.setCategoryId("3");
-		studentDetail.setCourseId("1");
-		studentDetail.setBranchId("4");
-		studentDetail.setDomicileState("2");
-		studentDetail.setCategoryId("5");
+//		studentDetail.setCategoryId("3");
+//		studentDetail.setCourseId("1");
+//		studentDetail.setBranchId("4");
+//		studentDetail.setDomicileState("2");
+//		studentDetail.setCategoryId("5");
 		ApplicationContext ctx=new ClassPathXmlApplicationContext("spring-config/Application-context.xml");
 		AdmissionDao dao=ctx.getBean(AdmissionDao.class);
 		dao.addStudentDtl(studentDetail);
