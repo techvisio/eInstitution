@@ -1,18 +1,15 @@
 package com.techvisio.einstitution.manager.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
-import com.techvisio.einstitution.db.InquiryDao;
 import com.techvisio.einstitution.manager.AdmissionManager;
+import com.techvisio.einstitution.util.ContextProvider;
 
 public class AdmissionManagerImpl implements AdmissionManager {
 
-	ApplicationContext ctx=new ClassPathXmlApplicationContext("spring-config/Application-context.xml");
-	AdmissionDao admissionDao=ctx.getBean(AdmissionDao.class);
+
+	AdmissionDao admissionDao=ContextProvider.getContext().getBean(AdmissionDao.class);
+	
 	public void getStudentDetail(StudentDetail studentDetail) {
 
 		admissionDao.getStudentDtl(studentDetail);

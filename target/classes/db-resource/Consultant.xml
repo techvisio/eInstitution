@@ -116,7 +116,7 @@ Insert into ConsultantDetail
     Amount_To_Pay=:Amount_To_Pay, 
     Due_Date=:Due_Date
     
- where File_NO=:File_No and Consultant_Id=:Consultant_Id;
+ where File_NO=:File_No;
     ]]>
 
 	</entry>
@@ -124,7 +124,7 @@ Insert into ConsultantDetail
 	<entry key="deleteConsultantDtl">
     <![CDATA[
       
-Delete from ConsultantDetail where File_No=:File_No and Consultant_Id=:Consultant_Id;
+Delete from ConsultantDetail where File_No=:File_No;
 
     ]]>
 

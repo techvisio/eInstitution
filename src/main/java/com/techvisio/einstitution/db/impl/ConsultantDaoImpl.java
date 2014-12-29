@@ -89,8 +89,8 @@ String deleteQuery = consultantQueryProps.getProperty("deleteConsultantMaster");
 		
 String updateQuery = consultantQueryProps.getProperty("updateConsultantDtl");
 		
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId())
-		.addValue("File_No", consultantDetail.getFileNo())
+		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", consultantDetail.getFileNo())
+		.addValue("Consultant_Id", consultantDetail.getConsultantId())
 		.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
 		.addValue("Payment_Mode", consultantDetail.getPaymentMode())
 		.addValue("Amount_To_Pay", consultantDetail.getAmountToPay())
@@ -102,9 +102,9 @@ String updateQuery = consultantQueryProps.getProperty("updateConsultantDtl");
 
 	public void deleteConsultantDtl(ConsultantDetail consultantDetail) {
 		
-String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtl");
+		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtl");
 		
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId());
+		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", consultantDetail.getFileNo());
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		
 	}

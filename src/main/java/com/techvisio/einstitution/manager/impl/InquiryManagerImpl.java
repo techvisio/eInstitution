@@ -6,12 +6,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.db.InquiryDao;
 import com.techvisio.einstitution.manager.InquiryManager;
+import com.techvisio.einstitution.util.ContextProvider;
 
 public class InquiryManagerImpl implements InquiryManager {
 
 	
-	ApplicationContext ctx=new ClassPathXmlApplicationContext("spring-config/Application-context.xml");
-	InquiryDao inquiryDao=ctx.getBean(InquiryDao.class);
+	InquiryDao inquiryDao=ContextProvider.getContext().getBean(InquiryDao.class);
 	
 
 

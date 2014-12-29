@@ -3,21 +3,12 @@ package com.techvisio.einstitution.manager.impl;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.ConsultantManager;
+import com.techvisio.einstitution.util.ContextProvider;
 
 public class ConsultantManagerImpl implements ConsultantManager {
 
-	private ConsultantDao consultantDao;
-
-	public ConsultantDao getConsultantDao() {
-		return consultantDao;
-
-	}
-
-	public void setConsultantDao(ConsultantDao consultantDao) {
-
-		this.consultantDao = consultantDao;
-
-	}
+	ConsultantDao consultantDao = ContextProvider.getContext().getBean(
+			ConsultantDao.class);
 
 	public void getConsultantDetail(ConsultantDetail consultantDetail) {
 
