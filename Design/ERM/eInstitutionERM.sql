@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS AcademicDetail;
 DROP TABLE IF EXISTS AddressDetail;
 DROP TABLE IF EXISTS AdmissionDiscountDtl;
 DROP TABLE IF EXISTS AdmissionInquiry;
+DROP TABLE IF EXISTS BranchPreference;
 DROP TABLE IF EXISTS QualificationSubjectDtl;
 DROP TABLE IF EXISTS StudentDetail;
 DROP TABLE IF EXISTS CasteCategoryMaster;
@@ -81,6 +82,16 @@ CREATE TABLE AdmissionInquiry
 	Intrested_Branch_Id int NOT NULL,
 	FollowUp_Rquired bit(1),
 	PRIMARY KEY (Inquiry_Id)
+);
+
+
+CREATE TABLE BranchPreference
+(
+	Branch_Preference_Id int,
+	File_No varchar(100) NOT NULL,
+	Course_Id int NOT NULL,
+	Branch_Id int NOT NULL,
+	PRIMARY KEY (File_No,Branch_Preference_Id)
 );
 
 
@@ -269,7 +280,15 @@ ALTER TABLE ConsultantDetail
 ;
 
 
-ALTER TABLE StudentDetail
+ALTER TABLE AdmissionInquiry
+	ADD FOREIGN KEY (Intrested_Course_Id, Intrested_Branch_Id)
+	REFERENCES CourseBranchMaster (Course_Id, Id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE BranchPreference
 	ADD FOREIGN KEY (Course_Id, Branch_Id)
 	REFERENCES CourseBranchMaster (Course_Id, Id)
 	ON UPDATE RESTRICT
@@ -277,8 +296,8 @@ ALTER TABLE StudentDetail
 ;
 
 
-ALTER TABLE AdmissionInquiry
-	ADD FOREIGN KEY (Intrested_Course_Id, Intrested_Branch_Id)
+ALTER TABLE StudentDetail
+	ADD FOREIGN KEY (Course_Id, Branch_Id)
 	REFERENCES CourseBranchMaster (Course_Id, Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -301,16 +320,16 @@ ALTER TABLE QualificationSubjectDtl
 ;
 
 
-ALTER TABLE AddressDetail
-	ADD FOREIGN KEY (State_Id)
+ALTER TABLE StudentDetail
+	ADD FOREIGN KEY (Domicile_State_Id)
 	REFERENCES StateMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE StudentDetail
-	ADD FOREIGN KEY (Domicile_State_Id)
+ALTER TABLE AddressDetail
+	ADD FOREIGN KEY (State_Id)
 	REFERENCES StateMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -325,7 +344,15 @@ ALTER TABLE AddressDetail
 ;
 
 
-ALTER TABLE QualificationSubjectDtl
+ALTER TABLE AdmissionDiscountDtl
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE BranchPreference
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT
@@ -341,7 +368,7 @@ ALTER TABLE AcademicDetail
 ;
 
 
-ALTER TABLE AdmissionDiscountDtl
+ALTER TABLE QualificationSubjectDtl
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT

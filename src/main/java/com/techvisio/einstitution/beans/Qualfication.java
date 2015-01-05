@@ -22,6 +22,12 @@ public class Qualfication {
 	public void setQulaifyingExam(String qulaifyingExam) {
 		this.qulaifyingExam = qulaifyingExam;
 	}
+
+	@Override
+	public String toString() {
+		return "Qualfication [id=" + id + ", qulaifyingExam=" + qulaifyingExam
+				+ "]";
+	}
  
 
 }

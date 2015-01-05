@@ -46,7 +46,7 @@ Document_verified_By,
 Document_Verified_On,
 Management_Approved_By,
 Management_Approved_On,   
-Domicile_State
+Domicile_State_Id
 
 from StudentDetail where File_No=:File_No;    
     ]]>
@@ -138,7 +138,7 @@ Domicile_State_Id) values
 :Document_Verified_On,
 :Management_Approved_By,
 :Management_Approved_On,
-:Domicile_State);
+:Domicile_State_Id);
        
     ]]>
 
@@ -187,7 +187,7 @@ Document_verified_By = :Document_verified_By,
 Document_Verified_On = :Document_Verified_On,
 Management_Approved_By = :Management_Approved_By,
 Management_Approved_On = :Management_Approved_On
-   
+ Domicile_State_Id = :Domicile_State_Id;  
  where File_No=:File_No;  
     ]]>
 
@@ -201,9 +201,9 @@ Delete from StudentDetail where File_No=:File_No;
 
 	</entry>
 
-	<entry key="getAcademicDtlByFileNoAndQualificationId">
+	<entry key="getAcademicDtlByFileNo">
     <![CDATA[
-Select AcademicDetail
+Select 
 
 University,
 College_Name,
@@ -213,7 +213,7 @@ Roll_No,
 File_No,
 Qualification_Id    
 
-from  AcademicDetail where Enroll_No=:Enroll_No and Qualification_Id=:Qualification_Id;    
+from  AcademicDetail where File_No=:File_No;    
     
     ]]>
 
@@ -255,7 +255,7 @@ Update AcademicDetail set
  Percentage=:Percentage, 
  Roll_No=:Roll_No
  
-where File_No=:File_No and Qualification_Id=:Qualification_Id;
+where File_No=:File_No;
     ]]>
 
 	</entry>
@@ -263,12 +263,12 @@ where File_No=:File_No and Qualification_Id=:Qualification_Id;
 	<entry key="deleteAcademicDtl">
     <![CDATA[
       
-Delete from AcademicDetail where File_No=:File_No and Qualification_Id=:Qualification_Id;  
+Delete from AcademicDetail where File_No=:File_No;  
     ]]>
 
 	</entry>
 
-	<entry key="getAddressDtlByFileNoAndAddressType">
+	<entry key="getAddressDtlByFileNo">
     <![CDATA[
       
 Select
@@ -283,7 +283,7 @@ File_No,
 Address_Type,
 State_Id
 
-from AddressDetail where File_No=:Enroll_No and Address_Type=:Address_Type;    
+from AddressDetail where File_No=:File_No;    
     ]]>
 
 	</entry>
@@ -343,7 +343,7 @@ Delete from AddressDetail where File_No=:File_No and Address_Type=:Address_Type;
 
 	</entry>
 
-	<entry key="getAdmissionDisDtlByFileNoAndFeeHeadId">
+	<entry key="getAdmissionDisDtlByFileNo">
     <![CDATA[
       
 Select  
@@ -353,7 +353,7 @@ FeeHead_Id,
 Amount,
 Percent
     
-from  AdmissionDiscountDtl where File_No=:File_No and FeeHead_Id=:FeeHead_Id;    
+from  AdmissionDiscountDtl where File_No=:File_No;    
     ]]>
 
 	</entry>
@@ -398,7 +398,7 @@ Delete from AdmissionDiscountDtl where File_No=:File_No and FeeHead_Id=:FeeHead_
 
 	</entry>
 
-	<entry key="getQualificationSubjectDtlByFileNoAndSubId">
+	<entry key="getQualificationSubjectDtlByFileNo">
     <![CDATA[
  
 Select      
@@ -409,7 +409,7 @@ Select
 	Marks_Obtained, 
 	Max_Marks  
     
-from QualificationSubjectDtl where Subject_Id=:Subject_Id and File_No=:File_No; 
+from QualificationSubjectDtl where File_No=:File_No; 
     ]]>
 
 	</entry>
@@ -443,7 +443,7 @@ Update QualificationSubjectDtl set
 	Marks_Obtained=:Marks_Obtained, 
 	Max_Marks=:Max_Marks 
     
-where Subject_Id=:Subject_Id and File_No=:File_No;    
+where File_No=:File_No;    
     ]]>
 
 	</entry>
@@ -451,10 +451,64 @@ where Subject_Id=:Subject_Id and File_No=:File_No;
 	<entry key="deleteQualificationSubjectDtl">
     <![CDATA[
       
-Delete from QualificationSubjectDtl where Subject_Id=:Subject_Id and File_No=:File_No; 
+Delete from QualificationSubjectDtl where File_No=:File_No; 
     ]]>
 
 	</entry>
 
+	<entry key="getBranchPreferenceByFileNo">
+    <![CDATA[
+      
+Select
 
+	Branch_Preference_Id,
+	File_No,
+	Course_Id,
+	Branch_Id 
+	
+	from BranchPreference where File_No=:File_No;
+    ]]>
+
+	</entry>
+
+	<entry key="addBranchPreference">
+    <![CDATA[
+      
+      Insert into BranchPreference
+
+	(Branch_Preference_Id,
+	File_No,
+	Course_Id,
+	Branch_Id) values
+	 
+	 (:Branch_Preference_Id,
+	:File_No,
+	:Course_Id,
+	:Branch_Id);
+    ]]>
+
+	</entry>
+
+	<entry key="updateBranchPreference">
+    <![CDATA[
+      
+      Update BranchPreference
+
+	Branch_Preference_Id=:Branch_Preference_Id,
+	File_No=:File_No,
+	Course_Id=:Course_Id,
+	Branch_Id=:	Branch_Id
+	
+	where File_No=:File_No; 
+	 
+	     ]]>
+	</entry>
+
+	<entry key="DeleteBranchPreference">
+    <![CDATA[
+      
+      Delete BranchPreference where File_No=:File_No; 
+	 
+	     ]]>
+	</entry>
 </properties>

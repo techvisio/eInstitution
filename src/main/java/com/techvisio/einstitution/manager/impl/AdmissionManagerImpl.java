@@ -10,9 +10,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	AdmissionDao admissionDao=ContextProvider.getContext().getBean(AdmissionDao.class);
 	
-	public void getStudentDetail(StudentDetail studentDetail) {
+	public void getStudentDetail(String fileNo) {
 
-		admissionDao.getStudentDtl(studentDetail);
+		admissionDao.getStudentDtl(fileNo);
 
 	}
 
@@ -27,9 +27,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		admissionDao.updateStudentDtl(studentDetail);
 	}
 
-	public void deleteStudentDetail(StudentDetail studentDetail) {
+	public void deleteStudentDetail(String fileNo) {
 
-		admissionDao.deleteSudentDtl(studentDetail);
+		admissionDao.deleteSudentDtl(fileNo);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class StudentDetail {
 	private String fileNo;
 	private String enrollNo;
 	private String uniEnrollNo;
-	private Byte[] photo;
+	private byte[] photo;
 	private String firstName;
 	private String lastName;
 	private String fatherName;
@@ -50,6 +51,7 @@ public class StudentDetail {
 	private List<StudentAcademicDetail> academicDtl;
 	private List<AdmissionDiscountDtl> DiscountDtl;
 	private List<AddressDetail> addressDtl;
+	private List<BranchPreference> branchPreference;
 
 	public List<StudentAcademicDetail> getAcademicDtl() {
 		return academicDtl;
@@ -64,7 +66,7 @@ public class StudentDetail {
 	}
 
 	public void setDiscountDtl(List<AdmissionDiscountDtl> discountDtl) {
-		DiscountDtl = discountDtl;
+		this.DiscountDtl = discountDtl;
 	}
 
 	public String getFileNo() {
@@ -74,7 +76,7 @@ public class StudentDetail {
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 		CommonUtil.propogateIdentifiertoAdmission(this);
-		
+
 	}
 
 	public String getEnrollNo() {
@@ -93,11 +95,11 @@ public class StudentDetail {
 		this.uniEnrollNo = uniEnrollNo;
 	}
 
-	public Byte[] getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(Byte[] photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 
@@ -213,8 +215,6 @@ public class StudentDetail {
 		this.gaurdianEmailId = gaurdianEmailId;
 	}
 
-	
-	
 	public String getAcademicYear() {
 		return academicYear;
 	}
@@ -231,8 +231,6 @@ public class StudentDetail {
 		this.semester = semester;
 	}
 
-	
-	
 	public Long getCategoryId() {
 		return categoryId;
 	}
@@ -400,4 +398,47 @@ public class StudentDetail {
 	public void setFeePaid(boolean feePaid) {
 		this.feePaid = feePaid;
 	}
+
+	public List<BranchPreference> getBranchPreference() {
+		return branchPreference;
+	}
+
+	public void setBranchPreference(List<BranchPreference> branchPreference) {
+		this.branchPreference = branchPreference;
+	}
+
+	@Override
+	public String toString() {
+		return "StudentDetail [fileNo=" + fileNo + ", enrollNo=" + enrollNo
+				+ ", uniEnrollNo=" + uniEnrollNo + ", photo="
+				+ Arrays.toString(photo) + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", fatherName=" + fatherName
+				+ ", motherName=" + motherName + ", gender=" + gender
+				+ ", dob=" + dob + ", bloodGroup=" + bloodGroup
+				+ ", fatherOccupation=" + fatherOccupation + ", fixedlineNo="
+				+ fixedlineNo + ", selfMobileNo=" + selfMobileNo
+				+ ", parentMobileNo=" + parentMobileNo + ", gaurdianMobileNo="
+				+ gaurdianMobileNo + ", emailId=" + emailId
+				+ ", gaurdianEmailId=" + gaurdianEmailId + ", hostel=" + hostel
+				+ ", transportation=" + transportation + ", academicYear="
+				+ academicYear + ", semester=" + semester
+				+ ", managementApproval=" + managementApproval + ", feePaid="
+				+ feePaid + ", categoryId=" + categoryId + ", courseId="
+				+ courseId + ", branchId=" + branchId + ", createdBy="
+				+ createdBy + ", createdOn=" + createdOn + ", updatedBy="
+				+ updatedBy + ", updatedOn=" + updatedOn + ", feeReceivedBy="
+				+ feeReceivedBy + ", feeReceivedOn=" + feeReceivedOn
+				+ ", documentReceivedBy=" + documentReceivedBy
+				+ ", documentReceivedOn=" + documentReceivedOn
+				+ ", documentVerifiedBy=" + documentVerifiedBy
+				+ ", documentVerifiedOn=" + documentVerifiedOn
+				+ ", managementApprovedBy=" + managementApprovedBy
+				+ ", managementApprovedOn=" + managementApprovedOn
+				+ ", domicileState=" + domicileState + ", academicDtl="
+				+ academicDtl + ", DiscountDtl=" + DiscountDtl
+				+ ", addressDtl=" + addressDtl + ", branchPreference="
+				+ branchPreference + "]";
+	}
+	
+	
 }

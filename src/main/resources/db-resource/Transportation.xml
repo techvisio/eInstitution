@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	<entry key="getTransportByRouteCode">
+    <![CDATA[
+Select
+
+	Route_Code ,
+	Description,
+	Threshold,
+	Price
+
+
+from TransportMaster where Route_Code=:Route_Code;    
+    ]]>
+
+	</entry>
+
+	<entry key="addTransport">
+    <![CDATA[
+
+Insert into TransportMaster
+
+	
+	(Route_Code,
+	Description,
+	Threshold,
+	Price) values
+	
+	(:Route_Code,
+	:Description,
+	:Threshold,
+	:Price
+	);
+
+
+    ]]>
+
+	</entry>
+
+	<entry key="updateTransport">
+    <![CDATA[
+
+Update TransportMaster set
+
+    Description=:Description,
+	Threshold=:Threshold,
+	Price=:Price where Route_Code=:Route_Code;
+
+    ]]>
+
+	</entry>
+
+	<entry key="deleteTransport">
+    <![CDATA[
+
+Delete from TransportMaster where Route_Code=:Route_Code;
+
+    ]]>
+
+	</entry>
+
+	<entry key="getTransportReservationByFileNo">
+    <![CDATA[
+
+select  
+
+   File_No,
+   Fee_Paid,
+   Route_Code
+
+from TransportReservation where File_No=:File_No;
+    ]]>
+
+	</entry>
+
+
+	<entry key="addTransportReservation">
+    <![CDATA[
+
+Insert into TransportReservation
+
+ (  File_No,
+   Fee_Paid,
+   Route_Code)
+
+values (:File_No,
+   :Fee_Paid,
+   :Route_Code);
+
+    ]]>
+
+	</entry>
+	
+		<entry key="updateTransportReservation">
+    <![CDATA[
+
+Update TransportReservation set
+
+  
+   Fee_Paid=:Fee_Paid,
+   Route_Code=:Route_Code
+
+where File_No=:File_No;
+    ]]>
+
+	</entry>
+	
+		<entry key="deleteTransportReservation">
+    <![CDATA[
+ 
+ Delete from TransportReservation where File_No=:File_No;
+ 
+ 
+    ]]>
+
+	</entry>
+
+<entry key="getTransportAllocationByFileNo">
+    <![CDATA[
+ 
+ select 
+ 
+ File_No,
+ Vehicle_Id
+ 
+ from TransportAllocation where File_No=:File_No;
+ 
+    ]]>
+
+	</entry>
+
+<entry key="addTransportAllocation">
+    <![CDATA[
+ 
+Insert into TransportAllocation 
+
+(File_No,
+Vehicle_Id) values (:File_No, :Vehicle_Id);
+ 
+ 
+    ]]>
+
+	</entry>
+
+
+<entry key="updateTransportAllocation">
+    <![CDATA[
+ 
+ Update TransportAllocation set  
+ 
+ Vehicle_Id=:Vehicle_Id
+ 
+ where File_No=:File_No;
+ 
+    ]]>
+
+	</entry>
+
+
+<entry key="deleteTransportAllocation">
+    <![CDATA[
+ 
+ Delete from TransportAllocation where File_No=:File_No;
+ 
+ 
+    ]]>
+
+	</entry>
+
+<entry key="getVehicleDetailByVehicleId">
+    <![CDATA[
+ 
+select
+
+	Type,
+	Capacity ,
+	Vehicle_No,
+	Route_Code,
+	Vehicle_Id
+	
+	from VehicleDetail where Vehicle_Id=:Vehicle_Id;
+
+ 
+ 
+    ]]>
+
+	</entry>
+	
+	<entry key="addtVehicleDetail">
+    <![CDATA[
+ 
+ insert into VehicleDetail 
+ 
+    (Type,
+	Capacity ,
+	Vehicle_No,
+	Route_Code,
+	Vehicle_Id) values 
+	
+	(:Type,
+	:Capacity,
+	:Vehicle_No,
+	:Route_Code,
+	:Vehicle_Id);
+ 
+ 
+    ]]>
+
+	</entry>
+	
+	<entry key="updateVehicleDetail">
+    <![CDATA[
+ 
+ update VehicleDetail set
+ 
+    Type=:Type,
+	Capacity=:Capacity ,
+	Vehicle_No=:Vehicle_No,
+	Route_Code=:Route_Code
+ 
+ where Vehicle_Id=:Vehicle_Id;
+ 
+    ]]>
+
+	</entry>
+	
+	<entry key="deleteVehicleDetail">
+    <![CDATA[
+ 
+ Delete from VehicleDetail where Vehicle_Id=:Vehicle_Id;
+ 
+ 
+    ]]>
+
+	</entry>
+
+</properties>

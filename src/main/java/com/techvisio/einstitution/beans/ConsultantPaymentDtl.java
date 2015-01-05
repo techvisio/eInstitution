@@ -34,4 +34,10 @@ public class ConsultantPaymentDtl {
 		this.fileNo = fileNo;
 	}
 
+	@Override
+	public String toString() {
+		return "ConsultantPaymentDtl [amount=" + amount + ", payDate="
+				+ payDate + ", fileNo=" + fileNo + "]";
+	}
+
 }

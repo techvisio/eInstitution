@@ -4,10 +4,10 @@ import com.techvisio.einstitution.beans.ConsultantDetail;
 
 public interface ConsultantManager {
 
-	public void getConsultantDetail(ConsultantDetail consultantDetail);
-	public void addConsultantDetail(ConsultantDetail consultantDetail);
-	public void updateConsultantDetail(ConsultantDetail consultantDetail);
-	public void deleteConsultantDetail(ConsultantDetail consultantDetail);
+	public ConsultantDetail getConsultantDtl(String fileNo);
+	public void addConsultantDtl(ConsultantDetail consultantDetail);
+	public void updateConsultantDtl(ConsultantDetail consultantDetail);
+	public void deleteConsultantDtl(String fileNo);
 	
 	
 }

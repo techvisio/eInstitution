@@ -22,5 +22,10 @@ public class Subject {
 	public void setQuotaCode(String quotaCode) {
 		subjectName = quotaCode;
 	}
+
+	@Override
+	public String toString() {
+		return "Subject [id=" + id + ", subjectName=" + subjectName + "]";
+	}
 	
 }

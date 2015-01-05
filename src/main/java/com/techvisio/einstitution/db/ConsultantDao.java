@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
@@ -7,22 +9,22 @@ import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 
 public interface ConsultantDao {
 
-	public void getConsultant(Consultant consultantMasterData);
-	public void addConsultant(Consultant consultantMasterData);
-	public void updateConsultant(Consultant consultantMasterData);
-	public void deleteConsultant(Consultant consultantMasterData);
+	public Consultant getConsultant(Long consultantId);
+	public void addConsultant(Consultant consultant);
+	public void updateConsultant(Consultant consultant);
+	public void deleteConsultant(String fileNo);
 	
 	
-	public void getConsultantDtl(ConsultantDetail consultantDetail);
+	public ConsultantDetail getConsultantDtl(String fileNo);
 	public void addConsultantDtl(ConsultantDetail consultantDetail);
 	public void updateConsultantDtl(ConsultantDetail consultantDetail);
-	public void deleteConsultantDtl(ConsultantDetail consultantDetail);
+	public void deleteConsultantDtl(String fileNo);
 	
 	
-	public void getConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
+	List<ConsultantPaymentDtl> getConsultantPaymentDtl(String fileNo);
 	public void addConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
 	public void updateConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
-	public void deleteConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
+	public void deleteConsultantPaymentDtl(String fileNo);
 	
 	
 	

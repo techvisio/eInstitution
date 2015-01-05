@@ -65,6 +65,15 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
  <property name="consultantQueryProps" ref="consultantQueryProps" /> 
 </bean> 
 
+<bean id="transportQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+<property name="locations"  value="classpath:db-resource/Transportation.xml"/>
+</bean>
+
+<bean id="transportDaoImpl" class="com.techvisio.einstitution.db.impl.TransportDaoImpl"> 
+ <property name="transportQueryProps" ref="transportQueryProps"/> 
+</bean> 
+
+
  	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory"> 
 	</bean> 
 </beans>

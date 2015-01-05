@@ -5,11 +5,11 @@ import com.techvisio.einstitution.beans.AdmissionInquiry;
 
 public interface InquiryDao {
 
-	public void getInquiry(AdmissionInquiry admissionInquiry);
+	public AdmissionInquiry getInquiry(Long inquiryId);
 	
 	public void addInquiry (AdmissionInquiry admissionInquiry);
 	
 	public void updateInquiry(AdmissionInquiry admissionInquiry);
 	
-	public void deleteInquiry(AdmissionInquiry admissionInquiry);
+	public void deleteInquiry(Long inquiryId);
 }

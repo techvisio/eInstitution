@@ -42,4 +42,11 @@ public class AdmissionDiscountDtl {
 	public void setPercent(float percent) {
 		this.percent = percent;
 	}
+
+	@Override
+	public String toString() {
+		return "AdmissionDiscountDtl [fileNo=" + fileNo + ", feeHeadId="
+				+ feeHeadId + ", amount=" + amount + ", percent=" + percent
+				+ "]";
+	}
 }

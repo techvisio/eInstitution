@@ -93,5 +93,14 @@ public class AddressDetail {
 	public void setAddressType(String addressType) {
 		this.addressType = addressType;
 	}
+
+	@Override
+	public String toString() {
+		return "AddressDetail [houseNo=" + houseNo + ", locality=" + locality
+				+ ", landmark=" + landmark + ", district=" + district
+				+ ", city=" + city + ", pincode=" + pincode + ", State="
+				+ State + ", fileNo=" + fileNo + ", addressType=" + addressType
+				+ "]";
+	}
 	
 }

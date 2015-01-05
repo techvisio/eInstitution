@@ -81,4 +81,14 @@ public class StudentAcademicDetail {
 			List<QualificationSubjectDtl> qualificationSubDtl) {
 		this.qualificationSubDtl = qualificationSubDtl;
 	}
+
+	@Override
+	public String toString() {
+		return "StudentAcademicDetail [university=" + university
+				+ ", collegeName=" + collegeName + ", passingYear="
+				+ passingYear + ", percentage=" + percentage + ", rollNo="
+				+ rollNo + ", fileNo=" + fileNo + ", qualificationId="
+				+ qualificationId + ", qualificationSubDtl="
+				+ qualificationSubDtl + "]";
+	}
 }

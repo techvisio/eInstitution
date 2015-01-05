@@ -6,7 +6,7 @@ import java.util.List;
 public class ConsultantDetail {
 
 	private String fileNo;
-	private String consultantId;
+	private Long consultantId;
 	private boolean consultancyAgreed; 
 	private String paymentMode;
 	private Double amountToPay; 
@@ -16,39 +16,39 @@ public class ConsultantDetail {
 	public String getFileNo() {
 		return fileNo;
 	}
-	
+
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 	}
 
-	
+
 	public String getPaymentMode() {
 		return paymentMode;
 	}
 
-	
+
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}
 
-	
-	
+
+
 	public Double getAmountToPay() {
 		return amountToPay;
 	}
 
-	
+
 	public void setAmountToPay(Double amountToPay) {
 		this.amountToPay = amountToPay;
 	}
 
-	
-	
+
+
 	public java.util.Date getDueDate() {
 		return dueDate;
 	}
 
-	
+
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
@@ -61,12 +61,29 @@ public class ConsultantDetail {
 		this.consultancyAgreed = consultancyAgreed;
 	}
 
-	public String getConsultantId() {
+	public Long getConsultantId() {
 		return consultantId;
 	}
 
-	public void setConsultantId(String consultantId) {
+	public void setConsultantId(Long consultantId) {
 		this.consultantId = consultantId;
 	}
-	
+
+	public List<ConsultantPaymentDtl> getConsultantPaymentDetail() {
+		return consultantPaymentDetail;
+	}
+
+	public void setConsultantPaymentDetail(List<ConsultantPaymentDtl> consultantPaymentDetail) {
+		this.consultantPaymentDetail = consultantPaymentDetail;
+	}
+
+	@Override
+	public String toString() {
+		return "ConsultantDetail [fileNo=" + fileNo + ", consultantId="
+				+ consultantId + ", consultancyAgreed=" + consultancyAgreed
+				+ ", paymentMode=" + paymentMode + ", amountToPay="
+				+ amountToPay + ", dueDate=" + dueDate
+				+ ", consultantPaymentDetail=" + consultantPaymentDetail + "]";
+	}
+
 }

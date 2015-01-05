@@ -1,15 +1,26 @@
 package com.techvisio.einstitution.db;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 import com.techvisio.einstitution.db.impl.ConsultantDaoImpl;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring-config/Application-context.xml" })
+
+
 public class ConsultantDaoTest {
 	
+	@Autowired
+	ConsultantDao dao;
 	
 
 //	@Test
@@ -27,6 +38,19 @@ public class ConsultantDaoTest {
 //	
 //	}
 //	
+	@Test
+public void testGetConsultantDtl(){
 	
+	ConsultantDetail consultantDetail = dao.getConsultantDtl("3");
+	System.out.println(consultantDetail);
+}
+	
+@Test	
+public void testGetConsulTant(){
+	
+	Consultant consultant = dao.getConsultant(2L);
+	System.out.println(consultant);
+}
+
 
 }

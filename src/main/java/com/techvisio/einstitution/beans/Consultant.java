@@ -60,6 +60,14 @@ public class Consultant {
 	
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	@Override
+	public String toString() {
+		return "Consultant [consultantId=" + consultantId + ", name=" + name
+				+ ", primaryContactNo=" + primaryContactNo
+				+ ", secondaryContactNo=" + secondaryContactNo + ", address="
+				+ address + ", emailId=" + emailId + "]";
 	}      
 	   
 	 

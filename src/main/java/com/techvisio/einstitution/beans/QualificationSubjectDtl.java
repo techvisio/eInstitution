@@ -52,5 +52,13 @@ public class QualificationSubjectDtl {
 	public void setMaxMarks(double maxMarks) {
 		this.maxMarks = maxMarks;
 	}
+
+	@Override
+	public String toString() {
+		return "QualificationSubjectDtl [subjectId=" + subjectId
+				+ ", qualificationId=" + qualificationId + ", fileNo=" + fileNo
+				+ ", marksObtained=" + marksObtained + ", maxMarks=" + maxMarks
+				+ "]";
+	}
 	
 }

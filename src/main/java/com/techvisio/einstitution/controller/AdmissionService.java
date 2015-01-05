@@ -48,9 +48,9 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteStudentDtl(@RequestBody StudentDetail studentDetail) {
+	public void deleteStudentDtl(@RequestBody String fileNo) {
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.deleteStudentDetail(studentDetail);
+		admissionManager.deleteStudentDetail(fileNo);;
 	}
 
 }

@@ -32,5 +32,11 @@ public class Branch {
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
+
+	@Override
+	public String toString() {
+		return "Branch [course=" + course + ", id=" + id + ", branchName="
+				+ branchName + "]";
+	}
 	
 }

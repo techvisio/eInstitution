@@ -5,11 +5,10 @@ import com.techvisio.einstitution.beans.StudentDetail;
 public interface AdmissionManager {
 
 	
-	public void getStudentDetail(StudentDetail studentDetail);
-	public void addStudentDetail(StudentDetail studentDetail);
-	public void updateStudentDetail(StudentDetail studentDetail);
-	public void deleteStudentDetail(StudentDetail studentDetail);
-	
+	public StudentDetail getStudentDtl(String fileNo);
+	public void addStudentDtl(StudentDetail studentDetail);
+	public void updateStudentDtl(StudentDetail studentDtl);
+	public void deleteSudentDtl(String fileNo);
 	
 
 

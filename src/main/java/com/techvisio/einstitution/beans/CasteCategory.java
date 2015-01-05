@@ -23,6 +23,12 @@ public class CasteCategory {
 		CategoryName = categoryName;
 	}
 
+	@Override
+	public String toString() {
+		return "CasteCategory [id=" + id + ", CategoryName=" + CategoryName
+				+ "]";
+	}
+
 
 
 }

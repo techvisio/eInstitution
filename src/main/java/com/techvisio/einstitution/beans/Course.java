@@ -31,6 +31,12 @@ public class Course {
 	public void setCourseType(String courseType) {
 		this.courseType = courseType;
 	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", course=" + course + ", courseType="
+				+ courseType + "]";
+	}
 	
 	
 	

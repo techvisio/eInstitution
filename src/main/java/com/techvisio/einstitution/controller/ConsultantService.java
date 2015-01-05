@@ -36,9 +36,9 @@ ConsultantManager consultantManager=new ConsultantManagerImpl();
 		consultantManager.updateConsultantDetail(consultantDetail);
 	}
 	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteConsultantDtl(@RequestBody ConsultantDetail consultantDetail) {  
+	public void deleteConsultantDtl(@RequestBody String fileNo) {  
 		ConsultantManager consultantManager=new ConsultantManagerImpl();
-		consultantManager.deleteConsultantDetail(consultantDetail);
+		consultantManager.deleteConsultantDetail(fileNo);
 	}
 
 	

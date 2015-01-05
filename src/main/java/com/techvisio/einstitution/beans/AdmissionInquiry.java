@@ -147,4 +147,17 @@ public class AdmissionInquiry {
 		this.followupRequired = followupRequired;
 	}
 
+	@Override
+	public String toString() {
+		return "AdmissionInquiry [enquiryId=" + enquiryId + ", name=" + name
+				+ ", fatherName=" + fatherName + ", dob=" + dob
+				+ ", contactNo=" + contactNo + ", applicationStatus="
+				+ applicationStatus + ", dueDate=" + dueDate + ", createdDate="
+				+ createdDate + ", createBy=" + createBy + ", updatedDate="
+				+ updatedDate + ", updatedBy=" + updatedBy
+				+ ", intrestedCourseId=" + intrestedCourseId
+				+ ", intrestedBranchId=" + intrestedBranchId
+				+ ", followupRequired=" + followupRequired + "]";
+	}
+
 }

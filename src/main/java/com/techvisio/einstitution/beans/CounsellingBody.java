@@ -23,5 +23,11 @@ public class CounsellingBody {
 		CousellingBody = cousellingBody;
 	}
 
+	@Override
+	public String toString() {
+		return "CounsellingBody [id=" + id + ", CousellingBody="
+				+ CousellingBody + "]";
+	}
+
 
 }

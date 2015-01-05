@@ -1,8 +1,5 @@
 package com.techvisio.einstitution.manager.impl;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.db.InquiryDao;
 import com.techvisio.einstitution.manager.InquiryManager;
@@ -15,9 +12,9 @@ public class InquiryManagerImpl implements InquiryManager {
 	
 
 
-	public void getInquiryDetail(AdmissionInquiry admissionInquiry) {
+	public void getInquiryDetail(Long inquiryId) {
 
-		inquiryDao.getInquiry(admissionInquiry);
+		inquiryDao.getInquiry(inquiryId);
 	}
 
 	public void addInquiryDetail(AdmissionInquiry admissionInquiry) {
@@ -30,9 +27,9 @@ public class InquiryManagerImpl implements InquiryManager {
 		inquiryDao.updateInquiry(admissionInquiry);
 	}
 
-	public void deleteInquiryDetail(AdmissionInquiry admissionInquiry) {
+	public void deleteInquiryDetail(Long inquiryId) {
 
-		inquiryDao.deleteInquiry(admissionInquiry);
+		inquiryDao.deleteInquiry(inquiryId);;
 	}
 
 }

@@ -32,4 +32,10 @@ public class QuotaCode {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "QuotaCode [id=" + id + ", code=" + code + ", description="
+				+ description + "]";
+	}
 }

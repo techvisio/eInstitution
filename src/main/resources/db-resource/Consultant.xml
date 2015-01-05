@@ -3,7 +3,7 @@
 
 <properties>
 
-	<entry key="getConsultantMasterById">
+	<entry key="getConsultantById">
     <![CDATA[
       
 Select 
@@ -20,7 +20,7 @@ Select
 
 	</entry>
 
-	<entry key="addConsultantMaster">
+	<entry key="addConsultant">
     <![CDATA[
       
 Insert into ConsultantMaster
@@ -42,7 +42,7 @@ Insert into ConsultantMaster
 
 	</entry>
 
-	<entry key="updateConsultantMaster">
+	<entry key="updateConsultant">
     <![CDATA[
       
 Update ConsultantMaster set
@@ -53,12 +53,12 @@ Update ConsultantMaster set
 	Address=:Address, 
 	Email_Id=:Email_Id       
    
-where Id=:Id
+where Id=:Id;
     ]]>
 
 	</entry>
 
-	<entry key="deleteConsultantMaster">
+	<entry key="deleteConsultant">
     <![CDATA[
       
 Delete from ConsultantMaster where Id=:Id;
@@ -66,7 +66,7 @@ Delete from ConsultantMaster where Id=:Id;
 
 	</entry>
 
-	<entry key="getConsultantDtlByConsultantIdAndFileNo">
+	<entry key="getConsultantDtlByFileNo">
     <![CDATA[
       
 Select
@@ -78,7 +78,7 @@ Select
 	Amount_To_Pay, 
 	Due_Date
 
-from ConsultantDetail where File_NO=:File_No and Consultant_Id=:Consultant_Id;
+from ConsultantDetail where File_No=:File_No;
     ]]>
 
 	</entry>
@@ -100,7 +100,7 @@ Insert into ConsultantDetail
  :Consultancy_Agreed, 
  :Payment_Mode, 
  :Amount_To_Pay, 
- :Due_Date)
+ :Due_Date);
 
     ]]>
 
@@ -116,7 +116,7 @@ Insert into ConsultantDetail
     Amount_To_Pay=:Amount_To_Pay, 
     Due_Date=:Due_Date
     
- where File_NO=:File_No;
+ where File_No=:File_No;
     ]]>
 
 	</entry>
@@ -137,7 +137,7 @@ Select
 
 	Amount, 
 	Pay_Date, 
-	FileNo
+	File_No
    
 from ConsultantPaymentDetail where File_No=:File_No;
     ]]>
@@ -149,11 +149,11 @@ from ConsultantPaymentDetail where File_No=:File_No;
       
 Insert into ConsultantPaymentDetail
 
-      (FileNo,
+      (File_No,
       Amount, 
       Pay_Date) values 
       
-     (:FileNo,
+     (:File_No,
      :Amount, 
      :Pay_Date);
     ]]>

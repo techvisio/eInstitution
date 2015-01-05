@@ -1,12 +1,17 @@
 package com.techvisio.einstitution.db.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
+import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -22,9 +27,105 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	public void getStudentDtl(StudentDetail studentDtl) {
-		// TODO Auto-generated method stub
+	public StudentDetail getStudentDtl(String fileNo) {
 
+		String getQuery = admissionQueryProps
+				.getProperty("getStudentDtlByFileNo");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
+		List<StudentDetail> studentDetails = getNamedParamJdbcTemplate().query(
+				getQuery, namedParameter, new RowMapper<StudentDetail>() {
+
+					public StudentDetail mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						StudentDetail studentDetail = new StudentDetail();
+
+						studentDetail.setFileNo(rs.getString("File_No"));
+						studentDetail.setEnrollNo(rs.getString("Enroll_No"));
+						studentDetail.setUniEnrollNo(rs
+								.getString("Uni_Enroll_No"));
+						studentDetail.setPhoto(rs.getBytes("Photo"));
+						studentDetail.setFirstName(rs.getString("First_Name"));
+						studentDetail.setLastName(rs.getString("Last_Name"));
+						studentDetail.setFatherName(rs.getString("Father_Name"));
+						studentDetail.setMotherName(rs.getString("Mother_Name"));
+						studentDetail.setGender(rs.getString("Gender"));
+						studentDetail.setDob(rs.getDate("DOB"));
+						studentDetail.setBloodGroup(rs.getString("Blood_Group"));
+						studentDetail.setFatherOccupation(rs
+								.getString("Father_Occupation"));
+						studentDetail.setFixedLineNo(rs
+								.getString("FixedLine_No"));
+						studentDetail.setSelfMobile_No(rs
+								.getString("Self_Mobile_No"));
+						studentDetail.setParentMobileNo(rs
+								.getString("Parent_Mobile_No"));
+						studentDetail.setGaurdianMobileNo(rs
+								.getString("Gaurdian_Mobile_No"));
+						studentDetail.setEmailId(rs.getString("Email_Id"));
+						studentDetail.setGaurdianEmailId(rs
+								.getString("Gaurdian_Email_Id"));
+						studentDetail.setHostel(rs.getBoolean("Hostel"));
+						studentDetail.setTransportation(rs
+								.getBoolean("Transportation"));
+						studentDetail.setAcademicYear(rs
+								.getString("Academic_Year"));
+						studentDetail.setSemester(rs.getString("Semester"));
+						studentDetail.setManagementApproval(rs
+								.getBoolean("Management_Approval"));
+						studentDetail.setFeePaid(rs.getBoolean("Fee_Paid"));
+						studentDetail.setCategoryId(rs.getLong("Category_Id"));
+						studentDetail.setCourseId(rs.getLong("Course_Id"));
+						studentDetail.setBranchId(rs.getLong("Branch_Id"));
+						studentDetail.setCreatedBy(rs.getString("Created_By"));
+						studentDetail.setCreated_On(rs.getDate("Created_On"));
+						studentDetail.setUpdatedBy(rs.getString("Updated_By"));
+						studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
+						studentDetail.setFeeReceivedBy(rs
+								.getString("Fee_Received_By"));
+						studentDetail.setFeeReceivedOn(rs
+								.getDate("Fee_Received_On"));
+						studentDetail.setDocumentReceivedBy(rs
+								.getString("Document_Received_By"));
+						studentDetail.setDocumentReceivedOn(rs
+								.getDate("Document_Received_On"));
+						studentDetail.setDocumentVerifiedBy(rs
+								.getString("Document_verified_By"));
+						studentDetail.setDocumentVerifiedOn(rs
+								.getDate("Document_Verified_On"));
+						studentDetail.setManagementApprovedBy(rs
+								.getString("Management_Approved_By"));
+						studentDetail.setManagementApprovedOn(rs
+								.getDate("Management_Approved_On"));
+						studentDetail.setDomicileState(rs
+								.getString("Domicile_State_Id"));
+
+						return studentDetail;
+
+					}
+
+				});
+
+		StudentDetail studentDetail = null;
+
+		if (studentDetails != null && studentDetails.size() > 0) {
+			studentDetail = studentDetails.get(0);
+
+			List<StudentAcademicDetail> academicDetails = getAcademicDtl(fileNo);
+			studentDetail.setAcademicDtl(academicDetails);
+
+			List<AddressDetail> addressDetails = getAddressDtl(fileNo);
+			studentDetail.setAddressDtl(addressDetails);
+
+			List<AdmissionDiscountDtl> admissionDiscountDtls = getAdmissionDisDtl(fileNo);
+			studentDetail.setDiscountDtl(admissionDiscountDtls);
+
+			List<BranchPreference> branchPreferences = getBranchPreference(fileNo);
+			studentDetail.setBranchPreference(branchPreferences);
+		}
+		return studentDetail;
 	}
 
 	public void addStudentDtl(StudentDetail studentDtl) {
@@ -33,22 +134,22 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", studentDtl.getFileNo())
-		        .addValue("Enroll_No", studentDtl.getEnrollNo())
-				.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
-				.addValue("First_Name", studentDtl.getFirstName())
-				.addValue("Last_Name", studentDtl.getLastName())
-				.addValue("Father_Name", studentDtl.getFatherName())
-				.addValue("Photo", studentDtl.getPhoto())
-				.addValue("Mother_Name", studentDtl.getMotherName())
-				.addValue("Gender", studentDtl.getGender())
-				.addValue("DOB", studentDtl.getDob())
-				.addValue("Blood_Group", studentDtl.getBloodGroup())
-				.addValue("Father_Occupation", studentDtl.getFatherOccupation())
-				.addValue("FixedLine_No", studentDtl.getFixedlineNo())
-				.addValue("Self_Mobile_No", studentDtl.getSelfMobileNo())
-				.addValue("Parent_Mobile_No", studentDtl.getParentMobileNo())
-				.addValue("Gaurdian_Mobile_No",
-						studentDtl.getGaurdianMobileNo())
+		.addValue("Enroll_No", studentDtl.getEnrollNo())
+		.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
+		.addValue("First_Name", studentDtl.getFirstName())
+		.addValue("Last_Name", studentDtl.getLastName())
+		.addValue("Father_Name", studentDtl.getFatherName())
+		.addValue("Photo", studentDtl.getPhoto())
+		.addValue("Mother_Name", studentDtl.getMotherName())
+		.addValue("Gender", studentDtl.getGender())
+		.addValue("DOB", studentDtl.getDob())
+		.addValue("Blood_Group", studentDtl.getBloodGroup())
+		.addValue("Father_Occupation", studentDtl.getFatherOccupation())
+		.addValue("FixedLine_No", studentDtl.getFixedlineNo())
+		.addValue("Self_Mobile_No", studentDtl.getSelfMobileNo())
+		.addValue("Parent_Mobile_No", studentDtl.getParentMobileNo())
+		.addValue("Gaurdian_Mobile_No",
+				studentDtl.getGaurdianMobileNo())
 				.addValue("Email_Id", studentDtl.getEmailId())
 				.addValue("Gaurdian_Email_Id", studentDtl.getGaurdianEmailId())
 				.addValue("Hostel", studentDtl.isHostel())
@@ -57,33 +158,32 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				.addValue("Semester", studentDtl.getSemester())
 				.addValue("Management_Approval",
 						studentDtl.isManagementApproval())
-				.addValue("Fee_Paid", studentDtl.isFeePaid())
-				.addValue("Category_Id", studentDtl.getCategoryId())
-				.addValue("Course_Id", studentDtl.getCourseId())
-				.addValue("Branch_Id", studentDtl.getBranchId())
-				.addValue("Created_By", studentDtl.getCreatedBy())
-				.addValue("Created_On", studentDtl.getCreatedOn())
-				.addValue("Updated_By", studentDtl.getUpdatedBy())
-				.addValue("Updated_On", studentDtl.getUpdatedOn())
-				.addValue("Fee_Received_By", studentDtl.getFeeReceivedBy())
-				.addValue("Fee_Received_On", studentDtl.getFeeReceivedOn())
-				.addValue("Document_Received_By",
-						studentDtl.getDocumentReceivedBy())
-				.addValue("Document_Received_On",
-						studentDtl.getDocumentReceivedOn())
-				.addValue("Document_verified_By",
-						studentDtl.getDocumentVerifiedBy())
-				.addValue("Document_Verified_On",
-						studentDtl.getDocumentVerifiedOn())
-				.addValue("Management_Approved_By",
-						studentDtl.getManagementApprovedBy())
-				.addValue("Management_Approved_On",
-						studentDtl.getManagementApprovedOn())
-				.addValue("Domicile_State", studentDtl.getDomicileState());
+						.addValue("Fee_Paid", studentDtl.isFeePaid())
+						.addValue("Category_Id", studentDtl.getCategoryId())
+						.addValue("Course_Id", studentDtl.getCourseId())
+						.addValue("Branch_Id", studentDtl.getBranchId())
+						.addValue("Created_By", studentDtl.getCreatedBy())
+						.addValue("Created_On", studentDtl.getCreatedOn())
+						.addValue("Updated_By", studentDtl.getUpdatedBy())
+						.addValue("Updated_On", studentDtl.getUpdatedOn())
+						.addValue("Fee_Received_By", studentDtl.getFeeReceivedBy())
+						.addValue("Fee_Received_On", studentDtl.getFeeReceivedOn())
+						.addValue("Document_Received_By",
+								studentDtl.getDocumentReceivedBy())
+								.addValue("Document_Received_On",
+										studentDtl.getDocumentReceivedOn())
+										.addValue("Document_verified_By",
+												studentDtl.getDocumentVerifiedBy())
+												.addValue("Document_Verified_On",
+														studentDtl.getDocumentVerifiedOn())
+														.addValue("Management_Approved_By",
+																studentDtl.getManagementApprovedBy())
+																.addValue("Management_Approved_On",
+																		studentDtl.getManagementApprovedOn())
+																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-	
 		if (studentDtl.getAcademicDtl() != null) {
 			for (StudentAcademicDetail studentAcademicDetail : studentDtl
 					.getAcademicDtl()) {
@@ -108,6 +208,14 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 		}
 
+		if (studentDtl.getBranchPreference() != null) {
+
+			for (BranchPreference branchPreference : studentDtl
+					.getBranchPreference()) {
+
+				addBranchPreference(branchPreference);
+			}
+		}
 	}
 
 	public void updateStudentDtl(StudentDetail studentDtl) {
@@ -117,22 +225,22 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", studentDtl.getFileNo())
-				.addValue("Enroll_No", studentDtl.getEnrollNo())
-				.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
-				.addValue("First_Name", studentDtl.getFirstName())
-				.addValue("Last_Name", studentDtl.getLastName())
-				.addValue("Father_Name", studentDtl.getFatherName())
-				.addValue("Photo", studentDtl.getPhoto())
-				.addValue("Mother_Name", studentDtl.getMotherName())
-				.addValue("Gender", studentDtl.getGender())
-				.addValue("DOB", studentDtl.getDob())
-				.addValue("Blood_Group", studentDtl.getBloodGroup())
-				.addValue("Father_Occupation", studentDtl.getFatherOccupation())
-				.addValue("FixedLine_No", studentDtl.getFixedlineNo())
-				.addValue("Self_Mobile_No", studentDtl.getSelfMobileNo())
-				.addValue("Parent_Mobile_No", studentDtl.getParentMobileNo())
-				.addValue("Gaurdian_Mobile_No",
-						studentDtl.getGaurdianMobileNo())
+		.addValue("Enroll_No", studentDtl.getEnrollNo())
+		.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
+		.addValue("First_Name", studentDtl.getFirstName())
+		.addValue("Last_Name", studentDtl.getLastName())
+		.addValue("Father_Name", studentDtl.getFatherName())
+		.addValue("Photo", studentDtl.getPhoto())
+		.addValue("Mother_Name", studentDtl.getMotherName())
+		.addValue("Gender", studentDtl.getGender())
+		.addValue("DOB", studentDtl.getDob())
+		.addValue("Blood_Group", studentDtl.getBloodGroup())
+		.addValue("Father_Occupation", studentDtl.getFatherOccupation())
+		.addValue("FixedLine_No", studentDtl.getFixedlineNo())
+		.addValue("Self_Mobile_No", studentDtl.getSelfMobileNo())
+		.addValue("Parent_Mobile_No", studentDtl.getParentMobileNo())
+		.addValue("Gaurdian_Mobile_No",
+				studentDtl.getGaurdianMobileNo())
 				.addValue("Email_Id", studentDtl.getEmailId())
 				.addValue("Gaurdian_Email_Id", studentDtl.getGaurdianEmailId())
 				.addValue("Hostel", studentDtl.isHostel())
@@ -141,75 +249,95 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				.addValue("Semester", studentDtl.getSemester())
 				.addValue("Management_Approval",
 						studentDtl.isManagementApproval())
-				.addValue("Fee_Paid", studentDtl.isFeePaid())
-				.addValue("Category_Id", studentDtl.getCategoryId())
-				.addValue("Course_Id", studentDtl.getCourseId())
-				.addValue("Branch_Id", studentDtl.getBranchId())
-				.addValue("Created_By", studentDtl.getCreatedBy())
-				.addValue("Created_On", studentDtl.getCreatedOn())
-				.addValue("Updated_By", studentDtl.getUpdatedBy())
-				.addValue("Updated_On", studentDtl.getUpdatedOn())
-				.addValue("Fee_Received_By", studentDtl.getFeeReceivedBy())
-				.addValue("Fee_Received_On", studentDtl.getFeeReceivedOn())
-				.addValue("Document_Received_By",
-						studentDtl.getDocumentReceivedBy())
-				.addValue("Document_Received_On",
-						studentDtl.getDocumentReceivedOn())
-				.addValue("Document_verified_By",
-						studentDtl.getDocumentVerifiedBy())
-				.addValue("Document_Verified_On",
-						studentDtl.getDocumentVerifiedOn())
-				.addValue("Management_Approved_By",
-						studentDtl.getManagementApprovedBy())
-				.addValue("Management_Approved_On",
-						studentDtl.getManagementApprovedOn())
-				.addValue("Domicile_State", studentDtl.getDomicileState());
+						.addValue("Fee_Paid", studentDtl.isFeePaid())
+						.addValue("Category_Id", studentDtl.getCategoryId())
+						.addValue("Course_Id", studentDtl.getCourseId())
+						.addValue("Branch_Id", studentDtl.getBranchId())
+						.addValue("Created_By", studentDtl.getCreatedBy())
+						.addValue("Created_On", studentDtl.getCreatedOn())
+						.addValue("Updated_By", studentDtl.getUpdatedBy())
+						.addValue("Updated_On", studentDtl.getUpdatedOn())
+						.addValue("Fee_Received_By", studentDtl.getFeeReceivedBy())
+						.addValue("Fee_Received_On", studentDtl.getFeeReceivedOn())
+						.addValue("Document_Received_By",
+								studentDtl.getDocumentReceivedBy())
+								.addValue("Document_Received_On",
+										studentDtl.getDocumentReceivedOn())
+										.addValue("Document_verified_By",
+												studentDtl.getDocumentVerifiedBy())
+												.addValue("Document_Verified_On",
+														studentDtl.getDocumentVerifiedOn())
+														.addValue("Management_Approved_By",
+																studentDtl.getManagementApprovedBy())
+																.addValue("Management_Approved_On",
+																		studentDtl.getManagementApprovedOn())
+																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 	}
 
-	public void deleteSudentDtl(StudentDetail studentDtl) {
+	public void deleteSudentDtl(String fileNo) {
 
-		if (studentDtl.getAcademicDtl() != null) {
+		
+				deleteAcademicDtl(fileNo);
+		
 
-			for (StudentAcademicDetail academicDetail : studentDtl
-					.getAcademicDtl()) {
+				deleteAdmissionDisDtl(fileNo);
 
-				deleteAcademicDtl(academicDetail);
-			}
-		}
+				deleteAddressDtl(fileNo);
 
-		if (studentDtl.getDiscountDtl() != null) {
-
-			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
-					.getDiscountDtl()) {
-
-				deleteAdmissionDisDtl(admissionDiscountDtl);
-			}
-		}
-
-		if (studentDtl.getAddressDtl() != null) {
-
-			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
-
-				deleteAddressDtl(addressDeatil);
-			}
-		}
-
+		
+				deleteBranchPreference(fileNo);
+		
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteStudentDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", studentDtl.getFileNo());
+				"File_No", fileNo);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}
 
-	public void getAcademicDtl(StudentAcademicDetail academicDtl) {
-		// TODO Auto-generated method stub
+	private List<StudentAcademicDetail> getAcademicDtl(String fileNo) {
 
+		String getQuery = admissionQueryProps
+				.getProperty("getAcademicDtlByFileNo");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
+		List<StudentAcademicDetail> studentAcademicDetails = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new RowMapper<StudentAcademicDetail>() {
+
+					public StudentAcademicDetail mapRow(ResultSet rs,
+							int rowNum) throws SQLException {
+
+						StudentAcademicDetail studentAcademicDetail = new StudentAcademicDetail();
+
+						studentAcademicDetail.setFileNo(rs
+								.getString("File_No"));
+						studentAcademicDetail.setQualificationId(rs
+								.getLong("Qualification_Id"));
+						studentAcademicDetail.setUniversity(rs
+								.getString("University"));
+						studentAcademicDetail.setCollegeName(rs
+								.getString("College_Name"));
+						studentAcademicDetail.setPassingYear(rs
+								.getString("Passing_Year"));
+						studentAcademicDetail.setPercentage(rs
+								.getFloat("Percentage"));
+						studentAcademicDetail.setRollNo(rs
+								.getString("Roll_No"));
+
+						return studentAcademicDetail;
+
+						
+					}
+				});
+
+		return studentAcademicDetails;
 	}
 
 	private void addAcademicDtl(StudentAcademicDetail academicDtl) {
@@ -218,12 +346,12 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", academicDtl.getFileNo())
-				.addValue("University", academicDtl.getUniversity())
-				.addValue("College_Name", academicDtl.getCollegeName())
-				.addValue("Passing_Year", academicDtl.getPassingYear())
-				.addValue("Percentage", academicDtl.getPercentage())
-				.addValue("Roll_No", academicDtl.getRollNo())
-				.addValue("Qualification_Id", academicDtl.getQualificationId());
+		.addValue("University", academicDtl.getUniversity())
+		.addValue("College_Name", academicDtl.getCollegeName())
+		.addValue("Passing_Year", academicDtl.getPassingYear())
+		.addValue("Percentage", academicDtl.getPercentage())
+		.addValue("Roll_No", academicDtl.getRollNo())
+		.addValue("Qualification_Id", academicDtl.getQualificationId());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -241,7 +369,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private void updateAcademicDtl(StudentAcademicDetail academicDtl) {
 
-		deleteAcademicDtl(academicDtl);
+		String fileNo = academicDtl.getFileNo();
+		
+		deleteAcademicDtl(fileNo);
 
 		addAcademicDtl(academicDtl);
 
@@ -261,30 +391,51 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	private void deleteAcademicDtl(StudentAcademicDetail academicDtl) {
+	private void deleteAcademicDtl(String fileNo) {
 
-		if (academicDtl.getQualificationSubDtl() != null) {
-
-			for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
-					.getQualificationSubDtl()) {
-
-				deleteQualificationDtl(qualificationSubjectDtl);
-			}
-		}
-
+		
+				deleteQualificationDtl(fileNo);
+		
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAcademicDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", academicDtl.getFileNo());
+				"File_No", fileNo);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}
 
-	public void getAddressDtl(AddressDetail addressDtl) {
-		// TODO Auto-generated method stub
+	private List<AddressDetail> getAddressDtl(String fileNo) {
 
+		String getQuery = admissionQueryProps
+				.getProperty("getAddressDtlByFileNo");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
+		List<AddressDetail> addressDetails = getNamedParamJdbcTemplate().query(
+				getQuery, namedParameter, new RowMapper<AddressDetail>() {
+
+					public AddressDetail mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						AddressDetail addressDetail = new AddressDetail();
+
+						addressDetail.setHouseNo(rs.getString("House_No"));
+						addressDetail.setLocality(rs.getString("Locality"));
+						addressDetail.setLandmark(rs.getString("Landmark"));
+						addressDetail.setDistrict(rs.getString("District"));
+						addressDetail.setCity(rs.getString("City"));
+						addressDetail.setPincode(rs.getInt("Pincode"));
+						addressDetail.setFileNo(rs.getString("File_No"));
+						addressDetail.setAddressType(rs
+								.getString("Address_Type"));
+						addressDetail.setState(rs.getString("State_Id"));
+
+						return addressDetail;
+					}
+				});
+		return addressDetails;
 	}
 
 	private void addAddressDtl(AddressDetail addressDtl) {
@@ -293,14 +444,14 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", addressDtl.getFileNo())
-				.addValue("House_No", addressDtl.getHouseNo())
-				.addValue("Locality", addressDtl.getLocality())
-				.addValue("Landmark", addressDtl.getLandmark())
-				.addValue("District", addressDtl.getDistrict())
-				.addValue("City", addressDtl.getCity())
-				.addValue("Pincode", addressDtl.getPincode())
-				.addValue("Address_Type", addressDtl.getAddressType())
-				.addValue("State_Id", addressDtl.getState());
+		.addValue("House_No", addressDtl.getHouseNo())
+		.addValue("Locality", addressDtl.getLocality())
+		.addValue("Landmark", addressDtl.getLandmark())
+		.addValue("District", addressDtl.getDistrict())
+		.addValue("City", addressDtl.getCity())
+		.addValue("Pincode", addressDtl.getPincode())
+		.addValue("Address_Type", addressDtl.getAddressType())
+		.addValue("State_Id", addressDtl.getState());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -308,7 +459,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private void updateAddressDtl(AddressDetail addressDtl) {
 
-		deleteAddressDtl(addressDtl);
+		String fileNo=addressDtl.getFileNo();
+		
+		deleteAddressDtl(fileNo);
 
 		addAddressDtl(addressDtl);
 
@@ -330,20 +483,46 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		//
 	}
 
-	private void deleteAddressDtl(AddressDetail addressDtl) {
+	private void deleteAddressDtl(String fileNo) {
 
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAddressDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", addressDtl.getFileNo());
+				"File_No", fileNo);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
 
-	public void getAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
-		// TODO Auto-generated method stub
+	private List<AdmissionDiscountDtl> getAdmissionDisDtl(String fileNo) {
 
+		String getQuery = admissionQueryProps
+				.getProperty("getAdmissionDisDtlByFileNo");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
+
+		List<AdmissionDiscountDtl> admissionDiscountDtls = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new RowMapper<AdmissionDiscountDtl>() {
+
+					public AdmissionDiscountDtl mapRow(ResultSet rs,
+							int rowNum) throws SQLException {
+						AdmissionDiscountDtl admissionDiscountDtl = new AdmissionDiscountDtl();
+
+						admissionDiscountDtl.setAmount(rs
+								.getDouble("Amount"));
+						admissionDiscountDtl.setFeeHeadId(rs
+								.getLong("FeeHead_Id"));
+						admissionDiscountDtl.setFileNo(rs
+								.getNString("File_No"));
+						admissionDiscountDtl.setPercent(rs
+								.getFloat("Percent"));
+
+						return admissionDiscountDtl;
+					}
+				});
+		return admissionDiscountDtls;
 	}
 
 	private void addAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
@@ -352,9 +531,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", admissionDisDtl.getFileNo())
-				.addValue("FeeHead_Id", admissionDisDtl.getFeeHeadId())
-				.addValue("Amount", admissionDisDtl.getAmount())
-				.addValue("Percent", admissionDisDtl.getPercent());
+		.addValue("FeeHead_Id", admissionDisDtl.getFeeHeadId())
+		.addValue("Amount", admissionDisDtl.getAmount())
+		.addValue("Percent", admissionDisDtl.getPercent());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -362,7 +541,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private void updateAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
 
-		deleteAdmissionDisDtl(admissionDisDtl);
+		String fileNo=admissionDisDtl.getFileNo();
+		
+		deleteAdmissionDisDtl(fileNo);
 
 		addAdmissionDisDtl(admissionDisDtl);
 
@@ -379,21 +560,51 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		//
 	}
 
-	private void deleteAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
+	private void deleteAdmissionDisDtl(String fileNo) {
 
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAdmissionDisDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", admissionDisDtl.getFileNo());
+				"File_No", fileNo);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}
 
-	public void getQualificationDtl(QualificationSubjectDtl qualificationDtl) {
-		// TODO Auto-generated method stub
+	private List<QualificationSubjectDtl> getQualificationDtl(String fileNo) {
 
+		String getQuery = admissionQueryProps
+				.getProperty("getQualificationSubjectDtlByFileNo");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
+
+		List<QualificationSubjectDtl> qualificationSubjectDtls = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new RowMapper<QualificationSubjectDtl>() {
+
+					public QualificationSubjectDtl mapRow(ResultSet rs,
+							int rowNum) throws SQLException {
+
+						QualificationSubjectDtl qualificationSubjectDtl = new QualificationSubjectDtl();
+
+						qualificationSubjectDtl.setSubjectId(rs
+								.getLong("Subject_Id"));
+						qualificationSubjectDtl.setQualificationId(rs
+								.getLong("Qualification_Id"));
+						qualificationSubjectDtl.setFileNo(rs
+								.getString("File_No"));
+						qualificationSubjectDtl.setMarksObtained(rs
+								.getDouble("Marks_Obtained"));
+						qualificationSubjectDtl.setMaxMarks(rs
+								.getDouble("Max_Marks"));
+
+						return qualificationSubjectDtl;
+					}
+
+				});
+		return qualificationSubjectDtls;
 	}
 
 	private void addQualificationDtl(QualificationSubjectDtl qualificationDtl) {
@@ -403,9 +614,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", qualificationDtl.getFileNo())
-				.addValue("Subject_Id", qualificationDtl.getSubjectId())
-				.addValue("Qualification_Id",
-						qualificationDtl.getQualificationId())
+		.addValue("Subject_Id", qualificationDtl.getSubjectId())
+		.addValue("Qualification_Id",
+				qualificationDtl.getQualificationId())
 				.addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
 				.addValue("Max_Marks", qualificationDtl.getMaxMarks());
 
@@ -415,33 +626,104 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private void updateQualificationDtl(QualificationSubjectDtl qualificationDtl) {
 
-		deleteQualificationDtl(qualificationDtl);
+		String fileNo=qualificationDtl.getFileNo();
 		
+		deleteQualificationDtl(fileNo);
+
 		addQualificationDtl(qualificationDtl);
-		
-		
-//		String updateQuery = admissionQueryProps
-//				.getProperty("updateQualificationSubjectDtl");
-//
-//		SqlParameterSource namedParameter = new MapSqlParameterSource(
-//				"File_No", qualificationDtl.getFileNo())
-//				.addValue("Subject_Id", qualificationDtl.getSubjectId())
-//				.addValue("Qualification_Id",
-//						qualificationDtl.getQualificationId())
-//				.addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
-//				.addValue("Max_Marks", qualificationDtl.getMaxMarks());
-//
-//		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
+
+		// String updateQuery = admissionQueryProps
+		// .getProperty("updateQualificationSubjectDtl");
+		//
+		// SqlParameterSource namedParameter = new MapSqlParameterSource(
+		// "File_No", qualificationDtl.getFileNo())
+		// .addValue("Subject_Id", qualificationDtl.getSubjectId())
+		// .addValue("Qualification_Id",
+		// qualificationDtl.getQualificationId())
+		// .addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
+		// .addValue("Max_Marks", qualificationDtl.getMaxMarks());
+		//
+		// getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 	}
 
-	private void deleteQualificationDtl(QualificationSubjectDtl qualificationDtl) {
+	private void deleteQualificationDtl(String fileNo) {
 
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteQualificationSubjectDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", qualificationDtl.getFileNo());
+				"File_No", fileNo);
+		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+	}
+
+	private List<BranchPreference> getBranchPreference(String fileNo) {
+
+		String getQuery = admissionQueryProps
+				.getProperty("getBranchPreferenceByFileNo");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
+
+		List<BranchPreference> branchPreferences = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new RowMapper<BranchPreference>() {
+
+					public BranchPreference mapRow(ResultSet rs,
+							int rowNum) throws SQLException {
+
+						BranchPreference branchPreference = new BranchPreference();
+
+						branchPreference.setFileNo(rs
+								.getString("File_No"));
+
+						branchPreference.setBranchId(rs
+								.getLong("Branch_Id"));
+						branchPreference.setBranchPreferenceId(rs
+								.getLong("Branch_Preference_Id"));
+						branchPreference.setCoureseId(rs
+								.getLong("Course_Id"));
+
+						return branchPreference;
+					}
+				});
+
+		return branchPreferences;
+	}
+
+	private void addBranchPreference(BranchPreference branchPreference) {
+
+		String addQuery = admissionQueryProps
+				.getProperty("addBranchPreference");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", branchPreference.getFileNo())
+		.addValue("Branch_Preference_Id",
+				branchPreference.getBranchPreferenceId())
+				.addValue("Branch_Id", branchPreference.getBranchId())
+				.addValue("Course_Id", branchPreference.getCoureseId());
+
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+
+	}
+
+	private void updateBranchPreference(BranchPreference branchPreference) {
+
+		String fileNo=branchPreference.getFileNo();
+		
+		deleteBranchPreference(fileNo);
+
+		addBranchPreference(branchPreference);
+
+	}
+
+	private void deleteBranchPreference(String fileNo) {
+
+		String deleteQuery = admissionQueryProps
+				.getProperty("deleteBranchPreference");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", fileNo);
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}

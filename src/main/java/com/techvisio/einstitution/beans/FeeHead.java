@@ -23,4 +23,9 @@ public class FeeHead {
 		this.feeHead = feeHead;
 	}
 
+	@Override
+	public String toString() {
+		return "FeeHead [id=" + id + ", feeHead=" + feeHead + "]";
+	}
+
 }

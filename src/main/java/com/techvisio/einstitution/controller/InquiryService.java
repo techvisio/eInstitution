@@ -36,9 +36,9 @@ public class InquiryService {
 		inquiryManager.updateInquiryDetail(admissionInquiry);
 	}
 	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteInquiry(@RequestBody AdmissionInquiry admissionInquiry) {  
+	public void deleteInquiry(@RequestBody Long inquiryId) {  
 		InquiryManager inquiryManager=new InquiryManagerImpl();
-		inquiryManager.deleteInquiryDetail(admissionInquiry);
+		inquiryManager.deleteInquiryDetail(inquiryId);
 	}
 
 }

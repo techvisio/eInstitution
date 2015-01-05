@@ -10,9 +10,9 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	ConsultantDao consultantDao = ContextProvider.getContext().getBean(
 			ConsultantDao.class);
 
-	public void getConsultantDetail(ConsultantDetail consultantDetail) {
+	public void getConsultantDetail(String fileNo) {
 
-		consultantDao.getConsultantDtl(consultantDetail);
+		consultantDao.getConsultantDtl(fileNo);
 	}
 
 	public void addConsultantDetail(ConsultantDetail consultantDetail) {
@@ -25,9 +25,9 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		consultantDao.updateConsultantDtl(consultantDetail);
 	}
 
-	public void deleteConsultantDetail(ConsultantDetail consultantDetail) {
+	public void deleteConsultantDetail(String fileNo) {
 
-		consultantDao.deleteConsultantDtl(consultantDetail);
+		consultantDao.deleteConsultantDtl(fileNo);;
 	}
 
 }
