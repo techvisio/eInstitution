@@ -18,7 +18,8 @@ public class HostelDaoTest {
   
 	@Autowired
 	HostelDao dao;
-	
+
+ 
 	@Test
 	public void testAddHostelAllocation(){
 		HostelAllocation hostel = new HostelAllocation();	
@@ -31,6 +32,15 @@ public class HostelDaoTest {
 		dao.addHostelAllocation(hostel);
 
 	}
+
+	@Test
+	public void testGetHostelAllocation(){
+		HostelAllocation hAllocation = dao.getHostelAllocation("11");
+		System.out.println(hAllocation);
+	}
+	
+	
+	
 	@Test
 	public void testAddHostelInventory(){
 		HostelInventory hostel = new HostelInventory();
@@ -38,10 +48,18 @@ public class HostelDaoTest {
 		hostel.setPrice(12);
 		hostel.setRoomCapacity(1);
 		hostel.setThreshold(1);
-		hostel.setTypeCode("2");
+		hostel.setTypeCode("1");
 		
 		dao.addHostelInventory(hostel);
 	}
+
+	@Test
+	public void testGetHostelInventory(){
+		HostelInventory hostelInventory=dao.getHostelInventory("1");
+
+		System.out.println(hostelInventory);
+	}
+	
 	
 	@Test
 	public void testAddHostelReservation(){
@@ -52,6 +70,16 @@ public class HostelDaoTest {
 		
 		dao.addHostelReservation(hostel);
 	}
+
+	@Test
+	public void testGetHostelReservation(){
+		HostelReservation hostelReservation=dao.getHostelReservation("11");
+
+		System.out.println(hostelReservation);
+	}
+
+	
+	
 	
 	@Test
 	public void testAddRoomTypeDetail(){
@@ -60,6 +88,17 @@ public class HostelDaoTest {
 		r.setTypeCode("1");
 		dao.addRoomTypeDetail(r);
 	}
+	
+	
+	
+
+	@Test
+	public void testGetRoomTypeDetail(){
+		RoomTypeDetail r=dao.getRoomTypeDetail("1");
+
+		System.out.println(r);
+	}
+
 	
 	@Test
 	public void testUpdateHostelInventory(){

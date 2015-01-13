@@ -22,4 +22,9 @@ public String getTypeCode() {
 public void setTypeCode(String typeCode) {
 	this.typeCode = typeCode;
 }
+@Override
+public String toString() {
+	return "HostelReservation [fileNo=" + fileNo + ", feePaid=" + feePaid
+			+ ", typeCode=" + typeCode + "]";
+}
 }

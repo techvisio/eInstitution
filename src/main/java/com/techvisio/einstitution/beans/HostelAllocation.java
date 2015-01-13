@@ -43,4 +43,10 @@ public String getFileNo() {
 public void setFileNo(String fileNo) {
 	this.fileNo = fileNo;
 }
+@Override
+public String toString() {
+	return "HostelAllocation [roomNo=" + roomNo + ", wing=" + wing + ", floor="
+			+ floor + ", block=" + block + ", name=" + name + ", fileNo="
+			+ fileNo + "]";
+}
 }
