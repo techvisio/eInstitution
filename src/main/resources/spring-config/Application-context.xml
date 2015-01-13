@@ -52,7 +52,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
      <property name="locations" value="classpath:db-resource/Admission.xml" /> 
  </bean> 
 	
- 	<bean id="admissionDaoImpl" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl"> 
+ 	<bean id="admissionDao" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl"> 
  <property name="admissionQueryProps" ref="admissionQueryProps" /> 
 </bean> 
 
@@ -61,7 +61,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
      <property name="locations" value="classpath:db-resource/Consultant.xml" /> 
  </bean> 
 	
- 	<bean id="consultantDaoImpl" class="com.techvisio.einstitution.db.impl.ConsultantDaoImpl"> 
+ 	<bean id="consultantDao" class="com.techvisio.einstitution.db.impl.ConsultantDaoImpl"> 
  <property name="consultantQueryProps" ref="consultantQueryProps" /> 
 </bean> 
 
@@ -69,11 +69,14 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 <property name="locations"  value="classpath:db-resource/Transportation.xml"/>
 </bean>
 
-<bean id="transportDaoImpl" class="com.techvisio.einstitution.db.impl.TransportDaoImpl"> 
+<bean id="transportDao" class="com.techvisio.einstitution.db.impl.TransportDaoImpl"> 
  <property name="transportQueryProps" ref="transportQueryProps"/> 
 </bean> 
 
 
  	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory"> 
-	</bean> 
+	</bean>
+	
+	
+	 
 </beans>

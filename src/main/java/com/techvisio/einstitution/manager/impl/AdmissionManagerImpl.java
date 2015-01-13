@@ -10,24 +10,28 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	AdmissionDao admissionDao=ContextProvider.getContext().getBean(AdmissionDao.class);
 	
-	public void getStudentDetail(String fileNo) {
+	public StudentDetail getStudentDtl(String fileNo) {
 
-		admissionDao.getStudentDtl(fileNo);
+		StudentDetail studentDetail=null;
+		
+		studentDetail= admissionDao.getStudentDtl(fileNo);
+		
+		return studentDetail;
 
 	}
 
-	public void addStudentDetail(StudentDetail studentDetail) {
+	public void addStudentDtl(StudentDetail studentDetail) {
 
 		admissionDao.addStudentDtl(studentDetail);
 
 	}
 
-	public void updateStudentDetail(StudentDetail studentDetail) {
+	public void updateStudentDtl(StudentDetail studentDetail) {
 
 		admissionDao.updateStudentDtl(studentDetail);
 	}
 
-	public void deleteStudentDetail(String fileNo) {
+	public void deleteSudentDtl(String fileNo) {
 
 		admissionDao.deleteSudentDtl(fileNo);
 	}

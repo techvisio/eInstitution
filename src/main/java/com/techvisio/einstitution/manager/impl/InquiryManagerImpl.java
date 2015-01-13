@@ -12,22 +12,26 @@ public class InquiryManagerImpl implements InquiryManager {
 	
 
 
-	public void getInquiryDetail(Long inquiryId) {
+	public AdmissionInquiry getInquiry(Long inquiryId) {
 
-		inquiryDao.getInquiry(inquiryId);
+		AdmissionInquiry admissionInquiry=null;
+		
+		admissionInquiry=inquiryDao.getInquiry(inquiryId);
+		
+		return admissionInquiry;
 	}
 
-	public void addInquiryDetail(AdmissionInquiry admissionInquiry) {
+	public void addInquiry (AdmissionInquiry admissionInquiry) {
 		//TODO:populate inquiry id from seq factory
 		inquiryDao.addInquiry(admissionInquiry);
 	}
 
-	public void updateInquiryDetail(AdmissionInquiry admissionInquiry) {
+	public void updateInquiry(AdmissionInquiry admissionInquiry) {
 
 		inquiryDao.updateInquiry(admissionInquiry);
 	}
 
-	public void deleteInquiryDetail(Long inquiryId) {
+	public void deleteInquiry(Long inquiryId) {
 
 		inquiryDao.deleteInquiry(inquiryId);;
 	}

@@ -19,7 +19,7 @@ public class InquiryDaotest {
 
 	@Autowired
 	InquiryDao dao;
-	
+
 	// @Test
 	// public void testAddInquiry(){
 	// AdmissionInquiry enquiry=new AdmissionInquiry();
@@ -32,13 +32,46 @@ public class InquiryDaotest {
 	// dao.addInquiry(enquiry);
 	// }
 
+
+	@Test
+	public void testAddInquiry(){
+
+		AdmissionInquiry admissionInquiry = new AdmissionInquiry();
+
+		admissionInquiry.setEnquiryId(2L);
+		admissionInquiry.setIntrestedCourseId(2L);
+		admissionInquiry.setIntrestedBranchId(2L);
+		admissionInquiry.setFatherName("Anil Pathak");
+		admissionInquiry.setName("Ananad");
+		admissionInquiry.setContactNo("8087682394");
+
+		dao.addInquiry(admissionInquiry);
+
+
+	}
+
 	@Test
 	public void testGetInquiry() {
 
 		AdmissionInquiry admissionInquiry = dao.getInquiry(1L);
 		System.out.println(admissionInquiry);
-	
+
 
 	}
 
+	@Test	
+	public void testUpdateInquiry(){
+
+		AdmissionInquiry admissionInquiry = dao.getInquiry(1L);
+		admissionInquiry.setContactNo("9808790878");
+		dao.updateInquiry(admissionInquiry);
+
+
+	}
+
+	@Test	
+	public void testDeleteInquiry(){
+
+		dao.deleteInquiry(2L);
+	}
 }

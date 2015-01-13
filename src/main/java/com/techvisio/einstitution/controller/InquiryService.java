@@ -18,27 +18,30 @@ public class InquiryService {
 	
 	private static final Logger logger = Logger.getLogger(InquiryService.class);
 	
-	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	  public AdmissionInquiry getInquiry(@PathVariable Long id) {  
-	  AdmissionInquiry admissionEnquiry= new AdmissionInquiry();
-	  admissionEnquiry.setEnquiryId(id);
-	  return admissionEnquiry;
-	  }
+	@RequestMapping(value="/{inquiryId}",method = RequestMethod.GET)
+	  public AdmissionInquiry getInquiry(@PathVariable Long inquiryId) {  
+	 
+		InquiryManager inquiryManager= new InquiryManagerImpl();
+		
+		AdmissionInquiry admissionInquiry= inquiryManager.getInquiry(inquiryId);
+	
+		return admissionInquiry;
+	}
 	@RequestMapping(method = RequestMethod.POST)
 	public void addInquiry(@RequestBody AdmissionInquiry admissionInquiry) {  
 		InquiryManager inquiryManager=new InquiryManagerImpl();
-		inquiryManager.addInquiryDetail(admissionInquiry);
+		inquiryManager.addInquiry(admissionInquiry);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public void updateInquiry(@RequestBody AdmissionInquiry admissionInquiry) {  
 		InquiryManager inquiryManager=new InquiryManagerImpl();
-		inquiryManager.updateInquiryDetail(admissionInquiry);
+		inquiryManager.updateInquiry(admissionInquiry);
 	}
-	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteInquiry(@RequestBody Long inquiryId) {  
+	@RequestMapping(value="/{inquiryId}",method = RequestMethod.DELETE)
+	public void deleteInquiry(@PathVariable Long inquiryId) {  
 		InquiryManager inquiryManager=new InquiryManagerImpl();
-		inquiryManager.deleteInquiryDetail(inquiryId);
+		inquiryManager.deleteInquiry(inquiryId);
 	}
 
 }

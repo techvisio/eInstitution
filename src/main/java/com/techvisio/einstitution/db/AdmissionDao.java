@@ -6,7 +6,7 @@ public interface AdmissionDao {
 
 	public StudentDetail getStudentDtl(String fileNo);
 	public void addStudentDtl(StudentDetail studentDetail);
-	public void updateStudentDtl(StudentDetail studentDtl);
+	public void updateStudentDtl(StudentDetail studentDetail);
 	public void deleteSudentDtl(String fileNo);
 //	
 //	public List<StudentAcademicDetail> getAcademicDtl(String fileNo);
