@@ -73,6 +73,14 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
  <property name="transportQueryProps" ref="transportQueryProps"/> 
 </bean> 
 
+<bean id="hostelQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+<property name="locations" value="classpath:db-resource/Hostel.xml"></property>
+</bean>
+
+	<bean id="hostelDaoImpl" class = "com.techvisio.einstitution.db.impl.HostelDaoImpl">
+<property name="hostelQueryProps" ref = "hostelQueryProps"></property>
+
+</bean>
 
  	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory"> 
 	</bean>
