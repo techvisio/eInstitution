@@ -1,8 +1,11 @@
 package com.techvisio.einstitution.db.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
@@ -24,14 +27,39 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	}
 	
 
-
+//GET DATA FROM HostelInventory TABLE 
 	
 	public HostelInventory getHostelInventory(String typeCode) {
-		String addQuery = hostelQueryProps.getProperty("getHostelInventory");
+		String getQuery = hostelQueryProps.getProperty("getHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
-		
-	List<HostelInventory> hostelInventories = getNamedParamJdbcTemplate().query(sql, paramSource, rowMapper)
+	
+List<HostelInventory> hostelInventories = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<HostelInventory>() {
+
+	public HostelInventory mapRow(ResultSet rs, int rowNum) throws SQLException {
+		HostelInventory hostel = new HostelInventory();
+		hostel.setDescription(rs.getString("Description"));
+		hostel.setPrice(rs.getDouble("Price"));
+		hostel.setRoomCapacity(rs.getInt("Room_Capacity"));
+		hostel.setThreshold(rs.getInt("Threshold"));
+		hostel.setTypeCode(rs.getString("Type_Code"));
+		return hostel;
 	}
+	
+});
+
+HostelInventory hostelInven=null;
+
+if(hostelInventories != null && hostelInventories.size()>0){
+	
+	hostelInven = hostelInventories.get(0);
+}
+		
+		return hostelInven;
+		
+	}
+
+	
+//INSERT DATA IN HostelInventory TABLE
 
 	
 	public void addHostelInventory(HostelInventory hostelInventory) {
@@ -47,6 +75,10 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
+	
+// UPDATE DATA IN HostelInventory TABLE
+	
+	
 	public void updateHostelInventory(HostelInventory hostelInventory) {
 		String addQuery = hostelQueryProps.getProperty("updateHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", hostelInventory.getTypeCode())
@@ -60,6 +92,10 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		
 	}
 
+	
+// DELETE DATA FROM HostelInventory TABLE
+	
+	
 	public void deleteHostelInventory(String typeCode) {
 
 		String addQuery = hostelQueryProps.getProperty("deleteHostelInventory");
@@ -67,23 +103,55 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
-
-
 	
-	public void getHostelAllocation(HostelAllocation hostelAllocation) {
-		// TODO Auto-generated method stub
+	
+
+//GET DATA FROM HostelAllocation TABLE
+	
+	
+	
+	public HostelAllocation getHostelAllocation(String fileNo) {
+		String getQuery = hostelQueryProps.getProperty("getHostelAllocation");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 		
-	}
+List<HostelAllocation> hostelAllocations =  getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<HostelAllocation>(){
+
+		public HostelAllocation mapRow(ResultSet rs,int rowNum)throws SQLException {
+		HostelAllocation hostel = new HostelAllocation();
+		hostel.setBlock(rs.getString("Block"));
+		hostel.setFileNo(rs.getString("File_No"));
+		hostel.setFloor(rs.getString("Floor"));
+		hostel.setName(rs.getString("Name"));
+		hostel.setRoomNo(rs.getString("Room_No"));
+		hostel.setWing(rs.getString("Wing"));
+			
+			
+			
+			return hostel;
+														
+		}
+														
+	});
+
+		
+HostelAllocation hostelAll = null;
+if(hostelAllocations != null && hostelAllocations.size()>0 ){
+	hostelAll = hostelAllocations.get(0);
+}
+	
+return hostelAll;
+}
 	
 
-
+// INSERT DATA IN HostelAllocation TABLE
+	
 	
 	
 	public void addHostelAllocation(HostelAllocation hostelAllocation) {
 		String addQuery = hostelQueryProps.getProperty("addHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomNo())
 												.addValue("Wing", hostelAllocation.getWing())
-												.addValue("Floor", hostelAllocation.getWing())
+												.addValue("Floor", hostelAllocation.getFloor())
 												.addValue("Block", hostelAllocation.getBlock())
 												.addValue("Name", hostelAllocation.getName())
 												.addValue("File_No", hostelAllocation.getFileNo());
@@ -93,13 +161,19 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		
 		
 	}
+	
+	
+
+// UPDATE DATA IN HostelAllocation TABLE
+	
+	
 
 	public void updateHostelAllocation(HostelAllocation hostelAllocation) {
 
 		String addQuery = hostelQueryProps.getProperty("updateHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomNo())
 											.addValue("Wing", hostelAllocation.getWing())
-											.addValue("Floor", hostelAllocation.getWing())
+											.addValue("Floor", hostelAllocation.getFloor())
 											.addValue("Block", hostelAllocation.getBlock())
 											.addValue("Name", hostelAllocation.getName())
 											.addValue("File_No", hostelAllocation.getFileNo());
@@ -109,7 +183,11 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		
 		
 	}
+	
 
+//DELETE DATA FROM HostelAllocation TABLE	
+
+	
 	public void deleteHostelAllocation(String fileNo) {
 
 		String addQuery = hostelQueryProps.getProperty("deleteHostelAllocation");
@@ -119,12 +197,37 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	}
 
 
+// GET DATA FROM HostelReservation TABLE
 	
-	public void getHostelReservation(HostelReservation hostelReservation) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	public HostelReservation getHostelReservation(String fileNo) {
+		String getQuery = hostelQueryProps.getProperty("getHostelReservation");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+List<HostelReservation> hostelReservations = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<HostelReservation>(){
 
+	public HostelReservation mapRow(ResultSet rs, int rowNum)
+			throws SQLException {
+		HostelReservation hostel = new HostelReservation();
+		hostel.setFeePaid(rs.getDouble("Fee_Paid"));
+		hostel.setFileNo(rs.getString("File_No"));
+		hostel.setTypeCode(rs.getString("Type_Code"));
+		
+		return hostel;
+	}
+	
+});
+HostelReservation hostelRes = null;
+
+if(hostelReservations != null && hostelReservations.size()>0){
+	hostelRes = hostelReservations.get(0);
+}
+		
+				return hostelRes;
+		
+}
+	
+	
+// INSERT DATA IN HostelReservation TABLE
 	
 	
 
@@ -138,6 +241,9 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		
 	}
+	
+	
+// UPDATE DATA IN HostelReservation TABLE	
 
 	public void updateHostelReservation(HostelReservation hostelReservation) {
 		
@@ -150,6 +256,9 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		
 
 	}
+	
+	
+// DELETE DATA FROM HostelReservation TABLE	
 
 	public void deleteHostelReservation(String fileNo) {
 
@@ -158,17 +267,36 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
+	
+	
+// GET DATA FROM RoomTypeDetail TABLE
+	
+	
+	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
+		String getQuery = hostelQueryProps.getProperty("getRoomTypeDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
+List<RoomTypeDetail> roomTypeDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<RoomTypeDetail>(){
 
+	public RoomTypeDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
+		RoomTypeDetail room = new RoomTypeDetail();
+		room.setRoomNo(rs.getString("Room_No"));
+		room.setTypeCode(rs.getString("Type_Code"));
+		return room;
+	}
 	
+});
+
+	RoomTypeDetail r = null;
+	if(roomTypeDetails != null && roomTypeDetails.size()>0){
+		r = roomTypeDetails.get(0);
+	}
 	
-	public void getRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
-		// TODO Auto-generated method stub
-		
+	return r;
 	}
 
 	
 	
-
+// INSERT DATA IN RoomTypeDetail TABLE
 	
 	
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
@@ -178,7 +306,11 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
-
+	
+	
+//UPDATE DATA IN RoomTypeDetail TABLE
+	
+	
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 		
 		String addQuery = hostelQueryProps.getProperty("updateRoomTypeDetail");
@@ -188,6 +320,8 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
 	}
+	
+//DELETE DATA IN RoomTypeDetail TABLE	
 
 	public void deleteRoomTypeDetail(String typeCode) {
 		

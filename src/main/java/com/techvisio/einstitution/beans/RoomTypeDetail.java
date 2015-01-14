@@ -15,4 +15,8 @@ public String getTypeCode() {
 public void setTypeCode(String typeCode) {
 	this.typeCode = typeCode;
 }
+@Override
+public String toString() {
+	return "RoomTypeDetail [roomNo=" + roomNo + ", typeCode=" + typeCode + "]";
+}
 }

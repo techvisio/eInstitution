@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	<entry key="getHostelAllocation">
+    <![CDATA[
+      
+Select 
+
+	Wing,
+	Floor,
+	Block,
+	Name,
+	File_No,
+	Room_No
+	
+from HostelAllocation where File_No=:File_No;
+    ]]>
+
+	</entry>
+
+	<entry key="addHostelAllocation">
+    <![CDATA[
+      
+Insert into HostelAllocation
+
+	(Wing,
+	Floor,
+	Block,
+	Name,
+	File_No,
+	Room_No) values
+	       
+   (:Wing,
+	:Floor,
+	:Block,
+	:Name,
+	:File_No,
+	:Room_No)
+    ]]>
+
+	</entry>
+
+	<entry key="updateHostelAllocation">
+    <![CDATA[
+      
+Update HostelAllocation set
+ 
+	Wing=:Wing,
+	Floor=:Floor,
+	Block=:Block,
+	Name=:Name,
+	File_No=:File_No,
+	Room_No=:Room_No       
+   
+where File_No=:File_No;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteHostelAllocation">
+    <![CDATA[
+      
+Delete from HostelAllocation where File_No=:File_No;
+    ]]>
+
+	</entry>
+
+	<entry key="getHostelInventory">
+    <![CDATA[
+      
+Select 
+
+	Type_Code,
+	Description,
+	Threshold,
+	Price,
+	Room_Capacity
+	
+
+
+from HostelInventory where Type_Code=:Type_Code;
+    ]]>
+
+	</entry>
+
+	<entry key="addHostelInventory">
+    <![CDATA[
+      
+Insert into HostelInventory
+
+   (Type_Code,
+	Description,
+	Threshold,
+	Price,
+	Room_Capacity
+) values
+   
+ (:Type_Code,
+	:Description,
+	:Threshold,
+	:Price,
+	:Room_Capacity);
+
+    ]]>
+
+	</entry>
+
+	<entry key="updateHostelInventory">
+    <![CDATA[
+      
+ Update HostelInventory set
+
+    Type_Code=:Type_Code,
+	Description=:Description,
+	Threshold=:Threshold,
+	Price=:Price,
+	Room_Capacity=:Room_Capacity
+    
+ where Type_Code=:Type_Code;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteHostelInventory">
+    <![CDATA[
+      
+Delete from HostelInventory where Type_Code=:Type_Code;
+
+    ]]>
+
+	</entry>
+
+	<entry key="getHostelReservation">
+    <![CDATA[
+      
+Select
+
+	File_No,
+	Fee_Paid,
+	Type_Code
+	
+
+   
+from HostelReservation where File_No=:File_No;
+    ]]>
+
+	</entry>
+
+	<entry key="addHostelReservation">
+    <![CDATA[
+      
+Insert into HostelReservation
+
+      (File_No,
+	Fee_Paid,
+	Type_Code) values 
+      
+     (:File_No,
+	:Fee_Paid,
+	:Type_Code);
+    ]]>
+
+	</entry>
+
+	<entry key="updateHostelReservation">
+    <![CDATA[
+      
+Update HostelReservation set
+
+      File_No=:File_No,
+	Fee_Paid=:Fee_Paid,
+	Type_Code=:Type_Code
+      
+   
+where File_No=:File_No;  
+    ]]>
+
+	</entry>
+
+	<entry key="deleteHostelReservation">
+    <![CDATA[
+      
+Delete from HostelReservation where File_No=:File_No;  
+    ]]>
+
+	</entry>
+	
+		<entry key="getRoomTypeDetail">
+    <![CDATA[
+      
+Select  
+
+	Room_No,
+	Type_Code
+	
+from RoomTypeDetail where Type_Code=:Type_Code;
+    ]]>
+
+	</entry>
+
+	<entry key="addRoomTypeDetail">
+    <![CDATA[
+      
+Insert into RoomTypeDetail
+
+      (Room_No,
+	Type_Code) values 
+      
+     (:Room_No,
+	:Type_Code);
+    ]]>
+
+	</entry>
+
+	<entry key="updateRoomTypeDetail">
+    <![CDATA[
+      
+Update RoomTypeDetail set
+
+      Room_No=:Room_No,
+	Type_Code=:Type_Code
+      
+   
+where Type_Code=:Type_Code;  
+    ]]>
+
+	</entry>
+
+	<entry key="deleteRoomTypeDetail">
+    <![CDATA[
+      
+Delete from RoomTypeDetail where Type_Code=:Type_Code;  
+    ]]>
+
+	</entry>
+	
+
+</properties>

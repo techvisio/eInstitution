@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
-	<x>0</x>
-	<y>129</y>
+	<x>-4</x>
+	<y>34</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -157,7 +157,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2015-01-03 15:49:07</creation_date>
-			<updated_date>2015-01-07 15:35:49</updated_date>
+			<updated_date>2015-01-08 14:20:25</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -638,7 +638,7 @@
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>3</word_id>
+					<word_id>4</word_id>
 					<id>5</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1051,7 +1051,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>4</word_id>
+					<word_id>3</word_id>
 					<id>14</id>
 					<description></description>
 					<unique_key_name></unique_key_name>

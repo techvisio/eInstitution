@@ -14,19 +14,19 @@ public interface HostelDao {
 	
 	
 	
-	public void getHostelAllocation(HostelAllocation hostelAllocation);
+	public HostelAllocation getHostelAllocation(String hostelAllocation);
 	public void addHostelAllocation(HostelAllocation hostelAllocation);
 	public void updateHostelAllocation(HostelAllocation hostelAllocation);
 	public void deleteHostelAllocation(String hostelAllocation);
 	
 	
-	public void getHostelReservation(HostelReservation hostelReservation);
+	public HostelReservation getHostelReservation(String hostelReservation);
 	public void addHostelReservation(HostelReservation hostelReservation);
 	public void updateHostelReservation(HostelReservation hostelReservation);
 	public void deleteHostelReservation(String hostelReservation);
 	
 	
-	public void getRoomTypeDetail(RoomTypeDetail roomTypeDetail);
+	public RoomTypeDetail getRoomTypeDetail(String roomTypeDetail);
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void deleteRoomTypeDetail(String roomTypeDetail);

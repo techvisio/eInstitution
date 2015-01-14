@@ -5,6 +5,12 @@ private String	typeCode;
 private String	description;
 private int	threshold;
 private double	price;
+@Override
+public String toString() {
+	return "HostelInventory [typeCode=" + typeCode + ", description="
+			+ description + ", threshold=" + threshold + ", price=" + price
+			+ ", roomCapacity=" + roomCapacity + "]";
+}
 private int	roomCapacity;
 public String getTypeCode() {
 	return typeCode;
