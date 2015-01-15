@@ -186,8 +186,8 @@ Document_Received_On = :Document_Received_On,
 Document_verified_By = :Document_verified_By,
 Document_Verified_On = :Document_Verified_On,
 Management_Approved_By = :Management_Approved_By,
-Management_Approved_On = :Management_Approved_On
- Domicile_State_Id = :Domicile_State_Id;  
+Management_Approved_On = :Management_Approved_On,
+ Domicile_State_Id = :Domicile_State_Id  
  where File_No=:File_No;  
     ]]>
 

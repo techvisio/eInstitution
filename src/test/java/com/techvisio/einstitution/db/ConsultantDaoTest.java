@@ -52,5 +52,17 @@ public void testGetConsulTant(){
 	System.out.println(consultant);
 }
 
-
+@Test
+public void testUpdateConsultantDtl(){
+	
+	ConsultantDetail consultantDetail=dao.getConsultantDtl("3");
+	consultantDetail.setPaymentMode("Cheque");
+	
+	dao.updateConsultantDtl(consultantDetail);
 }
+
+@Test
+public void testDeleteConsultantDtl(){
+	
+	dao.deleteConsultantDtl("11");
+}}

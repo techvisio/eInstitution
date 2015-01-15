@@ -1,16 +1,10 @@
-package com.techvisio.einstitution.db;
+package com.techvisio.einstitution.manager;
 
-import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 
-public interface TransportDao {
-
-	public Transport getTransport(String routeCode);
-	public void addTransport(Transport transport);
-	public void updateTransport(Transport transport);
-	public void deleteTransport(String routeCode);
+public interface TransportManager {
 
 	public TransportAllocation getTransportAllocationDtl(String fileNo);
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
@@ -26,5 +20,6 @@ public interface TransportDao {
 	public void addVehicleDetail(VehicleDetail vehicleDetail);
 	public void updateVehicleDetail(VehicleDetail vehicleDetail);
 	public void deleteVehicleDetail(Long vehicleId);
+
 
 }

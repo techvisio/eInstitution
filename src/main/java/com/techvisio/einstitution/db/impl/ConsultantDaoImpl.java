@@ -168,10 +168,22 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
+		if (consultantDetail.getConsultantPaymentDetail() != null) {
+			for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail
+					.getConsultantPaymentDetail()) {
+				updateConsultantPaymentDtl(consultantPaymentDtl);
+			}
+		}
+
+		
+		
 	}
 
 	public void deleteConsultantDtl(String fileNo) {
 
+
+		deleteConsultantPaymentDtl(fileNo);
+		
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtl");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
@@ -232,7 +244,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtl");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FileNo", fileNo);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
