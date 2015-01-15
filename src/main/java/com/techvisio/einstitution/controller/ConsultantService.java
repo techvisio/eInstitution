@@ -20,25 +20,28 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
 	  public ConsultantDetail getConsultantDetail(@PathVariable String fileNo) {  
-	  ConsultantDetail consultantDetail= new ConsultantDetail();
-	  consultantDetail.setFileNo(fileNo);
-	  return consultantDetail;
-	  }
+	  
+		ConsultantManager consultantManager =  new ConsultantManagerImpl();
+
+		ConsultantDetail consultantDetail = consultantManager.getConsultantDtl(fileNo);
+	 
+		return consultantDetail;
+	}
 	@RequestMapping(method = RequestMethod.POST)
 	public void addConsultantDtl(@RequestBody ConsultantDetail consultantDetail) {  
 ConsultantManager consultantManager=new ConsultantManagerImpl();
-		consultantManager.addConsultantDetail(consultantDetail);
+		consultantManager.addConsultantDtl(consultantDetail);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public void updateConsultantDtl(@RequestBody ConsultantDetail consultantDetail) {  
 		ConsultantManager consultantManager= new ConsultantManagerImpl();
-		consultantManager.updateConsultantDetail(consultantDetail);
+		consultantManager.updateConsultantDtl(consultantDetail);
 	}
-	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteConsultantDtl(@RequestBody String fileNo) {  
+	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
+	public void deleteConsultantDtl(@PathVariable String fileNo) {  
 		ConsultantManager consultantManager=new ConsultantManagerImpl();
-		consultantManager.deleteConsultantDetail(fileNo);
+		consultantManager.deleteConsultantDtl(fileNo);
 	}
 
 	

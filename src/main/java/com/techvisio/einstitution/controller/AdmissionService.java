@@ -25,32 +25,30 @@ public class AdmissionService {
 			.getLogger(AdmissionService.class);
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<StudentDetail> getStudentDetail(@PathVariable String fileNo) {
-		StudentDetail studentDetail = new StudentDetail();
-		studentDetail.setFileNo(fileNo);
-		List<StudentAcademicDetail> academicDetails=new ArrayList<StudentAcademicDetail>();
-		StudentAcademicDetail studentAcademicDetail =  new StudentAcademicDetail();
-		academicDetails.add(studentAcademicDetail);
-		studentDetail.setAcademicDtl(academicDetails);
-		return new ResponseEntity<StudentDetail>(studentDetail,HttpStatus.OK);
+	public StudentDetail getStudentDetail(@PathVariable String fileNo) {
+		
+		AdmissionManager admissionManager = new AdmissionManagerImpl();
+		
+		StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
+		return studentDetail;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void addStudentDtl(@RequestBody StudentDetail studentDetail) {
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.addStudentDetail(studentDetail);
+		admissionManager.addStudentDtl(studentDetail);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public void updateStudentDtl(@RequestBody StudentDetail studentDetail) {
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.updateStudentDetail(studentDetail);
+		admissionManager.updateStudentDtl(studentDetail);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteStudentDtl(@RequestBody String fileNo) {
+	@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
+	public void deleteStudentDtl(@PathVariable String fileNo) {
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.deleteStudentDetail(fileNo);;
+		admissionManager.deleteSudentDtl(fileNo);
 	}
 
 }

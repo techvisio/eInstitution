@@ -10,22 +10,25 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	ConsultantDao consultantDao = ContextProvider.getContext().getBean(
 			ConsultantDao.class);
 
-	public void getConsultantDetail(String fileNo) {
+	public ConsultantDetail getConsultantDtl(String fileNo) {
 
-		consultantDao.getConsultantDtl(fileNo);
+		ConsultantDetail consultantDetail = null;
+		consultantDetail = consultantDao.getConsultantDtl(fileNo);
+	
+		return consultantDetail;
 	}
 
-	public void addConsultantDetail(ConsultantDetail consultantDetail) {
+	public void addConsultantDtl(ConsultantDetail consultantDetail){
 
 		consultantDao.addConsultantDtl(consultantDetail);
 	}
 
-	public void updateConsultantDetail(ConsultantDetail consultantDetail) {
+	public void updateConsultantDtl(ConsultantDetail consultantDetail) {
 
 		consultantDao.updateConsultantDtl(consultantDetail);
 	}
 
-	public void deleteConsultantDetail(String fileNo) {
+	public void deleteConsultantDtl(String fileNo) {
 
 		consultantDao.deleteConsultantDtl(fileNo);;
 	}
