@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -48,10 +49,10 @@ public class StudentDetail {
 	private String managementApprovedBy;
 	private Date managementApprovedOn;
 	private String domicileState;
-	private List<StudentAcademicDetail> academicDtl;
-	private List<AdmissionDiscountDtl> DiscountDtl;
-	private List<AddressDetail> addressDtl;
-	private List<BranchPreference> branchPreference;
+	private List<StudentAcademicDetail> academicDtl=new ArrayList<StudentAcademicDetail>();
+	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
+	private List<AddressDetail> addressDtl=new ArrayList<AddressDetail>();
+	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
 
 	public List<StudentAcademicDetail> getAcademicDtl() {
 		return academicDtl;

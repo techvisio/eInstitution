@@ -1,7 +1,8 @@
 package com.techvisio.einstitution.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
@@ -34,9 +34,10 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void addStudentDtl(@RequestBody StudentDetail studentDetail) {
-		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.addStudentDtl(studentDetail);
+	public StudentDetail addStudentDtl(@RequestBody StudentDetail studentDetail) {
+		//AdmissionManager admissionManager = new AdmissionManagerImpl();
+		//admissionManager.addStudentDtl(studentDetail);
+		return new StudentDetail();
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
@@ -49,6 +50,13 @@ public class AdmissionService {
 	public void deleteStudentDtl(@PathVariable String fileNo) {
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
 		admissionManager.deleteSudentDtl(fileNo);
+	}
+	
+	public ResponseEntity<Map<String,List>> getMasterData(){
+		Map<String,List> masterData=new HashMap<String, List>();
+		//create list of FieldDesc
+		masterData.put("personalDetailAttributes", null);
+		return new ResponseEntity<Map<String,List>>(masterData,HttpStatus.OK);
 	}
 
 }
