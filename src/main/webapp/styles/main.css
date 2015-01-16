@@ -1,0 +1,230 @@
+.borderless tbody tr td, .borderless thead tr th {
+  border: none;
+  padding: 3px;
+  padding-top: none;
+  width: 200px;
+}      
+
+.borderless > thead > tr > th, .borderless > tbody > tr > th, .borderless > tfoot > tr > th, .borderless > thead > tr > td, .borderless > tbody > tr > td, .borderless > tfoot > tr > td {
+padding: 3px;
+line-height: 2;
+vertical-align: top;
+border-top:none;
+}
+ 
+
+.nav-header{
+  top: 0;
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #428bca;
+  padding-bottom: 20px;
+  padding-top: 20px;
+ }
+
+.nav-header-center{
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+}
+
+.navigation-main {
+position: fixed;
+top: 0;
+width: 100%;
+color: #ffffff;
+height: 115px;
+padding-top: 10px;
+/* Adds shadow to the bottom of the bar */
+-webkit-box-shadow: 0px 0px 8px 0px #000000;
+-moz-box-shadow: 0px 0px 8px 0px #000000;
+box-shadow: 0px 0px 8px 0px #000000;
+/* Adds the transparent background */
+background-color: rgba(0,70,135, 1);
+color: rgba(0,70,135, 1);
+}
+
+.header-menu{
+  float: right;
+  clear: right;
+  padding-right: 20px;
+  margin-top: 50px;
+ }
+
+.header-menu a {
+font-size: 14px;
+padding-left: 10px;
+padding-right: 10px;
+color: white;
+text-decoration: none;
+}
+
+.header-menu a:hover {
+color: grey;
+} 
+
+.header-menu li {
+    display: inline;
+    color: white;
+}
+
+.company-logo {
+  padding-right: 20px;
+  display: block;
+  float: right;
+  height: 30px;
+}
+
+.brand-logo {
+  padding-left: 20px;
+  display: block;
+  float: left;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+.content {
+  width: 99.8%;
+  margin-top: 118px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.module-section-eye-off {
+  float: right;
+  width: 85%;
+  margin-top: 10px;
+}
+
+.module-section-eye-on {
+  margin-top: 45px;
+   float: right;
+  width: 85%;
+  
+}
+
+.module-section-eye-off span , .module-section-eye-on span {
+   font-family: "Times New Roman";
+  font-size: 15px;
+  font-style: bold;
+}
+
+.long-inline input{
+  width: 150px;
+}
+
+.long-inline th { 
+    padding: 2px;
+ }
+
+.module-section-eye-off input,.module-section-eye-off select,.module-section-eye-on input,.module-section-eye-on select{
+  display: inline-block;
+  padding: 5px 5px;
+  border: 1px solid #b7b7b7;
+  -webkit-border-radius: 6px;
+  border-radius: 2px;
+  font: normal 15px/normal "Times New Roman";
+  
+  }
+
+
+
+  .module-sub-menu-eye-off  {
+    margin-top: 10px;
+    width: 185px;
+    height: 510px;
+    float: left;
+    position: fixed;
+    display: block;
+    background-color: #195893;
+    border-radius: 0px 10px 10px 0px;
+  }
+ 
+ .module-sub-menu-eye-off ul{
+list-style-type: none;
+}
+
+.module-sub-menu-eye-off li{
+  padding: 5px;
+  margin: 0 0 6px 0;
+}
+
+ .module-sub-menu-eye-off button{
+width: 100px;
+}
+  
+  .module-sub-menu-eye-on {
+    margin-top: 115px;
+    width: 1090px;
+    position: fixed;
+    display: inline;
+    float: right;
+    clear: right;
+  }
+
+.dashboard {
+  width: 80%;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(../images/dashboard.jpg);
+  margin-top: 160px;
+}
+  
+  .dashboard-icon table ,.dashboard-icon th,.dashboard-icon td {
+  border: none;
+  padding: 40px;
+  text-align: center;
+  color: white;
+ } 
+
+ .panel-div{
+  background-color: #004687;
+  float: right;
+ width: 94.45%;
+ font-size: 20px;
+ margin-bottom: 20px;
+ margin-right: 60px;
+ padding-left: 40px;
+ padding-top: 5px;
+ padding-bottom: 5px;
+ color: white;
+ font-family:  
+ }
+
+ .module-sub-section{
+  border: 1px solid #CCD6CC;
+  margin-bottom: 20px;
+ }
+
+
+ .floating-section-bookmark {
+  display: block;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  width: 12em;
+background: hsla(80, 90%, 40%, 0.7);
+color: white;
+font-weight: bold;
+font-size: small;
+border: solid hsla(80, 90%, 40%, 0.5);
+border-right: none;
+box-shadow: 0 1px 3px black;
+border-radius: 3em 0.5em 0.5em 3em;
+text-align: left;
+}
+
+.floating-section-bookmark ul{
+ list-style-type: none;
+ }
+
+.floating-section-bookmark a{
+  color: white;
+}
+

@@ -163,7 +163,7 @@ public class HostelDaoTest {
 	@Test
 	
 	public void testDeleteRoomTypeDetail(){
-		dao.deleteRoomTypeDetail("1");
+		dao.deleteRoomTypeDetail("2");
 		
 	}
 	
