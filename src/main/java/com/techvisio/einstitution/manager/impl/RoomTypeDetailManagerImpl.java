@@ -10,7 +10,7 @@ public class RoomTypeDetailManagerImpl implements RoomTypeDetailManager {
 	
 	
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
-		RoomTypeDetail roomTypeDetail = hostelDao.getRoomTypeDetail("typeCode");
+		RoomTypeDetail roomTypeDetail = hostelDao.getRoomTypeDetail(typeCode);
 		return roomTypeDetail;
 	}
 
@@ -23,7 +23,7 @@ public class RoomTypeDetailManagerImpl implements RoomTypeDetailManager {
 	}
 
 	public void deleteRoomTypeDetail(String typeCode) {
-		hostelDao.deleteRoomTypeDetail("typeCode");
+		hostelDao.deleteRoomTypeDetail(typeCode);
 	}
 
 }
