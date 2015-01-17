@@ -83,22 +83,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setCreated_On(rs.getDate("Created_On"));
 						studentDetail.setUpdatedBy(rs.getString("Updated_By"));
 						studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
-						studentDetail.setFeeReceivedBy(rs
-								.getString("Fee_Received_By"));
-						studentDetail.setFeeReceivedOn(rs
-								.getDate("Fee_Received_On"));
-						studentDetail.setDocumentReceivedBy(rs
-								.getString("Document_Received_By"));
-						studentDetail.setDocumentReceivedOn(rs
-								.getDate("Document_Received_On"));
-						studentDetail.setDocumentVerifiedBy(rs
-								.getString("Document_verified_By"));
-						studentDetail.setDocumentVerifiedOn(rs
-								.getDate("Document_Verified_On"));
-						studentDetail.setManagementApprovedBy(rs
-								.getString("Management_Approved_By"));
-						studentDetail.setManagementApprovedOn(rs
-								.getDate("Management_Approved_On"));
 						studentDetail.setDomicileState(rs
 								.getString("Domicile_State_Id"));
 
@@ -166,20 +150,20 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Updated_On", studentDtl.getUpdatedOn())
-						.addValue("Fee_Received_By", studentDtl.getFeeReceivedBy())
-						.addValue("Fee_Received_On", studentDtl.getFeeReceivedOn())
+						.addValue("Fee_Received_By", null)
+						.addValue("Fee_Received_On", null)
 						.addValue("Document_Received_By",
-								studentDtl.getDocumentReceivedBy())
+								null)
 								.addValue("Document_Received_On",
-										studentDtl.getDocumentReceivedOn())
+										null)
 										.addValue("Document_verified_By",
-												studentDtl.getDocumentVerifiedBy())
+												null)
 												.addValue("Document_Verified_On",
-														studentDtl.getDocumentVerifiedOn())
+														null)
 														.addValue("Management_Approved_By",
-																studentDtl.getManagementApprovedBy())
+																null)
 																.addValue("Management_Approved_On",
-																		studentDtl.getManagementApprovedOn())
+																		null)
 																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
@@ -257,20 +241,20 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Updated_On", studentDtl.getUpdatedOn())
-						.addValue("Fee_Received_By", studentDtl.getFeeReceivedBy())
-						.addValue("Fee_Received_On", studentDtl.getFeeReceivedOn())
+						.addValue("Fee_Received_By", null)
+						.addValue("Fee_Received_On", null)
 						.addValue("Document_Received_By",
-								studentDtl.getDocumentReceivedBy())
+								null)
 								.addValue("Document_Received_On",
-										studentDtl.getDocumentReceivedOn())
+										null)
 										.addValue("Document_verified_By",
-												studentDtl.getDocumentVerifiedBy())
+												null)
 												.addValue("Document_Verified_On",
-														studentDtl.getDocumentVerifiedOn())
+														null)
 														.addValue("Management_Approved_By",
-																studentDtl.getManagementApprovedBy())
+																null)
 																.addValue("Management_Approved_On",
-																		studentDtl.getManagementApprovedOn())
+																		null)
 																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
