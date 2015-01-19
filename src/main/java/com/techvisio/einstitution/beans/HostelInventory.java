@@ -1,3 +1,4 @@
+
 package com.techvisio.einstitution.beans;
 
 public class HostelInventory {

@@ -1,57 +1,99 @@
 package com.techvisio.einstitution.beans;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.DynamicProperties;
 
 public class StudentDetail {
 
+	@DynamicProperties(id="fileNo", title="File No")
 	private String fileNo;
+	@DynamicProperties(id="enrollNo", title="Enrollment No")
 	private String enrollNo;
-	private String uniEnrollNo;
-	private byte[] photo;
-	private String firstName;
-	private String lastName;
-	private String fatherName;
-	private String motherName;
-	private String gender;
-	private Date dob;
-	private String bloodGroup;
-	private String fatherOccupation;
-	private String fixedlineNo;
-	private String selfMobileNo;
-	private String parentMobileNo;
-	private String gaurdianMobileNo;
-	private String emailId;
-	private String gaurdianEmailId;
-	private boolean hostel;
-	private boolean transportation;
+	@DynamicProperties(id="academicYear", title="Academic Year")
 	private String academicYear;
+	@DynamicProperties(id="semester", title="Semester")
 	private String semester;
-	private boolean managementApproval;
-	private boolean feePaid;
-	private Long categoryId;
+	
+	@DynamicProperties(id="courseId", title="courseId", type="select")
 	private Long courseId;
+	@DynamicProperties(id="branchId", title="branchId", type="select")
 	private Long branchId;
+	
+	@DynamicProperties(id="firstName", title="First Name")
+	private String firstName;
+	@DynamicProperties(id="lastName", title="Last Name")
+	private String lastName;
+	
+	@DynamicProperties(id="uniEnrollNo", title="University Enrollment No")
+	private String uniEnrollNo;
+	@DynamicProperties(id="dob", title="DOB", type="date")
+	private Date dob;
+	@DynamicProperties(id="fatherName", title="Father Name")
+	private String fatherName;
+	@DynamicProperties(id="motherName", title="Mother Name")
+	private String motherName;
+	@DynamicProperties(id="gender", title="Gender", type="radio", validValues={"Male","Female"})
+	private String gender;
+	@DynamicProperties(id="bloodGroup", title="Blood Group", type="select")
+	private String bloodGroup;
+	@DynamicProperties(id="emailId", title="Student Email Id")
+	private String emailId;
+	@DynamicProperties(id="gaurdianEmailId", title="Gaurdian Email Id")
+	private String gaurdianEmailId;
+	@DynamicProperties(id="fixedlineNo", title="Fixed Line No")
+	private String fixedlineNo;
+	@DynamicProperties(id="selfMobileNo", title="Self Mobile No")
+	private String selfMobileNo;
+	@DynamicProperties(id="parentMobileNo", title="Parent Cell No")
+	private String parentMobileNo;
+	@DynamicProperties(id="gaurdianMobileNo", title="Gaurdian Mobile No")
+	private String gaurdianMobileNo;
+	@DynamicProperties(id="fatherOccupation", title="Father Occupation")
+	private String fatherOccupation;
+	@DynamicProperties(id="categoryId", title="categoryId", type="select")
+	private Long categoryId;
+	@DynamicProperties(id="hostel", title="Hostel Required",type="check")
+	private boolean hostel;
+	@DynamicProperties(id="transportation", title="Transport Required", type="check")
+	private boolean transportation;
+	
+	
+	@DynamicProperties(id="managementApproval", title="managementApproval" , type="check")
+	private boolean managementApproval;
+	@DynamicProperties(id="feePaid", title="feePaid", type="check")
+	private boolean feePaid;
+	
+	
+	
+	@DynamicProperties(id="createdBy", title="createdBy")
 	private String createdBy;
+	@DynamicProperties(id="createdOn", title="createdOn")
 	private Date createdOn;
+	@DynamicProperties(id="updatedBy", title="updatedBy")
 	private String updatedBy;
+	@DynamicProperties(id="updatedOn", title="updatedOn")
 	private Date updatedOn;
-	private String feeReceivedBy;
-	private Date feeReceivedOn;
-	private String documentReceivedBy;
-	private Date documentReceivedOn;
-	private String documentVerifiedBy;
-	private Date documentVerifiedOn;
-	private String managementApprovedBy;
-	private Date managementApprovedOn;
+	
+	private byte[] photo;
+//	private String feeReceivedBy;
+//	private Date feeReceivedOn;
+//	private String documentReceivedBy;
+//	private Date documentReceivedOn;
+//	private String documentVerifiedBy;
+//	private Date documentVerifiedOn;
+//	private String managementApprovedBy;
+//	private Date managementApprovedOn;
+	@DynamicProperties(id="domicileState", title="domicileState", type="select")
 	private String domicileState;
-	private List<StudentAcademicDetail> academicDtl;
-	private List<AdmissionDiscountDtl> DiscountDtl;
-	private List<AddressDetail> addressDtl;
-	private List<BranchPreference> branchPreference;
+	private List<StudentAcademicDetail> academicDtl=new ArrayList<StudentAcademicDetail>();
+	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
+	private List<AddressDetail> addressDtl=new ArrayList<AddressDetail>();
+	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
 
 	public List<StudentAcademicDetail> getAcademicDtl() {
 		return academicDtl;
@@ -287,69 +329,6 @@ public class StudentDetail {
 		this.updatedOn = updatedOn;
 	}
 
-	public String getFeeReceivedBy() {
-		return feeReceivedBy;
-	}
-
-	public void setFeeReceivedBy(String feeReceivedBy) {
-		this.feeReceivedBy = feeReceivedBy;
-	}
-
-	public Date getFeeReceivedOn() {
-		return feeReceivedOn;
-	}
-
-	public void setFeeReceivedOn(Date feeReceivedOn) {
-		this.feeReceivedOn = feeReceivedOn;
-	}
-
-	public String getDocumentReceivedBy() {
-		return documentReceivedBy;
-	}
-
-	public void setDocumentReceivedBy(String documentReceivedBy) {
-		this.documentReceivedBy = documentReceivedBy;
-	}
-
-	public Date getDocumentReceivedOn() {
-		return documentReceivedOn;
-	}
-
-	public void setDocumentReceivedOn(Date documentReceivedOn) {
-		this.documentReceivedOn = documentReceivedOn;
-	}
-
-	public String getDocumentVerifiedBy() {
-		return documentVerifiedBy;
-	}
-
-	public void setDocumentVerifiedBy(String documentverifiedBy) {
-		this.documentVerifiedBy = documentverifiedBy;
-	}
-
-	public Date getDocumentVerifiedOn() {
-		return documentVerifiedOn;
-	}
-
-	public void setDocumentVerifiedOn(Date documentVerifiedOn) {
-		this.documentVerifiedOn = documentVerifiedOn;
-	}
-
-	public String getManagementApprovedBy() {
-		return managementApprovedBy;
-	}
-
-	public void setManagementApprovedBy(String managementApprovedBy) {
-		this.managementApprovedBy = managementApprovedBy;
-	}
-
-	public Date getManagementApprovedOn() {
-		return managementApprovedOn;
-	}
-
-	public void setManagementApprovedOn(Date managementApprovedOn) {
-		this.managementApprovedOn = managementApprovedOn;
-	}
 
 	public String getDomicileState() {
 		return domicileState;
@@ -407,38 +386,5 @@ public class StudentDetail {
 		this.branchPreference = branchPreference;
 	}
 
-	@Override
-	public String toString() {
-		return "StudentDetail [fileNo=" + fileNo + ", enrollNo=" + enrollNo
-				+ ", uniEnrollNo=" + uniEnrollNo + ", photo="
-				+ Arrays.toString(photo) + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", fatherName=" + fatherName
-				+ ", motherName=" + motherName + ", gender=" + gender
-				+ ", dob=" + dob + ", bloodGroup=" + bloodGroup
-				+ ", fatherOccupation=" + fatherOccupation + ", fixedlineNo="
-				+ fixedlineNo + ", selfMobileNo=" + selfMobileNo
-				+ ", parentMobileNo=" + parentMobileNo + ", gaurdianMobileNo="
-				+ gaurdianMobileNo + ", emailId=" + emailId
-				+ ", gaurdianEmailId=" + gaurdianEmailId + ", hostel=" + hostel
-				+ ", transportation=" + transportation + ", academicYear="
-				+ academicYear + ", semester=" + semester
-				+ ", managementApproval=" + managementApproval + ", feePaid="
-				+ feePaid + ", categoryId=" + categoryId + ", courseId="
-				+ courseId + ", branchId=" + branchId + ", createdBy="
-				+ createdBy + ", createdOn=" + createdOn + ", updatedBy="
-				+ updatedBy + ", updatedOn=" + updatedOn + ", feeReceivedBy="
-				+ feeReceivedBy + ", feeReceivedOn=" + feeReceivedOn
-				+ ", documentReceivedBy=" + documentReceivedBy
-				+ ", documentReceivedOn=" + documentReceivedOn
-				+ ", documentVerifiedBy=" + documentVerifiedBy
-				+ ", documentVerifiedOn=" + documentVerifiedOn
-				+ ", managementApprovedBy=" + managementApprovedBy
-				+ ", managementApprovedOn=" + managementApprovedOn
-				+ ", domicileState=" + domicileState + ", academicDtl="
-				+ academicDtl + ", DiscountDtl=" + DiscountDtl
-				+ ", addressDtl=" + addressDtl + ", branchPreference="
-				+ branchPreference + "]";
-	}
-	
 	
 }
