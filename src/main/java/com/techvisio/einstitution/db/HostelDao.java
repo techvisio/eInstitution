@@ -1,12 +1,19 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelInventory;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 
 public interface HostelDao {
 
+	public List<HostelAvailability> getHostelAvailability();
+	
+	
+	
 	public HostelInventory getHostelInventory(String hostelInventory);
 	public void addHostelInventory(HostelInventory hostelInventory);
 	public void updateHostelInventory(HostelInventory hostelInventory);

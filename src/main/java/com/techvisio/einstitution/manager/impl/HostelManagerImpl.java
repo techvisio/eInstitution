@@ -14,7 +14,7 @@ public class HostelManagerImpl implements HostelManager {
 	
 	
 	public HostelAllocation getHostelAllocation(String fileNo) {
-		HostelAllocation h = hostelDao.getHostelAllocation("fileNo");
+		HostelAllocation h = hostelDao.getHostelAllocation(fileNo);
 		return h;
 	}
 
@@ -27,7 +27,7 @@ public class HostelManagerImpl implements HostelManager {
 	}
 
 	public void deleteHostelAllocation(String fileNo) {
-		hostelDao.deleteHostelAllocation("fileNo");
+		hostelDao.deleteHostelAllocation(fileNo);
 	}
 
 	
@@ -35,7 +35,7 @@ public class HostelManagerImpl implements HostelManager {
 	
 	
 	public HostelReservation getHostelReservation(String fileNo) {
-		HostelReservation hostelReservation = hostelDao.getHostelReservation("fileNo");
+		HostelReservation hostelReservation = hostelDao.getHostelReservation(fileNo);
 		return hostelReservation;	}
 
 	public void addHostelReservation(HostelReservation hostelReservation) {
@@ -47,7 +47,7 @@ public class HostelManagerImpl implements HostelManager {
 	}
 
 	public void deleteHostelReservation(String fileNo) {
-		hostelDao.deleteHostelReservation("fileNo");
+		hostelDao.deleteHostelReservation(fileNo);
 	}
 
 
@@ -56,7 +56,7 @@ public class HostelManagerImpl implements HostelManager {
 	
 
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
-		RoomTypeDetail roomTypeDetail = hostelDao.getRoomTypeDetail("typeCode");
+		RoomTypeDetail roomTypeDetail = hostelDao.getRoomTypeDetail(typeCode);
 		return roomTypeDetail;
 	}
 
@@ -69,7 +69,7 @@ public class HostelManagerImpl implements HostelManager {
 	}
 
 	public void deleteRoomTypeDetail(String typeCode) {
-		hostelDao.deleteRoomTypeDetail("typeCode");
+		hostelDao.deleteRoomTypeDetail(typeCode);
 	}
 
 }

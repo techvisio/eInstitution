@@ -3,7 +3,23 @@
 
 <properties>
 
-	<entry key="getHostelAllocation">
+<entry key="getHostelAvailability">
+    <![CDATA[
+SELECT 
+	HI.THRESHOLD,
+	HI.TYPE_CODE,
+	HI.PRICE,
+	COUNT(HR.TYPE_CODE) AS RESERVED_ROOM,
+	HI.THRESHOLD-COUNT(HR.TYPE_CODE) AS AVAILABLE
+	 
+FROM hostelinventory HI JOIN hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HR.Type_Code;      
+    ]]>
+
+	</entry>
+
+
+
+<entry key="getHostelAllocation">
     <![CDATA[
       
 Select 
