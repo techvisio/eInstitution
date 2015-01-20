@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.manager.HostelManager;
@@ -68,10 +71,10 @@ public class HostelService {
 	@RequestMapping(value="/HostelAllocation",method = RequestMethod.PUT)
 	public void updateHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
 		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.addHostelAllocation(hostelAllocation);
+		hostelManager.updateHostelAllocation(hostelAllocation);
 	}
 	
-	@RequestMapping(value="/HostelAllocation",method = RequestMethod.DELETE)
+	@RequestMapping(value="/HostelAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelAllocation(@PathVariable String fileNo){
 		
 		HostelManager hostelManager = new HostelManagerImpl();
@@ -104,11 +107,19 @@ public class HostelService {
 		
 	}
 	
-	@RequestMapping(value ="/HostelReservation",method = RequestMethod.DELETE)
+	@RequestMapping(value ="/HostelReservation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelReservation(@PathVariable String fileNo){
 		HostelManager hostelManager = new HostelManagerImpl();
 		hostelManager.deleteHostelReservation(fileNo);
 	}
 	
+//HostelAvailability
+	@RequestMapping(value ="/HostelAvailability", method = RequestMethod.GET)
+	public List<HostelAvailability> getHostelAvailability(){
+		HostelManager hostelManager = new HostelManagerImpl();
+		List<HostelAvailability> hostelAvailability = hostelManager.getHostelAvailability();
+		return hostelAvailability;
+		
+	}
 	
 }
