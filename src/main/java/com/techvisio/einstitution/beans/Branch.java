@@ -2,18 +2,9 @@ package com.techvisio.einstitution.beans;
 
 public class Branch {
 
-	private Course course;
+	private Long courseId;
 	private Long id;
 	private String branchName;
-	
-	
-	public Course getCourseId() {
-		return course;
-	}
-	
-	public void setCourseId(Course courseId) {
-		this.course = courseId;
-	}
 	
 	
 	public Long getId() {
@@ -33,10 +24,12 @@ public class Branch {
 		this.branchName = branchName;
 	}
 
-	@Override
-	public String toString() {
-		return "Branch [course=" + course + ", id=" + id + ", branchName="
-				+ branchName + "]";
+		public Long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
 	}
 	
 }

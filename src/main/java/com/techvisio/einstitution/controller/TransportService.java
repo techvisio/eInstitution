@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
@@ -19,9 +22,17 @@ import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 public class TransportService {
 
 	
-	
-	
 		private static final Logger logger = Logger.getLogger(InquiryService.class);
+		
+		@RequestMapping(value="/AvailableTransport",method = RequestMethod.GET)
+		  public List<AvailableTransport> getTransportAllocation() {
+			TransportManager transportManager=new TransportManagerImpl();
+			List<AvailableTransport> availableTransports=transportManager.getAvailableTransport();
+			
+			return availableTransports;  
+		 
+			
+		  }
 		
 		@RequestMapping(value="/Allocation/{fileNo}",method = RequestMethod.GET)
 		  public TransportAllocation getTransportAllocation(@PathVariable String fileNo) {

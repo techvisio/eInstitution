@@ -3,6 +3,7 @@ package com.techvisio.einstitution.beans;
 public class MasterDataBean {
 private String id;
 private String value;
+private String parentId;
 public String getId() {
 	return id;
 }
@@ -15,10 +16,24 @@ public String getValue() {
 public void setValue(String value) {
 	this.value = value;
 }
-public MasterDataBean(String id, String value) {
+public MasterDataBean(String id, String value,String parentId) {
 	super();
 	this.id = id;
 	this.value = value;
+    this.parentId = parentId;
+}
+public MasterDataBean(String id, String value) {
+
+	super();
+	this.id = id;
+	this.value = value;
+
+}
+public String getParentId() {
+	return parentId;
+}
+public void setParentId(String parentId) {
+	this.parentId = parentId;
 }
 
 }

@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.beans;
 
-public class Qualfication {
+public class Qualification {
 
 	private Long id;
 	private String qulaifyingExam;

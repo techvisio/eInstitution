@@ -2,9 +2,10 @@ package com.techvisio.einstitution.beans;
 
 public class AvailableTransport {
 
+	private String RouteCode;
 	private int reservedTransport;
-	private int allocatedTransport;
-	private int threshold;
+	private int availableTransport;
+	private String threshold;
 	private Double price;
 
 
@@ -16,19 +17,12 @@ public class AvailableTransport {
 		this.reservedTransport = reservedTransport;
 	}
 
-	public int getAllocatedTransport() {
-		return allocatedTransport;
-	}
 
-	public void setAllocatedTransport(int allocatedTransport) {
-		this.allocatedTransport = allocatedTransport;
-	}
-
-	public int getThreshold() {
+	public String getThreshold() {
 		return threshold;
 	}
 
-	public void setThreshold(int threshold) {
+	public void setThreshold(String threshold) {
 		this.threshold = threshold;
 	}
 
@@ -38,5 +32,29 @@ public class AvailableTransport {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public String getRouteCode() {
+		return RouteCode;
+	}
+
+	public void setRouteCode(String typeCode) {
+		this.RouteCode = typeCode;
+	}
+
+	public int getAvailableTransport() {
+		return availableTransport;
+	}
+
+	public void setAvailableTransport(int availableTransport) {
+		this.availableTransport = availableTransport;
+	}
+
+	@Override
+	public String toString() {
+		return "AvailableTransport [typeCode=" + RouteCode
+				+ ", reservedTransport=" + reservedTransport
+				+ ", availableTransport=" + availableTransport + ", threshold="
+				+ threshold + ", price=" + price + "]";
 	}
 }

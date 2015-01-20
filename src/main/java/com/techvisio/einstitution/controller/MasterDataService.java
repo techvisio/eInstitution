@@ -37,8 +37,8 @@ public ResponseEntity<Map<String,List>> getMasterDataforAdmission() throws NoSuc
 	serverData.put("course", course);
 	
 	List<MasterDataBean> branch=new ArrayList<MasterDataBean>();
-	branch.add(new MasterDataBean("1", "CS"));
-	branch.add(new MasterDataBean("2", "Mechanical"));
+	branch.add(new MasterDataBean("1", "CS", "BTech"));
+	branch.add(new MasterDataBean("2", "Mechanical", "BTech"));
 	serverData.put("branch", branch);
 	
 	List<MasterDataBean> state=new ArrayList<MasterDataBean>();

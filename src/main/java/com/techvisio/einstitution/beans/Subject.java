@@ -13,19 +13,21 @@ public class Subject {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-	public String getQuotaCode() {
+
+	public String getSubjectName() {
 		return subjectName;
 	}
-	
-	public void setQuotaCode(String quotaCode) {
-		subjectName = quotaCode;
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 
 	@Override
 	public String toString() {
 		return "Subject [id=" + id + ", subjectName=" + subjectName + "]";
 	}
+	
+	
+	
 	
 }

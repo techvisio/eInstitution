@@ -5,8 +5,10 @@ public class TransportReservation {
 	private String fileNo;
 	private String routeCode;
 	private boolean feePaid;
-
-	public String getFileNo() {
+    private boolean isActive;
+    private String allocationStatus;
+	
+    public String getFileNo() {
 		return fileNo;
 	}
 
@@ -33,7 +35,24 @@ public class TransportReservation {
 	@Override
 	public String toString() {
 		return "TransportReservation [fileNo=" + fileNo + ", routeCode="
-				+ routeCode + ", feePaid=" + feePaid + "]";
+				+ routeCode + ", feePaid=" + feePaid + ", isActive=" + isActive
+				+ ", allocationStatus=" + allocationStatus + "]";
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getAllocationStatus() {
+		return allocationStatus;
+	}
+
+	public void setAllocationStatus(String allocationStatus) {
+		this.allocationStatus = allocationStatus;
 	}
 	
 }
