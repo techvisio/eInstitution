@@ -1,24 +1,28 @@
 
 .inner-table tbody tr td, .inner-table thead tr th {
-  border: none;
-  padding: 3px;
-  padding-top: none;
-  width: 50px;
+border: none;
+padding: 1px;
+padding-right: 15px;
+padding-left: 10px;
+line-height: 1.5;
+border-top:none;
+width: 50px;
 }    
 
-.borderless > thead  tr  th, .borderless  tbody  tr  th, .borderless  tfoot  tr  th, .borderless  thead  tr  td, .borderless  tbody  tr  td, .borderless  tfoot  tr  td,.borderless tbody tr td, .borderless thead tr th {
-border: none;
-padding: 3px;
-line-height: 2;
-border-top:none;
-width: 200px;
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+border-top: none;
 }
 
-.borderless tr {
-	border: none;
-	border-top:none;
+.borderless  thead  tr  th, .borderless  tbody  tr  th, .borderless  tfoot  tr  th, .borderless  thead  tr  td, .borderless  tbody  tr  td, .borderless  tfoot  tr  td,.borderless tbody tr td, .borderless thead tr th {
+border: none;
+padding: 1px;
+padding-right: 15px;
+padding-left: 10px;
+line-height: 1.5;
+border-top:none;
+width: 250px;
+
 }
- 
 
 .nav-header{
   top: 0;

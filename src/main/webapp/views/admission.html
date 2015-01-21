@@ -1,17 +1,3 @@
-<!-- <!DOCTYPE html>
-<html ng-app="app">
-<head>
-   <title>eInstitution</title>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="styles/accordian.css" rel="stylesheet" />
-    <script src="bower_components/angular/angular.js"></script>
-   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-   <script src="scripts/app.js"></script>
-
-</head>
-
-<body> -->
     <div ng-controller="admissionController" ng-init="init()">
       <div class="floating-section-bookmark" ng-controller="headerCtrl">
         <ul>
@@ -38,7 +24,7 @@
       <div class="module-sub-section">
      
       <!-- <div dynamic="html"></div> -->
-      <table class="table borderless">
+      <table class=" borderless">
         <tr> <div id="personal" class="panel-div">Student Personal Details</div></tr>
       <tr ng-repeat="row in serverModelData.personalDetailAttributes">
         <td ng-repeat-start="personalData in row">
@@ -65,7 +51,7 @@
       <div class="module-sub-section">
       <div id="address" class="panel-div">Student Address Details</div>
       <a href='#address'></a>
-      <table class="table borderless">
+      <table class="borderless">
       <tr>
         <th>Permanent Address</th>
         <th></th>
@@ -133,7 +119,7 @@
       <div id="academic" class="panel-div">Student Academic Details</div>
       <a href='#academic'></a>
       <div class="long-inline">
-      <table class="table borderless">
+      <table class="borderless">
       <tr ng-repeat-start="object in student.academicDtl">
             <th><span>Qualification</span></th>
              <th><span>University</span></th>

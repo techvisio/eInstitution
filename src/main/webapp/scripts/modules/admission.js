@@ -1,8 +1,7 @@
 var admissionModule = angular.module('admissionModule', []);
-
-admissionModule.run([ '$anchorScroll', function($anchorScroll) {
-  $anchorScroll.yOffset = 200; // always scroll by 50 extra pixels
-} ]);
+admissionModule.run(['$anchorScroll', function($anchorScroll) {
+    $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
+  }]);
 
 admissionModule.controller('headerCtrl', [ '$anchorScroll', '$location',
                                            '$scope', function($anchorScroll, $location, $scope) {
