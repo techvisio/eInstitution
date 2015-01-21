@@ -35,9 +35,9 @@ public class AdmissionService {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public StudentDetail addStudentDtl(@RequestBody StudentDetail studentDetail) {
-		//AdmissionManager admissionManager = new AdmissionManagerImpl();
-		//admissionManager.addStudentDtl(studentDetail);
-		return new StudentDetail();
+		AdmissionManager admissionManager = new AdmissionManagerImpl();
+		admissionManager.addStudentDtl(studentDetail);
+		return studentDetail;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)

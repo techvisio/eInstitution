@@ -17,9 +17,8 @@ http://www.springframework.org/schema/tx
  
  
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
-
 	<context:annotation-config />
-
+    <context:component-scan base-package="com.techvisio.einstitution.controller" /> 
 	<!-- DB data source. -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
@@ -46,9 +45,8 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	</bean>
 
 	<bean id="cacheDao" class="com.techvisio.einstitution.db.impl.CacheDaoImpl">
-		<property name="masterQueryProps" ref="masterQueryProps" />
+		<property name="masterQueryProps" ref="masterQueryProps"/>
 	</bean>
-
 
 	<bean id="inquiryQueryProps"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -94,12 +92,13 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<bean id="hostelDaoImpl" class="com.techvisio.einstitution.db.impl.HostelDaoImpl">
 		<property name="hostelQueryProps" ref="hostelQueryProps"></property>
-
 	</bean>
-
+	
 	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory">
 	</bean>
 
+	<bean id="cacheManager" class="com.techvisio.einstitution.manager.impl.CacheManagerImpl" >
+	</bean>
 
 
 </beans>

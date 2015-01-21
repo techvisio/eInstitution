@@ -1,4 +1,4 @@
-package com.techvisio.einstitution.db;
+package com.techvisio.einstitution.manager.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,24 +17,22 @@ import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
+import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.MasterDataConstants;
 
-public class CacheService {
+public class CacheManagerImpl implements CacheManager {
 
-	private static CacheService instance;
-
-	public static CacheService getInstance() {
-		if (instance != null) {
-			instance = new CacheService();
-		}
-		return instance;
-	}
-	
 	@Autowired
-    CacheDaoImpl cacheDao;
+	CacheDao cacheDao;
 	
-	private static Map<String,Object> cacheMap=new HashMap<String, Object>();
+	
+	public void setCacheDao(CacheDaoImpl cacheDao) {
+		this.cacheDao = cacheDao;
+	}
+
+	private  Map<String,Object> cacheMap=new HashMap<String, Object>();
 
 	
 	@SuppressWarnings("unchecked")
@@ -42,11 +40,13 @@ public class CacheService {
 		
 		if(cacheMap.get(MasterDataConstants.BRANCH) == null){
 			
-			List<Branch> branchs = cacheDao.getBranch();
+			List<Branch> branchs =null;
+			branchs=cacheDao.getBranch();
 			cacheMap.put(MasterDataConstants.BRANCH, branchs);
 		}
 		return (List<Branch>) cacheMap.get(MasterDataConstants.BRANCH);
 	}
+	
 	
 	public List<MasterDataBean> getBranchAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
@@ -61,7 +61,8 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Course> getCourses() {
 		if(cacheMap.get(MasterDataConstants.COURSE) == null){
-			List<Course> courses=cacheDao.getCourse();
+			List<Course> courses=null;
+			courses=cacheDao.getCourse();
 			cacheMap.put(MasterDataConstants.COURSE, courses);
 		}
 		
@@ -80,7 +81,8 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CasteCategory> getCategories() {
 		if(cacheMap.get(MasterDataConstants.CATEGORY) == null){
-			List<CasteCategory> categories=cacheDao.getCatagory();
+			List<CasteCategory> categories=null;
+			categories=cacheDao.getCatagory();
 			cacheMap.put(MasterDataConstants.CATEGORY, categories);
 		}
 		
@@ -99,8 +101,9 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CounsellingBody> getCounsellingBodies() {
 		if(cacheMap.get(MasterDataConstants.COUNSELLING) == null){
-			List<CounsellingBody> courses=cacheDao.getCounsellingBody();
-			cacheMap.put(MasterDataConstants.COUNSELLING, courses);
+			List<CounsellingBody> counsellingBodies=null;
+			counsellingBodies=cacheDao.getCounsellingBody();
+			cacheMap.put(MasterDataConstants.COUNSELLING, counsellingBodies);
 		}
 		
 		return (List<CounsellingBody>)cacheMap.get(MasterDataConstants.COUNSELLING);
@@ -118,7 +121,8 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<FeeHead> getFeeHeads() {
 		if(cacheMap.get(MasterDataConstants.FEEHEAD) == null){
-			List<FeeHead> feeHeads=cacheDao.getFeeHead();
+			List<FeeHead> feeHeads=null;
+			feeHeads=cacheDao.getFeeHead();
 			cacheMap.put(MasterDataConstants.FEEHEAD, feeHeads);
 		}
 		
@@ -138,7 +142,8 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Qualification> getQualifications() {
 		if(cacheMap.get(MasterDataConstants.QUALIFICATION) == null){
-			List<Qualification> qualifications=cacheDao.getQualification();
+			List<Qualification> qualifications=null;
+			qualifications=cacheDao.getQualification();
 			cacheMap.put(MasterDataConstants.QUALIFICATION, qualifications);
 		}
 		
@@ -157,7 +162,8 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<QuotaCode> getQuotaCodes() {
 		if(cacheMap.get(MasterDataConstants.QUOTACODE) == null){
-			List<QuotaCode> quotaCodes=cacheDao.getQuotaCode();
+			List<QuotaCode> quotaCodes=null;
+			quotaCodes=cacheDao.getQuotaCode();
 			cacheMap.put(MasterDataConstants.QUOTACODE, quotaCodes);
 		}
 		
@@ -176,7 +182,8 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<State> getStates() {
 		if(cacheMap.get(MasterDataConstants.STATE) == null){
-			List<State> states=cacheDao.getState();
+			List<State> states=null;
+			states=cacheDao.getState();
 			cacheMap.put(MasterDataConstants.STATE, states);
 		}
 		
@@ -195,12 +202,14 @@ public class CacheService {
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Subject> getsSubjects() {
 		if(cacheMap.get(MasterDataConstants.SUBJECT) == null){
-			List<Subject> subjectes=cacheDao.getSubject();
+			List<Subject> subjectes=null;
+			subjectes=cacheDao.getSubject();
 			cacheMap.put(MasterDataConstants.STATE, subjectes);
 		}
 		
 		return (List<Subject>)cacheMap.get(MasterDataConstants.SUBJECT);
 	}
+	
 	
 	public List<MasterDataBean> getSubjectAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
@@ -210,79 +219,6 @@ public class CacheService {
 		}
 		return masterData;
 	}	
-//	public static void setCourseMap(Map<String, Course> courseMap) {
-//		CacheService.courseMap = courseMap;
-//	}
-//
-//	public static Map<String, Branch> getBranchMap() {
-//		return branchMap;
-//	}
-//
-//	public static void setBranchMap(Map<String, Branch> branchMap) {
-//		CacheService.branchMap = branchMap;
-//	}
-//
-//	public static Map<String, State> getStateMap() {
-//		return stateMap;
-//	}
-//
-//	public static void setStateMap(Map<String, State> stateMap) {
-//		CacheService.stateMap = stateMap;
-//	}
-//
-//	public static Map<String, CasteCategory> getCasteCategoryMap() {
-//		return casteCategoryMap;
-//	}
-//
-//	public static void setCasteCategoryMap(
-//			Map<String, CasteCategory> casteCategoryMap) {
-//		CacheService.casteCategoryMap = casteCategoryMap;
-//	}
-//
-//	public static Map<String, Qualification> getQualificationMap() {
-//		return qualificationMap;
-//	}
-//
-//	public static void setQualificationMap(
-//			Map<String, Qualification> qualificationMap) {
-//		CacheService.qualificationMap = qualificationMap;
-//	}
-//
-//	public static Map<String, CounsellingBody> getCounsellingMap() {
-//		return counsellingMap;
-//	}
-//
-//	public static void setCounsellingMap(
-//			Map<String, CounsellingBody> counsellingMap) {
-//		CacheService.counsellingMap = counsellingMap;
-//	}
-//
-//	public static Map<String, FeeHead> getFeeHeadMap() {
-//		return feeHeadMap;
-//	}
-//
-//	public static void setFeeHeadMap(Map<String, FeeHead> feeHeadMap) {
-//		CacheService.feeHeadMap = feeHeadMap;
-//	}
-//
-//	public static Map<String, Subject> getSubjectMap() {
-//		return SubjectMap;
-//	}
-//
-//	public static void setSubjectMap(Map<String, Subject> subjectMap) {
-//		SubjectMap = subjectMap;
-//	}
-//
-//	public static Map<String, QuotaCode> getQuotaMap() {
-//		return QuotaMap;
-//	}
-//
-//	public static void setQuotaMap(Map<String, QuotaCode> quotaMap) {
-//		QuotaMap = quotaMap;
-//	}
-//
-//	public static void setInstance(CacheService instance) {
-//		CacheService.instance = instance;
-//	}
+
 
 }

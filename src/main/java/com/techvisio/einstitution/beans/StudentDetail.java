@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.DynamicProperties;
+import com.techvisio.einstitution.util.MasterDataIdConstants;
 
 public class StudentDetail {
 
@@ -19,9 +20,9 @@ public class StudentDetail {
 	@DynamicProperties(id="semester", title="Semester")
 	private String semester;
 	
-	@DynamicProperties(id="courseId", title="courseId", type="select")
+	@DynamicProperties(id="courseId", title="course", type="select", masterDataCode=MasterDataIdConstants.course)
 	private Long courseId;
-	@DynamicProperties(id="branchId", title="branchId", type="select")
+	@DynamicProperties(id="branchId", title="branch", type="select", masterDataCode=MasterDataIdConstants.branch)
 	private Long branchId;
 	
 	@DynamicProperties(id="firstName", title="First Name")
@@ -39,7 +40,7 @@ public class StudentDetail {
 	private String motherName;
 	@DynamicProperties(id="gender", title="Gender", type="radio", validValues={"Male","Female"})
 	private String gender;
-	@DynamicProperties(id="bloodGroup", title="Blood Group", type="select")
+	@DynamicProperties(id="bloodGroup", title="Blood Group", type="select", masterDataCode=MasterDataIdConstants.bloodGroup)
 	private String bloodGroup;
 	@DynamicProperties(id="emailId", title="Student Email Id")
 	private String emailId;
@@ -55,7 +56,7 @@ public class StudentDetail {
 	private String gaurdianMobileNo;
 	@DynamicProperties(id="fatherOccupation", title="Father Occupation")
 	private String fatherOccupation;
-	@DynamicProperties(id="categoryId", title="categoryId", type="select" , masterDataCode="category")
+	@DynamicProperties(id="categoryId", title="category", type="select" , masterDataCode=MasterDataIdConstants.category)
 	private Long categoryId;
 	@DynamicProperties(id="hostel", title="Hostel Required",type="check")
 	private boolean hostel;
@@ -88,7 +89,7 @@ public class StudentDetail {
 //	private Date documentVerifiedOn;
 //	private String managementApprovedBy;
 //	private Date managementApprovedOn;
-	@DynamicProperties(id="domicileState", title="domicileState", type="select")
+	@DynamicProperties(id="domicileState", title="Domicile State", type="select", masterDataCode=MasterDataIdConstants.state)
 	private String domicileState;
 	private List<StudentAcademicDetail> academicDtl=new ArrayList<StudentAcademicDetail>();
 	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
