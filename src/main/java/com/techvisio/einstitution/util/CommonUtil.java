@@ -98,7 +98,7 @@ public class CommonUtil {
 			if(annotation !=null){
 			String title=annotation.title();
 			String[] validValues=annotation.validValues();
-			String masterDataCode=annotation.masterDataId();
+			String masterDataCode=annotation.masterDataCode();
 			type="text";
 			if(annotation.type() != null && annotation.type().trim() != ""){
 				type=annotation.type();

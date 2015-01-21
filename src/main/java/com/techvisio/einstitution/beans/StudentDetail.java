@@ -55,7 +55,7 @@ public class StudentDetail {
 	private String gaurdianMobileNo;
 	@DynamicProperties(id="fatherOccupation", title="Father Occupation")
 	private String fatherOccupation;
-	@DynamicProperties(id="categoryId", title="categoryId", type="select")
+	@DynamicProperties(id="categoryId", title="categoryId", type="select" , masterDataCode="category")
 	private Long categoryId;
 	@DynamicProperties(id="hostel", title="Hostel Required",type="check")
 	private boolean hostel;

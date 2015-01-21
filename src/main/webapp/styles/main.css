@@ -1,15 +1,22 @@
-.borderless tbody tr td, .borderless thead tr th {
+
+.inner-table tbody tr td, .inner-table thead tr th {
   border: none;
   padding: 3px;
   padding-top: none;
-  width: 200px;
-}      
+  width: 50px;
+}    
 
-.borderless > thead > tr > th, .borderless > tbody > tr > th, .borderless > tfoot > tr > th, .borderless > thead > tr > td, .borderless > tbody > tr > td, .borderless > tfoot > tr > td {
+.borderless > thead  tr  th, .borderless  tbody  tr  th, .borderless  tfoot  tr  th, .borderless  thead  tr  td, .borderless  tbody  tr  td, .borderless  tfoot  tr  td,.borderless tbody tr td, .borderless thead tr th {
+border: none;
 padding: 3px;
 line-height: 2;
-vertical-align: top;
 border-top:none;
+width: 200px;
+}
+
+.borderless tr {
+	border: none;
+	border-top:none;
 }
  
 
@@ -141,7 +148,7 @@ color: grey;
     float: left;
     position: fixed;
     display: block;
-    background-color: #195893;
+    background-color: #004687;
     border-radius: 0px 10px 10px 0px;
   }
  
@@ -185,16 +192,13 @@ width: 100px;
 
  .panel-div{
   background-color: #004687;
-  float: right;
- width: 94.45%;
- font-size: 20px;
+  font-size: 20px;
  margin-bottom: 20px;
  margin-right: 60px;
  padding-left: 40px;
  padding-top: 5px;
  padding-bottom: 5px;
  color: white;
- font-family:  
  }
 
  .module-sub-section{

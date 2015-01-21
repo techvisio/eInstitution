@@ -12,7 +12,7 @@
 </head>
 
 <body> -->
-    <div ng-controller="admissionController">
+    <div ng-controller="admissionController" ng-init="init()">
       <div class="floating-section-bookmark" ng-controller="headerCtrl">
         <ul>
         <li><a href="" ng-click="gotoAnchor('personal')">Personal Detail</a>
@@ -26,7 +26,7 @@
             <button type="button" class="btn btn-primary" ng-click="addStudent()">New</button>
           </li>
           <li>
-            <button type="button" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-primary" ng-click="click()">Update</button>
           </li>
           <li>
             <button type="button" class="btn btn-primary">Save</button>
@@ -36,8 +36,30 @@
       <div class="module-section-eye-off">
       <!-- <a href='#personal'> -->
       <div class="module-sub-section">
-      <div id="personal" class="panel-div">Student Personal Details</div>
-      <div dynamic="html"></div>
+     
+      <!-- <div dynamic="html"></div> -->
+      <table class="table borderless">
+        <tr> <div id="personal" class="panel-div">Student Personal Details</div></tr>
+      <tr ng-repeat="row in serverModelData.personalDetailAttributes">
+        <td ng-repeat-start="personalData in row">
+          {{personalData.title}}
+        </td>
+        
+        <td ng-repeat-end>
+        <input type="date" ng-model="student[personalData.id]" ng-if="personalData.type == 'date'">
+          <input type="text" ng-model="student[personalData.id]" ng-if="personalData.type == 'text'">
+          <input type="checkbox" ng-model="student[personalData.id]" ng-if="personalData.type == 'check'">
+          <select ng-model="student[personalData.id]" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData[personalData.masterDataCode]" ng-if="personalData.type == 'select'">
+          <table class="inner-table">
+            <tr>
+              <td ng-repeat="optn in personalData.validValue">
+               <input type="radio" ng-model="student[personalData.id]" ng-value="optn" name="personalData.id" ng-if="personalData.type == 'radio'">{{optn}}
+              </td>
+            </tr>
+          </table>
+        </td>
+     </tr>
+     </table>
       </div>
 
       <div class="module-sub-section">

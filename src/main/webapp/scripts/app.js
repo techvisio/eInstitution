@@ -1,7 +1,8 @@
 var erpModule = angular
   .module('mainModule', [
     'ngRoute',
-    'admissionModule'
+    'admissionModule',
+    'masterdataModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -12,6 +13,7 @@ var erpModule = angular
       .when('/admissionFrom', {
         templateUrl: 'views/admission.html',
         controller: 'admissionController'
+        
       })
       .otherwise({
         redirectTo: '/'

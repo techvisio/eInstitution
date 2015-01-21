@@ -11,9 +11,9 @@ import java.lang.annotation.Target;
 public @interface DynamicProperties {
 	public String title();
 	public String id();
-	public String type() default "Text";
+	public String type() default "text";
 	public String[] validValues() default {""};
 	public boolean isMandatory() default false;
 	public boolean readOnly() default false;
-	public String masterDataId() default "";
+	public String masterDataCode() default "";
 	}
