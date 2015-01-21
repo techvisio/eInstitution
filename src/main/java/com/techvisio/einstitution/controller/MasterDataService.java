@@ -20,12 +20,12 @@ import com.techvisio.einstitution.util.CommonUtil;
 public class MasterDataService {
 	
 @RequestMapping(value = "/admission", method = RequestMethod.GET)	
-public ResponseEntity<Map<String,List>> getMasterDataforAdmission() throws NoSuchFieldException, SecurityException{
-	Map<String,List> serverData=new HashMap<String, List>();
-	
+public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoSuchFieldException, SecurityException{
+	Map<String,Object> admissionMasterData=new HashMap<String, Object>();
+	Map<String,Object> serverData=new HashMap<String, Object>();
 	List<FieldDesc> personalDetailFields=CommonUtil.createJSONfordynamicUI();
-	serverData.put("personalDetailAttributes", personalDetailFields);
-	
+	admissionMasterData.put("personalDetailAttributes", personalDetailFields);
+	admissionMasterData.put("dropdownMasterData", serverData);
 	List<MasterDataBean> category=new ArrayList<MasterDataBean>();
 	category.add(new MasterDataBean("1", "General"));
 	category.add(new MasterDataBean("2", "OBC"));
@@ -50,8 +50,8 @@ public ResponseEntity<Map<String,List>> getMasterDataforAdmission() throws NoSuc
 	qualification.add(new MasterDataBean("1", "High School"));
 	qualification.add(new MasterDataBean("2", "Intermediate"));
 	serverData.put("qualification", qualification);
-	CommonUtil.convertJavatoJSON(serverData);
-	return new ResponseEntity<Map<String,List>>(serverData,HttpStatus.OK);
+	//CommonUtil.convertJavatoJSON(admissionMasterData);
+	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }
 }
