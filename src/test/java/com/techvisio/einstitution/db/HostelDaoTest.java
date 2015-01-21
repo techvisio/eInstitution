@@ -45,7 +45,7 @@ public class HostelDaoTest {
 	@Test
 	public void testGetHostelAvailability(){
 		List<HostelAvailability> hostelAvailability = dao.getHostelAvailability();
-		System.out.println("hostel availability");
+	//	System.out.println("hostel availability");
 	System.out.println(hostelAvailability);
 	}
 	
@@ -76,6 +76,8 @@ public class HostelDaoTest {
 		hostel.setFeePaid(true);
 		hostel.setFileNo("11");
 		hostel.setTypeCode("1");
+		hostel.setAllocationStatus("alloted");
+		hostel.setActive(false);
 		
 		dao.addHostelReservation(hostel);
 	}
@@ -125,12 +127,12 @@ public class HostelDaoTest {
 	@Test
 	public void testUpdateHostelAllocation(){
 		HostelAllocation hostel2 = new HostelAllocation();
-		hostel2.setBlock("B");
-		hostel2.setFileNo("11");
-		hostel2.setFloor("3");
-		hostel2.setName("Nikhil Sharma");
-		hostel2.setRoomNo("2AA");
-		hostel2.setWing("QA");
+		hostel2.setBlock("A");
+		hostel2.setFileNo("13");
+		hostel2.setFloor("2");
+		hostel2.setName("Sandeep Gusain");
+		hostel2.setRoomNo("2");
+		hostel2.setWing("1");
 		
 		dao.updateHostelAllocation(hostel2);
 		
@@ -143,6 +145,8 @@ public class HostelDaoTest {
 		hostel.setFeePaid(false);
 		hostel.setFileNo("11");
 		hostel.setTypeCode("1");
+		hostel.setAllocationStatus("Not-Alloted");
+		hostel.setActive(true);
 		
 		dao.updateHostelReservation(hostel);
 	}

@@ -33,6 +33,7 @@ public interface HostelDao {
 	public void deleteHostelReservation(String hostelReservation);
 	
 	
+	
 	public RoomTypeDetail getRoomTypeDetail(String roomTypeDetail);
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail);

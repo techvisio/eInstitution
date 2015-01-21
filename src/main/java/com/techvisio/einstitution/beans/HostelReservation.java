@@ -6,7 +6,8 @@ public class HostelReservation {
 private String	fileNo ;
 private	boolean feePaid ;
 private String	typeCode;
-private List<HostelAvailability> hostelAvailability;
+private String allocationStatus;
+private boolean isActive;
 public String getFileNo() {
 	return fileNo;
 }
@@ -26,18 +27,23 @@ public boolean isFeePaid() {
 public void setFeePaid(boolean feePaid) {
 	this.feePaid = feePaid;
 }
-
-public List<HostelAvailability> getHostelAvailability() {
-	return hostelAvailability;
+public String getAllocationStatus() {
+	return allocationStatus;
 }
-public void setHostelAvailability(List<HostelAvailability> hostelAvailability) {
-	this.hostelAvailability = hostelAvailability;
+public void setAllocationStatus(String allocationStatus) {
+	this.allocationStatus = allocationStatus;
+}
+public boolean isActive() {
+	return isActive;
+}
+public void setActive(boolean isActive) {
+	this.isActive = isActive;
 }
 @Override
 public String toString() {
 	return "HostelReservation [fileNo=" + fileNo + ", feePaid=" + feePaid
-			+ ", typeCode=" + typeCode + ", hostelAvailability="
-			+ hostelAvailability + "]";
+			+ ", typeCode=" + typeCode + ", allocationStatus="
+			+ allocationStatus + ", isActive=" + isActive + "]";
 }
 
 }

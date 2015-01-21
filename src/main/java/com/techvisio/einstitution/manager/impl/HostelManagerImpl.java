@@ -1,6 +1,9 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.db.HostelDao;
@@ -70,6 +73,17 @@ public class HostelManagerImpl implements HostelManager {
 
 	public void deleteRoomTypeDetail(String typeCode) {
 		hostelDao.deleteRoomTypeDetail(typeCode);
+	}
+
+	
+// HsotelAvailability	
+	
+	
+	public List<HostelAvailability> getHostelAvailability() {
+		List<HostelAvailability>  h=null;
+		h= hostelDao.getHostelAvailability();
+		
+		return h;
 	}
 
 }

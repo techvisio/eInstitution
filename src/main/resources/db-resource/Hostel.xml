@@ -155,7 +155,9 @@ Select
 
 	File_No,
 	Fee_Paid,
-	Type_Code
+	Type_Code,
+	Allocation_Status,
+	Is_Active
 	
 
    
@@ -171,11 +173,15 @@ Insert into HostelReservation
 
       (File_No,
 	Fee_Paid,
-	Type_Code) values 
+	Type_Code,
+	Allocation_Status,
+	Is_Active) values 
       
      (:File_No,
 	:Fee_Paid,
-	:Type_Code);
+	:Type_Code,
+	:Allocation_Status,
+	:Is_Active);
     ]]>
 
 	</entry>
@@ -187,7 +193,10 @@ Update HostelReservation set
 
       File_No=:File_No,
 	Fee_Paid=:Fee_Paid,
-	Type_Code=:Type_Code
+	Type_Code=:Type_Code,
+	Allocation_Status=:Allocation_Status,
+	Is_Active=:Is_Active
+	
       
    
 where File_No=:File_No;  
