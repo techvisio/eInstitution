@@ -1,12 +1,17 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
+import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 
 public interface TransportDao {
-
+	
+	public List<AvailableTransport> getAvailableTransports();
+	
 	public Transport getTransport(String routeCode);
 	public void addTransport(Transport transport);
 	public void updateTransport(Transport transport);

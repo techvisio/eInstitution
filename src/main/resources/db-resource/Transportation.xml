@@ -3,6 +3,19 @@
 
 <properties>
 
+	<entry key="getAvailableTransport">
+    <![CDATA[
+Select
+
+	tm.Threshold,tm.Route_Code,tm.Price,count(tr.Route_Code) as Reserved_Seat,tm.Threshold-count(tr.Route_Code) as Available_Seat
+
+from TransportMaster tm join transportReservation tr on tm.Route_Code=tr.Route_Code group by tr.Route_Code;    
+    ]]>
+
+	</entry>
+
+
+
 	<entry key="getTransportByRouteCode">
     <![CDATA[
 Select
@@ -10,7 +23,9 @@ Select
 	Route_Code ,
 	Description,
 	Threshold,
-	Price
+	Price,
+	Is_Active,
+	Allocation_Status
 
 
 from TransportMaster where Route_Code=:Route_Code;    
@@ -27,12 +42,18 @@ Insert into TransportMaster
 	(Route_Code,
 	Description,
 	Threshold,
-	Price) values
+	Price,
+	Is_Active,
+	Allocation_Status
+	) values
 	
 	(:Route_Code,
 	:Description,
 	:Threshold,
-	:Price
+	:Price,
+	:Is_Active,
+	:Allocation_Status
+	
 	);
 
 
@@ -47,7 +68,12 @@ Update TransportMaster set
 
     Description=:Description,
 	Threshold=:Threshold,
-	Price=:Price where Route_Code=:Route_Code;
+	Price=:Price,
+	Is_Active=:Is_Active,
+	Allocation_Status=:Allocation_Status
+	 
+	
+	where Route_Code=:Route_Code;
 
     ]]>
 

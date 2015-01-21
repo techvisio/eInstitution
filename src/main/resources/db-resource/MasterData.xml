@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="getCourseMasterById ">
+	<entry key="getCourse">
     <![CDATA[
       
     Select
     
-    Id, Course 
+    Id, Course, Course_Type
     
-    from CourseMaster where Id=:id;
+    from CourseMaster;
     
     
     ]]>
 
 	</entry>
 
-	<entry key="addCourseMaster">
+	<entry key="addCourse">
     <![CDATA[
       
     Insert into CourseMaster
     
-    (Id,Course) values (:Id,:Course);
+    (Id,Course,Course_Type) values (:Id,:Course,:Course_Type);
     
     
     ]]>
 
 	</entry>
 
-	<entry key="updateCourseMaster">
+	<entry key="updateCourse">
     <![CDATA[
       
     Update CourseMaster set
     
-    Course=:Course where Id=:id;
+    Course=:Course, Course_Type=:Course_Type where Id=:id;
     
     
     ]]>
 
 	</entry>
 
-	<entry key="deleteCourseMaster ">
+	<entry key="deleteCourse">
     <![CDATA[
       
     Delete from CourseMaster where Id=:id;
@@ -50,7 +50,7 @@
 	</entry>
 
 
-	<entry key="getCourseBranchMasterByIdAndCourseId ">
+	<entry key="getCourseBranch">
     <![CDATA[
       
 
@@ -58,12 +58,12 @@
 	
 	Course_Id, Id, Branch
 
-from  CourseBranchMaster where Id=:Id And Course_Id=:Course_Id;    
+from CourseBranchMaster;    
     ]]>
 
 	</entry>
 
-	<entry key="addCourseBranchMaster">
+	<entry key="addCourseBranch">
     <![CDATA[
       
 
@@ -75,7 +75,7 @@ from  CourseBranchMaster where Id=:Id And Course_Id=:Course_Id;
 
 	</entry>
 
-	<entry key="updateCourseBranchMaster">
+	<entry key="updateCourseBranch">
     <![CDATA[
       
 
@@ -86,7 +86,7 @@ from  CourseBranchMaster where Id=:Id And Course_Id=:Course_Id;
 
 	</entry>
 
-	<entry key="deleteCourseBranchMaster">
+	<entry key="deleteCourseBranch">
     <![CDATA[
       
 
@@ -95,18 +95,18 @@ from  CourseBranchMaster where Id=:Id And Course_Id=:Course_Id;
 
 	</entry>
 
-	<entry key="getStateMasterById">
+	<entry key="getState">
     <![CDATA[
       
 
  Select 
  
- Id, State from StateMaster where Id=:id;    
+ Id, State from StateMaster;    
     ]]>
 
 	</entry>
 
-	<entry key="addStateMaster">
+	<entry key="addState">
     <![CDATA[
       
 
@@ -117,7 +117,7 @@ from  CourseBranchMaster where Id=:Id And Course_Id=:Course_Id;
 
 	</entry>
 
-	<entry key="updateStateMaster">
+	<entry key="updateState">
     <![CDATA[
       
 Update StateMaster set
@@ -128,7 +128,7 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="deleteStateMaster">
+	<entry key="deleteState">
     <![CDATA[
       
 
@@ -137,20 +137,20 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="getCasteCategoryMasterById">
+	<entry key="getCasteCategory">
     <![CDATA[
       
 
  Select 
-    Id
+    Id,
     Category
     
- from CasteCategoryMaster where Id=:Id;    
+ from CasteCategoryMaster;    
     ]]>
 
 	</entry>
 
-	<entry key="addCasteCategoryMaster">
+	<entry key="addCasteCategory">
     <![CDATA[
       
 
@@ -161,7 +161,7 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="updateCasteCategoryMaster">
+	<entry key="updateCasteCategory">
     <![CDATA[
       
  Update CasteCategoryMaster set
@@ -173,7 +173,7 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="deleteCasteCategoryMaster">
+	<entry key="deleteCasteCategory">
     <![CDATA[
       
 
@@ -182,7 +182,7 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="getQualificationMasterById">
+	<entry key="getQualification">
     <![CDATA[
       
 
@@ -190,12 +190,12 @@ Update StateMaster set
  
     Id, QualifyingExam 
  
- from QualificationMaster where Id=:Id;  
+ from QualificationMaster;  
     ]]>
 
 	</entry>
 
-	<entry key="addQualificationMaster">
+	<entry key="addQualification">
     <![CDATA[
       
 
@@ -206,7 +206,7 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="updateQualificationMaster">
+	<entry key="updateQualification">
     <![CDATA[
       
 
@@ -218,7 +218,7 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="deleteQualificationMaster">
+	<entry key="deleteQualification">
     <![CDATA[
       
 
@@ -227,19 +227,19 @@ Update StateMaster set
 
 	</entry>
 
-	<entry key="getCounsellingMasterById">
+	<entry key="getCounselling">
     <![CDATA[
       
 Select    
 
 Id, Counselling_Body 
 
-from CounsellingMaster where Id=:Id;
+from CounsellingMaster;
     ]]>
 
 	</entry>
 
-	<entry key="addCounsellingMaster">
+	<entry key="addCounselling">
     <![CDATA[
       
 
@@ -250,7 +250,7 @@ from CounsellingMaster where Id=:Id;
 
 	</entry>
 
-	<entry key="updateCounsellingMaster">
+	<entry key="updateCounselling">
     <![CDATA[
       
 
@@ -261,7 +261,7 @@ from CounsellingMaster where Id=:Id;
 
 	</entry>
 
-	<entry key="deleteCounsellingMaster">
+	<entry key="deleteCounselling">
     <![CDATA[
       
 
@@ -270,19 +270,19 @@ from CounsellingMaster where Id=:Id;
 
 	</entry>
 
-	<entry key="getFeeHeadMasterById">
+	<entry key="getFeeHead">
     <![CDATA[
       
 Select 
    
    Id, Fee_Head
    
-from FeeHeadMaster where ID=:Id;   
+from FeeHeadMaster;   
     ]]>
 
 	</entry>
 
-	<entry key="addFeeHeadMaster">
+	<entry key="addFeeHead">
     <![CDATA[
       
  Insert into FeeHeadMaster 
@@ -292,7 +292,7 @@ from FeeHeadMaster where ID=:Id;
 
 	</entry>
 
-	<entry key="updateFeeHeadMaster">
+	<entry key="updateFeeHead">
     <![CDATA[
  
  Update FeeHeadMaster set
@@ -302,7 +302,7 @@ from FeeHeadMaster where ID=:Id;
 
 	</entry>
 
-	<entry key="deleteFeeHeadMaster">
+	<entry key="deleteFeeHead">
     <![CDATA[
       
 
@@ -311,20 +311,20 @@ from FeeHeadMaster where ID=:Id;
 
 	</entry>
 
-	<entry key="getSubjectMasterBySubjectId">
+	<entry key="getSubject">
     <![CDATA[
       
 Select
 
     Subject_Id, Subject
     
-From SubjectMaster where Subject_Id=:Subject_Id;
+From SubjectMaster;
        
     ]]>
 
 	</entry>
 
-	<entry key="addSubjectMaster">
+	<entry key="addSubject">
     <![CDATA[
       
 Insert into SubjectMaster 
@@ -336,7 +336,7 @@ Insert into SubjectMaster
 
 	</entry>
 
-	<entry key="updateSubjectMaster">
+	<entry key="updateSubject">
     <![CDATA[
       
 Update SubjectMaster set
@@ -346,7 +346,7 @@ Update SubjectMaster set
 
 	</entry>
 
-	<entry key="deleteSubjectMaster">
+	<entry key="deleteSubject">
     <![CDATA[
       
 
@@ -355,19 +355,19 @@ Update SubjectMaster set
 
 	</entry>
 
-	<entry key="getQuotaCodeMasterById">
+	<entry key="getQuotaCode">
     <![CDATA[
       
 Select 
 
     Id, Code, Description
     
-from QuotaCodeMaster where Id=:Id;        
+from QuotaCodeMaster;        
     ]]>
 
 	</entry>
 
-	<entry key="addQuotaCodeMaster">
+	<entry key="addQuotaCode">
     <![CDATA[
       
 Insert into QuotaCodeMaster
@@ -379,7 +379,7 @@ Insert into QuotaCodeMaster
 
 	</entry>
 
-	<entry key="updateQuotaCodeMaster">
+	<entry key="updateQuotaCode">
     <![CDATA[
       
  Update QuotaCodeMaster set         
@@ -391,7 +391,7 @@ Insert into QuotaCodeMaster
 
 	</entry>
 
-	<entry key="deleteQuotaCodeMaster">
+	<entry key="deleteQuotaCode">
     <![CDATA[
       
 

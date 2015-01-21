@@ -1,11 +1,16 @@
 package com.techvisio.einstitution.manager;
 
+import java.util.List;
+
+import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 
 public interface TransportManager {
 
+	public List<AvailableTransport> getAvailableTransport();
+	
 	public TransportAllocation getTransportAllocationDtl(String fileNo);
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
 	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
@@ -21,5 +26,6 @@ public interface TransportManager {
 	public void updateVehicleDetail(VehicleDetail vehicleDetail);
 	public void deleteVehicleDetail(Long vehicleId);
 
+	
 
 }

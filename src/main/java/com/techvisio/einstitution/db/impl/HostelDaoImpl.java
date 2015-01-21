@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelInventory;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -170,7 +171,7 @@ return hostelAll;
 
 	public void updateHostelAllocation(HostelAllocation hostelAllocation) {
 
-		String addQuery = hostelQueryProps.getProperty("updateHostelAllocation");
+		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomNo())
 											.addValue("Wing", hostelAllocation.getWing())
 											.addValue("Floor", hostelAllocation.getFloor())
@@ -179,7 +180,7 @@ return hostelAll;
 											.addValue("File_No", hostelAllocation.getFileNo());
 
 		
-		getNamedParamJdbcTemplate().update(addQuery,namedParameter);
+		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
 		
 		
 	}
@@ -208,9 +209,11 @@ List<HostelReservation> hostelReservations = getNamedParamJdbcTemplate().query(g
 	public HostelReservation mapRow(ResultSet rs, int rowNum)
 			throws SQLException {
 		HostelReservation hostel = new HostelReservation();
-		hostel.setFeePaid(rs.getDouble("Fee_Paid"));
+		hostel.setFeePaid(rs.getBoolean("Fee_Paid"));
 		hostel.setFileNo(rs.getString("File_No"));
 		hostel.setTypeCode(rs.getString("Type_Code"));
+		hostel.setAllocationStatus(rs.getString("Allocation_Status"));
+		hostel.setActive(rs.getBoolean("Is_Active"));
 		
 		return hostel;
 	}
@@ -235,8 +238,10 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
 		String addQuery = hostelQueryProps.getProperty("addHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", hostelReservation.getFileNo())
-											.addValue("Fee_Paid", hostelReservation.getFeePaid())
-											.addValue("Type_Code", hostelReservation.getTypeCode());
+											.addValue("Fee_Paid", hostelReservation.isFeePaid())
+											.addValue("Type_Code", hostelReservation.getTypeCode())
+											.addValue("Allocation_Status",hostelReservation.getAllocationStatus())
+											.addValue("Is_Active",hostelReservation.isActive());
 		
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		
@@ -249,8 +254,10 @@ if(hostelReservations != null && hostelReservations.size()>0){
 		
 		String addQuery = hostelQueryProps.getProperty("updateHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", hostelReservation.getFileNo())
-											.addValue("Fee_Paid", hostelReservation.getFeePaid())
-											.addValue("Type_Code", hostelReservation.getTypeCode());
+											.addValue("Fee_Paid", hostelReservation.isFeePaid())
+											.addValue("Type_Code", hostelReservation.getTypeCode())
+											.addValue("Allocation_Status",hostelReservation.getAllocationStatus())
+											.addValue("Is_Active",hostelReservation.isActive());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		
@@ -330,6 +337,29 @@ List<RoomTypeDetail> roomTypeDetails = getNamedParamJdbcTemplate().query(getQuer
 	
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
+
+
+
+
+public List<HostelAvailability> getHostelAvailability() {
+	String getQuery = hostelQueryProps.getProperty("getHostelAvailability");
+	
+	List<HostelAvailability> hostelAvailabilities = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<HostelAvailability>() {
+
+		public HostelAvailability mapRow(ResultSet rs, int rowNum)throws SQLException {
+			HostelAvailability hostelAvailability = new HostelAvailability();
+			hostelAvailability.setTypeCode(rs.getString("TYPE_CODE"));
+			hostelAvailability.setThreshold(rs.getInt("THRESHOLD"));
+			hostelAvailability.setReservedRoom(rs.getInt("RESERVED_ROOM"));
+			hostelAvailability.setPrice(rs.getDouble("PRICE"));
+			hostelAvailability.setAvailable(rs.getInt("AVAILABLE"));
+			
+			return hostelAvailability;
+		}
+	});
+
+			return hostelAvailabilities;
+}
 
 	
 }

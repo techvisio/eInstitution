@@ -18,7 +18,7 @@ http://www.springframework.org/schema/tx
  
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-<context:annotation-config />
+	<context:annotation-config />
 
 	<!-- DB data source. -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -34,57 +34,72 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	</bean>
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
- 
+
 		<property name="location">
 			<value>classpath:spring-config/jdbc.properties</value>
 		</property>
 	</bean>
-	
-	<bean id="inquiryQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-    <property name="locations" value="classpath:db-resource/Inquiry.xml" />
-</bean>
 
-<bean id="inquiryDao" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">
-  <property name="inquiryQueryProps" ref="inquiryQueryProps" />
-</bean>
-	
-	<bean id="admissionQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> 
-     <property name="locations" value="classpath:db-resource/Admission.xml" /> 
- </bean> 
-	
- 	<bean id="admissionDao" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl"> 
- <property name="admissionQueryProps" ref="admissionQueryProps" /> 
-</bean> 
-
-	
-	<bean id="consultantQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> 
-     <property name="locations" value="classpath:db-resource/Consultant.xml" /> 
- </bean> 
-	
- 	<bean id="consultantDao" class="com.techvisio.einstitution.db.impl.ConsultantDaoImpl"> 
- <property name="consultantQueryProps" ref="consultantQueryProps" /> 
-</bean> 
-
-<bean id="transportQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-<property name="locations"  value="classpath:db-resource/Transportation.xml"/>
-</bean>
-
-<bean id="transportDao" class="com.techvisio.einstitution.db.impl.TransportDaoImpl"> 
- <property name="transportQueryProps" ref="transportQueryProps"/> 
-</bean> 
-
-<bean id="hostelQueryProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-<property name="locations" value="classpath:db-resource/Hostel.xml"></property>
-</bean>
-
-	<bean id="hostelDaoImpl" class = "com.techvisio.einstitution.db.impl.HostelDaoImpl">
-<property name="hostelQueryProps" ref = "hostelQueryProps"></property>
-
-</bean>
-
- 	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory"> 
+	<bean id="masterQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:db-resource/MasterData.xml" />
 	</bean>
-	
-	
-	 
+
+	<bean id="cacheDao" class="com.techvisio.einstitution.db.impl.CacheDaoImpl">
+		<property name="masterQueryProps" ref="masterQueryProps" />
+	</bean>
+
+
+	<bean id="inquiryQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:db-resource/Inquiry.xml" />
+	</bean>
+
+	<bean id="inquiryDao" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">
+		<property name="inquiryQueryProps" ref="inquiryQueryProps" />
+	</bean>
+
+	<bean id="admissionQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:db-resource/Admission.xml" />
+	</bean>
+
+	<bean id="admissionDao" class="com.techvisio.einstitution.db.impl.AdmissionDaoImpl">
+		<property name="admissionQueryProps" ref="admissionQueryProps" />
+	</bean>
+
+
+	<bean id="consultantQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:db-resource/Consultant.xml" />
+	</bean>
+
+	<bean id="consultantDao" class="com.techvisio.einstitution.db.impl.ConsultantDaoImpl">
+		<property name="consultantQueryProps" ref="consultantQueryProps" />
+	</bean>
+
+	<bean id="transportQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:db-resource/Transportation.xml" />
+	</bean>
+
+	<bean id="transportDao" class="com.techvisio.einstitution.db.impl.TransportDaoImpl">
+		<property name="transportQueryProps" ref="transportQueryProps" />
+	</bean>
+
+	<bean id="hostelQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:db-resource/Hostel.xml"></property>
+	</bean>
+
+	<bean id="hostelDaoImpl" class="com.techvisio.einstitution.db.impl.HostelDaoImpl">
+		<property name="hostelQueryProps" ref="hostelQueryProps"></property>
+
+	</bean>
+
+	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory">
+	</bean>
+
+
+
 </beans>

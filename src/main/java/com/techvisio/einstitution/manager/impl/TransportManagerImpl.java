@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
+import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
@@ -10,6 +13,16 @@ import com.techvisio.einstitution.util.ContextProvider;
 public class TransportManagerImpl implements TransportManager {
 
 	TransportDao transportDao=ContextProvider.getContext().getBean(TransportDao.class);
+	
+	public List<AvailableTransport> getAvailableTransport(){
+		
+		List<AvailableTransport> availableTransports = null;
+		
+		availableTransports = transportDao.getAvailableTransports();
+		return availableTransports;
+		
+		
+	}
 	
 	
 	public TransportAllocation getTransportAllocationDtl(String fileNo) {

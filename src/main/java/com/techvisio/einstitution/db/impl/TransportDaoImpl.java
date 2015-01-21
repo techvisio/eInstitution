@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
@@ -23,6 +24,31 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		this.transportQueryProps = transportQueryProps;
 	}
 
+	
+	public List<AvailableTransport> getAvailableTransports(){
+		
+		String getQuery = transportQueryProps.getProperty("getAvailableTransport");
+		
+		List<AvailableTransport> availableTransports = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<AvailableTransport>() {
+
+			public AvailableTransport mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+
+				AvailableTransport availableTransport = new AvailableTransport();
+
+				availableTransport.setRouteCode(rs.getString("Route_Code"));
+				availableTransport.setAvailableTransport(rs.getInt("Available_Seat"));
+				availableTransport.setReservedTransport(rs.getInt("Reserved_Seat"));
+				availableTransport.setThreshold(rs.getString("Threshold"));
+				availableTransport.setPrice(rs.getDouble("Price"));
+				
+				return availableTransport;
+			}
+		});
+		return availableTransports;
+	}
+	
+	
 	public Transport getTransport(String routeCode) {
 
 		String getQuery = transportQueryProps
@@ -192,7 +218,8 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 								.getString("Route_Code"));
 						transportReservation.setFeePaid(rs
 								.getBoolean("Fee_Paid"));
-
+						transportReservation.setAllocationStatus(rs.getString("Allocation_Status"));
+						transportReservation.setActive(rs.getBoolean("Is_Active"));
 						return transportReservation;
 					}
 				});
@@ -215,7 +242,9 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", transportReservation.getFileNo()).addValue(
 						"Fee_Paid", transportReservation.isFeePaid()).addValue(
-								"Route_Code", transportReservation.getRouteCode());
+								"Route_Code", transportReservation.getRouteCode())
+								.addValue("Allocation_Status", transportReservation.getAllocationStatus())
+								.addValue("Is_Active", transportReservation.isActive());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
@@ -229,7 +258,10 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", transportReservation.getFileNo()).addValue(
 						"Fee_Paid", transportReservation.isFeePaid()).addValue(
-								"Route_Code", transportReservation.getRouteCode());
+								"Route_Code", transportReservation.getRouteCode())
+								.addValue("Allocation_Status", transportReservation.getAllocationStatus())
+								.addValue("Is_Active", transportReservation.isActive());
+
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 	}

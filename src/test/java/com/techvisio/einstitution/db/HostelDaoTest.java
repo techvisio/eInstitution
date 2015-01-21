@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelInventory;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -39,13 +42,19 @@ public class HostelDaoTest {
 		System.out.println(hAllocation);
 	}
 	
+	@Test
+	public void testGetHostelAvailability(){
+		List<HostelAvailability> hostelAvailability = dao.getHostelAvailability();
+	//	System.out.println("hostel availability");
+	System.out.println(hostelAvailability);
+	}
 	
 	
 	@Test
 	public void testAddHostelInventory(){
 		HostelInventory hostel = new HostelInventory();
 		hostel.setDescription("mast");
-		hostel.setPrice(12);
+		hostel.setPrice(1200.00);
 		hostel.setRoomCapacity(1);
 		hostel.setThreshold(1);
 		hostel.setTypeCode("1");
@@ -64,9 +73,11 @@ public class HostelDaoTest {
 	@Test
 	public void testAddHostelReservation(){
 		HostelReservation hostel = new HostelReservation();
-		hostel.setFeePaid(200);
+		hostel.setFeePaid(true);
 		hostel.setFileNo("11");
 		hostel.setTypeCode("1");
+		hostel.setAllocationStatus("alloted");
+		hostel.setActive(false);
 		
 		dao.addHostelReservation(hostel);
 	}
@@ -116,12 +127,12 @@ public class HostelDaoTest {
 	@Test
 	public void testUpdateHostelAllocation(){
 		HostelAllocation hostel2 = new HostelAllocation();
-		hostel2.setBlock("B");
-		hostel2.setFileNo("11");
-		hostel2.setFloor("3");
-		hostel2.setName("Nikhil Sharma");
-		hostel2.setRoomNo("2AA");
-		hostel2.setWing("QA");
+		hostel2.setBlock("A");
+		hostel2.setFileNo("13");
+		hostel2.setFloor("2");
+		hostel2.setName("Sandeep Gusain");
+		hostel2.setRoomNo("2");
+		hostel2.setWing("1");
 		
 		dao.updateHostelAllocation(hostel2);
 		
@@ -131,9 +142,11 @@ public class HostelDaoTest {
 	
 	public void testUpdateHostelReservation(){
 		HostelReservation hostel = new HostelReservation();
-		hostel.setFeePaid(2000.5);
+		hostel.setFeePaid(false);
 		hostel.setFileNo("11");
 		hostel.setTypeCode("1");
+		hostel.setAllocationStatus("Not-Alloted");
+		hostel.setActive(true);
 		
 		dao.updateHostelReservation(hostel);
 	}

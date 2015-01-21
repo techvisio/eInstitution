@@ -3,7 +3,23 @@
 
 <properties>
 
-	<entry key="getHostelAllocation">
+<entry key="getHostelAvailability">
+    <![CDATA[
+SELECT 
+	HI.THRESHOLD,
+	HI.TYPE_CODE,
+	HI.PRICE,
+	COUNT(HR.TYPE_CODE) AS RESERVED_ROOM,
+	HI.THRESHOLD-COUNT(HR.TYPE_CODE) AS AVAILABLE
+	 
+FROM hostelinventory HI JOIN hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HR.Type_Code;      
+    ]]>
+
+	</entry>
+
+
+
+<entry key="getHostelAllocation">
     <![CDATA[
       
 Select 
@@ -139,7 +155,9 @@ Select
 
 	File_No,
 	Fee_Paid,
-	Type_Code
+	Type_Code,
+	Allocation_Status,
+	Is_Active
 	
 
    
@@ -155,11 +173,15 @@ Insert into HostelReservation
 
       (File_No,
 	Fee_Paid,
-	Type_Code) values 
+	Type_Code,
+	Allocation_Status,
+	Is_Active) values 
       
      (:File_No,
 	:Fee_Paid,
-	:Type_Code);
+	:Type_Code,
+	:Allocation_Status,
+	:Is_Active);
     ]]>
 
 	</entry>
@@ -171,7 +193,10 @@ Update HostelReservation set
 
       File_No=:File_No,
 	Fee_Paid=:Fee_Paid,
-	Type_Code=:Type_Code
+	Type_Code=:Type_Code,
+	Allocation_Status=:Allocation_Status,
+	Is_Active=:Is_Active
+	
       
    
 where File_No=:File_No;  
