@@ -34,7 +34,22 @@ admissionModule
 
        $scope.student = {};
        $scope.student.addressDtl = [];
-       $scope.student.academicDtl = [];
+       $scope.student.academicDtl = [{
+           "university" : null,
+           "collegeName" : null,
+           "passingYear" : null,
+           "percentage" : 0.0,
+           "rollNo" : null,
+           "fileNo" : null,
+           "qualificationId" : null,
+           "qualificationSubDtl" : [ {
+             "subjectId" : null,
+             "qualificationId" : null,
+             "fileNo" : null,
+             "marksObtained" : 0.0,
+             "maxMarks" : 0.0
+           } ]
+       }];
        $scope.student.discountDtl = [];
 
        $scope.showSub = false;
