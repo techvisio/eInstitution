@@ -23,7 +23,23 @@ public class MasterDataService {
 public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoSuchFieldException, SecurityException{
 	Map<String,Object> admissionMasterData=new HashMap<String, Object>();
 	Map<String,Object> serverData=new HashMap<String, Object>();
-	List<FieldDesc> personalDetailFields=CommonUtil.createJSONfordynamicUI();
+	List<FieldDesc> personalDetailFieldsSingle=CommonUtil.createJSONfordynamicUI();
+	List<List<FieldDesc>> personalDetailFields=new ArrayList<List<FieldDesc>>();
+	int i=0;
+	List<FieldDesc> innerList=null;
+	for(FieldDesc desc:personalDetailFieldsSingle){
+		if(i%2==0){
+		innerList=new ArrayList<FieldDesc>();
+		innerList.add(desc);
+		}
+		else
+		{
+			innerList.add(desc);	
+			personalDetailFields.add(innerList);
+		}
+		
+		i++;
+	}
 	admissionMasterData.put("personalDetailAttributes", personalDetailFields);
 	admissionMasterData.put("dropdownMasterData", serverData);
 	List<MasterDataBean> category=new ArrayList<MasterDataBean>();
