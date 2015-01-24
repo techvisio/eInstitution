@@ -168,36 +168,40 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		if (studentDtl.getAcademicDtl() != null) {
+		if (studentDtl.getAcademicDtl() == null) {
 			for (StudentAcademicDetail studentAcademicDetail : studentDtl
 					.getAcademicDtl()) {
 				addAcademicDtl(studentAcademicDetail);
+				continue;
 			}
 		}
 
-		if (studentDtl.getDiscountDtl() != null) {
+		if (studentDtl.getDiscountDtl() == null) {
 
 			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
 					.getDiscountDtl()) {
 
 				addAdmissionDisDtl(admissionDiscountDtl);
+				continue;
 			}
 		}
 
-		if (studentDtl.getAddressDtl() != null) {
+		if (studentDtl.getAddressDtl() == null) {
 
 			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
 				addAddressDtl(addressDeatil);
+				continue;
 			}
 		}
 
-		if (studentDtl.getBranchPreference() != null) {
+		if (studentDtl.getBranchPreference() == null) {
 
 			for (BranchPreference branchPreference : studentDtl
 					.getBranchPreference()) {
 
 				addBranchPreference(branchPreference);
+				continue;
 			}
 		}
 	}
@@ -339,14 +343,16 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		if (academicDtl.getQualificationSubDtl() != null) {
+		
+		if (academicDtl.getQualificationSubDtl() == null) {
 
 			for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
 					.getQualificationSubDtl()) {
 
 				addQualificationDtl(qualificationSubjectDtl);
+				continue;
 			}
-
+         
 		}
 
 	}

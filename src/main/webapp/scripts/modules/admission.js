@@ -156,6 +156,15 @@ admissionModule
 
          return address;
        }
+       
+       $scope.copyPermanentAddress=function(){
+    	   if($scope.sameAsAbove == true){
+    	   console.log('same as above');
+    	   var cAddress=$scope.getStudentAddress('C');
+    	   angular.copy($scope.getStudentAddress('P'),cAddress)
+    	   cAddress.addressType='C';
+       }
+       }
 
        $scope.addStudent = function() {
          console.log('add student called');

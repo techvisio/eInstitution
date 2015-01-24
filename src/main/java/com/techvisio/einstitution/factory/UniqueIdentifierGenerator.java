@@ -1,6 +1,10 @@
 package com.techvisio.einstitution.factory;
 
+
 public interface UniqueIdentifierGenerator {
 
-	public String getUniqueIdentifier(String entity);
+	public String getUniqueIdentifierForAdmission(String entity);
+
+	
+
 }

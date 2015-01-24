@@ -9,13 +9,16 @@
       <div class="module-sub-menu-eye-off">
         <ul>
           <li>
-            <button type="button" class="btn btn-primary" ng-click="addStudent()">New</button>
+            <button type="button" class="btn btn-primary" ng-click="click()">New</button>
           </li>
           <li>
             <button type="button" class="btn btn-primary" ng-click="click()">Update</button>
           </li>
           <li>
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-primary" ng-click="addStudent()">Save</button>
+          </li>
+          <li>
+          <input type="text" class="btn btn-primary" placeholder="Search" name="Search" width: 10px;/>
           </li>
         </ul>
       </div>
@@ -84,7 +87,7 @@
       <tr>  
         <tr>
         <th>Correspondence Address</th>
-         <td><input type="checkbox">  Same as Above</input></td>
+         <td><input type="checkbox" ng-change="copyPermanentAddress()" ng-model="sameAsAbove">  Same as Above</input></td>
       <tr>
       <tr>
         <td><span>House No.</span></td>
