@@ -91,7 +91,7 @@ CREATE TABLE BranchPreference
 	File_No varchar(100) NOT NULL,
 	Course_Id int NOT NULL,
 	Branch_Id int NOT NULL,
-	PRIMARY KEY (File_No,Branch_Preference_Id)
+	PRIMARY KEY (File_No)
 );
 
 
@@ -239,15 +239,9 @@ CREATE TABLE StudentDetail
 	Created_On date,
 	Updated_By varchar(100),
 	Updated_On date,
-	Fee_Received_By varchar(100),
-	Fee_Received_On date,
-	Document_Received_By varchar(100),
-	Document_Received_On date,
-	Document_verified_By varchar(100),
-	Document_Verified_On date,
-	Management_Approved_By varchar(100),
-	Management_Approved_On date,
 	Domicile_State_Id int NOT NULL,
+	Scholarship bit(1),
+	Remarks varchar(500),
 	PRIMARY KEY (File_No),
 	UNIQUE (Uni_Enroll_No)
 );
@@ -288,7 +282,7 @@ ALTER TABLE AdmissionInquiry
 ;
 
 
-ALTER TABLE BranchPreference
+ALTER TABLE StudentDetail
 	ADD FOREIGN KEY (Course_Id, Branch_Id)
 	REFERENCES CourseBranchMaster (Course_Id, Id)
 	ON UPDATE RESTRICT
@@ -296,7 +290,7 @@ ALTER TABLE BranchPreference
 ;
 
 
-ALTER TABLE StudentDetail
+ALTER TABLE BranchPreference
 	ADD FOREIGN KEY (Course_Id, Branch_Id)
 	REFERENCES CourseBranchMaster (Course_Id, Id)
 	ON UPDATE RESTRICT
@@ -336,14 +330,6 @@ ALTER TABLE AddressDetail
 ;
 
 
-ALTER TABLE AddressDetail
-	ADD FOREIGN KEY (File_No)
-	REFERENCES StudentDetail (File_No)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 ALTER TABLE AdmissionDiscountDtl
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
@@ -360,7 +346,7 @@ ALTER TABLE BranchPreference
 ;
 
 
-ALTER TABLE AcademicDetail
+ALTER TABLE QualificationSubjectDtl
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT
@@ -368,7 +354,15 @@ ALTER TABLE AcademicDetail
 ;
 
 
-ALTER TABLE QualificationSubjectDtl
+ALTER TABLE AddressDetail
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE AcademicDetail
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT
