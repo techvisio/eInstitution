@@ -85,7 +85,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
 						studentDetail.setDomicileState(rs
 								.getString("Domicile_State_Id"));
-
+                        studentDetail.setScholarship(rs.getBoolean("Scholarship"));
+                        studentDetail.setRemarks(rs.getString("Remarks"));
+                        studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
 						return studentDetail;
 
 					}
@@ -150,21 +152,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Updated_On", studentDtl.getUpdatedOn())
-						.addValue("Fee_Received_By", null)
-						.addValue("Fee_Received_On", null)
-						.addValue("Document_Received_By",
-								null)
-								.addValue("Document_Received_On",
-										null)
-										.addValue("Document_verified_By",
-												null)
-												.addValue("Document_Verified_On",
-														null)
-														.addValue("Management_Approved_By",
-																null)
-																.addValue("Management_Approved_On",
-																		null)
-																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
+						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
+						.addValue("Scholarship", studentDtl.isScholarship())
+						.addValue("Remarks", studentDtl.getRemarks())
+						.addValue("Admission_Mode", studentDtl.getAdmissionMode());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -245,21 +236,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Updated_On", studentDtl.getUpdatedOn())
-						.addValue("Fee_Received_By", null)
-						.addValue("Fee_Received_On", null)
-						.addValue("Document_Received_By",
-								null)
-								.addValue("Document_Received_On",
-										null)
-										.addValue("Document_verified_By",
-												null)
-												.addValue("Document_Verified_On",
-														null)
-														.addValue("Management_Approved_By",
-																null)
-																.addValue("Management_Approved_On",
-																		null)
-																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
+						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
+						.addValue("Scholarship", studentDtl.isScholarship())
+						.addValue("Remarks", studentDtl.getRemarks())
+						.addValue("Admission_Mode", studentDtl.getAdmissionMode());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 

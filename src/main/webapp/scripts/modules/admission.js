@@ -206,6 +206,7 @@ admissionModule
 
        }
 
+       
        // I get all of the friends in the remote collection.
        function getFriends() {
 
@@ -271,5 +272,70 @@ admissionModule
          return (response.data);
 
        }
-
+       
+       
      });
+
+function resetForm($scope, admissionService,masterdataService){
+	
+	$scope.serverModelData = {};
+
+    $scope.student = {};
+    $scope.student.addressDtl = [];
+    $scope.student.academicDtl = [{
+        "university" : null,
+        "collegeName" : null,
+        "passingYear" : null,
+        "percentage" : 0.0,
+        "rollNo" : null,
+        "fileNo" : null,
+        "qualificationId" : null,
+        "qualificationSubDtl" : [ {
+          "subjectId" : null,
+          "qualificationId" : null,
+          "fileNo" : null,
+          "marksObtained" : 0.0,
+          "maxMarks" : 0.0
+        } ]
+    }];
+    $scope.student.discountDtl = [];
+
+    $scope.showSub = false;
+
+    $scope.dummyAddress = {
+        "houseNo" : null,
+        "locality" : null,
+        "landmark" : null,
+        "district" : null,
+        "city" : null,
+        "pincode" : null,
+        "fileNo" : null,
+        "addressType" : null,
+        "state" : null
+    };
+    $scope.dummyQualification = {
+        "university" : null,
+        "collegeName" : null,
+        "passingYear" : null,
+        "percentage" : 0.0,
+        "rollNo" : null,
+        "fileNo" : null,
+        "qualificationId" : null,
+        "qualificationSubDtl" : [ {
+          "subjectId" : null,
+          "qualificationId" : null,
+          "fileNo" : null,
+          "marksObtained" : 0.0,
+          "maxMarks" : 0.0
+        } ]
+    };
+    $scope.dummyQualificationSubDtl = {
+        "subjectId" : null,
+        "qualificationId" : null,
+        "fileNo" : null,
+        "marksObtained" : 0.0,
+        "maxMarks" : 0.0
+    };
+
+	
+}

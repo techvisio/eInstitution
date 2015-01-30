@@ -20,7 +20,7 @@ import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
 import com.techvisio.einstitution.manager.CacheManager;
-import com.techvisio.einstitution.util.MasterDataConstants;
+import com.techvisio.einstitution.util.AppConstants;
 
 public class CacheManagerImpl implements CacheManager {
 
@@ -38,13 +38,13 @@ public class CacheManagerImpl implements CacheManager {
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
 		
-		if(cacheMap.get(MasterDataConstants.BRANCH) == null){
+		if(cacheMap.get(AppConstants.BRANCH) == null){
 			
 			List<Branch> branchs =null;
 			branchs=cacheDao.getBranch();
-			cacheMap.put(MasterDataConstants.BRANCH, branchs);
+			cacheMap.put(AppConstants.BRANCH, branchs);
 		}
-		return (List<Branch>) cacheMap.get(MasterDataConstants.BRANCH);
+		return (List<Branch>) cacheMap.get(AppConstants.BRANCH);
 	}
 	
 	
@@ -60,13 +60,13 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Course> getCourses() {
-		if(cacheMap.get(MasterDataConstants.COURSE) == null){
+		if(cacheMap.get(AppConstants.COURSE) == null){
 			List<Course> courses=null;
 			courses=cacheDao.getCourse();
-			cacheMap.put(MasterDataConstants.COURSE, courses);
+			cacheMap.put(AppConstants.COURSE, courses);
 		}
 		
-		return (List<Course>)cacheMap.get(MasterDataConstants.COURSE);
+		return (List<Course>)cacheMap.get(AppConstants.COURSE);
 	}
 	
 	public List<MasterDataBean> getCourseAsMasterdata(){
@@ -80,13 +80,13 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CasteCategory> getCategories() {
-		if(cacheMap.get(MasterDataConstants.CATEGORY) == null){
+		if(cacheMap.get(AppConstants.CATEGORY) == null){
 			List<CasteCategory> categories=null;
 			categories=cacheDao.getCatagory();
-			cacheMap.put(MasterDataConstants.CATEGORY, categories);
+			cacheMap.put(AppConstants.CATEGORY, categories);
 		}
 		
-		return (List<CasteCategory>)cacheMap.get(MasterDataConstants.CATEGORY);
+		return (List<CasteCategory>)cacheMap.get(AppConstants.CATEGORY);
 	}
 	
 	public List<MasterDataBean> getCategoryAsMasterdata(){
@@ -100,13 +100,13 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CounsellingBody> getCounsellingBodies() {
-		if(cacheMap.get(MasterDataConstants.COUNSELLING) == null){
+		if(cacheMap.get(AppConstants.COUNSELLING) == null){
 			List<CounsellingBody> counsellingBodies=null;
 			counsellingBodies=cacheDao.getCounsellingBody();
-			cacheMap.put(MasterDataConstants.COUNSELLING, counsellingBodies);
+			cacheMap.put(AppConstants.COUNSELLING, counsellingBodies);
 		}
 		
-		return (List<CounsellingBody>)cacheMap.get(MasterDataConstants.COUNSELLING);
+		return (List<CounsellingBody>)cacheMap.get(AppConstants.COUNSELLING);
 	}
 	
 	public List<MasterDataBean> getCounsellingBodyAsMasterdata(){
@@ -120,13 +120,13 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<FeeHead> getFeeHeads() {
-		if(cacheMap.get(MasterDataConstants.FEEHEAD) == null){
+		if(cacheMap.get(AppConstants.FEEHEAD) == null){
 			List<FeeHead> feeHeads=null;
 			feeHeads=cacheDao.getFeeHead();
-			cacheMap.put(MasterDataConstants.FEEHEAD, feeHeads);
+			cacheMap.put(AppConstants.FEEHEAD, feeHeads);
 		}
 		
-		return (List<FeeHead>)cacheMap.get(MasterDataConstants.FEEHEAD);
+		return (List<FeeHead>)cacheMap.get(AppConstants.FEEHEAD);
 	}
 	
 	public List<MasterDataBean> getFeeHeadAsMasterdata(){
@@ -141,13 +141,13 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Qualification> getQualifications() {
-		if(cacheMap.get(MasterDataConstants.QUALIFICATION) == null){
+		if(cacheMap.get(AppConstants.QUALIFICATION) == null){
 			List<Qualification> qualifications=null;
 			qualifications=cacheDao.getQualification();
-			cacheMap.put(MasterDataConstants.QUALIFICATION, qualifications);
+			cacheMap.put(AppConstants.QUALIFICATION, qualifications);
 		}
 		
-		return (List<Qualification>)cacheMap.get(MasterDataConstants.QUALIFICATION);
+		return (List<Qualification>)cacheMap.get(AppConstants.QUALIFICATION);
 	}
 	
 	public List<MasterDataBean> getQualificationAsMasterdata(){
@@ -161,13 +161,13 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized  List<QuotaCode> getQuotaCodes() {
-		if(cacheMap.get(MasterDataConstants.QUOTACODE) == null){
+		if(cacheMap.get(AppConstants.QUOTACODE) == null){
 			List<QuotaCode> quotaCodes=null;
 			quotaCodes=cacheDao.getQuotaCode();
-			cacheMap.put(MasterDataConstants.QUOTACODE, quotaCodes);
+			cacheMap.put(AppConstants.QUOTACODE, quotaCodes);
 		}
 		
-		return (List<QuotaCode>)cacheMap.get(MasterDataConstants.QUOTACODE);
+		return (List<QuotaCode>)cacheMap.get(AppConstants.QUOTACODE);
 	}
 	
 	public List<MasterDataBean> getQuotaCodeAsMasterdata(){
@@ -181,13 +181,13 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized  List<State> getStates() {
-		if(cacheMap.get(MasterDataConstants.STATE) == null){
+		if(cacheMap.get(AppConstants.STATE) == null){
 			List<State> states=null;
 			states=cacheDao.getState();
-			cacheMap.put(MasterDataConstants.STATE, states);
+			cacheMap.put(AppConstants.STATE, states);
 		}
 		
-		return (List<State>)cacheMap.get(MasterDataConstants.STATE);
+		return (List<State>)cacheMap.get(AppConstants.STATE);
 	}
 	
 	public List<MasterDataBean> getStateAsMasterdata(){
@@ -201,13 +201,13 @@ public class CacheManagerImpl implements CacheManager {
 		
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Subject> getsSubjects() {
-		if(cacheMap.get(MasterDataConstants.SUBJECT) == null){
+		if(cacheMap.get(AppConstants.SUBJECT) == null){
 			List<Subject> subjectes=null;
 			subjectes=cacheDao.getSubject();
-			cacheMap.put(MasterDataConstants.STATE, subjectes);
+			cacheMap.put(AppConstants.STATE, subjectes);
 		}
 		
-		return (List<Subject>)cacheMap.get(MasterDataConstants.SUBJECT);
+		return (List<Subject>)cacheMap.get(AppConstants.SUBJECT);
 	}
 	
 	

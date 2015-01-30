@@ -3,6 +3,8 @@ package com.techvisio.einstitution.manager.impl;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.SequenceFactory;
+import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
+import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
@@ -10,6 +12,8 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 
 	AdmissionDao admissionDao=ContextProvider.getContext().getBean(AdmissionDao.class);
+	
+	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
 	
 	public StudentDetail getStudentDtl(String fileNo) {
 
@@ -23,10 +27,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	public String addStudentDtl(StudentDetail studentDetail) {
 
-		String fileNo=studentDetail.getFileNo();;
+		String fileNo=studentDetail.getFileNo();
 		if(fileNo==null){
-			SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
-			fileNo=(sf.getSequence("ADMISSION").toString());
+			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
 		}
 		studentDetail.setFileNo(fileNo);
 		
@@ -36,9 +39,17 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		
 	}
 
-	public void updateStudentDtl(StudentDetail studentDetail) {
+	public String updateStudentDtl(StudentDetail studentDetail) {
 
+		String fileNo=studentDetail.getFileNo();;
+		if(fileNo==null){
+			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
+		}
+		studentDetail.setFileNo(fileNo);
+		
 		admissionDao.updateStudentDtl(studentDetail);
+		
+		return fileNo;
 	}
 
 	public void deleteSudentDtl(String fileNo) {

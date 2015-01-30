@@ -6,22 +6,23 @@ import com.techvisio.einstitution.util.ContextProvider;
 
 public class UniqueIdentifierFactory {
 
-	public UniqueIdentifierGenerator getGenerator(){
+	public static UniqueIdentifierGenerator getGenerator(){
 		return new UniqueIdentifierGenerator() {
 		
-			public String getUniqueIdentifierForAdmission(String entity) {
+			public String getUniqueIdentifierForAdmission() {
 
 				Calendar now = Calendar.getInstance();
 				int year = now.get(Calendar.YEAR);
 			    
 				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
 				
-				 entity = year+"/"+sf.getSequence("ADMISSION").toString();
+				String fileNo = year+"/"+sf.getSequence("ADMISSION").toString();
 				
-			    return entity;
+			    return fileNo;
 				
 				
 			}
+
 		};
 	}
 }

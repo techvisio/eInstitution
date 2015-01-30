@@ -3,7 +3,7 @@ package com.techvisio.einstitution.factory;
 
 public interface UniqueIdentifierGenerator {
 
-	public String getUniqueIdentifierForAdmission(String entity);
+	public String getUniqueIdentifierForAdmission();
 
 	
 

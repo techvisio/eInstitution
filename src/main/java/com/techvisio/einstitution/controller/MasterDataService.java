@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
-import com.techvisio.einstitution.util.MasterDataIdConstants;
 
 @Component 
 @RestController
@@ -54,6 +54,10 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 			personalDetailFields.add(innerList);
 		}
 		
+		if(i==personalDetailFieldsSingle.size()-1 && i%2==0){
+			personalDetailFields.add(innerList);
+		}
+		
 		i++;
 	}
 	admissionMasterData.put("personalDetailAttributes", personalDetailFields);
@@ -63,27 +67,27 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> category=cacheManager.getCategoryAsMasterdata();
 //	category.add(new MasterDataBean("1", "General"));
 //	category.add(new MasterDataBean("2", "OBC"));
-	serverData.put(MasterDataIdConstants.category, category);
+	serverData.put(AppConstants.CATEGORY, category);
 	
 	List<MasterDataBean> course=cacheManager.getCourseAsMasterdata();
 //	course.add(new MasterDataBean("1", "B.Tech"));
 //	course.add(new MasterDataBean("2", "MBA"));
-	serverData.put(MasterDataIdConstants.course, course);
+	serverData.put(AppConstants.COURSE, course);
 	
 	List<MasterDataBean> branch=cacheManager.getBranchAsMasterdata();
 //	branch.add(new MasterDataBean("1", "CS", "BTech"));
 //	branch.add(new MasterDataBean("2", "Mechanical", "BTech"));
-	serverData.put(MasterDataIdConstants.branch, branch);
+	serverData.put(AppConstants.BRANCH, branch);
 	
 	List<MasterDataBean> state=cacheManager.getStateAsMasterdata();
 //	state.add(new MasterDataBean("1", "Uttar Pradesh"));
 //	state.add(new MasterDataBean("2", "Delhi"));
-	serverData.put(MasterDataIdConstants.state, state);
+	serverData.put(AppConstants.STATE, state);
 	
 	List<MasterDataBean> qualification=cacheManager.getQualificationAsMasterdata();
 //	qualification.add(new MasterDataBean("1", "High School"));
 //	qualification.add(new MasterDataBean("2", "Intermediate"));
-	serverData.put(MasterDataIdConstants.qualification, qualification);
+	serverData.put(AppConstants.QUALIFICATION, qualification);
 	//CommonUtil.convertJavatoJSON(admissionMasterData);
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	

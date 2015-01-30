@@ -37,7 +37,7 @@ Insert into ConsultantMaster
    :Primary_Contact_No, 
    :Secondary_contact_No, 
    :Address, 
-   :Email_Id)
+   :Email_Id);
     ]]>
 
 	</entry>

@@ -7,7 +7,7 @@ public interface AdmissionManager {
 	
 	public StudentDetail getStudentDtl(String fileNo);
 	public String addStudentDtl(StudentDetail studentDetail);
-	public void updateStudentDtl(StudentDetail studentDtl);
+	public String updateStudentDtl(StudentDetail studentDtl);
 	public void deleteSudentDtl(String fileNo);
 	
 
