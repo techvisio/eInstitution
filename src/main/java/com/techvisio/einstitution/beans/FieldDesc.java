@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.beans;
 
+import java.util.Arrays;
+
 public class FieldDesc{
 	private String id;
 	private String type;
@@ -50,5 +52,15 @@ public class FieldDesc{
 	public void setMasterDataCode(String masterDataCode) {
 		this.masterDataCode = masterDataCode;
 	}
+	@Override
+	public String toString() {
+		return "FieldDesc [id=" + id + ", type=" + type + ", Title=" + Title
+				+ ", masterDataCode=" + masterDataCode + ", validValue="
+				+ Arrays.toString(validValue) + ", mandatoryInd="
+				+ mandatoryInd + ", visible=" + visible + "]";
+	}
+	
+
+	
 	
 }

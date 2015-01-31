@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="getWorkFlowFieldMappingByWorkFlowStepId">
+    <![CDATA[
+SELECT 
+	Work_Flow_Step_Id, 
+	Work_Flow_Id, 
+	Field_Desc_Id, 
+	Type, 
+	Title, 
+	Master_Data_Code, 
+	Valid_Value, 
+	Mandatory_Ind, 
+	Visible 
+FROM workflowfieldmapping where Work_Flow_Step_Id=:Work_Flow_Step_Id;]]>
+
+	</entry>
+
+
+<entry key="getWorkFlowFieldMappingByWorkFlowId">
+    <![CDATA[
+SELECT 
+	Work_Flow_Step_Id, 
+	Work_Flow_Id, 
+	Field_Desc_Id, 
+	Type, 
+	Title, 
+	Master_Data_Code, 
+	Valid_Value, 
+	Mandatory_Ind, 
+	Visible 
+FROM workflowfieldmapping where Work_Flow_Id=:Work_Flow_Id;]]>
+
+	</entry>
+
+
+
+	<entry key="addWorkFlowFieldMapping">
+    <![CDATA[
+      
+Insert into workflowfieldmapping
+
+	(Work_Flow_Step_Id, 
+	Work_Flow_Id, 
+	Field_Desc_Id, 
+	Type, 
+	Title, 
+	Master_Data_Code, 
+	Valid_Value, 
+	Mandatory_Ind, 
+	Visible) values
+	       
+   (:Work_Flow_Step_Id, 
+	:Work_Flow_Id, 
+	:Field_Desc_Id, 
+	:Type, 
+	:Title, 
+	:Master_Data_Code, 
+	:Valid_Value, 
+	:Mandatory_Ind, 
+	:Visible)
+    ]]>
+
+	</entry>
+
+	<entry key="updateWorkFlowFieldMapping">
+    <![CDATA[
+      
+Update workflowfieldmapping set
+ 
+	Work_Flow_Step_Id=:Work_Flow_Step_Id, 
+	Work_Flow_Id=:Work_Flow_Id, 
+	Field_Desc_Id=:Field_Desc_Id, 
+	Type=:Type, 
+	Title=:Title, 
+	Master_Data_Code=:Master_Data_Code, 
+	Valid_Value=:Valid_Value, 
+	Mandatory_Ind=:Mandatory_Ind, 
+	Visible=:Visible       
+   
+where Work_Flow_Step_Id=:Work_Flow_Step_Id AND Work_Flow_Id=:Work_Flow_Id;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteWorkFlowFieldMapping">
+    <![CDATA[
+      
+Delete from workflowfieldmapping where Work_Flow_Step_Id=:Work_Flow_Step_Id ;
+    ]]>
+
+	</entry>
+
+</properties>

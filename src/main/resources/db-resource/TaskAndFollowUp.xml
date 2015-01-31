@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="getTaskAndFollowUpByTaskId">
+    <![CDATA[
+SELECT 
+	TASK_ID, 
+	PARENTTASK_ID,
+	TASK_ENTRY,
+	ROLE, 
+	USER_ID, 
+	DUE_DATE, 
+	STATUS, 
+	REMARK 
+FROM taskandfollowup where TASK_ID=:TASK_ID; ]]>
+
+	</entry>
+
+
+<entry key="getTaskAndFollowUpByParentTaskId">
+    <![CDATA[
+SELECT 
+	TASK_ID, 
+	PARENTTASK_ID,
+	TASK_ENTRY,
+	ROLE, 
+	USER_ID, 
+	DUE_DATE, 
+	STATUS, 
+	REMARK 
+FROM taskandfollowup where PARENTTASK_ID=:PARENTTASK_ID;]]>
+
+	</entry>
+
+
+
+	<entry key="addTaskAndFollowUp">
+    <![CDATA[
+      
+INSERT INTO taskandfollowup
+(TASK_ID,
+ PARENTTASK_ID,
+ TASK_ENTRY,
+ ROLE,
+ USER_ID,
+ DUE_DATE,
+ STATUS,
+ REMARK) 
+VALUES 
+(:TASK_ID,
+ :PARENTTASK_ID,
+ :TASK_ENTRY,
+ :ROLE,
+ :USER_ID,
+ :DUE_DATE,
+ :STATUS,
+ :REMARK)    ]]>
+
+	</entry>
+
+	<entry key="updateTaskAndFollowUp">
+    <![CDATA[
+      
+Update taskandfollowup set
+ 
+	TASK_ID=:TASK_ID,
+ 	PARENTTASK_ID=:PARENTTASK_ID,
+ 	TASK_ENTRY=:TASK_ENTRY,
+ 	ROLE=:ROLE,
+ 	USER_ID=:USER_ID,
+ 	DUE_DATE=:DUE_DATE,
+ 	STATUS=:STATUS,
+ 	REMARK=:REMARK   
+
+where TASK_ID=:TASK_ID;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteTaskAndFollowUp">
+    <![CDATA[
+      
+Update taskandfollowup set
+ 
+ 	STATUS=:STATUS
+
+where TASK_ID=:TASK_ID;
+    ]]>
+
+	</entry>
+
+</properties>

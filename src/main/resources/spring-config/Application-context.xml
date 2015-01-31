@@ -97,6 +97,30 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	</bean>
 
+
+
+	<bean id="workFlowQueryProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations"
+			value="classpath:db-resource/WorkFlowFieldMapping.xml"></property>
+	</bean>
+	<bean id="workFlowDaoImpl" class="com.techvisio.einstitution.db.impl.WorkFlowDaoImpl">
+		<property name="workFlowQueryProps" ref="workFlowQueryProps"></property>
+
+	</bean>
+	
+	
+	<bean id="taskFollowQueryProps"
+	class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<property name="locations"
+		value="classpath:db-resource/TaskAndFollowUp.xml"></property>
+	</bean>
+	<bean id="taskFlowDaoImpl" class="com.techvisio.einstitution.db.impl.TaskFlowDaoImpl">
+		<property name="taskFollowQueryProps" ref="taskFollowQueryProps"></property>	
+	</bean>
+
+
+
 	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory">
 	</bean>
 
