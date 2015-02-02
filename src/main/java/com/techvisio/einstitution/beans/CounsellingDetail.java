@@ -2,67 +2,67 @@ package com.techvisio.einstitution.beans;
 
 public class CounsellingDetail {
 
-	private String FileNo;
-	private Long CounsellingId;
-	private String Roll_No;
-	private Long Rank;
-	private Long Category_Rank;
-	private Float Percentile;
+	private String fileNo;
+	private Long counsellingId;
+	private String rollNo;
+	private Long rank;
+	private Long categoryRank;
+	private Float percentile;
 
 	@Override
 	public String toString() {
-		return "CounsellingDetail [FileNo=" + FileNo + ", CounsellingId="
-				+ CounsellingId + ", Roll_No=" + Roll_No + ", Rank=" + Rank
-				+ ", Category_Rank=" + Category_Rank + ", Percentile="
-				+ Percentile + "]";
+		return "CounsellingDetail [FileNo=" + fileNo + ", CounsellingId="
+				+ counsellingId + ", Roll_No=" + rollNo + ", Rank=" + rank
+				+ ", Category_Rank=" + categoryRank + ", Percentile="
+				+ percentile + "]";
 	}
 
 	public String getFileNo() {
-		return FileNo;
+		return fileNo;
 	}
 
 	public void setFileNo(String fileNo) {
-		FileNo = fileNo;
+		this.fileNo = fileNo;
 	}
 
 	public Long getCounsellingId() {
-		return CounsellingId;
+		return counsellingId;
 	}
 
 	public void setCounsellingId(Long counsellingId) {
-		CounsellingId = counsellingId;
+		this.counsellingId = counsellingId;
 	}
 
 	public String getRoll_No() {
-		return Roll_No;
+		return rollNo;
 	}
 
 	public void setRoll_No(String roll_No) {
-		Roll_No = roll_No;
+		this.rollNo = roll_No;
 	}
 
 	public Long getRank() {
-		return Rank;
+		return rank;
 	}
 
 	public void setRank(Long rank) {
-		Rank = rank;
+		this.rank = rank;
 	}
 
 	public Long getCategory_Rank() {
-		return Category_Rank;
+		return categoryRank;
 	}
 
 	public void setCategory_Rank(Long category_Rank) {
-		Category_Rank = category_Rank;
+		this.categoryRank = category_Rank;
 	}
 
 	public Float getPercentile() {
-		return Percentile;
+		return percentile;
 	}
 
 	public void setPercentile(Float percentile) {
-		Percentile = percentile;
+		this.percentile = percentile;
 	}
 
 }

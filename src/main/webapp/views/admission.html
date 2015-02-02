@@ -4,6 +4,7 @@
         <li><a href="" ng-click="gotoAnchor('personal')">Personal Detail</a>
         <li><a href="" ng-click="gotoAnchor('address')">Address Detail</a>
         <li><a href="" ng-click="gotoAnchor('academic')">Academic Detail</a>
+         <li><a href="" ng-click="gotoAnchor('discount')">Discount Detail</a>
         </ul>
       </div>
       <div class="module-sub-menu-eye-off">
@@ -33,10 +34,10 @@
       <table class=" borderless">
       
       <tr><td>Admission Mode</td>
-      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode"/>Walk-In</td>
-      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode"/>Counselling</td>
-      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode"/>Consultant</td>
-      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode"/>Referral</td></tr>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='W'/>Walk-In</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='C'/>Counselling</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='A'/>Consultant</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='R'/>Referral</td></tr>
       
         <tr> <div id="personal" class="panel-div">Student Personal Details</div></tr>
       <tr ng-repeat="row in serverModelData.personalDetailAttributes">
@@ -97,7 +98,7 @@
       <tr>
         <td><span>State</span></td>
         <td><select ng-model="getStudentAddress('P').state">
-         <option ng-repeat="object in serverModelData.dropdownMasterData.state" value="{{object.id}}">{{object.value}}</option>
+         <option ng-repeat="object in serverModelData.dropdownMasterData.STATE" value="{{object.id}}">{{object.value}}</option>
        </select></td>
        <th></th>
         <td></td>
@@ -127,7 +128,7 @@
       <tr>
         <td><span>State</span></td>
         <td><select ng-model="getStudentAddress('C').state">
-         <option ng-repeat="object in serverModelData.dropdownMasterData.state" value="{{object.id}}">{{object.value}}</option>
+         <option ng-repeat="object in serverModelData.dropdownMasterData.STATE" value="{{object.id}}">{{object.value}}</option>
        </select></td>
        <th></th>
         <td></td>
@@ -149,7 +150,7 @@
                <th><span>Percentage</span></th>
           </tr>
         <tr>
-        <td><select ng-model="object.qualificationId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.qualification">
+        <td><select ng-model="object.qualificationId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
         <!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
        </select></td>
        <td><input type="Text" ng-model="object.university"></td>
@@ -174,10 +175,82 @@
       </table> 
     </div>
    </div>
+   
+   <div class="module-sub-section">
+      <div id="discount" class="panel-div">Admission Discount Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr ng-repeat="discount in student.discountDtl">
+      <td><span>Feehead</span></td>
+      <td><select ng-model="discount.feeHeadId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD"></select>
+      </td>
+      <td><span>Amount</span></td>
+      <td><input type="Text" ng-model="discount.amount"></td>
+      <td><span>Percent</span></td>
+      <td><input type="Text" ng-model="discount.percent"></td>
+      <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addDiscountDtl()"/></td>
+      <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
+      
+      </tr>
+      </table>
+    </div>  
+  </div>
+  
+  <div class="module-sub-section" ng-show="student.admissionMode == 'C'">
+      <div id="counselling" class="panel-div">Counselling Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Counselling</span></td>
+      <td><span>Roll No</span></td>
+      <td><span>Rank</span></td>
+      <td><span>Category Rank</span></td>
+      <td><span>Percentile</span></td>
+      </tr>
+      
+      <tr ng-repeat="counselling in student.counsellingDtl">
+      <td><select ng-model="counselling.counsellingId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
+      <td><input type="Text" ng-model="counselling.rollNo"></td>
+      <td><input type="Text" ng-model="counsellingl.rank"></td>
+      <td><input type="Text" ng-model="counselling.categoryRank"></td>
+      <td><input type="Text" ng-model="counselling.percentile"></td>
+      
+      <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addCounsellingDtl()"/></td>
+      <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeCounsellingDtl($index)" ng-show="$index>0" /></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+  
+  <div class="module-sub-section" ng-show="student.admissionMode == 'A'">
+      <div id="consultant" class="panel-div">Consultant Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Consultant Name</span></td>
+      <td><input type="Text" ng-model="student.consultantName"></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+    
+  <div class="module-sub-section" ng-show="student.admissionMode == 'R'">
+      <div id="consultant" class="panel-div" >Referral Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Referred By</span></td>
+      <td><input type="Text" ></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+   
     <input type="submit" value="Submit" ng-click="click()"/>
     </accordion>
   </div>
     </div>
+    
 <!--   </body>
 
 </html> -->

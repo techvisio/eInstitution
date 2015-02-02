@@ -89,6 +89,19 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 //	qualification.add(new MasterDataBean("2", "Intermediate"));
 	serverData.put(AppConstants.QUALIFICATION, qualification);
 	//CommonUtil.convertJavatoJSON(admissionMasterData);
+	
+	List<MasterDataBean> feeHead=cacheManager.getFeeHeadAsMasterdata();
+	serverData.put(AppConstants.FEEHEAD, feeHead);
+	
+	List<MasterDataBean> subject=cacheManager.getSubjectAsMasterdata();
+	serverData.put(AppConstants.SUBJECT, subject);
+	
+	List<MasterDataBean> quotaCode=cacheManager.getQuotaCodeAsMasterdata();
+	serverData.put(AppConstants.QUOTACODE, quotaCode);
+	
+	List<MasterDataBean> counselling=cacheManager.getCounsellingBodyAsMasterdata();
+	serverData.put(AppConstants.COUNSELLING, counselling);
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

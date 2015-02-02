@@ -440,7 +440,6 @@ Select
 
 	Branch_Preference_Id,
 	File_No,
-	Course_Id,
 	Branch_Id 
 	
 	from BranchPreference where File_No=:File_No;
@@ -455,12 +454,10 @@ Select
 
 	(Branch_Preference_Id,
 	File_No,
-	Course_Id,
 	Branch_Id) values
 	 
 	 (:Branch_Preference_Id,
 	:File_No,
-	:Course_Id,
 	:Branch_Id);
     ]]>
 
@@ -473,7 +470,6 @@ Select
 
 	Branch_Preference_Id=:Branch_Preference_Id,
 	File_No=:File_No,
-	Course_Id=:Course_Id,
 	Branch_Id=:	Branch_Id
 	
 	where File_No=:File_No; 

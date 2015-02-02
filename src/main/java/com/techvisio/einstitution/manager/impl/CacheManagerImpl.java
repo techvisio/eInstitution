@@ -212,11 +212,11 @@ public class CacheManagerImpl implements CacheManager {
 	
 	
 	public List<MasterDataBean> getSubjectAsMasterdata(){
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-		for(Subject subject : getsSubjects()){
-			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
-			masterData.add(bean);
-		}
+     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+//		for(Subject subject : getsSubjects()){
+//			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
+//			masterData.add(bean);
+//		}
 		return masterData;
 	}	
 

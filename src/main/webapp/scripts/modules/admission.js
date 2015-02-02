@@ -49,7 +49,22 @@ admissionModule
              "maxMarks" : 0.0
            } ]
        }];
-       $scope.student.discountDtl = [];
+       $scope.student.discountDtl = [{
+		    "fileNo" : null,
+			"feeHeadId" : null,
+		    "amount" : 0.0,
+			"percent" : 0.0
+		   }];
+       
+       $scope.student.counsellingDtl = [{
+		   
+		    "fileNo" : null, 
+		    "counsellingId" : null,
+			"rollNo" : null,
+			"rank" : null,
+			"categoryRank" : null,
+			"percentile" : 0.0
+  }];
 
        $scope.showSub = false;
 
@@ -88,6 +103,23 @@ admissionModule
            "maxMarks" : 0.0
        };
        
+       $scope.dummyDiscountDtl = {
+    		    "fileNo" : null,
+    			"feeHeadId" : null,
+    		    "amount" : 0.0,
+    			"percent" : 0.0
+    		   };
+       
+       $scope.dummyCounsellingDtl = {
+    		    "fileNo" : null, 
+    		    "counsellingId" : null,
+    			"rollNo" : null,
+    			"rank" : null,
+    			"categoryRank" : null,
+    			"percentile" : 0.0
+       };
+       
+       
        $scope.init=function(){
 
            console.log('getting masterdata for admission module in init block');
@@ -106,12 +138,32 @@ admissionModule
 
      
        $scope.click = function(arg) {
-         console.log('test');
          console.log($scope.student);
-         console
-         .log($scope.getStudentAddress('P').addressType);
        }
 
+       $scope.addDiscountDtl = function(){
+    	   
+    	  var discountDtl = angular.copy($scope.dummyDiscountDtl);
+    	  $scope.student.discountDtl.push(discountDtl);
+       };       
+       
+       $scope.removeDiscountDtl = function(index){
+    	   
+    	   $scope.student.discountDtl.splice(index, 1);
+       };
+       
+
+       $scope.addCounsellingDtl = function(){
+    	   
+     	  var counsellingDtl = angular.copy($scope.dummyCounsellingDtl);
+     	 $scope.student.counsellingDtl.push(counsellingDtl);
+        };       
+        
+        $scope.removeCounsellingDtl = function(index){
+     	   
+     	   $scope.student.counsellingDtl.splice(index, 1);
+        };
+       
        $scope.addQualification = function(index) {
          var copedDtl = angular
          .copy($scope.dummyQualification);
@@ -122,6 +174,7 @@ admissionModule
          $scope.student.academicDtl.splice(index, 1);
        };
 
+       
        $scope.addSubject = function(object) {
          var qualificationSub = angular
          .copy($scope.dummyQualificationSubDtl);
@@ -179,6 +232,50 @@ admissionModule
            }
          })
        }
+       
+       $scope.getStudent = function() {
+    	   var fileNo=prompt("Enter File No", "");
+           admissionService.getStudent(fileNo)
+           .then(function(data) {
+             console.log(data);
+             if (data != null) {
+               $scope.student = data;
+             } else {
+               console.log('error');
+             }
+           })
+         }
+         
+       
+       $scope.resetForm = function(){
+    		
+    	    $scope.student = {};
+    	    $scope.student.addressDtl = [];
+    	    $scope.student.academicDtl = [{
+    	        "university" : null,
+    	        "collegeName" : null,
+    	        "passingYear" : null,
+    	        "percentage" : 0.0,
+    	        "rollNo" : null,
+    	        "fileNo" : null,
+    	        "qualificationId" : null,
+    	        "qualificationSubDtl" : [ {
+    	          "subjectId" : null,
+    	          "qualificationId" : null,
+    	          "fileNo" : null,
+    	          "marksObtained" : 0.0,
+    	          "maxMarks" : 0.0
+    	        } ]
+    	    }];
+    	    $scope.student.discountDtl = [{
+    		    "fileNo" : null,
+    			"feeHeadId" : null,
+    		    "amount" : 0.0,
+    			"percent" : 0.0
+    		   }];
+
+    		
+    	}
 
      } ])
 
@@ -187,7 +284,7 @@ admissionModule
        // Return public API.
        return ({
          addStudent : addStudent,
-         getFriends : getFriends,
+         getStudent : getStudent,
          updateStudent : updateStudent
        });
 
@@ -208,11 +305,11 @@ admissionModule
 
        
        // I get all of the friends in the remote collection.
-       function getFriends() {
+       function getStudent(fileNo) {
 
          var request = $http({
            method : "get",
-           url : "api/index.cfm",
+           url : "admission/"+fileNo,
            params : {
              action : "get"
            }
@@ -276,66 +373,4 @@ admissionModule
        
      });
 
-function resetForm($scope, admissionService,masterdataService){
-	
-	$scope.serverModelData = {};
-
-    $scope.student = {};
-    $scope.student.addressDtl = [];
-    $scope.student.academicDtl = [{
-        "university" : null,
-        "collegeName" : null,
-        "passingYear" : null,
-        "percentage" : 0.0,
-        "rollNo" : null,
-        "fileNo" : null,
-        "qualificationId" : null,
-        "qualificationSubDtl" : [ {
-          "subjectId" : null,
-          "qualificationId" : null,
-          "fileNo" : null,
-          "marksObtained" : 0.0,
-          "maxMarks" : 0.0
-        } ]
-    }];
-    $scope.student.discountDtl = [];
-
-    $scope.showSub = false;
-
-    $scope.dummyAddress = {
-        "houseNo" : null,
-        "locality" : null,
-        "landmark" : null,
-        "district" : null,
-        "city" : null,
-        "pincode" : null,
-        "fileNo" : null,
-        "addressType" : null,
-        "state" : null
-    };
-    $scope.dummyQualification = {
-        "university" : null,
-        "collegeName" : null,
-        "passingYear" : null,
-        "percentage" : 0.0,
-        "rollNo" : null,
-        "fileNo" : null,
-        "qualificationId" : null,
-        "qualificationSubDtl" : [ {
-          "subjectId" : null,
-          "qualificationId" : null,
-          "fileNo" : null,
-          "marksObtained" : 0.0,
-          "maxMarks" : 0.0
-        } ]
-    };
-    $scope.dummyQualificationSubDtl = {
-        "subjectId" : null,
-        "qualificationId" : null,
-        "fileNo" : null,
-        "marksObtained" : 0.0,
-        "maxMarks" : 0.0
-    };
-
-	
-}
+ 

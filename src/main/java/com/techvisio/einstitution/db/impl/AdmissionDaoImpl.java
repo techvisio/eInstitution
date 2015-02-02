@@ -85,9 +85,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
 						studentDetail.setDomicileState(rs
 								.getString("Domicile_State_Id"));
-                        studentDetail.setScholarship(rs.getBoolean("Scholarship"));
-                        studentDetail.setRemarks(rs.getString("Remarks"));
-                        studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
+						studentDetail.setScholarship(rs.getBoolean("Scholarship"));
+						studentDetail.setRemarks(rs.getString("Remarks"));
+						studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
 						return studentDetail;
 
 					}
@@ -247,17 +247,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	public void deleteSudentDtl(String fileNo) {
 
-		
-				deleteAcademicDtl(fileNo);
-		
 
-				deleteAdmissionDisDtl(fileNo);
+		deleteAcademicDtl(fileNo);
 
-				deleteAddressDtl(fileNo);
 
-		
-				deleteBranchPreference(fileNo);
-		
+		deleteAdmissionDisDtl(fileNo);
+
+		deleteAddressDtl(fileNo);
+
+
+		deleteBranchPreference(fileNo);
+
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteStudentDtl");
 
@@ -301,7 +301,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 						return studentAcademicDetail;
 
-						
+
 					}
 				});
 
@@ -323,7 +323,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		
+
 		if (academicDtl.getQualificationSubDtl() == null) {
 
 			for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
@@ -332,7 +332,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				addQualificationDtl(qualificationSubjectDtl);
 				continue;
 			}
-         
+
 		}
 
 	}
@@ -340,7 +340,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void updateAcademicDtl(StudentAcademicDetail academicDtl) {
 
 		String fileNo = academicDtl.getFileNo();
-		
+
 		deleteAcademicDtl(fileNo);
 
 		addAcademicDtl(academicDtl);
@@ -363,9 +363,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private void deleteAcademicDtl(String fileNo) {
 
-		
-				deleteQualificationDtl(fileNo);
-		
+
+		deleteQualificationDtl(fileNo);
+
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAcademicDtl");
 
@@ -430,7 +430,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void updateAddressDtl(AddressDetail addressDtl) {
 
 		String fileNo=addressDtl.getFileNo();
-		
+
 		deleteAddressDtl(fileNo);
 
 		addAddressDtl(addressDtl);
@@ -512,7 +512,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void updateAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
 
 		String fileNo=admissionDisDtl.getFileNo();
-		
+
 		deleteAdmissionDisDtl(fileNo);
 
 		addAdmissionDisDtl(admissionDisDtl);
@@ -597,7 +597,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void updateQualificationDtl(QualificationSubjectDtl qualificationDtl) {
 
 		String fileNo=qualificationDtl.getFileNo();
-		
+
 		deleteQualificationDtl(fileNo);
 
 		addQualificationDtl(qualificationDtl);
@@ -651,9 +651,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 								.getLong("Branch_Id"));
 						branchPreference.setBranchPreferenceId(rs
 								.getLong("Branch_Preference_Id"));
-						branchPreference.setCoureseId(rs
-								.getLong("Course_Id"));
-
 						return branchPreference;
 					}
 				});
@@ -670,8 +667,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				"File_No", branchPreference.getFileNo())
 		.addValue("Branch_Preference_Id",
 				branchPreference.getBranchPreferenceId())
-				.addValue("Branch_Id", branchPreference.getBranchId())
-				.addValue("Course_Id", branchPreference.getCoureseId());
+				.addValue("Branch_Id", branchPreference.getBranchId());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -680,7 +676,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void updateBranchPreference(BranchPreference branchPreference) {
 
 		String fileNo=branchPreference.getFileNo();
-		
+
 		deleteBranchPreference(fileNo);
 
 		addBranchPreference(branchPreference);

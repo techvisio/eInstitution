@@ -6,14 +6,21 @@ import com.techvisio.einstitution.beans.MasterDataBean;
 
 public interface CacheManager {
 
-	List<MasterDataBean> getBranchAsMasterdata();
+	public List<MasterDataBean> getBranchAsMasterdata();
 
-	List<MasterDataBean> getCategoryAsMasterdata();
+	public List<MasterDataBean> getCategoryAsMasterdata();
 
-	List<MasterDataBean> getCourseAsMasterdata();
+	public List<MasterDataBean> getCourseAsMasterdata();
 
-	List<MasterDataBean> getStateAsMasterdata();
+	public List<MasterDataBean> getStateAsMasterdata();
 
-	List<MasterDataBean> getQualificationAsMasterdata();
+	public List<MasterDataBean> getQualificationAsMasterdata();
 
+	public List<MasterDataBean> getCounsellingBodyAsMasterdata();
+	
+	public List<MasterDataBean> getFeeHeadAsMasterdata();
+	
+	public List<MasterDataBean> getQuotaCodeAsMasterdata();
+	
+	public List<MasterDataBean> getSubjectAsMasterdata();
 }
