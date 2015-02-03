@@ -37,16 +37,11 @@ Branch_Id,
 Created_By,
 Created_On,
 Updated_By,
-Updated_On,
-Fee_Received_By,
-Fee_Received_On,
-Document_Received_By,
-Document_Received_On,
-Document_verified_By,
-Document_Verified_On,
-Management_Approved_By,
-Management_Approved_On,   
-Domicile_State_Id
+Updated_On,   
+Domicile_State_Id,
+Scholarship,
+Remarks,
+Admission_Mode
 
 from StudentDetail where File_No=:File_No;    
     ]]>
@@ -89,15 +84,9 @@ Created_By,
 Created_On,
 Updated_By,
 Updated_On,
-Fee_Received_By,
-Fee_Received_On,
-Document_Received_By,
-Document_Received_On,
-Document_verified_By,
-Document_Verified_On,
-Management_Approved_By,
-Management_Approved_On,
-Domicile_State_Id) values
+Domicile_State_Id,
+Scholarship,
+Remarks) values
     
  (:File_No,
  :Enroll_No,
@@ -130,15 +119,9 @@ Domicile_State_Id) values
 :Created_On,
 :Updated_By,
 :Updated_On,
-:Fee_Received_By,
-:Fee_Received_On,
-:Document_Received_By,
-:Document_Received_On,
-:Document_verified_By,
-:Document_Verified_On,
-:Management_Approved_By,
-:Management_Approved_On,
-:Domicile_State_Id);
+:Domicile_State_Id,
+:Scholarship,
+:Remarks);
        
     ]]>
 
@@ -179,15 +162,9 @@ Created_By = :Created_By,
 Created_On = :Created_On,
 Updated_By = :Updated_By,
 Updated_On = :Updated_On,
-Fee_Received_By = :Fee_Received_By,
-Fee_Received_On = :Fee_Received_On,
-Document_Received_By = :Document_Received_By,
-Document_Received_On = :Document_Received_On,
-Document_verified_By = :Document_verified_By,
-Document_Verified_On = :Document_Verified_On,
-Management_Approved_By = :Management_Approved_By,
-Management_Approved_On = :Management_Approved_On,
- Domicile_State_Id = :Domicile_State_Id  
+Domicile_State_Id = :Domicile_State_Id,
+Scholarship = :Scholarship,
+Remarks = :Remarks  
  where File_No=:File_No;  
     ]]>
 

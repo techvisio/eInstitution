@@ -22,7 +22,7 @@ public class InquiryManagerImpl implements InquiryManager {
 	}
 
 	public void addInquiry (AdmissionInquiry admissionInquiry) {
-		//TODO:populate inquiry id from seq factory
+
 		inquiryDao.addInquiry(admissionInquiry);
 	}
 

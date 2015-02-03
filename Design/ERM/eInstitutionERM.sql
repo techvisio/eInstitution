@@ -78,7 +78,6 @@ CREATE TABLE AdmissionInquiry
 	Created_On date,
 	Updated_By varchar(100),
 	Updated_On date,
-	Intrested_Course_Id int NOT NULL,
 	Intrested_Branch_Id int NOT NULL,
 	FollowUp_Rquired bit(1),
 	PRIMARY KEY (Inquiry_Id)
@@ -89,9 +88,8 @@ CREATE TABLE BranchPreference
 (
 	Branch_Preference_Id int,
 	File_No varchar(100) NOT NULL,
-	Course_Id int NOT NULL,
 	Branch_Id int NOT NULL,
-	PRIMARY KEY (File_No,Branch_Preference_Id)
+	PRIMARY KEY (File_No)
 );
 
 
@@ -149,7 +147,7 @@ CREATE TABLE CourseBranchMaster
 	Course_Id int NOT NULL,
 	Id int NOT NULL,
 	Branch varchar(100),
-	PRIMARY KEY (Course_Id, Id)
+	PRIMARY KEY (Id)
 );
 
 
@@ -233,21 +231,15 @@ CREATE TABLE StudentDetail
 	Management_Approval bit(1),
 	Fee_Paid bit(1),
 	Category_Id int NOT NULL,
-	Course_Id int NOT NULL,
 	Branch_Id int NOT NULL,
 	Created_By varchar(100),
 	Created_On date,
 	Updated_By varchar(100),
 	Updated_On date,
-	Fee_Received_By varchar(100),
-	Fee_Received_On date,
-	Document_Received_By varchar(100),
-	Document_Received_On date,
-	Document_verified_By varchar(100),
-	Document_Verified_On date,
-	Management_Approved_By varchar(100),
-	Management_Approved_On date,
 	Domicile_State_Id int NOT NULL,
+	Scholarship bit(1),
+	Remarks varchar(500),
+	Course_Id int NOT NULL,
 	PRIMARY KEY (File_No),
 	UNIQUE (Uni_Enroll_No)
 );
@@ -280,31 +272,39 @@ ALTER TABLE ConsultantDetail
 ;
 
 
-ALTER TABLE AdmissionInquiry
-	ADD FOREIGN KEY (Intrested_Course_Id, Intrested_Branch_Id)
-	REFERENCES CourseBranchMaster (Course_Id, Id)
+ALTER TABLE BranchPreference
+	ADD FOREIGN KEY (Branch_Id)
+	REFERENCES CourseBranchMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE BranchPreference
-	ADD FOREIGN KEY (Course_Id, Branch_Id)
-	REFERENCES CourseBranchMaster (Course_Id, Id)
+ALTER TABLE AdmissionInquiry
+	ADD FOREIGN KEY (Intrested_Branch_Id)
+	REFERENCES CourseBranchMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
 ALTER TABLE StudentDetail
-	ADD FOREIGN KEY (Course_Id, Branch_Id)
-	REFERENCES CourseBranchMaster (Course_Id, Id)
+	ADD FOREIGN KEY (Branch_Id)
+	REFERENCES CourseBranchMaster (Id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
 ALTER TABLE CourseBranchMaster
+	ADD FOREIGN KEY (Course_Id)
+	REFERENCES CourseMaster (Id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE StudentDetail
 	ADD FOREIGN KEY (Course_Id)
 	REFERENCES CourseMaster (Id)
 	ON UPDATE RESTRICT
@@ -336,14 +336,6 @@ ALTER TABLE AddressDetail
 ;
 
 
-ALTER TABLE AddressDetail
-	ADD FOREIGN KEY (File_No)
-	REFERENCES StudentDetail (File_No)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 ALTER TABLE AdmissionDiscountDtl
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
@@ -360,7 +352,7 @@ ALTER TABLE BranchPreference
 ;
 
 
-ALTER TABLE AcademicDetail
+ALTER TABLE QualificationSubjectDtl
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT
@@ -368,7 +360,15 @@ ALTER TABLE AcademicDetail
 ;
 
 
-ALTER TABLE QualificationSubjectDtl
+ALTER TABLE AddressDetail
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE AcademicDetail
 	ADD FOREIGN KEY (File_No)
 	REFERENCES StudentDetail (File_No)
 	ON UPDATE RESTRICT

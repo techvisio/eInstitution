@@ -1,15 +1,17 @@
 package com.techvisio.einstitution.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.DynamicProperties;
 
 public class StudentDetail {
 
+	private String admissionMode;
+	
 	@DynamicProperties(id="fileNo", title="File No")
 	private String fileNo;
 	@DynamicProperties(id="enrollNo", title="Enrollment No")
@@ -19,9 +21,9 @@ public class StudentDetail {
 	@DynamicProperties(id="semester", title="Semester")
 	private String semester;
 	
-	@DynamicProperties(id="courseId", title="courseId", type="select")
+	@DynamicProperties(id="courseId", title="course", type="select", masterDataCode=AppConstants.COURSE)
 	private Long courseId;
-	@DynamicProperties(id="branchId", title="branchId", type="select")
+	@DynamicProperties(id="branchId", title="branch", type="select", masterDataCode=AppConstants.BRANCH)
 	private Long branchId;
 	
 	@DynamicProperties(id="firstName", title="First Name")
@@ -41,7 +43,7 @@ public class StudentDetail {
 	private String gender;
 	@DynamicProperties(id="bloodGroup", title="Blood Group", type="select")
 	private String bloodGroup;
-	@DynamicProperties(id="emailId", title="Student Email Id")
+	@DynamicProperties(id="emailId", title="Student Email Id", masterDataCode=AppConstants.BLOODGROUP)
 	private String emailId;
 	@DynamicProperties(id="gaurdianEmailId", title="Gaurdian Email Id")
 	private String gaurdianEmailId;
@@ -55,7 +57,7 @@ public class StudentDetail {
 	private String gaurdianMobileNo;
 	@DynamicProperties(id="fatherOccupation", title="Father Occupation")
 	private String fatherOccupation;
-	@DynamicProperties(id="categoryId", title="categoryId", type="select" , masterDataCode="category")
+	@DynamicProperties(id="categoryId", title="category", type="select" , masterDataCode=AppConstants.CATEGORY)
 	private Long categoryId;
 	@DynamicProperties(id="hostel", title="Hostel Required",type="check")
 	private boolean hostel;
@@ -79,6 +81,10 @@ public class StudentDetail {
 	@DynamicProperties(id="updatedOn", title="updatedOn")
 	private Date updatedOn;
 	
+	
+	private boolean scholarship;
+	private String remarks;
+	
 	private byte[] photo;
 //	private String feeReceivedBy;
 //	private Date feeReceivedOn;
@@ -88,13 +94,23 @@ public class StudentDetail {
 //	private Date documentVerifiedOn;
 //	private String managementApprovedBy;
 //	private Date managementApprovedOn;
-	@DynamicProperties(id="domicileState", title="domicileState", type="select")
+	@DynamicProperties(id="domicileState", title="Domicile State", type="select", masterDataCode=AppConstants.STATE)
 	private String domicileState;
 	private List<StudentAcademicDetail> academicDtl=new ArrayList<StudentAcademicDetail>();
 	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
 	private List<AddressDetail> addressDtl=new ArrayList<AddressDetail>();
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
 
+	public String getAdmissionMode() {
+		return admissionMode;
+	}
+
+	public void setAdmissionMode(String admissionMode) {
+		this.admissionMode = admissionMode;
+	}
+
+	
+	
 	public List<StudentAcademicDetail> getAcademicDtl() {
 		return academicDtl;
 	}
@@ -385,6 +401,25 @@ public class StudentDetail {
 	public void setBranchPreference(List<BranchPreference> branchPreference) {
 		this.branchPreference = branchPreference;
 	}
+
+	
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public boolean isScholarship() {
+		return scholarship;
+	}
+
+	public void setScholarship(boolean scholarship) {
+		this.scholarship = scholarship;
+	}
+
 
 	
 }

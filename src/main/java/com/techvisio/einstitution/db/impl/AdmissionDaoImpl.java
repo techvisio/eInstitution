@@ -85,7 +85,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
 						studentDetail.setDomicileState(rs
 								.getString("Domicile_State_Id"));
-
+                        studentDetail.setScholarship(rs.getBoolean("Scholarship"));
+                        studentDetail.setRemarks(rs.getString("Remarks"));
+                        studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
 						return studentDetail;
 
 					}
@@ -150,54 +152,47 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Updated_On", studentDtl.getUpdatedOn())
-						.addValue("Fee_Received_By", null)
-						.addValue("Fee_Received_On", null)
-						.addValue("Document_Received_By",
-								null)
-								.addValue("Document_Received_On",
-										null)
-										.addValue("Document_verified_By",
-												null)
-												.addValue("Document_Verified_On",
-														null)
-														.addValue("Management_Approved_By",
-																null)
-																.addValue("Management_Approved_On",
-																		null)
-																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
+						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
+						.addValue("Scholarship", studentDtl.isScholarship())
+						.addValue("Remarks", studentDtl.getRemarks())
+						.addValue("Admission_Mode", studentDtl.getAdmissionMode());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		if (studentDtl.getAcademicDtl() != null) {
+		if (studentDtl.getAcademicDtl() == null) {
 			for (StudentAcademicDetail studentAcademicDetail : studentDtl
 					.getAcademicDtl()) {
 				addAcademicDtl(studentAcademicDetail);
+				continue;
 			}
 		}
 
-		if (studentDtl.getDiscountDtl() != null) {
+		if (studentDtl.getDiscountDtl() == null) {
 
 			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
 					.getDiscountDtl()) {
 
 				addAdmissionDisDtl(admissionDiscountDtl);
+				continue;
 			}
 		}
 
-		if (studentDtl.getAddressDtl() != null) {
+		if (studentDtl.getAddressDtl() == null) {
 
 			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
 				addAddressDtl(addressDeatil);
+				continue;
 			}
 		}
 
-		if (studentDtl.getBranchPreference() != null) {
+		if (studentDtl.getBranchPreference() == null) {
 
 			for (BranchPreference branchPreference : studentDtl
 					.getBranchPreference()) {
 
 				addBranchPreference(branchPreference);
+				continue;
 			}
 		}
 	}
@@ -241,21 +236,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Updated_On", studentDtl.getUpdatedOn())
-						.addValue("Fee_Received_By", null)
-						.addValue("Fee_Received_On", null)
-						.addValue("Document_Received_By",
-								null)
-								.addValue("Document_Received_On",
-										null)
-										.addValue("Document_verified_By",
-												null)
-												.addValue("Document_Verified_On",
-														null)
-														.addValue("Management_Approved_By",
-																null)
-																.addValue("Management_Approved_On",
-																		null)
-																		.addValue("Domicile_State_Id", studentDtl.getDomicileState());
+						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
+						.addValue("Scholarship", studentDtl.isScholarship())
+						.addValue("Remarks", studentDtl.getRemarks())
+						.addValue("Admission_Mode", studentDtl.getAdmissionMode());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
@@ -339,14 +323,16 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		if (academicDtl.getQualificationSubDtl() != null) {
+		
+		if (academicDtl.getQualificationSubDtl() == null) {
 
 			for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
 					.getQualificationSubDtl()) {
 
 				addQualificationDtl(qualificationSubjectDtl);
+				continue;
 			}
-
+         
 		}
 
 	}

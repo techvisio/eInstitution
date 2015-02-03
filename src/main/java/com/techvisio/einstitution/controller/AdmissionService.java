@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 
 @RestController
 @RequestMapping("/admission")
@@ -27,17 +29,17 @@ public class AdmissionService {
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
 	public StudentDetail getStudentDetail(@PathVariable String fileNo) {
 		
-		AdmissionManager admissionManager = new AdmissionManagerImpl();
+		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 		
-		StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
+		StudentDetail studentDetail = workflowManager.getStudentDetails(fileNo);
 		return studentDetail;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public StudentDetail addStudentDtl(@RequestBody StudentDetail studentDetail) {
-		//AdmissionManager admissionManager = new AdmissionManagerImpl();
-		//admissionManager.addStudentDtl(studentDetail);
-		return new StudentDetail();
+		AdmissionManager admissionManager = new AdmissionManagerImpl();
+		admissionManager.addStudentDtl(studentDetail);
+		return studentDetail;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
