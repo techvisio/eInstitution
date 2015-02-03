@@ -29,8 +29,9 @@ admissionModule
      'masterdataService',
      function($scope, admissionService,masterdataService) {
 
+       $scope.processing=false;
        $scope.serverModelData = {};
-
+       
        $scope.student = {};
        $scope.student.addressDtl = [];
        $scope.student.academicDtl = [{
@@ -222,14 +223,18 @@ admissionModule
        $scope.addStudent = function() {
          console.log('add student called');
          console.log($scope.student);
+         $scope.processing=true;
          admissionService.addStudent($scope.student)
          .then(function(data) {
            console.log(data);
            if (data != null) {
              $scope.student = data;
+             
            } else {
              console.log('error');
+            
            }
+           $scope.processing=false;
          })
        }
        
@@ -249,6 +254,7 @@ admissionModule
        
        $scope.resetForm = function(){
     		
+    	   $scope.processing=false;
     	    $scope.student = {};
     	    $scope.student.addressDtl = [];
     	    $scope.student.academicDtl = [{

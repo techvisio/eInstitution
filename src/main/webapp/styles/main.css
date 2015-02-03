@@ -236,3 +236,11 @@ text-align: left;
   color: white;
 }
 
+.ajax-busy-indicator {
+   position: fixed;
+   top: 300px;
+   right: 600px;
+   background-image: url("../images/loading.gif");
+   height: 100px;
+   width: 100px;
+    }
