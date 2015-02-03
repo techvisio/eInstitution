@@ -15,6 +15,15 @@ var erpModule = angular
         controller: 'admissionController'
         
       })
+      .when('/', {
+        templateUrl: 'views/main.html',
+        controller: 'admissionController'
+      })
+      .when('/transportFrom', {
+        templateUrl: 'views/transport.html',
+        controller: 'admissionController'
+        
+      })
       .otherwise({
         redirectTo: '/'
       });

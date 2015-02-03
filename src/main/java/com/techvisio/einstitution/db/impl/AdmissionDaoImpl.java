@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
 import com.techvisio.einstitution.beans.BranchPreference;
+import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -110,6 +111,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			List<BranchPreference> branchPreferences = getBranchPreference(fileNo);
 			studentDetail.setBranchPreference(branchPreferences);
+
+			List<CounsellingDetail> counsellingDetails = getCounsellingDetail(fileNo);
+			studentDetail.setCounsellingDtl(counsellingDetails);
+		 
 		}
 		return studentDetail;
 	}
@@ -195,6 +200,18 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				continue;
 			}
 		}
+
+		if (studentDtl.getCounsellingDtl() == null) {
+
+			for (CounsellingDetail counsellingDetail : studentDtl
+					.getCounsellingDtl()) {
+
+				addCounsellingDetail(counsellingDetail);
+				continue;
+			}
+		}
+
+	
 	}
 
 	public void updateStudentDtl(StudentDetail studentDtl) {
@@ -255,9 +272,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		deleteAddressDtl(fileNo);
 
-
 		deleteBranchPreference(fileNo);
 
+		deleteCounsellingDetail(fileNo);
+		
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteStudentDtl");
 
@@ -693,5 +711,71 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}
+	
+	private List<CounsellingDetail> getCounsellingDetail(String fileNo) {
+		String getQuery = admissionQueryProps.getProperty("getcounsellingDetailByFileNo");
+
+		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
+
+		List<CounsellingDetail> counsellingDetails = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new RowMapper<CounsellingDetail>() {
+
+					public CounsellingDetail mapRow(ResultSet rs,
+							int rowNum) throws SQLException {
+
+						CounsellingDetail counsellingDetail = new CounsellingDetail();
+
+						counsellingDetail.setFileNo(rs.getString("File_No"));
+						counsellingDetail.setCounsellingId(rs.getLong("Counselling_Id"));
+						counsellingDetail.setRollNo(rs.getString("Roll_No"));
+						counsellingDetail.setRank(rs.getLong("Rank"));
+						counsellingDetail.setCategoryRank(rs.getLong("Category_Rank"));
+						counsellingDetail.setPercentile(rs.getFloat("Percentile"));
+
+						return counsellingDetail;
+					}
+				});
+
+		return counsellingDetails;
+		}
+
+	private void addCounsellingDetail(CounsellingDetail counsellingDetail) {
+
+		String addQuery = admissionQueryProps.getProperty("addCounsellingDetail");
+
+		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", counsellingDetail.getFileNo())
+		.addValue("Counselling_Id", counsellingDetail.getCounsellingId())
+		.addValue("Roll_No", counsellingDetail.getRollNo())
+		.addValue("Rank", counsellingDetail.getRank())
+		.addValue("Category_Rank", counsellingDetail.getCategoryRank())
+		.addValue("Percentile", counsellingDetail.getPercentile());
+		
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+
+		
+		}
+
+
+	private void updateCounsellingDetail(CounsellingDetail counsellingDetail) {
+
+		String fileNo=counsellingDetail.getFileNo();
+
+		deleteCounsellingDetail(fileNo);
+
+		addCounsellingDetail(counsellingDetail);
+
+	}
+
+	private void deleteCounsellingDetail(String fileNo) {
+
+		String deleteQuery = admissionQueryProps.getProperty("deleteCounsellingDetail");
+
+		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
+		
+		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+		
+	}
+
 
 }

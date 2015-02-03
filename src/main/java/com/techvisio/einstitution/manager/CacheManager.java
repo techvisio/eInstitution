@@ -23,4 +23,6 @@ public interface CacheManager {
 	public List<MasterDataBean> getQuotaCodeAsMasterdata();
 	
 	public List<MasterDataBean> getSubjectAsMasterdata();
+	
+	public List<MasterDataBean> getConsultantAsMasterdata();
 }

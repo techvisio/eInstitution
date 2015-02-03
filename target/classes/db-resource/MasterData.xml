@@ -399,4 +399,20 @@ Insert into QuotaCodeMaster
     ]]>
 
 	</entry>
+	
+	<entry key="getConsultant">
+    <![CDATA[
+      
+Select 
+
+	Id, 
+	Name 
+	
+ from ConsultantMaster;
+    ]]>
+
+	</entry>
+	
+	
+	
 </properties>

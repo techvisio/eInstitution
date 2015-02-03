@@ -9,11 +9,13 @@ public class CounsellingDetail {
 	private Long categoryRank;
 	private Float percentile;
 
+	
+
 	@Override
 	public String toString() {
-		return "CounsellingDetail [FileNo=" + fileNo + ", CounsellingId="
-				+ counsellingId + ", Roll_No=" + rollNo + ", Rank=" + rank
-				+ ", Category_Rank=" + categoryRank + ", Percentile="
+		return "CounsellingDetail [fileNo=" + fileNo + ", counsellingId="
+				+ counsellingId + ", rollNo=" + rollNo + ", rank=" + rank
+				+ ", categoryRank=" + categoryRank + ", percentile="
 				+ percentile + "]";
 	}
 
@@ -33,12 +35,12 @@ public class CounsellingDetail {
 		this.counsellingId = counsellingId;
 	}
 
-	public String getRoll_No() {
+	public String getRollNo() {
 		return rollNo;
 	}
 
-	public void setRoll_No(String roll_No) {
-		this.rollNo = roll_No;
+	public void setRollNo(String rollNo) {
+		this.rollNo = rollNo;
 	}
 
 	public Long getRank() {
@@ -49,12 +51,12 @@ public class CounsellingDetail {
 		this.rank = rank;
 	}
 
-	public Long getCategory_Rank() {
+	public Long getCategoryRank() {
 		return categoryRank;
 	}
 
-	public void setCategory_Rank(Long category_Rank) {
-		this.categoryRank = category_Rank;
+	public void setCategoryRank(Long categoryRank) {
+		this.categoryRank = categoryRank;
 	}
 
 	public Float getPercentile() {

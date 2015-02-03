@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeHead;
@@ -14,22 +15,23 @@ import com.techvisio.einstitution.beans.Subject;
 
 public interface CacheDao {
 
-	List<State> getState();
+	public List<State> getState();
 
-	List<Branch> getBranch();
+	public List<Branch> getBranch();
 
-	List<Course> getCourse();
+	public List<Course> getCourse();
 
-	List<CasteCategory> getCatagory();
+	public List<CasteCategory> getCatagory();
 
-	List<FeeHead> getFeeHead();
+	public List<FeeHead> getFeeHead();
 
-	List<CounsellingBody> getCounsellingBody();
+	public List<CounsellingBody> getCounsellingBody();
 
-	List<Subject> getSubject();
+	public List<Subject> getSubject();
 
-	List<Qualification> getQualification();
+	public List<Qualification> getQualification();
 
-	List<QuotaCode> getQuotaCode();
+	public List<QuotaCode> getQuotaCode();
 
+	public List<Consultant> getConsultant();
 }

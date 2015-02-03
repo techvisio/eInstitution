@@ -228,7 +228,7 @@
       <table class="borderless">
       <tr>
       <td><span>Consultant Name</span></td>
-      <td><input type="Text" ng-model="student.consultantName"></td>
+      <td><select ng-model="student.consultant.consultantId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
       </tr>
       </table>
     </div>  
@@ -240,7 +240,7 @@
       <table class="borderless">
       <tr>
       <td><span>Referred By</span></td>
-      <td><input type="Text" ></td>
+      <td><input type="Text" ng-model="student.referredBy"></td>
       </tr>
       </table>
     </div>  
