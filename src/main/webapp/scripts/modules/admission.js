@@ -226,27 +226,30 @@ admissionModule
          $scope.processing=true;
          admissionService.addStudent($scope.student)
          .then(function(data) {
-           console.log(data);
-           if (data != null) {
-             $scope.student = data;
-             
-           } else {
-             console.log('error');
-            
-           }
+             console.log('Data received from service : ');
+             console.log(data);
+             if (data != null && data.data != null) {
+               $scope.student = data.data;
+             } else {
+               console.log(data.error);
+               alert(data.error);
+             }
+           })
+           
            $scope.processing=false;
-         })
        }
        
        $scope.getStudent = function() {
     	   var fileNo=prompt("Enter File No", "");
            admissionService.getStudent(fileNo)
            .then(function(data) {
+             console.log('Data received from service : ');
              console.log(data);
-             if (data != null) {
-               $scope.student = data;
+             if (data != null && data.data != null) {
+               $scope.student = data.data;
              } else {
-               console.log('error');
+               console.log(data.error);
+               alert(data.error);
              }
            })
          }
@@ -343,19 +346,9 @@ admissionModule
 
        }
 
-       // ---
-       // PRIVATE METHODS.
-       // ---
-
-       // I transform the error response, unwrapping the application dta from
-       // the API response payload.
        function handleError(response) {
-         console.log('handle error');
+         console.log('Error occured while calling service');
          console.log(response);
-         // The API response from the server should be returned in a
-         // nomralized format. However, if the request was not handled by the
-         // server (or what not handles properly - ex. server error), then we
-         // may have to normalize it on our end, as best we can.
          if (!angular.isObject(response.data) || !response.data.message) {
 
            return ($q.reject("An unknown error occurred."));

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
@@ -27,19 +28,39 @@ public class AdmissionService {
 			.getLogger(AdmissionService.class);
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
-	public StudentDetail getStudentDetail(@PathVariable String fileNo) {
-		
+	public ResponseEntity<Response> getStudentDetail(@PathVariable String fileNo) {
+		Response response=new Response();
+		try{
 		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 		
 		StudentDetail studentDetail = workflowManager.getStudentDetails(fileNo);
-		return studentDetail;
+		response.setData(studentDetail);
+		if(studentDetail == null){
+			response.setError("No such record found");
+		}
+		}
+		catch(Exception e){
+		response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public StudentDetail addStudentDtl(@RequestBody StudentDetail studentDetail) {
+	public ResponseEntity<Response> addStudentDtl(@RequestBody StudentDetail studentDetail) {
+		Response response=new Response();
+		try
+		{
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
 		admissionManager.addStudentDtl(studentDetail);
-		return studentDetail;
+		response.setData(studentDetail);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
