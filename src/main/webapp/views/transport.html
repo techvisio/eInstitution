@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<div ng-controller="transportController">
 
-</body>
-</html>
+
+
+
+  <div class="module-sub-section">
+      <div id="transport" class="panel-div">Available Transports Detail</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr ng-repeat="object in transport.availableTransport"> 
+           <td><span>Route Code</span></td>      
+           <td><input type="Text" ng-model="object.routeCode"></td>     
+       
+       </tr>
+       
+      </table> 
+   
+   
+   
+   
+   
+   
+    </div>
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

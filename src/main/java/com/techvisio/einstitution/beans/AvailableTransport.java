@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 public class AvailableTransport {
 
-	private String RouteCode;
+	private String routeCode;
 	private int reservedTransport;
 	private int availableTransport;
 	private String threshold;
@@ -35,11 +35,19 @@ public class AvailableTransport {
 	}
 
 	public String getRouteCode() {
-		return RouteCode;
+		return routeCode;
 	}
 
-	public void setRouteCode(String typeCode) {
-		this.RouteCode = typeCode;
+	public void setRouteCode(String routeCode) {
+		this.routeCode = routeCode;
+	}
+
+	@Override
+	public String toString() {
+		return "AvailableTransport [routeCode=" + routeCode
+				+ ", reservedTransport=" + reservedTransport
+				+ ", availableTransport=" + availableTransport + ", threshold="
+				+ threshold + ", price=" + price + "]";
 	}
 
 	public int getAvailableTransport() {
@@ -50,11 +58,5 @@ public class AvailableTransport {
 		this.availableTransport = availableTransport;
 	}
 
-	@Override
-	public String toString() {
-		return "AvailableTransport [typeCode=" + RouteCode
-				+ ", reservedTransport=" + reservedTransport
-				+ ", availableTransport=" + availableTransport + ", threshold="
-				+ threshold + ", price=" + price + "]";
-	}
+	
 }

@@ -1,4 +1,5 @@
     <div ng-controller="admissionController" ng-init="init()">
+	<div class="ajax-busy-indicator" ng-show="processing"></div>
       <div class="floating-section-bookmark" ng-controller="headerCtrl">
         <ul>
         <li><a href="" ng-click="gotoAnchor('personal')">Personal Detail</a>
