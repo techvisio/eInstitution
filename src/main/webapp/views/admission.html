@@ -165,7 +165,7 @@
       
         <tr ng-repeat-end ng-repeat="subject in object.qualificationSubDtl track by $index">
             <td><span>Subject</span></td>
-            <td><input type="Text" ng-model="subject.subjectId"></td>
+            <td><select ng-model="object.qualificationId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
             <td><span>Marks Obtained</span></td>
             <td><input type="Text" ng-model="subject.marksObtained"></td>
             <td><span>Maximum Marks</span></td>

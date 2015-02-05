@@ -41,7 +41,8 @@ Updated_On,
 Domicile_State_Id,
 Scholarship,
 Remarks,
-Admission_Mode
+Admission_Mode,
+Referred_By
 
 from StudentDetail where File_No=:File_No;    
     ]]>
@@ -86,7 +87,10 @@ Updated_By,
 Updated_On,
 Domicile_State_Id,
 Scholarship,
-Remarks) values
+Remarks,
+Admission_Mode,
+Referred_By
+) values
     
  (:File_No,
  :Enroll_No,
@@ -121,7 +125,10 @@ Remarks) values
 :Updated_On,
 :Domicile_State_Id,
 :Scholarship,
-:Remarks);
+:Remarks,
+Admission_Mode,
+Referred_By
+);
        
     ]]>
 
@@ -164,7 +171,10 @@ Updated_By = :Updated_By,
 Updated_On = :Updated_On,
 Domicile_State_Id = :Domicile_State_Id,
 Scholarship = :Scholarship,
-Remarks = :Remarks  
+Remarks = :Remarks,
+Admission_Mode = :Admission_Mode,
+Referred_By = :Referred_By
+  
  where File_No=:File_No;  
     ]]>
 
