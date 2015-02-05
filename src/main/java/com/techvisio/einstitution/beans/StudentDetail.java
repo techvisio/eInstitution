@@ -100,7 +100,10 @@ public class StudentDetail {
 	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
 	private List<AddressDetail> addressDtl=new ArrayList<AddressDetail>();
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
-
+	private List<CounsellingDetail> counsellingDtl=new ArrayList<CounsellingDetail>();
+	
+    private Consultant consultant;
+    private String referredBy;
 	public String getAdmissionMode() {
 		return admissionMode;
 	}
@@ -402,8 +405,6 @@ public class StudentDetail {
 		this.branchPreference = branchPreference;
 	}
 
-	
-
 	public String getRemarks() {
 		return remarks;
 	}
@@ -418,6 +419,30 @@ public class StudentDetail {
 
 	public void setScholarship(boolean scholarship) {
 		this.scholarship = scholarship;
+	}
+
+	public Consultant getConsultant() {
+		return consultant;
+	}
+
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
+	}
+
+	public String getReferredBy() {
+		return referredBy;
+	}
+
+	public void setReferredBy(String referredBy) {
+		this.referredBy = referredBy;
+	}
+
+	public List<CounsellingDetail> getCounsellingDtl() {
+		return counsellingDtl;
+	}
+
+	public void setCounsellingDtl(List<CounsellingDetail> counsellingDtl) {
+		this.counsellingDtl = counsellingDtl;
 	}
 
 

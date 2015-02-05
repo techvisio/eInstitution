@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeHead;
@@ -198,7 +199,31 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized  List<Consultant> getConsultant() {
+		if(cacheMap.get(AppConstants.CONSULTANT) == null){
+			List<Consultant> consultants=null;
+			consultants=cacheDao.getConsultant();
+			cacheMap.put(AppConstants.CONSULTANT, consultants);
+		}
 		
+		return (List<Consultant>)cacheMap.get(AppConstants.CONSULTANT);
+	}
+	
+	
+	public List<MasterDataBean> getConsultantAsMasterdata(){
+
+		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		for(Consultant consultant : getConsultant()){
+			MasterDataBean bean=new MasterDataBean(consultant.getConsultantId().toString(), consultant.getName());
+			masterData.add(bean);
+		}
+		return masterData;
+
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Subject> getsSubjects() {
 		if(cacheMap.get(AppConstants.SUBJECT) == null){
@@ -212,11 +237,11 @@ public class CacheManagerImpl implements CacheManager {
 	
 	
 	public List<MasterDataBean> getSubjectAsMasterdata(){
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-		for(Subject subject : getsSubjects()){
-			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
-			masterData.add(bean);
-		}
+     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+//		for(Subject subject : getsSubjects()){
+//			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
+//			masterData.add(bean);
+//		}
 		return masterData;
 	}	
 

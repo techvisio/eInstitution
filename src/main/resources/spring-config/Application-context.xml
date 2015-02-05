@@ -48,15 +48,6 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 		<property name="masterQueryProps" ref="masterQueryProps"/>
 	</bean>
 
-<bean id="counsellingQueryProps"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="locations" value="classpath:db-resource/Counselling.xml" />
-	</bean>
-
-<bean id="counsellingDao" class="com.techvisio.einstitution.db.impl.CounsellingDaoImpl">
-		<property name="counsellingQueryProps" ref="counsellingQueryProps" />
-	</bean>
-
 
 	<bean id="inquiryQueryProps"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">

@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
+import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
 
 public interface AdmissionDao {
@@ -34,6 +37,10 @@ public interface AdmissionDao {
 ////	public void updateBranchPreference(BranchPreference branchPreference);
 ////	public void deleteBranchPreference(BranchPreference branchPreference);
 	
-
+//	public List<CounsellingDetail> getCounsellingDetail(String fileNo);
+//	public void addCounsellingDetail(CounsellingDetail counsellingDetail);
+//	public void updateCounsellingDetail(CounsellingDetail counsellingDetail);
+//	public void deleteCounsellingDetail(String fileNo);
+	
 
 }

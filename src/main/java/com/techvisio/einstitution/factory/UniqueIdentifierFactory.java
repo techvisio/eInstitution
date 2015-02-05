@@ -16,7 +16,7 @@ public class UniqueIdentifierFactory {
 			    
 				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
 				
-				String fileNo = year+"/"+sf.getSequence("ADMISSION").toString();
+				String fileNo = year+"-"+sf.getSequence("ADMISSION").toString();
 				
 			    return fileNo;
 				

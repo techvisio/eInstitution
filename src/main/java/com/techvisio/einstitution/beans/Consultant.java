@@ -7,7 +7,7 @@ public class Consultant {
 	private String primaryContactNo;
 	private String secondaryContactNo;
 	private String address;
-	private String emailId ;
+	private String emailId;
 	
 	public Long getConsultantId() {
 		return consultantId;

@@ -1,0 +1,56 @@
+<div ng-controller="transportController" ng-init="getAvailableTransport()">
+
+
+
+
+  <div class="module-sub-section">
+      <div id="transport" class="panel-div">Available Transports Detail</div>
+      <div class="long-inline">
+      <table class="table">
+      <tr> 
+           <td><span>Route Code</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.routeCode}}</td>     
+       </tr>
+
+        <tr> 
+           <td><span>Threshold</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.threshold}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Reserved</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.reservedTransport}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Available</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.availableTransport}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Price</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.price }}</td>     
+       </tr>
+             
+      </table> 
+   
+   
+   
+   
+   
+   
+    </div>
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

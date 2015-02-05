@@ -18,8 +18,9 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	public StudentDetail getStudentDetails(String fileNo) {
-		// TODO Auto-generated method stub
-		return null;
+
+	StudentDetail studentDetail = manager.getStudentDtl(fileNo);
+		return studentDetail;
 	}
 
 }

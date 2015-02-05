@@ -440,7 +440,6 @@ Select
 
 	Branch_Preference_Id,
 	File_No,
-	Course_Id,
 	Branch_Id 
 	
 	from BranchPreference where File_No=:File_No;
@@ -455,12 +454,10 @@ Select
 
 	(Branch_Preference_Id,
 	File_No,
-	Course_Id,
 	Branch_Id) values
 	 
 	 (:Branch_Preference_Id,
 	:File_No,
-	:Course_Id,
 	:Branch_Id);
     ]]>
 
@@ -473,7 +470,6 @@ Select
 
 	Branch_Preference_Id=:Branch_Preference_Id,
 	File_No=:File_No,
-	Course_Id=:Course_Id,
 	Branch_Id=:	Branch_Id
 	
 	where File_No=:File_No; 
@@ -487,5 +483,74 @@ Select
       Delete BranchPreference where File_No=:File_No; 
 	 
 	     ]]>
+	</entry>
+	
+		<entry key="getcounsellingDetailByFileNo">
+    <![CDATA[
+
+select 
+      
+      File_No, 
+      Counselling_Id, 
+      Roll_No, 
+      Rank, 
+      Category_Rank, 
+      Percentile
+      
+from counsellingDetail where File_No=:File_No;
+
+    ]]>
+
+	</entry>
+	
+	<entry key="addCounsellingDetail">
+    <![CDATA[
+
+insert into counsellingDetail
+      
+      (File_No, 
+      Counselling_Id, 
+      Roll_No, 
+      Rank, 
+      Category_Rank, 
+      Percentile) values
+      
+      (:File_No, 
+       :Counselling_Id, 
+       :Roll_No, 
+       :Rank, 
+       :Category_Rank, 
+       :Percentile);
+
+
+    ]]>
+
+	</entry>
+	
+	<entry key="updateCounsellingDetail">
+    <![CDATA[
+
+update counsellingDetail set
+      
+      File_No=:File_No, 
+      Counselling_Id=:Counselling_Id, 
+      Roll_No=:Roll_No, 
+      Rank=:Rank, 
+      Category_Rank=:Category_Rank, 
+      Percentile=:Percentile
+      
+where  File_No=:File_No;
+
+    ]]>
+
+	</entry>
+	
+		<entry key="deleteCounsellingDetail">
+    <![CDATA[
+
+delete from counsellingDetail where File_No=:File_No;
+
+    ]]>
+
 	</entry>
 </properties>

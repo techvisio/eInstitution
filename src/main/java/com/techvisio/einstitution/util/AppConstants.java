@@ -13,5 +13,6 @@ public interface AppConstants {
 	public static final String FEEHEAD="FEEHEAD";
 	public static final String COUNSELLING="COUNSELLING";
 	public static final String BLOODGROUP="BLOODGROUP";
+	public static final String CONSULTANT="CONSULTANT";
 	
 }

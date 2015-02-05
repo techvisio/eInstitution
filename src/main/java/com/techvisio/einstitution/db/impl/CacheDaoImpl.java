@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeHead;
@@ -225,6 +226,24 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return states;
 	}
 
+	public List<Consultant> getConsultant(){
 
+		String getConsultantQuery=masterQueryProps.getProperty("getConsultant");
+
+		List<Consultant> consultants =new ArrayList<Consultant>(); 
+
+		consultants = getNamedParamJdbcTemplate().query(getConsultantQuery, new RowMapper<Consultant>() {
+
+			public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Consultant consultant = new Consultant();
+				consultant.setConsultantId(rs.getLong("Id"));
+				consultant.setName(rs.getString("Name"));
+				return consultant;
+			}
+		});
+
+		return consultants;
+	}
 
 }

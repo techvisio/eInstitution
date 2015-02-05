@@ -2,7 +2,8 @@ var erpModule = angular
   .module('mainModule', [
     'ngRoute',
     'admissionModule',
-    'masterdataModule'
+    'masterdataModule',
+    'transportModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -13,6 +14,15 @@ var erpModule = angular
       .when('/admissionFrom', {
         templateUrl: 'views/admission.html',
         controller: 'admissionController'
+        
+      })
+      .when('/', {
+        templateUrl: 'views/main.html',
+        controller: 'admissionController'
+      })
+      .when('/transportFrom', {
+        templateUrl: 'views/transport.html',
+        controller: 'transportController'
         
       })
       .otherwise({
