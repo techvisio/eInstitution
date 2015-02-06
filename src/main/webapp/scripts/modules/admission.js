@@ -241,7 +241,7 @@ admissionModule
        
        $scope.getStudent = function() {
     	   var fileNo=prompt("Enter File No", "");
-           admissionService.getStudent(fileNo)
+    	   admissionService.getStudent(fileNo)
            .then(function(data) {
              console.log('Data received from service : ');
              console.log(data);
@@ -251,7 +251,49 @@ admissionModule
                console.log(data.error);
                alert(data.error);
              }
+             if(data.academicDtl==null)
+             {
+            	 $scope.student.academicDtl = [{
+                     "university" : null,
+                     "collegeName" : null,
+                     "passingYear" : null,
+                     "percentage" : 0.0,
+                     "rollNo" : null,
+                     "fileNo" : null,
+                     "qualificationId" : null,
+                     "qualificationSubDtl" : [ {
+                       "subjectId" : null,
+                       "qualificationId" : null,
+                       "fileNo" : null,
+                       "marksObtained" : 0.0,
+                       "maxMarks" : 0.0
+                     } ]
+                 }]; 
+             }
+             
+             else
+             {
+            	 $scope.student.academicDtl = data.academicDtl;
+            	 
+             }
+             
+             if(data.discountDtl==null)
+             {
+            	 $scope.student.discountDtl = [{
+         		    "fileNo" : null,
+         			"feeHeadId" : null,
+         		    "amount" : 0.0,
+         			"percent" : 0.0
+         		   }];
+             }
+             
+             else
+             {
+            	 $scope.student.discountDtl = data.discountDtl;
+             }
            })
+           
+           $scope.processing=false;
          }
          
        
@@ -283,6 +325,15 @@ admissionModule
     			"percent" : 0.0
     		   }];
 
+    	    $scope.student.counsellingDtl = [{
+    			   
+    		    "fileNo" : null, 
+    		    "counsellingId" : null,
+    			"rollNo" : null,
+    			"rank" : null,
+    			"categoryRank" : null,
+    			"percentile" : 0.0
+      }];
     		
     	}
 
@@ -313,7 +364,6 @@ admissionModule
        }
 
        
-       // I get all of the friends in the remote collection.
        function getStudent(fileNo) {
 
          var request = $http({

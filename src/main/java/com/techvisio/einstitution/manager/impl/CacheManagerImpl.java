@@ -229,7 +229,7 @@ public class CacheManagerImpl implements CacheManager {
 		if(cacheMap.get(AppConstants.SUBJECT) == null){
 			List<Subject> subjectes=null;
 			subjectes=cacheDao.getSubject();
-			cacheMap.put(AppConstants.STATE, subjectes);
+			cacheMap.put(AppConstants.SUBJECT, subjectes);
 		}
 		
 		return (List<Subject>)cacheMap.get(AppConstants.SUBJECT);
@@ -238,10 +238,10 @@ public class CacheManagerImpl implements CacheManager {
 	
 	public List<MasterDataBean> getSubjectAsMasterdata(){
      	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-//		for(Subject subject : getsSubjects()){
-//			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
-//			masterData.add(bean);
-//		}
+		for(Subject subject : getsSubjects()){
+			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
+			masterData.add(bean);
+		}
 		return masterData;
 	}	
 

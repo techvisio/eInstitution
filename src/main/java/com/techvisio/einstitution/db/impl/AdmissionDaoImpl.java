@@ -89,6 +89,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setScholarship(rs.getBoolean("Scholarship"));
 						studentDetail.setRemarks(rs.getString("Remarks"));
 						studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
+						studentDetail.setReferredBy(rs.getString("Referred_By"));
 						return studentDetail;
 
 					}
@@ -160,7 +161,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
-						.addValue("Admission_Mode", studentDtl.getAdmissionMode());
+						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
+		                .addValue("Referred_By", studentDtl.getReferredBy()); 
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -256,7 +258,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
-						.addValue("Admission_Mode", studentDtl.getAdmissionMode());
+						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
+						.addValue("Referred_By", studentDtl.getReferredBy());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
