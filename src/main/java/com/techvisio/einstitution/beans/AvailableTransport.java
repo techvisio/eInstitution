@@ -3,18 +3,18 @@ package com.techvisio.einstitution.beans;
 public class AvailableTransport {
 
 	private String routeCode;
-	private int reservedTransport;
-	private int availableTransport;
+	private int reserved;
+	private int available;
 	private String threshold;
 	private Double price;
 
 
-	public int getReservedTransport() {
-		return reservedTransport;
+	public int getReserved() {
+		return reserved;
 	}
 
-	public void setReservedTransport(int reservedTransport) {
-		this.reservedTransport = reservedTransport;
+	public void setReserved(int reserved) {
+		this.reserved = reserved;
 	}
 
 
@@ -45,17 +45,17 @@ public class AvailableTransport {
 	@Override
 	public String toString() {
 		return "AvailableTransport [routeCode=" + routeCode
-				+ ", reservedTransport=" + reservedTransport
-				+ ", availableTransport=" + availableTransport + ", threshold="
+				+ ", reserved=" + reserved
+				+ ", available=" + available + ", threshold="
 				+ threshold + ", price=" + price + "]";
 	}
 
-	public int getAvailableTransport() {
-		return availableTransport;
+	public int getAvailable() {
+		return available;
 	}
 
-	public void setAvailableTransport(int availableTransport) {
-		this.availableTransport = availableTransport;
+	public void setAvailable(int available) {
+		this.available = available;
 	}
 
 	

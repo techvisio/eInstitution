@@ -3,6 +3,7 @@ package com.techvisio.einstitution.db;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.CounsellingDetail;
+import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.StudentDetail;
 
 public interface AdmissionDao {

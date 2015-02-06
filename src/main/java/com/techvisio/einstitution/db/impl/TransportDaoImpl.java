@@ -37,8 +37,8 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 				AvailableTransport availableTransport = new AvailableTransport();
 
 				availableTransport.setRouteCode(rs.getString("Route_Code"));
-				availableTransport.setAvailableTransport(rs.getInt("Available_Seat"));
-				availableTransport.setReservedTransport(rs.getInt("Reserved_Seat"));
+				availableTransport.setAvailable(rs.getInt("Available_Seat"));
+				availableTransport.setReserved(rs.getInt("Reserved_Seat"));
 				availableTransport.setThreshold(rs.getString("Threshold"));
 				availableTransport.setPrice(rs.getDouble("Price"));
 				

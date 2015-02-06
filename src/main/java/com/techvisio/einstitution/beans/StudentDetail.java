@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.beans;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,35 @@ public class StudentDetail {
 	private String uniEnrollNo;
 	@DynamicProperties(id="dob", title="DOB", type="date")
 	private Date dob;
+	@Override
+	public String toString() {
+		return "StudentDetail [admissionMode=" + admissionMode + ", fileNo="
+				+ fileNo + ", enrollNo=" + enrollNo + ", academicYear="
+				+ academicYear + ", semester=" + semester + ", courseId="
+				+ courseId + ", branchId=" + branchId + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", uniEnrollNo="
+				+ uniEnrollNo + ", dob=" + dob + ", fatherName=" + fatherName
+				+ ", motherName=" + motherName + ", gender=" + gender
+				+ ", bloodGroup=" + bloodGroup + ", emailId=" + emailId
+				+ ", gaurdianEmailId=" + gaurdianEmailId + ", fixedlineNo="
+				+ fixedlineNo + ", selfMobileNo=" + selfMobileNo
+				+ ", parentMobileNo=" + parentMobileNo + ", gaurdianMobileNo="
+				+ gaurdianMobileNo + ", fatherOccupation=" + fatherOccupation
+				+ ", categoryId=" + categoryId + ", hostel=" + hostel
+				+ ", transportation=" + transportation
+				+ ", managementApproval=" + managementApproval + ", feePaid="
+				+ feePaid + ", createdBy=" + createdBy + ", createdOn="
+				+ createdOn + ", updatedBy=" + updatedBy + ", updatedOn="
+				+ updatedOn + ", scholarship=" + scholarship + ", remarks="
+				+ remarks + ", photo=" + Arrays.toString(photo)
+				+ ", domicileState=" + domicileState + ", academicDtl="
+				+ academicDtl + ", DiscountDtl=" + DiscountDtl
+				+ ", addressDtl=" + addressDtl + ", branchPreference="
+				+ branchPreference + ", counsellingDtl=" + counsellingDtl
+				+ ", consultant=" + consultant + ", quotaCode=" + quotaCode
+				+ ", referredBy=" + referredBy + "]";
+	}
+
 	@DynamicProperties(id="fatherName", title="Father Name")
 	private String fatherName;
 	@DynamicProperties(id="motherName", title="Mother Name")
@@ -81,7 +111,6 @@ public class StudentDetail {
 	@DynamicProperties(id="updatedOn", title="updatedOn")
 	private Date updatedOn;
 	
-	
 	private boolean scholarship;
 	private String remarks;
 	
@@ -103,7 +132,9 @@ public class StudentDetail {
 	private List<CounsellingDetail> counsellingDtl=new ArrayList<CounsellingDetail>();
 	
     private Consultant consultant;
+    private String quotaCode;
     private String referredBy;
+    
 	public String getAdmissionMode() {
 		return admissionMode;
 	}
@@ -445,6 +476,12 @@ public class StudentDetail {
 		this.counsellingDtl = counsellingDtl;
 	}
 
+	public String getQuotaCode() {
+		return quotaCode;
+	}
 
+	public void setQuotaCode(String quotaCode) {
+		this.quotaCode = quotaCode;
+	}
 	
 }

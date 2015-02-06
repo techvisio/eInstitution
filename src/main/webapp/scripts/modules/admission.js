@@ -225,77 +225,42 @@ admissionModule
          console.log($scope.student);
          $scope.processing=true;
          admissionService.addStudent($scope.student)
-         .then(function(data) {
+         .then(function(response) {
              console.log('Data received from service : ');
-             console.log(data);
-             if (data != null && data.data != null) {
-               $scope.student = data.data;
+             console.log(response);
+             if (response != null && response.data != null && response.data.responseBody != null) {
+            	 $scope.populateMissingData(response.data.responseBody);
+            	 $scope.student = response.data.responseBody;
              } else {
                console.log(data.error);
                alert(data.error);
              }
-           })
+             $scope.processing=false;  
+         })
            
-           $scope.processing=false;
+        
        }
        
        $scope.getStudent = function() {
     	   var fileNo=prompt("Enter File No", "");
+    	   $scope.processing=true;
     	   admissionService.getStudent(fileNo)
-           .then(function(data) {
+           .then(function(response) {
              console.log('Data received from service : ');
-             console.log(data);
-             if (data != null && data.data != null) {
-               $scope.student = data.data;
+             console.log(response);
+             if (response !=null && response.data != null && response.data.responseBody != null) {
+               $scope.student = response.data.responseBody;
+               $scope.populateMissingData($scope.student);
              } else {
-               console.log(data.error);
-               alert(data.error);
+               console.log(response.data.error);
+               alert(response.data.error);
              }
-             if(data.academicDtl==null)
-             {
-            	 $scope.student.academicDtl = [{
-                     "university" : null,
-                     "collegeName" : null,
-                     "passingYear" : null,
-                     "percentage" : 0.0,
-                     "rollNo" : null,
-                     "fileNo" : null,
-                     "qualificationId" : null,
-                     "qualificationSubDtl" : [ {
-                       "subjectId" : null,
-                       "qualificationId" : null,
-                       "fileNo" : null,
-                       "marksObtained" : 0.0,
-                       "maxMarks" : 0.0
-                     } ]
-                 }]; 
-             }
-             
-             else
-             {
-            	 $scope.student.academicDtl = data.academicDtl;
-            	 
-             }
-             
-             if(data.discountDtl==null)
-             {
-            	 $scope.student.discountDtl = [{
-         		    "fileNo" : null,
-         			"feeHeadId" : null,
-         		    "amount" : 0.0,
-         			"percent" : 0.0
-         		   }];
-             }
-             
-             else
-             {
-            	 $scope.student.discountDtl = data.discountDtl;
-             }
+             $scope.processing=false;
            })
            
-           $scope.processing=false;
          }
          
+       
        
        $scope.resetForm = function(){
     		
@@ -336,6 +301,29 @@ admissionModule
       }];
     		
     	}
+       
+       $scope.populateMissingData = function(data){
+    	   
+    	   if(angular.isUndefined(data.academicDtl) || data.academicDtl==null || data.academicDtl.length<0)
+    	   {
+    		   $scope.student.academicDtl = [];
+    		   $scope.student.academicDtl.push(angular.copy($scope.dummyAcademicDtl))
+    	   }
+       
+    	   if(angular.isUndefined(data.discountDtl) || data.discountDtl==null || data.discountDtl.length<0)
+               {
+    		       $scope.student.discountDtl = [];
+    		       $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
+               }
+            
+    	   
+    	   if(angular.isUndefined(data.counsellingDtl) || data.counsellingDtl==null || data.counsellingDtl.length<0)
+    		   {
+    		       $scope.student.counsellinDtl = [];
+    		       $scope.student.counsellinDtl.push(angular.copy($scope.dummyCounsellingDtl))
+    		   }
+
+       }
 
      } ])
 
@@ -415,7 +403,7 @@ admissionModule
        function handleSuccess(response) {
          console.log('handle success');
          console.log(response);
-         return (response.data);
+         return (response);
 
        }
        

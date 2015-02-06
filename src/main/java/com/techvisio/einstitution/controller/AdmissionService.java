@@ -30,16 +30,19 @@ public class AdmissionService {
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentDetail(@PathVariable String fileNo) {
 		Response response=new Response();
-		try{
+		try
+		{
 		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 		
 		StudentDetail studentDetail = workflowManager.getStudentDetails(fileNo);
-		response.setData(studentDetail);
+		response.setResponseBody(studentDetail);
 		if(studentDetail == null){
+			
 			response.setError("No such record found");
 		}
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 		response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -52,7 +55,7 @@ public class AdmissionService {
 		{
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
 		admissionManager.addStudentDtl(studentDetail);
-		response.setData(studentDetail);
+		response.setResponseBody(studentDetail);
 		}
 		catch(Exception e)
 		{
@@ -64,12 +67,23 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public void updateStudentDtl(@RequestBody StudentDetail studentDetail) {
+	public ResponseEntity<Response> updateStudentDtl(@RequestBody StudentDetail studentDetail) {
+		
+		Response response = new Response();
+		try
+		{
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
 		admissionManager.updateStudentDtl(studentDetail);
-	}
-
-	@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
+		response.setResponseBody(studentDetail);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
+		@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteStudentDtl(@PathVariable String fileNo) {
 		AdmissionManager admissionManager = new AdmissionManagerImpl();
 		admissionManager.deleteSudentDtl(fileNo);

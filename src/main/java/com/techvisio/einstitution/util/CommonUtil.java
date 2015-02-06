@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
+import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
@@ -47,6 +48,16 @@ public class CommonUtil {
 			}
 		}
 
+		if (studentDetail.getCounsellingDtl() != null) {
+
+			for (CounsellingDetail counsellingDetail : studentDetail.getCounsellingDtl()) {
+
+				counsellingDetail.setFileNo(fileNo);
+
+			}
+		}
+
+		
 	}
 
 

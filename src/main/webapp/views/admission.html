@@ -65,6 +65,9 @@
      <td><input type="checkbox" ng-model="student.scholarship" > </td>
      <td>Remarks</td>
      <td><input type="textarea" ng-model="student.remarks"></td>
+     <td>QuotaCode</td>
+     <td><select ng-model="student.quotaCode" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select></td>
+     
      </tr>
      
      </table>

@@ -1,13 +1,13 @@
 package com.techvisio.einstitution.beans;
 
 public class Response {
-	private Object data;
+	private Object responseBody;
 	private String error;
-	public Object getData() {
-		return data;
+	public Object getResponseBody() {
+		return responseBody;
 	}
-	public void setData(Object data) {
-		this.data = data;
+	public void setResponseBody(Object data) {
+		this.responseBody = data;
 	}
 	public String getError() {
 		return error;

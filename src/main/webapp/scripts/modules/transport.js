@@ -3,8 +3,8 @@ var transportModule = angular.module('transportModule', []);
 transportModule.controller('transportController', ['$scope','transportService',function($scope,transportService) {
 
 			$scope.availableTransport = [ {
-				"reservedTransport" : 0,
-				"availableTransport" : 0,
+				"reserved" : 0,
+				"available" : 0,
 				"threshold" : 0,
 				"price" : 0.0,
 				"routeCode" : null

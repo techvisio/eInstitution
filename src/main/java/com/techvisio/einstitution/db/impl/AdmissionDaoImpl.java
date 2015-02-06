@@ -90,6 +90,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setRemarks(rs.getString("Remarks"));
 						studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
 						studentDetail.setReferredBy(rs.getString("Referred_By"));
+						studentDetail.setQuotaCode(rs.getString("Quota_Code"));	
 						return studentDetail;
 
 					}
@@ -162,11 +163,12 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
-		                .addValue("Referred_By", studentDtl.getReferredBy()); 
+		                .addValue("Referred_By", studentDtl.getReferredBy())
+		                .addValue("Quota_Code", studentDtl.getQuotaCode()); 
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		if (studentDtl.getAcademicDtl() == null) {
+		if (studentDtl.getAcademicDtl() != null) {
 			for (StudentAcademicDetail studentAcademicDetail : studentDtl
 					.getAcademicDtl()) {
 				addAcademicDtl(studentAcademicDetail);
@@ -174,7 +176,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 		}
 
-		if (studentDtl.getDiscountDtl() == null) {
+		if (studentDtl.getDiscountDtl() != null) {
 
 			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
 					.getDiscountDtl()) {
@@ -184,7 +186,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 		}
 
-		if (studentDtl.getAddressDtl() == null) {
+		if (studentDtl.getAddressDtl() != null) {
 
 			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
@@ -193,7 +195,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 		}
 
-		if (studentDtl.getBranchPreference() == null) {
+		if (studentDtl.getBranchPreference() != null) {
 
 			for (BranchPreference branchPreference : studentDtl
 					.getBranchPreference()) {
@@ -203,7 +205,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 		}
 
-		if (studentDtl.getCounsellingDtl() == null) {
+		if (studentDtl.getCounsellingDtl() !=null) {
 
 			for (CounsellingDetail counsellingDetail : studentDtl
 					.getCounsellingDtl()) {
@@ -259,7 +261,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
-						.addValue("Referred_By", studentDtl.getReferredBy());
+						.addValue("Referred_By", studentDtl.getReferredBy())
+						.addValue("Quota_Code", studentDtl.getQuotaCode());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
@@ -332,30 +335,32 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void addAcademicDtl(StudentAcademicDetail academicDtl) {
 
 		String addQuery = admissionQueryProps.getProperty("addAcademicDtl");
+if(academicDtl.getQualificationId() != null)
+{
+	SqlParameterSource namedParameter = new MapSqlParameterSource(
+			"File_No", academicDtl.getFileNo())
+	.addValue("University", academicDtl.getUniversity())
+	.addValue("College_Name", academicDtl.getCollegeName())
+	.addValue("Passing_Year", academicDtl.getPassingYear())
+	.addValue("Percentage", academicDtl.getPercentage())
+	.addValue("Roll_No", academicDtl.getRollNo())
+	.addValue("Qualification_Id", academicDtl.getQualificationId());
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", academicDtl.getFileNo())
-		.addValue("University", academicDtl.getUniversity())
-		.addValue("College_Name", academicDtl.getCollegeName())
-		.addValue("Passing_Year", academicDtl.getPassingYear())
-		.addValue("Percentage", academicDtl.getPercentage())
-		.addValue("Roll_No", academicDtl.getRollNo())
-		.addValue("Qualification_Id", academicDtl.getQualificationId());
+	getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+	if (academicDtl.getQualificationSubDtl() != null) {
 
+		for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
+				.getQualificationSubDtl()) {
 
-		if (academicDtl.getQualificationSubDtl() == null) {
-
-			for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
-					.getQualificationSubDtl()) {
-
-				addQualificationDtl(qualificationSubjectDtl);
-				continue;
-			}
-
+			addQualificationDtl(qualificationSubjectDtl);
+			continue;
 		}
 
+	}
+
+}
+		
 	}
 
 	private void updateAcademicDtl(StudentAcademicDetail academicDtl) {
@@ -431,8 +436,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private void addAddressDtl(AddressDetail addressDtl) {
 
+		
 		String addQuery = admissionQueryProps.getProperty("addAddressDtl");
 
+		if(addressDtl.getState()!=null)
+		{
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", addressDtl.getFileNo())
 		.addValue("House_No", addressDtl.getHouseNo())
@@ -445,7 +453,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		.addValue("State_Id", addressDtl.getState());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+		}
 	}
 
 	private void updateAddressDtl(AddressDetail addressDtl) {
@@ -506,7 +514,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						admissionDiscountDtl.setFeeHeadId(rs
 								.getLong("FeeHead_Id"));
 						admissionDiscountDtl.setFileNo(rs
-								.getNString("File_No"));
+								.getString("File_No"));
 						admissionDiscountDtl.setPercent(rs
 								.getFloat("Percent"));
 
@@ -520,6 +528,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		String addQuery = admissionQueryProps.getProperty("addAdmissionDisDtl");
 
+if(admissionDisDtl.getFeeHeadId()!=null)
+{
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", admissionDisDtl.getFileNo())
 		.addValue("FeeHead_Id", admissionDisDtl.getFeeHeadId())
@@ -527,7 +537,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		.addValue("Percent", admissionDisDtl.getPercent());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+}
 	}
 
 	private void updateAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
@@ -603,6 +613,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		String addQuery = admissionQueryProps
 				.getProperty("addQualificationSubjectDtl");
 
+		if(qualificationDtl.getSubjectId() != null)
+		{
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", qualificationDtl.getFileNo())
 		.addValue("Subject_Id", qualificationDtl.getSubjectId())
@@ -612,7 +624,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				.addValue("Max_Marks", qualificationDtl.getMaxMarks());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+		}
 	}
 
 	private void updateQualificationDtl(QualificationSubjectDtl qualificationDtl) {
@@ -718,6 +730,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private List<CounsellingDetail> getCounsellingDetail(String fileNo) {
 		String getQuery = admissionQueryProps.getProperty("getcounsellingDetailByFileNo");
 
+		
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 
 		List<CounsellingDetail> counsellingDetails = getNamedParamJdbcTemplate()
@@ -747,6 +760,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		String addQuery = admissionQueryProps.getProperty("addCounsellingDetail");
 
+		if(counsellingDetail.getCounsellingId()!=null)
+		{
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", counsellingDetail.getFileNo())
 		.addValue("Counselling_Id", counsellingDetail.getCounsellingId())
 		.addValue("Roll_No", counsellingDetail.getRollNo())
@@ -756,7 +771,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		
+		}
 		}
 
 
