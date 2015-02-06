@@ -1,0 +1,56 @@
+<div ng-controller="hostelController" ng-init="getHostelAvailability()">
+
+
+
+
+  <div class="module-sub-section">
+      <div id="hostel" class="panel-div">Available Hostel Detail</div>
+      <div class="long-inline">
+      <table class="table">
+      <tr> 
+           <td><span>Type Code</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.typeCode}}</td>     
+       </tr>
+
+        <tr> 
+           <td><span>Threshold</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.threshold}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Reserved</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.reservedRoom}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Available</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.available}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Price</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.price }}</td>     
+       </tr>
+             
+      </table> 
+   
+   
+   
+   
+   
+   
+    </div>
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
