@@ -42,7 +42,8 @@ Domicile_State_Id,
 Scholarship,
 Remarks,
 Admission_Mode,
-Referred_By
+Referred_By,
+Quota_Code
 
 from StudentDetail where File_No=:File_No;    
     ]]>
@@ -89,7 +90,8 @@ Domicile_State_Id,
 Scholarship,
 Remarks,
 Admission_Mode,
-Referred_By
+Referred_By,
+Quota_Code
 ) values
     
  (:File_No,
@@ -126,8 +128,9 @@ Referred_By
 :Domicile_State_Id,
 :Scholarship,
 :Remarks,
-Admission_Mode,
-Referred_By
+:Admission_Mode,
+:Referred_By,
+:Quota_Code
 );
        
     ]]>
@@ -173,14 +176,15 @@ Domicile_State_Id = :Domicile_State_Id,
 Scholarship = :Scholarship,
 Remarks = :Remarks,
 Admission_Mode = :Admission_Mode,
-Referred_By = :Referred_By
+Referred_By = :Referred_By,
+Quota_Code = :Quota_Code
   
  where File_No=:File_No;  
     ]]>
 
 	</entry>
 
-	<entry key="deleteConsultantPaymentDtl">
+	<entry key="deleteStudentDtl">
     <![CDATA[
       
 Delete from StudentDetail where File_No=:File_No; 

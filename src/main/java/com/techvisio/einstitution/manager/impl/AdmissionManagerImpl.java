@@ -15,6 +15,19 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	
 	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
 	
+	private static AdmissionManagerImpl instance=null;
+	public static synchronized AdmissionManagerImpl getInstance()
+	{
+		if(instance == null){
+			instance=new AdmissionManagerImpl();
+		}
+		
+		return instance;
+	}
+	
+	private AdmissionManagerImpl() {
+		// TODO Auto-generated constructor stub
+	}
 	public StudentDetail getStudentDtl(String fileNo) {
 
 		StudentDetail studentDetail=null;

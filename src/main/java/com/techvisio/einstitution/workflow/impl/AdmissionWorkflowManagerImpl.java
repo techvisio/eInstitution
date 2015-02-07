@@ -7,7 +7,7 @@ import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 
 public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
-	AdmissionManager manager=new AdmissionManagerImpl();
+	AdmissionManager manager=AdmissionManagerImpl.getInstance();
 	public String addStudentDetails(StudentDetail studentDetail) {
 		return manager.addStudentDtl(studentDetail);
 	}
