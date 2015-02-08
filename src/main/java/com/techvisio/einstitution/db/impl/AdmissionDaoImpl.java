@@ -17,6 +17,7 @@ import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
+import com.techvisio.einstitution.util.CommonUtil;
 
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
@@ -77,9 +78,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						studentDetail.setManagementApproval(rs
 								.getBoolean("Management_Approval"));
 						studentDetail.setFeePaid(rs.getBoolean("Fee_Paid"));
-						studentDetail.setCategoryId(rs.getLong("Category_Id"));
-						studentDetail.setCourseId(rs.getLong("Course_Id"));
-						studentDetail.setBranchId(rs.getLong("Branch_Id"));
+						studentDetail.setCategoryId(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+						studentDetail.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+						studentDetail.setBranchId(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
 						studentDetail.setCreatedBy(rs.getString("Created_By"));
 						studentDetail.setCreated_On(rs.getDate("Created_On"));
 						studentDetail.setUpdatedBy(rs.getString("Updated_By"));
@@ -94,6 +95,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						return studentDetail;
 
 					}
+
 
 				});
 
@@ -266,13 +268,59 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
+		if (studentDtl.getAcademicDtl() != null) {
+			for (StudentAcademicDetail studentAcademicDetail : studentDtl
+					.getAcademicDtl()) {
+				updateAcademicDtl(studentAcademicDetail);
+				continue;
+			}
+		}
+
+		if (studentDtl.getDiscountDtl() != null) {
+
+			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
+					.getDiscountDtl()) {
+
+				updateAdmissionDisDtl(admissionDiscountDtl);
+				continue;
+			}
+		}
+
+		if (studentDtl.getAddressDtl() != null) {
+
+			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
+
+				updateAddressDtl(addressDeatil);
+				continue;
+			}
+		}
+
+		if (studentDtl.getBranchPreference() != null) {
+
+			for (BranchPreference branchPreference : studentDtl
+					.getBranchPreference()) {
+
+				updateBranchPreference(branchPreference);
+				continue;
+			}
+		}
+
+		if (studentDtl.getCounsellingDtl() !=null) {
+
+			for (CounsellingDetail counsellingDetail : studentDtl
+					.getCounsellingDtl()) {
+
+				updateCounsellingDetail(counsellingDetail);
+				continue;
+			}
+		}
+	
 	}
 
 	public void deleteSudentDtl(String fileNo) {
 
 
 		deleteAcademicDtl(fileNo);
-
 
 		deleteAdmissionDisDtl(fileNo);
 
@@ -310,8 +358,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 						studentAcademicDetail.setFileNo(rs
 								.getString("File_No"));
-						studentAcademicDetail.setQualificationId(rs
-								.getLong("Qualification_Id"));
+						studentAcademicDetail.setQualificationId(CommonUtil.getLongValue(rs
+								.getLong("Qualification_Id")));
 						studentAcademicDetail.setUniversity(rs
 								.getString("University"));
 						studentAcademicDetail.setCollegeName(rs
@@ -385,6 +433,18 @@ if(academicDtl.getQualificationId() != null)
 		//
 		// getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
+		if (academicDtl.getQualificationSubDtl() != null) {
+
+			for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
+					.getQualificationSubDtl()) {
+
+				updateQualificationDtl(qualificationSubjectDtl);
+				continue;
+			}
+
+		}
+
+		
 	}
 
 	private void deleteAcademicDtl(String fileNo) {
@@ -511,8 +571,8 @@ if(academicDtl.getQualificationId() != null)
 
 						admissionDiscountDtl.setAmount(rs
 								.getDouble("Amount"));
-						admissionDiscountDtl.setFeeHeadId(rs
-								.getLong("FeeHead_Id"));
+						admissionDiscountDtl.setFeeHeadId(CommonUtil.getLongValue(rs
+								.getLong("FeeHead_Id")));
 						admissionDiscountDtl.setFileNo(rs
 								.getString("File_No"));
 						admissionDiscountDtl.setPercent(rs
@@ -590,10 +650,10 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 
 						QualificationSubjectDtl qualificationSubjectDtl = new QualificationSubjectDtl();
 
-						qualificationSubjectDtl.setSubjectId(rs
-								.getLong("Subject_Id"));
-						qualificationSubjectDtl.setQualificationId(rs
-								.getLong("Qualification_Id"));
+						qualificationSubjectDtl.setSubjectId(CommonUtil.getLongValue(rs
+								.getLong("Subject_Id")));
+						qualificationSubjectDtl.setQualificationId(CommonUtil.getLongValue(rs
+								.getLong("Qualification_Id")));
 						qualificationSubjectDtl.setFileNo(rs
 								.getString("File_No"));
 						qualificationSubjectDtl.setMarksObtained(rs
@@ -680,10 +740,10 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 						branchPreference.setFileNo(rs
 								.getString("File_No"));
 
-						branchPreference.setBranchId(rs
-								.getLong("Branch_Id"));
-						branchPreference.setBranchPreferenceId(rs
-								.getLong("Branch_Preference_Id"));
+						branchPreference.setBranchId(CommonUtil.getLongValue(rs
+								.getLong("Branch_Id")));
+						branchPreference.setBranchPreferenceId(CommonUtil.getLongValue(rs
+								.getLong("Branch_Preference_Id")));
 						return branchPreference;
 					}
 				});
@@ -743,10 +803,10 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 						CounsellingDetail counsellingDetail = new CounsellingDetail();
 
 						counsellingDetail.setFileNo(rs.getString("File_No"));
-						counsellingDetail.setCounsellingId(rs.getLong("Counselling_Id"));
+						counsellingDetail.setCounsellingId(CommonUtil.getLongValue(rs.getLong("Counselling_Id")));
 						counsellingDetail.setRollNo(rs.getString("Roll_No"));
-						counsellingDetail.setRank(rs.getLong("Rank"));
-						counsellingDetail.setCategoryRank(rs.getLong("Category_Rank"));
+						counsellingDetail.setRank(CommonUtil.getLongValue(rs.getLong("Rank")));
+						counsellingDetail.setCategoryRank(CommonUtil.getLongValue(rs.getLong("Category_Rank")));
 						counsellingDetail.setPercentile(rs.getFloat("Percentile"));
 
 						return counsellingDetail;

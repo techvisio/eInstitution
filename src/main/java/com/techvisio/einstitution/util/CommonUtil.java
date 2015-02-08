@@ -129,6 +129,15 @@ public class CommonUtil {
 		return finalFields;
 	}
 	
+
+	public static Long getLongValue(long long1) {
+		if(long1 == 0){
+		return null;
+		}
+		else{
+			return long1;
+		}
+	}
 	
 
 }

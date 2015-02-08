@@ -15,6 +15,7 @@ import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
+import com.techvisio.einstitution.util.CommonUtil;
 
 public class TransportDaoImpl extends BaseDao implements TransportDao {
 
@@ -141,8 +142,8 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 						transportAllocation.setFileNo(rs
 								.getString("File_No"));
-						transportAllocation.setVehicleId(rs
-								.getLong("Vehicle_Id"));
+						transportAllocation.setVehicleId(CommonUtil.getLongValue(rs
+								.getLong("Vehicle_Id")));
 						return transportAllocation;
 					}
 				});
@@ -294,7 +295,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 						VehicleDetail vehicleDetail = new VehicleDetail();
 
-						vehicleDetail.setVehicleId(rs.getLong("Vehicle_Id"));
+						vehicleDetail.setVehicleId(CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
 						vehicleDetail.setRouteCode(rs.getString("Route_Code"));
 						vehicleDetail.setVehicleNo(rs.getString("Vehicle_No"));
 						vehicleDetail.setType(rs.getString("Type"));

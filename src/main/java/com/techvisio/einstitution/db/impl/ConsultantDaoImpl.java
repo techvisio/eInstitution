@@ -13,6 +13,7 @@ import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 import com.techvisio.einstitution.db.ConsultantDao;
+import com.techvisio.einstitution.util.CommonUtil;
 
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
@@ -34,7 +35,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 			public Consultant mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
 				Consultant consultant = new Consultant();
-				consultant.setConsultantId(rs.getLong("Id"));
+				consultant.setConsultantId(CommonUtil.getLongValue(rs.getLong("Id")));
 				consultant.setName(rs.getString("Name"));
 				consultant.setPrimaryContactNo(rs.getString("Primary_Contact_No"));
 				consultant.setSecondaryContactNo(rs.getString("Secondary_contact_No"));
@@ -108,7 +109,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 					throws SQLException {
 				ConsultantDetail consultantDetail = new ConsultantDetail();
 
-				consultantDetail.setConsultantId(rs.getLong("Consultant_Id"));
+				consultantDetail.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
 				consultantDetail.setFileNo(rs.getString("File_No"));
 				consultantDetail.setAmountToPay(rs.getDouble("Amount_To_Pay"));
 				consultantDetail.setConsultancyAgreed(rs.getBoolean("Consultancy_Agreed"));

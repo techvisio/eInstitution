@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.db.InquiryDao;
+import com.techvisio.einstitution.util.CommonUtil;
 
 public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
@@ -36,8 +37,8 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 									int rowNum) throws SQLException {
 
 								AdmissionInquiry admissionInquiry = new AdmissionInquiry();
-								admissionInquiry.setEnquiryId(rs
-										.getLong("Inquiry_Id"));
+								admissionInquiry.setEnquiryId(CommonUtil.getLongValue(rs
+										.getLong("Inquiry_Id")));
 								admissionInquiry.setName(rs.getString("Name"));
 								admissionInquiry.setFatherName(rs
 										.getString("Father_Name"));
@@ -56,10 +57,10 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 										.getString("Updated_By"));
 								admissionInquiry.setUpdatedDate(rs
 										.getDate("Updated_On"));
-								admissionInquiry.setIntrestedCourseId(rs
-										.getLong("Intrested_Course_Id"));
-								admissionInquiry.setIntrestedBranchId(rs
-										.getLong("Intrested_Branch_Id"));
+								admissionInquiry.setIntrestedCourseId(CommonUtil.getLongValue(rs
+										.getLong("Intrested_Course_Id")));
+								admissionInquiry.setIntrestedBranchId(CommonUtil.getLongValue(rs
+										.getLong("Intrested_Branch_Id")));
 								admissionInquiry.setFollowupRequired(rs
 										.getBoolean("FollowUp_Rquired"));
 

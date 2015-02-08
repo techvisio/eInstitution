@@ -6,7 +6,7 @@
   <packaging>war</packaging>
   <properties>
 		<spring.version>4.0.0.RELEASE</spring.version>
-		<mysql.version>5.1.15</mysql.version>
+		<mysql.version>5.1.33</mysql.version>
 		<jackson.version>2.2.4</jackson.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -39,10 +39,15 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
-	<groupId>com.mchange</groupId>
-	<artifactId>c3p0</artifactId>
-	<version>0.9.2.1</version>
+<!-- 		<dependency> -->
+<!-- 	<groupId>com.mchange</groupId> -->
+<!-- 	<artifactId>c3p0</artifactId> -->
+<!-- 	<version>0.9.2.1</version> -->
+<!-- </dependency> -->
+<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-dbcp2</artifactId>
+	<version>2.0.1</version>
 </dependency>
 <dependency>
 	<groupId>org.springframework</groupId>
