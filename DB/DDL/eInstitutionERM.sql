@@ -300,3 +300,21 @@ alter TABLE studentdetail add COLUMN Refrred_By varchar(100);
 alter TABLE studentdetail add COLUMN Remarks varchar(500);
 alter table studentdetail add column Quota_Code varchar(200);
 alter table studentdetail add column Admission_Mode char(1);
+
+/*#######################################################################################  */
+/* WORK OF TRANSPORT TABLE*/
+
+
+ALTER TABLE TransportReservation
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No);
+
+ALTER TABLE TransportAllocation
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No);
+
+ALTER TABLE TransportReservation
+ADD Primary KEY (File_No);
+
+ALTER TABLE TransportAllocation	
+  ADD Primary KEY (File_No);
