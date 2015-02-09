@@ -296,7 +296,7 @@ alter table counsellindetail add FOREIGN KEY (Counselling_Id) REFERENCES counsel
 /*Altring StudentDetail*/
 alter TABLE studentdetail add COLUMN Scholarship bit;
 
-alter TABLE studentdetail add COLUMN Refrred_By varchar(100);
+alter TABLE studentdetail add COLUMN Referred_By varchar(100);
 alter TABLE studentdetail add COLUMN Remarks varchar(500);
 alter table studentdetail add column Quota_Code varchar(200);
 alter table studentdetail add column Admission_Mode char(1);

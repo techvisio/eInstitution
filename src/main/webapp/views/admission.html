@@ -4,10 +4,25 @@
 		<li><img src="images/new.png" ng-click="resetForm()"></li>
 		<li><img src="images/search.png" ng-click="getStudent()"></li>
 		<li><img src="images/photo.png"></li>
-		<li><img src="images/save.png" ng-click="addStudent()"></li>
+		<li><img src="images/save.png" ng-click="saveStudent()"></li>
 	</div>
-	<div class="three-column-view">
-		<table>
+	<div class="ajax-busy-indicator" ng-show="processing"></div>
+	<div class="next">
+	<img src="images/next.png" ng-click="next()">
+	</div>
+	<div class="prev">
+	<img src="images/back.jpg" ng-click="prev()">
+	</div>
+	<div class="module-container">
+	<div class="animate-switch-container" ng-switch on="selection" 
+       ng-class="{forward: form.direction, backward:!form.direction,longStage: longStage}">
+
+    <div class="animate-switch"  ng-switch-when="personal">
+    <div class="three-column-view">
+      <table>
+      <tr>
+      <div class="panel-div">Personal Details</div>
+      </tr>
            	<tr>
 				<td colspan=2><span>Admission Mode</span></td>
 				<td>
@@ -163,16 +178,19 @@
 			</tr>
 
 		</table>
+		</div>
+    </div>
 
-
-		<div class="module-sub-section">
-			<div id="address" class="panel-div">Student Address Details</div>
-			<a href='#address'></a>
-			<table class="table borderless">
+    <div class="animate-switch" ng-switch-when="address">
+    <div class="three-column-view">
+      <table >
+      <tr>
+      <div class="panel-div">Address Details</div>
+      </tr>
 				<tr>
-					<th>Permanent Address</th>
+					<th colspan=2><span>Permanent Address</span></th>
 					<th></th>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>House No.</span></td>
 					<td><input type="Text"
@@ -180,7 +198,7 @@
 					<td><span>Locality</span></td>
 					<td><input type="Text"
 						ng-model="getStudentAddress('P').locality"></td>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>Land Mark</span></td>
 					<td><input type="Text"
@@ -188,28 +206,25 @@
 					<td><span>District</span></td>
 					<td><input type="Text"
 						ng-model="getStudentAddress('P').district"></td>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>City</span></td>
 					<td><input type="Text" ng-model="getStudentAddress('P').city"></td>
 					<td><span>Pincode</span></td>
 					<td><input type="Text"
 						ng-model="getStudentAddress('P').pincode"></td>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getStudentAddress('P').state">
-							<option
-								ng-repeat="object in serverModelData.dropdownMasterData.state"
-								value="{{object.id}}">{{object.value}}</option>
+					<td><select ng-model="getStudentAddress('P').state" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
 					</select></td>
 					<th></th>
 					<td></td>
+				</tr>
 				<tr>
-				<tr>
-					<th>Correspondence Address</th>
-					<td><input type="checkbox"> Same as Above</input></td>
-				<tr>
+					<th colspan=2><span>Correspondence Address</span></th>
+					<td><input type="checkbox" ng-change="copyPermanentAddress()" ng-model="form.sameAsAbove">Same as Above</input></td>
+				</tr>
 				<tr>
 					<td><span>House No.</span></td>
 					<td><input type="Text"
@@ -217,7 +232,7 @@
 					<td><span>Locality</span></td>
 					<td><input type="Text"
 						ng-model="getStudentAddress('C').locality"></td>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>Land Mark</span></td>
 					<td><input type="Text"
@@ -225,32 +240,31 @@
 					<td><span>District</span></td>
 					<td><input type="Text"
 						ng-model="getStudentAddress('C').district"></td>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>City</span></td>
 					<td><input type="Text" ng-model="getStudentAddress('C').city"></td>
 					<td><span>Pincode</span></td>
 					<td><input type="Text"
 						ng-model="getStudentAddress('C').pincode"></td>
-				<tr>
+				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getStudentAddress('C').state">
-							<option
-								ng-repeat="object in serverModelData.dropdownMasterData.state"
-								value="{{object.id}}">{{object.value}}</option>
+					<td><select ng-model="getStudentAddress('C').state" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
 					</select></td>
 					<th></th>
 					<td></td>
-				<tr>
+				</tr>
 			</table>
-		</div>
-
-		<div class="module-sub-section">
-			<div id="academic" class="panel-div">Student Academic Details</div>
-			<a href='#academic'></a>
-			<div class="long-inline">
-				<table class="table borderless">
+			</div>
+			</div>
+			
+			    <div class="animate-switch" ng-switch-when="academic">
+                <div class="five-column-view">
+                <table>
+                <tr>
+      <div class="panel-div">Academic Details</div>
+      </tr>
 					<tr ng-repeat-start="object in student.academicDtl">
 						<th><span>Qualification</span></th>
 						<th><span>University</span></th>
@@ -260,75 +274,73 @@
 						<th><span>Percentage</span></th>
 					</tr>
 					<tr>
-						<td><select ng-model="object.qualificationId"
-							ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.qualification">
-								<!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
-						</select></td>
-						<td><input type="Text" ng-model="object.university"></td>
-						<td><input type="Text" ng-model="object.collegeName"></td>
-						<td><input type="Text" ng-model="object.rollNo"></td>
-						<td><input type="Text" ng-model="object.passingYear"></td>
-						<td><input type="Text" ng-model="object.percentage"></td>
-						<td><img height="35" width="35" ng-src="images/plus.png"
-							ng-click="addQualification($index)" /></td>
-						<td><img height="35" width="35" ng-src="images/minus.png"
-							ng-click="removeQualification($index)" ng-show="$index>0" /></td>
-					</tr>
-
-					<tr ng-repeat-end
-						ng-repeat="subject in object.qualificationSubDtl track by $index">
-						<td><span>Subject</span></td>
-						<td><input type="Text" ng-model="subject.subjectId"></td>
-						<td><span>Marks Obtained</span></td>
-						<td><input type="Text" ng-model="subject.marksObtained"></td>
-						<td><span>Maximum Marks</span></td>
-						<td><input type="Text" ng-model="subject.maxMarks"></td>
-						<td><img height="35" width="35" ng-src="images/plus.png"
-							ng-click="addSubject(object)" /></td>
-						<td><img height="35" width="35" ng-src="images/minus.png"
-							ng-click="removeSubject(object,$index)" ng-show="$index>0" /></td>
-					</tr>
+						<td><select ng-model="object.qualificationId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
+        <!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
+       </select></td>
+       <td><input type="Text" ng-model="object.university"></td>
+       <td><input type="Text" ng-model="object.collegeName"></td>
+       <td><input type="Text" ng-model="object.rollNo"></td>
+       <td><input type="Text" ng-model="object.passingYear"></td>
+       <td><input type="Text" ng-model="object.percentage"></td>
+        <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addQualification($index)"/></td>
+        <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeQualification($index)" ng-show="$index>0" /></td>
+         </tr>
+      
+        <tr ng-repeat-end ng-repeat="subject in object.qualificationSubDtl track by $index">
+            <td><span>Subject</span></td>
+            <td><select ng-model=subject.subjectId ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+            <td><span>Marks Obtained</span></td>
+            <td><input type="Text" ng-model="subject.marksObtained"></td>
+            <td><span>Maximum Marks</span></td>
+            <td><input type="Text" ng-model="subject.maxMarks"></td>
+            <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addSubject(object)"/></td>
+            <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeSubject(object,$index)" ng-show="$index>0" /></td>
+        </tr>
 				</table>
-			</div>
-		</div>
-		
-   
-   <div class="module-sub-section">
-      <div id="discount" class="panel-div">Admission Discount Details</div>
-      <div class="long-inline">
-      <table class="borderless">
+				</div>
+				</div>
+    
+    <div class="animate-switch" ng-switch-when="discount">
+                <div class="five-column-view">
+                <table>
+                <tr>
+      <div class="panel-div">Fee Discount Details(optional)</div>
+      </tr>
       <tr ng-repeat="discount in student.discountDtl">
-      <td><span>Feehead</span></td>
+      <th><span>Feehead</span></th>
       <td><select ng-model="discount.feeHeadId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD"></select>
       </td>
-      <td><span>Amount</span></td>
+      <th><span>Discount Type</span></th>
+      <td><input type="Text" ng-model="discount.discountType"></td>
+      <th><span>Amount</span></th>
       <td><input type="Text" ng-model="discount.amount"></td>
-      <td><span>Percent</span></td>
+      <th><span>Percent</span></th>
       <td><input type="Text" ng-model="discount.percent"></td>
       <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addDiscountDtl()"/></td>
       <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
-      
       </tr>
-      </table>
-    </div>  
-  </div>
-  
-  <div class="module-sub-section" ng-show="student.admissionMode == 'C'">
-      <div id="counselling" class="panel-div">Counselling Details</div>
-      <div class="long-inline">
-      <table class="borderless">
+      </table> 
+        </div>
+        </div>
+    <div class="animate-switch" ng-switch-when="other">
+    <tr>
+      <div class="panel-div">Counselling/Referral/Consultant Details</div>
+      </tr>
+     <div class="five-column-view" ng-show="student.admissionMode == 'C'">
+      <table>
+      
       <tr>
-      <td><span>Counselling</span></td>
-      <td><span>Roll No</span></td>
-      <td><span>Rank</span></td>
-      <td><span>Category Rank</span></td>
-      <td><span>Percentile</span></td>
+      <th><span>Counselling</span></th>
+      <th><span>Roll No</span></th>
+      <th><span>Rank</span></th>
+      <th><span>Category Rank</span></th>
+      <th><span>Percentile</span></th>
       </tr>
       
       <tr ng-repeat="counselling in student.counsellingDtl">
       <td><select ng-model="counselling.counsellingId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
       <td><input type="Text" ng-model="counselling.rollNo"></td>
-      <td><input type="Text" ng-model="counsellingl.rank"></td>
+      <td><input type="Text" ng-model="counselling.rank"></td>
       <td><input type="Text" ng-model="counselling.categoryRank"></td>
       <td><input type="Text" ng-model="counselling.percentile"></td>
       
@@ -336,33 +348,27 @@
       <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeCounsellingDtl($index)" ng-show="$index>0" /></td>
       </tr>
       </table>
-    </div>  
   </div>
   
   <div class="module-sub-section" ng-show="student.admissionMode == 'A'">
-      <div id="consultant" class="panel-div">Consultant Details</div>
-      <div class="long-inline">
-      <table class="borderless">
+      <table>
       <tr>
-      <td><span>Consultant Name</span></td>
+      <th><span>Consultant Name</span></th>
       <td><select ng-model="student.consultant.consultantId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
       </tr>
       </table>
-    </div>  
   </div>
     
   <div class="module-sub-section" ng-show="student.admissionMode == 'R'">
-      <div id="consultant" class="panel-div" >Referral Details</div>
-      <div class="long-inline">
-      <table class="borderless">
+      <table>
       <tr>
-      <td><span>Referred By</span></td>
+      <th><span>Referred By</span></th>
       <td><input type="Text" ng-model="student.referredBy"></td>
       </tr>
       </table>
-    </div>  
   </div>
-   
-    <input type="submit" value="Submit" ng-click="click()"/>
+    </div>    
+         
+  </div>
   </div>
     </div>

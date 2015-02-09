@@ -90,13 +90,6 @@ margin-left:none;
 }    
 
 
-.three-column-view {
-  float: right;
-  width: 99%;
-  margin-top: 20px;
-
-}
-
 .three-column-view li {
   display:inline;
   padding-right:35px;
@@ -104,8 +97,7 @@ margin-left:none;
 }
 
 .three-column-view  table{
- margin-left: 100px;
-
+margin: 0 auto;
 }
 
 
@@ -113,8 +105,8 @@ margin-left:none;
 border: none;
 padding-right: 10px;
 padding-left: 10px;
-padding-bottom: 10px;
-padding-top: 10px;
+padding-bottom: 5px;
+padding-top: 5px;
 width: 200px;
 }
 
@@ -122,8 +114,8 @@ width: 200px;
 border: none;
 padding-right: 10px;
 padding-left: 10px;
-padding-bottom: 10px;
-padding-top: 10px;
+padding-bottom: 5px;
+padding-top: 5px;
 width: 300px;
 }
 
@@ -150,6 +142,30 @@ width: 300px;
   height: 40px;
 }
 
+.five-column-view select, .five-column-view input[type="text"]{
+ display: inline-block;
+  padding: 5px 5px;
+  border: 1px solid #E6E6EF;
+  -webkit-border-radius: 6px;
+  border-radius: 2px;
+  font: normal px/normal "Verdana";
+  width:165px;
+  height: 30px;
+}
+
+.five-column-view table{
+	margin: 0 auto;
+}
+
+.five-column-view table tr td,.five-column-view table tr th{
+border: none;
+padding-right: 8px;
+padding-bottom: 0px;
+padding-top: 15px;
+width: auto;
+}
+
+
 .three-column-view img{
    width:150px;
   height: 150px;
@@ -158,8 +174,16 @@ width: 300px;
 
 .three-column-view span{
   font-family: "Verdana";
-  font-size: 18px;
-  font-style: bold;
+  font-size: 15px;
+  font-style: none;
+  color: grey;
+ 
+}
+
+.five-column-view span{
+  font-family: "Verdana";
+  font-size: 12px;
+  font-style: none;
   color: grey;
  
 }
@@ -172,6 +196,7 @@ width: 300px;
   padding-top: 50px;
   list-style: none;
   background-color: rgba(0,70,135, 1);
+  width:6%;
 }
 
 .side-mudule-submenu img{
@@ -191,6 +216,14 @@ width: 300px;
   background-image: url(../images/dashboard.jpg);
   margin-top: 160px;
 }
+  .ajax-busy-indicator {
+   position: fixed;
+   top: 300px;
+   right: 600px;
+   background-image: url("../images/loading.gif");
+   height: 100px;
+   width: 100px;
+    }
   
   .dashboard-icon table ,.dashboard-icon th,.dashboard-icon td {
   border: none;
@@ -198,4 +231,125 @@ width: 300px;
   text-align: center;
   color: white;
  } 
+ 
+ .module-container {
+ float: right;
+  width: 94%;
+  margin-top:20px;
+ }
+ 
+ .next{
+ position:fixed;
+ top:120px;
+ right:20px;
+ 
+ }
+ 
+ .prev{
+ position:fixed;
+top:120px;
+ left:110px;
+ }
+ 
+ .next img, .prev img{
+ width:50px;
+ height:50px;
+ }
+ 
+ .panel-div{
+  background-color: #004687;
+  font-size: 20px;
+	margin-left:5px;
+	margin-right:5px;
+  color: white;
+ border-radius: 25px;
+ text-align:center;
+ }
+
+/* css for ng-switch   */
+
+.animate-switch-container.forward.longStage  {
+  transition:all 0.1s;
+  height: 500px;
+}
+
+.animate-switch-container {
+  background:white;
+  border:none;
+ }
+ 
+/* /* } */ */
+.animate-switch{
+  padding:10px;
+  width: 100%;
+}
+.animate-switch.ng-animate {
+  -webkit-transition:all 0.5s;
+  transition:all 0.5s;
+  position:absolute;
+
+}
+/* hide leaving slide  */
+/* show */
+.animate-switch.ng-leave{  
+  left:0;
+}
+/* hide */
+.forward .animate-switch.ng-leave.ng-leave-active{ 
+  left:-100%;
+}
+.backward .animate-switch.ng-leave.ng-leave-active{ 
+  left: 100%;
+}
+/* show entering slide  */
+/* hide */
+.forward .animate-switch.ng-enter {
+  left:100%;
+}
+.backward .animate-switch.ng-enter {
+  left:-100%;
+}
+/* show */
+.animate-switch.ng-enter.ng-enter-active { 
+  left:0;
+}
+
+/*Error Tooltip */
+.err_tip {
+  position: absolute;
+  bottom: 50px;
+  right: 0px;
+  width: 200px;
+  background-color: #DA362A;
+  color: white;
+  padding: 2px;
+  border-radius: 16px;
+  box-shadow: 3px 3px 10px #888888;
+  margin: 5px;
+  text-align: center;
+  border: 2px solid #000000;
+  z-index: 1;
+}
+.err_tip:after, .err_tip:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.err_tip:after {
+  border-color: rgba(218, 54, 42, 0);
+  border-top-color: #DA362A;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.err_tip:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: #000000;
+  border-width: 13px;
+  margin-left: -13px;
+}
 
