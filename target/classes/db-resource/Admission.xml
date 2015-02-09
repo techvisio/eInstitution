@@ -329,7 +329,7 @@ where File_No=:File_No and Address_Type=:Address_Type;
 	<entry key="deleteAddressDtl">
     <![CDATA[
       
-Delete from AddressDetail where File_No=:File_No and Address_Type=:Address_Type;  
+Delete from AddressDetail where File_No=:File_No;  
     ]]>
 
 	</entry>
@@ -384,7 +384,7 @@ where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
 	<entry key="deleteAdmissionDisDtl">
     <![CDATA[
       
-Delete from AdmissionDiscountDtl where File_No=:File_No and FeeHead_Id=:FeeHead_Id;  
+Delete from AdmissionDiscountDtl where File_No=:File_No;  
     ]]>
 
 	</entry>

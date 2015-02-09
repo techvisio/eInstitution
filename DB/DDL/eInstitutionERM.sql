@@ -280,3 +280,7 @@ CREATE TABLE `vehicledetail` (
   CONSTRAINT `vehicledetail_ibfk_1` FOREIGN KEY (`Route_Code`) REFERENCES `transportmaster` (`Route_Code`)
 ); 
 
+/*Alter in admissiondiscountdtl(add column discounttype) */
+
+
+alter table admissiondiscountdtl add COLUMN Discount_Type varchar(20);

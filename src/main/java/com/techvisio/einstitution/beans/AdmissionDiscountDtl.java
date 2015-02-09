@@ -6,6 +6,7 @@ public class AdmissionDiscountDtl {
 	private Long feeHeadId;
 	private double amount;
 	private float percent;
+	private String discountType;
 	
 	
 	public String getFileNo() {
@@ -43,10 +44,19 @@ public class AdmissionDiscountDtl {
 		this.percent = percent;
 	}
 
+	public String getDiscountType() {
+		return discountType;
+	}
+
+	public void setDiscountType(String discountType) {
+		this.discountType = discountType;
+	}
 	@Override
 	public String toString() {
 		return "AdmissionDiscountDtl [fileNo=" + fileNo + ", feeHeadId="
 				+ feeHeadId + ", amount=" + amount + ", percent=" + percent
-				+ "]";
+				+ ", discountType=" + discountType + "]";
 	}
+	
+	
 }

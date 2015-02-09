@@ -36,6 +36,7 @@ public class AdmissionService {
 		
 		StudentDetail studentDetail = workflowManager.getStudentDetails(fileNo);
 		response.setResponseBody(studentDetail);
+		
 		if(studentDetail == null){
 			
 			response.setError("No such record found");
@@ -53,9 +54,10 @@ public class AdmissionService {
 		Response response=new Response();
 		try
 		{
-		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.addStudentDtl(studentDetail);
-		response.setResponseBody(studentDetail);
+			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
+		    String fileNo=workflowManager.addStudentDetails(studentDetail); 
+		    StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
+		    response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e)
 		{
@@ -72,9 +74,10 @@ public class AdmissionService {
 		Response response = new Response();
 		try
 		{
-		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.updateStudentDtl(studentDetail);
-		response.setResponseBody(studentDetail);
+			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
+			String fileNo=workflowManager.updateStudentDetails(studentDetail);
+			StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
+		    response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e)
 		{
@@ -83,10 +86,14 @@ public class AdmissionService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 		}
-		@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
+		
+	
+	
+	@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteStudentDtl(@PathVariable String fileNo) {
-		AdmissionManager admissionManager = new AdmissionManagerImpl();
-		admissionManager.deleteSudentDtl(fileNo);
+		
+		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
+		workflowManager.deleteStudentDetails(fileNo);
 	}
 	
 	public ResponseEntity<Map<String,List>> getMasterData(){

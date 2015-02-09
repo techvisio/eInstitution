@@ -19,6 +19,7 @@ import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
+import com.techvisio.einstitution.util.CommonUtil;
 
 
 public class CacheDaoImpl extends BaseDao implements CacheDao {
@@ -44,8 +45,8 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 				Branch branch=new Branch();  
 				branch.setBranchName(rs.getString("Branch"));  
-				branch.setId(rs.getLong("Id"));
-				branch.setCourseId(rs.getLong("Course_Id"));
+				branch.setId(CommonUtil.getLongValue(rs.getLong("Id")));
+				branch.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
 
 				return branch;
 			}
@@ -65,7 +66,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Course course = new Course();
-				course.setId(rs.getLong("Id"));
+				course.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				course.setCourse(rs.getString("Course"));
 				course.setCourseType(rs.getString("Course_type"));
 				return course;
@@ -90,7 +91,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 				CasteCategory category = new CasteCategory();
 
-				category.setId(rs.getLong("Id"));
+				category.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				category.setCategoryName(rs.getString("Category"));
 				return category;
 			}
@@ -111,7 +112,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public FeeHead mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				FeeHead feeHead = new FeeHead();
-				feeHead.setId(rs.getLong("Id"));
+				feeHead.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				feeHead.setFeeHead(rs.getString("Fee_Head"));
 				return feeHead;
 			}
@@ -132,7 +133,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public CounsellingBody mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				CounsellingBody body = new CounsellingBody();
-				body.setId(rs.getLong("Id"));
+				body.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				body.setCousellingBody(rs.getString("Counselling_Body"));
 				return body;
 			}
@@ -153,7 +154,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public Subject mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Subject subject = new Subject();
-				subject.setId(rs.getLong("Subject_Id"));
+				subject.setId(CommonUtil.getLongValue(rs.getLong("Subject_Id")));
 				subject.setSubjectName(rs.getString("Subject"));
 				return subject;
 			}
@@ -174,7 +175,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public Qualification mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Qualification qualification = new Qualification();
-				qualification.setId(rs.getLong("Id"));
+				qualification.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				qualification.setQulaifyingExam(rs.getString("QualifyingExam"));
 				return qualification;
 			}
@@ -195,7 +196,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public QuotaCode mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				QuotaCode code = new QuotaCode();
-				code.setId(rs.getLong("Id"));
+				code.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				code.setDescription(rs.getString("Description"));
 				code.setCode(rs.getString("Code"));
 				return code;
@@ -217,7 +218,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public State mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				State state = new State();
-				state.setId(rs.getLong("Id"));
+				state.setId(CommonUtil.getLongValue(rs.getLong("Id")));
 				state.setStateName(rs.getString("State"));
 				return state;
 			}
@@ -237,7 +238,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public Consultant mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Consultant consultant = new Consultant();
-				consultant.setConsultantId(rs.getLong("Id"));
+				consultant.setConsultantId(CommonUtil.getLongValue(rs.getLong("Id")));
 				consultant.setName(rs.getString("Name"));
 				return consultant;
 			}
