@@ -284,3 +284,19 @@ CREATE TABLE `vehicledetail` (
 
 
 alter table admissiondiscountdtl add COLUMN Discount_Type varchar(20);
+
+create table counsellinDetail (File_No varchar(200), Counselling_Id bigint, Roll_No varchar(100), Rank bigint, Category_Rank bigint, Percentile decimal);
+
+/* adding Counselling table*/
+
+alter table counsellindetail add FOREIGN KEY (File_No) REFERENCES studentdetail(File_No);
+alter table counsellindetail add FOREIGN KEY (Counselling_Id) REFERENCES counsellingMaster(Id);
+
+
+/*Altring StudentDetail*/
+alter TABLE studentdetail add COLUMN Scholarship bit;
+
+alter TABLE studentdetail add COLUMN Refrred_By varchar(100);
+alter TABLE studentdetail add COLUMN Remarks varchar(500);
+alter table studentdetail add column Quota_Code varchar(200);
+alter table studentdetail add column Admission_Mode char(1);
