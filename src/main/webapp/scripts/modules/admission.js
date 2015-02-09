@@ -140,6 +140,8 @@ admissionModule
 
 
 			 $scope.click = function(arg) {
+				 
+				 console.log("print on submit click");
 				 console.log($scope.student);
 			 }
 

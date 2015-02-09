@@ -577,7 +577,7 @@ if(academicDtl.getQualificationId() != null)
 								.getString("File_No"));
 						admissionDiscountDtl.setPercent(rs
 								.getFloat("Percent"));
-						admissionDiscountDtl.setDiscountType("Discount_Type");
+						admissionDiscountDtl.setDiscountType(rs.getString("Discount_Type"));
 
 						return admissionDiscountDtl;
 					}

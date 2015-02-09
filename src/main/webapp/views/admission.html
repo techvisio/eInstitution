@@ -1,11 +1,10 @@
 
 <div ng-controller="admissionController" ng-init="init()">
 	<div class="side-mudule-submenu">
-		<li><img src="images/new.png"></li>
-		<li><img src="images/search.png"></li>
-		<li><img src="images/reset.png"></li>
+		<li><img src="images/new.png" ng-click="resetForm()"></li>
+		<li><img src="images/search.png" ng-click="getStudent()"></li>
 		<li><img src="images/photo.png"></li>
-		<li><img src="images/save.png"></li>
+		<li><img src="images/save.png" ng-click="addStudent()"></li>
 	</div>
 	<div class="three-column-view">
 		<table>
@@ -31,24 +30,24 @@
 				<td rowspan=3 colspan=2><img src="images/no-image.gif">
 				</td>
 				<td><span> File No </span></td>
-				<td><input type="text" ng-model="FileNo"></td>
+				<td><input type="text" ng-model="student.fileNo"></td>
 			</tr>
 
 			<tr>
 				<td><span> Enrollment No </span></td>
-				<td><input type="text" ng-model="enrollNo"></td>
+				<td><input type="text" ng-model="student.enrollNo"></td>
 
 			</tr>
 
 
 			<tr>
 				<td><span> Uni Enrollment No </span></td>
-				<td><input type="text"></td>
+				<td><input type="text" ng-model="student.uniEnrollNo"></td>
 			</tr>
 
 			<tr>
 				<td><span> Academic Year </span></td>
-				<td><input type="text" ng-model="uniEnrollNo"></td>
+				<td><input type="text" ng-model="student.academicYear"></td>
 				<td><span> Semester </span></td>
 				<td><select select ng-model="student.semester"
 					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
@@ -68,20 +67,20 @@
 
 			<tr>
 				<td><span> First Name </span></td>
-				<td><input type="text" ng-model="firstName"></td>
+				<td><input type="text" ng-model="student.firstName"></td>
 				<td><span> Last Name </span></td>
-				<td><input type="text" ng-model="lastName"></td>
+				<td><input type="text" ng-model="student.lastName"></td>
 			</tr>
 
 			<tr>
 				<td><span> Date of Birth </span></td>
-				<td><input type="date" ng-model="dob"></td>
+				<td><input type="date" ng-model="student.dob"></td>
 				<td><span> Gender </span></td>
 				<td>
 
-					<li><input type="radio" ng-model="gender" name="gender"
+					<li><input type="radio" ng-model="student.gender" name="gender"
 						value='M' /><span>Male</span></li>
-					<li><input type="radio" ng-model="gender" name="gender"
+					<li><input type="radio" ng-model="student.gender" name="gender"
 						value='F' /><span>Female</span></li>
 
 				</td>
@@ -89,9 +88,9 @@
 
 			<tr>
 				<td><span> Father Name </span></td>
-				<td><input type="text" ng-model="fatherName"></td>
+				<td><input type="text" ng-model="student.fatherName"></td>
 				<td><span> Mother Name </span></td>
-				<td><input type="text" ng-model="motherName"></td>
+				<td><input type="text" ng-model="student.motherName"></td>
 			</tr>
 
 			<tr>
@@ -108,28 +107,28 @@
 
 			<tr>
 				<td><span> Mobile No </span></td>
-				<td><input type="text" ng-model="selfMobileNo"></td>
+				<td><input type="text" ng-model="student.selfMobileNo"></td>
 				<td><span> Email Id </span></td>
-				<td><input type="text" ng-model="emailId"></td>
+				<td><input type="text" ng-model="student.emailId"></td>
 			</tr>
 
 			<tr>
 				<td><span> Fixed Line No </span></td>
-				<td><input type="text" ng-model="fixedlineNo"></td>
+				<td><input type="text" ng-model="student.fixedlineNo"></td>
 				<td><span> Parent Mobile No </span></td>
-				<td><input type="text" ng-model="parentMobileNo"></td>
+				<td><input type="text" ng-model="student.parentMobileNo"></td>
 			</tr>
 
 			<tr>
 				<td><span> Gaurdian Mobile No </span></td>
-				<td><input type="text" ng-model="gaurdianMobileNo"></td>
+				<td><input type="text" ng-model="student.gaurdianMobileNo"></td>
 				<td><span> Gaurdian Email Id </span></td>
-				<td><input type="text" ng-model="gaurdianEmailId"></td>
+				<td><input type="text" ng-model="student.gaurdianEmailId"></td>
 			</tr>
 
 			<tr>
 				<td><span> Father Occupation </span></td>
-				<td><input type="text" ng-model="fatherOccupation"></td>
+				<td><input type="text" ng-model="student.fatherOccupation"></td>
 				<td><span> Quota Code </span></td>
 				<td><select select ng-model="student.quotaCode"
 					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select>
@@ -138,25 +137,25 @@
 
 			<tr>
 				<td><span> Scholarship </span></td>
-				<td><input type="checkbox" ng-model="scholarship"></td>
+				<td><input type="checkbox" ng-model="student.scholarship"></td>
 				<td><span> Remarks </span></td>
-				<td><input type="text" ng-model="remarks"></td>
+				<td><input type="text" ng-model="student.remarks"></td>
 			</tr>
 
 			<tr>
 				<td><span> Hostel Required </span></td>
-				<td><input type="checkbox" ng-model="hostel"></td>
+				<td><input type="checkbox" ng-model="student.hostel"></td>
 				<td><span> Transport Required </span></td>
-				<td><input type="checkbox" ng-model="transportation"></td>
+				<td><input type="checkbox" ng-model="student.transportation"></td>
 			</tr>
 
 
 			<tr>
 				<td><span> Management Approval </span></td>
-				<td><input type="checkbox" ng-model="managementApproval">
+				<td><input type="checkbox" ng-model="student.managementApproval">
 				</td>
 				<td><span> Fee paid </span></td>
-				<td><input type="checkbox" ng-model="feePaid"></td>
+				<td><input type="checkbox" ng-model="student.feePaid"></td>
 			</tr>
 
 			<tr>
@@ -296,7 +295,6 @@
 			</div>
 		</div>
 		<input type="submit" value="Submit" ng-click="click()" />
-		</accordion>
 	</div>
 </div>
 <!--   </body>
