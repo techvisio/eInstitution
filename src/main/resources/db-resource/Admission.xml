@@ -342,7 +342,8 @@ Select
 File_No,
 FeeHead_Id,
 Amount,
-Percent
+Percent,
+Discount_Type
     
 from  AdmissionDiscountDtl where File_No=:File_No;    
     ]]>
@@ -357,12 +358,14 @@ Insert into AdmissionDiscountDtl
 (File_No,
 FeeHead_Id,
 Amount,
-Percent) values 
+Percent,
+Discount_Type) values 
 
 (:File_No,
 :FeeHead_Id,
 :Amount,
-:Percent);
+:Percent,
+:Discount_Type);
     
     ]]>
 
@@ -374,7 +377,8 @@ Percent) values
 Update AdmissionDiscountDtl set
 
 Amount=:Amount,
-Percent=:Percent 
+Percent=:Percent,
+Discount_Type=:Discount_Type 
      
 where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     ]]>

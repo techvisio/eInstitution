@@ -577,6 +577,7 @@ if(academicDtl.getQualificationId() != null)
 								.getString("File_No"));
 						admissionDiscountDtl.setPercent(rs
 								.getFloat("Percent"));
+						admissionDiscountDtl.setDiscountType("Discount_Type");
 
 						return admissionDiscountDtl;
 					}
@@ -594,7 +595,8 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 				"File_No", admissionDisDtl.getFileNo())
 		.addValue("FeeHead_Id", admissionDisDtl.getFeeHeadId())
 		.addValue("Amount", admissionDisDtl.getAmount())
-		.addValue("Percent", admissionDisDtl.getPercent());
+		.addValue("Percent", admissionDisDtl.getPercent())
+		.addValue("Discount_Type", admissionDisDtl.getDiscountType());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 }
