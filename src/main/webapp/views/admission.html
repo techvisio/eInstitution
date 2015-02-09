@@ -8,9 +8,7 @@
 	</div>
 	<div class="three-column-view">
 		<table>
-
-			<tr>
-					
+           	<tr>
 				<td colspan=2><span>Admission Mode</span></td>
 				<td>
 				<li><input type="radio" ng-model="student.admissionMode"
@@ -24,9 +22,8 @@
 				<li><input type="radio" ng-model="student.admissionMode"
 					name="admissionMode" value='R' /><span>Referral</span></li>
 					</td>
-			</tr>
-
-			<tr>
+			 </tr>
+		<tr>
 				<td rowspan=3 colspan=2><img src="images/no-image.gif">
 				</td>
 				<td><span> File No </span></td>
@@ -294,9 +291,78 @@
 				</table>
 			</div>
 		</div>
-		<input type="submit" value="Submit" ng-click="click()" />
-	</div>
-</div>
-<!--   </body>
-
-</html> -->
+		
+   
+   <div class="module-sub-section">
+      <div id="discount" class="panel-div">Admission Discount Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr ng-repeat="discount in student.discountDtl">
+      <td><span>Feehead</span></td>
+      <td><select ng-model="discount.feeHeadId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD"></select>
+      </td>
+      <td><span>Amount</span></td>
+      <td><input type="Text" ng-model="discount.amount"></td>
+      <td><span>Percent</span></td>
+      <td><input type="Text" ng-model="discount.percent"></td>
+      <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addDiscountDtl()"/></td>
+      <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
+      
+      </tr>
+      </table>
+    </div>  
+  </div>
+  
+  <div class="module-sub-section" ng-show="student.admissionMode == 'C'">
+      <div id="counselling" class="panel-div">Counselling Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Counselling</span></td>
+      <td><span>Roll No</span></td>
+      <td><span>Rank</span></td>
+      <td><span>Category Rank</span></td>
+      <td><span>Percentile</span></td>
+      </tr>
+      
+      <tr ng-repeat="counselling in student.counsellingDtl">
+      <td><select ng-model="counselling.counsellingId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
+      <td><input type="Text" ng-model="counselling.rollNo"></td>
+      <td><input type="Text" ng-model="counsellingl.rank"></td>
+      <td><input type="Text" ng-model="counselling.categoryRank"></td>
+      <td><input type="Text" ng-model="counselling.percentile"></td>
+      
+      <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addCounsellingDtl()"/></td>
+      <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeCounsellingDtl($index)" ng-show="$index>0" /></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+  
+  <div class="module-sub-section" ng-show="student.admissionMode == 'A'">
+      <div id="consultant" class="panel-div">Consultant Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Consultant Name</span></td>
+      <td><select ng-model="student.consultant.consultantId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+    
+  <div class="module-sub-section" ng-show="student.admissionMode == 'R'">
+      <div id="consultant" class="panel-div" >Referral Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Referred By</span></td>
+      <td><input type="Text" ng-model="student.referredBy"></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+   
+    <input type="submit" value="Submit" ng-click="click()"/>
+  </div>
+    </div>
