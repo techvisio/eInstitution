@@ -318,3 +318,8 @@ ADD Primary KEY (File_No);
 
 ALTER TABLE TransportAllocation	
   ADD Primary KEY (File_No);
+  
+  
+  
+/*Changes 10 feb 2015*/
+alter TABLE admissiondiscountdtl add COLUMN  Discount_Type varchar(20)
