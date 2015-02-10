@@ -1,304 +1,257 @@
 
 <div ng-controller="admissionController" ng-init="init()">
-	<div class="side-mudule-submenu">
-		<li><img src="images/new.png"></li>
-		<li><img src="images/search.png"></li>
-		<li><img src="images/reset.png"></li>
-		<li><img src="images/photo.png"></li>
-		<li><img src="images/save.png"></li>
-	</div>
-	<div class="three-column-view">
-		<table>
+	<div class="ajax-busy-indicator" ng-show="processing"></div>
+      <div class="floating-section-bookmark" ng-controller="headerCtrl">
+        <ul>
+        <li><a href="" ng-click="gotoAnchor('personal')">Personal Detail</a>
+        <li><a href="" ng-click="gotoAnchor('address')">Address Detail</a>
+        <li><a href="" ng-click="gotoAnchor('academic')">Academic Detail</a>
+         <li><a href="" ng-click="gotoAnchor('discount')">Discount Detail</a>
+        </ul>
+      </div>
+      <div class="module-sub-menu-eye-off">
+        <ul>
+          <li>
+            <button type="button" class="btn btn-primary" ng-click="click()">New</button>
+          </li>
+          <li>
+            <button type="button" class="btn btn-primary" ng-click="click()">Update</button>
+          </li>
+          <li>
+            <button type="button" class="btn btn-primary" ng-click="saveStudent()">Save</button>
+          </li>
+          <li>
+          <button type="button" class="btn btn-primary" ng-click="getStudent()">Search</button>
+          </li>
+           <li>
+          <button type="button" class="btn btn-primary" ng-click="resetForm()">Reset</button>
+          </li>
+        </ul>
+      </div>
+      <div class="module-section-eye-off">
+      <!-- <a href='#personal'> -->
+      <div class="module-sub-section">
+     
+      <!-- <div dynamic="html"></div> -->
+      <table class=" borderless">
+      
+      <tr><td>Admission Mode</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='W'/>Walk-In</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='C'/>Counselling</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='A'/>Consultant</td>
+      <td><input type="radio" ng-model="student.admissionMode" name="admissionMode" value='R'/>Referral</td></tr>
+      
+        <tr> <div id="personal" class="panel-div">Student Personal Details</div></tr>
+      <tr ng-repeat="row in serverModelData.personalDetailAttributes">
+        <td ng-repeat-start="personalData in row">
+          {{personalData.title}}
+        </td>
+        
+        <td ng-repeat-end>
+        <input type="date" ng-model="student[personalData.id]" ng-if="personalData.type == 'date'">
+          <input type="text" ng-model="student[personalData.id]" ng-if="personalData.type == 'text'">
+          <input type="checkbox" ng-model="student[personalData.id]" ng-if="personalData.type == 'check'">
+          <select ng-model="student[personalData.id]" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData[personalData.masterDataCode]" ng-if="personalData.type == 'select'">
+          <table class="inner-table">
+            <tr>
+              <td ng-repeat="optn in personalData.validValue">
+               <input type="radio" ng-model="student[personalData.id]" ng-value="optn" name="personalData.id" ng-if="personalData.type == 'radio'">{{optn}}
+              </td>
+            </tr>
+             </table>
+        </td>
+     </tr>
+     <tr>
+     <td>Scholarship</td>
+     <td><input type="checkbox" ng-model="student.scholarship" > </td>
+     <td>Remarks</td>
+     <td><input type="textarea" ng-model="student.remarks"></td>
+     <td>QuotaCode</td>
+     <td><select ng-model="student.quotaCode" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select></td>
+     
+     </tr>
+     
+     </table>
+      </div>
 
-			<tr>
-					
-				<td colspan=2><span>Admission Mode</span></td>
-				<td>
-				<li><input type="radio" ng-model="student.admissionMode"
-					name="admissionMode" value='W' /><span>Walk-In</span></li>
-				<li><input type="radio" ng-model="student.admissionMode"
-					name="admissionMode" value='C' /><span>Counselling</span></li>
-					</td>
-					<td>
-				<li><input type="radio" ng-model="student.admissionMode"
-					name="admissionMode" value='A' /><span>Consultant</span></li>
-				<li><input type="radio" ng-model="student.admissionMode"
-					name="admissionMode" value='R' /><span>Referral</span></li>
-					</td>
-			</tr>
+      <div class="module-sub-section">
+      <div id="address" class="panel-div">Student Address Details</div>
+      <a href='#address'></a>
+      <table class="borderless">
+      <tr>
+        <th>Permanent Address</th>
+        <th></th>
+      <tr>
+      <tr>
+        <td><span>House No.</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('P').houseNo"></td>
+        <td><span>Locality</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('P').locality"></td>
+      <tr> 
+      <tr>
+        <td><span>Land Mark</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('P').landmark"></td>
+        <td><span>District</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('P').district"></td>
+      <tr> 
+      <tr>
+        <td><span>City</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('P').city"></td>
+        <td><span>Pincode</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('P').pincode"></td>
+      <tr> 
+      <tr>
+        <td><span>State</span></td>
+        <td><select ng-model="getStudentAddress('P').state">
+         <option ng-repeat="object in serverModelData.dropdownMasterData.STATE" value="{{object.id}}">{{object.value}}</option>
+       </select></td>
+       <th></th>
+        <td></td>
+      <tr>  
+        <tr>
+        <th>Correspondence Address</th>
+         <td><input type="checkbox" ng-change="copyPermanentAddress()" ng-model="sameAsAbove">Same as Above</input></td>
+      <tr>
+      <tr>
+        <td><span>House No.</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('C').houseNo"></td>
+        <td><span>Locality</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('C').locality"></td>
+      <tr> 
+      <tr>
+        <td><span>Land Mark</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('C').landmark"></td>
+        <td><span>District</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('C').district"></td>
+      <tr> 
+      <tr>
+        <td><span>City</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('C').city"></td>
+        <td><span>Pincode</span></td>
+        <td><input type="Text" ng-model="getStudentAddress('C').pincode"></td>
+      <tr> 
+      <tr>
+        <td><span>State</span></td>
+        <td><select ng-model="getStudentAddress('C').state">
+         <option ng-repeat="object in serverModelData.dropdownMasterData.STATE" value="{{object.id}}">{{object.value}}</option>
+       </select></td>
+       <th></th>
+        <td></td>
+      <tr>
+    </table>
+  </div>
 
-			<tr>
-				<td rowspan=3 colspan=2><img src="images/no-image.gif">
-				</td>
-				<td><span> File No </span></td>
-				<td><input type="text" ng-model="FileNo"></td>
-			</tr>
-
-			<tr>
-				<td><span> Enrollment No </span></td>
-				<td><input type="text" ng-model="enrollNo"></td>
-
-			</tr>
-
-
-			<tr>
-				<td><span> Uni Enrollment No </span></td>
-				<td><input type="text"></td>
-			</tr>
-
-			<tr>
-				<td><span> Academic Year </span></td>
-				<td><input type="text" ng-model="uniEnrollNo"></td>
-				<td><span> Semester </span></td>
-				<td><select select ng-model="student.semester"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
-				</td>
-			</tr>
-
-			<tr>
-				<td><span> Course </span></td>
-				<td><select select ng-model="student.courseId"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select>
-				</td>
-				<td><span> Branch </span></td>
-				<td><select select ng-model="student.branchId"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.BRANCH"></select>
-				</td>
-			</tr>
-
-			<tr>
-				<td><span> First Name </span></td>
-				<td><input type="text" ng-model="firstName"></td>
-				<td><span> Last Name </span></td>
-				<td><input type="text" ng-model="lastName"></td>
-			</tr>
-
-			<tr>
-				<td><span> Date of Birth </span></td>
-				<td><input type="date" ng-model="dob"></td>
-				<td><span> Gender </span></td>
-				<td>
-
-					<li><input type="radio" ng-model="gender" name="gender"
-						value='M' /><span>Male</span></li>
-					<li><input type="radio" ng-model="gender" name="gender"
-						value='F' /><span>Female</span></li>
-
-				</td>
-			</tr>
-
-			<tr>
-				<td><span> Father Name </span></td>
-				<td><input type="text" ng-model="fatherName"></td>
-				<td><span> Mother Name </span></td>
-				<td><input type="text" ng-model="motherName"></td>
-			</tr>
-
-			<tr>
-
-				<td><span> Category </span></td>
-				<td><select select ng-model="student.categoryId"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
-				</td>
-				<td><span> Blood Group </span></td>
-				<td><select select ng-model="student.bloodGroup"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.BLOODGROUP"></select>
-				</td>
-			</tr>
-
-			<tr>
-				<td><span> Mobile No </span></td>
-				<td><input type="text" ng-model="selfMobileNo"></td>
-				<td><span> Email Id </span></td>
-				<td><input type="text" ng-model="emailId"></td>
-			</tr>
-
-			<tr>
-				<td><span> Fixed Line No </span></td>
-				<td><input type="text" ng-model="fixedlineNo"></td>
-				<td><span> Parent Mobile No </span></td>
-				<td><input type="text" ng-model="parentMobileNo"></td>
-			</tr>
-
-			<tr>
-				<td><span> Gaurdian Mobile No </span></td>
-				<td><input type="text" ng-model="gaurdianMobileNo"></td>
-				<td><span> Gaurdian Email Id </span></td>
-				<td><input type="text" ng-model="gaurdianEmailId"></td>
-			</tr>
-
-			<tr>
-				<td><span> Father Occupation </span></td>
-				<td><input type="text" ng-model="fatherOccupation"></td>
-				<td><span> Quota Code </span></td>
-				<td><select select ng-model="student.quotaCode"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select>
-				</td>
-			</tr>
-
-			<tr>
-				<td><span> Scholarship </span></td>
-				<td><input type="checkbox" ng-model="scholarship"></td>
-				<td><span> Remarks </span></td>
-				<td><input type="text" ng-model="remarks"></td>
-			</tr>
-
-			<tr>
-				<td><span> Hostel Required </span></td>
-				<td><input type="checkbox" ng-model="hostel"></td>
-				<td><span> Transport Required </span></td>
-				<td><input type="checkbox" ng-model="transportation"></td>
-			</tr>
-
-
-			<tr>
-				<td><span> Management Approval </span></td>
-				<td><input type="checkbox" ng-model="managementApproval">
-				</td>
-				<td><span> Fee paid </span></td>
-				<td><input type="checkbox" ng-model="feePaid"></td>
-			</tr>
-
-			<tr>
-				<td><span> Domicile State </span></td>
-				<td><select select ng-model="student.domicileState"
-					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE"></select>
-				</td>
-			</tr>
-
-		</table>
-
-
-		<div class="module-sub-section">
-			<div id="address" class="panel-div">Student Address Details</div>
-			<a href='#address'></a>
-			<table class="table borderless">
-				<tr>
-					<th>Permanent Address</th>
-					<th></th>
-				<tr>
-				<tr>
-					<td><span>House No.</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('P').houseNo"></td>
-					<td><span>Locality</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('P').locality"></td>
-				<tr>
-				<tr>
-					<td><span>Land Mark</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('P').landmark"></td>
-					<td><span>District</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('P').district"></td>
-				<tr>
-				<tr>
-					<td><span>City</span></td>
-					<td><input type="Text" ng-model="getStudentAddress('P').city"></td>
-					<td><span>Pincode</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('P').pincode"></td>
-				<tr>
-				<tr>
-					<td><span>State</span></td>
-					<td><select ng-model="getStudentAddress('P').state">
-							<option
-								ng-repeat="object in serverModelData.dropdownMasterData.state"
-								value="{{object.id}}">{{object.value}}</option>
-					</select></td>
-					<th></th>
-					<td></td>
-				<tr>
-				<tr>
-					<th>Correspondence Address</th>
-					<td><input type="checkbox"> Same as Above</input></td>
-				<tr>
-				<tr>
-					<td><span>House No.</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('C').houseNo"></td>
-					<td><span>Locality</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('C').locality"></td>
-				<tr>
-				<tr>
-					<td><span>Land Mark</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('C').landmark"></td>
-					<td><span>District</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('C').district"></td>
-				<tr>
-				<tr>
-					<td><span>City</span></td>
-					<td><input type="Text" ng-model="getStudentAddress('C').city"></td>
-					<td><span>Pincode</span></td>
-					<td><input type="Text"
-						ng-model="getStudentAddress('C').pincode"></td>
-				<tr>
-				<tr>
-					<td><span>State</span></td>
-					<td><select ng-model="getStudentAddress('C').state">
-							<option
-								ng-repeat="object in serverModelData.dropdownMasterData.state"
-								value="{{object.id}}">{{object.value}}</option>
-					</select></td>
-					<th></th>
-					<td></td>
-				<tr>
-			</table>
-		</div>
-
-		<div class="module-sub-section">
-			<div id="academic" class="panel-div">Student Academic Details</div>
-			<a href='#academic'></a>
-			<div class="long-inline">
-				<table class="table borderless">
-					<tr ng-repeat-start="object in student.academicDtl">
-						<th><span>Qualification</span></th>
-						<th><span>University</span></th>
-						<th><span>College</span></th>
-						<th><span>Roll No.</span></th>
-						<th><span>Passing Year</span></th>
-						<th><span>Percentage</span></th>
-					</tr>
-					<tr>
-						<td><select ng-model="object.qualificationId"
-							ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.qualification">
-								<!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
-						</select></td>
-						<td><input type="Text" ng-model="object.university"></td>
-						<td><input type="Text" ng-model="object.collegeName"></td>
-						<td><input type="Text" ng-model="object.rollNo"></td>
-						<td><input type="Text" ng-model="object.passingYear"></td>
-						<td><input type="Text" ng-model="object.percentage"></td>
-						<td><img height="35" width="35" ng-src="images/plus.png"
-							ng-click="addQualification($index)" /></td>
-						<td><img height="35" width="35" ng-src="images/minus.png"
-							ng-click="removeQualification($index)" ng-show="$index>0" /></td>
-					</tr>
-
-					<tr ng-repeat-end
-						ng-repeat="subject in object.qualificationSubDtl track by $index">
-						<td><span>Subject</span></td>
-						<td><input type="Text" ng-model="subject.subjectId"></td>
-						<td><span>Marks Obtained</span></td>
-						<td><input type="Text" ng-model="subject.marksObtained"></td>
-						<td><span>Maximum Marks</span></td>
-						<td><input type="Text" ng-model="subject.maxMarks"></td>
-						<td><img height="35" width="35" ng-src="images/plus.png"
-							ng-click="addSubject(object)" /></td>
-						<td><img height="35" width="35" ng-src="images/minus.png"
-							ng-click="removeSubject(object,$index)" ng-show="$index>0" /></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<input type="submit" value="Submit" ng-click="click()" />
-		</accordion>
-	</div>
-</div>
-<!--   </body>
-
-</html> -->
+  <div class="module-sub-section">
+      <div id="academic" class="panel-div">Student Academic Details</div>
+      <a href='#academic'></a>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr ng-repeat-start="object in student.academicDtl">
+            <th><span>Qualification</span></th>
+             <th><span>University</span></th>
+              <th><span>College</span></th>
+               <th><span>Roll No.</span></th>
+               <th><span>Passing Year</span></th>
+               <th><span>Percentage</span></th>
+          </tr>
+        <tr>
+        <td><select ng-model="object.qualificationId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
+        <!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
+       </select></td>
+       <td><input type="Text" ng-model="object.university"></td>
+       <td><input type="Text" ng-model="object.collegeName"></td>
+       <td><input type="Text" ng-model="object.rollNo"></td>
+       <td><input type="Text" ng-model="object.passingYear"></td>
+       <td><input type="Text" ng-model="object.percentage"></td>
+        <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addQualification($index)"/></td>
+        <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeQualification($index)" ng-show="$index>0" /></td>
+         </tr>
+      
+        <tr ng-repeat-end ng-repeat="subject in object.qualificationSubDtl track by $index">
+            <td><span>Subject</span></td>
+            <td><select ng-model="object.qualificationId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+            <td><span>Marks Obtained</span></td>
+            <td><input type="Text" ng-model="subject.marksObtained"></td>
+            <td><span>Maximum Marks</span></td>
+            <td><input type="Text" ng-model="subject.maxMarks"></td>
+            <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addSubject(object)"/></td>
+            <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeSubject(object,$index)" ng-show="$index>0" /></td>
+        </tr>
+      </table> 
+    </div>
+   </div>
+   
+   <div class="module-sub-section">
+      <div id="discount" class="panel-div">Admission Discount Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr ng-repeat="discount in student.discountDtl">
+      <td><span>Feehead</span></td>
+      <td><select ng-model="discount.feeHeadId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD"></select>
+      </td>
+      <td><span>Amount</span></td>
+      <td><input type="Text" ng-model="discount.amount"></td>
+      <td><span>Percent</span></td>
+      <td><input type="Text" ng-model="discount.percent"></td>
+      <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addDiscountDtl()"/></td>
+      <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
+      
+      </tr>
+      </table>
+    </div>  
+  </div>
+  
+  <div class="module-sub-section" ng-show="student.admissionMode == 'C'">
+      <div id="counselling" class="panel-div">Counselling Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Counselling</span></td>
+      <td><span>Roll No</span></td>
+      <td><span>Rank</span></td>
+      <td><span>Category Rank</span></td>
+      <td><span>Percentile</span></td>
+      </tr>
+      
+      <tr ng-repeat="counselling in student.counsellingDtl">
+      <td><select ng-model="counselling.counsellingId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
+      <td><input type="Text" ng-model="counselling.rollNo"></td>
+      <td><input type="Text" ng-model="counsellingl.rank"></td>
+      <td><input type="Text" ng-model="counselling.categoryRank"></td>
+      <td><input type="Text" ng-model="counselling.percentile"></td>
+      
+      <td><img height="35" width="35" ng-src="images/plus.png" ng-click="addCounsellingDtl()"/></td>
+      <td><img height="35" width="35" ng-src="images/minus.png" ng-click="removeCounsellingDtl($index)" ng-show="$index>0" /></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+  
+  <div class="module-sub-section" ng-show="student.admissionMode == 'A'">
+      <div id="consultant" class="panel-div">Consultant Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Consultant Name</span></td>
+      <td><select ng-model="student.consultant.consultantId" ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+    
+  <div class="module-sub-section" ng-show="student.admissionMode == 'R'">
+      <div id="consultant" class="panel-div" >Referral Details</div>
+      <div class="long-inline">
+      <table class="borderless">
+      <tr>
+      <td><span>Referred By</span></td>
+      <td><input type="Text" ng-model="student.referredBy"></td>
+      </tr>
+      </table>
+    </div>  
+  </div>
+   
+    <input type="submit" value="Submit" ng-click="click()"/>
+    </accordion>
+  </div>
+    </div>
