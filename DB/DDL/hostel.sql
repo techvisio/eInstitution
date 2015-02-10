@@ -31,7 +31,7 @@ ALTER TABLE  HOSTELRESERVATION ADD PRIMARY KEY(File_No);
 
 ALTER TABLE  ROOMTYPEDETAIL ADD PRIMARY KEY(ROOM_NO);
 
-#########################################################################
+/*#########################################################################*/
 
 
 /* add new column(Allocation_Status) in hostelReservation/also done in transport table manually*/
@@ -45,33 +45,52 @@ alter table hostelreservation add column (Is_Active bit);
 
 
  
+/*#####################################################################################*/
 
-#######################################################################################
-/* WORK OF TRANSPORT TABLE*/
+/* room avalable in hostel*/
+SELECT HI.PRICE,HI.THRESHOLD,HI.TYPE_CODE,COUNT(HR.TYPE_CODE )AS RESERVED_ROOM,HI.THRESHOLD-COUNT(HR.TYPE_CODE ) AS AVAILABLE FROM hostelinventory HI JOIN hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HR.Type_Code;
 
+/* ###############################################################################################*/
 
-ALTER TABLE TransportReservation
-	
-  ADD FOREIGN KEY (File_No)
-	REFERENCES StudentDetail (File_No);
+/* ModuleLog */
 
+CREATE TABLE MODULELOG 
+(WORK_FLOW_OPERATION VARCHAR(200),
+USER_ID INTEGER,
+OPERATION VARCHAR(100),
+ERROR_MESSAGE VARCHAR(2000),
+ENTITY_ID INTEGER,
+DATE DATE);
 
+/* #########################################################################################*/
 
-ALTER TABLE TransportAllocation
-	
-  ADD FOREIGN KEY (File_No)
-	REFERENCES StudentDetail (File_No);
+/* TaskAndFollowup*/
 
+CREATE TABLE taskandfollowup 
+(USER_ID VARCHAR(220), 
+TASK_ID INTEGER, 
+TASK_ENTRY VARCHAR, 
+STATUS VARCHAR(220), 
+ROLE VARCHAR(220), 
+REMARK VARCHAR(220), 
+REMARK VARCHAR(500), 
+PARENTTASK_ID INTEGER, 
+DUE_DATE DATE);
 
+/* Add primary key in taskandfollowup table*/
+ALTER TABLE taskandfollowup ADD PRIMARY KEY (TASK_ID);
 
+/* #########################################################################################*/
 
-ALTER TABLE TransportReservation
-	
-  ADD Primary KEY (File_No);
+/* WorkFlowFieldMapping */
 
-
-
-
-
-ALTER TABLE TransportAllocation	
-  ADD Primary KEY (File_No);
+CREATE TABLE workflowfieldmapping 
+(WORK_FLOW_STEP_ID VARCHAR(200),
+ WORK_FLOW_ID VARCHAR(200),
+ VISIBLE BIT,
+ VALID_VALUE VARCHAR(200),
+ TYPE VARCHAR(200),
+ TITLE VARCHAR(200),
+ MASTER_DATA_CODE VARCHAR(200),
+ MANDATORY_IND BIT,
+ FIELD_DESC_ID VARCHAR(200));
