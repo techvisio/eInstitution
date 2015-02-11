@@ -28,9 +28,13 @@ admissionModule
 		 'admissionService',
 		 'masterdataService',
 		 function($scope, admissionService,masterdataService) {
-
-			 $scope.processing=false;
-			 $scope.isEdit=false;
+			 
+			 $scope.subModules=["personal","address","academic","discount","other"];
+		 	$scope.selection=$scope.subModules[0];	
+		 	$scope.form = {};
+		 	$scope.form.sameAsAbove=false;
+			 $scope.form.processing=false;
+			 $scope.form.isEdit=false;
 			 $scope.serverModelData = {};
 
 			 $scope.student = {};
@@ -68,7 +72,7 @@ admissionModule
 				 "percentile" : 0.0
 			 }];
 
-			 $scope.showSub = false;
+			 $scope.form.showSub = false;
 
 			 $scope.dummyAddress = {
 					 "houseNo" : null,
@@ -215,7 +219,9 @@ admissionModule
 			 }
 
 			 $scope.copyPermanentAddress=function(){
-				 if($scope.sameAsAbove == true){
+				 console.log('same as above');
+				 console.log($scope.form.sameAsAbove);
+				 if($scope.form.sameAsAbove == true){
 					 console.log('same as above');
 					 var cAddress=$scope.getStudentAddress('C');
 					 angular.copy($scope.getStudentAddress('P'),cAddress)
@@ -224,7 +230,8 @@ admissionModule
 			 }
 
 			 $scope.saveStudent = function(){
-				 if($scope.isEdit){
+				 console.log($scope.form.isEdit);
+				 if($scope.form.isEdit){
 					 $scope.updateStudent();
 				 }
 				 else
@@ -244,12 +251,12 @@ admissionModule
 					 if (response != null && response.data != null && response.data.responseBody != null) {
 						 $scope.populateMissingData(response.data.responseBody);
 						 $scope.student = response.data.responseBody;
-						 $scope.isEdit=true;
+						 $scope.form.isEdit=true;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
-					 $scope.processing=false;  
+					 $scope.form.processing=false;  
 				 })
 
 
@@ -258,7 +265,7 @@ admissionModule
 			 $scope.updateStudent = function() {
 				 console.log('update student called');
 				 console.log($scope.student);
-				 $scope.processing=true;
+				 $scope.form.processing=true;
 				 admissionService.updateStudent($scope.student)
 				 .then(function(response) {
 					 console.log('Data received from service : ');
@@ -266,12 +273,12 @@ admissionModule
 					 if (response != null && response.data != null && response.data.responseBody != null) {
 						 $scope.populateMissingData(response.data.responseBody);
 						 $scope.student = response.data.responseBody;
-						 $scope.isEdit=true;
+						 $scope.form.isEdit=true;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
-					 $scope.processing=false;  
+					 $scope.form.processing=false;  
 				 })
 
 
@@ -288,7 +295,7 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student = response.data.responseBody;
 						 $scope.populateMissingData($scope.student);
-						 $scope.isEdit=true;
+						 $scope.form.isEdit=true;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -298,12 +305,29 @@ admissionModule
 
 			 }
 
-
+			 				
+				 $scope.next=function(){
+				 var selectionIndex=$scope.subModules.indexOf($scope.selection);
+				 if(selectionIndex != $scope.subModules.length-1){
+				 selectionIndex=selectionIndex+1;
+				 $scope.selection=$scope.subModules[selectionIndex];
+				 $scope.form.direction=1;
+				 }
+				 }
+				 
+				 $scope.prev=function(){
+					 var selectionIndex=$scope.subModules.indexOf($scope.selection);
+					 if(selectionIndex != 0){
+					 selectionIndex=selectionIndex-1;
+					 $scope.selection=$scope.subModules[selectionIndex];
+					 $scope.form.direction=0;
+					 }
+					 }
 
 			 $scope.resetForm = function(){
 
-				 $scope.processing=false;
-				 $scope.isEdit=false;
+				 $scope.form.processing=false;
+				 $scope.form.isEdit=false;
 				 $scope.student = {};
 				 $scope.student.addressDtl = [];
 				 $scope.student.academicDtl = [{
@@ -343,23 +367,23 @@ admissionModule
 
 			 $scope.populateMissingData = function(data){
 
-				 if(angular.isUndefined(data.academicDtl) || data.academicDtl==null || data.academicDtl.length<0)
+				 if(angular.isUndefined(data.academicDtl) || data.academicDtl==null || data.academicDtl.length == 0)
 				 {
 					 $scope.student.academicDtl = [];
-					 $scope.student.academicDtl.push(angular.copy($scope.dummyAcademicDtl))
+					 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification))
 				 }
 
-				 if(angular.isUndefined(data.discountDtl) || data.discountDtl==null || data.discountDtl.length<0)
+				 if(angular.isUndefined(data.discountDtl) || data.discountDtl==null || data.discountDtl.length == 0)
 				 {
 					 $scope.student.discountDtl = [];
 					 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 				 }
 
 
-				 if(angular.isUndefined(data.counsellingDtl) || data.counsellingDtl==null || data.counsellingDtl.length<0)
+				 if(angular.isUndefined(data.counsellingDtl) || data.counsellingDtl==null || data.counsellingDtl.length == 0)
 				 {
-					 $scope.student.counsellinDtl = [];
-					 $scope.student.counsellinDtl.push(angular.copy($scope.dummyCounsellingDtl))
+					 $scope.student.counsellingDtl = [];
+					 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl))
 				 }
 
 			 }
