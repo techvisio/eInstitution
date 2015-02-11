@@ -34,7 +34,7 @@ ALTER TABLE  ROOMTYPEDETAIL ADD PRIMARY KEY(ROOM_NO);
 /*#########################################################################*/
 
 
-/* add new column(Allocation_Status) in hostelReservation/also done in transport table manually*/
+/*11-feb-2015 add new column(Allocation_Status) in hostelReservation/also done in transport table manually*/
 
 alter table hostelreservation add column (Allocation_Status varchar(220));
 
@@ -47,12 +47,12 @@ alter table hostelreservation add column (Is_Active bit);
  
 /*#####################################################################################*/
 
-/* room avalable in hostel*/
+/*11-feb-2015 room avalable in hostel*/
 SELECT HI.PRICE,HI.THRESHOLD,HI.TYPE_CODE,COUNT(HR.TYPE_CODE )AS RESERVED_ROOM,HI.THRESHOLD-COUNT(HR.TYPE_CODE ) AS AVAILABLE FROM hostelinventory HI JOIN hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HR.Type_Code;
 
 /* ###############################################################################################*/
 
-/* ModuleLog */
+/*11-feb-2015 ModuleLog */
 
 CREATE TABLE MODULELOG 
 (WORK_FLOW_OPERATION VARCHAR(200),
@@ -64,7 +64,7 @@ DATE DATE);
 
 /* #########################################################################################*/
 
-/* TaskAndFollowup*/
+/*11-feb-2015 TaskAndFollowup*/
 
 CREATE TABLE taskandfollowup 
 (USER_ID VARCHAR(220), 
@@ -77,12 +77,12 @@ REMARK VARCHAR(500),
 PARENTTASK_ID INTEGER, 
 DUE_DATE DATE);
 
-/* Add primary key in taskandfollowup table*/
+/*11-feb-2015 Add primary key in taskandfollowup table*/
 ALTER TABLE taskandfollowup ADD PRIMARY KEY (TASK_ID);
 
 /* #########################################################################################*/
 
-/* WorkFlowFieldMapping */
+/*11-feb-2015 WorkFlowFieldMapping */
 
 CREATE TABLE workflowfieldmapping 
 (WORK_FLOW_STEP_ID VARCHAR(200),
