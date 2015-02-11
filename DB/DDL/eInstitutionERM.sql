@@ -358,6 +358,8 @@ ADD FOREIGN KEY (COURSE)
 REFERENCES COURSEMASTER(Id)
 ;
 
+alter table feedetailmaster add FOREIGN key (branch) references coursebranchmaster (id);
+
 
 /* changes 12 feb 2015(studentfeestaging)*/
 CREATE TABLE studentfeestaging (

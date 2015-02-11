@@ -7,7 +7,8 @@ transportModule.controller('transportController', ['$scope','transportService',f
 				"available" : 0,
 				"threshold" : 0,
 				"price" : 0.0,
-				"routeCode" : null
+				"routeCode" : null,
+				"description" : null
 			} ];
 
 			$scope.getAvailableTransport = function() {

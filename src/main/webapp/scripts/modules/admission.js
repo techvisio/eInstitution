@@ -20,38 +20,16 @@ admissionModule
 
 			 $scope.student = {};
 			 $scope.student.addressDtl = [];
-			 $scope.student.academicDtl = [{
-				 "university" : null,
-				 "collegeName" : null,
-				 "passingYear" : null,
-				 "percentage" : 0.0,
-				 "rollNo" : null,
-				 "fileNo" : null,
-				 "qualificationId" : null,
-				 "qualificationSubDtl" : [ {
-					 "subjectId" : null,
-					 "qualificationId" : null,
-					 "fileNo" : null,
-					 "marksObtained" : 0.0,
-					 "maxMarks" : 0.0
-				 } ]
-			 }];
-			 $scope.student.discountDtl = [{
-				 "fileNo" : null,
-				 "feeHeadId" : null,
-				 "amount" : 0.0,
-				 "percent" : 0.0
-			 }];
+			 
+			 $scope.student.academicDtl = [];
+			 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
+			 
+			 
+			 $scope.student.discountDtl = [];
+			 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 
-			 $scope.student.counsellingDtl = [{
-
-				 "fileNo" : null, 
-				 "counsellingId" : null,
-				 "rollNo" : null,
-				 "rank" : null,
-				 "categoryRank" : null,
-				 "percentile" : 0.0
-			 }];
+			 $scope.student.counsellingDtl = [];
+			 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
 
 			 $scope.form.showSub = false;
 
@@ -311,38 +289,15 @@ admissionModule
 				 $scope.form.isEdit=false;
 				 $scope.student = {};
 				 $scope.student.addressDtl = [];
-				 $scope.student.academicDtl = [{
-					 "university" : null,
-					 "collegeName" : null,
-					 "passingYear" : null,
-					 "percentage" : 0.0,
-					 "rollNo" : null,
-					 "fileNo" : null,
-					 "qualificationId" : null,
-					 "qualificationSubDtl" : [ {
-						 "subjectId" : null,
-						 "qualificationId" : null,
-						 "fileNo" : null,
-						 "marksObtained" : 0.0,
-						 "maxMarks" : 0.0
-					 } ]
-				 }];
-				 $scope.student.discountDtl = [{
-					 "fileNo" : null,
-					 "feeHeadId" : null,
-					 "amount" : 0.0,
-					 "percent" : 0.0
-				 }];
+				 
+				 $scope.student.academicDtl = [];
+				 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
+				 
+				 $scope.student.discountDtl = [];
+				 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 
-				 $scope.student.counsellingDtl = [{
-
-					 "fileNo" : null, 
-					 "counsellingId" : null,
-					 "rollNo" : null,
-					 "rank" : null,
-					 "categoryRank" : null,
-					 "percentile" : 0.0
-				 }];
+				 $scope.student.counsellingDtl = [];
+				 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
 
 			 }
 

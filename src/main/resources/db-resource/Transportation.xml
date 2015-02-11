@@ -7,7 +7,7 @@
     <![CDATA[
 Select
 
-	tm.Threshold,tm.Route_Code,tm.Price,count(tr.Route_Code) as Reserved_Seat,tm.Threshold-count(tr.Route_Code) as Available_Seat
+tm.Threshold,tm.Route_Code, tm.Description, tm.Price,count(tr.Route_Code) as Reserved_Seat,tm.Threshold-count(tr.Route_Code) as Available_Seat
 
 from TransportMaster tm join transportReservation tr on tm.Route_Code=tr.Route_Code group by tr.Route_Code;    
     ]]>

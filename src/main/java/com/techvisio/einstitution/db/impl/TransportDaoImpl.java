@@ -42,7 +42,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 				availableTransport.setReserved(rs.getInt("Reserved_Seat"));
 				availableTransport.setThreshold(rs.getString("Threshold"));
 				availableTransport.setPrice(rs.getDouble("Price"));
-				
+				availableTransport.setDescription(rs.getString("Description"));
 				return availableTransport;
 			}
 		});
