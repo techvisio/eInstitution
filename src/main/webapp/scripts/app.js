@@ -4,7 +4,8 @@ var erpModule = angular
     'admissionModule',
     'masterdataModule',
     'transportModule',
-    'hostelModule'
+    'hostelModule',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider

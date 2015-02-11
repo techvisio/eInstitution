@@ -1,24 +1,4 @@
-var admissionModule = angular.module('admissionModule', []);
-admissionModule.run(['$anchorScroll', function($anchorScroll) {
-	$anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
-}]);
-
-admissionModule.controller('headerCtrl', [ '$anchorScroll', '$location',
-                                           '$scope', function($anchorScroll, $location, $scope) {
-	$scope.gotoAnchor = function(x) {
-		var newHash = x;
-		if ($location.hash() !== newHash) {
-			// set the $location.hash to `newHash` and
-			// $anchorScroll will automatically scroll to it
-			$location.hash(x);
-		} else {
-			// call $anchorScroll() explicitly,
-			// since $location.hash hasn't changed
-			$anchorScroll();
-		}
-	};
-} ]);
-
+var admissionModule = angular.module('admissionModule', ['ui.bootstrap']);
 
 admissionModule
 .controller(
@@ -27,7 +7,8 @@ admissionModule
 		 '$scope',
 		 'admissionService',
 		 'masterdataService',
-		 function($scope, admissionService,masterdataService) {
+		 '$modal',
+		  function($scope, admissionService,masterdataService,$modal) {
 			 
 			 $scope.subModules=["personal","address","academic","discount","other"];
 		 	$scope.selection=$scope.subModules[0];	
@@ -388,6 +369,25 @@ admissionModule
 
 			 }
 
+			 $scope.showTransportModal=function (size) {
+
+				    var modalInstance = $modal.open({
+				      templateUrl: 'views/transport.html',
+				      controller: 'transportController',
+				      size: size,
+				      resolve: {
+				        items: function () {
+				          return $scope.items;
+				        }
+				      }
+				    });
+
+				    modalInstance.result.then(function (selectedItem) {
+				      $scope.selected = selectedItem;
+				    }, function () {
+				      $log.info('Modal dismissed at: ' + new Date());
+				    });
+				  };
 		 } ])
 
 		 admissionModule.service("admissionService", function($http, $q) {
