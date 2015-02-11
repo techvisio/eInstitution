@@ -13,6 +13,7 @@ import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
@@ -245,6 +246,28 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		});
 
 		return consultants;
+	}
+
+
+	public List<FeeDetail> getFeeDetail() {
+		String getFeeDetailQuery=masterQueryProps.getProperty("getFeeDetailMaster");
+
+		List<FeeDetail> feeDetails =new ArrayList<FeeDetail>(); 
+		feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, new RowMapper<FeeDetail>(){
+
+			public FeeDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FeeDetail detail = new FeeDetail();
+				detail.setBranch(CommonUtil.getLongValue(rs.getLong("BRANCH")));
+				detail.setCourse(CommonUtil.getLongValue(rs.getLong("COURSE")));
+				detail.setFeeAmount(rs.getDouble("FEE_AMOUNT"));
+				detail.setFeeHeadId(CommonUtil.getLongValue(rs.getLong("FEE_HEAD_ID")));
+				detail.setSemester(CommonUtil.getLongValue(rs.getLong("SEMESTER")));
+				return detail;
+			}
+			
+		});
+		
+		return feeDetails;
 	}
 
 }
