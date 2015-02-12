@@ -322,4 +322,40 @@ ALTER TABLE TransportAllocation
   
   
 /*Changes 10 feb 2015*/
-alter TABLE admissiondiscountdtl add COLUMN  Discount_Type varchar(20)
+alter TABLE admissiondiscountdtl add COLUMN  Discount_Type varchar(20);
+
+/* Changes 12 feb 2015 (feediscounthead TABLE)*/
+RENAME TABLE feeheadmaster TO feediscounthead;
+
+alter table feediscounthead change Id Head_Id integer;
+
+alter table feediscounthead change Fee_Head Head varchar(100);
+
+alter table feediscounthead ADD Type varchar(100);
+
+alter table feediscounthead ADD Parent_type_id integer;
+
+alter table feediscounthead ADD Discount_Type varchar(100);
+
+alter table feediscounthead ADD Refund_Type varchar(100);
+
+/* Changes 12 feb 2015 (FEEDETAILMASTER table)*/
+CREATE TABLE FEEDETAILMASTER
+(COURSE int,
+BRANCH int,
+SEMESTER int,
+FEE_HEAD_ID int,
+FEE_AMOUNT DOUBLE
+);
+
+ALTER TABLE FEEDETAILMASTER
+ADD FOREIGN KEY (FEE_HEAD_ID)
+REFERENCES feediscounthead(Head_Id)
+;
+
+ALTER TABLE FEEDETAILMASTER
+ADD FOREIGN KEY (COURSE)
+REFERENCES COURSEMASTER(Id)
+;
+
+
