@@ -1,17 +1,16 @@
 
 <div ng-controller="admissionController" ng-init="init()">
 	<div class="side-mudule-submenu">
-		<li><img src="images/new.png" ng-click="resetForm()"></li>
-		<li><img src="images/search.png" ng-click="getStudent()"></li>
-		<li><img src="images/photo.png" ng-click="showTransportModal()"></li>
-		<li><img src="images/save.png" ng-click="saveStudent()"></li>
+	<a><div class="round-menu-div" ng-click="resetForm()">Create</div></a>
+	<a><div class="round-menu-div" ng-click="getStudent()">Search</div></a>
+	<a><div class="round-menu-div" ng-click="saveStudent()">Save</div></a>
 	</div>
 	<div class="ajax-busy-indicator" ng-show="processing"></div>
 	<div class="next">
 	<img src="images/next.png" ng-click="next()">
 	</div>
 	<div class="prev">
-	<img src="images/back.jpg" ng-click="prev()">
+	<img src="images/back.png" ng-click="prev()">
 	</div>
 	<div class="module-container">
 	<div class="animate-switch-container" ng-switch on="selection" 
@@ -39,8 +38,9 @@
 					</td>
 			 </tr>
 		<tr>
-				<td rowspan=3 colspan=2><img src="images/no-image.gif">
+				<td rowspan=3><img src="images/no-image.gif">
 				</td>
+				<td rowspan=2><input type="file"></td>
 				<td><span> File No </span></td>
 				<td><input type="text" ng-model="student.fileNo"></td>
 			</tr>
@@ -53,6 +53,7 @@
 
 
 			<tr>
+				<td><input type="button" value="Upload"></td>
 				<td><span> Uni Enrollment No </span></td>
 				<td><input type="text" ng-model="student.uniEnrollNo"></td>
 			</tr>
