@@ -57,7 +57,7 @@ CREATE TABLE RoomTypeDetail
 
 ALTER TABLE HostelReservation
 	ADD FOREIGN KEY (Type_Code)
-	REFERENCES HostelInventoryMaster (Type_Code)
+	REFERENCES HostelInventory(Type_Code)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -65,7 +65,7 @@ ALTER TABLE HostelReservation
 
 ALTER TABLE RoomTypeDetail
 	ADD FOREIGN KEY (Type_Code)
-	REFERENCES HostelInventoryMaster (Type_Code)
+	REFERENCES HostelInventory(Type_Code)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

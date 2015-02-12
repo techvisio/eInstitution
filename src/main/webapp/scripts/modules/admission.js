@@ -343,6 +343,28 @@ admissionModule
 				      $log.info('Modal dismissed at: ' + new Date());
 				    });
 				  };
+				  
+				  
+					 $scope.showHostelModal=function (size) {
+
+						    var modalInstance = $modal.open({
+						      templateUrl: 'views/hostel.html',
+						      controller: 'hostelController',
+						      size: size,
+						      resolve: {
+						        items: function () {
+						          return $scope.items;
+						        }
+						      }
+						    });
+
+						    modalInstance.result.then(function (selectedItem) {
+						      $scope.selected = selectedItem;
+						    }, function () {
+						      $log.info('Modal dismissed at: ' + new Date());
+						    });
+						  };
+				  
 		 } ])
 
 		 admissionModule.service("admissionService", function($http, $q) {

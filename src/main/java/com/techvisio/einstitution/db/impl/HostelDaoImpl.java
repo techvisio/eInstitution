@@ -349,6 +349,7 @@ public List<HostelAvailability> getHostelAvailability() {
 		public HostelAvailability mapRow(ResultSet rs, int rowNum)throws SQLException {
 			HostelAvailability hostelAvailability = new HostelAvailability();
 			hostelAvailability.setTypeCode(rs.getString("TYPE_CODE"));
+			hostelAvailability.setDescription(rs.getString("DESCRIPTION"));
 			hostelAvailability.setThreshold(rs.getInt("THRESHOLD"));
 			hostelAvailability.setReservedRoom(rs.getInt("RESERVED_ROOM"));
 			hostelAvailability.setPrice(rs.getDouble("PRICE"));
