@@ -118,7 +118,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			List<CounsellingDetail> counsellingDetails = getCounsellingDetail(fileNo);
 			studentDetail.setCounsellingDtl(counsellingDetails);
-		 
+
 		}
 		return studentDetail;
 	}
@@ -165,8 +165,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
-		                .addValue("Referred_By", studentDtl.getReferredBy())
-		                .addValue("Quota_Code", studentDtl.getQuotaCode()); 
+						.addValue("Referred_By", studentDtl.getReferredBy())
+						.addValue("Quota_Code", studentDtl.getQuotaCode()); 
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -174,7 +174,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			for (StudentAcademicDetail studentAcademicDetail : studentDtl
 					.getAcademicDtl()) {
 				addAcademicDtl(studentAcademicDetail);
-				continue;
 			}
 		}
 
@@ -184,7 +183,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					.getDiscountDtl()) {
 
 				addAdmissionDisDtl(admissionDiscountDtl);
-				continue;
 			}
 		}
 
@@ -193,7 +191,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
 				addAddressDtl(addressDeatil);
-				continue;
 			}
 		}
 
@@ -203,7 +200,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					.getBranchPreference()) {
 
 				addBranchPreference(branchPreference);
-				continue;
 			}
 		}
 
@@ -213,11 +209,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					.getCounsellingDtl()) {
 
 				addCounsellingDetail(counsellingDetail);
-				continue;
 			}
 		}
 
-	
+
 	}
 
 	public void updateStudentDtl(StudentDetail studentDtl) {
@@ -272,7 +267,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			for (StudentAcademicDetail studentAcademicDetail : studentDtl
 					.getAcademicDtl()) {
 				updateAcademicDtl(studentAcademicDetail);
-				continue;
 			}
 		}
 
@@ -282,7 +276,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					.getDiscountDtl()) {
 
 				updateAdmissionDisDtl(admissionDiscountDtl);
-				continue;
 			}
 		}
 
@@ -291,7 +284,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
 
 				updateAddressDtl(addressDeatil);
-				continue;
 			}
 		}
 
@@ -301,7 +293,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					.getBranchPreference()) {
 
 				updateBranchPreference(branchPreference);
-				continue;
 			}
 		}
 
@@ -311,10 +302,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					.getCounsellingDtl()) {
 
 				updateCounsellingDetail(counsellingDetail);
-				continue;
 			}
 		}
-	
+
 	}
 
 	public void deleteSudentDtl(String fileNo) {
@@ -329,7 +319,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		deleteBranchPreference(fileNo);
 
 		deleteCounsellingDetail(fileNo);
-		
+
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteStudentDtl");
 
@@ -383,32 +373,31 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void addAcademicDtl(StudentAcademicDetail academicDtl) {
 
 		String addQuery = admissionQueryProps.getProperty("addAcademicDtl");
-if(academicDtl.getQualificationId() != null)
-{
-	SqlParameterSource namedParameter = new MapSqlParameterSource(
-			"File_No", academicDtl.getFileNo())
-	.addValue("University", academicDtl.getUniversity())
-	.addValue("College_Name", academicDtl.getCollegeName())
-	.addValue("Passing_Year", academicDtl.getPassingYear())
-	.addValue("Percentage", academicDtl.getPercentage())
-	.addValue("Roll_No", academicDtl.getRollNo())
-	.addValue("Qualification_Id", academicDtl.getQualificationId());
+		if(academicDtl.getQualificationId() != null)
+		{
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"File_No", academicDtl.getFileNo())
+			.addValue("University", academicDtl.getUniversity())
+			.addValue("College_Name", academicDtl.getCollegeName())
+			.addValue("Passing_Year", academicDtl.getPassingYear())
+			.addValue("Percentage", academicDtl.getPercentage())
+			.addValue("Roll_No", academicDtl.getRollNo())
+			.addValue("Qualification_Id", academicDtl.getQualificationId());
 
-	getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+			getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-	if (academicDtl.getQualificationSubDtl() != null) {
+			if (academicDtl.getQualificationSubDtl() != null) {
 
-		for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
-				.getQualificationSubDtl()) {
+				for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
+						.getQualificationSubDtl()) {
 
-			addQualificationDtl(qualificationSubjectDtl);
-			continue;
+					addQualificationDtl(qualificationSubjectDtl);
+				}
+
+			}
+
 		}
 
-	}
-
-}
-		
 	}
 
 	private void updateAcademicDtl(StudentAcademicDetail academicDtl) {
@@ -439,12 +428,11 @@ if(academicDtl.getQualificationId() != null)
 					.getQualificationSubDtl()) {
 
 				updateQualificationDtl(qualificationSubjectDtl);
-				continue;
 			}
 
 		}
 
-		
+
 	}
 
 	private void deleteAcademicDtl(String fileNo) {
@@ -496,23 +484,23 @@ if(academicDtl.getQualificationId() != null)
 
 	private void addAddressDtl(AddressDetail addressDtl) {
 
-		
+
 		String addQuery = admissionQueryProps.getProperty("addAddressDtl");
 
 		if(addressDtl.getState()!=null)
 		{
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", addressDtl.getFileNo())
-		.addValue("House_No", addressDtl.getHouseNo())
-		.addValue("Locality", addressDtl.getLocality())
-		.addValue("Landmark", addressDtl.getLandmark())
-		.addValue("District", addressDtl.getDistrict())
-		.addValue("City", addressDtl.getCity())
-		.addValue("Pincode", addressDtl.getPincode())
-		.addValue("Address_Type", addressDtl.getAddressType())
-		.addValue("State_Id", addressDtl.getState());
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"File_No", addressDtl.getFileNo())
+			.addValue("House_No", addressDtl.getHouseNo())
+			.addValue("Locality", addressDtl.getLocality())
+			.addValue("Landmark", addressDtl.getLandmark())
+			.addValue("District", addressDtl.getDistrict())
+			.addValue("City", addressDtl.getCity())
+			.addValue("Pincode", addressDtl.getPincode())
+			.addValue("Address_Type", addressDtl.getAddressType())
+			.addValue("State_Id", addressDtl.getState());
 
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+			getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		}
 	}
 
@@ -589,17 +577,17 @@ if(academicDtl.getQualificationId() != null)
 
 		String addQuery = admissionQueryProps.getProperty("addAdmissionDisDtl");
 
-if(admissionDisDtl.getFeeHeadId()!=null)
-{
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", admissionDisDtl.getFileNo())
-		.addValue("FeeHead_Id", admissionDisDtl.getFeeHeadId())
-		.addValue("Amount", admissionDisDtl.getAmount())
-		.addValue("Percent", admissionDisDtl.getPercent())
-		.addValue("Discount_Type", admissionDisDtl.getDiscountType());
+		if(admissionDisDtl.getFeeHeadId()!=null)
+		{
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"File_No", admissionDisDtl.getFileNo())
+			.addValue("FeeHead_Id", admissionDisDtl.getFeeHeadId())
+			.addValue("Amount", admissionDisDtl.getAmount())
+			.addValue("Percent", admissionDisDtl.getPercent())
+			.addValue("Discount_Type", admissionDisDtl.getDiscountType());
 
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-}
+			getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+		}
 	}
 
 	private void updateAdmissionDisDtl(AdmissionDiscountDtl admissionDisDtl) {
@@ -677,15 +665,15 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 
 		if(qualificationDtl.getSubjectId() != null)
 		{
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", qualificationDtl.getFileNo())
-		.addValue("Subject_Id", qualificationDtl.getSubjectId())
-		.addValue("Qualification_Id",
-				qualificationDtl.getQualificationId())
-				.addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
-				.addValue("Max_Marks", qualificationDtl.getMaxMarks());
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"File_No", qualificationDtl.getFileNo())
+			.addValue("Subject_Id", qualificationDtl.getSubjectId())
+			.addValue("Qualification_Id",
+					qualificationDtl.getQualificationId())
+					.addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
+					.addValue("Max_Marks", qualificationDtl.getMaxMarks());
 
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+			getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		}
 	}
 
@@ -788,11 +776,11 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}
-	
+
 	private List<CounsellingDetail> getCounsellingDetail(String fileNo) {
 		String getQuery = admissionQueryProps.getProperty("getcounsellingDetailByFileNo");
 
-		
+
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 
 		List<CounsellingDetail> counsellingDetails = getNamedParamJdbcTemplate()
@@ -816,7 +804,7 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 				});
 
 		return counsellingDetails;
-		}
+	}
 
 	private void addCounsellingDetail(CounsellingDetail counsellingDetail) {
 
@@ -824,17 +812,17 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 
 		if(counsellingDetail.getCounsellingId()!=null)
 		{
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", counsellingDetail.getFileNo())
-		.addValue("Counselling_Id", counsellingDetail.getCounsellingId())
-		.addValue("Roll_No", counsellingDetail.getRollNo())
-		.addValue("Rank", counsellingDetail.getRank())
-		.addValue("Category_Rank", counsellingDetail.getCategoryRank())
-		.addValue("Percentile", counsellingDetail.getPercentile());
-		
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+			SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", counsellingDetail.getFileNo())
+			.addValue("Counselling_Id", counsellingDetail.getCounsellingId())
+			.addValue("Roll_No", counsellingDetail.getRollNo())
+			.addValue("Rank", counsellingDetail.getRank())
+			.addValue("Category_Rank", counsellingDetail.getCategoryRank())
+			.addValue("Percentile", counsellingDetail.getPercentile());
+
+			getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
 		}
-		}
+	}
 
 
 	private void updateCounsellingDetail(CounsellingDetail counsellingDetail) {
@@ -852,9 +840,9 @@ if(admissionDisDtl.getFeeHeadId()!=null)
 		String deleteQuery = admissionQueryProps.getProperty("deleteCounsellingDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
-		
+
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-		
+
 	}
 
 

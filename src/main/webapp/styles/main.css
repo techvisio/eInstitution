@@ -89,6 +89,9 @@ margin-left:none;
   width: 100px;
 }    
 
+.border{
+	
+}
 
 .three-column-view li {
   display:inline;
@@ -129,6 +132,7 @@ width: 300px;
   font: normal px/normal "Verdana";
   width:250px;
   height: 40px;
+
 }
 
 .three-column-view select{
@@ -152,6 +156,7 @@ width: 300px;
   width:165px;
   height: 30px;
 }
+
 
 .five-column-view table{
 	margin: 0 auto;
@@ -353,3 +358,14 @@ top:120px;
   margin-left: -13px;
 }
 
+.error-column-view select,.error-column-view input[type="text"],.error-column-view input[type="date"] {
+ display: inline-block;
+  padding: 5px 5px;
+  -webkit-border-radius: 6px;
+  border-radius: 2px;
+  font: normal px/normal "Verdana";
+  width:165px;
+  height: 30px;
+  border-style : solid;
+  border-color : #FF0000;
+}
