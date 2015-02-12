@@ -359,3 +359,20 @@ REFERENCES COURSEMASTER(Id)
 ;
 
 
+/* changes 12 feb 2015(studentfeestaging)*/
+CREATE TABLE studentfeestaging (
+  FILE_NO varchar(100),
+  COURSE varchar(100),
+  BRANCH varchar(100),
+  SEMESTER int(11),
+  FEE_GENERATED char(1) 
+);
+
+/* changes 12 feb 2015(feetransaction)*/
+create table feetransaction
+(FEE_ID INT,
+DATE DATE,
+USER VARCHAR(100),
+AMOUNT DOUBLE,
+AMOUNT_TRANSACTION_TYPE VARCHAR(100)
+);
