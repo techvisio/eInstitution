@@ -32,7 +32,6 @@ CREATE TABLE `coursebranchmaster` (
   `Id` int(11) NOT NULL,
   `Branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Id`),
-  KEY `Course_Id` (`Course_Id`),
   CONSTRAINT `coursebranchmaster_ibfk_1` FOREIGN KEY (`Course_Id`) REFERENCES `coursemaster` (`Id`)
 );
 
@@ -378,3 +377,19 @@ USER VARCHAR(100),
 AMOUNT DOUBLE,
 AMOUNT_TRANSACTION_TYPE VARCHAR(100)
 );
+
+/* Changes 13 feb 2015 (studentfeestaging)*/
+ALTER TABLE studentfeestaging CHANGE COURSE COURSE INTEGER;
+
+ALTER TABLE studentfeestaging CHANGE BRANCH BRANCH INTEGER;
+
+ALTER TABLE STUDENTFEESTAGING
+ADD FOREIGN KEY (COURSE)
+REFERENCES COURSEMASTER(Id)
+;
+
+alter table STUDENTFEESTAGING add FOREIGN key (branch) references coursebranchmaster (id);
+
+ALTER TABLE STUDENTFEESTAGING
+	ADD FOREIGN KEY (File_No)
+	REFERENCES StudentDetail (File_No);

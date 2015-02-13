@@ -34,5 +34,5 @@ public interface CacheDao {
 
 	public List<Consultant> getConsultant();
 	
-	public List<FeeDetail> getFeeDetail();
+	
 }

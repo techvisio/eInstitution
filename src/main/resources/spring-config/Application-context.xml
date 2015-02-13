@@ -127,6 +127,15 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	</bean>
 
 
+<bean id="feeQueryProps"
+	class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<property name="locations"
+		value="classpath:db-resource/FeeDetail.xml"></property>
+	</bean>
+	<bean id="feeDetailDaoImpl" class="com.techvisio.einstitution.db.impl.FeeDetailDaoImpl">
+		<property name="feeQueryProps" ref="feeQueryProps"></property>	
+	</bean>
+
 
 
 	<bean id="sequenceFactory" class="com.techvisio.einstitution.factory.SequenceFactory">
