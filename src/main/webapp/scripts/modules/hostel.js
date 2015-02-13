@@ -5,6 +5,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 			$scope.hostelAvailability = [ {
 				"threshold":0,
 				"typeCode":null,
+				"description" : null,
 				"price":0.0,
 				"reservedRoom":0,
 				"available":0

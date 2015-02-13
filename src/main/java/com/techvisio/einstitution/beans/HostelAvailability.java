@@ -7,6 +7,8 @@ public class HostelAvailability {
 	private Double	price;
 	private int reservedRoom;
 	private int available;
+	private String description;
+	
 	public int getThreshold() {
 		return threshold;
 	}
@@ -37,11 +39,19 @@ public class HostelAvailability {
 	public void setAvailable(int available) {
 		this.available = available;
 	}
+	
 	@Override
 	public String toString() {
 		return "HostelAvailability [threshold=" + threshold + ", typeCode="
 				+ typeCode + ", price=" + price + ", reservedRoom="
-				+ reservedRoom + ", available=" + available + "]";
+				+ reservedRoom + ", available=" + available + ", description="
+				+ description + "]";
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	
