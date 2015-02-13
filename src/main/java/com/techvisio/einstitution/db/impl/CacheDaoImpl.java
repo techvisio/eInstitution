@@ -249,25 +249,6 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	}
 
 
-	public List<FeeDetail> getFeeDetail() {
-		String getFeeDetailQuery=masterQueryProps.getProperty("getFeeDetailMaster");
-
-		List<FeeDetail> feeDetails =new ArrayList<FeeDetail>(); 
-		feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, new RowMapper<FeeDetail>(){
-
-			public FeeDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
-				FeeDetail detail = new FeeDetail();
-				detail.setBranch(CommonUtil.getLongValue(rs.getLong("BRANCH")));
-				detail.setCourse(CommonUtil.getLongValue(rs.getLong("COURSE")));
-				detail.setFeeAmount(rs.getDouble("FEE_AMOUNT"));
-				detail.setFeeHeadId(CommonUtil.getLongValue(rs.getLong("FEE_HEAD_ID")));
-				detail.setSemester(CommonUtil.getLongValue(rs.getLong("SEMESTER")));
-				return detail;
-			}
-			
-		});
-		
-		return feeDetails;
-	}
+	
 
 }

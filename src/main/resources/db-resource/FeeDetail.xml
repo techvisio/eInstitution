@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="getStudentFeeStaging">
+    <![CDATA[
+SELECT 
+	 FILE_NO,
+	 COURSE,
+	 BRANCH, 
+	 SEMESTER, 
+	 FEE_GENERATED 
+
+FROM studentfeestaging where FILE_NO=:FILE_NO;]]>
+
+	</entry>
+
+<entry key="addStudentFeeStaging">
+    <![CDATA[
+      
+Insert into studentfeestaging
+
+	(FILE_NO,
+	 COURSE,
+	 BRANCH, 
+	 SEMESTER, 
+	 FEE_GENERATED 
+) values
+	       
+   (:FILE_NO,
+	:COURSE,
+	:BRANCH, 
+	:SEMESTER, 
+	:FEE_GENERATED 
+	)
+    ]]>
+
+	</entry>
+
+	<entry key="updateStudentFeeStaging">
+    <![CDATA[
+      
+Update studentfeestaging set
+ 
+	 FILE_NO=:FILE_NO,
+	 COURSE=:COURSE,
+	 BRANCH=:BRANCH, 
+	 SEMESTER=:SEMESTER, 
+	 FEE_GENERATED=:FEE_GENERATED       
+   
+where FILE_NO=:FILE_NO;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteStudentFeeStaging">
+    <![CDATA[
+      
+Delete from studentfeestaging where FILE_NO=:FILE_NO;
+    ]]>
+
+	</entry>
+	
+	
+<entry key="getFeeDetailMaster">
+    <![CDATA[
+SELECT 
+	COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT 
+FROM feedetailmaster ;]]>
+
+	</entry>
+
+	<entry key="addFeeDetailMaster">
+    <![CDATA[
+      
+Insert into feedetailmaster
+
+	(COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT) values
+	       
+   (:COURSE,
+	:BRANCH,
+	:SEMESTER,
+	:FEE_HEAD_ID,
+	:FEE_AMOUNT)
+    ]]>
+
+	</entry>
+
+	<entry key="updateFeeDetailMaster">
+    <![CDATA[
+      
+Update feedetailmaster set
+ 
+	COURSE=:COURSE,
+	BRANCH=:BRANCH,
+	SEMESTER=:SEMESTER,
+	FEE_HEAD_ID=:FEE_HEAD_ID,
+	FEE_AMOUNT=:FEE_AMOUNT       
+   
+where COURSE=:COURSE;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteFeeDetailMaster">
+    <![CDATA[
+      
+Delete from feedetailmaster where COURSE=:COURSE ;
+    ]]>
+
+	</entry>
+
+</properties>
