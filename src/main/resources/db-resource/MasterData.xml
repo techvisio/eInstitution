@@ -2,6 +2,65 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<<<<<<< HEAD
+=======
+<entry key="getFeeDetailMaster">
+    <![CDATA[
+SELECT 
+	COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT 
+FROM feedetailmaster ;]]>
+
+	</entry>
+
+	<entry key="addFeeDetailMaster">
+    <![CDATA[
+      
+Insert into feedetailmaster
+
+	(COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT) values
+	       
+   (:COURSE,
+	:BRANCH,
+	:SEMESTER,
+	:FEE_HEAD_ID,
+	:FEE_AMOUNT)
+    ]]>
+
+	</entry>
+
+	<entry key="updateFeeDetailMaster">
+    <![CDATA[
+      
+Update feedetailmaster set
+ 
+	COURSE=:COURSE,
+	BRANCH=:BRANCH,
+	SEMESTER=:SEMESTER,
+	FEE_HEAD_ID=:FEE_HEAD_ID,
+	FEE_AMOUNT=:FEE_AMOUNT       
+   
+where COURSE=:COURSE;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteFeeDetailMaster">
+    <![CDATA[
+      
+Delete from feedetailmaster where COURSE=:COURSE ;
+    ]]>
+
+	</entry>
+>>>>>>> branch 'master' of https://github.com/techvisio/eInstitution.git
+
 	<entry key="getCourse">
     <![CDATA[
       
