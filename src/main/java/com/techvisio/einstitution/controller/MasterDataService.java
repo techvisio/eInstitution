@@ -90,9 +90,6 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	serverData.put(AppConstants.QUALIFICATION, qualification);
 	//CommonUtil.convertJavatoJSON(admissionMasterData);
 	
-	List<MasterDataBean> feeHead=cacheManager.getFeeHeadAsMasterdata();
-	serverData.put(AppConstants.FEEHEAD, feeHead);
-	
 	List<MasterDataBean> subject=cacheManager.getSubjectAsMasterdata();
 	serverData.put(AppConstants.SUBJECT, subject);
 	

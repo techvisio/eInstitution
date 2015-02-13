@@ -41,8 +41,8 @@ public class ConsultantDaoTest {
 	@Test
 public void testGetConsultantDtl(){
 	
-	ConsultantDetail consultantDetail = dao.getConsultantDtl("3");
-	System.out.println(consultantDetail);
+	ConsultantDetail consultantDetail = dao.getConsultantDtl("2015-151");
+	System.out.println("consultant:" + consultantDetail);
 }
 	
 @Test	

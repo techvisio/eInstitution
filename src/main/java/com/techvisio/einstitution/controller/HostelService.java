@@ -18,6 +18,8 @@ import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.manager.HostelManager;
 import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
+import com.techvisio.einstitution.workflow.HostelWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 
 @RestController
 @RequestMapping("/Hostel")
@@ -34,8 +36,8 @@ public class HostelService {
 		
 		try
 		{
-		HostelManager hostelManager = new HostelManagerImpl();
-		RoomTypeDetail roomTypeDetail = hostelManager.getRoomTypeDetail(typeCode);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		RoomTypeDetail roomTypeDetail = workflowManager.getRoomTypeDetail(typeCode);
 		
 		response.setResponseBody(roomTypeDetail);
 		}
@@ -54,8 +56,8 @@ public class HostelService {
 		Response response =  new Response();
 		try
 		{
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.addRoomTypeDetail(roomTypeDetail);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.addRoomTypeDetail(roomTypeDetail);
 		
 		response.setResponseBody(roomTypeDetail);
 		}
@@ -73,8 +75,8 @@ public class HostelService {
 	
 		Response response = new Response();
 		try{
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.updateRoomTypeDetail(roomTypeDetail);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.updateRoomTypeDetail(roomTypeDetail);
 		
 		response.setResponseBody(roomTypeDetail);
 		}
@@ -88,16 +90,16 @@ public class HostelService {
 	}
 	@RequestMapping(value ="/RoomTypeDetail/{typeCode}", method =RequestMethod.DELETE)
 	public void deleteRoomTypeDetail(@PathVariable String typeCode){
-		HostelManager hostelManager= new HostelManagerImpl();
-		hostelManager.deleteRoomTypeDetail(typeCode);
+		HostelWorkflowManager workflowManager= new HostelWorkflowManagerImpl();
+		workflowManager.deleteRoomTypeDetail(typeCode);
 	}
 
 //HostelAllocation
 	
 	@RequestMapping(value="/HostelAllocation/{fileNo}",method = RequestMethod.GET )
 	public HostelAllocation getHostelAllocation(@PathVariable String fileNo){
-		HostelManager hostelManager = new HostelManagerImpl(); 
-		HostelAllocation hostelAllocation = hostelManager.getHostelAllocation(fileNo);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl(); 
+		HostelAllocation hostelAllocation = workflowManager.getHostelAllocation(fileNo);
 		
 		
 		return hostelAllocation;
@@ -106,22 +108,22 @@ public class HostelService {
 	
 	@RequestMapping(value="/HostelAllocation",method = RequestMethod.POST)
 	public void addHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.addHostelAllocation(hostelAllocation);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.addHostelAllocation(hostelAllocation);
 		
 	}
 	
 	@RequestMapping(value="/HostelAllocation",method = RequestMethod.PUT)
 	public void updateHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.updateHostelAllocation(hostelAllocation);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.updateHostelAllocation(hostelAllocation);
 	}
 	
 	@RequestMapping(value="/HostelAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelAllocation(@PathVariable String fileNo){
 		
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.deleteHostelAllocation(fileNo);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.deleteHostelAllocation(fileNo);
 		
 	}	
 
@@ -131,8 +133,8 @@ public class HostelService {
 	
 	@RequestMapping(value ="/HostelReservation/{fileNo}", method = RequestMethod.GET)
 	public HostelReservation getHostelReservation(@PathVariable String fileNo){
-		HostelManager hostelManager = new HostelManagerImpl();
-		HostelReservation hostelReservation = hostelManager.getHostelReservation(fileNo);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		HostelReservation hostelReservation = workflowManager.getHostelReservation(fileNo);
 		
 		return hostelReservation;
 		
@@ -140,27 +142,27 @@ public class HostelService {
 
 	@RequestMapping(value ="/HostelReservation",method = RequestMethod.POST)
 	public void addHostelReservation(@RequestBody HostelReservation hostelReservation){
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.addHostelReservation(hostelReservation);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.addHostelReservation(hostelReservation);
 	}
 	@RequestMapping(value ="/HostelReservation",method = RequestMethod.PUT)
 	public void updateHostelReservation(@RequestBody HostelReservation hostelReservation){
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.updateHostelReservation(hostelReservation);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.updateHostelReservation(hostelReservation);
 		
 	}
 	
 	@RequestMapping(value ="/HostelReservation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelReservation(@PathVariable String fileNo){
-		HostelManager hostelManager = new HostelManagerImpl();
-		hostelManager.deleteHostelReservation(fileNo);
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		workflowManager.deleteHostelReservation(fileNo);
 	}
 	
 //HostelAvailability
 	@RequestMapping(value ="/HostelAvailability", method = RequestMethod.GET)
 	public List<HostelAvailability> getHostelAvailability(){
-		HostelManager hostelManager = new HostelManagerImpl();
-		List<HostelAvailability> hostelAvailability = hostelManager.getHostelAvailability();
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		List<HostelAvailability> hostelAvailability = workflowManager.getHostelAvailability();
 		return hostelAvailability;
 		
 	}

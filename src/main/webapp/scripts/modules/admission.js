@@ -10,7 +10,7 @@ admissionModule
 		 '$modal',
 		  function($scope, admissionService,masterdataService,$modal) {
 			 
-			 $scope.subModules=["personal","address","academic","discount","other"];
+			$scope.subModules=["personal","address","other"];
 		 	$scope.selection=$scope.subModules[0];	
 		 	$scope.form = {};
 		 	$scope.form.sameAsAbove=false;
@@ -245,6 +245,9 @@ admissionModule
 
 			 $scope.getStudent = function() {
 				 var fileNo=prompt("Enter File No", "");
+				 if(!fileNo){
+					 return;
+				 }
 				 $scope.processing=true;
 
 				 admissionService.getStudent(fileNo)

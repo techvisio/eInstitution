@@ -18,8 +18,6 @@ public interface CacheManager {
 
 	public List<MasterDataBean> getCounsellingBodyAsMasterdata();
 	
-	public List<MasterDataBean> getFeeHeadAsMasterdata();
-	
 	public List<MasterDataBean> getQuotaCodeAsMasterdata();
 	
 	public List<MasterDataBean> getSubjectAsMasterdata();

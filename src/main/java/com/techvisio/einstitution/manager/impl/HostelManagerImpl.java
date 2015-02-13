@@ -16,6 +16,21 @@ public class HostelManagerImpl implements HostelManager {
 //HostelAllocation
 	
 	
+	private static HostelManagerImpl instance=null;
+	public static synchronized HostelManagerImpl getInstance()
+	{
+		if(instance == null){
+			instance=new HostelManagerImpl();
+		}
+		
+		return instance;
+	}
+	
+	private HostelManagerImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	public HostelAllocation getHostelAllocation(String fileNo) {
 		HostelAllocation h = hostelDao.getHostelAllocation(fileNo);
 		return h;

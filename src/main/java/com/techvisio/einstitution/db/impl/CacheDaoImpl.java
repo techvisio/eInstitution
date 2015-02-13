@@ -100,28 +100,6 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 		return casteCategories;
 	}
-
-	
-	public List<FeeHead> getFeeHead(){
-
-		String getFeeHeadQuery=masterQueryProps.getProperty("getFeeHead");
-
-		List<FeeHead> feeHeads =new ArrayList<FeeHead>(); 
-
-		feeHeads = getNamedParamJdbcTemplate().query(getFeeHeadQuery, new RowMapper<FeeHead>() {
-
-			public FeeHead mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-				FeeHead feeHead = new FeeHead();
-				feeHead.setId(CommonUtil.getLongValue(rs.getLong("Id")));
-				feeHead.setFeeHead(rs.getString("Fee_Head"));
-				return feeHead;
-			}
-		});
-
-		return feeHeads;
-	}
-
 	
 	public List<CounsellingBody> getCounsellingBody(){
 

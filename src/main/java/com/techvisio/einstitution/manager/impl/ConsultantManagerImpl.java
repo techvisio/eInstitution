@@ -10,6 +10,21 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	ConsultantDao consultantDao = ContextProvider.getContext().getBean(
 			ConsultantDao.class);
 
+	private static ConsultantManagerImpl instance=null;
+	public static synchronized ConsultantManagerImpl getInstance()
+	{
+		if(instance == null){
+			instance=new ConsultantManagerImpl();
+		}
+		
+		return instance;
+	}
+	
+	private ConsultantManagerImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	public ConsultantDetail getConsultantDtl(String fileNo) {
 
 		ConsultantDetail consultantDetail = null;
