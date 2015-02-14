@@ -118,26 +118,6 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
-
-	@SuppressWarnings("unchecked")
-	public synchronized  List<FeeHead> getFeeHeads() {
-		if(cacheMap.get(AppConstants.FEEHEAD) == null){
-			List<FeeHead> feeHeads=null;
-			feeHeads=cacheDao.getFeeHead();
-			cacheMap.put(AppConstants.FEEHEAD, feeHeads);
-		}
-		
-		return (List<FeeHead>)cacheMap.get(AppConstants.FEEHEAD);
-	}
-	
-	public List<MasterDataBean> getFeeHeadAsMasterdata(){
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-		for(FeeHead feeHead:getFeeHeads()){
-			MasterDataBean bean=new MasterDataBean(feeHead.getId().toString(), feeHead.getFeeHead());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 	
 	
 	@SuppressWarnings("unchecked")

@@ -13,6 +13,8 @@ import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.manager.impl.ConsultantManagerImpl;
+import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.ConsultantWorkflowManagerImpl;
 
 
 @RestController
@@ -28,10 +30,11 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 		
 		try
 		{
-			ConsultantManager consultantManager =  new ConsultantManagerImpl();
-      		ConsultantDetail consultantDetail = consultantManager.getConsultantDtl(fileNo);
+			ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
+      		ConsultantDetail consultantDetail = workflowManager.getConsultantDtl(fileNo);
 		    
       		response.setResponseBody(consultantDetail);
+      		
       		if(consultantDetail == null)
       		{
     			response.setError("No such record found");
@@ -52,8 +55,8 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 		
 		try
 		{
-		ConsultantManager consultantManager=new ConsultantManagerImpl();
-		consultantManager.addConsultantDtl(consultantDetail);
+		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
+		workflowManager.addConsultantDtl(consultantDetail);
      
 		response.setResponseBody(consultantDetail);
 		}
@@ -72,8 +75,8 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 		Response response = new Response();
 		try
 		{
-		ConsultantManager consultantManager= new ConsultantManagerImpl();
-		consultantManager.updateConsultantDtl(consultantDetail);
+		ConsultantWorkflowManager workflowManager= new ConsultantWorkflowManagerImpl();
+		workflowManager.updateConsultantDtl(consultantDetail);
 		
 		response.setResponseBody(consultantDetail);
 		}
@@ -88,8 +91,8 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable String fileNo) {  
-		ConsultantManager consultantManager=new ConsultantManagerImpl();
-		consultantManager.deleteConsultantDtl(fileNo);
+		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
+		workflowManager.deleteConsultantDtl(fileNo);
 	}
 
 	

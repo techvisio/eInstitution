@@ -271,46 +271,6 @@ from CounsellingMaster;
 
 	</entry>
 
-	<entry key="getFeeHead">
-    <![CDATA[
-      
-Select 
-   
-   Id, Fee_Head
-   
-from FeeHeadMaster;   
-    ]]>
-
-	</entry>
-
-	<entry key="addFeeHead">
-    <![CDATA[
-      
- Insert into FeeHeadMaster 
-    
-    (:Id,Fee_Head) values (:Id,:Fee_Head);       
-    ]]>
-
-	</entry>
-
-	<entry key="updateFeeHead">
-    <![CDATA[
- 
- Update FeeHeadMaster set
- 
-     Fee_Head=:Fee_Head where Id=:Id;    
-    ]]>
-
-	</entry>
-
-	<entry key="deleteFeeHead">
-    <![CDATA[
-      
-
- Delete from FeeHeadMaster where Id=:Id;    
-    ]]>
-
-	</entry>
 
 	<entry key="getSubject">
     <![CDATA[

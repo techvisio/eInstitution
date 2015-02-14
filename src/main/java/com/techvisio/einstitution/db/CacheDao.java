@@ -24,8 +24,6 @@ public interface CacheDao {
 
 	public List<CasteCategory> getCatagory();
 
-	public List<FeeHead> getFeeHead();
-
 	public List<CounsellingBody> getCounsellingBody();
 
 	public List<Subject> getSubject();
