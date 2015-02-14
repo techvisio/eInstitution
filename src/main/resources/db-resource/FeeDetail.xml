@@ -119,4 +119,44 @@ Delete from feedetailmaster where COURSE=:COURSE ;
 
 	</entry>
 
+
+	
+<entry key="getFeeTransaction">
+    <![CDATA[
+SELECT 
+	  FEE_ID,
+	  DATE, 
+	  USER, 
+	  AMOUNT, 
+	  AMOUNT_TRANSACTION_TYPE, 
+	  File_no 
+
+FROM feetransaction where File_no=:File_no ;]]>
+
+	</entry>
+
+	<entry key="addFeeTransaction">
+    <![CDATA[
+      
+Insert into feetransaction
+
+	( FEE_ID,
+	  DATE, 
+	  USER, 
+	  AMOUNT, 
+	  AMOUNT_TRANSACTION_TYPE, 
+	  File_no ) values
+	       
+   (  :FEE_ID,
+	  :DATE, 
+	  :USER, 
+	  :AMOUNT, 
+	  :AMOUNT_TRANSACTION_TYPE, 
+	  :File_no )
+    ]]>
+
+	</entry>
+
+	
+	
 </properties>
