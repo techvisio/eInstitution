@@ -215,7 +215,7 @@ admissionModule
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
-					 $scope.form.processing=false;  
+					 $scope.processing=false;  
 				 })
 
 
@@ -224,7 +224,7 @@ admissionModule
 			 $scope.updateStudent = function() {
 				 console.log('update student called');
 				 console.log($scope.student);
-				 $scope.form.processing=true;
+				 $scope.processing=true;
 				 admissionService.updateStudent($scope.student)
 				 .then(function(response) {
 					 console.log('Data received from service : ');
@@ -237,7 +237,7 @@ admissionModule
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
-					 $scope.form.processing=false;  
+					 $scope.processing=false;  
 				 })
 
 
