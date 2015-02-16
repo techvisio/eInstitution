@@ -8,7 +8,11 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeDetailDao {
 	
-	public List<FeeDetail> getFeeDetail();
+	public FeeDetail getFeeDetail(Long feeDetail,Long feeDetail1,Long feeDetail2 );
+	public void addFeeDetail(FeeDetail feeDetail);
+	public void updateFeeDetail(FeeDetail feeDetail);
+	public void deleteFeeDetail(Long feeDetail,Long feeDetail1,Long feeDetail2 );
+	
 	
 	public StudentFeeStaging getStudentFeeStaging(String studentFeeStaging);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);

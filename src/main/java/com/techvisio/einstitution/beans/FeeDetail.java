@@ -1,33 +1,30 @@
 package com.techvisio.einstitution.beans;
 
 public class FeeDetail {
-private long course;
-private long branch;
-private long semester;
-private long feeHeadId;
+private Long course;
+private Long branch;
+private int semester;
+private Long feeHeadId;
 private Double feeAmount;
-public long getCourse() {
+
+
+public Long getCourse() {
 	return course;
 }
-public void setCourse(long course) {
+public void setCourse(Long course) {
 	this.course = course;
 }
-public long getBranch() {
+public Long getBranch() {
 	return branch;
 }
-public void setBranch(long branch) {
+public void setBranch(Long branch) {
 	this.branch = branch;
 }
-public long getSemester() {
-	return semester;
-}
-public void setSemester(long semester) {
-	this.semester = semester;
-}
-public long getFeeHeadId() {
+
+public Long getFeeHeadId() {
 	return feeHeadId;
 }
-public void setFeeHeadId(long feeHeadId) {
+public void setFeeHeadId(Long feeHeadId) {
 	this.feeHeadId = feeHeadId;
 }
 public Double getFeeAmount() {
@@ -36,12 +33,19 @@ public Double getFeeAmount() {
 public void setFeeAmount(Double feeAmount) {
 	this.feeAmount = feeAmount;
 }
+public int getSemester() {
+	return semester;
+}
+public void setSemester(int semester) {
+	this.semester = semester;
+}
 @Override
 public String toString() {
 	return "FeeDetail [course=" + course + ", branch=" + branch + ", semester="
 			+ semester + ", feeHeadId=" + feeHeadId + ", feeAmount="
 			+ feeAmount + "]";
 }
+
 
 
 }

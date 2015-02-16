@@ -28,30 +28,65 @@ public class FeeDetailDaoImpl extends BaseDao implements FeeDetailDao{
 	
 	
 	
-	public List<FeeDetail> getFeeDetail() {
+	public FeeDetail getFeeDetail(Long feeHeadId,Long course,Long branch) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID", feeHeadId)
+											.addValue("BRANCH", branch).addValue("COURSE", course);
+		FeeDetail feeDetails = getNamedParamJdbcTemplate().queryForObject(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
 
-		List<FeeDetail> feeDetails =new ArrayList<FeeDetail>();
-		
-		feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, new RowMapper<FeeDetail>(){
-
-			public FeeDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
+			public FeeDetail mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
 				FeeDetail detail = new FeeDetail();
 				detail.setBranch(CommonUtil.getLongValue(rs.getLong("BRANCH")));
 				detail.setCourse(CommonUtil.getLongValue(rs.getLong("COURSE")));
 				detail.setFeeAmount(rs.getDouble("FEE_AMOUNT"));
 				detail.setFeeHeadId(CommonUtil.getLongValue(rs.getLong("FEE_HEAD_ID")));
-				detail.setSemester(CommonUtil.getLongValue(rs.getLong("SEMESTER")));
+				detail.setSemester(rs.getInt("SEMESTER"));
 				return detail;
 			}
 			
-			
 		});
+		
 		
 		return feeDetails;
 		
+	}
+	
 
 
+	public void addFeeDetail(FeeDetail feeDetail) {
+		String addFeeDetailQuery=feeQueryProps.getProperty("addFeeDetailMaster");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeHeadId())
+											.addValue("COURSE",feeDetail.getCourse())
+											.addValue("SEMESTER", feeDetail.getSemester())
+											.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
+											.addValue("BRANCH", feeDetail.getBranch());
+		getNamedParamJdbcTemplate().update(addFeeDetailQuery, namedParameter);
+	}
+
+
+
+
+	public void updateFeeDetail(FeeDetail feeDetail) {
+		String updateFeeDetailQuery=feeQueryProps.getProperty("updateFeeDetailMaster");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeHeadId())
+											.addValue("COURSE",feeDetail.getCourse())
+											.addValue("SEMESTER", feeDetail.getSemester())
+											.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
+											.addValue("BRANCH", feeDetail.getBranch());
+		getNamedParamJdbcTemplate().update(updateFeeDetailQuery, namedParameter);
+	}
+
+
+
+
+	public void deleteFeeDetail(Long feeHeadId,Long course,Long branch) {
+		String deleteFeeDetailQuery=feeQueryProps.getProperty("deleteFeeDetailMaster");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID", feeHeadId)
+										.addValue("BRANCH", branch).addValue("COURSE", course);
+		
+		getNamedParamJdbcTemplate().update(deleteFeeDetailQuery, namedParameter);
+		
 	}
 
 	
@@ -166,5 +201,10 @@ public class FeeDetailDaoImpl extends BaseDao implements FeeDetailDao{
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		
 	}
+
+
+
+
+	
 	
 }

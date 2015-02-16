@@ -401,3 +401,6 @@ ALTER TABLE feetransaction ADD FOREIGN KEY (FEE_ID) REFERENCES feediscountheadma
 ALTER TABLE feetransaction ADD COLUMN File_no varchar(100);
 
 ALTER TABLE feetransaction ADD FOREIGN KEY (File_no) REFERENCES studentdetail (File_No);
+
+/*Changes 16 feb 2015 (FEEDETAILMASTER table)*/
+ALTER TABLE feedetailmaster ADD PRIMARY KEY (COURSE,BRANCH,FEE_HEAD_ID);
