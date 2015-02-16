@@ -3,6 +3,68 @@
 
 <properties>
 
+<entry key="getFeeDiscountHead">
+    <![CDATA[
+ 
+ Select 
+ 
+   Head_Id,
+   Head,
+   Type,
+   Parent_Type_Id,
+   Discount_Type,
+   Refund_Type
+
+from feeDiscountHead where Head_Id=:Head_Id ;
+]]>	
+	</entry>
+
+<entry key="addFeeDiscountHead">
+    <![CDATA[
+ 
+ Insert into feeDiscountHead 
+ 
+   (Head_Id,
+   Head,
+   Type,
+   Parent_Type_Id,
+   Discount_Type,
+   Refund_Type) values
+   
+   (:Head_Id,
+    :Head,
+    :Type,
+    :Parent_Type_Id,
+    :Discount_Type,
+    :Refund_Type);
+
+]]>	
+	</entry>
+
+<entry key="updateFeeDiscountHead">
+    <![CDATA[
+ 
+ Update feeDiscountHead set
+ 
+   Head_Id=:Head_Id,
+   Head=:Head,
+   Type=:Type,
+   Parent_Type_Id=:Parent_Type_Id,
+   Discount_Type=:Discount_Type,
+   Refund_Type=:Refund_Type
+   
+   where Head_Id=:Head_Id;
+
+]]>	
+	</entry>
+
+<entry key="deleteFeeDiscountHead">
+    <![CDATA[
+ 
+ Delete from feeDiscountHead where Head_Id=:Head_Id;
+
+]]>	
+	</entry>
 <entry key="getStudentFeeStaging">
     <![CDATA[
 SELECT 
@@ -12,7 +74,8 @@ SELECT
 	 SEMESTER, 
 	 FEE_GENERATED 
 
-FROM studentfeestaging where FILE_NO=:FILE_NO;]]>
+FROM studentfeestaging where FILE_NO=:FILE_NO;
+]]>
 
 	</entry>
 

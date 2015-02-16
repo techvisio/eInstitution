@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 
@@ -77,4 +78,31 @@ public class FeeDetailDaoTest {
 	public void testDeleteStudentFeeStaging(){
 		dao.deleteStudentFeeStaging("1");
 	}
+
+    @Test
+    public void testFeeDiscountHead(){
+    	
+    	FeeDiscountHead discountHead= dao.getfeeDiscountHead(1234L);
+    	System.err.println("DISCOUNTHEAD::::: " + discountHead);
+    }
+    
+    @Test
+	public void testAddFeeDiscountHead(){
+    	FeeDiscountHead feeDiscountHead = new FeeDiscountHead();
+		feeDiscountHead.setDiscountType("IOP");
+		feeDiscountHead.setHead("QWE");
+		feeDiscountHead.setHeadId(897L);
+		feeDiscountHead.setParentId(343L);
+		feeDiscountHead.setRefundType("MNB");
+		feeDiscountHead.setType("ZXC");
+		dao.addFeeDiscountHead(feeDiscountHead);
+	}
+
+    @Test
+	public void testUpdateFeeDiscountHead(){
+    	FeeDiscountHead feeDiscountHead = dao.getfeeDiscountHead(897L);
+		feeDiscountHead.setRefundType("Refundable");
+		dao.updateFeeDiscountHead(feeDiscountHead);
+	}
+
 }
