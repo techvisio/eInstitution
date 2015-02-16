@@ -16,6 +16,13 @@ public class FeeDiscountHead {
 	public void setHeadId(Long headId) {
 		this.headId = headId;
 	}
+	@Override
+	public String toString() {
+		return "FeeDiscountHead [headId=" + headId + ", head=" + head
+				+ ", type=" + type + ", parentId=" + parentId
+				+ ", discountType=" + discountType + ", refundType="
+				+ refundType + "]";
+	}
 	public String getHead() {
 		return head;
 	}

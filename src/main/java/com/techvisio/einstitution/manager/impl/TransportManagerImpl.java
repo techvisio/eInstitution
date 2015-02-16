@@ -14,6 +14,21 @@ public class TransportManagerImpl implements TransportManager {
 
 	TransportDao transportDao=ContextProvider.getContext().getBean(TransportDao.class);
 	
+	private static TransportManagerImpl instance=null;
+	public static synchronized TransportManagerImpl getInstance()
+	{
+		if(instance == null){
+			instance=new TransportManagerImpl();
+		}
+		
+		return instance;
+	}
+	
+	private TransportManagerImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	public List<AvailableTransport> getAvailableTransport(){
 		
 		List<AvailableTransport> availableTransports = null;

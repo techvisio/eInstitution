@@ -159,4 +159,228 @@ Insert into feetransaction
 
 	
 	
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="getFeeDiscountHead">
+    <![CDATA[
+ 
+ Select 
+ 
+   Head_Id,
+   Head,
+   Type,
+   Parent_Type_Id,
+   Discount_Type,
+   Refund_Type
+
+from feeDiscountHead where Head_Id=:Head_Id ;
+]]>	
+	</entry>
+
+<entry key="addFeeDiscountHead">
+    <![CDATA[
+ 
+ Insert into feeDiscountHead 
+ 
+   (Head_Id,
+   Head,
+   Type,
+   Parent_Type_Id,
+   Discount_Type,
+   Refund_Type) values
+   
+   (:Head_Id,
+    :Head,
+    :Type,
+    :Parent_Type_Id,
+    :Discount_Type,
+    :Refund_Type);
+
+]]>	
+	</entry>
+
+<entry key="updateFeeDiscountHead">
+    <![CDATA[
+ 
+ Update feeDiscountHead set
+ 
+   Head_Id=:Head_Id,
+   Head=:Head,
+   Type=:Type,
+   Parent_Type_Id=:Parent_Type_Id,
+   Discount_Type=:Discount_Type,
+   Refund_Type=:Refund_Type
+   
+   where Head_Id=:Head_Id;
+
+]]>	
+	</entry>
+
+<entry key="deleteFeeDiscountHead">
+    <![CDATA[
+ 
+ Delete from feeDiscountHead where Head_Id=:Head_Id;
+
+]]>	
+	</entry>
+<entry key="getStudentFeeStaging">
+    <![CDATA[
+SELECT 
+	 FILE_NO,
+	 COURSE,
+	 BRANCH, 
+	 SEMESTER, 
+	 FEE_GENERATED 
+
+FROM studentfeestaging where FILE_NO=:FILE_NO;
+]]>
+
+	</entry>
+
+<entry key="addStudentFeeStaging">
+    <![CDATA[
+      
+Insert into studentfeestaging
+
+	(FILE_NO,
+	 COURSE,
+	 BRANCH, 
+	 SEMESTER, 
+	 FEE_GENERATED 
+) values
+	       
+   (:FILE_NO,
+	:COURSE,
+	:BRANCH, 
+	:SEMESTER, 
+	:FEE_GENERATED 
+	)
+    ]]>
+
+	</entry>
+
+	<entry key="updateStudentFeeStaging">
+    <![CDATA[
+      
+Update studentfeestaging set
+ 
+	 FILE_NO=:FILE_NO,
+	 COURSE=:COURSE,
+	 BRANCH=:BRANCH, 
+	 SEMESTER=:SEMESTER, 
+	 FEE_GENERATED=:FEE_GENERATED       
+   
+where FILE_NO=:FILE_NO;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteStudentFeeStaging">
+    <![CDATA[
+      
+Delete from studentfeestaging where FILE_NO=:FILE_NO;
+    ]]>
+
+	</entry>
+	
+	
+<entry key="getFeeDetailMaster">
+    <![CDATA[
+SELECT 
+	COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT 
+FROM feedetailmaster ;]]>
+
+	</entry>
+
+	<entry key="addFeeDetailMaster">
+    <![CDATA[
+      
+Insert into feedetailmaster
+
+	(COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT) values
+	       
+   (:COURSE,
+	:BRANCH,
+	:SEMESTER,
+	:FEE_HEAD_ID,
+	:FEE_AMOUNT)
+    ]]>
+
+	</entry>
+
+	<entry key="updateFeeDetailMaster">
+    <![CDATA[
+      
+Update feedetailmaster set
+ 
+	COURSE=:COURSE,
+	BRANCH=:BRANCH,
+	SEMESTER=:SEMESTER,
+	FEE_HEAD_ID=:FEE_HEAD_ID,
+	FEE_AMOUNT=:FEE_AMOUNT       
+   
+where COURSE=:COURSE;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteFeeDetailMaster">
+    <![CDATA[
+      
+Delete from feedetailmaster where COURSE=:COURSE ;
+    ]]>
+
+	</entry>
+
+
+	
+<entry key="getFeeTransaction">
+    <![CDATA[
+SELECT 
+	  FEE_ID,
+	  DATE, 
+	  USER, 
+	  AMOUNT, 
+	  AMOUNT_TRANSACTION_TYPE, 
+	  File_no 
+
+FROM feetransaction where File_no=:File_no ;]]>
+
+	</entry>
+
+	<entry key="addFeeTransaction">
+    <![CDATA[
+      
+Insert into feetransaction
+
+	( FEE_ID,
+	  DATE, 
+	  USER, 
+	  AMOUNT, 
+	  AMOUNT_TRANSACTION_TYPE, 
+	  File_no ) values
+	       
+   (  :FEE_ID,
+	  :DATE, 
+	  :USER, 
+	  :AMOUNT, 
+	  :AMOUNT_TRANSACTION_TYPE, 
+	  :File_no )
+    ]]>
+
+	</entry>
+
+	
+	
 </properties>
