@@ -2,10 +2,11 @@ package com.techvisio.einstitution.beans;
 
 public class StudentFeeStaging {
 	private String fileNo;
-	private int course;
-	private int branch;
+	private Long course;
+	private Long branch;
 	private int semester;
 	private boolean feeGenerated;
+	
 	
 	public String getFileNo() {
 		return fileNo;
@@ -13,16 +14,16 @@ public class StudentFeeStaging {
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 	}
-	public int getCourse() {
+	public Long getCourse() {
 		return course;
 	}
-	public void setCourse(int course) {
+	public void setCourse(Long course) {
 		this.course = course;
 	}
-	public int getBranch() {
+	public Long getBranch() {
 		return branch;
 	}
-	public void setBranch(int branch) {
+	public void setBranch(Long branch) {
 		this.branch = branch;
 	}
 	public int getSemester() {
@@ -34,17 +35,18 @@ public class StudentFeeStaging {
 	public boolean isFeeGenerated() {
 		return feeGenerated;
 	}
+	
 	public void setFeeGenerated(boolean feeGenerated) {
 		this.feeGenerated = feeGenerated;
 	}
+	
 	@Override
 	public String toString() {
 		return "StudentFeeStaging [fileNo=" + fileNo + ", course=" + course
 				+ ", branch=" + branch + ", semester=" + semester
 				+ ", feeGenerated=" + feeGenerated + "]";
 	}
-	
-	
+		
 
 }
 
