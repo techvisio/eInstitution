@@ -2,6 +2,34 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	
+<entry key="getFeeDiscountHeadMaster">
+    <![CDATA[
+ 
+ Select 
+ 
+   Head_Id,
+   Head,
+   Type,
+   Parent_Type_Id,
+   Discount_Type,
+   Refund_Type
+
+from feeDiscountHead  ;
+]]>	
+	</entry>
+
+<entry key="getFeeDetailMaster">
+    <![CDATA[
+SELECT 
+	COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT 
+FROM feedetailmaster ;]]>
+</entry>
+
 
 	<entry key="getCourse">
     <![CDATA[

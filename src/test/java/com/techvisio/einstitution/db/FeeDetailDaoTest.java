@@ -1,3 +1,4 @@
+
 package com.techvisio.einstitution.db;
 
 import org.junit.Test;
@@ -6,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
@@ -18,10 +20,48 @@ public class FeeDetailDaoTest {
 	@Autowired
 	FeeDetailDao dao;
 	
+	
+	//FeeDetail
+	
 	@Test
-	public void testGetFeeDetail(){
-		System.out.println("Data is :-"+dao.getFeeDetail());
+	public void testAddFeeDetail(){
+		FeeDetail detail = new FeeDetail();
+		detail.setBranch(4L);
+		detail.setCourse(2L);
+		detail.setFeeAmount(2000.0);
+		detail.setFeeHeadId(2L);
+		detail.setSemester(1);
+		
+		dao.addFeeDetail(detail);
+		
 	}
+	
+	@Test
+	public void testGetFeedetail(){
+		FeeDetail detail = dao.getFeeDetail(2L, 2L, 4L);
+		System.out.println("Data is :- "+detail);
+	}
+	
+	@Test 
+	public void testUpdateFeeDetail(){
+		FeeDetail detail = new FeeDetail();
+		detail.setBranch(4L);
+		detail.setCourse(2L);
+		detail.setFeeAmount(2000.12);
+		detail.setFeeHeadId(2L);
+		detail.setSemester(1);
+		
+		dao.updateFeeDetail(detail);
+	}
+	
+	@Test
+	public void testDeleteFeeDetail(){
+		dao.deleteFeeDetail(1L, 1L, 1L);
+	}
+	
+	
+	
+//	StudentFeeStaging
 	
 	@Test
 	
@@ -54,6 +94,7 @@ public class FeeDetailDaoTest {
 		dao.updateStudentFeeStaging(feeStaging);
 	}
 	
+//FeeTransaction	
 	
 	@Test
 	public void testAddFeeTransaction(){
@@ -78,6 +119,7 @@ public class FeeDetailDaoTest {
 	public void testDeleteStudentFeeStaging(){
 		dao.deleteStudentFeeStaging("1");
 	}
+
 
     @Test
     public void testFeeDiscountHead(){

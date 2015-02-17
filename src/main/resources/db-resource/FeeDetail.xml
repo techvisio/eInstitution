@@ -170,14 +170,14 @@ Insert into feetransaction
    Discount_Type,
    Refund_Type
 
-from feeDiscountHead where Head_Id=:Head_Id ;
+from feeDiscountHeadmaster where Head_Id=:Head_Id ;
 ]]>	
 	</entry>
 
 <entry key="addFeeDiscountHead">
     <![CDATA[
  
- Insert into feeDiscountHead 
+ Insert into feeDiscountHeadmaster 
  
    (Head_Id,
    Head,
@@ -199,7 +199,7 @@ from feeDiscountHead where Head_Id=:Head_Id ;
 <entry key="updateFeeDiscountHead">
     <![CDATA[
  
- Update feeDiscountHead set
+ Update feeDiscountHeadmaster set
  
    Head_Id=:Head_Id,
    Head=:Head,
@@ -216,9 +216,9 @@ from feeDiscountHead where Head_Id=:Head_Id ;
 <entry key="deleteFeeDiscountHead">
     <![CDATA[
  
- Delete from feeDiscountHead where Head_Id=:Head_Id;
+ Delete from feeDiscountHeadmaster where Head_Id=:Head_Id;
 
 ]]>	
 	</entry>
 
-</properties>
+</properties>s
