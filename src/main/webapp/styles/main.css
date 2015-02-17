@@ -145,6 +145,11 @@
 	height: 150px;
 }
 
+.four-column-view img.inner-element {
+	width: 20px;
+	height: 20px;
+}
+
 .four-column-view span {
 	font-family: "Verdana";
 	font-size: 15px;
@@ -318,7 +323,9 @@
 	float: right;
 	width: 94%;
 	margin-top: 10px;
+	background-color:white;
 }
+
 
 .next {
 	position: fixed;
@@ -348,6 +355,15 @@
 	text-align: center;
 }
 
+.panel-div-modal {
+	background-color: #004687;
+	font-size: 20px;
+	margin:0 auto;
+	color: white;
+	border-radius: 25px;
+	text-align: center;
+}
+
 .round-menu-div {
 	background-color: #339933;
 	cursor: pointer;
@@ -362,6 +378,17 @@
 	line-height: 75px;
 	margin-top: 10px;
 }
+
+.inventory-view table tr td {
+	width:30px;
+	padding-left:10px;
+	padding-bottom:5px;
+}
+
+.inventory-view table {
+	margin:0 auto;
+}
+
 
 /* css for ng-switch   */
 .animate-switch-container.forward.longStage {
