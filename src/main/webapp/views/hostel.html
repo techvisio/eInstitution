@@ -3,10 +3,9 @@
   <div class="module-container">
       
       <div class="inventory-view">
-      <table>
-      <tr>
       <div id="hostel" class="panel-div-modal">Available Hostel Detail</div>
-      </tr>
+      <table>
+      
       <tr> 
            <td><span>Type Code</span></td>      
            <td ng-repeat="object in hostelAvailability" >{{object.typeCode}}</td>     
@@ -34,10 +33,14 @@
            <td><span>Price</span></td>      
            <td ng-repeat="object in hostelAvailability" >{{object.price }}</td>     
        </tr>
-       
        <tr>
        <td>
-       <select/>
+       </td>
+       </tr>
+       <tr>
+       <td>
+       <select ng-model="student.semester"
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
        </td>
        </tr>
         <tr>
