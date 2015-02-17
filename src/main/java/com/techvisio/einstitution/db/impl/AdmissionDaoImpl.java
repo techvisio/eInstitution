@@ -172,45 +172,28 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
 		if (studentDtl.getAcademicDtl() != null) {
-			for (StudentAcademicDetail studentAcademicDetail : studentDtl
-					.getAcademicDtl()) {
-				saveAcademicDtl(studentAcademicDetail);
-			}
+
+			saveAcademicDtl(studentDtl.getAcademicDtl());
 		}
 
 		if (studentDtl.getDiscountDtl() != null) {
 
-			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
-					.getDiscountDtl()) {
-
-				saveAdmissionDisDtl(admissionDiscountDtl);
-			}
+				saveAdmissionDisDtl(studentDtl.getDiscountDtl());
 		}
 
 		if (studentDtl.getAddressDtl() != null) {
 
-			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
-
-				saveAddressDtl(addressDeatil);
-			}
+				saveAddressDetails(studentDtl.getAddressDtl());
 		}
 
 		if (studentDtl.getBranchPreference() != null) {
 
-			for (BranchPreference branchPreference : studentDtl
-					.getBranchPreference()) {
-
-				saveBranchPreference(branchPreference);
-			}
+				saveBranchPreference(studentDtl.getBranchPreference());
 		}
 
 		if (studentDtl.getCounsellingDtl() !=null) {
 
-			for (CounsellingDetail counsellingDetail : studentDtl
-					.getCounsellingDtl()) {
-
-				saveCounsellingDetail(counsellingDetail);
-			}
+				saveCounsellingDetail(studentDtl.getCounsellingDtl());
 		}
 
 
@@ -265,45 +248,28 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 		if (studentDtl.getAcademicDtl() != null) {
-			for (StudentAcademicDetail studentAcademicDetail : studentDtl
-					.getAcademicDtl()) {
-				saveAcademicDtl(studentAcademicDetail);
-			}
+
+			saveAcademicDtl(studentDtl.getAcademicDtl());
 		}
 
 		if (studentDtl.getDiscountDtl() != null) {
 
-			for (AdmissionDiscountDtl admissionDiscountDtl : studentDtl
-					.getDiscountDtl()) {
-
-				saveAdmissionDisDtl(admissionDiscountDtl);
-			}
+				saveAdmissionDisDtl(studentDtl.getDiscountDtl());
 		}
 
 		if (studentDtl.getAddressDtl() != null) {
 
-			for (AddressDetail addressDeatil : studentDtl.getAddressDtl()) {
-
-				saveAddressDtl(addressDeatil );
-			}
+				saveAddressDetails(studentDtl.getAddressDtl());
 		}
 
 		if (studentDtl.getBranchPreference() != null) {
 
-			for (BranchPreference branchPreference : studentDtl
-					.getBranchPreference()) {
-
-				saveBranchPreference(branchPreference);
-			}
+				saveBranchPreference(studentDtl.getBranchPreference());
 		}
 
 		if (studentDtl.getCounsellingDtl() !=null) {
 
-			for (CounsellingDetail counsellingDetail : studentDtl
-					.getCounsellingDtl()) {
-
-				saveCounsellingDetail(counsellingDetail);
-			}
+				saveCounsellingDetail(studentDtl.getCounsellingDtl());
 		}
 
 
@@ -333,7 +299,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	private List<StudentAcademicDetail> getAcademicDtl(String fileNo) {
+	private List<StudentAcademicDetail> getAcademicDtl(final String fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getAcademicDtlByFileNo");
@@ -363,13 +329,16 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 								.getFloat("Percentage"));
 						studentAcademicDetail.setRollNo(rs
 								.getString("Roll_No"));
+						
+						List<QualificationSubjectDtl> qualificationSubjectDtls = getQualificationDtl(fileNo);
+						studentAcademicDetail.setQualificationSubDtl(qualificationSubjectDtls);
 
 						return studentAcademicDetail;
 
 
 					}
 				});
-
+		
 		return studentAcademicDetails;
 	}
 
@@ -402,14 +371,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			if (academicDtl.getQualificationSubDtl() != null) {
 
-				for (QualificationSubjectDtl qualificationSubjectDtl : academicDtl
-						.getQualificationSubDtl()) {
-
-					saveQualificationDtl(qualificationSubjectDtl);
+					saveQualificationDtl(academicDtl.getQualificationSubDtl());
 				}
-
-			}
-
 		}
 
 	}
@@ -462,6 +425,12 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				fileNo=academicDetail.getFileNo();
 			}
 
+			 if(qualificationIds.size()==0){
+					
+				 qualificationIds.add(-1L);
+			     }
+			
+			
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAcademicDtl");
 
@@ -573,6 +542,12 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				fileNo=address.getFileNo();
 			}
 
+			  if(addressTypes.size()==0){
+					
+				  addressTypes.add(" ");
+			     }
+			  
+			
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteAddressDtl");
 
@@ -622,7 +597,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		if(admissionDiscountDtls != null){
 			deleteAdmissionDisDtl(admissionDiscountDtls);
 			for(AdmissionDiscountDtl admissionDiscountDtl:admissionDiscountDtls){
-				saveAdmissionDisDtl(admissionDiscountDtls);
+				saveAdmissionDisDtl(admissionDiscountDtl);
 			}
 			}
 	
@@ -676,6 +651,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				fileNo=admissionDiscountDtl.getFileNo();
 			}
 		
+			  if(feeHeadIds.size()==0){
+					
+				  feeHeadIds.add(-1L);
+			     }
+			  
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAdmissionDisDtl");
 
@@ -727,11 +707,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		if(qualificationSubjectDtls != null){
 			deleteQualificationDtl(qualificationSubjectDtls);
 			for(QualificationSubjectDtl qualificationSubjectDtl:qualificationSubjectDtls){
+				
 				saveQualificationDtl(qualificationSubjectDtl);
 			}
 			}
-	
-		
 	}
 	
 	private void saveQualificationDtl(QualificationSubjectDtl qualificationDtl) {
@@ -786,7 +765,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				fileNo=qualificationSubjectDtl.getFileNo();
 			}
 		
-		
+			  if(subjectIds.size()==0){
+					
+				  subjectIds.add(-1L);
+			     }
+			
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteQualificationSubjectDtl");
 
@@ -870,6 +853,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			for(BranchPreference branchPreference:branchPreferences){
 				branchPreferenceIds.add(branchPreference.getBranchPreferenceId());
 				fileNo=branchPreference.getFileNo();
+			}
+			if(branchPreferenceIds.size()==0){
+				
+				branchPreferenceIds.add(-1L);
 			}
 		
 		String deleteQuery = admissionQueryProps
@@ -960,6 +947,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				fileNo=counsellingDetail.getFileNo();
 			}
 
+            if(counsellingIds.size()==0){
+				
+	              counsellingIds.add(-1L);
+			     }
+		
 		
 		String deleteQuery = admissionQueryProps.getProperty("deleteCounsellingDetail");
 

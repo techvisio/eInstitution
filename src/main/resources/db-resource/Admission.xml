@@ -471,10 +471,10 @@ Select
 	</entry>
 
 	
-	<entry key="DeleteBranchPreference">
+	<entry key="deleteBranchPreference">
     <![CDATA[
       
-      Delete BranchPreference where File_No=:File_No and Branch_Preference_Id not in (:Branch_Preference_Id); 
+      Delete from BranchPreference where File_No=:File_No and Branch_Preference_Id not in (:Branch_Preference_Id); 
 	 
 	     ]]>
 	</entry>

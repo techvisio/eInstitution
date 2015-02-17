@@ -62,14 +62,14 @@
 							<td><input type="text" ng-model="student.academicYear"></td>
 							<td><span> Semester </span></td>
 							<td><select select ng-model="student.semester"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
 							</td>
 						</tr>
 
 						<tr>
 							<td><span> Course </span></td>
 							<td><select select ng-model="student.courseId"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select>
 							</td>
 							<td><span> Branch </span></td>
 							<td><select select ng-model="student.branchId"
@@ -299,7 +299,7 @@
 							ng-repeat="subject in object.qualificationSubDtl track by $index">
 							<td><span>Subject</span></td>
 							<td><select ng-model=subject.subjectId
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
 							<td><span>Marks Obtained</span></td>
 							<td><input type="Text" ng-model="subject.marksObtained"></td>
 							<td><span>Maximum Marks</span></td>
