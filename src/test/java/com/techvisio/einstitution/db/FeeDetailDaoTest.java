@@ -66,14 +66,14 @@ public class FeeDetailDaoTest {
 	@Test
 	
 	public void testAddStudentFeeStaging(){
-		StudentFeeStaging feeStaging = new StudentFeeStaging();
-		feeStaging.setBranch(1L);
-		feeStaging.setCourse(1L);
-		feeStaging.setFeeGenerated(false);
-		feeStaging.setFileNo("1");
-		feeStaging.setSemester(1);
+		StudentFeeStaging feeStaging1 = new StudentFeeStaging();
+		feeStaging1.setBranch(4L);
+		feeStaging1.setCourse(2L);
+		feeStaging1.setFeeGenerated(false);
+		feeStaging1.setFileNo("2");
+		feeStaging1.setSemester(1);
 		
-		dao.addStudentFeeStaging(feeStaging);
+		dao.addStudentFeeStaging(feeStaging1);
 	}
 	
 	@Test
@@ -117,7 +117,7 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testDeleteStudentFeeStaging(){
-		dao.deleteStudentFeeStaging("1");
+		dao.deleteStudentFeeStaging("2");
 	}
 
 

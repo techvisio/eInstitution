@@ -1,6 +1,9 @@
 package com.techvisio.einstitution.manager.impl;
 
+import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
+import com.techvisio.einstitution.beans.FeeTransaction;
+import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.db.FeeDetailDao;
 import com.techvisio.einstitution.manager.FeeDetailManager;
@@ -49,4 +52,53 @@ public class FeeDetailManagerImpl implements FeeDetailManager{
 		feeDetailDao.deleteFeeDiscountHead(headId);
 	}
 
+	public FeeDetail getFeeDetail(Long FeeHeadId,Long Course,Long Branch) {
+		FeeDetail detail = null;
+		detail = feeDetailDao.getFeeDetail(FeeHeadId, Course, Branch);
+		return detail;
+	}
+
+	public void addFeeDetail(FeeDetail feeDetail) {
+		feeDetailDao.addFeeDetail(feeDetail);
+		
+	}
+
+	public void updateFeeDetail(FeeDetail feeDetail) {
+		feeDetailDao.updateFeeDetail(feeDetail);
+	}
+
+	public void deleteFeeDetail(Long FeeHeadId,Long Course,Long Branch) {
+		feeDetailDao.deleteFeeDetail(FeeHeadId, Course, Branch);
+	}
+
+	public StudentFeeStaging getStudentFeeStaging(String fileNo) {
+		StudentFeeStaging feeStaging = null;
+		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo);
+		return feeStaging;
+	}
+
+	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
+		feeDetailDao.addStudentFeeStaging(studentFeeStaging);
+	}
+
+	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
+		feeDetailDao.updateStudentFeeStaging(studentFeeStaging);
+	}
+
+	public void deleteStudentFeeStaging(String fileNo) {
+		feeDetailDao.deleteStudentFeeStaging(fileNo);
+	}
+
+	public FeeTransaction getFeeTransaction(String fileNo) {
+		FeeTransaction transaction = null;
+		transaction = feeDetailDao.getFeeTransaction(fileNo);
+		return transaction;
+	}
+
+	public void addFeeTransaction(FeeTransaction feeTransaction) {
+		feeDetailDao.addFeeTransaction(feeTransaction);
+	}
+
 }
+
+

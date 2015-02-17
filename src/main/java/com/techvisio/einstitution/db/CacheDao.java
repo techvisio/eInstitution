@@ -8,6 +8,7 @@ import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDetail;
+import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
@@ -33,6 +34,10 @@ public interface CacheDao {
 	public List<QuotaCode> getQuotaCode();
 
 	public List<Consultant> getConsultant();
+	
+	public List<FeeDetail> getFeeDetailMaster();
+	
+	public List<FeeDiscountHead> getFeeDiscountHeadMaster();
 	
 	
 }
