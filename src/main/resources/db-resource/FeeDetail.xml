@@ -221,4 +221,4 @@ from feeDiscountHeadmaster where Head_Id=:Head_Id ;
 ]]>	
 	</entry>
 
-</properties>s
+</properties>
