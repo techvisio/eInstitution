@@ -1,12 +1,10 @@
 <div ng-controller="transportController" ng-init="getAvailableTransport()">
 
-
-
-
-  <div class="module-sub-section">
-      <div id="transport" class="panel-div">Available Transports Detail</div>
-      <div class="long-inline">
-      <table class="table">
+   <div class="module-container">      
+      <div class="inventory-view">
+      
+     <div id="transport" class="panel-div-modal">Available Transports Detail</div>
+      <table>
       <tr> 
            <td><span>Route Code</span></td>      
            <td ng-repeat="object in availableTransport" >{{object.routeCode}}</td>     
@@ -34,29 +32,28 @@
            <td><span>Price</span></td>      
            <td ng-repeat="object in availableTransport" >{{object.price}}</td>     
        </tr>
+       
+        <tr>
+       <td>
+       </td>
+       </tr>
+       <tr>
+       <td>
+       <select ng-model="transportReservation.typeCode"
+		ng-options="object.typeCode as object.description for object in availableTransport"></select>
+       </td>
+       </tr>
+        <tr>
+       <td>
+       <input type="button"  value="reserve" ng-click="reserveRoom()"/>
+       </td>
+       </tr>
              
       </table> 
    
    
-   
-   
-   
-   
     </div>
    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>

@@ -3,6 +3,8 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
+import com.techvisio.einstitution.beans.HostelReservation;
+import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
@@ -73,9 +77,23 @@ public class TransportService {
 			return transportReservation;  
 		  }
 		@RequestMapping(value="/Reservation",method = RequestMethod.POST)
-		public void addTransporReservation(@RequestBody TransportReservation transportReservation) {  
-			TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
-			workflowManager.addTransportReservationDtl(transportReservation);
+		public ResponseEntity<Response> addTransporReservation(@RequestBody TransportReservation transportReservation) {  
+			
+			Response response = new Response();
+			try
+			{
+			    TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
+		     	workflowManager.addTransportReservationDtl(transportReservation);
+			    TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(transportReservation.getFileNo());
+			    response.setResponseBody(updatedReservation);
+	         }
+			  catch(Exception e)
+			{
+					e.printStackTrace();
+					response.setError(e.getLocalizedMessage());
+			}
+				
+				 return new ResponseEntity<Response>(response,HttpStatus.OK);
 		}
 		
 		@RequestMapping(value="/Reservation",method = RequestMethod.PUT)

@@ -2,15 +2,10 @@ var transportModule = angular.module('transportModule', []);
 
 transportModule.controller('transportController', ['$scope','transportService',function($scope,transportService) {
 
-			$scope.availableTransport = [ {
-				"reserved" : 0,
-				"available" : 0,
-				"threshold" : 0,
-				"price" : 0.0,
-				"routeCode" : null,
-				"description" : null
-			} ];
+			$scope.availableTransport = {};
 
+			$scope.transportReservation = {};
+			
 			$scope.getAvailableTransport = function() {
 
 				transportService.getAvailableTransport().then(function(data) {
@@ -29,13 +24,27 @@ transportModule.controller('transportController', ['$scope','transportService',f
 
 			}
 
+			
+                 $scope.reserveTransport = function(){
+				
+                	 transportService.reserveRoom($scope.transportReservation)
+				     .then(function(data){
+					console.log('Transport Reservation callback');
+					console.log(data.responseBody);
+					$scope.transportReservation=data.responseBody;
+					
+				})
+			}
+			
+
 		} ]);
 
 transportModule.service('transportService', function($http, $q) {
 
 	// Return public API.
 	return ({
-		getAvailableTransport : getAvailableTransport
+		getAvailableTransport : getAvailableTransport,
+		reserveTransport : reserveTransport
 	});
 
 	function getAvailableTransport() {
@@ -51,6 +60,22 @@ transportModule.service('transportService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 
 	}
+	
+	function reserveTransport(hostelReservation) {
+
+		 console.log('Transport reservation called in service');
+		 var request = $http({
+			 method : "post",
+			 url : "transport/Reservation",
+			 params : "",
+			 data : hostelReservation
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+	 }
+
 
 	function handleError(response) {
 		console.log('handle error');

@@ -39,38 +39,20 @@
        </tr>
        <tr>
        <td>
-       <select ng-model="student.semester"
-								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="object.typeCode as object.description for object in hostelAvailability"></select>
        </td>
        </tr>
         <tr>
        <td>
-       <input type="button"/>
+       <input type="button"  value="reserve" ng-click="reserveRoom()"/>
        </td>
        </tr>
              
       </table> 
    
-   
-   
-   
-   
-   
     </div>
    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>

@@ -141,9 +141,24 @@ public class HostelService {
 		}
 
 	@RequestMapping(value ="/HostelReservation",method = RequestMethod.POST)
-	public void addHostelReservation(@RequestBody HostelReservation hostelReservation){
+	public ResponseEntity<Response> addHostelReservation(@RequestBody HostelReservation hostelReservation){
+		
+		Response response = new Response();
+		try
+		{
 		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
-		workflowManager.addHostelReservation(hostelReservation);
+		
+		   workflowManager.addHostelReservation(hostelReservation);
+		   HostelReservation updatedReservation=workflowManager.getHostelReservation(hostelReservation.getFileNo());
+		   response.setResponseBody(updatedReservation);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		
+		 return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	@RequestMapping(value ="/HostelReservation",method = RequestMethod.PUT)
 	public void updateHostelReservation(@RequestBody HostelReservation hostelReservation){

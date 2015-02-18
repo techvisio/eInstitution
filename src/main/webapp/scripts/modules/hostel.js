@@ -2,15 +2,10 @@ var hostelModule = angular.module('hostelModule', []);
 
 hostelModule.controller('hostelController', ['$scope','hostelService',function($scope,hostelService) {
 
-			$scope.hostelAvailability = [ {
-				"threshold":0,
-				"typeCode":null,
-				"description" : null,
-				"price":0.0,
-				"reservedRoom":0,
-				"available":0
-			} ];
-
+			$scope.hostelAvailability = {};
+			
+			$scope.hostelReservation={};
+            
 			$scope.getHostelAvailability = function() {
 
 				hostelService.getHostelAvailability().then(function(data) {
@@ -28,6 +23,18 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 				})
 
 			}
+			
+			$scope.reserveRoom = function(){
+				
+				hostelService.reserveRoom($scope.hostelReservation)
+				.then(function(data){
+					console.log('Hostel Reservation callback');
+					console.log(data.responseBody);
+					$scope.hostelReservation=data.responseBody;
+					
+				})
+			}
+			
 
 		} ]);
 
@@ -35,7 +42,9 @@ hostelModule.service('hostelService', function($http, $q) {
 
 	// Return public API.
 	return ({
-		getHostelAvailability : getHostelAvailability
+		getHostelAvailability : getHostelAvailability,
+		reserveRoom:reserveRoom
+		
 	});
 
 	function getHostelAvailability() {
@@ -52,6 +61,23 @@ hostelModule.service('hostelService', function($http, $q) {
 
 	}
 
+	function reserveRoom(hostelReservation) {
+
+		 console.log('Hostel reservation called in service');
+		 var request = $http({
+			 method : "post",
+			 url : "Hostel/HostelReservation",
+			 params : "",
+			 data : hostelReservation
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+	 }
+
+
+		 
 	function handleError(response) {
 		console.log('handle error');
 		console.log(response);

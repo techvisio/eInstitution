@@ -404,3 +404,9 @@ ALTER TABLE feetransaction ADD FOREIGN KEY (File_no) REFERENCES studentdetail (F
 
 /*Changes 16 feb 2015 (FEEDETAILMASTER table)*/
 ALTER TABLE feedetailmaster ADD PRIMARY KEY (COURSE,BRANCH,FEE_HEAD_ID);
+
+ /*18 feb 2015 (Data type changes)*/
+
+Alter table addressdetail CHANGE house_No House_No varchar(50);
+Alter table Studentdetail CHANGE dob DOB date;
+Alter table Studentdetail CHANGE Academic_Year Academic_Year varchar(50);
