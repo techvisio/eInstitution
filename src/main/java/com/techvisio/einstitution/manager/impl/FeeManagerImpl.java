@@ -7,26 +7,26 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDetailDao;
-import com.techvisio.einstitution.manager.FeeDetailManager;
+import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
-public class FeeDetailManagerImpl implements FeeDetailManager{
+public class FeeManagerImpl implements FeeManager{
 
 	FeeDetailDao feeDetailDao = ContextProvider.getContext().getBean(
 			FeeDetailDao.class);
 
 	
-	private static FeeDetailManagerImpl instance=null;
-	public static synchronized FeeDetailManagerImpl getInstance()
+	private static FeeManagerImpl instance=null;
+	public static synchronized FeeManagerImpl getInstance()
 	{
 		if(instance == null){
-			instance=new FeeDetailManagerImpl();
+			instance=new FeeManagerImpl();
 		}
 		
 		return instance;
 	}
 	
-	private FeeDetailManagerImpl() {
+	private FeeManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -98,6 +98,11 @@ public class FeeDetailManagerImpl implements FeeDetailManager{
 
 	public void addFeeTransaction(FeeTransaction feeTransaction) {
 		feeDetailDao.addFeeTransaction(feeTransaction);
+	}
+
+	public void createStagingFee(String fileNo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

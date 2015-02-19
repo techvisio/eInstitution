@@ -7,7 +7,7 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 
-public interface FeeDetailManager {
+public interface FeeManager {
 	
 	public List<FeeDetail> getFeeDetail(Long course,Long branch, Integer semester );
 	public void addFeeDetail(FeeDetail feeDetail);
@@ -27,5 +27,6 @@ public interface FeeDetailManager {
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
+	public void createStagingFee(String fileNo);
 
 }

@@ -15,4 +15,6 @@ public interface AppConstants {
 	public static final String BLOODGROUP="BLOODGROUP";
 	public static final String CONSULTANT="CONSULTANT";
 	
+	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,APPROVED,FEE_DEPOSITED,COMPLETE};
+	
 }

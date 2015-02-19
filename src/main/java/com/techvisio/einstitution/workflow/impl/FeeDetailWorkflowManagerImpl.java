@@ -6,14 +6,14 @@ import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
-import com.techvisio.einstitution.manager.FeeDetailManager;
-import com.techvisio.einstitution.manager.impl.FeeDetailManagerImpl;
+import com.techvisio.einstitution.manager.FeeManager;
+import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.workflow.FeeDetailWorkflowManager;
 
 public class FeeDetailWorkflowManagerImpl implements FeeDetailWorkflowManager{
 	
 	
-	FeeDetailManager manager=FeeDetailManagerImpl.getInstance();
+	FeeManager manager=FeeManagerImpl.getInstance();
 	
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
 
