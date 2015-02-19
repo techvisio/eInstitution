@@ -1,6 +1,8 @@
 
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,21 +27,23 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testAddFeeDetail(){
-		FeeDetail detail = new FeeDetail();
-		detail.setBranch(4L);
-		detail.setCourse(2L);
-		detail.setFeeAmount(2000.0);
-		detail.setFeeHeadId(2L);
-		detail.setSemester(1);
+		FeeDetail detail1 = new FeeDetail();
+		detail1.setBranch(4L);
+		detail1.setCourse(2L);
+		detail1.setFeeAmount(2000.0);
+		detail1.setFeeHeadId(1L);
+		detail1.setSemester(1);
 		
-		dao.addFeeDetail(detail);
+		dao.addFeeDetail(detail1);
 		
 	}
 	
 	@Test
 	public void testGetFeedetail(){
-		FeeDetail detail = dao.getFeeDetail(2L, 2L, 4L);
-		System.out.println("Data is :- "+detail);
+		//List<FeeDetail> detail = null;
+		List<FeeDetail> detail = dao.getFeeDetail(2L, 4L, 1);
+		System.out.println("List IS :- "+detail);
+		
 	}
 	
 	@Test 
@@ -56,7 +60,7 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testDeleteFeeDetail(){
-		dao.deleteFeeDetail(1L, 1L, 1L);
+		dao.deleteFeeDetail(2L, 4L,1);
 	}
 	
 	

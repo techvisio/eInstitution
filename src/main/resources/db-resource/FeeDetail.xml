@@ -71,7 +71,7 @@ SELECT
 	SEMESTER,
 	FEE_HEAD_ID,
 	FEE_AMOUNT 
-FROM feedetailmaster where FEE_HEAD_ID=:FEE_HEAD_ID AND COURSE=:COURSE AND BRANCH=:BRANCH ;]]>
+FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER  ;]]>
 
 	</entry>
 
@@ -106,7 +106,7 @@ Update feedetailmaster set
 	FEE_HEAD_ID=:FEE_HEAD_ID,
 	FEE_AMOUNT=:FEE_AMOUNT       
    
-where FEE_HEAD_ID=:FEE_HEAD_ID AND COURSE=:COURSE AND BRANCH=:BRANCH;
+where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
     ]]>
 
 	</entry>
@@ -114,7 +114,7 @@ where FEE_HEAD_ID=:FEE_HEAD_ID AND COURSE=:COURSE AND BRANCH=:BRANCH;
 	<entry key="deleteFeeDetailMaster">
     <![CDATA[
       
-Delete from feedetailmaster where FEE_HEAD_ID=:FEE_HEAD_ID AND COURSE=:COURSE AND BRANCH=:BRANCH;
+Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
     ]]>
 
 	</entry>
@@ -221,4 +221,4 @@ from feeDiscountHeadmaster where Head_Id=:Head_Id ;
 ]]>	
 	</entry>
 
-</properties>s
+</properties>

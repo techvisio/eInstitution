@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,19 +17,20 @@ import com.techvisio.einstitution.workflow.FeeDetailWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.FeeDetailWorkflowManagerImpl;
 
 @RestController
-@RequestMapping("/Fee")
+@RequestMapping("/fee")
 public class FeeService {
 	
 	private static final Logger logger = Logger.getLogger(FeeService.class);
 	
 
 //FeeDetail	
-	@RequestMapping(value="/FeeDetail/{feeHeadId/course/branch}", method = RequestMethod.GET)
-	public FeeDetail getFeeDetail(@PathVariable Long feeHeadId,Long course,Long branch ){
+	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/semester/{semester}", method = RequestMethod.GET)
+	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch,@PathVariable Integer semester){
+		
 		FeeDetailWorkflowManager detailWorkflowManager = new FeeDetailWorkflowManagerImpl();
 		
-		FeeDetail detail = detailWorkflowManager.getFeeDetail(feeHeadId, course, branch);
-		return detail;
+		List<FeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch,semester);
+		return details;
 		
 	}
 	
@@ -45,9 +48,9 @@ public class FeeService {
 		}
 	
 	@RequestMapping(value="/FeeDetail/{feeHeadId/course/branch}", method = RequestMethod.DELETE)
-	public void deleteFeeDetail(@PathVariable Long feeHeadId,Long course,Long branch ){
+	public void deleteFeeDetail(@PathVariable Long course,Long branch, Integer semester ){
 		FeeDetailWorkflowManager detailWorkflowManager = new FeeDetailWorkflowManagerImpl();
-		detailWorkflowManager.deleteFeeDetail(feeHeadId, course, branch);
+		detailWorkflowManager.deleteFeeDetail(course, branch, semester);
 	}
 	
 

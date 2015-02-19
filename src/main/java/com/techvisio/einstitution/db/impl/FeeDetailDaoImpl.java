@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -26,11 +27,13 @@ public class FeeDetailDaoImpl extends BaseDao implements FeeDetailDao{
 	}
 	
 //	FeeDetail
-	public FeeDetail getFeeDetail(Long feeHeadId,Long course,Long branch) {
+	
+	public List<FeeDetail> getFeeDetail(Long course,Long branch, Integer semester) {
+		
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID", feeHeadId)
-											.addValue("BRANCH", branch).addValue("COURSE", course);
-		FeeDetail feeDetails = getNamedParamJdbcTemplate().queryForObject(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
+		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE",course)
+											.addValue("BRANCH", branch).addValue("SEMESTER",semester);
+		List<FeeDetail> feeDetails  = getNamedParamJdbcTemplate().query(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
 
 			public FeeDetail mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
@@ -45,12 +48,11 @@ public class FeeDetailDaoImpl extends BaseDao implements FeeDetailDao{
 			
 		});
 		
-		
 		return feeDetails;
-		
 	}
 	
-public void addFeeDetail(FeeDetail feeDetail) {
+
+	public void addFeeDetail(FeeDetail feeDetail) {
 		String addFeeDetailQuery=feeQueryProps.getProperty("addFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeHeadId())
 											.addValue("COURSE",feeDetail.getCourse())
@@ -72,10 +74,10 @@ public void updateFeeDetail(FeeDetail feeDetail) {
 	}
 
 
-public void deleteFeeDetail(Long feeHeadId,Long course,Long branch) {
+public void deleteFeeDetail(Long course,Long branch, Integer semester) {
 		String deleteFeeDetailQuery=feeQueryProps.getProperty("deleteFeeDetailMaster");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID", feeHeadId)
-										.addValue("BRANCH", branch).addValue("COURSE", course);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
+										.addValue("BRANCH", branch).addValue("SEMESTER", semester);
 		
 		getNamedParamJdbcTemplate().update(deleteFeeDetailQuery, namedParameter);
 		
