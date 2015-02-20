@@ -398,9 +398,9 @@ ALTER TABLE STUDENTFEESTAGING
 	
 ALTER TABLE feetransaction ADD FOREIGN KEY (FEE_ID) REFERENCES feediscountheadmaster (Head_Id);
 
-ALTER TABLE feetransaction ADD COLUMN File_no varchar(100);
+ALTER TABLE feetransaction ADD COLUMN File_No varchar(100);
 
-ALTER TABLE feetransaction ADD FOREIGN KEY (File_no) REFERENCES studentdetail (File_No);
+ALTER TABLE feetransaction ADD FOREIGN KEY (File_No) REFERENCES studentdetail (File_No);
 
 /*Changes 16 feb 2015 (FEEDETAILMASTER table)*/
 ALTER TABLE feedetailmaster ADD PRIMARY KEY (COURSE,BRANCH,FEE_HEAD_ID);
@@ -410,3 +410,28 @@ ALTER TABLE feedetailmaster ADD PRIMARY KEY (COURSE,BRANCH,FEE_HEAD_ID);
 Alter table addressdetail CHANGE house_No House_No varchar(50);
 Alter table Studentdetail CHANGE dob DOB date;
 Alter table Studentdetail CHANGE Academic_Year Academic_Year varchar(50);
+
+/* 19 feb 2015 (column added in transport reservation)*/
+
+Alter table transportreservation add COLUMN Allocation_Status varchar(100);
+Alter table transportreservation add COLUMN Is_Active bit(1);
+
+/* 20 feb 2015 (change in studentFeeStaging Table) */
+
+ALTER TABLE studentfeestaging
+DROP COLUMN branch;
+ALTER TABLE studentfeestaging
+DROP COLUMN course;
+
+Alter table studentfeestaging add column Academic_Year varchar(20);
+Alter table studentfeestaging add column FeeHead_Id int;
+Alter table studentfeestaging add column Amount double;
+Alter table studentfeestaging add column Created_By varchar(50);
+Alter table studentfeestaging add column Updated_By varchar(50);
+Alter table studentfeestaging add column Approved bit(1);
+Alter table studentfeestaging add column Modified_Date date;
+Alter table studentfeestaging add column Created_Date date;
+
+ALTER TABLE STUDENTFEESTAGING
+	ADD FOREIGN KEY (FeeHead_Id)
+	REFERENCES feediscountheadmaster (Head_Id);

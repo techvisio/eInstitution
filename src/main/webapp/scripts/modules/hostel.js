@@ -43,7 +43,7 @@ hostelModule.service('hostelService', function($http, $q) {
 	// Return public API.
 	return ({
 		getHostelAvailability : getHostelAvailability,
-		reserveRoom:reserveRoom
+		reserveRoom : reserveRoom
 		
 	});
 

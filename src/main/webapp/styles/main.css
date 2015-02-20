@@ -479,3 +479,9 @@
 	border-width: 13px;
 	margin-left: -13px;
 }
+
+.button{
+border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:bold; color: #000000;border-radius: 23px;
+ background-color: #C0C0C0;
+ }
+

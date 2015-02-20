@@ -5,35 +5,46 @@
 
 <entry key="getStudentFeeStaging">
     <![CDATA[
-SELECT 
-	 FILE_NO,
-	 COURSE,
-	 BRANCH, 
-	 SEMESTER, 
-	 FEE_GENERATED 
+select 
+     
+      File_No,
+      Academic_Year,
+      Semester,
+      FeeHead_Id,
+      Amount,
+      Created_By,
+      Updated_By,
+      Approved,
+      Fee_Generated,
+      Created_Date,
+      Modified_Date
 
-FROM studentfeestaging where FILE_NO=:FILE_NO;]]>
+FROM studentfeestaging where File_No=:File_No;
+]]>
 
 	</entry>
 
 <entry key="addStudentFeeStaging">
     <![CDATA[
       
-Insert into studentfeestaging
+insert into studentfeestaging (
+      File_No,
+      Academic_Year,
+      Semester,
+      FeeHead_Id,
+      Amount,
+      Created_By,
+      Updated_By,
+      Approved,
+      Fee_Generated,
+      Created_Date,
+      Modified_Date
+    
+)
 
-	(FILE_NO,
-	 COURSE,
-	 BRANCH, 
-	 SEMESTER, 
-	 FEE_GENERATED 
-) values
-	       
-   (:FILE_NO,
-	:COURSE,
-	:BRANCH, 
-	:SEMESTER, 
-	:FEE_GENERATED 
-	)
+select :File_No,sd.Academic_Year,sd.Semester,fd.Fee_Head_Id,fd.Fee_Amount, :Created_By, :Updated_By, null, null, now(), now() from studentdetail sd join feeDetailmaster fd on sd.Semester=fd.Semester and sd.Course_Id=fd.Course
+
+and sd.Branch_Id=fd.Branch where sd.File_No=:File_No;
     ]]>
 
 	</entry>

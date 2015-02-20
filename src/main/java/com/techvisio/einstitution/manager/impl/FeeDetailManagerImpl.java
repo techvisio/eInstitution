@@ -5,14 +5,14 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.ConsultantDao;
-import com.techvisio.einstitution.db.FeeDetailDao;
+import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.FeeDetailManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
 public class FeeDetailManagerImpl implements FeeDetailManager{
 
-	FeeDetailDao feeDetailDao = ContextProvider.getContext().getBean(
-			FeeDetailDao.class);
+	FeeDao feeDetailDao = ContextProvider.getContext().getBean(
+			FeeDao.class);
 
 	
 	private static FeeDetailManagerImpl instance=null;

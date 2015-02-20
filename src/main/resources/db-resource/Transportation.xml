@@ -24,9 +24,6 @@ Select
 	Description,
 	Threshold,
 	Price,
-	Is_Active,
-	Allocation_Status
-
 
 from TransportMaster where Route_Code=:Route_Code;    
     ]]>
@@ -43,17 +40,12 @@ Insert into TransportMaster
 	Description,
 	Threshold,
 	Price,
-	Is_Active,
-	Allocation_Status
 	) values
 	
 	(:Route_Code,
 	:Description,
 	:Threshold,
 	:Price,
-	:Is_Active,
-	:Allocation_Status
-	
 	);
 
 
@@ -65,13 +57,11 @@ Insert into TransportMaster
     <![CDATA[
 
 Update TransportMaster set
-
+    
+    Route_Code=:Route_Code
     Description=:Description,
 	Threshold=:Threshold,
 	Price=:Price,
-	Is_Active=:Is_Active,
-	Allocation_Status=:Allocation_Status
-	 
 	
 	where Route_Code=:Route_Code;
 
@@ -91,13 +81,13 @@ Delete from TransportMaster where Route_Code=:Route_Code;
 	<entry key="getTransportReservationByFileNo">
     <![CDATA[
 
-select  
+select 
 
-   File_No,
-   Fee_Paid,
-   Route_Code
+    TM.Description, TM.Price, TR.Route_Code, TR.File_No,TR.Fee_Paid,TR.Allocation_Status,TR.Is_Active 
 
-from TransportReservation where File_No=:File_No;
+    from transportmaster TM join transportreservation TR on TM.Route_Code = TR.Route_Code 
+    
+    where TR.File_No=:File_No;
     ]]>
 
 	</entry>
@@ -110,11 +100,15 @@ Insert into TransportReservation
 
  (  File_No,
    Fee_Paid,
-   Route_Code)
+   Route_Code,
+   Allocation_Status,
+   Is_Active)
 
 values (:File_No,
    :Fee_Paid,
-   :Route_Code);
+   :Route_Code,
+   :Allocation_Status,
+   :Is_Active);
 
     ]]>
 
@@ -126,8 +120,11 @@ values (:File_No,
 Update TransportReservation set
 
   
+   File_No=:File_No,
    Fee_Paid=:Fee_Paid,
-   Route_Code=:Route_Code
+   Route_Code=:Route_Code,
+   Allocation_Status=:Allocation_Status,
+   Is_Active=:Is_Active
 
 where File_No=:File_No;
     ]]>

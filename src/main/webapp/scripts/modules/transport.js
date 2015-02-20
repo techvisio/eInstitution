@@ -24,10 +24,16 @@ transportModule.controller('transportController', ['$scope','transportService',f
 
 			}
 
+//			$scope.getReserveTransport = function(){
+//				
+//				transportService.getReservedTransport(fileNo)
+//				 .then(function(response)
+//				
+//			}
 			
                  $scope.reserveTransport = function(){
 				
-                	 transportService.reserveRoom($scope.transportReservation)
+                	 transportService.reserveTransport($scope.transportReservation)
 				     .then(function(data){
 					console.log('Transport Reservation callback');
 					console.log(data.responseBody);
@@ -44,7 +50,8 @@ transportModule.service('transportService', function($http, $q) {
 	// Return public API.
 	return ({
 		getAvailableTransport : getAvailableTransport,
-		reserveTransport : reserveTransport
+		reserveTransport : reserveTransport,
+		getReservedTransport : getReservedTransport
 	});
 
 	function getAvailableTransport() {
@@ -60,15 +67,30 @@ transportModule.service('transportService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 
 	}
+
+	function getReservedTransport(fileNo) {
+
+		var request = $http({
+			method : "get",
+			url : "transport/Reservation" + fileNo,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
+
 	
-	function reserveTransport(hostelReservation) {
+	function reserveTransport(transportReservation) {
 
 		 console.log('Transport reservation called in service');
 		 var request = $http({
 			 method : "post",
 			 url : "transport/Reservation",
 			 params : "",
-			 data : hostelReservation
+			 data : transportReservation
 
 		 });
 

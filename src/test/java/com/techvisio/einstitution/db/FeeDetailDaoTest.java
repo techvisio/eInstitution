@@ -18,7 +18,7 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 public class FeeDetailDaoTest {
 	
 	@Autowired
-	FeeDetailDao dao;
+	FeeDao dao;
 	
 	
 	//FeeDetail

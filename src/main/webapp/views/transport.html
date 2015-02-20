@@ -39,13 +39,11 @@
        </tr>
        <tr>
        <td>
-       <select ng-model="transportReservation.typeCode"
-		ng-options="object.typeCode as object.description for object in availableTransport"></select>
+       <select ng-model="transportReservation.routeCode"
+		ng-options="object.routeCode as object.description for object in availableTransport"></select>
        </td>
-       </tr>
-        <tr>
-       <td>
-       <input type="button"  value="reserve" ng-click="reserveRoom()"/>
+        <td>
+       <input type="button" class="button" value="Reserve" ng-click="reserveTransport()"/>
        </td>
        </tr>
              

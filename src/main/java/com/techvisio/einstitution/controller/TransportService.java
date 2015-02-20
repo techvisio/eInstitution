@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
@@ -69,13 +70,23 @@ public class TransportService {
 
 
 		@RequestMapping(value="/Reservation/{file_No}",method = RequestMethod.GET)
-		  public TransportReservation getTransportReservation(@PathVariable String fileNo) {  
+		  public ResponseEntity<Response> getTransportReservation(@PathVariable String fileNo) {  
 		
-			TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
-			TransportReservation transportReservation=workflowManager.getTransportReservationDtl(fileNo);
-			
-			return transportReservation;  
-		  }
+			Response response=new Response();
+			try
+			{
+			       TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
+			       TransportReservation transportReservation=workflowManager.getTransportReservationDtl(fileNo);
+				   response.setResponseBody(transportReservation);
+			       
+			}
+			catch(Exception e)
+			{
+		         	response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+      		}
+
 		@RequestMapping(value="/Reservation",method = RequestMethod.POST)
 		public ResponseEntity<Response> addTransporReservation(@RequestBody TransportReservation transportReservation) {  
 			

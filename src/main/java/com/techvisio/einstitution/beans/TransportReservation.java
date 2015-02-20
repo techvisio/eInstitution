@@ -7,7 +7,9 @@ public class TransportReservation {
 	private boolean feePaid;
     private boolean isActive;
     private String allocationStatus;
-	
+    private Float price;
+    private String description;
+    
     public String getFileNo() {
 		return fileNo;
 	}
@@ -32,11 +34,13 @@ public class TransportReservation {
 		this.feePaid = feePaid;
 	}
 
+
 	@Override
 	public String toString() {
 		return "TransportReservation [fileNo=" + fileNo + ", routeCode="
 				+ routeCode + ", feePaid=" + feePaid + ", isActive=" + isActive
-				+ ", allocationStatus=" + allocationStatus + "]";
+				+ ", allocationStatus=" + allocationStatus + ", price=" + price
+				+ ", description=" + description + "]";
 	}
 
 	public boolean isActive() {
@@ -53,6 +57,22 @@ public class TransportReservation {
 
 	public void setAllocationStatus(String allocationStatus) {
 		this.allocationStatus = allocationStatus;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }
