@@ -189,6 +189,10 @@ admissionModule
 			 }
 
 			 $scope.saveStudent = function(){
+				 if(!$scope.admissionForm.$valid){
+					 alert('Form is invalid');
+					 return;
+				 }
 				 console.log($scope.form.isEdit);
 				 if($scope.form.isEdit){
 					 $scope.updateStudent();
@@ -198,6 +202,7 @@ admissionModule
 					 $scope.addStudent();
 				 }
 			 }
+
 
 			 $scope.addStudent = function() {
 				 console.log('add student called');

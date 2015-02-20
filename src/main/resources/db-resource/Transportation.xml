@@ -83,7 +83,7 @@ Delete from TransportMaster where Route_Code=:Route_Code;
 
 select 
 
-    TM.Description, TM.Price, TR.Route_Code, TR.File_No,TR.Fee_Paid,TR.Allocation_Status,TR.Is_Active 
+    TM.Description, TM.Price, TR.Route_Code, TR.File_No, TR.Fee_Paid, TR.Allocation_Status,TR.Is_Active 
 
     from transportmaster TM join transportreservation TR on TM.Route_Code = TR.Route_Code 
     

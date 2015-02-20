@@ -16,8 +16,6 @@ import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.manager.HostelManager;
-import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 
@@ -146,7 +144,7 @@ public class HostelService {
 		Response response = new Response();
 		try
 		{
-		   HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
+		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		
 		   workflowManager.addHostelReservation(hostelReservation);
 		   HostelReservation updatedReservation=workflowManager.getHostelReservation(hostelReservation.getFileNo());

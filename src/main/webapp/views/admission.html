@@ -1,5 +1,5 @@
-
 <div ng-controller="admissionController" ng-init="init()">
+<form name="admissionForm" id="admissionForm">
 	<div class="side-mudule-submenu">
 		<a><div class="round-menu-div" ng-click="resetForm()">Create</div></a>
 		<a><div class="round-menu-div" ng-click="getStudent()">Search</div></a>
@@ -62,18 +62,18 @@
 							<td><input type="text" ng-model="student.academicYear"></td>
 							<td><span> Semester </span></td>
 							<td><select select ng-model="student.semester"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
 							</td>
 						</tr>
 
 						<tr>
 							<td><span> Course </span></td>
 							<td><select select ng-model="student.courseId"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select>
 							</td>
 							<td><span> Branch </span></td>
 							<td><select select ng-model="student.branchId"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.BRANCH"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"></select>
 							</td>
 						</tr>
 
@@ -108,7 +108,7 @@
 
 							<td><span> Category </span></td>
 							<td><select select ng-model="student.categoryId"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
 							</td>
 							<td><span> Blood Group </span></td>
 							<td><select select ng-model="student.bloodGroup"
@@ -155,9 +155,13 @@
 
 						<tr>
 							<td><span> Hostel Required </span></td>
-							<td><input type="checkbox" ng-model="student.hostel"></td>
+							<td><input type="checkbox" ng-model="student.hostel">
+							<img src="images/edit.jpg" class="inner-element" ng-click="showHostelModal('lg')">
+							</td>
 							<td><span> Transport Required </span></td>
-							<td><input type="checkbox" ng-model="student.transportation"></td>
+							<td><input type="checkbox" ng-model="student.transportation">
+							<img src="images/edit.jpg" class="inner-element" ng-click="showTransportModal('lg')">
+							</td>
 						</tr>
 
 
@@ -280,7 +284,7 @@
 						</tr>
 						<tr>
 							<td><select ng-model="object.qualificationId"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
 									<!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
 							</select></td>
 							<td><input type="Text" ng-model="object.university"></td>
@@ -298,7 +302,7 @@
 							ng-repeat="subject in object.qualificationSubDtl track by $index">
 							<td><span>Subject</span></td>
 							<td><select ng-model=subject.subjectId
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
 							<td><span>Marks Obtained</span></td>
 							<td><input type="Text" ng-model="subject.marksObtained"></td>
 							<td><span>Maximum Marks</span></td>
@@ -353,7 +357,7 @@
 
 							<tr ng-repeat="counselling in student.counsellingDtl">
 								<td><select ng-model="counselling.counsellingId"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
 								<td><input type="Text" ng-model="counselling.rollNo"></td>
 								<td><input type="Text" ng-model="counselling.rank"></td>
 								<td><input type="Text" ng-model="counselling.categoryRank"></td>
@@ -396,4 +400,5 @@
 
 		</div>
 	</div>
+	</form>
 </div>

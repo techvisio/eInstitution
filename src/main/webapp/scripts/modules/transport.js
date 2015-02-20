@@ -2,7 +2,8 @@ var transportModule = angular.module('transportModule', []);
 
 transportModule.controller('transportController', ['$scope','transportService',function($scope,transportService) {
 
-			
+			$scope.availableTransport = {};
+
 			$scope.transportReservation = {};
 			
 			$scope.getAvailableTransport = function() {
