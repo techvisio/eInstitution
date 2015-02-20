@@ -146,8 +146,8 @@ public class HostelService {
 		{
 		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		
-		   workflowManager.addHostelReservation(hostelReservation);
-		   HostelReservation updatedReservation=workflowManager.getHostelReservation(hostelReservation.getFileNo());
+		   String fileNo=workflowManager.addHostelReservation(hostelReservation);
+		   HostelReservation updatedReservation=workflowManager.getHostelReservation(fileNo);
 		   response.setResponseBody(updatedReservation);
 		}
 		catch(Exception e)

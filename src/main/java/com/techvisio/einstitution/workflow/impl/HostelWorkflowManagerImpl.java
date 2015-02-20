@@ -47,17 +47,19 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		return hostelManager.getHostelReservation(fileNo);
 	}
 
-	public void addHostelReservation(HostelReservation hostelReservation) {
-		
-		if(hostelReservation.getFileNo() == null ){
-		
+	public String addHostelReservation(HostelReservation hostelReservation) {
+		String fileNo=hostelReservation.getFileNo();
+		if(fileNo == null ){
 			StudentDetail newStudentDetail=new StudentDetail();
-			String fileNo=admissionManager.addStudentDtl(newStudentDetail);
-						
-			hostelReservation.setFileNo(fileNo);
+			fileNo=admissionManager.addStudentDtl(newStudentDetail);
 		}
 		
+		hostelReservation.setFileNo(fileNo);
 		hostelManager.addHostelReservation(hostelReservation);
+		
+		//TODO:call fee manager
+		
+		return fileNo;
 	
 	}
 

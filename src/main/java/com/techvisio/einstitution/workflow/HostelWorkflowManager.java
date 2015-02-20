@@ -19,7 +19,7 @@ public interface HostelWorkflowManager {
 
 	
 	public HostelReservation getHostelReservation(String fileNo);
-	public void addHostelReservation(HostelReservation hostelReservation);
+	public String addHostelReservation(HostelReservation hostelReservation);
 	public void updateHostelReservation(HostelReservation hostelReservation);
 	public void deleteHostelReservation(String fileNo);
 
