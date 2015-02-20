@@ -210,7 +210,7 @@ from  AcademicDetail where File_No=:File_No;
 
 	</entry>
 
-	<entry key="upsertAcademicDtl">
+	<entry key="addAcademicDtl">
     <![CDATA[
       
 Insert into AcademicDetail
@@ -230,27 +230,31 @@ Roll_No) values
 :College_Name,
 :Passing_Year,
 :Percentage,
-:Roll_No)
-
-on duplicate key update
- 
- File_No=:File_No,
- Qualification_Id=:Qualification_Id,
- University=:University, 
- College_Name=:College_Name, 
- Passing_Year=Passing_Year, 
- Percentage=:Percentage, 
- Roll_No=:Roll_No;
- 
+:Roll_No);   
     ]]>
 
 	</entry>
 
-	
+	<entry key="updateAcademicDtl">
+    <![CDATA[
+      
+Update AcademicDetail set
+
+ University=:University, 
+ College_Name=:College_Name, 
+ Passing_Year=:Passing_Year, 
+ Percentage=:Percentage, 
+ Roll_No=:Roll_No
+ 
+where File_No=:File_No;
+    ]]>
+
+	</entry>
+
 	<entry key="deleteAcademicDtl">
     <![CDATA[
       
-Delete from AcademicDetail where File_No=:File_No and Qualification_Id not in (:Qualification_Id);  
+Delete from AcademicDetail where File_No=:File_No;  
     ]]>
 
 	</entry>
@@ -275,7 +279,7 @@ from AddressDetail where File_No=:File_No;
 
 	</entry>
 
-	<entry key="upsertAddressDtl">
+	<entry key="addAddressDtl">
     <![CDATA[
       
 Insert into AddressDetail
@@ -298,12 +302,17 @@ State_Id) values
 :District,
 :City,
 :Pincode,
-:State_Id)
+:State_Id);
+   
+    ]]>
 
-on duplicate key update
+	</entry>
 
-File_No=:File_No,
-Address_Type=:Address_Type,
+	<entry key="updateAddressDtl">
+    <![CDATA[
+      
+Update AddressDetail set
+
 House_No=:House_No, 
 Locality=:Locality, 
 Landmark=:Landmark, 
@@ -311,8 +320,8 @@ District=:District,
 City=:City, 
 Pincode=:Pincode,
 State_Id=:State_Id
-
-   
+    
+where File_No=:File_No and Address_Type=:Address_Type;   
     ]]>
 
 	</entry>
@@ -320,7 +329,7 @@ State_Id=:State_Id
 	<entry key="deleteAddressDtl">
     <![CDATA[
       
-Delete from AddressDetail where File_No=:File_No and Address_Type not in(:Address_Type);  
+Delete from AddressDetail where File_No=:File_No;  
     ]]>
 
 	</entry>
@@ -341,7 +350,7 @@ from  AdmissionDiscountDtl where File_No=:File_No;
 
 	</entry>
 
-	<entry key="upsertAdmissionDisDtl">
+	<entry key="addAdmissionDisDtl">
     <![CDATA[
       
 Insert into AdmissionDiscountDtl
@@ -356,17 +365,22 @@ Discount_Type) values
 :FeeHead_Id,
 :Amount,
 :Percent,
-:Discount_Type)
+:Discount_Type);
+    
+    ]]>
 
-on duplicate key update
+	</entry>
 
-File_No=:File_No,
-FeeHead_Id=:FeeHead_Id,
+	<entry key="updateAdmissionDisDtl">
+    <![CDATA[
+      
+Update AdmissionDiscountDtl set
+
 Amount=:Amount,
 Percent=:Percent,
 Discount_Type=:Discount_Type 
-
-    
+     
+where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     ]]>
 
 	</entry>
@@ -374,7 +388,7 @@ Discount_Type=:Discount_Type
 	<entry key="deleteAdmissionDisDtl">
     <![CDATA[
       
-Delete from AdmissionDiscountDtl where File_No=:File_No and FeeHead_Id not in (:FeeHead_Id);  
+Delete from AdmissionDiscountDtl where File_No=:File_No;  
     ]]>
 
 	</entry>
@@ -395,7 +409,7 @@ from QualificationSubjectDtl where File_No=:File_No;
 
 	</entry>
 
-	<entry key="upsertQualificationSubjectDtl">
+	<entry key="addQualificationSubjectDtl">
     <![CDATA[
       
 Insert into QualificationSubjectDtl
@@ -410,25 +424,29 @@ Insert into QualificationSubjectDtl
 	:File_No, 
    :Qualification_Id, 
 	:Marks_Obtained, 
-	:Max_Marks)
-	
-	on duplicate key update
-	
-	Subject_Id=:Subject_Id, 
-	File_No=:File_No,
-	Qualification_Id=:Qualification_Id, 
-	Marks_Obtained=:Marks_Obtained, 
-	Max_Marks=:Max_Marks; 
-    
+	:Max_Marks); 
     ]]>
 
 	</entry>
 
-	
+	<entry key="updateQualificationSubjectDtl">
+    <![CDATA[
+      
+Update QualificationSubjectDtl set
+
+    Qualification_Id=:Qualification_Id, 
+	Marks_Obtained=:Marks_Obtained, 
+	Max_Marks=:Max_Marks 
+    
+where File_No=:File_No;    
+    ]]>
+
+	</entry>
+
 	<entry key="deleteQualificationSubjectDtl">
     <![CDATA[
       
-Delete from QualificationSubjectDtl where File_No=:File_No and Subject_Id not in (:Subject_Id); 
+Delete from QualificationSubjectDtl where File_No=:File_No; 
     ]]>
 
 	</entry>
@@ -447,7 +465,7 @@ Select
 
 	</entry>
 
-	<entry key="upsertBranchPreference">
+	<entry key="addBranchPreference">
     <![CDATA[
       
       Insert into BranchPreference
@@ -458,23 +476,29 @@ Select
 	 
 	 (:Branch_Preference_Id,
 	:File_No,
-	:Branch_Id)
-	
-	on duplicate key update 
-    
-    Branch_Preference_Id=:Branch_Preference_Id,
-	File_No=:File_No,
-	Branch_Id=:Branch_Id;
-	
+	:Branch_Id);
     ]]>
 
 	</entry>
 
-	
-	<entry key="deleteBranchPreference">
+	<entry key="updateBranchPreference">
     <![CDATA[
       
-      Delete from BranchPreference where File_No=:File_No and Branch_Preference_Id not in (:Branch_Preference_Id); 
+      Update BranchPreference
+
+	Branch_Preference_Id=:Branch_Preference_Id,
+	File_No=:File_No,
+	Branch_Id=:	Branch_Id
+	
+	where File_No=:File_No; 
+	 
+	     ]]>
+	</entry>
+
+	<entry key="DeleteBranchPreference">
+    <![CDATA[
+      
+      Delete BranchPreference where File_No=:File_No; 
 	 
 	     ]]>
 	</entry>
@@ -497,7 +521,7 @@ from counsellingDetail where File_No=:File_No;
 
 	</entry>
 	
-	<entry key="upsertCounsellingDetail">
+	<entry key="addCounsellingDetail">
     <![CDATA[
 
 insert into counsellingDetail
@@ -514,27 +538,35 @@ insert into counsellingDetail
        :Roll_No, 
        :Rank, 
        :Category_Rank, 
-       :Percentile)
-       
-       on duplicate key update
-       
-       File_No=:File_No, 
-       Counselling_Id=:Counselling_Id, 
-       Roll_No=:Roll_No, 
-       Rank=:Rank, 
-       Category_Rank=:Category_Rank, 
-       Percentile=:Percentile;
-       
+       :Percentile);
 
 
     ]]>
 
 	</entry>
 	
-	<entry key="deleteCounsellingDetail">
+	<entry key="updateCounsellingDetail">
     <![CDATA[
 
-delete from counsellingDetail where File_No=:File_No and Counselling_Id not in (:Counselling_Id);
+update counsellingDetail set
+      
+      File_No=:File_No, 
+      Counselling_Id=:Counselling_Id, 
+      Roll_No=:Roll_No, 
+      Rank=:Rank, 
+      Category_Rank=:Category_Rank, 
+      Percentile=:Percentile
+      
+where  File_No=:File_No;
+
+    ]]>
+
+	</entry>
+	
+		<entry key="deleteCounsellingDetail">
+    <![CDATA[
+
+delete from counsellingDetail where File_No=:File_No;
 
     ]]>
 

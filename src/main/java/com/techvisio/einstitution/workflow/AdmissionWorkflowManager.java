@@ -8,5 +8,6 @@ public interface AdmissionWorkflowManager {
 	public String updateStudentDetails(StudentDetail studentDetail);
 	public StudentDetail getStudentDetails(String fileNo);
 	public void deleteStudentDetails(String fileNo);
-	//public void updateWorkflowStatus(String fileNo)
+	//public void updateWorkflowStatus(String fileNo);
+	public void proceedToNextStep(String workFlow,String FileNo);
 }

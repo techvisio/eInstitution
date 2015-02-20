@@ -5,6 +5,165 @@
 
 <entry key="getStudentFeeStaging">
     <![CDATA[
+SELECT 
+	 FILE_NO,
+	 COURSE,
+	 BRANCH, 
+	 SEMESTER, 
+	 FEE_GENERATED 
+
+FROM studentfeestaging where FILE_NO=:FILE_NO;]]>
+
+	</entry>
+
+<entry key="addStudentFeeStaging">
+    <![CDATA[
+      
+insert into studentfeestaging (
+      File_No,
+      Academic_Year,
+      Semester,
+      FeeHead_Id,
+      Amount,
+      Created_By,
+      Updated_By,
+      Approved,
+      Fee_Generated,
+      Created_Date,
+      Modified_Date
+    
+)
+
+select sd.File_No ,sd.Academic_Year,sd.Semester,fd.Fee_Head_Id,fd.Fee_Amount, 
+:Created_By, :Updated_By ,null,null,  now(), now()  from studentdetail sd join feeDetailmaster fd on sd.Semester=fd.Semester and sd.Course_Id=fd.Course
+
+and sd.Branch_Id=fd.Branch where sd.File_No=:File_No;
+
+    ]]>
+
+	</entry>
+
+	<entry key="updateStudentFeeStaging">
+    <![CDATA[
+      
+Update studentfeestaging set
+ 
+	 FILE_NO=:FILE_NO,
+	 COURSE=:COURSE,
+	 BRANCH=:BRANCH, 
+	 SEMESTER=:SEMESTER, 
+	 FEE_GENERATED=:FEE_GENERATED       
+   
+where FILE_NO=:FILE_NO;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteStudentFeeStaging">
+    <![CDATA[
+      
+Delete from studentfeestaging where FILE_NO=:FILE_NO;
+    ]]>
+
+	</entry>
+	
+	
+<entry key="getFeeDetailMaster">
+    <![CDATA[
+SELECT 
+	COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT 
+FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER  ;]]>
+
+	</entry>
+
+	<entry key="addFeeDetailMaster">
+    <![CDATA[
+      
+Insert into feedetailmaster
+
+	(COURSE,
+	BRANCH,
+	SEMESTER,
+	FEE_HEAD_ID,
+	FEE_AMOUNT) values
+	       
+   (:COURSE,
+	:BRANCH,
+	:SEMESTER,
+	:FEE_HEAD_ID,
+	:FEE_AMOUNT)
+    ]]>
+
+	</entry>
+
+	<entry key="updateFeeDetailMaster">
+    <![CDATA[
+      
+Update feedetailmaster set
+ 
+	COURSE=:COURSE,
+	BRANCH=:BRANCH,
+	SEMESTER=:SEMESTER,
+	FEE_HEAD_ID=:FEE_HEAD_ID,
+	FEE_AMOUNT=:FEE_AMOUNT       
+   
+where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
+    ]]>
+
+	</entry>
+
+	<entry key="deleteFeeDetailMaster">
+    <![CDATA[
+      
+Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
+    ]]>
+
+	</entry>
+
+
+	
+<entry key="getFeeTransaction">
+    <![CDATA[
+SELECT 
+	  FEE_ID,
+	  DATE, 
+	  USER, 
+	  AMOUNT, 
+	  AMOUNT_TRANSACTION_TYPE, 
+	  File_no 
+
+FROM feetransaction where File_no=:File_no ;]]>
+
+	</entry>
+
+	<entry key="addFeeTransaction">
+    <![CDATA[
+      
+Insert into feetransaction
+
+	( FEE_ID,
+	  DATE, 
+	  USER, 
+	  AMOUNT, 
+	  AMOUNT_TRANSACTION_TYPE, 
+	  File_no ) values
+	       
+   (  :FEE_ID,
+	  :DATE, 
+	  :USER, 
+	  :AMOUNT, 
+	  :AMOUNT_TRANSACTION_TYPE, 
+	  :File_no )
+    ]]>
+
+	</entry>
+
+<entry key="getStudentFeeStaging">
+    <![CDATA[
 select 
      
       File_No,
@@ -168,7 +327,6 @@ Insert into feetransaction
 
 	</entry>
 
-	
 <entry key="getFeeDiscountHead">
     <![CDATA[
  

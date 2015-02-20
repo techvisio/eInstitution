@@ -6,89 +6,76 @@ import com.techvisio.einstitution.beans.HostelAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.StudentDetail;
-import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.HostelManager;
-import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
 import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 
 public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
-	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	HostelManager hostelManager=HostelManagerImpl.getInstance();
+	HostelManager manager=HostelManagerImpl.getInstance();
 	
 	public List<HostelAvailability> getHostelAvailability() {
-		return hostelManager.getHostelAvailability();
+		return manager.getHostelAvailability();
 	}
 
 	public HostelAllocation getHostelAllocation(String fileNo) {
 
-		return hostelManager.getHostelAllocation(fileNo);
+		return manager.getHostelAllocation(fileNo);
 	}
 
 	public void addHostelAllocation(HostelAllocation hostelAllocation) {
 
-		hostelManager.addHostelAllocation(hostelAllocation);
+		manager.addHostelAllocation(hostelAllocation);
 	}
 
 	public void updateHostelAllocation(HostelAllocation hostelAllocation) {
 
-		hostelManager.updateHostelAllocation(hostelAllocation);
+		manager.updateHostelAllocation(hostelAllocation);
 	}
 
 	public void deleteHostelAllocation(String fileNo) {
 
-		hostelManager.deleteHostelAllocation(fileNo);
+		manager.deleteHostelAllocation(fileNo);
 	}
 
 	public HostelReservation getHostelReservation(String fileNo) {
 
-		return hostelManager.getHostelReservation(fileNo);
+		return manager.getHostelReservation(fileNo);
 	}
 
 	public void addHostelReservation(HostelReservation hostelReservation) {
-		
-		if(hostelReservation.getFileNo() == null ){
-		
-			StudentDetail newStudentDetail=new StudentDetail();
-			String fileNo=admissionManager.addStudentDtl(newStudentDetail);
-						
-			hostelReservation.setFileNo(fileNo);
-		}
-		
-		hostelManager.addHostelReservation(hostelReservation);
-	
+
+		manager.addHostelReservation(hostelReservation);
 	}
 
 	public void updateHostelReservation(HostelReservation hostelReservation) {
 
-		hostelManager.updateHostelReservation(hostelReservation);
+		manager.updateHostelReservation(hostelReservation);
 	}
 
 	public void deleteHostelReservation(String fileNo) {
 
-		hostelManager.deleteHostelReservation(fileNo);
+		manager.deleteHostelReservation(fileNo);
 	}
 
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
 
-		return hostelManager.getRoomTypeDetail(typeCode);
+		return manager.getRoomTypeDetail(typeCode);
 	}
 
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 
-		hostelManager.addRoomTypeDetail(roomTypeDetail);
+		manager.addRoomTypeDetail(roomTypeDetail);
 	}
 
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 
-		hostelManager.updateRoomTypeDetail(roomTypeDetail);
+		manager.updateRoomTypeDetail(roomTypeDetail);
 	}
 
 	public void deleteRoomTypeDetail(String typeCode) {
 
-		hostelManager.deleteRoomTypeDetail(typeCode);
+		manager.deleteRoomTypeDetail(typeCode);
 	}
 
 }

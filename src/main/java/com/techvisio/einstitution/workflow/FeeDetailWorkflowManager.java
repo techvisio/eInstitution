@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.workflow;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -7,10 +9,10 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeDetailWorkflowManager {
 	
-	public FeeDetail getFeeDetail(Long feeDetailFeeHeadId,Long feeDetailCourse,Long feeDetailBranch );
+	public List<FeeDetail> getFeeDetail(Long course,Long branch, Integer semester );
 	public void addFeeDetail(FeeDetail feeDetail);
 	public void updateFeeDetail(FeeDetail feeDetail);
-	public void deleteFeeDetail(Long feeDetailFeeHeadId,Long feeDetailCourse,Long feeDetailBranch );
+	public void deleteFeeDetail(Long course,Long branch, Integer semester);
 	
 	public StudentFeeStaging getStudentFeeStaging(String studentFeeStaging);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);

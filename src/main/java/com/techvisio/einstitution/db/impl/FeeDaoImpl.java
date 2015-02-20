@@ -26,11 +26,11 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 	
 //	FeeDetail
-	public FeeDetail getFeeDetail(Long feeHeadId,Long course,Long branch) {
+	public List<FeeDetail> getFeeDetail(Long course, Long branch, Integer semester) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID", feeHeadId)
-											.addValue("BRANCH", branch).addValue("COURSE", course);
-		FeeDetail feeDetails = getNamedParamJdbcTemplate().queryForObject(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
+		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
+											.addValue("BRANCH", branch).addValue("SEMESTER", semester );
+		List<FeeDetail> feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
 
 			public FeeDetail mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
@@ -72,10 +72,10 @@ public void updateFeeDetail(FeeDetail feeDetail) {
 	}
 
 
-public void deleteFeeDetail(Long feeHeadId,Long course,Long branch) {
+public void deleteFeeDetail(Long course, Long branch, Integer semester) {
 		String deleteFeeDetailQuery=feeQueryProps.getProperty("deleteFeeDetailMaster");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID", feeHeadId)
-										.addValue("BRANCH", branch).addValue("COURSE", course);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
+										.addValue("BRANCH", branch).addValue("SEMESTER", semester);
 		
 		getNamedParamJdbcTemplate().update(deleteFeeDetailQuery, namedParameter);
 		
@@ -88,7 +88,6 @@ public StudentFeeStaging getStudentFeeStaging(String fileNo) {
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 		
 		List<StudentFeeStaging> feeStagings = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<StudentFeeStaging>(){
-
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
 				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
@@ -118,7 +117,7 @@ public StudentFeeStaging getStudentFeeStaging(String fileNo) {
 	
 public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		String addQuery = feeQueryProps.getProperty("addStudentFeeStaging");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", studentFeeStaging.getFileNo())
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
                                               .addValue("Created_By", studentFeeStaging.getCreatedBy())
                                               .addValue("Updated_By", studentFeeStaging.getUpdatedBy());
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);

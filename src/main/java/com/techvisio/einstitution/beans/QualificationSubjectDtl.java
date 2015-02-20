@@ -1,7 +1,5 @@
 package com.techvisio.einstitution.beans;
 
-import com.techvisio.einstitution.util.CommonUtil;
-
 public class QualificationSubjectDtl {
 
 	private Long subjectId;

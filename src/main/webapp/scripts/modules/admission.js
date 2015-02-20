@@ -72,8 +72,7 @@ admissionModule
 					 "fileNo" : null,
 					 "feeHeadId" : null,
 					 "amount" : 0.0,
-					 "percent" : 0.0,
-					 "discountType" : null   
+					 "percent" : 0.0
 			 };
 
 			 $scope.dummyCounsellingDtl = {
@@ -190,10 +189,6 @@ admissionModule
 			 }
 
 			 $scope.saveStudent = function(){
-				 if(!$scope.admissionForm.$valid){
-					 alert('Form is invalid');
-					 return;
-				 }
 				 console.log($scope.form.isEdit);
 				 if($scope.form.isEdit){
 					 $scope.updateStudent();
@@ -330,16 +325,6 @@ admissionModule
 					 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl))
 				 }
 
-				 for(var i=0; i<$scope.student.academicDtl.length; i++){
-					
-					if(angular.isUndefined($scope.student.academicDtl[i].qualificationSubDtl) ||$scope.student.academicDtl[i].qualificationSubDtl==null || $scope.student.academicDtl[i].qualificationSubDtl.length==0)
-					{
-				
-						$scope.student.academicDtl[i].qualificationSubDtl=[];
-						$scope.student.academicDtl[i].qualificationSubDtl.push(angular.copy($scope.dummyQualificationSubDtl))
-					}
-				} 
-				 
 			 }
 
 			 $scope.showTransportModal=function (size) {

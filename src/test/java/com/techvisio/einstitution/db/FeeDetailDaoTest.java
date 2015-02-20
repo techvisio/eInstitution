@@ -1,6 +1,8 @@
 
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testGetFeedetail(){
-		FeeDetail detail = dao.getFeeDetail(2L, 2L, 4L);
+		List<FeeDetail> detail = dao.getFeeDetail(2L, 2L, 4);
 		System.out.println("Data is :- "+detail);
 	}
 	
@@ -50,13 +52,12 @@ public class FeeDetailDaoTest {
 		detail.setFeeAmount(2000.12);
 		detail.setFeeHeadId(2L);
 		detail.setSemester(1);
-		
 		dao.updateFeeDetail(detail);
 	}
 	
 	@Test
 	public void testDeleteFeeDetail(){
-		dao.deleteFeeDetail(1L, 1L, 1L);
+		dao.deleteFeeDetail(1L, 1L, 1);
 	}
 	
 	
@@ -67,29 +68,27 @@ public class FeeDetailDaoTest {
 	
 	public void testAddStudentFeeStaging(){
 		StudentFeeStaging feeStaging = new StudentFeeStaging();
-		feeStaging.setBranch(1L);
-		feeStaging.setCourse(1L);
-		feeStaging.setFeeGenerated(false);
-		feeStaging.setFileNo("1");
-		feeStaging.setSemester(1);
+		//feeStaging.setBranch(1L);
+		//feeStaging.setCourse(1L);
+		feeStaging.setFileNo("122");
+		feeStaging.setCreatedBy("Anil");
 		
 		dao.addStudentFeeStaging(feeStaging);
 	}
 	
 	@Test
 	public void testGetStudentFeeStaging(){
-		StudentFeeStaging feeStaging = dao.getStudentFeeStaging("1");
+		StudentFeeStaging feeStaging = dao.getStudentFeeStaging("122");
+		
 		System.out.println("Data is :- "+feeStaging);
 	}
 	
 	@Test
 	public void testUpdateStudentFeeStaging(){
 		StudentFeeStaging feeStaging = new StudentFeeStaging();
-		feeStaging.setBranch(4L);
-		feeStaging.setCourse(2L);
-		feeStaging.setFeeGenerated(true);
+		//feeStaging.setBranch(4L);
+	//	feeStaging.setCourse(2L);
 		feeStaging.setFileNo("1");
-		feeStaging.setSemester(2);
 		
 		dao.updateStudentFeeStaging(feeStaging);
 	}

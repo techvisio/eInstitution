@@ -227,12 +227,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return consultants;
 	}
 
-/*COURSE,
-	BRANCH,
-	SEMESTER,
-	FEE_HEAD_ID,
-	FEE_AMOUNT
-*/
+
 	public List<FeeDetail> getFeeDetailMaster() {
 		String getFeeDetailQuery=masterQueryProps.getProperty("getFeeDetailMaster");
 		List<FeeDetail> feeDetails = new ArrayList<FeeDetail>();

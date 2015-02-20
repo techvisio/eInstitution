@@ -131,7 +131,6 @@ public class StudentDetail {
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
 	private List<CounsellingDetail> counsellingDtl=new ArrayList<CounsellingDetail>();
 	
-	private TransportReservation reservation;
     private Consultant consultant;
     private String quotaCode;
     private String referredBy;
@@ -144,6 +143,8 @@ public class StudentDetail {
 		this.admissionMode = admissionMode;
 	}
 
+	
+	
 	public List<StudentAcademicDetail> getAcademicDtl() {
 		return academicDtl;
 	}
@@ -167,6 +168,7 @@ public class StudentDetail {
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 		CommonUtil.propogateIdentifiertoAdmission(this);
+
 	}
 
 	public String getEnrollNo() {
@@ -480,14 +482,6 @@ public class StudentDetail {
 
 	public void setQuotaCode(String quotaCode) {
 		this.quotaCode = quotaCode;
-	}
-
-	public TransportReservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(TransportReservation reservation) {
-		this.reservation = reservation;
 	}
 	
 }

@@ -1,31 +1,32 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
-import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.db.FeeDao;
-import com.techvisio.einstitution.manager.FeeDetailManager;
+import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
-public class FeeDetailManagerImpl implements FeeDetailManager{
+public class FeeManagerImpl implements FeeManager{
 
 	FeeDao feeDetailDao = ContextProvider.getContext().getBean(
 			FeeDao.class);
 
 	
-	private static FeeDetailManagerImpl instance=null;
-	public static synchronized FeeDetailManagerImpl getInstance()
+	private static FeeManagerImpl instance=null;
+	public static synchronized FeeManagerImpl getInstance()
 	{
 		if(instance == null){
-			instance=new FeeDetailManagerImpl();
+			instance=new FeeManagerImpl();
 		}
 		
 		return instance;
 	}
 	
-	private FeeDetailManagerImpl() {
+	private FeeManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -52,10 +53,10 @@ public class FeeDetailManagerImpl implements FeeDetailManager{
 		feeDetailDao.deleteFeeDiscountHead(headId);
 	}
 
-	public FeeDetail getFeeDetail(Long FeeHeadId,Long Course,Long Branch) {
-		FeeDetail detail = null;
-		detail = feeDetailDao.getFeeDetail(FeeHeadId, Course, Branch);
-		return detail;
+	public List<FeeDetail> getFeeDetail(Long course,Long branch, Integer semester ) {
+		// details = null;
+		 List<FeeDetail> details =  feeDetailDao.getFeeDetail(course, branch, semester);
+		return details;
 	}
 
 	public void addFeeDetail(FeeDetail feeDetail) {
@@ -67,8 +68,8 @@ public class FeeDetailManagerImpl implements FeeDetailManager{
 		feeDetailDao.updateFeeDetail(feeDetail);
 	}
 
-	public void deleteFeeDetail(Long FeeHeadId,Long Course,Long Branch) {
-		feeDetailDao.deleteFeeDetail(FeeHeadId, Course, Branch);
+	public void deleteFeeDetail(Long course,Long branch, Integer semester ) {
+		feeDetailDao.deleteFeeDetail(course, branch, semester);
 	}
 
 	public StudentFeeStaging getStudentFeeStaging(String fileNo) {
@@ -97,6 +98,11 @@ public class FeeDetailManagerImpl implements FeeDetailManager{
 
 	public void addFeeTransaction(FeeTransaction feeTransaction) {
 		feeDetailDao.addFeeTransaction(feeTransaction);
+	}
+
+	public void createStagingFee(String fileNo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

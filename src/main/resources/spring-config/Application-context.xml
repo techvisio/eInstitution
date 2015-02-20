@@ -132,7 +132,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<property name="locations"
 		value="classpath:db-resource/FeeDetail.xml"></property>
 	</bean>
-	<bean id="feeDetailDaoImpl" class="com.techvisio.einstitution.db.impl.FeeDetailDaoImpl">
+	<bean id="feeDaoImpl" class="com.techvisio.einstitution.db.impl.FeeDaoImpl">
 		<property name="feeQueryProps" ref="feeQueryProps"></property>	
 	</bean>
 

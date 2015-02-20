@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 public class FeeDetail {
 private Long course;
 private Long branch;
-private int semester;
+private Integer semester;
 private Long feeHeadId;
 private Double feeAmount;
 
@@ -20,7 +20,12 @@ public Long getBranch() {
 public void setBranch(Long branch) {
 	this.branch = branch;
 }
-
+public Integer getSemester() {
+	return semester;
+}
+public void setSemester(Integer semester) {
+	this.semester = semester;
+}
 public Long getFeeHeadId() {
 	return feeHeadId;
 }
@@ -33,19 +38,12 @@ public Double getFeeAmount() {
 public void setFeeAmount(Double feeAmount) {
 	this.feeAmount = feeAmount;
 }
-public int getSemester() {
-	return semester;
-}
-public void setSemester(int semester) {
-	this.semester = semester;
-}
 @Override
 public String toString() {
 	return "FeeDetail [course=" + course + ", branch=" + branch + ", semester="
 			+ semester + ", feeHeadId=" + feeHeadId + ", feeAmount="
 			+ feeAmount + "]";
 }
-
 
 
 }
