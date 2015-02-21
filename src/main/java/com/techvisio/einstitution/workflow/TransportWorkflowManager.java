@@ -17,7 +17,7 @@ public List<AvailableTransport> getAvailableTransport();
 	public void deleteTransportAllocationDtl(String fileNo);
 
 	public TransportReservation getTransportReservationDtl(String fileNo);
-	public void addTransportReservationDtl(TransportReservation transportReservation);
+	public String addTransportReservationDtl(TransportReservation transportReservation);
 	public void updateTransportReservationDtl(TransportReservation transportReservation);
 	public void deleteTransportReservationDtl(String fileNo);
 

@@ -15,6 +15,7 @@ public interface AppConstants {
 	public static final String BLOODGROUP="BLOODGROUP";
 	public static final String CONSULTANT="CONSULTANT";
 	public static final Long HOSTEL_FEE_ID=9999L;
+	public static final Long TRANSPORT_FEE_ID=9998L;
 	
 	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,APPROVED,FEE_DEPOSITED,COMPLETE};
 	

@@ -8,12 +8,12 @@ transportModule.controller('transportController', ['$scope','transportService',f
 			
 			$scope.getAvailableTransport = function() {
 
-				transportService.getAvailableTransport().then(function(data) {
+				transportService.getAvailableTransport().then(function(response) {
 					console.log('Data received from service : ');
-					console.log(data);
-					if(data != null)
+					console.log(response);
+					if(response.data != null)
 						{
-						$scope.availableTransport=data;
+						$scope.availableTransport=response.data;
 						}
 					else
 						{
@@ -24,12 +24,32 @@ transportModule.controller('transportController', ['$scope','transportService',f
 
 			}
 
-//			$scope.getReserveTransport = function(){
-//				
-//				transportService.getReservedTransport(fileNo)
-//				 .then(function(response)
-//				
-//			}
+			$scope.getReservedTransport = function(){
+				
+				var fileNo=prompt("Enter File No", "");
+				
+				transportService.getReservedTransport(fileNo)
+		              .then(function(response){
+		              console.log('Data received from get service : ');
+			          console.log(response);
+			 if (response !=null && response.data != null && response.data.responseBody != null) {
+				 $scope.currentReservation = response.data.responseBody;
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+			}
+	
+			
+			$scope.cancelReservation = function(){
+				
+				transportService.cancelReservation(fileNo)
+				.then(function(response){
+			
+                  })
+               }
+
 			
                  $scope.reserveTransport = function(){
 				
@@ -51,11 +71,13 @@ transportModule.service('transportService', function($http, $q) {
 	return ({
 		getAvailableTransport : getAvailableTransport,
 		reserveTransport : reserveTransport,
+		cancelReservation : cancelReservation,
 		getReservedTransport : getReservedTransport
 	});
 
 	function getAvailableTransport() {
 
+		console.log('getAvailableTransport called in service');
 		var request = $http({
 			method : "get",
 			url : "transport/AvailableTransport",
@@ -70,9 +92,10 @@ transportModule.service('transportService', function($http, $q) {
 
 	function getReservedTransport(fileNo) {
 
+		console.log('getReservedTransport called in service');
 		var request = $http({
 			method : "get",
-			url : "transport/Reservation" + fileNo,
+			url : "transport/Reservation/"+fileNo,
 			params : {
 				action : "get"
 			}
@@ -98,6 +121,20 @@ transportModule.service('transportService', function($http, $q) {
 
 	 }
 
+	function cancelReservation(fileNo) {
+				var request = $http({
+					method : "delete",
+				url : "transport/Reservation" + fileNo,
+			params : {
+						action : "delete"
+					}
+				});
+		
+				return (request.then(handleSuccess, handleError));
+		
+			}
+
+	
 
 	function handleError(response) {
 		console.log('handle error');
@@ -122,7 +159,7 @@ transportModule.service('transportService', function($http, $q) {
 	function handleSuccess(response) {
 		console.log('handle success');
 		console.log(response);
-		return (response.data);
+		return (response);
 
 	}
 

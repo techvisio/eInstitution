@@ -45,13 +45,33 @@
         <td>
        <input type="button" class="button" value="Reserve" ng-click="reserveTransport()"/>
        </td>
+        <td>
+       <input type="button" class="button" value="Cancel" ng-click="getReservedTransport()"/>
+       </td>
        </tr>
              
       </table> 
    
-   
     </div>
+
+<div ng-show="currentReservation">
+<table>
+<tr>
+<td colspan=4>Current Reservation Status</span></td>
+</tr>
+<tr>
+<td><span>Route Code</span></td>
+<td><span>{{currentReservation.description}}->{{currentReservation.routeCode}}</span></td>
+<td><span>Price</span></td>
+<td><span>{{currentReservation.price}}</span></td>
+
+</tr>
+</table>
+</div>
+
+
    </div>
+
 
 
 </div>

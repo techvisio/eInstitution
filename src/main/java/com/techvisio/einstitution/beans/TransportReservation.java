@@ -7,7 +7,7 @@ public class TransportReservation {
 	private boolean feePaid;
     private boolean isActive;
     private String allocationStatus;
-    private Float price;
+    private Double price;
     private String description;
     
     public String getFileNo() {
@@ -59,11 +59,11 @@ public class TransportReservation {
 		this.allocationStatus = allocationStatus;
 	}
 
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

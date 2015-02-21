@@ -20,7 +20,9 @@ import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.manager.TransportManager;
 import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
+import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.TransportWorkflowManagerImpl;
 
 @RestController
@@ -69,7 +71,7 @@ public class TransportService {
 
 
 
-		@RequestMapping(value="/Reservation/{file_No}",method = RequestMethod.GET)
+		@RequestMapping(value="/Reservation/{fileNo}",method = RequestMethod.GET)
 		  public ResponseEntity<Response> getTransportReservation(@PathVariable String fileNo) {  
 		
 			Response response=new Response();
@@ -93,18 +95,19 @@ public class TransportService {
 			Response response = new Response();
 			try
 			{
-			    TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
-		     	workflowManager.addTransportReservationDtl(transportReservation);
-			    TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(transportReservation.getFileNo());
-			    response.setResponseBody(updatedReservation);
-	         }
-			  catch(Exception e)
-			{
-					e.printStackTrace();
-					response.setError(e.getLocalizedMessage());
+			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
+			
+			   String fileNo=workflowManager.addTransportReservationDtl(transportReservation);
+			   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
+			   response.setResponseBody(updatedReservation);
 			}
-				
-				 return new ResponseEntity<Response>(response,HttpStatus.OK);
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				response.setError(e.getLocalizedMessage());
+			}
+			
+			 return new ResponseEntity<Response>(response,HttpStatus.OK);
 		}
 		
 		@RequestMapping(value="/Reservation",method = RequestMethod.PUT)
@@ -112,7 +115,7 @@ public class TransportService {
 			TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
 			workflowManager.updateTransportReservationDtl(transportReservation);
 		}
-		@RequestMapping(value="/Reservation/{file_No}",method = RequestMethod.DELETE)
+		@RequestMapping(value="/Reservation/{fileNo}",method = RequestMethod.DELETE)
 		public void deleteTransportReservation(@PathVariable String fileNo ) {  
 			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
 			workflowManager.deleteTransportAllocationDtl(fileNo);

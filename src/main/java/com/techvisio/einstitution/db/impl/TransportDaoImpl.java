@@ -221,7 +221,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 								.getBoolean("Fee_Paid"));
 						transportReservation.setAllocationStatus(rs.getString("Allocation_Status"));
 						transportReservation.setActive(rs.getBoolean("Is_Active"));
-						transportReservation.setPrice(rs.getFloat("Price"));
+						transportReservation.setPrice(rs.getDouble("Price"));
 						transportReservation.setDescription(rs.getString("Description"));
 						
 						return transportReservation;
