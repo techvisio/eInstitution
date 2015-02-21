@@ -8,6 +8,8 @@ private	boolean feePaid ;
 private String	typeCode;
 private String allocationStatus;
 private boolean isActive;
+private Double price;
+private String description;
 public String getFileNo() {
 	return fileNo;
 }
@@ -38,6 +40,20 @@ public boolean isActive() {
 }
 public void setActive(boolean isActive) {
 	this.isActive = isActive;
+}
+
+
+public Double getPrice() {
+	return price;
+}
+public void setPrice(Double price) {
+	this.price = price;
+}
+public String getDescription() {
+	return description;
+}
+public void setDescription(String description) {
+	this.description = description;
 }
 @Override
 public String toString() {

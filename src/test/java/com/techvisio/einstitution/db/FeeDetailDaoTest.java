@@ -78,9 +78,9 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testGetStudentFeeStaging(){
-		StudentFeeStaging feeStaging = dao.getStudentFeeStaging("122");
-		
-		System.out.println("Data is :- "+feeStaging);
+//		StudentFeeStaging feeStaging = dao.getStudentFeeStaging("122");
+//		
+//		System.out.println("Data is :- "+feeStaging);
 	}
 	
 	@Test

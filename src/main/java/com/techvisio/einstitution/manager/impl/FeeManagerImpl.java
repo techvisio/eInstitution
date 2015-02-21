@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.FeeDetail;
@@ -72,8 +73,8 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.deleteFeeDetail(course, branch, semester);
 	}
 
-	public StudentFeeStaging getStudentFeeStaging(String fileNo) {
-		StudentFeeStaging feeStaging = null;
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
+		List<StudentFeeStaging> feeStaging = new ArrayList<StudentFeeStaging>();
 		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo);
 		return feeStaging;
 	}
@@ -100,9 +101,10 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.addFeeTransaction(feeTransaction);
 	}
 
-	public void createStagingFee(String fileNo) {
-		// TODO Auto-generated method stub
-		
+	public void generateStudentFeeStaging(String fileNo) {
+		StudentFeeStaging feeStaging=new StudentFeeStaging();
+		feeStaging.setFileNo(fileNo);
+		feeStaging.setCreatedBy("testUser");
 	}
 
 }

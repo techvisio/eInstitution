@@ -56,8 +56,8 @@ public class FeeDetailWorkflowManagerImpl implements FeeDetailWorkflowManager{
 		manager.deleteFeeDetail(course, branch, semester);
 	}
 
-	public StudentFeeStaging getStudentFeeStaging(String studentFeeStaging) {
-		StudentFeeStaging feeStaging = manager.getStudentFeeStaging(studentFeeStaging);
+	public List<StudentFeeStaging> getStudentFeeStaging(String studentFeeStaging) {
+		List<StudentFeeStaging> feeStaging = manager.getStudentFeeStaging(studentFeeStaging);
 		return feeStaging;
 	}
 

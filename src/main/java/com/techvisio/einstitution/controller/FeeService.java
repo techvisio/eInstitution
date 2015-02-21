@@ -57,9 +57,9 @@ public class FeeService {
 	
 //StudentFeeStaging	
 	@RequestMapping(value="/StudentFeeStaging/{fileNo}", method = RequestMethod.GET)
-	public StudentFeeStaging getStudentFeeStaging(@PathVariable String fileNo){
+	public List<StudentFeeStaging> getStudentFeeStaging(@PathVariable String fileNo){
 		FeeDetailWorkflowManager detailWorkflowManager = new FeeDetailWorkflowManagerImpl();
-		StudentFeeStaging feeStaging = detailWorkflowManager.getStudentFeeStaging(fileNo);
+		List<StudentFeeStaging> feeStaging = detailWorkflowManager.getStudentFeeStaging(fileNo);
 		return feeStaging;
 		
 	}

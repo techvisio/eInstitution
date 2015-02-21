@@ -214,6 +214,8 @@ List<HostelReservation> hostelReservations = getNamedParamJdbcTemplate().query(g
 		hostel.setTypeCode(rs.getString("Type_Code"));
 		hostel.setAllocationStatus(rs.getString("Allocation_Status"));
 		hostel.setActive(rs.getBoolean("Is_Active"));
+		hostel.setPrice(rs.getDouble("Price"));
+		hostel.setDescription(rs.getString("Description"));
 		
 		return hostel;
 	}

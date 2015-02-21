@@ -7,16 +7,21 @@ import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.AdmissionManager;
+import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.HostelManager;
 import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
+import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
+import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 
 public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
 	HostelManager hostelManager=HostelManagerImpl.getInstance();
+	FeeManager feeManager=FeeManagerImpl.getInstance();
 	
 	public List<HostelAvailability> getHostelAvailability() {
 		return hostelManager.getHostelAvailability();
@@ -49,15 +54,25 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 	public String addHostelReservation(HostelReservation hostelReservation) {
 		String fileNo=hostelReservation.getFileNo();
+		
+		//if file No is missing create student
 		if(fileNo == null ){
 			StudentDetail newStudentDetail=new StudentDetail();
 			fileNo=admissionManager.addStudentDtl(newStudentDetail);
 		}
 		
+		//reserve a hostel for student
 		hostelReservation.setFileNo(fileNo);
 		hostelManager.addHostelReservation(hostelReservation);
 		
-		//TODO:call fee manager
+		HostelReservation reservedObject=hostelManager.getHostelReservation(fileNo);
+		
+		//create a staging fee entry
+		StudentFeeStaging stagingFee=new StudentFeeStaging();
+		stagingFee.setFileNo(fileNo);
+		stagingFee.setFeeHeadId(AppConstants.HOSTEL_FEE_ID);
+		stagingFee.setAmount(reservedObject.getPrice());
+		feeManager.addStudentFeeStaging(stagingFee);
 		
 		return fileNo;
 	

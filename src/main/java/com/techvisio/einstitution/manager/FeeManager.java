@@ -15,7 +15,7 @@ public interface FeeManager {
 	public void deleteFeeDetail(Long course,Long branch, Integer semester );
 	
 	
-	public StudentFeeStaging getStudentFeeStaging(String fileNo);
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void deleteStudentFeeStaging(String fileNo);
@@ -28,6 +28,6 @@ public interface FeeManager {
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
 	
-	public void createStagingFee(String fileNo);
+	public void generateStudentFeeStaging(String fileNo);
 
 }
