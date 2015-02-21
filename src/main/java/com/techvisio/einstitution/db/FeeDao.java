@@ -15,7 +15,7 @@ public interface FeeDao {
 	public void deleteFeeDetail(Long course, Long branch, Integer semester );
 	
 	
-	public StudentFeeStaging getStudentFeeStaging(String fileNo);
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void deleteStudentFeeStaging(String fileNo);
@@ -28,6 +28,7 @@ public interface FeeDao {
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
+	void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	
 		
 }

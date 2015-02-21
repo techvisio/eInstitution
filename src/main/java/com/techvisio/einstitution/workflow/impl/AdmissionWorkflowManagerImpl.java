@@ -38,7 +38,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		if(workFlow !=null){
 			AdmissionWorkFlowStatus workFlowStatus=AdmissionWorkFlowStatus.valueOf(workFlow);
 			if(AdmissionWorkFlowStatus.FEE_NEGOTIATED.equals(workFlowStatus)){
-				feeManager.createStagingFee(fileNo);
+				feeManager.generateStudentFeeStaging(fileNo);
 			}
 		}		
 	}

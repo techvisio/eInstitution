@@ -19,17 +19,17 @@ import com.techvisio.einstitution.util.CommonUtil;
 public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	private Properties feeQueryProps;
-	
-	
+
+
 	public void setFeeQueryProps(Properties feeQueryProps) {
 		this.feeQueryProps = feeQueryProps;
 	}
-	
-//	FeeDetail
+
+
 	public List<FeeDetail> getFeeDetail(Long course, Long branch, Integer semester) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
-											.addValue("BRANCH", branch).addValue("SEMESTER", semester );
+		.addValue("BRANCH", branch).addValue("SEMESTER", semester );
 		List<FeeDetail> feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
 
 			public FeeDetail mapRow(ResultSet rs, int rowNum)
@@ -42,51 +42,51 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				detail.setSemester(rs.getInt("SEMESTER"));
 				return detail;
 			}
-			
+
 		});
-		
-		
+
+
 		return feeDetails;
-		
+
 	}
-	
-public void addFeeDetail(FeeDetail feeDetail) {
+
+	public void addFeeDetail(FeeDetail feeDetail) {
 		String addFeeDetailQuery=feeQueryProps.getProperty("addFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeHeadId())
-											.addValue("COURSE",feeDetail.getCourse())
-											.addValue("SEMESTER", feeDetail.getSemester())
-											.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
-											.addValue("BRANCH", feeDetail.getBranch());
+		.addValue("COURSE",feeDetail.getCourse())
+		.addValue("SEMESTER", feeDetail.getSemester())
+		.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
+		.addValue("BRANCH", feeDetail.getBranch());
 		getNamedParamJdbcTemplate().update(addFeeDetailQuery, namedParameter);
 	}
 
 
-public void updateFeeDetail(FeeDetail feeDetail) {
+	public void updateFeeDetail(FeeDetail feeDetail) {
 		String updateFeeDetailQuery=feeQueryProps.getProperty("updateFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeHeadId())
-											.addValue("COURSE",feeDetail.getCourse())
-											.addValue("SEMESTER", feeDetail.getSemester())
-											.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
-											.addValue("BRANCH", feeDetail.getBranch());
+		.addValue("COURSE",feeDetail.getCourse())
+		.addValue("SEMESTER", feeDetail.getSemester())
+		.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
+		.addValue("BRANCH", feeDetail.getBranch());
 		getNamedParamJdbcTemplate().update(updateFeeDetailQuery, namedParameter);
 	}
 
 
-public void deleteFeeDetail(Long course, Long branch, Integer semester) {
+	public void deleteFeeDetail(Long course, Long branch, Integer semester) {
 		String deleteFeeDetailQuery=feeQueryProps.getProperty("deleteFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
-										.addValue("BRANCH", branch).addValue("SEMESTER", semester);
-		
+		.addValue("BRANCH", branch).addValue("SEMESTER", semester);
+
 		getNamedParamJdbcTemplate().update(deleteFeeDetailQuery, namedParameter);
-		
+
 	}
 
-//	StudentFeeStaging
+	//	StudentFeeStaging
 
-public StudentFeeStaging getStudentFeeStaging(String fileNo) {
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
 		String getQuery = feeQueryProps.getProperty("getStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-		
+
 		List<StudentFeeStaging> feeStagings = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<StudentFeeStaging>(){
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
@@ -103,50 +103,52 @@ public StudentFeeStaging getStudentFeeStaging(String fileNo) {
 				feeStaging.setFeeHeadId(CommonUtil.getLongValue(rs.getLong("FeeHead_Id")));
 				return feeStaging;
 			}
-			
+
 		});
-		
-		StudentFeeStaging feeStaging = null;
-		if(feeStagings != null && feeStagings.size()>0){
-			feeStaging = feeStagings.get(0);
-			
-		}
-		return feeStaging;
+
+		return feeStagings;
 	}
 
-	
-public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		String addQuery = feeQueryProps.getProperty("addStudentFeeStaging");
+	public void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
+		String addQuery = feeQueryProps.getProperty("generateStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
-                                              .addValue("Created_By", studentFeeStaging.getCreatedBy())
-                                              .addValue("Updated_By", studentFeeStaging.getUpdatedBy());
+		.addValue("Created_By", studentFeeStaging.getCreatedBy());
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
-public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
+	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+		String addQuery = feeQueryProps.getProperty("addStudentFeeStaging");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
+		.addValue("Created_By", studentFeeStaging.getCreatedBy())
+		.addValue("FeeHead_Id", studentFeeStaging.getFeeHeadId())
+		.addValue("Amount", studentFeeStaging.getAmount());
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+	}
+
+	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		String updateQuery = feeQueryProps.getProperty("updateStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", studentFeeStaging.getFileNo())
-											.addValue("SEMESTER",studentFeeStaging.getSemester())
-											.addValue("FEE_GENERATED", studentFeeStaging.isFeeGenerated());
+		.addValue("SEMESTER",studentFeeStaging.getSemester())
+		.addValue("FEE_GENERATED", studentFeeStaging.isFeeGenerated());
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-		
+
 	}
 
 
-public void deleteStudentFeeStaging(String fileNo) {
+	public void deleteStudentFeeStaging(String fileNo) {
 		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
-		
+
 		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", fileNo);
-		
+
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
 
 
-//FeeTransaction
+	//FeeTransaction
 	public FeeTransaction getFeeTransaction(String fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransaction");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_no", fileNo);
-		
+
 		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new RowMapper<FeeTransaction>(){
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
@@ -159,9 +161,9 @@ public void deleteStudentFeeStaging(String fileNo) {
 				feeTransaction.setUser(rs.getString("USER"));
 				return feeTransaction;
 			}
-			
+
 		});
-		
+
 		FeeTransaction feeTransaction = null;
 		if(feeTransactions != null && feeTransactions.size()>0){
 			feeTransaction = feeTransactions.get(0);
@@ -170,23 +172,23 @@ public void deleteStudentFeeStaging(String fileNo) {
 	}
 
 
-public void addFeeTransaction(FeeTransaction feeTransaction) {
+	public void addFeeTransaction(FeeTransaction feeTransaction) {
 		String addQuery = feeQueryProps.getProperty("addFeeTransaction");
-		
+
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_no", feeTransaction.getFileNo())
-											.addValue("FEE_ID", feeTransaction.getFeeId())
-											.addValue("DATE", feeTransaction.getDate())
-											.addValue("USER", feeTransaction.getUser())
-											.addValue("AMOUNT", feeTransaction.getAmount())
-											.addValue("AMOUNT_TRANSACTION_TYPE", feeTransaction.getAmountTransactionType());
-	
+		.addValue("FEE_ID", feeTransaction.getFeeId())
+		.addValue("DATE", feeTransaction.getDate())
+		.addValue("USER", feeTransaction.getUser())
+		.addValue("AMOUNT", feeTransaction.getAmount())
+		.addValue("AMOUNT_TRANSACTION_TYPE", feeTransaction.getAmountTransactionType());
+
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-		
+
 	}
 
-//FeeDiscountHead
+	//FeeDiscountHead
 
-public FeeDiscountHead getfeeDiscountHead(Long headId) {
+	public FeeDiscountHead getfeeDiscountHead(Long headId) {
 
 		String getQuery = feeQueryProps.getProperty("getFeeDiscountHead");
 

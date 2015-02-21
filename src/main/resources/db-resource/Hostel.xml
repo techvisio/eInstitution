@@ -154,15 +154,15 @@ Delete from HostelInventory where Type_Code=:Type_Code;
       
 Select
 
-	File_No,
-	Fee_Paid,
-	Type_Code,
-	Allocation_Status,
-	Is_Active
-	
+	hr.File_No,
+	hr.Fee_Paid,
+	hr.Type_Code,
+	hr.Allocation_Status,
+	hr.Is_Active,
+    hi.Description,
+    hi.Price
 
-   
-from HostelReservation where File_No=:File_No;
+from HostelReservation hr join hostelinventory hi on hi.Type_Code = hr.Type_Code where File_No=:File_No;
     ]]>
 
 	</entry>
