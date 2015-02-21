@@ -8,9 +8,9 @@ import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
-import com.techvisio.einstitution.workflow.FeeDetailWorkflowManager;
+import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 
-public class FeeDetailWorkflowManagerImpl implements FeeDetailWorkflowManager{
+public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	
 	
 	FeeManager manager=FeeManagerImpl.getInstance();
