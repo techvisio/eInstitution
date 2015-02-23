@@ -1,6 +1,6 @@
 <div ng-controller="hostelController" ng-init="getHostelAvailability()">
 
-  <div class="module-container">
+  <div class="module-container" ng-init="getReservedHostel()">
       
       <div class="inventory-view">
       <div id="hostel" class="panel-div-modal">Available Hostel Detail</div>
@@ -46,7 +46,7 @@
        <input type="button"  class="button" value="Reserve" ng-click="reserveRoom()"/>
        </td>
        <td>
-       <input type="button"  class="button" value="Cancel" ng-click="getReservedHostel()"/>
+       <input type="button"  class="button" value="Cancel"/>
        </td>
       
        </tr>

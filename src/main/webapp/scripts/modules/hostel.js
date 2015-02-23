@@ -26,12 +26,13 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 			
 			
 			$scope.getReservedHostel = function(){
-				
-				var fileNo=prompt("Enter File No", "");
-				
+				var fileNo=$scope.student.fileNo;
+				console.log('Getting current hostel reservation for student : '+fileNo);
+				if(fileNo){				
+					
 				hostelService.getReservedHostel(fileNo)
 		              .then(function(response){
-		              console.log('getReservedHostel call back : ');
+		              console.log('Getting reserved hosetl in controller : ');
 			          console.log(response);
 			 if (response !=null && response.data != null && response.data.responseBody != null) {
 				 $scope.currentReservation = response.data.responseBody;
@@ -42,6 +43,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 		 })
 			}
 	
+			}
 			
 			$scope.cancelReservation = function(){
 				

@@ -370,6 +370,7 @@ admissionModule
 						    var modalInstance = $modal.open({
 						      templateUrl: 'views/hostel.html',
 						      controller: 'hostelController',
+						      scope:$scope,
 						      size: size,
 						      resolve: {
 						        items: function () {
