@@ -14,12 +14,12 @@ public interface FeeWorkflowManager {
 	public void updateFeeDetail(FeeDetail feeDetail);
 	public void deleteFeeDetail(Long course,Long branch, Integer semester);
 	
-	public List<StudentFeeStaging> getStudentFeeStaging(String studentFeeStaging);
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
-	public void deleteStudentFeeStaging(String studentFeeStaging);
+	public void deleteStudentFeeStaging(String fileNo);
 
-	public FeeTransaction getFeeTransaction(String feeTransaction);
+	public FeeTransaction getFeeTransaction(String fileNo);
 	public void addFeeTransaction(FeeTransaction feeTransaction);
 
 	public FeeDiscountHead getfeeDiscountHead(Long headId);

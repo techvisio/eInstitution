@@ -56,8 +56,8 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		manager.deleteFeeDetail(course, branch, semester);
 	}
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String studentFeeStaging) {
-		List<StudentFeeStaging> feeStaging = manager.getStudentFeeStaging(studentFeeStaging);
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
+		List<StudentFeeStaging> feeStaging = manager.getStudentFeeStaging(fileNo);
 		return feeStaging;
 	}
 
@@ -70,12 +70,12 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		manager.updateStudentFeeStaging(studentFeeStaging);
 	}
 
-	public void deleteStudentFeeStaging(String studentFeeStaging) {
-		manager.deleteStudentFeeStaging(studentFeeStaging);
+	public void deleteStudentFeeStaging(String fileNo) {
+		manager.deleteStudentFeeStaging(fileNo);
 	}
 
-	public FeeTransaction getFeeTransaction(String feeTransaction) {
-		FeeTransaction transaction = manager.getFeeTransaction(feeTransaction);
+	public FeeTransaction getFeeTransaction(String fileNo) {
+		FeeTransaction transaction = manager.getFeeTransaction(fileNo);
 		return transaction;
 	}
 
