@@ -1,6 +1,6 @@
 <div ng-controller="transportController" ng-init="getAvailableTransport()">
 
-   <div class="module-container">      
+   <div class="module-container" ng-init="getReservedTransport()">      
       <div class="inventory-view">
       
      <div id="transport" class="panel-div-modal">Available Transports Detail</div>
@@ -46,7 +46,7 @@
        <input type="button" class="button" value="Reserve" ng-click="reserveTransport()"/>
        </td>
         <td>
-       <input type="button" class="button" value="Cancel" ng-click="getReservedTransport()"/>
+       <input type="button" class="button" value="Cancel"/>
        </td>
        </tr>
              
@@ -54,17 +54,20 @@
    
     </div>
 
-<div ng-show="currentReservation">
+<div class="six-column-view">
 <table>
 <tr>
-<td colspan=4>Current Reservation Status</span></td>
+<div class="panel-div-modal">Current Reservation Status</div>
 </tr>
 <tr>
-<td><span>Route Code</span></td>
-<td><span>{{currentReservation.description}}->{{currentReservation.routeCode}}</span></td>
-<td><span>Price</span></td>
-<td><span>{{currentReservation.price}}</span></td>
+<td><strong>Route Code</strong></td>
+<td><span>{{currentReservation.routeCode}}</span></td>
 
+<td><strong>Description</strong></td>
+<td><span>{{currentReservation.description}}</span></td>
+
+<td><strong>Price</strong></td>
+<td><span>{{currentReservation.price}}</span></td>
 </tr>
 </table>
 </div>

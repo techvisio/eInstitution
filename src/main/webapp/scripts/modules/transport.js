@@ -25,9 +25,9 @@ transportModule.controller('transportController', ['$scope','transportService',f
 			}
 
 			$scope.getReservedTransport = function(){
-				
-				var fileNo=prompt("Enter File No", "");
-				
+				var fileNo=$scope.student.fileNo;
+				console.log('Getting current transport reservation for student : '+fileNo);
+				if(fileNo){				
 				transportService.getReservedTransport(fileNo)
 		              .then(function(response){
 		              console.log('Data received from get service : ');
@@ -40,6 +40,7 @@ transportModule.controller('transportController', ['$scope','transportService',f
 			 }
 		 })
 			}
+				}
 	
 			
 			$scope.cancelReservation = function(){
