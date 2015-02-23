@@ -71,13 +71,13 @@ public class CommonUtil {
 			for(QualificationSubjectDtl qualificationSubjectDtl:academicDetail.getQualificationSubDtl()){
 				
 				qualificationSubjectDtl.setFileNo(fileNo);
+				qualificationSubjectDtl.setQualificationId(academicDetail.getQualificationId());
 			}
 		}
 		
-		
-		
 	}
 
+	
 	
 	public static void convertJavatoJSON(Object bean){
 
