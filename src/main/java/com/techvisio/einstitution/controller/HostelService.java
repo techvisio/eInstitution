@@ -130,11 +130,22 @@ public class HostelService {
 	
 	
 	@RequestMapping(value ="/HostelReservation/{fileNo}", method = RequestMethod.GET)
-	public HostelReservation getHostelReservation(@PathVariable String fileNo){
+	public ResponseEntity<Response> getHostelReservation(@PathVariable String fileNo){
+		
+		Response response=new Response();
+		try
+		{
+		
 		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		HostelReservation hostelReservation = workflowManager.getHostelReservation(fileNo);
+		response.setResponseBody(hostelReservation);
+		}
+		catch(Exception e)
+		{
+			response.setError(e.getMessage());
+		}
 		
-		return hostelReservation;
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 		
 		}
 

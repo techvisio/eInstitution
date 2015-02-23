@@ -46,14 +46,33 @@
        <input type="button"  class="button" value="Reserve" ng-click="reserveRoom()"/>
        </td>
        <td>
-       <input type="button"  class="button" value="Cancel" ng-click=""/>
+       <input type="button"  class="button" value="Cancel" ng-click="getReservedHostel()"/>
        </td>
       
        </tr>
              
       </table> 
-   
     </div>
+
+<div ng-show="currentReservation" class="six-column-view">
+<table>
+<tr>
+	<div class="panel-div-modal">Current Reservation Status</div>
+</tr>
+<tr>
+<td><strong>Type Code</strong></td>
+<td><span>{{currentReservation.typeCode}}</span></td>
+
+<td><strong>Description</strong></td>
+<td><span>{{currentReservation.description}}</span></td>
+
+<td><strong>Price</strong></td>
+<td><span>{{currentReservation.price}}</span></td>
+</tr>
+</table>
+</div>
+
+
    </div>
 
 

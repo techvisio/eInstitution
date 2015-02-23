@@ -348,6 +348,7 @@ admissionModule
 				    var modalInstance = $modal.open({
 				      templateUrl: 'views/transport.html',
 				      controller: 'transportController',
+				      scope:$scope,
 				      size: size,
 				      resolve: {
 				        items: function () {

@@ -12,17 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
-import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
-import com.techvisio.einstitution.manager.TransportManager;
-import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
-import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
-import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.TransportWorkflowManagerImpl;
 
 @RestController

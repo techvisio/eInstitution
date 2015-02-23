@@ -8,21 +8,49 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
             
 			$scope.getHostelAvailability = function() {
 
-				hostelService.getHostelAvailability().then(function(data) {
-					console.log('Data received from service : ');
-					console.log(data);
-					if(data != null)
+				hostelService.getHostelAvailability().then(function(response) {
+					console.log('getHostelAvailability call back : ');
+					console.log(response);
+					if(response.data != null)
 						{
-						$scope.hostelAvailability=data;
+						$scope.hostelAvailability=response.data;
 						}
 					else
 						{
-						console.log('Error getting transport inventory:'+data.error);
-						alert('Error getting transport inventory:'+data.error);
+						console.log('Error getting hostel inventory:'+data.error);
+						alert('Error getting hostel inventory:'+data.error);
 						}
 				})
 
 			}
+			
+			
+			$scope.getReservedHostel = function(){
+				
+				var fileNo=prompt("Enter File No", "");
+				
+				hostelService.getReservedHostel(fileNo)
+		              .then(function(response){
+		              console.log('getReservedHostel call back : ');
+			          console.log(response);
+			 if (response !=null && response.data != null && response.data.responseBody != null) {
+				 $scope.currentReservation = response.data.responseBody;
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+			}
+	
+			
+			$scope.cancelReservation = function(){
+				
+				transportService.cancelReservation(fileNo)
+				.then(function(response){
+			
+                  })
+               }
+			
 			
 			$scope.reserveRoom = function(){
 				
@@ -43,15 +71,32 @@ hostelModule.service('hostelService', function($http, $q) {
 	// Return public API.
 	return ({
 		getHostelAvailability : getHostelAvailability,
-		reserveRoom : reserveRoom
+		reserveRoom : reserveRoom,
+		getReservedHostel : getReservedHostel
 		
 	});
 
 	function getHostelAvailability() {
 
+		console.log('getHostelAvailability called in service');
 		var request = $http({
 			method : "get",
 			url : "Hostel/HostelAvailability",
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
+
+	function getReservedHostel(fileNo) {
+
+		console.log('getReservedHostel called in service');
+		var request = $http({
+			method : "get",
+			url : "Hostel/HostelReservation/" + fileNo,
 			params : {
 				action : "get"
 			}
@@ -101,7 +146,7 @@ hostelModule.service('hostelService', function($http, $q) {
 	function handleSuccess(response) {
 		console.log('handle success');
 		console.log(response);
-		return (response.data);
+		return (response);
 
 	}
 
