@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -135,14 +136,30 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 
-	public void deleteStudentFeeStaging(String fileNo) {
+	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+		
+		List<Long> feeHeadIds = new ArrayList<Long>();
+		String fileNo = null;
+		
+		if(studentFeeStagings != null){
+			for(StudentFeeStaging studentFeeStaging: studentFeeStagings){
+				feeHeadIds.add(studentFeeStaging.getFeeHeadId());
+				fileNo = studentFeeStaging.getFileNo();
+			}
+		if(feeHeadIds.size()==0){
+			
+			  feeHeadIds.add(-1L);
+		     }
+		
 		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", fileNo);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", fileNo)
+											.addValue("FeeHead_Id", feeHeadIds);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
 
+	}
 
 	//FeeTransaction
 	public FeeTransaction getFeeTransaction(String fileNo) {

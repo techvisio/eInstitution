@@ -87,8 +87,8 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.updateStudentFeeStaging(studentFeeStaging);
 	}
 
-	public void deleteStudentFeeStaging(String fileNo) {
-		feeDetailDao.deleteStudentFeeStaging(fileNo);
+	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+		feeDetailDao.deleteStudentFeeStaging(studentFeeStagings);
 	}
 
 	public FeeTransaction getFeeTransaction(String fileNo) {

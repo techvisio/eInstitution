@@ -79,9 +79,9 @@ public class FeeService {
 	
 	
 	@RequestMapping(value="/StudentFeeStaging/{fileNo}", method = RequestMethod.DELETE)
-	public void deleteStudentFeeStaging(@PathVariable String fileNo){
+	public void deleteStudentFeeStaging(@PathVariable List<StudentFeeStaging> studentFeeStagings){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.deleteStudentFeeStaging(fileNo);
+		detailWorkflowManager.deleteStudentFeeStaging(studentFeeStagings);
 	}
 
 

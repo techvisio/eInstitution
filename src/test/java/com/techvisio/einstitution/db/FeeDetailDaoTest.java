@@ -116,7 +116,7 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testDeleteStudentFeeStaging(){
-		dao.deleteStudentFeeStaging("1");
+		//dao.deleteStudentFeeStaging("1");
 	}
 
 

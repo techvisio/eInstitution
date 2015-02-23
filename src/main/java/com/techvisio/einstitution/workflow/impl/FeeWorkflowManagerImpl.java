@@ -70,8 +70,8 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		manager.updateStudentFeeStaging(studentFeeStaging);
 	}
 
-	public void deleteStudentFeeStaging(String fileNo) {
-		manager.deleteStudentFeeStaging(fileNo);
+	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+		manager.deleteStudentFeeStaging(studentFeeStagings);
 	}
 
 	public FeeTransaction getFeeTransaction(String fileNo) {
