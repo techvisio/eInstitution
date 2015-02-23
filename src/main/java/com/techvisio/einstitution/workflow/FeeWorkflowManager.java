@@ -14,7 +14,7 @@ public interface FeeWorkflowManager {
 	public void updateFeeDetail(FeeDetail feeDetail);
 	public void deleteFeeDetail(Long course,Long branch, Integer semester);
 	
-	public StudentFeeStaging getStudentFeeStaging(String studentFeeStaging);
+	public List<StudentFeeStaging> getStudentFeeStaging(String studentFeeStaging);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void deleteStudentFeeStaging(String studentFeeStaging);
