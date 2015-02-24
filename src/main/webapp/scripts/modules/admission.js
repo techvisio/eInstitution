@@ -15,7 +15,8 @@ admissionModule
 		 	$scope.form = {};
 		 	$scope.form.sameAsAbove=false;
 			 $scope.form.processing=false;
-			 $scope.form.isEdit=false;
+			 $scope.form.isEdit=true;
+			 $scope.form.isNew=true;
 			 $scope.serverModelData = {};
 
 			 $scope.student = {};
@@ -195,13 +196,15 @@ admissionModule
 					 return;
 				 }
 				 console.log($scope.form.isEdit);
-				 if($scope.form.isEdit){
+				 if(!$scope.form.isNew){
 					 $scope.updateStudent();
 				 }
 				 else
 				 {
 					 $scope.addStudent();
 				 }
+			 
+			 
 			 }
 
 
@@ -216,7 +219,8 @@ admissionModule
 					 if (response != null && response.data != null && response.data.responseBody != null) {
 						 $scope.populateMissingData(response.data.responseBody);
 						 $scope.student = response.data.responseBody;
-						 $scope.form.isEdit=true;
+						 $scope.form.isNew=false;
+						 $scope.form.isEdit=false;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -238,7 +242,8 @@ admissionModule
 					 if (response != null && response.data != null && response.data.responseBody != null) {
 						 $scope.populateMissingData(response.data.responseBody);
 						 $scope.student = response.data.responseBody;
-						 $scope.form.isEdit=true;
+						 $scope.form.isNew=false;
+						 $scope.form.isEdit=false;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -255,7 +260,6 @@ admissionModule
 					 return;
 				 }
 				 $scope.processing=true;
-
 				 admissionService.getStudent(fileNo)
 				 .then(function(response) {
 					 console.log('Data received from service : ');
@@ -263,7 +267,9 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student = response.data.responseBody;
 						 $scope.populateMissingData($scope.student);
-						 $scope.form.isEdit=true;
+						 $scope.form.isNew=false;
+						 $scope.form.isEdit=false;
+						 
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -294,8 +300,10 @@ admissionModule
 
 			 $scope.resetForm = function(){
 
+				 console.log("calling reset.....")
 				 $scope.form.processing=false;
-				 $scope.form.isEdit=false;
+				 $scope.form.isNew=true;
+				 $scope.form.isEdit=true;
 				 $scope.student = {};
 				 $scope.student.addressDtl = [];
 				 
@@ -344,7 +352,12 @@ admissionModule
 			 }
 
 			 $scope.showTransportModal=function (size) {
-
+ 
+				  var fileNo=$scope.student.fileNo;
+				  if(!fileNo){
+					  
+					  return;
+				  }
 				    var modalInstance = $modal.open({
 				      templateUrl: 'views/transport.html',
 				      controller: 'transportController',
@@ -367,6 +380,11 @@ admissionModule
 				  
 					 $scope.showHostelModal=function (size) {
 
+						 var fileNo=$scope.student.fileNo;
+						  if(!fileNo){
+							  
+							  return;
+						  }
 						    var modalInstance = $modal.open({
 						      templateUrl: 'views/hostel.html',
 						      controller: 'hostelController',

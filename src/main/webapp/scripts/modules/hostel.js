@@ -7,7 +7,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 			$scope.hostelReservation={};
             
 			$scope.getHostelAvailability = function() {
-
+ 
 				hostelService.getHostelAvailability().then(function(response) {
 					console.log('getHostelAvailability call back : ');
 					console.log(response);

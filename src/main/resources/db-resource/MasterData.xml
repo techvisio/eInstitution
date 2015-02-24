@@ -15,7 +15,7 @@
    Discount_Type,
    Refund_Type
 
-from feeDiscountHead  ;
+from feeDiscountHeadMaster;
 ]]>	
 	</entry>
 
