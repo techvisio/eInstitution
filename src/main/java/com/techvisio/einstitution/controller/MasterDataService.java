@@ -102,6 +102,10 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> consultant=cacheManager.getConsultantAsMasterdata();
 	serverData.put(AppConstants.CONSULTANT, consultant);
 	
+	List<MasterDataBean> feeDiscount=cacheManager.getFeeDiscountAsMasterdata();
+	serverData.put(AppConstants.FEEHEAD, feeDiscount);
+	
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

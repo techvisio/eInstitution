@@ -91,9 +91,9 @@
 							<td>
 
 								<li><input type="radio" ng-model="student.gender"
-									name="gender" value='M' ng-Readonly="!form.isEdit && !form.isNew"/><span>Male</span></li>
+									name="gender" value='M' ng-disabled="!form.isEdit && !form.isNew"/><span>Male</span></li>
 								<li><input type="radio" ng-model="student.gender"
-									name="gender" value='F' ng-Readonly="!form.isEdit && !form.isNew"/><span>Female</span></li>
+									name="gender" value='F' ng-disabled="!form.isEdit && !form.isNew"/><span>Female</span></li>
 
 							</td>
 						</tr>
@@ -324,15 +324,15 @@
 						<tr ng-repeat="discount in student.discountDtl">
 							<th><span>Feehead</span></th>
 							<td><select ng-model="discount.feeHeadId" ng-disabled="!form.isEdit && !form.isNew"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD"></select>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD"></select>
 							</td>
 							<th><span>Discount Type</span></th>
 							<td><select ng-model="object.type" ng-disabled="!form.isEdit && !form.isNew"
-								ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.DISCOUNTTYPE"></select></td>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.DISCOUNTTYPE"></select></td>
 							<th><span>Amount</span></th>
-							<td><input type="Text" ng-model="discount.amount" ng-Readonly="!form.isEdit && !form.isNew"></td>
+							<td><input type="Text" ng-model="discount.amount" ng-Readonly="!form.isEdit && !form.isNew"  ng-blur="checkAmout($index,'amount')"></td>
 							<th><span>Percent</span></th>
-							<td><input type="Text" ng-model="discount.percent" ng-Readonly="!form.isEdit && !form.isNew"></td>
+							<td><input type="Text" ng-model="discount.percent" ng-Readonly="!form.isEdit && !form.isNew" ng-blur="checkAmout($index,'percent')"></td>
 							<td><img height="35" width="35" ng-src="images/plus.png"
 								ng-click="addDiscountDtl()" /></td>
 							<td><img height="35" width="35" ng-src="images/minus.png"
@@ -380,7 +380,7 @@
 							<tr>
 								<th><span>Consultant Name</span></th>
 								<td><select ng-model="student.consultant.consultantId" ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
 							</tr>
 						</table>
 					</div>

@@ -46,7 +46,7 @@
        <input type="button" class="button" value="Reserve" ng-click="reserveTransport()"/>
        </td>
         <td>
-       <input type="button" class="button" value="Cancel"/>
+       <input type="button" class="button" value="Cancel" ng-click="cancelReservation()"/>
        </td>
        </tr>
              
@@ -54,7 +54,7 @@
    
     </div>
 
-<div ng-show="currentReservation" class="six-column-view">
+<div ng-show="currentReservation.fileNo" class="six-column-view">
 <table>
 <tr>
 <div class="panel-div-modal">Current Reservation Status</div>

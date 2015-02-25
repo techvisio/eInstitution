@@ -87,6 +87,23 @@ admissionModule
 			 };
 
 
+			 $scope.checkAmout=function(index,type){
+				 if(type=='amount'){
+					 if($scope.student.discountDtl[index].amount>0){
+						 $scope.student.discountDtl[index].percent=0;
+					 }
+				 }
+				 else
+					 {
+					 if($scope.student.discountDtl[index].percent>0){
+						 $scope.student.discountDtl[index].amount=0;
+					 }
+					 }
+				 
+			 }
+				 
+			 
+			 
 			 $scope.init=function(){
 
 				 console.log('getting masterdata for admission module in init block');
@@ -354,10 +371,11 @@ admissionModule
 			 $scope.showTransportModal=function (size) {
  
 				  var fileNo=$scope.student.fileNo;
-				  if(!fileNo){
-					  
+				  if($scope.form.isNew){
+					  alert("Please save record before reserving transport");
 					  return;
 				  }
+				  
 				    var modalInstance = $modal.open({
 				      templateUrl: 'views/transport.html',
 				      controller: 'transportController',

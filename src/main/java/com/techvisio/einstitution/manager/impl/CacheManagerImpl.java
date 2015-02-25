@@ -12,7 +12,7 @@ import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.FeeHead;
+import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
@@ -205,7 +205,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public synchronized  List<Subject> getsSubjects() {
+	public synchronized  List<Subject> getSubjects() {
 		if(cacheMap.get(AppConstants.SUBJECT) == null){
 			List<Subject> subjectes=null;
 			subjectes=cacheDao.getSubject();
@@ -218,7 +218,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	public List<MasterDataBean> getSubjectAsMasterdata(){
      	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-		for(Subject subject : getsSubjects()){
+		for(Subject subject : getSubjects()){
 			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
 			masterData.add(bean);
 		}
@@ -226,4 +226,26 @@ public class CacheManagerImpl implements CacheManager {
 	}	
 
 
+	@SuppressWarnings("unchecked")
+	public synchronized  List<FeeDiscountHead> getsFeeDiscounts() {
+		if(cacheMap.get(AppConstants.FEEHEAD) == null){
+			List<FeeDiscountHead> feeDiscountHeads=null;
+			feeDiscountHeads=cacheDao.getFeeDiscountHeadMaster();
+			cacheMap.put(AppConstants.FEEHEAD, feeDiscountHeads);
+		}
+		
+		return (List<FeeDiscountHead>)cacheMap.get(AppConstants.FEEHEAD);
+	}
+	
+	
+	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
+     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		for(FeeDiscountHead feeDiscountHead : getsFeeDiscounts()){
+			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead());
+			masterData.add(bean);
+		}
+		return masterData;
+	}	
+
+	
 }

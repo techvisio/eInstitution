@@ -39,7 +39,6 @@ transportModule.controller('transportController', ['$scope','transportService',f
 				 $scope.currentReservation = response.data.responseBody;
 			 } else {
 				 console.log(response.data.error);
-				 alert(response.data.error);
 			 }
 		 })
 			}
@@ -48,25 +47,33 @@ transportModule.controller('transportController', ['$scope','transportService',f
 			
 			$scope.cancelReservation = function(){
 				
-				
-				transportService.cancelReservation(fileNo)
+				var fileNo=$scope.student.fileNo;
+
+				if(fileNo){
+					transportService.cancelReservation(fileNo)
 				.then(function(response){
-			
-                  })
-               }
+                      
+					$scope.currentReservation = {};
+				})
+               }}
 
 			
                  $scope.reserveTransport = function(){
 				
+                	 var fileNo=$scope.student.fileNo;
+                	 
+                	 $scope.transportReservation.fileNo=fileNo;
+                	 
                 	 transportService.reserveTransport($scope.transportReservation)
-				     .then(function(data){
+				     .then(function(response){
 					console.log('Transport Reservation callback');
-					console.log(data.responseBody);
-					$scope.transportReservation=data.responseBody;
+					console.log(response.data.responseBody);
+					
+					$scope.currentReservation=response.data.responseBody;
 					
 				})
 			}
-			
+                 
 
 		} ]);
 
@@ -85,7 +92,7 @@ transportModule.service('transportService', function($http, $q) {
 		console.log('getAvailableTransport called in service');
 		var request = $http({
 			method : "get",
-			url : "transport/AvailableTransport",
+			url : "transport/availableTransport",
 			params : {
 				action : "get"
 			}
@@ -100,7 +107,7 @@ transportModule.service('transportService', function($http, $q) {
 		console.log('getReservedTransport called in service');
 		var request = $http({
 			method : "get",
-			url : "transport/Reservation/"+fileNo,
+			url : "transport/reservation/"+fileNo,
 			params : {
 				action : "get"
 			}
@@ -116,7 +123,7 @@ transportModule.service('transportService', function($http, $q) {
 		 console.log('Transport reservation called in service');
 		 var request = $http({
 			 method : "post",
-			 url : "transport/Reservation",
+			 url : "transport/reservation",
 			 params : "",
 			 data : transportReservation
 
@@ -129,7 +136,7 @@ transportModule.service('transportService', function($http, $q) {
 	function cancelReservation(fileNo) {
 				var request = $http({
 					method : "delete",
-				url : "transport/Reservation" + fileNo,
+				url : "transport/reservation/" + fileNo,
 			params : {
 						action : "delete"
 					}
