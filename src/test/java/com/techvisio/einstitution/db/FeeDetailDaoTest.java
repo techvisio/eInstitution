@@ -96,21 +96,38 @@ public class FeeDetailDaoTest {
 //FeeTransaction	
 	
 	@Test
-	public void testAddFeeTransaction(){
+	public void testAddFeeTransactiondr(){
 		FeeTransaction feeTransaction = new FeeTransaction();
-		feeTransaction.setAmount(1000.0);
-		feeTransaction.setAmountTransactionType("Debit");
-		feeTransaction.setDate(null);
-		feeTransaction.setFeeId(2L);
-		feeTransaction.setFileNo("1");
-		feeTransaction.setUser("ABC");
-		
-		dao.addFeeTransaction(feeTransaction);
+	
+		feeTransaction.setComponentId(897L);
+		feeTransaction.setFileNo("2015-151");
+        feeTransaction.setUser("Anil");
+        feeTransaction.setSemester(2);
+        feeTransaction.setRemark("qwerttytdadsa");
+		dao.addFeeTransactionDebit(feeTransaction);
 	}
 	
 	@Test
 	public void testGetFeeTransaction(){
-		FeeTransaction feeTransaction = dao.getFeeTransaction("1");
+		FeeTransaction feeTransaction = dao.getDebitedFeeTransaction("2015-151");
+		System.out.println("Data is :- "+feeTransaction);
+	}
+	
+	@Test
+	public void testAddFeeTransactionCr(){
+		FeeTransaction feeTransaction = new FeeTransaction();
+	
+		feeTransaction.setComponentId(897L);
+		feeTransaction.setFileNo("2015-151");
+        feeTransaction.setUser("Anil");
+        feeTransaction.setSemester(2);
+        feeTransaction.setRemark("qwerttytdadsa");
+		dao.addFeeTransactionCredit(feeTransaction);
+	}
+
+	@Test
+	public void testGetFeeTransactionCr(){
+		FeeTransaction feeTransaction = dao.getCreditedFeeTransaction("2015-151");
 		System.out.println("Data is :- "+feeTransaction);
 	}
 	

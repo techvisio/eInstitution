@@ -13,7 +13,7 @@ SELECT
 	COUNT(HR.TYPE_CODE) AS RESERVED_ROOM,
 	HI.THRESHOLD-COUNT(HR.TYPE_CODE) AS AVAILABLE
 	 
-FROM hostelinventory HI JOIN hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HR.Type_Code;      
+FROM hostelinventory HI left JOIN  hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HI.Type_Code;        
     ]]>
 
 	</entry>

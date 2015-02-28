@@ -59,13 +59,15 @@ where sd.File_No=:File_No;
       
 Update studentfeestaging set
  
-	 FILE_NO=:FILE_NO,
-	 COURSE=:COURSE,
-	 BRANCH=:BRANCH, 
-	 SEMESTER=:SEMESTER, 
-	 FEE_GENERATED=:FEE_GENERATED       
+     
+      FeeHead_Id=:FeeHead_Id,
+      Amount=:Amount,
+      Updated_By=:Updated_By,
+      Approved=null,
+      Fee_Generated=null,
+      Modified_Date=now()
    
-where FILE_NO=:FILE_NO;
+where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     ]]>
 
 	</entry>
@@ -87,17 +89,15 @@ select
       Created_Date,
       Modified_Date
 
-FROM studentfeestaging where File_No=:File_No;
+FROM studentfeestaging where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
 ]]>
 
 	</entry>
 
-
-
 	<entry key="deleteStudentFeeStaging">
     <![CDATA[
       
-Delete from studentfeestaging where FILE_NO=:FILE_NO and FeeHead_Id not in (:FeeHead_Id);
+Delete from studentfeestaging where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     ]]>
 
 	</entry>
@@ -111,7 +111,7 @@ SELECT
 	SEMESTER,	
 	FEE_HEAD_ID,
 	FEE_AMOUNT 
-FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER  ;]]>
+FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER;]]>
 
 	</entry>
 
@@ -161,38 +161,84 @@ Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER
 
 
 
-	<entry key="getFeeTransaction">
+	<entry key="getFeeTransactionDebit">
     <![CDATA[
 SELECT 
-	  FEE_ID,
-	  DATE, 
-	  USER, 
-	  AMOUNT, 
-	  AMOUNT_TRANSACTION_TYPE, 
-	  File_no 
-
-FROM feetransaction where File_no=:File_no ;]]>
+	
+	File_No,
+	Semester, 
+	Component_Id, 
+	User, 
+	Created_Date,
+	Remark,
+	Mode
+	
+FROM feetransactionDebit where File_No=:File_No;]]>
 
 	</entry>
 
-	<entry key="addFeeTransaction">
+	<entry key="addFeeTransactionDebit">
     <![CDATA[
       
-Insert into feetransaction
+Insert into feetransactionDebit
 
-	( FEE_ID,
-	  DATE, 
-	  USER, 
-	  AMOUNT, 
-	  AMOUNT_TRANSACTION_TYPE, 
-	  File_no ) values
+	(File_No,
+	Semester, 
+	Component_Id, 
+	User, 
+	Created_Date,
+	Remark,
+	Mode) values
 	       
-   (  :FEE_ID,
-	  :DATE, 
-	  :USER, 
-	  :AMOUNT, 
-	  :AMOUNT_TRANSACTION_TYPE, 
-	  :File_no )
+   (  
+    :File_No,
+	:Semester, 
+	:Component_Id, 
+	:User, 
+	:Created_Date,
+	:Remark,
+	:Mode )
+    ]]>
+
+	</entry>
+
+	<entry key="getFeeTransactionCredit">
+    <![CDATA[
+SELECT 
+	
+	File_No,
+	Semester, 
+	Component_Id, 
+	User, 
+	Created_Date,
+	Remark,
+	Mode
+	
+FROM feetransactionCredit where File_No=:File_No;]]>
+
+	</entry>
+
+	<entry key="addFeeTransactionCredit">
+    <![CDATA[
+      
+Insert into feetransactionCredit
+
+	(File_No,
+	Semester, 
+	Component_Id, 
+	User, 
+	Created_Date,
+	Remark,
+	Mode) values
+	       
+   (  
+    :File_No,
+	:Semester, 
+	:Component_Id, 
+	:User, 
+	:Created_Date,
+	:Remark,
+	:Mode )
     ]]>
 
 	</entry>

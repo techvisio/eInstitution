@@ -79,27 +79,27 @@ public class FeeService {
 	
 	
 	@RequestMapping(value="/StudentFeeStaging/{fileNo}", method = RequestMethod.DELETE)
-	public void deleteStudentFeeStaging(@PathVariable List<StudentFeeStaging> studentFeeStagings){
+	public void deleteStudentFeeStaging(@PathVariable StudentFeeStaging studentFeeStaging){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.deleteStudentFeeStaging(studentFeeStagings);
+		detailWorkflowManager.deleteStudentFeeStaging(studentFeeStaging);
 	}
 
 
-//FeeTransaction	
-	@RequestMapping(value="/FeeTransaction/{fileNo}", method = RequestMethod.GET)
-	public FeeTransaction getFeeTransaction(@PathVariable String fileNo){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		FeeTransaction transaction = detailWorkflowManager.getFeeTransaction(fileNo);
-		return transaction;
-		
-	}
-	
-	@RequestMapping(value="/FeeTransaction" , method = RequestMethod.POST)
-	public void addFeeTransaction(@RequestBody FeeTransaction feeTransaction){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.addFeeTransaction(feeTransaction);
-	}
-	
+////FeeTransaction	
+//	@RequestMapping(value="/FeeTransaction/{fileNo}", method = RequestMethod.GET)
+//	public FeeTransaction getFeeTransaction(@PathVariable String fileNo){
+//		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
+//		FeeTransaction transaction = detailWorkflowManager.getFeeTransaction(fileNo);
+//		return transaction;
+//		
+//	}
+//	
+//	@RequestMapping(value="/FeeTransaction" , method = RequestMethod.POST)
+//	public void addFeeTransaction(@RequestBody FeeTransaction feeTransaction){
+//		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
+//		detailWorkflowManager.addFeeTransaction(feeTransaction);
+//	}
+//	
 
 //FeeDiscountHead
 	@RequestMapping(value="/FeeDiscountHead/{headId}", method = RequestMethod.GET)

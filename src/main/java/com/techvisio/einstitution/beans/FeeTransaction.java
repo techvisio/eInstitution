@@ -3,25 +3,24 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class FeeTransaction {
-	private Long feeId;
-	private Date date;
+	private Integer semester;
+	private Long ComponentId;
 	private String user;
-	private Double amount;
-	private String amountTransactionType;
+	private Date createdDate;
+	private String remark;
+	private String Mode;
 	private String fileNo;
-	
-	
-	public Long getFeeId() {
-		return feeId;
+	public Integer getSemester() {
+		return semester;
 	}
-	public void setFeeId(Long feeId) {
-		this.feeId = feeId;
+	public void setSemester(Integer semester) {
+		this.semester = semester;
 	}
-	public Date getDate() {
-		return date;
+	public Long getComponentId() {
+		return ComponentId;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setComponentId(Long componentId) {
+		ComponentId = componentId;
 	}
 	public String getUser() {
 		return user;
@@ -29,17 +28,23 @@ public class FeeTransaction {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public Double getAmount() {
-		return amount;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
-	public String getAmountTransactionType() {
-		return amountTransactionType;
+	public String getRemark() {
+		return remark;
 	}
-	public void setAmountTransactionType(String amountTransactionType) {
-		this.amountTransactionType = amountTransactionType;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getMode() {
+		return Mode;
+	}
+	public void setMode(String mode) {
+		Mode = mode;
 	}
 	public String getFileNo() {
 		return fileNo;
@@ -49,12 +54,11 @@ public class FeeTransaction {
 	}
 	@Override
 	public String toString() {
-		return "FeeTransaction [feeId=" + feeId + ", date=" + date + ", user="
-				+ user + ", amount=" + amount + ", amountTransactionType="
-				+ amountTransactionType + ", fileNo=" + fileNo + "]";
+		return "FeeTransaction [semester=" + semester + ", ComponentId="
+				+ ComponentId + ", user=" + user + ", createdDate="
+				+ createdDate + ", remark=" + remark + ", Mode=" + Mode
+				+ ", fileNo=" + fileNo + "]";
 	}
 	
 	
-
 }
-

@@ -390,8 +390,6 @@ admissionModule
 
 				    modalInstance.result.then(function (selectedItem) {
 				      $scope.selected = selectedItem;
-				    }, function () {
-				      $log.info('Modal dismissed at: ' + new Date());
 				    });
 				  };
 				  
@@ -399,11 +397,13 @@ admissionModule
 					 $scope.showHostelModal=function (size) {
 
 						 var fileNo=$scope.student.fileNo;
-						  if(!fileNo){
-							  
+						 
+						 if($scope.form.isNew){
+							  alert("Please save record before reserving hostel");
 							  return;
 						  }
-						    var modalInstance = $modal.open({
+						 
+						 var modalInstance = $modal.open({
 						      templateUrl: 'views/hostel.html',
 						      controller: 'hostelController',
 						      scope:$scope,
@@ -417,8 +417,6 @@ admissionModule
 
 						    modalInstance.result.then(function (selectedItem) {
 						      $scope.selected = selectedItem;
-						    }, function () {
-						      $log.info('Modal dismissed at: ' + new Date());
 						    });
 						  };
 				  

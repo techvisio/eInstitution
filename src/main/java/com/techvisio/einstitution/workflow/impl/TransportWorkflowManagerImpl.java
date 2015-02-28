@@ -61,7 +61,6 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 	public String addTransportReservationDtl(
 			TransportReservation transportReservation) {
 
-
         String fileNo=transportReservation.getFileNo();
 		
 		//if file No is missing create student
@@ -86,15 +85,44 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 		return fileNo;
 	}
 
-	public void updateTransportReservationDtl(
+	public String updateTransportReservationDtl(
 			TransportReservation transportReservation) {
 
+		String fileNo=transportReservation.getFileNo();
+		
+		if(fileNo == null ){
+			StudentDetail newStudentDetail=new StudentDetail();
+			fileNo=admissionManager.addStudentDtl(newStudentDetail);
+		}
+		
+		//updating  reserved transport for student
+		transportReservation.setFileNo(fileNo);
 		transportManager.updateTransportReservationDtl(transportReservation);
+		
+		TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
+		
+		//updating fee staging entry
+				StudentFeeStaging stagingFee=new StudentFeeStaging();
+				stagingFee.setFileNo(fileNo);
+				stagingFee.setFeeHeadId(AppConstants.TRANSPORT_FEE_ID);
+				stagingFee.setAmount(reservedObject.getPrice());
+				feeManager.updateStudentFeeStaging(stagingFee);
+		
+				return fileNo;
 	}
 
 	public void deleteTransportReservationDtl(String fileNo) {
 
-		transportManager.deleteTransportReservationDtl(fileNo);
+             TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
+		
+				StudentFeeStaging stagingFee=new StudentFeeStaging();
+				stagingFee.setFileNo(reservedObject.getFileNo());
+				stagingFee.setFeeHeadId(AppConstants.TRANSPORT_FEE_ID);
+				feeManager.deleteStudentFeeStaging(stagingFee);
+		
+		
+		
+			transportManager.deleteTransportReservationDtl(fileNo);
 	}
 
 	public VehicleDetail getVehicleDetail(Long vehicleId) {

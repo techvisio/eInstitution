@@ -92,8 +92,7 @@ public class TransportService {
 			Response response = new Response();
 			try
 			{
-			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
-			
+			   TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
 			   String fileNo=workflowManager.addTransportReservationDtl(transportReservation);
 			   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
 			   response.setResponseBody(updatedReservation);
@@ -108,10 +107,24 @@ public class TransportService {
 		}
 		
 		@RequestMapping(value="/reservation",method = RequestMethod.PUT)
-		public void updateTransportReservation(@RequestBody TransportReservation transportReservation) {  
-			TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
-			workflowManager.updateTransportReservationDtl(transportReservation);
-		}
+		public ResponseEntity<Response> updateTransportReservation(@RequestBody TransportReservation transportReservation) {  
+
+			Response response = new Response();
+			try
+			{
+				   TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
+				   String fileNo=workflowManager.updateTransportReservationDtl(transportReservation);
+				   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
+				   response.setResponseBody(updatedReservation);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				response.setError(e.getLocalizedMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+			}
+			
 		@RequestMapping(value="/reservation/{fileNo}",method = RequestMethod.DELETE)
 		public ResponseEntity deleteTransportReservation(@PathVariable String fileNo ) {  
 			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
@@ -135,13 +148,13 @@ public class TransportService {
 		}
 		
 		@RequestMapping(value="/vehicleDetail",method = RequestMethod.PUT)
-		public void updateTransportReservation(@RequestBody VehicleDetail vehicleDetail) {  
+		public void updateVehicleDetail(@RequestBody VehicleDetail vehicleDetail) {  
 			TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
 			workflowManager.updateVehicleDetail(vehicleDetail);
 		}
 		
 		@RequestMapping(value="/vehicleDetail/{vehicleId}",method = RequestMethod.DELETE)
-		public void deleteTransportReservation(@PathVariable Long vehicleId ) {  
+		public void deleteVehicleDetail(@PathVariable Long vehicleId ) {  
 			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
 			workflowManager.deleteVehicleDetail(vehicleId);
 		}

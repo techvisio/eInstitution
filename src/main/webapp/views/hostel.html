@@ -43,10 +43,10 @@
 		ng-options="object.typeCode as object.description for object in hostelAvailability"></select>
        </td>
         <td>
-       <input type="button"  class="button" value="Reserve" ng-click="reserveRoom()"/>
+       <input type="button"  class="button" value="Reserve" ng-click="reserveRoom(); updateReservation()"/>
        </td>
        <td>
-       <input type="button"  class="button" value="Cancel"/>
+       <input type="button"  class="button" value="Release" ng-click="cancelReservation()"/>
        </td>
       
        </tr>
@@ -54,7 +54,7 @@
       </table> 
     </div>
 
-<div ng-show="currentReservation" class="six-column-view">
+<div ng-show="currentReservation.fileNo" class="six-column-view">
 <table>
 <tr>
 	<div class="panel-div-modal">Current Reservation Status</div>

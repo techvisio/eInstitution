@@ -53,6 +53,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	public String addHostelReservation(HostelReservation hostelReservation) {
+
 		String fileNo=hostelReservation.getFileNo();
 		
 		//if file No is missing create student
@@ -78,9 +79,32 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	
 	}
 
-	public void updateHostelReservation(HostelReservation hostelReservation) {
+	public String updateHostelReservation(HostelReservation hostelReservation) {
 
+             String fileNo=hostelReservation.getFileNo();
+		
+		//if file No is missing create student
+		    if(fileNo == null ){
+			StudentDetail newStudentDetail=new StudentDetail();
+			fileNo=admissionManager.addStudentDtl(newStudentDetail);
+		}
+		
+		//updating hostel for student
+		hostelReservation.setFileNo(fileNo);
 		hostelManager.updateHostelReservation(hostelReservation);
+		
+		HostelReservation reservedObject=hostelManager.getHostelReservation(fileNo);
+		
+		//updating staging fee entry
+		StudentFeeStaging stagingFee=new StudentFeeStaging();
+		stagingFee.setFileNo(fileNo);
+		stagingFee.setFeeHeadId(AppConstants.HOSTEL_FEE_ID);
+		stagingFee.setAmount(reservedObject.getPrice());
+		feeManager.updateStudentFeeStaging(stagingFee);
+		
+		return fileNo;
+
+		
 	}
 
 	public void deleteHostelReservation(String fileNo) {

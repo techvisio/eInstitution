@@ -18,11 +18,12 @@ public interface FeeDao {
 	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
-	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings);
+	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 
-	public FeeTransaction getFeeTransaction(String fileNo);
-	public void addFeeTransaction(FeeTransaction feeTransaction);
-	
+	public FeeTransaction getDebitedFeeTransaction(String fileNo);
+	public void addFeeTransactionDebit(FeeTransaction feeTransaction);
+	public FeeTransaction getCreditedFeeTransaction(String fileNo);
+	public void addFeeTransactionCredit(FeeTransaction feeTransaction);
 	
 	public FeeDiscountHead getfeeDiscountHead(Long headId);
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead);

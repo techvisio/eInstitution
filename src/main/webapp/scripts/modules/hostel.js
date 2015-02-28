@@ -45,27 +45,55 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 	
 			}
 			
-			$scope.cancelReservation = function(){
-				
-				transportService.cancelReservation(fileNo)
-				.then(function(response){
-			
-                  })
-               }
-			
 			
 			$scope.reserveRoom = function(){
-				
+
+           	     var fileNo=$scope.student.fileNo;
+               	 $scope.hostelReservation.fileNo=fileNo;
+           	 
 				hostelService.reserveRoom($scope.hostelReservation)
-				.then(function(data){
+				.then(function(response){
 					console.log('Hostel Reservation callback');
-					console.log(data.responseBody);
-					$scope.hostelReservation=data.responseBody;
+					console.log(response.data.responseBody);
+					$scope.currentReservation=response.data.responseBody;
 					
 				})
 			}
 			
+			
+			$scope.updateReservation = function(){
+				
+				 var fileNo=$scope.student.fileNo;
+           	 
+				 $scope.hostelReservation.fileNo=fileNo;
+				 if($scope.hostelReservation.typeCode != null)
+				 {            	 
+           	 
+			      hostelService.updateReservation($scope.hostelReservation)
+			     .then(function(response){
+				console.log('update hostel Reservation callback');
+				console.log(response.data.responseBody);
+				
+				$scope.currentReservation=response.data.responseBody;
+				
+			})
+			}
+			}
+			
 
+            $scope.cancelReservation = function(){
+				
+				var fileNo=$scope.student.fileNo;
+
+				if(fileNo){
+					hostelService.cancelReservation(fileNo)
+				.then(function(response){
+                      
+					$scope.currentReservation = {};
+				})
+               }}
+
+			
 		} ]);
 
 hostelModule.service('hostelService', function($http, $q) {
@@ -74,8 +102,9 @@ hostelModule.service('hostelService', function($http, $q) {
 	return ({
 		getHostelAvailability : getHostelAvailability,
 		reserveRoom : reserveRoom,
-		getReservedHostel : getReservedHostel
-		
+		getReservedHostel : getReservedHostel,
+		cancelReservation : cancelReservation,
+		updateReservation : updateReservation
 	});
 
 	function getHostelAvailability() {
@@ -83,7 +112,7 @@ hostelModule.service('hostelService', function($http, $q) {
 		console.log('getHostelAvailability called in service');
 		var request = $http({
 			method : "get",
-			url : "Hostel/HostelAvailability",
+			url : "hostel/hostelAvailability",
 			params : {
 				action : "get"
 			}
@@ -98,7 +127,7 @@ hostelModule.service('hostelService', function($http, $q) {
 		console.log('getReservedHostel called in service');
 		var request = $http({
 			method : "get",
-			url : "Hostel/HostelReservation/" + fileNo,
+			url : "hostel/hostelReservation/" + fileNo,
 			params : {
 				action : "get"
 			}
@@ -113,7 +142,7 @@ hostelModule.service('hostelService', function($http, $q) {
 		 console.log('Hostel reservation called in service');
 		 var request = $http({
 			 method : "post",
-			 url : "Hostel/HostelReservation",
+			 url : "hostel/hostelReservation",
 			 params : "",
 			 data : hostelReservation
 
@@ -122,6 +151,35 @@ hostelModule.service('hostelService', function($http, $q) {
 		 return (request.then(handleSuccess, handleError));
 
 	 }
+	
+	 function updateReservation(hostelReservation) {
+
+		 console.log('update hostel reservation called in service');
+		 var request = $http({
+			 method : "put",
+			 url : "hostel/hostelReservation",
+			 params : "",
+			 data : hostelReservation
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+	 }
+
+	
+	function cancelReservation(fileNo) {
+		var request = $http({
+			method : "delete",
+		url : "hostel/hostelReservation/" + fileNo,
+	params : {
+				action : "delete"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
 
 
 		 

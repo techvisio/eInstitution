@@ -28,7 +28,7 @@ public class FeeManagerImpl implements FeeManager{
 	}
 	
 	private FeeManagerImpl() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
@@ -86,25 +86,52 @@ public class FeeManagerImpl implements FeeManager{
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		feeDetailDao.updateStudentFeeStaging(studentFeeStaging);
 	}
+	
+	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging){
 
-	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
-		feeDetailDao.deleteStudentFeeStaging(studentFeeStagings);
+		feeDetailDao.deleteStudentFeeStaging(studentFeeStaging);
 	}
 
-	public FeeTransaction getFeeTransaction(String fileNo) {
-		FeeTransaction transaction = null;
-		transaction = feeDetailDao.getFeeTransaction(fileNo);
-		return transaction;
-	}
-
-	public void addFeeTransaction(FeeTransaction feeTransaction) {
-		feeDetailDao.addFeeTransaction(feeTransaction);
-	}
+//	public FeeTransaction getFeeTransaction(String fileNo) {
+//		FeeTransaction transaction = null;
+//		transaction = feeDetailDao.getFeeTransaction(fileNo);
+//		return transaction;
+//	}
+//
+//	public void addFeeTransaction(FeeTransaction feeTransaction) {
+//		feeDetailDao.addFeeTransaction(feeTransaction);
+//	}
 
 	public void generateStudentFeeStaging(String fileNo) {
 		StudentFeeStaging feeStaging=new StudentFeeStaging();
 		feeStaging.setFileNo(fileNo);
 		feeStaging.setCreatedBy("testUser");
+	}
+
+	public FeeTransaction getDebitedFeeTransaction(String fileNo) {
+
+		FeeTransaction transaction = null;
+		transaction = feeDetailDao.getDebitedFeeTransaction(fileNo);
+		return transaction;
+	}
+
+	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
+		
+		feeDetailDao.addFeeTransactionDebit(feeTransaction);
+		
+	}
+
+	public FeeTransaction getCreditedFeeTransaction(String fileNo) {
+
+		FeeTransaction transaction = null;
+		transaction = feeDetailDao.getCreditedFeeTransaction(fileNo);
+		return transaction;
+	}
+
+	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
+		
+		feeDetailDao.addFeeTransactionCredit(feeTransaction);
+		
 	}
 
 }

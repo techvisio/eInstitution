@@ -9,8 +9,7 @@ Select
 
 tm.Threshold,tm.Route_Code, tm.Description, tm.Price,count(tr.Route_Code) as Reserved_Seat,tm.Threshold-count(tr.Route_Code) as Available_Seat
 
-from TransportMaster tm join transportReservation tr on tm.Route_Code=tr.Route_Code group by tr.Route_Code;    
-    ]]>
+from TransportMaster tm left join transportReservation tr on tm.Route_Code=tr.Route_Code group by tm.Route_Code;    ]]>
 
 	</entry>
 
@@ -113,8 +112,8 @@ values (:File_No,
     ]]>
 
 	</entry>
-	
-		<entry key="updateTransportReservation">
+
+	<entry key="updateTransportReservation">
     <![CDATA[
 
 Update TransportReservation set
@@ -130,8 +129,8 @@ where File_No=:File_No;
     ]]>
 
 	</entry>
-	
-		<entry key="deleteTransportReservation">
+
+	<entry key="deleteTransportReservation">
     <![CDATA[
  
  Delete from TransportReservation where File_No=:File_No;
@@ -141,7 +140,7 @@ where File_No=:File_No;
 
 	</entry>
 
-<entry key="getTransportAllocationByFileNo">
+	<entry key="getTransportAllocationByFileNo">
     <![CDATA[
  
  select 
@@ -155,7 +154,7 @@ where File_No=:File_No;
 
 	</entry>
 
-<entry key="addTransportAllocation">
+	<entry key="addTransportAllocation">
     <![CDATA[
  
 Insert into TransportAllocation 
@@ -169,7 +168,7 @@ Vehicle_Id) values (:File_No, :Vehicle_Id);
 	</entry>
 
 
-<entry key="updateTransportAllocation">
+	<entry key="updateTransportAllocation">
     <![CDATA[
  
  Update TransportAllocation set  
@@ -183,7 +182,7 @@ Vehicle_Id) values (:File_No, :Vehicle_Id);
 	</entry>
 
 
-<entry key="deleteTransportAllocation">
+	<entry key="deleteTransportAllocation">
     <![CDATA[
  
  Delete from TransportAllocation where File_No=:File_No;
@@ -193,7 +192,7 @@ Vehicle_Id) values (:File_No, :Vehicle_Id);
 
 	</entry>
 
-<entry key="getVehicleDetailByVehicleId">
+	<entry key="getVehicleDetailByVehicleId">
     <![CDATA[
  
 select
@@ -211,7 +210,7 @@ select
     ]]>
 
 	</entry>
-	
+
 	<entry key="addtVehicleDetail">
     <![CDATA[
  
@@ -233,7 +232,7 @@ select
     ]]>
 
 	</entry>
-	
+
 	<entry key="updateVehicleDetail">
     <![CDATA[
  
@@ -249,7 +248,7 @@ select
     ]]>
 
 	</entry>
-	
+
 	<entry key="deleteVehicleDetail">
     <![CDATA[
  

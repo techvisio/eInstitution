@@ -70,17 +70,31 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		manager.updateStudentFeeStaging(studentFeeStaging);
 	}
 
-	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
-		manager.deleteStudentFeeStaging(studentFeeStagings);
+	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
+		manager.deleteStudentFeeStaging(studentFeeStaging);
 	}
 
-	public FeeTransaction getFeeTransaction(String fileNo) {
-		FeeTransaction transaction = manager.getFeeTransaction(fileNo);
+	public FeeTransaction getDebitedFeeTransaction(String fileNo) {
+	
+		FeeTransaction transaction = manager.getDebitedFeeTransaction(fileNo);
 		return transaction;
 	}
 
-	public void addFeeTransaction(FeeTransaction feeTransaction) {
-		manager.addFeeTransaction(feeTransaction);
+	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
+		
+		manager.addFeeTransactionDebit(feeTransaction);
+		
+	}
+
+	public FeeTransaction getCreditedFeeTransaction(String fileNo) {
+
+		FeeTransaction transaction = manager.getCreditedFeeTransaction(fileNo);
+		return transaction;
+	}
+
+	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
+
+		manager.addFeeTransactionCredit(feeTransaction);
 	}
 
 	

@@ -128,54 +128,45 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		String updateQuery = feeQueryProps.getProperty("updateStudentFeeStaging");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", studentFeeStaging.getFileNo())
-		.addValue("SEMESTER",studentFeeStaging.getSemester())
-		.addValue("FEE_GENERATED", studentFeeStaging.isFeeGenerated());
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
+		.addValue("FeeHead_Id", studentFeeStaging.getFeeHeadId())
+		.addValue("Amount", studentFeeStaging.getAmount())
+		.addValue("Updated_By", studentFeeStaging.getUpdatedBy());
+	
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 	}
 
 
-	public void deleteStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+	public void deleteStudentFeeStaging(StudentFeeStaging feeStaging) {
 		
-		List<Long> feeHeadIds = new ArrayList<Long>();
-		String fileNo = null;
-		
-		if(studentFeeStagings != null){
-			for(StudentFeeStaging studentFeeStaging: studentFeeStagings){
-				feeHeadIds.add(studentFeeStaging.getFeeHeadId());
-				fileNo = studentFeeStaging.getFileNo();
-			}
-		if(feeHeadIds.size()==0){
-			
-			  feeHeadIds.add(-1L);
-		     }
 		
 		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FILE_NO", fileNo)
-											.addValue("FeeHead_Id", feeHeadIds);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeStaging.getFileNo())
+											.addValue("FeeHead_Id", feeStaging.getFeeHeadId());
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
 
-	}
+	
 
 	//FeeTransaction
-	public FeeTransaction getFeeTransaction(String fileNo) {
-		String getQuery = feeQueryProps.getProperty("getFeeTransaction");
-		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_no", fileNo);
+	public FeeTransaction getDebitedFeeTransaction(String fileNo) {
+		String getQuery = feeQueryProps.getProperty("getFeeTransactionDebit");
+		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
 		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new RowMapper<FeeTransaction>(){
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setAmount(rs.getDouble("AMOUNT"));
-				feeTransaction.setAmountTransactionType(rs.getString("AMOUNT_TRANSACTION_TYPE"));
-				feeTransaction.setDate(rs.getDate("DATE"));
-				feeTransaction.setFeeId(CommonUtil.getLongValue(rs.getLong("FEE_ID")));
-				feeTransaction.setFileNo(rs.getString("File_no"));
-				feeTransaction.setUser(rs.getString("USER"));
+				feeTransaction.setFileNo(rs.getString("File_No"));
+				feeTransaction.setUser(rs.getString("User"));
+				feeTransaction.setSemester(rs.getInt("Semester"));
+				feeTransaction.setMode(rs.getString("Mode"));
+				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
+				feeTransaction.setRemark(rs.getString("Remark"));
 				return feeTransaction;
 			}
 
@@ -189,15 +180,60 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 
-	public void addFeeTransaction(FeeTransaction feeTransaction) {
-		String addQuery = feeQueryProps.getProperty("addFeeTransaction");
+	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
+		String addQuery = feeQueryProps.getProperty("addFeeTransactionDebit");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_no", feeTransaction.getFileNo())
-		.addValue("FEE_ID", feeTransaction.getFeeId())
-		.addValue("DATE", feeTransaction.getDate())
-		.addValue("USER", feeTransaction.getUser())
-		.addValue("AMOUNT", feeTransaction.getAmount())
-		.addValue("AMOUNT_TRANSACTION_TYPE", feeTransaction.getAmountTransactionType());
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
+		.addValue("User", feeTransaction.getUser())
+		.addValue("Created_Date", feeTransaction.getCreatedDate())
+		.addValue("Semester", feeTransaction.getSemester())
+		.addValue("Component_Id", feeTransaction.getComponentId())
+		.addValue("Mode", feeTransaction.getMode())
+		.addValue("Remark", feeTransaction.getRemark());
+
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+
+	}
+
+	
+	public FeeTransaction getCreditedFeeTransaction(String fileNo) {
+		String getQuery = feeQueryProps.getProperty("getFeeTransactionCredit");
+		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
+
+		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new RowMapper<FeeTransaction>(){
+
+			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
+				FeeTransaction feeTransaction = new FeeTransaction();
+				feeTransaction.setFileNo(rs.getString("File_No"));
+				feeTransaction.setUser(rs.getString("User"));
+				feeTransaction.setSemester(rs.getInt("Semester"));
+				feeTransaction.setMode(rs.getString("Mode"));
+				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
+				feeTransaction.setRemark(rs.getString("Remark"));
+				return feeTransaction;
+			}
+
+		});
+
+		FeeTransaction feeTransaction = null;
+		if(feeTransactions != null && feeTransactions.size()>0){
+			feeTransaction = feeTransactions.get(0);
+		}
+		return feeTransaction;
+	}
+
+
+	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
+		String addQuery = feeQueryProps.getProperty("addFeeTransactionCredit");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
+		.addValue("User", feeTransaction.getUser())
+		.addValue("Created_Date", feeTransaction.getCreatedDate())
+		.addValue("Semester", feeTransaction.getSemester())
+		.addValue("Component_Id", feeTransaction.getComponentId())
+		.addValue("Mode", feeTransaction.getMode())
+		.addValue("Remark", feeTransaction.getRemark());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 

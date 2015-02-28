@@ -33,7 +33,7 @@ transportModule.controller('transportController', ['$scope','transportService',f
 				if(fileNo){				
 				transportService.getReservedTransport(fileNo)
 		              .then(function(response){
-		              console.log('Data received from get service : ');
+		              console.log('Data received from getReservedTransport controller : ');
 			          console.log(response);
 			 if (response !=null && response.data != null && response.data.responseBody != null) {
 				 $scope.currentReservation = response.data.responseBody;
@@ -43,20 +43,25 @@ transportModule.controller('transportController', ['$scope','transportService',f
 		 })
 			}
 				}
-	
-			
-			$scope.cancelReservation = function(){
+
+			$scope.updateReservation = function(){
 				
-				var fileNo=$scope.student.fileNo;
-
-				if(fileNo){
-					transportService.cancelReservation(fileNo)
-				.then(function(response){
-                      
-					$scope.currentReservation = {};
-				})
-               }}
-
+				 var fileNo=$scope.student.fileNo;
+            	 
+				 $scope.transportReservation.fileNo=fileNo;
+				 if($scope.transportReservation.routeCode != null)
+				 {            	 
+            	 
+            	 transportService.updateReservation($scope.transportReservation)
+			     .then(function(response){
+				console.log('update Transport Reservation callback');
+				console.log(response.data.responseBody);
+				
+				$scope.currentReservation=response.data.responseBody;
+				
+			})
+			}
+			}
 			
                  $scope.reserveTransport = function(){
 				
@@ -73,7 +78,19 @@ transportModule.controller('transportController', ['$scope','transportService',f
 					
 				})
 			}
+
                  
+                 $scope.cancelReservation = function(){
+     				
+     				var fileNo=$scope.student.fileNo;
+
+     				if(fileNo){
+     					transportService.cancelReservation(fileNo)
+     				.then(function(response){
+                           
+     					$scope.currentReservation = {};
+     				})
+                    }}
 
 		} ]);
 
@@ -84,7 +101,8 @@ transportModule.service('transportService', function($http, $q) {
 		getAvailableTransport : getAvailableTransport,
 		reserveTransport : reserveTransport,
 		cancelReservation : cancelReservation,
-		getReservedTransport : getReservedTransport
+		getReservedTransport : getReservedTransport,
+		updateReservation : updateReservation
 	});
 
 	function getAvailableTransport() {
@@ -132,6 +150,22 @@ transportModule.service('transportService', function($http, $q) {
 		 return (request.then(handleSuccess, handleError));
 
 	 }
+	
+	 function updateReservation(transportReservation) {
+
+		 console.log('update transport reservation called in service');
+		 var request = $http({
+			 method : "put",
+			 url : "transport/reservation",
+			 params : "",
+			 data : transportReservation
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+	 }
+
 
 	function cancelReservation(fileNo) {
 				var request = $http({

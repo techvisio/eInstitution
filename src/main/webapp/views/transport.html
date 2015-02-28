@@ -43,10 +43,10 @@
 		ng-options="object.routeCode as object.description for object in availableTransport"></select>
        </td>
         <td>
-       <input type="button" class="button" value="Reserve" ng-click="reserveTransport()"/>
+       <input type="button" class="button" value="Reserve" ng-click="reserveTransport(); updateReservation()"/>
        </td>
         <td>
-       <input type="button" class="button" value="Cancel" ng-click="cancelReservation()"/>
+       <input type="button" class="button" value="Release" ng-click="cancelReservation()"/>
        </td>
        </tr>
              
