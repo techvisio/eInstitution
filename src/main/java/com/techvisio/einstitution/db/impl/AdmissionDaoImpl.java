@@ -16,6 +16,7 @@ import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -963,5 +964,45 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 }
 
+	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+		String getQuery = admissionQueryProps.getProperty("getStudentBasicInfoByFileNo");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+		StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMaper());
+		
+		return info;
+	}
 
+	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		//StudentBasicInfo info = new StudentBasicInfo();
+		
+		String getQuery = admissionQueryProps.getProperty("getAdmissionBasicInfo");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
+		
+		List<StudentBasicInfo> infos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new RowMaper());
+		return infos;
+	}
+
+	
+}
+
+
+
+ class RowMaper implements RowMapper<StudentBasicInfo>{
+
+	public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
+			throws SQLException {
+		StudentBasicInfo basicInfo = new StudentBasicInfo();
+		basicInfo.setAcademicYear(rs.getString("Academic_Year"));
+		basicInfo.setBranch(rs.getString("Branch"));
+		basicInfo.setCourse(rs.getString("Course"));
+		basicInfo.setDob(rs.getDate("DOB"));
+		basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
+		basicInfo.setFatherName(rs.getString("Father_Name"));
+		basicInfo.setFileNo(rs.getString("File_No"));
+		basicInfo.setGender(rs.getString("Gender"));
+		basicInfo.setModifiedDate(rs.getDate("Updated_On"));
+		basicInfo.setSemester(rs.getString("Semester"));
+		
+		return basicInfo;
+	}
 }

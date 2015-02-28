@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.List;
+
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -41,5 +44,15 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 				feeManager.generateStudentFeeStaging(fileNo);
 			}
 		}		
+	}
+
+	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+		StudentBasicInfo info = admissionManager.getStudentBsInfo(fileNo); 
+		return info;
+	}
+
+	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		List<StudentBasicInfo> basicInfos = admissionManager.getLatestAdmissionInfo(limit);
+		return basicInfos;
 	}
 }

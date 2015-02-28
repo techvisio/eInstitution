@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 
 public interface AdmissionDao {
@@ -12,6 +13,12 @@ public interface AdmissionDao {
 	public void addStudentDtl(StudentDetail studentDetail);
 	public void updateStudentDtl(StudentDetail studentDetail);
 	public void deleteSudentDtl(String fileNo);
+	
+	public StudentBasicInfo getStudentBsInfo(String fileNo);
+	
+	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit);
+
+	
 //	
 //	public List<StudentAcademicDetail> getAcademicDtl(String fileNo);
 //	//public void addAcademicDtl(StudentAcademicDetail academicDtl);

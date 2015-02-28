@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
@@ -103,4 +104,22 @@ public class AdmissionService {
 		return new ResponseEntity<Map<String,List>>(masterData,HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/StudentBsInfo/{fileNo}", method = RequestMethod.GET)
+	public StudentBasicInfo getStudentBsInfo(@PathVariable String fileNo){
+		AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
+		StudentBasicInfo info = manager.getStudentBsInfo(fileNo);
+		
+		return info;
+		
+	}
+	
+	@RequestMapping(value = "/LatestAdmissionInfo/{limit}", method = RequestMethod.GET)
+	public List<StudentBasicInfo> getLatestAdmissionInfo(@PathVariable int limit){
+		AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
+		List<StudentBasicInfo> basicInfos = manager.getLatestAdmissionInfo(limit);
+		
+		return basicInfos;
+		
+	}
+	
 }

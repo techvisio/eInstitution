@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.SequenceFactory;
@@ -68,6 +71,17 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	public void deleteSudentDtl(String fileNo) {
 
 		admissionDao.deleteSudentDtl(fileNo);
+	}
+
+	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);
+		
+		return info;
+	}
+
+	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		List<StudentBasicInfo> basicInfos = admissionDao.getLatestAdmissionInfo(limit);
+		return basicInfos;
 	}
 
 }
