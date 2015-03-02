@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
 
 
@@ -49,5 +50,15 @@ public class AdmissionDaoTest {
 	}
 	
 		
+	@Test
+	public void testGetAdmissionDynamically(){
+		
+		
+		SearchCriteria criteria = new SearchCriteria();
+     	criteria.setEmailId("asdadd");
+		StudentDetail detail = dao.getStudentDtlBySearchCriteria(criteria);
+	    System.out.println("Data is:" + detail);	
+
+	}
 	}
 

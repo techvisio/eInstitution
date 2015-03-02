@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -41,5 +42,13 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 				feeManager.generateStudentFeeStaging(fileNo);
 			}
 		}		
+	}
+
+	public StudentDetail getStudentDtlBySearchCriteria(
+			SearchCriteria searchCriteria) {
+
+		StudentDetail studentDetail = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
+		return studentDetail;
+
 	}
 }

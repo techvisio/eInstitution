@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.manager.impl;
 
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.SequenceFactory;
@@ -68,6 +69,14 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	public void deleteSudentDtl(String fileNo) {
 
 		admissionDao.deleteSudentDtl(fileNo);
+	}
+
+	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+
+		StudentDetail studentDetail = null;
+		studentDetail=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
+		
+		return studentDetail;
 	}
 
 }
