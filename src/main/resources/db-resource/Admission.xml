@@ -48,6 +48,40 @@ from StudentDetail WHERE File_No=IFNULL(:File_No,File_No) and Email_Id=ifnull(:E
 
 	</entry>
 
+<entry key="getStudentBasicInfoByFileNo">
+    <![CDATA[
+Select
+File_No,
+Enroll_No,
+Father_Name,
+Gender,
+DOB,
+Course,
+Branch,
+Semester,
+Academic_Year,
+Updated_On
+from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id where File_No=:File_No;
+ ]]>
+</entry>
+
+<entry key="getAdmissionBasicInfo">
+    <![CDATA[
+
+select * from (select File_No,
+Enroll_No,
+Father_Name,
+Gender,
+DOB,
+Course,
+Branch,
+Semester,
+Academic_Year,
+Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
+</entry>
+
+>>>>>>> branch 'master' of https://github.com/techvisio/eInstitution
+
 
 	<entry key="getStudentDtlByFileNo">
     <![CDATA[
@@ -553,4 +587,5 @@ delete from counsellingDetail where File_No=:File_No and Counselling_Id not in (
     ]]>
 
 	</entry>
+	
 </properties>

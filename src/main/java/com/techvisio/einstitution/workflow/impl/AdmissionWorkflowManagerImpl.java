@@ -1,6 +1,9 @@
 package com.techvisio.einstitution.workflow.impl;
 
 import com.techvisio.einstitution.beans.SearchCriteria;
+import java.util.List;
+
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -50,5 +53,13 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		StudentDetail studentDetail = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
 		return studentDetail;
 
+	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+		StudentBasicInfo info = admissionManager.getStudentBsInfo(fileNo); 
+		return info;
+	}
+
+	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		List<StudentBasicInfo> basicInfos = admissionManager.getLatestAdmissionInfo(limit);
+		return basicInfos;
 	}
 }

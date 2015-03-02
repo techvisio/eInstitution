@@ -1,6 +1,9 @@
 package com.techvisio.einstitution.manager.impl;
 
 import com.techvisio.einstitution.beans.SearchCriteria;
+import java.util.List;
+
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.SequenceFactory;
@@ -77,6 +80,15 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		studentDetail=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
 		
 		return studentDetail;
+	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);
+		
+		return info;
+	}
+
+	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		List<StudentBasicInfo> basicInfos = admissionDao.getLatestAdmissionInfo(limit);
+		return basicInfos;
 	}
 
 }
