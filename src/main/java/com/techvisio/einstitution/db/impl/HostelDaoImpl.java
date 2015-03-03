@@ -34,7 +34,7 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		String getQuery = hostelQueryProps.getProperty("getHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
 	
-List<HostelInventory> hostelInventories = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<HostelInventory>() {
+HostelInventory hostelInventory = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<HostelInventory>() {
 
 	public HostelInventory mapRow(ResultSet rs, int rowNum) throws SQLException {
 		HostelInventory hostel = new HostelInventory();
@@ -48,7 +48,9 @@ List<HostelInventory> hostelInventories = getNamedParamJdbcTemplate().query(getQ
 	
 });
 
-HostelInventory hostelInven=null;
+return hostelInventory;
+
+/*HostelInventory hostelInven=null;
 
 if(hostelInventories != null && hostelInventories.size()>0){
 	
@@ -57,7 +59,8 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		
 		return hostelInven;
 		
-	}
+*/	
+}
 
 	
 //INSERT DATA IN HostelInventory TABLE
@@ -115,7 +118,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		String getQuery = hostelQueryProps.getProperty("getHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 		
-List<HostelAllocation> hostelAllocations =  getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<HostelAllocation>(){
+HostelAllocation hostelAllocation =  getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<HostelAllocation>(){
 
 		public HostelAllocation mapRow(ResultSet rs,int rowNum)throws SQLException {
 		HostelAllocation hostel = new HostelAllocation();
@@ -135,12 +138,12 @@ List<HostelAllocation> hostelAllocations =  getNamedParamJdbcTemplate().query(ge
 	});
 
 		
-HostelAllocation hostelAll = null;
+/*HostelAllocation hostelAll = null;
 if(hostelAllocations != null && hostelAllocations.size()>0 ){
 	hostelAll = hostelAllocations.get(0);
-}
+}*/
 	
-return hostelAll;
+return hostelAllocation;
 }
 	
 
@@ -204,7 +207,7 @@ return hostelAll;
 	public HostelReservation getHostelReservation(String fileNo) {
 		String getQuery = hostelQueryProps.getProperty("getHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-List<HostelReservation> hostelReservations = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<HostelReservation>(){
+HostelReservation hostelReservation = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<HostelReservation>(){
 
 	public HostelReservation mapRow(ResultSet rs, int rowNum)
 			throws SQLException {
@@ -221,13 +224,13 @@ List<HostelReservation> hostelReservations = getNamedParamJdbcTemplate().query(g
 	}
 	
 });
-HostelReservation hostelRes = null;
+/*HostelReservation hostelRes = null;
 
 if(hostelReservations != null && hostelReservations.size()>0){
 	hostelRes = hostelReservations.get(0);
-}
+}*/
 		
-				return hostelRes;
+				return hostelReservation;
 		
 }
 	
@@ -284,7 +287,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
 		String getQuery = hostelQueryProps.getProperty("getRoomTypeDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
-List<RoomTypeDetail> roomTypeDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<RoomTypeDetail>(){
+RoomTypeDetail roomTypeDetail = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<RoomTypeDetail>(){
 
 	public RoomTypeDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
 		RoomTypeDetail room = new RoomTypeDetail();
@@ -294,13 +297,13 @@ List<RoomTypeDetail> roomTypeDetails = getNamedParamJdbcTemplate().query(getQuer
 	}
 	
 });
-
+/*
 	RoomTypeDetail r = null;
 	if(roomTypeDetails != null && roomTypeDetails.size()>0){
 		r = roomTypeDetails.get(0);
 	}
-	
-	return r;
+	*/
+	return roomTypeDetail;
 	}
 
 	
