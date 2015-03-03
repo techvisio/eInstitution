@@ -3,7 +3,84 @@
 
 <properties>
 
-	<entry key="getStudentDtlByFileNo">
+<entry key="getStudentDtlDynamically">
+    <![CDATA[
+Select
+File_No,
+Enroll_No,
+Uni_Enroll_No,
+Photo,
+First_Name,
+Last_Name,
+Father_Name,
+Mother_Name,
+Gender,
+DOB,
+Blood_Group,
+Father_Occupation,
+FixedLine_No,
+Self_Mobile_No,
+Parent_Mobile_No,
+Gaurdian_Mobile_No,
+Email_Id,
+Gaurdian_Email_Id,
+Hostel,
+Transportation,
+Academic_Year,
+Semester,
+Management_Approval,
+Fee_Paid,
+Category_Id,
+Course_Id,
+Branch_Id,
+Created_By,
+Created_On,
+Updated_By,
+Updated_On,   
+Domicile_State_Id,
+Scholarship,
+Remarks,
+Admission_Mode,
+Referred_By,
+Quota_Code
+from StudentDetail WHERE File_No=IFNULL(:File_No,File_No) and Email_Id=ifnull(:Email_Id,Email_Id) and Enroll_No=ifnull(:Enroll_No,Enroll_No) and Uni_Enroll_No=ifnull(:Uni_Enroll_No,Uni_Enroll_No) and Self_Mobile_No = ifnull(:Self_Mobile_No,Self_Mobile_No);    
+    ]]>
+
+	</entry>
+
+<entry key="getStudentBasicInfoByFileNo">
+    <![CDATA[
+Select
+File_No,
+Enroll_No,
+Father_Name,
+Gender,
+DOB,
+Course,
+Branch,
+Semester,
+Academic_Year,
+Updated_On
+from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id where File_No=:File_No;
+ ]]>
+</entry>
+
+<entry key="getAdmissionBasicInfo">
+    <![CDATA[
+
+select * from (select File_No,
+Enroll_No,
+Father_Name,
+Gender,
+DOB,
+Course,
+Branch,
+Semester,
+Academic_Year,
+Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
+</entry>
+
+<entry key="getStudentDtlByFileNo">
     <![CDATA[
 Select
 File_No,
@@ -48,7 +125,7 @@ from StudentDetail where File_No=:File_No;
 
 	</entry>
 
-	<entry key="addStudentDtl">
+<entry key="addStudentDtl">
     <![CDATA[
       
 Insert into StudentDetail
@@ -132,9 +209,9 @@ Quota_Code
        
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="updateStudentDtl">
+<entry key="updateStudentDtl">
     <![CDATA[
       
 Update StudentDetail set
@@ -178,17 +255,17 @@ Quota_Code = :Quota_Code
  where File_No=:File_No;  
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="deleteStudentDtl">
+<entry key="deleteStudentDtl">
     <![CDATA[
       
 Delete from StudentDetail where File_No=:File_No; 
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="getAcademicDtlByFileNo">
+<entry key="getAcademicDtlByFileNo">
     <![CDATA[
 Select 
 University,
@@ -202,9 +279,9 @@ from  AcademicDetail where File_No=:File_No;
     
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="upsertAcademicDtl">
+<entry key="upsertAcademicDtl">
     <![CDATA[
       
 Insert into AcademicDetail
@@ -236,18 +313,18 @@ on duplicate key update
  
     ]]>
 
-	</entry>
+</entry>
 
 	
-	<entry key="deleteAcademicDtl">
+<entry key="deleteAcademicDtl">
     <![CDATA[
       
 Delete from AcademicDetail where File_No=:File_No and Qualification_Id not in (:Qualification_Id);  
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="getAddressDtlByFileNo">
+<entry key="getAddressDtlByFileNo">
     <![CDATA[
       
 Select
@@ -263,9 +340,9 @@ State_Id
 from AddressDetail where File_No=:File_No;    
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="upsertAddressDtl">
+<entry key="upsertAddressDtl">
     <![CDATA[
       
 Insert into AddressDetail
@@ -300,17 +377,17 @@ State_Id=:State_Id
    
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="deleteAddressDtl">
+<entry key="deleteAddressDtl">
     <![CDATA[
       
 Delete from AddressDetail where File_No=:File_No and Address_Type not in(:Address_Type);  
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="getAdmissionDisDtlByFileNo">
+<entry key="getAdmissionDisDtlByFileNo">
     <![CDATA[
       
 Select  
@@ -323,9 +400,9 @@ Discount_Type
 from  AdmissionDiscountDtl where File_No=:File_No;    
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="upsertAdmissionDisDtl">
+<entry key="upsertAdmissionDisDtl">
     <![CDATA[
       
 Insert into AdmissionDiscountDtl
@@ -348,17 +425,17 @@ Discount_Type=:Discount_Type
     
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="deleteAdmissionDisDtl">
+<entry key="deleteAdmissionDisDtl">
     <![CDATA[
       
 Delete from AdmissionDiscountDtl where File_No=:File_No and FeeHead_Id not in (:FeeHead_Id);  
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="getQualificationSubjectDtlByFileNo">
+<entry key="getQualificationSubjectDtlByFileNo">
     <![CDATA[
  
 Select      
@@ -371,9 +448,9 @@ Select
 from QualificationSubjectDtl where File_No=:File_No; 
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="upsertQualificationSubjectDtl">
+<entry key="upsertQualificationSubjectDtl">
     <![CDATA[
       
 Insert into QualificationSubjectDtl
@@ -399,18 +476,18 @@ Insert into QualificationSubjectDtl
     
     ]]>
 
-	</entry>
+</entry>
 
 	
-	<entry key="deleteQualificationSubjectDtl">
+<entry key="deleteQualificationSubjectDtl">
     <![CDATA[
       
 Delete from QualificationSubjectDtl where File_No=:File_No and Subject_Id not in (:Subject_Id); 
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="getBranchPreferenceByFileNo">
+<entry key="getBranchPreferenceByFileNo">
     <![CDATA[
       
 Select
@@ -421,9 +498,9 @@ Select
 	from BranchPreference where File_No=:File_No;
     ]]>
 
-	</entry>
+</entry>
 
-	<entry key="upsertBranchPreference">
+<entry key="upsertBranchPreference">
     <![CDATA[
       
       Insert into BranchPreference
@@ -443,18 +520,18 @@ Select
 	
     ]]>
 
-	</entry>
+</entry>
 
 	
-	<entry key="deleteBranchPreference">
+<entry key="deleteBranchPreference">
     <![CDATA[
       
       Delete from BranchPreference where File_No=:File_No and Branch_Preference_Id not in (:Branch_Preference_Id); 
 	 
 	     ]]>
-	</entry>
+</entry>
 	
-		<entry key="getcounsellingDetailByFileNo">
+<entry key="getcounsellingDetailByFileNo">
     <![CDATA[
 select 
       
@@ -468,9 +545,9 @@ select
 from counsellingDetail where File_No=:File_No;
     ]]>
 
-	</entry>
+</entry>
 	
-	<entry key="upsertCounsellingDetail">
+<entry key="upsertCounsellingDetail">
     <![CDATA[
 insert into counsellingDetail
       
@@ -499,12 +576,13 @@ insert into counsellingDetail
        
     ]]>
 
-	</entry>
+</entry>
 	
-	<entry key="deleteCounsellingDetail">
+<entry key="deleteCounsellingDetail">
     <![CDATA[
 delete from counsellingDetail where File_No=:File_No and Counselling_Id not in (:Counselling_Id);
     ]]>
 
-	</entry>
+</entry>
+	
 </properties>

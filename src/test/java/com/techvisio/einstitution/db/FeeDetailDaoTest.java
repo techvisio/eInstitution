@@ -97,14 +97,14 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testAddFeeTransactiondr(){
-		FeeTransaction feeTransaction = new FeeTransaction();
+		FeeTransaction feeTransaction1 = new FeeTransaction();
 	
-		feeTransaction.setComponentId(897L);
-		feeTransaction.setFileNo("2015-151");
-        feeTransaction.setUser("Anil");
-        feeTransaction.setSemester(2);
-        feeTransaction.setRemark("qwerttytdadsa");
-		dao.addFeeTransactionDebit(feeTransaction);
+		feeTransaction1.setComponentId(897L);
+		feeTransaction1.setFileNo("2015-148");
+        feeTransaction1.setUser("Vikas");
+        feeTransaction1.setSemester(2);
+        feeTransaction1.setRemark("jshshshshshshsh");
+		dao.addFeeTransactionDebit(feeTransaction1);
 	}
 	
 	@Test

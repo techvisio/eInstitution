@@ -80,6 +80,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		studentDetail=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
 		
 		return studentDetail;
+	}
 	public StudentBasicInfo getStudentBsInfo(String fileNo) {
 		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);
 		

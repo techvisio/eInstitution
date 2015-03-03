@@ -52,6 +52,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 		StudentDetail studentDetail = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
 		return studentDetail;
+	}
 
 	public StudentBasicInfo getStudentBsInfo(String fileNo) {
 		StudentBasicInfo info = admissionManager.getStudentBsInfo(fileNo); 

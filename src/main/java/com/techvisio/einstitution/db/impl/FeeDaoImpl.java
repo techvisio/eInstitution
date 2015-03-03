@@ -165,7 +165,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));
 				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
-				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
 				feeTransaction.setRemark(rs.getString("Remark"));
 				return feeTransaction;
 			}
@@ -185,7 +184,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
-		.addValue("Created_Date", feeTransaction.getCreatedDate())
 		.addValue("Semester", feeTransaction.getSemester())
 		.addValue("Component_Id", feeTransaction.getComponentId())
 		.addValue("Mode", feeTransaction.getMode())

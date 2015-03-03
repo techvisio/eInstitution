@@ -46,7 +46,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		.addValue("Self_Mobile_No", searchCriteria.getMobileNo());
 		
 		StudentDetail studentDetail=getNamedParamJdbcTemplate().queryForObject(
-				getQuery, namedParameter, new AdmissionRowMapper());
+				getQuery, namedParameter, new StudentDetailRowMapper());
 
 		String fileNo=studentDetail.getFileNo();
 		
@@ -76,7 +76,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", fileNo);
 		StudentDetail studentDetail = getNamedParamJdbcTemplate().queryForObject(
-				getQuery, namedParameter, new AdmissionRowMapper());
+				getQuery, namedParameter, new StudentDetailRowMapper());
 
 
 			List<StudentAcademicDetail> academicDetails = getAcademicDtl(fileNo);
@@ -936,7 +936,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 }
 
-public class AdmissionRowMapper implements RowMapper<StudentDetail>{
+public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 	public StudentDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 		StudentDetail studentDetail = new StudentDetail();
@@ -990,38 +990,30 @@ public class AdmissionRowMapper implements RowMapper<StudentDetail>{
 		studentDetail.setReferredBy(rs.getString("Referred_By"));
 		studentDetail.setQuotaCode(rs.getString("Quota_Code"));	
 
-		
 		return studentDetail;
-
-	
-		
 	}
 	
 	
 }
-	
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
 		//StudentBasicInfo info = new StudentBasicInfo();
 		
 		String getQuery = admissionQueryProps.getProperty("getAdmissionBasicInfo");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
 		
-		List<StudentBasicInfo> infos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new RowMaper());
+		List<StudentBasicInfo> infos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new StudentBasicInfoRowMaper());
 		return infos;
 	}
-
-	
 
 public StudentBasicInfo getStudentBsInfo(String fileNo) {
 	String getQuery = admissionQueryProps.getProperty("getStudentBasicInfoByFileNo");
 	SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-	StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMaper());
+	StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new StudentBasicInfoRowMaper());
 	
 	return info;
 }
 
-
- class RowMaper implements RowMapper<StudentBasicInfo>{
+class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 
 	public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
 			throws SQLException {

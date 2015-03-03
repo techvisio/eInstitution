@@ -195,7 +195,7 @@ Insert into feetransactionDebit
 	:Semester, 
 	:Component_Id, 
 	:User, 
-	:Created_Date,
+	 now(),
 	:Remark,
 	:Mode )
     ]]>
@@ -236,7 +236,7 @@ Insert into feetransactionCredit
 	:Semester, 
 	:Component_Id, 
 	:User, 
-	:Created_Date,
+	now(),
 	:Remark,
 	:Mode )
     ]]>

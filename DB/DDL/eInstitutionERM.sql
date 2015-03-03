@@ -417,3 +417,34 @@ CREATE TABLE `workflowfieldmapping` (
   `FIELD_DESC_ID` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+/* feetransaction's table* (3 mar,2015)*/
+
+CREATE TABLE `feetransactiondebit` (
+  `File_No` varchar(100) NOT NULL DEFAULT '',
+  `Semester` int(11) DEFAULT NULL,
+  `Component_Id` int(11) DEFAULT NULL,
+  `user` varchar(100) DEFAULT NULL,
+  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Remark` varchar(500) DEFAULT NULL,
+  `Mode` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`File_No`),
+  KEY `Component_Id` (`Component_Id`),
+  CONSTRAINT `feetransactiondebit_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
+  CONSTRAINT `feetransactiondebit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `feetransactioncredit` (
+  `File_No` varchar(100) NOT NULL DEFAULT '',
+  `Semester` int(11) DEFAULT NULL,
+  `Component_Id` int(11) DEFAULT NULL,
+  `user` varchar(100) DEFAULT NULL,
+  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Remark` varchar(500) DEFAULT NULL,
+  `Mode` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`File_No`),
+  KEY `Component_Id` (`Component_Id`),
+  CONSTRAINT `feetransactioncredit_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
+  CONSTRAINT `feetransactioncredit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
