@@ -15,6 +15,7 @@ import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
 import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -31,6 +32,42 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
+	
+	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
+
+		String getQuery = admissionQueryProps
+				.getProperty("getStudentDtlDynamically");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"File_No", searchCriteria.getFileNo())
+		.addValue("Email_Id", searchCriteria.getEmailId())
+		.addValue("Enroll_No", searchCriteria.getEnrollNo())
+		.addValue("Uni_Enroll_No", searchCriteria.getUniEnrollNo())
+		.addValue("Self_Mobile_No", searchCriteria.getMobileNo());
+		
+		StudentDetail studentDetail=getNamedParamJdbcTemplate().queryForObject(
+				getQuery, namedParameter, new AdmissionRowMapper());
+
+		String fileNo=studentDetail.getFileNo();
+		
+			List<StudentAcademicDetail> academicDetails = getAcademicDtl(fileNo);
+			studentDetail.setAcademicDtl(academicDetails);
+
+			List<AddressDetail> addressDetails = getAddressDtl(fileNo);
+			studentDetail.setAddressDtl(addressDetails);
+
+			List<AdmissionDiscountDtl> admissionDiscountDtls = getAdmissionDisDtl(fileNo);
+			studentDetail.setDiscountDtl(admissionDiscountDtls);
+
+			List<BranchPreference> branchPreferences = getBranchPreference(fileNo);
+			studentDetail.setBranchPreference(branchPreferences);
+
+			List<CounsellingDetail> counsellingDetails = getCounsellingDetail(fileNo);
+			studentDetail.setCounsellingDtl(counsellingDetails);
+		
+		    return studentDetail;
+	}
+	
 	public StudentDetail getStudentDtl(String fileNo) {
 
 		String getQuery = admissionQueryProps
@@ -38,73 +75,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", fileNo);
-		List<StudentDetail> studentDetails = getNamedParamJdbcTemplate().query(
-				getQuery, namedParameter, new RowMapper<StudentDetail>() {
+		StudentDetail studentDetail = getNamedParamJdbcTemplate().queryForObject(
+				getQuery, namedParameter, new AdmissionRowMapper());
 
-					public StudentDetail mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-
-						StudentDetail studentDetail = new StudentDetail();
-
-						studentDetail.setFileNo(rs.getString("File_No"));
-						studentDetail.setEnrollNo(rs.getString("Enroll_No"));
-						studentDetail.setUniEnrollNo(rs
-								.getString("Uni_Enroll_No"));
-						studentDetail.setPhoto(rs.getBytes("Photo"));
-						studentDetail.setFirstName(rs.getString("First_Name"));
-						studentDetail.setLastName(rs.getString("Last_Name"));
-						studentDetail.setFatherName(rs.getString("Father_Name"));
-						studentDetail.setMotherName(rs.getString("Mother_Name"));
-						studentDetail.setGender(rs.getString("Gender"));
-						studentDetail.setDob(rs.getDate("DOB"));
-						studentDetail.setBloodGroup(rs.getString("Blood_Group"));
-						studentDetail.setFatherOccupation(rs
-								.getString("Father_Occupation"));
-						studentDetail.setFixedLineNo(rs
-								.getString("FixedLine_No"));
-						studentDetail.setSelfMobile_No(rs
-								.getString("Self_Mobile_No"));
-						studentDetail.setParentMobileNo(rs
-								.getString("Parent_Mobile_No"));
-						studentDetail.setGaurdianMobileNo(rs
-								.getString("Gaurdian_Mobile_No"));
-						studentDetail.setEmailId(rs.getString("Email_Id"));
-						studentDetail.setGaurdianEmailId(rs
-								.getString("Gaurdian_Email_Id"));
-						studentDetail.setHostel(rs.getBoolean("Hostel"));
-						studentDetail.setTransportation(rs
-								.getBoolean("Transportation"));
-						studentDetail.setAcademicYear(rs
-								.getString("Academic_Year"));
-						studentDetail.setSemester(rs.getString("Semester"));
-						studentDetail.setManagementApproval(rs
-								.getBoolean("Management_Approval"));
-						studentDetail.setFeePaid(rs.getBoolean("Fee_Paid"));
-						studentDetail.setCategoryId(CommonUtil.getLongValue(rs.getLong("Category_Id")));
-						studentDetail.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
-						studentDetail.setBranchId(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
-						studentDetail.setCreatedBy(rs.getString("Created_By"));
-						studentDetail.setCreated_On(rs.getDate("Created_On"));
-						studentDetail.setUpdatedBy(rs.getString("Updated_By"));
-						studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
-						studentDetail.setDomicileState(rs
-								.getString("Domicile_State_Id"));
-						studentDetail.setScholarship(rs.getBoolean("Scholarship"));
-						studentDetail.setRemarks(rs.getString("Remarks"));
-						studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
-						studentDetail.setReferredBy(rs.getString("Referred_By"));
-						studentDetail.setQuotaCode(rs.getString("Quota_Code"));	
-						return studentDetail;
-
-					}
-
-
-				});
-
-		StudentDetail studentDetail = null;
-
-		if (studentDetails != null && studentDetails.size() > 0) {
-			studentDetail = studentDetails.get(0);
 
 			List<StudentAcademicDetail> academicDetails = getAcademicDtl(fileNo);
 			studentDetail.setAcademicDtl(academicDetails);
@@ -121,7 +94,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			List<CounsellingDetail> counsellingDetails = getCounsellingDetail(fileNo);
 			studentDetail.setCounsellingDtl(counsellingDetails);
 
-		}
 		return studentDetail;
 	}
 
@@ -964,14 +936,70 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 }
 
-	public StudentBasicInfo getStudentBsInfo(String fileNo) {
-		String getQuery = admissionQueryProps.getProperty("getStudentBasicInfoByFileNo");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-		StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMaper());
-		
-		return info;
-	}
+public class AdmissionRowMapper implements RowMapper<StudentDetail>{
+	public StudentDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
 
+		StudentDetail studentDetail = new StudentDetail();
+
+		studentDetail.setFileNo(rs.getString("File_No"));
+		studentDetail.setEnrollNo(rs.getString("Enroll_No"));
+		studentDetail.setUniEnrollNo(rs
+				.getString("Uni_Enroll_No"));
+		studentDetail.setPhoto(rs.getBytes("Photo"));
+		studentDetail.setFirstName(rs.getString("First_Name"));
+		studentDetail.setLastName(rs.getString("Last_Name"));
+		studentDetail.setFatherName(rs.getString("Father_Name"));
+		studentDetail.setMotherName(rs.getString("Mother_Name"));
+		studentDetail.setGender(rs.getString("Gender"));
+		studentDetail.setDob(rs.getDate("DOB"));
+		studentDetail.setBloodGroup(rs.getString("Blood_Group"));
+		studentDetail.setFatherOccupation(rs
+				.getString("Father_Occupation"));
+		studentDetail.setFixedLineNo(rs
+				.getString("FixedLine_No"));
+		studentDetail.setSelfMobile_No(rs
+				.getString("Self_Mobile_No"));
+		studentDetail.setParentMobileNo(rs
+				.getString("Parent_Mobile_No"));
+		studentDetail.setGaurdianMobileNo(rs
+				.getString("Gaurdian_Mobile_No"));
+		studentDetail.setEmailId(rs.getString("Email_Id"));
+		studentDetail.setGaurdianEmailId(rs
+				.getString("Gaurdian_Email_Id"));
+		studentDetail.setHostel(rs.getBoolean("Hostel"));
+		studentDetail.setTransportation(rs
+				.getBoolean("Transportation"));
+		studentDetail.setAcademicYear(rs
+				.getString("Academic_Year"));
+		studentDetail.setSemester(rs.getString("Semester"));
+		studentDetail.setManagementApproval(rs
+				.getBoolean("Management_Approval"));
+		studentDetail.setFeePaid(rs.getBoolean("Fee_Paid"));
+		studentDetail.setCategoryId(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+		studentDetail.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+		studentDetail.setBranchId(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+		studentDetail.setCreatedBy(rs.getString("Created_By"));
+		studentDetail.setCreated_On(rs.getDate("Created_On"));
+		studentDetail.setUpdatedBy(rs.getString("Updated_By"));
+		studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
+		studentDetail.setDomicileState(rs
+				.getString("Domicile_State_Id"));
+		studentDetail.setScholarship(rs.getBoolean("Scholarship"));
+		studentDetail.setRemarks(rs.getString("Remarks"));
+		studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
+		studentDetail.setReferredBy(rs.getString("Referred_By"));
+		studentDetail.setQuotaCode(rs.getString("Quota_Code"));	
+
+		
+		return studentDetail;
+
+	
+		
+	}
+	
+	
+}
+	
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
 		//StudentBasicInfo info = new StudentBasicInfo();
 		
@@ -983,8 +1011,14 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	
-}
 
+public StudentBasicInfo getStudentBsInfo(String fileNo) {
+	String getQuery = admissionQueryProps.getProperty("getStudentBasicInfoByFileNo");
+	SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+	StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMaper());
+	
+	return info;
+}
 
 
  class RowMaper implements RowMapper<StudentBasicInfo>{
@@ -1005,4 +1039,5 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		
 		return basicInfo;
 	}
+}
 }

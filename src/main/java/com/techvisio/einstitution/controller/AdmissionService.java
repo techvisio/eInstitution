@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -103,6 +104,28 @@ public class AdmissionService {
 		masterData.put("personalDetailAttributes", null);
 		return new ResponseEntity<Map<String,List>>(masterData,HttpStatus.OK);
 	}
+
+	
+	@RequestMapping(value ="/search/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		Response response=new Response();
+		try
+		{
+			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
+			StudentDetail studentDetail = workflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+			response.setResponseBody(studentDetail);
+			
+			if(studentDetail == null){
+				
+				response.setError("No such record found");
+			}
+			}
+			catch(Exception e)
+			{
+			response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
 
 	@RequestMapping(value = "/StudentBsInfo/{fileNo}", method = RequestMethod.GET)
 	public StudentBasicInfo getStudentBsInfo(@PathVariable String fileNo){

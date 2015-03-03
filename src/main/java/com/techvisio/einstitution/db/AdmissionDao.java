@@ -4,11 +4,18 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.QuotaCode;
+
+import com.techvisio.einstitution.beans.SearchCriteria;
+
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+
 import com.techvisio.einstitution.beans.StudentDetail;
 
 public interface AdmissionDao {
 
+	
+	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	
 	public StudentDetail getStudentDtl(String fileNo);
 	public void addStudentDtl(StudentDetail studentDetail);
 	public void updateStudentDtl(StudentDetail studentDetail);

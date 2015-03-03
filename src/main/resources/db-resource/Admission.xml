@@ -3,6 +3,51 @@
 
 <properties>
 
+<entry key="getStudentDtlDynamically">
+    <![CDATA[
+Select
+File_No,
+Enroll_No,
+Uni_Enroll_No,
+Photo,
+First_Name,
+Last_Name,
+Father_Name,
+Mother_Name,
+Gender,
+DOB,
+Blood_Group,
+Father_Occupation,
+FixedLine_No,
+Self_Mobile_No,
+Parent_Mobile_No,
+Gaurdian_Mobile_No,
+Email_Id,
+Gaurdian_Email_Id,
+Hostel,
+Transportation,
+Academic_Year,
+Semester,
+Management_Approval,
+Fee_Paid,
+Category_Id,
+Course_Id,
+Branch_Id,
+Created_By,
+Created_On,
+Updated_By,
+Updated_On,   
+Domicile_State_Id,
+Scholarship,
+Remarks,
+Admission_Mode,
+Referred_By,
+Quota_Code
+from StudentDetail WHERE File_No=IFNULL(:File_No,File_No) and Email_Id=ifnull(:Email_Id,Email_Id) and Enroll_No=ifnull(:Enroll_No,Enroll_No) and Uni_Enroll_No=ifnull(:Uni_Enroll_No,Uni_Enroll_No) and Self_Mobile_No = ifnull(:Self_Mobile_No,Self_Mobile_No);    
+    ]]>
+
+	</entry>
+
 <entry key="getStudentBasicInfoByFileNo">
     <![CDATA[
 Select
@@ -35,6 +80,7 @@ Academic_Year,
 Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
+>>>>>>> branch 'master' of https://github.com/techvisio/eInstitution
 
 
 	<entry key="getStudentDtlByFileNo">

@@ -1,7 +1,5 @@
 package com.techvisio.einstitution.db;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 
 
@@ -56,18 +53,6 @@ public class AdmissionDaoTest {
 		System.out.println(detail);
 		
 		
-	}
-	
-	@Test
-	public void testGetStudentBsInfo(){
-		StudentBasicInfo info = dao.getStudentBsInfo("1");
-		System.out.println("Data is :- "+info);
-	}
-	
-	@Test
-	public void testGetAdmissionBsInfo(){
-		List<StudentBasicInfo> basicInfos = dao.getLatestAdmissionInfo(2);
-		System.out.println("Data is :- "+basicInfos);
 	}
 	
 		
