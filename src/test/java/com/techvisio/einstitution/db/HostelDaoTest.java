@@ -38,7 +38,7 @@ public class HostelDaoTest {
 
 	@Test
 	public void testGetHostelAllocation(){
-		HostelAllocation hAllocation = dao.getHostelAllocation("11");
+		HostelAllocation hAllocation = dao.getHostelAllocation("1");
 		System.out.println(hAllocation);
 	}
 	
@@ -64,7 +64,7 @@ public class HostelDaoTest {
 
 	@Test
 	public void testGetHostelInventory(){
-		HostelInventory hostelInventory=dao.getHostelInventory("1");
+		HostelInventory hostelInventory=dao.getHostelInventory("AC");
 
 		System.out.println(hostelInventory);
 	}
@@ -84,7 +84,7 @@ public class HostelDaoTest {
 
 	@Test
 	public void testGetHostelReservation(){
-		HostelReservation hostelReservation=dao.getHostelReservation("11");
+		HostelReservation hostelReservation=dao.getHostelReservation("2");
 
 		System.out.println(hostelReservation);
 	}
@@ -105,7 +105,7 @@ public class HostelDaoTest {
 
 	@Test
 	public void testGetRoomTypeDetail(){
-		RoomTypeDetail r=dao.getRoomTypeDetail("1");
+		RoomTypeDetail r=dao.getRoomTypeDetail("AC");
 
 		System.out.println(r);
 	}

@@ -40,6 +40,13 @@ public class AdmissionDaoTest {
 		dao.addStudentDtl(studentDetail);
 	}
 	
+	
+	@Test
+	public void testGetStudentDtl(){
+		StudentDetail detail = dao.getStudentDtl("1");
+		System.out.println("Data is :- "+detail);
+	}
+	
 	@Test
 	public void testGetAdmission(){
 		StudentDetail detail=dao.getStudentDtl("11");

@@ -82,48 +82,58 @@ Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdeta
 
 <entry key="getStudentDtlByFileNo">
     <![CDATA[
-Select
-File_No,
-Enroll_No,
-Uni_Enroll_No,
-Photo,
-First_Name,
-Last_Name,
-Father_Name,
-Mother_Name,
-Gender,
-DOB,
-Blood_Group,
-Father_Occupation,
-FixedLine_No,
-Self_Mobile_No,
-Parent_Mobile_No,
-Gaurdian_Mobile_No,
-Email_Id,
-Gaurdian_Email_Id,
-Hostel,
-Transportation,
-Academic_Year,
-Semester,
-Management_Approval,
-Fee_Paid,
-Category_Id,
-Course_Id,
-Branch_Id,
-Created_By,
-Created_On,
-Updated_By,
-Updated_On,   
-Domicile_State_Id,
-Scholarship,
-Remarks,
-Admission_Mode,
-Referred_By,
-Quota_Code
-from StudentDetail where File_No=:File_No;    
-    ]]>
+SELECT
+s.File_No,
+s.Enroll_No,
+s.Uni_Enroll_No,
+s.Photo,
+s.First_Name,
+s.Last_Name,
+s.Father_Name,
+s.Mother_Name,
+s.Gender,
+s.DOB,
+s.Blood_Group,
+s.Father_Occupation,
+s.FixedLine_No,
+s.Self_Mobile_No,
+s.Parent_Mobile_No,
+s.Gaurdian_Mobile_No,
+s.Email_Id,
+s.Gaurdian_Email_Id,
+case WHEN h.Type_Code is null 
+  THEN 0 
+  ELSE 1
+END
+ AS Hostel,
+case  
+WHEN t.Route_Code is null 
+THEN 0 
+ELSE 1
+end 
+ AS Transportation,
+s.Academic_Year,
+s.Semester,
+s.Management_Approval,
+s.Fee_Paid,
+s.Category_Id,
+s.Course_Id,
+s.Branch_Id,
+s.Created_By,
+s.Created_On,
+s.Updated_By,
+s.Updated_On,   
+s.Domicile_State_Id,
+s.Scholarship,
+s.Remarks,
+s.Admission_Mode,
+s.Referred_By,
+s.Quota_Code
 
-	</entry>
+from  studentdetail s left join transportreservation t on (s.File_No = t.File_No) left join hostelreservation h on (s.File_No = h.File_No)  where s.File_No=:File_No;    
+  ]]>
+
+</entry>
 
 <entry key="addStudentDtl">
     <![CDATA[
