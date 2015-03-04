@@ -27,8 +27,8 @@
 	-moz-box-shadow: 0px 0px 8px 0px #000000;
 	box-shadow: 0px 0px 8px 0px #000000;
 	/* Adds the transparent background */
-	background-color: rgba(0, 70, 135, 1);
-	color: rgba(0, 70, 135, 1);
+	background-color: #057DBC;
+	color: #057DBC;
 }
 
 .header-menu {
@@ -80,103 +80,208 @@
 	margin-right: auto;
 }
 
-.inner-table table tr td, .inner-table table tr th {
-	margin-left: none;
-	border: none;
-	padding: 3px;
-	padding-top: none;
-	width: 100px;
+.content table{
+	margin:auto;
 }
 
-/*Four column view CSS start*/
-.four-column-view select {
-	display: inline-block;
-	padding: 5px 5px;
-	border: 1px solid #E6E6EF;
-	-webkit-border-radius: 6px;
-	border-radius: 2px;
-	font: normal px/normal "Verdana";
-	width: 250px;
-	height: 30px;
+.admission-fixed-div{
+	width:70%;
+	float:left;
+	padding-bottom:10px;
+	border-radius:10px;
+	margin-left:20px;
+	margin-top:10px;
 }
 
-.four-column-view input[type="text"], .four-column-view input[type="date"]
-	{
-	display: inline-block;
-	padding: 5px 5px;
-	border: 1px solid;
-	-webkit-border-radius: 6px;
-	border-radius: 2px;
-	font: normal px/normal "Verdana";
-	width: 250px;
-	height: 30px;
-	border-color: #E6E6EF;
+.admission-fixed-div table tr td{
+	text-align:left;
+	padding-top:10px;
+	padding-left:10px;
 }
 
-.four-column-view li {
-	display: inline;
-	padding-right: 35px;
+.content .admission-fixed-div input[type="text"] {
+	width:200px;
+	height:25px;
 }
 
-.four-column-view  table {
-	margin: 0 auto;
+.content .admission-fixed-div select {
+	width:200px;
+	height:25px;
 }
 
-.four-column-view table tr td:nth-child(odd) {
-	border: none;
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-bottom: 2px;
-	padding-top: 2px;
-	width: 200px;
+.photo-fixed-div{
+	width:26%;
+	float:right;
+	padding-bottom:10px;
+	border-radius:10px;
+	margin-right:20px;
+	margin-top:10px;
 }
 
-.four-column-view table tr td:nth-child(even) {
-	border: none;
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-bottom: 2px;
-	padding-top: 2px;
-	width: 300px;
+.photo-fixed-div img{
+width: 120px;
+height: 120px;
 }
 
-.four-column-view img {
-	width: 150px;
-	height: 150px;
+.photo-fixed-div input[type="file"]{
+width: 200px;
 }
 
-.four-column-view img.inner-element {
-	width: 20px;
-	height: 20px;
+.photo-fixed-div input[type="button"]{
+width: 80px;
+height:22px;
 }
 
-.four-column-view span {
+.content span.title-span{
+	text-shadow: 1px 0px 3px rgb(157, 157, 157);
+	color:grey;
+	font-size: 25px;
+	text-align:center;
+}
+.content table td{
+	padding-left:10px;
+	padding-bottom:10px;
+	margin:0px auto;
+	text-align:center;
+}
+
+.admission-tab{
+	float:left; 
+	width:100%;
+}
+
+.admission-tab table{
+	margin:auto;
+}
+
+.admission-tab table td{
+	text-align:left;
+}
+.admission-tab-inner{
+	text-align:left;
+	float:left;
+	width:100%;
+	padding-top:20px;
+}
+
+.admission-tab-inner li{
+	display:inline;
+	float:left;	
+}
+
+.admission-tab-header{
+	float:left;
+	width:100%;
+}
+
+.admission-tab-header span a{
+	color: white;
+	font-size: 18px;
+/* 	font-style: italic; */
+	text-shadow: 1px 0px 3px rgb(157, 157, 157);
+}
+
+.admission-tab-header span{
+		background-color: #057DBC;
+		padding-top:5px;
+		padding-bottom:5px;
+		padding-left:15px;
+		padding-right:15px;
+	}
+.admission-tab-header span.active{
+		background-color: rgb(6,179,6);
+	}
+	
+.admission-tab-header table td{
+		margin:0px 0px 0px 0px;
+		padding:2px 2px 2px 2px;
+	}
+	
+.content select {
+   font-family: Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.44); 
+    color: #333; 
+    border: 1px solid #A4A4A4; 
+    padding: 4px 8px 4px 4px !important;
+    line-height: 1; 
+    width: 275px; 
+}
+
+.content input[type="text"] {
+   font-family: Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.44); 
+    color: #333; 
+    border: 1px solid #A4A4A4; 
+    padding: 4px 8px 4px 4px !important;
+    line-height: 1; 
+    width: 275px; 
+}
+
+.content input:focus {
+   border: 1px solid #4d90fe; 
+    outline: none; 
+    box-shadow: inset 0px 1px 2px rgba(0,0,0,0.3);  
+    -moz-box-shadow: inset 0px 1px 2px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0px 1px 2px rgba(0,0,0,0.3); 
+    background: rgb(255, 255, 255);
+}
+
+.content span {
 	font-family: "Verdana";
 	font-size: 15px;
 	font-style: none;
 	color: grey;
 }
 
-.four-column-view input[type="text"].ng-invalid {
-	border-color: #FF0000;
+/*four-column-view*/
+.four-column-view input[type="text"] {
+	width:300px;
+	height:30px;
 }
 
-/*Four column view CSS ends*/
+.four-column-view select {
+	width:300px;
+	height:30px;
+}
+
+.four-column-view table{
+	margin:0px auto;
+}
+
+.four-column-view table td{
+	padding-left:45px;
+	padding-right:20px;
+}
+
+.four-column-view table th{
+	padding-left:45px;
+	padding-right:20px;
+}
+
+.four-column-view li{
+	padding-right:40px;
+}
+
+.four-column-view{
+	float:left;
+	width:100%;
+}
+
+.four-column-view img{
+	width:20px;
+	height:20px;
+}
 
 /*Five column CSS starts*/
 
 .five-column-view{
+	float:left;
 	padding-bottom:40px;
+	width:100%;
 }
 
 .five-column-view select, .five-column-view input[type="text"] {
-	display: inline-block;
-	padding: 5px 5px;
-	border: 1px solid #E6E6EF;
-	-webkit-border-radius: 6px;
-	border-radius: 2px;
-	font: normal px/normal "Verdana";
-	width: 190px;
+	width: 210px;
 	height: 30px;
 }
 
@@ -186,7 +291,7 @@
 
 .five-column-view table tr td, .five-column-view table tr th {
 	border: none;
-	padding-right: 8px;
+	padding-left: 10px;
 	padding-bottom: 0px;
 	padding-top: 15px;
 	width: auto;
@@ -199,6 +304,26 @@
 	color: grey;
 }
 
+.student-discount td:nth-child(5),.student-discount td:nth-child(6){
+	padding-left:5px;
+	vertical-align: top;
+}
+.student-discount input[type="text"]{
+	width:200px;
+}
+.student-discount select{
+	width:200px;
+}
+
+.student-discount table th{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.student-discount table td{
+	padding-left:10px;
+	padding-right:10px;
+}
 /*Five column CSS ends*/
 
 /*Six column CSS starts*/
@@ -207,12 +332,6 @@
 	padding-bottom:40px;
 }
 .six-column-view select, .six-column-view input[type="text"] {
-	display: inline-block;
-	padding: 5px 5px;
-	border: 1px solid #E6E6EF;
-	-webkit-border-radius: 6px;
-	border-radius: 2px;
-	font: normal px/normal "Verdana";
 	width: 165px;
 	height: 30px;
 }
@@ -243,13 +362,7 @@
 	padding-bottom:40px;
 }
 .two-column-view select, .two-column-view input[type="text"] {
-	display: inline-block;
-	padding: 5px 5px;
-	border: 1px solid #E6E6EF;
-	-webkit-border-radius: 6px;
-	border-radius: 2px;
-	font: normal px/normal "Verdana";
-	width: 300px;
+	width: 200px;
 	height: 30px;
 }
 
@@ -257,12 +370,8 @@
 	margin: 0 auto;
 }
 
-.two-column-view table tr td, .two-column-view table tr th {
-	border: none;
-	padding-right: 8px;
-	padding-bottom: 0px;
-	padding-top: 15px;
-	width: auto;
+.two-column-view table tr td {
+	text-align:left;
 }
 
 .two-column-view span {
@@ -273,25 +382,19 @@
 }
 
 /*Six column CSS ends*/
-.side-mudule-submenu {
+.side-module-submenu {
 	position: fixed;
 	display: block;
 	float: right;
 	padding-right: 20px;
-	padding-top: 100px;
+	padding-top: 15px;
 	list-style: none;
-	background-color: white;
+	background-color: none;
 	width: 6%;
 	padding-left: 5px;
 }
-
-.side-mudule-submenu img {
-	width: 80px;
-	height: 80px;
-}
-
-.side-mudule-submenu li {
-	padding-bottom: 20px;
+ul.side-module-submenu{
+	list-style: none;
 }
 
 .dashboard {
@@ -299,7 +402,7 @@
 	height: 600px;
 	margin-left: auto;
 	margin-right: auto;
-	background-image: url(../images/dashboard.jpg);
+	background-image: url(../images/dashboardTheme.jpg);
 	margin-top: 160px;
 }
 
@@ -346,14 +449,19 @@
 }
 
 .panel-div {
-	background-color: #004687;
-	font-size: 20px;
-	margin-left: 5px;
-	margin-right: 70px;
-	color: white;
-	border-radius: 25px;
+	background-color: #057DBC;
 	text-align: center;
+	width:100%;
+	float:left;
 }
+
+.panel-div span{
+	color: white;
+	font-size: 18px;
+	text-shadow: 1px 0px 3px rgb(157, 157, 157);
+	border-radius: 25px;
+}
+
 
 .panel-div-modal {
 	background-color: #004687;
@@ -369,15 +477,15 @@
 	background-color: #339933;
 	cursor: pointer;
 	border-radius: 50px;
-	width: 80px;
-	height: 80px;
+	width: 70px;
+	height: 70px;
 	color: white;
-	font-size: 18px;
+	font-size: 15px;
 	font-style: italic;
 	text-align: center;
 	vertical-align: middle;
-	line-height: 75px;
-	margin-top: 10px;
+	line-height: 65px;
+	margin-top: 3px;
 }
 
 .inventory-view table tr td {
@@ -483,5 +591,61 @@
 
 .button{
 border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:bold; color: #000000;border-radius: 23px;
- background-color: #C0C0C0;
+ background-color: #C0C0C0; margin-left:30px;
  }
+ 
+ 
+/*  /////////////////////////////////////////// */
+
+
+.module-dashboard-container {
+	float: left;
+	width: 100%;
+	margin-top: 10px;
+	background-color:white;
+}
+
+.two-column-view input[type="text"]{
+	
+    display: inline-block;
+	border: 1px solid;
+	-webkit-border-radius: 4px;
+	font: normal px/normal "Verdana";
+	width: 200px;
+	height: 30px;
+	border-color: #E6E6EF;	
+	float:left;
+}
+
+.latest-admission
+{
+	height:100%;
+	width:40%;
+	float:right;
+	text-align:center;
+}
+
+.latest-admission table tr td,.latest-admission table tr th
+{
+	padding-top:20px;
+	padding-right:20px;
+	text-align:left;
+	padding-left:0px;
+}
+
+.admission-dashboard-menu
+{
+	height:50%;
+	width:60%;
+	float:left;
+}
+
+.admission-dashboard-menu table tr td{
+	text-align:left;
+	padding-top:10px;
+	padding-left:10px;
+} 
+
+.admission-dashboard-menu input[type="text"],.admission-dashboard-menu select{
+	width:170px;
+} 

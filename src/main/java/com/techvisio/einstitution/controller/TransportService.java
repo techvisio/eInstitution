@@ -3,6 +3,8 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,9 +81,15 @@ public class TransportService {
 				   }
 			       
 			}
+			catch(EmptyResultDataAccessException e)
+			{
+				response.setError("No such record found");
+				
+			}
 			catch(Exception e)
 			{
 		         	response.setError(e.getMessage());
+		         	e.printStackTrace();
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
       		}

@@ -1018,6 +1018,8 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 	public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
 			throws SQLException {
 		StudentBasicInfo basicInfo = new StudentBasicInfo();
+		basicInfo.setFirstName(rs.getString("First_Name"));
+		basicInfo.setLastName(rs.getString("Last_Name"));
 		basicInfo.setAcademicYear(rs.getString("Academic_Year"));
 		basicInfo.setBranch(rs.getString("Branch"));
 		basicInfo.setCourse(rs.getString("Course"));

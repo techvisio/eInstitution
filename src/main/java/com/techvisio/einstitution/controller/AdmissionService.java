@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +19,6 @@ import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
-import com.techvisio.einstitution.manager.AdmissionManager;
-import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 
@@ -120,8 +120,17 @@ public class AdmissionService {
 				response.setError("No such record found");
 			}
 			}
+		catch(EmptyResultDataAccessException e)
+		{
+			response.setError("No such record found");
+		}
+		catch(IncorrectResultSizeDataAccessException e)
+		{
+			response.setError("multiple record found for this idetifier");
+		}
 			catch(Exception e)
 			{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -137,12 +146,20 @@ public class AdmissionService {
 	}
 	
 	@RequestMapping(value = "/LatestAdmissionInfo/{limit}", method = RequestMethod.GET)
-	public List<StudentBasicInfo> getLatestAdmissionInfo(@PathVariable int limit){
-		AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
-		List<StudentBasicInfo> basicInfos = manager.getLatestAdmissionInfo(limit);
+	public  ResponseEntity<Response> getLatestAdmissionInfo(@PathVariable int limit){
 		
-		return basicInfos;
-		
-	}
+		Response response = new Response();
+		try
+		{
+			AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
+		    List<StudentBasicInfo> basicInfo = manager.getLatestAdmissionInfo(limit);
+		    response.setResponseBody(basicInfo);
+		}
+		catch(Exception e)
+		{
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+     	}
 	
 }

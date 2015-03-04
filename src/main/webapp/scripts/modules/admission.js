@@ -10,16 +10,21 @@ admissionModule
 		 '$modal',
 		  function($scope, admissionService,masterdataService,$modal) {
 			 
-			$scope.subModules=["personal","address","other"];
-		 	$scope.selection=$scope.subModules[0];	
+		
 		 	$scope.form = {};
 		 	$scope.form.sameAsAbove=false;
 			 $scope.form.processing=false;
 			 $scope.form.isEdit=true;
 			 $scope.form.isNew=true;
+			 $scope.dashboard=true;
+			 $scope.showCriteria=false;
+			 $scope.tab = 1;
 			 $scope.serverModelData = {};
 
 			 $scope.student = {};
+			 $scope.latestAdmission=[];
+			 $scope.searchCriteria={};
+			 
 			 $scope.student.addressDtl = [];
 			 
 			 $scope.student.academicDtl = [];
@@ -86,6 +91,18 @@ admissionModule
 					 "percentile" : 0.0
 			 };
 
+			 
+			 $scope.admissionMode={"C":"Counselling",
+		 				"W":"Walk-In",
+		 				"A":"Consultant",
+		 				"R":"Referral"};
+			    
+			    $scope.selectTab = function (setTab){
+			     $scope.tab = setTab;
+			    };
+			    $scope.isSelected = function(checkTab) {
+			     return $scope.tab === checkTab;
+			    };
 
 			 $scope.checkAmout=function(index,type){
 				 if(type=='amount'){
@@ -102,8 +119,6 @@ admissionModule
 				 
 			 }
 				 
-			 
-			 
 			 $scope.init=function(){
 
 				 console.log('getting masterdata for admission module in init block');
@@ -296,7 +311,49 @@ admissionModule
 
 			 }
 
-			 				
+			 
+			 $scope.getLatestAdmission = function(){
+
+				 admissionService.getLatestAdmission(5)
+				 .then(function(response) {
+					 console.log('Latest admission data received in controller : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.latestAdmission = response.data.responseBody;
+						 
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+				 
+			 }
+
+			 $scope.getStudentByCriteria = function() {
+				 console.log('get student by search criteria in controller');
+				 console.log($scope.searchCriteria);
+				 $scope.processing=true;
+				 admissionService.getStudentByCriteria($scope.searchCriteria)
+				 .then(function(response) {
+					 console.log('Data received from service in controller : ');
+					 console.log(response);
+					 if (response != null && response.data != null && response.data.responseBody != null) {
+						 $scope.showCriteria=false;
+						 $scope.form.isNew=false;
+						 $scope.form.isEdit=false;
+						 $scope.dashboard=false;
+						 $scope.student = response.data.responseBody;
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 
+					 $scope.processing=false;
+				 })
+				 
+
+			 }
+
 				 $scope.next=function(){
 				 var selectionIndex=$scope.subModules.indexOf($scope.selection);
 				 if(selectionIndex != $scope.subModules.length-1){
@@ -428,7 +485,9 @@ admissionModule
 			 return ({
 				 addStudent : addStudent,
 				 getStudent : getStudent,
-				 updateStudent : updateStudent
+				 updateStudent : updateStudent,
+				 getLatestAdmission : getLatestAdmission,
+				 getStudentByCriteria : getStudentByCriteria
 			 });
 
 			 function addStudent(student) {
@@ -461,7 +520,7 @@ admissionModule
 
 			 }
 
-
+			 
 			 function getStudent(fileNo) {
 
 				 var request = $http({
@@ -476,6 +535,36 @@ admissionModule
 
 			 }
 
+
+			 function getLatestAdmission(limit){
+
+				 console.log("Latest Admission called from service")
+				 var request = $http({
+					 method : "get",
+					 url : "admission/LatestAdmissionInfo/"+limit,
+					 params : {
+						 action : "get"
+					 }
+				 });
+
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getStudentByCriteria(searchCriteria){
+
+				 console.log('Getting student by search criteria in service');
+				 var request = $http({
+					 method : "post",
+					 url : "admission/search/",
+					 params : "",
+					 data : searchCriteria
+
+				 });
+
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 
 			 function handleError(response) {
 				 console.log('Error occured while calling service');
 				 console.log(response);
@@ -499,6 +588,7 @@ admissionModule
 
 			 }
 
+			 
 
 		 });
 

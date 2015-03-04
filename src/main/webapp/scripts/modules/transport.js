@@ -56,12 +56,25 @@ transportModule.controller('transportController', ['$scope','transportService',f
 			     .then(function(response){
 				console.log('update Transport Reservation callback');
 				console.log(response.data.responseBody);
-				
 				$scope.currentReservation=response.data.responseBody;
-				
+				$scope.syncReservationStatus();
 			})
 			}
 			}
+			
+			$scope.syncReservationStatus = function(){
+				
+				if($scope.currentReservation && $scope.currentReservation.fileNo){
+					
+					$scope.student.transportation=true;
+				}
+				else{
+					
+					$scope.student.transportation=false;
+				}
+				
+			}
+			
 			
                  $scope.reserveTransport = function(){
 				
@@ -75,7 +88,7 @@ transportModule.controller('transportController', ['$scope','transportService',f
 					console.log(response.data.responseBody);
 					
 					$scope.currentReservation=response.data.responseBody;
-					
+					$scope.syncReservationStatus();
 				})
 			}
 
@@ -89,6 +102,7 @@ transportModule.controller('transportController', ['$scope','transportService',f
      				.then(function(response){
                            
      					$scope.currentReservation = {};
+     					$scope.syncReservationStatus();
      				})
                     }}
 

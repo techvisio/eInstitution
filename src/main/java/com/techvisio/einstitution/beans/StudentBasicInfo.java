@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class StudentBasicInfo {
 	private String fileNo;
+	private String firstName;
+	private String lastName;
 	private String enrollmentNo;
 	private String fatherName;
 	private String gender;
@@ -77,11 +79,24 @@ public class StudentBasicInfo {
 	
 	@Override
 	public String toString() {
-		return "StudentBasicInfo [fileNo=" + fileNo + ", enrollmentNo="
+		return "StudentBasicInfo [fileNo=" + fileNo + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", enrollmentNo="
 				+ enrollmentNo + ", fatherName=" + fatherName + ", gender="
 				+ gender + ", dob=" + dob + ", course=" + course + ", branch="
 				+ branch + ", semester=" + semester + ", academicYear="
 				+ academicYear + ", modifiedDate=" + modifiedDate + "]";
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	
