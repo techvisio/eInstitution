@@ -691,6 +691,10 @@ color:white;
 	width:80px;
 }
 
+.side-menu.close-state button{
+   visibility: hidden;
+}
+
 .side-menu ul{
 	padding:none;
 }
