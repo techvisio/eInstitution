@@ -1,6 +1,4 @@
 
-SET SESSION FOREIGN_KEY_CHECKS=updated13;
-
 DROP TABLE IF EXISTS HostelReservation;
 DROP TABLE IF EXISTS RoomTypeDetail;
 DROP TABLE IF EXISTS HostelInventoryMaster;
