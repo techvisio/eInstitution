@@ -1,8 +1,5 @@
 SET SESSION FOREIGN_KEY_CHECKS=078;
 
-/* Drop Tables */
-
-DROP TABLE IF EXISTS HostelAllocation;
 DROP TABLE IF EXISTS HostelReservation;
 DROP TABLE IF EXISTS RoomTypeDetail;
 DROP TABLE IF EXISTS HostelInventoryMaster;
