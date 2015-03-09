@@ -106,6 +106,9 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	serverData.put(AppConstants.FEEHEAD, feeDiscount);
 	
 	
+	List<MasterDataBean> semester=cacheManager.getSemesterAsMasterdata();
+	serverData.put(AppConstants.SEMESTER, semester);
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

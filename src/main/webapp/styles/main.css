@@ -633,7 +633,7 @@ border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:
 
 .latest-admission table tr td,.latest-admission table tr th
 {
-	padding-top:15px;
+	padding-top:10px;
 	padding-right:20px;
 	text-align:left;
 	padding-left:0px;
@@ -724,3 +724,7 @@ color:white;
 	text-align:center;
 	line-height: 100px;
 }
+
+.showmore{
+	width:300px;
+	}

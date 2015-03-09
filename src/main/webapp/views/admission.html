@@ -56,9 +56,9 @@
 					<td><span ng-bind="object.fileNo"></span></td>
 					<td><span ng-bind="object.firstName+' '+object.lastName"></span></td>
 					<td><span ng-bind="object.fatherName"></span></td>
-					<td><button type="button" class="btn btn-success btn-xs">Show Detail</button></td>
+					<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Show Detail</button></td>
 				</tr>
-				<tr><td colspan=3><button type="button" class="btn btn-primary btn-xs">Load more data</button></td></tr>
+				<tr><td colspan=3><button type="button" class="btn btn-primary showmore">Load more data</button></td></tr>
 
 			</table>
 		</div>
@@ -193,7 +193,7 @@
 								<td><span> Semester </span></td>
 								<td><select select ng-model="student.semester"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER"></select>
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}"></select>
 								</td>
 							</tr>
 

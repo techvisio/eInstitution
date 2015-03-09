@@ -12,6 +12,7 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 
@@ -38,6 +39,8 @@ public interface CacheDao {
 	public List<FeeDetail> getFeeDetailMaster();
 	
 	public List<FeeDiscountHead> getFeeDiscountHeadMaster();
+	
+	public List<Semester> getSemester();
 	
 	
 }

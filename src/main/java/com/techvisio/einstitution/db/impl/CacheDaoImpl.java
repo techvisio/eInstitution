@@ -15,9 +15,9 @@ import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
-import com.techvisio.einstitution.beans.FeeHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
@@ -272,6 +272,28 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return feeDiscountHeads;
 	}
 
+
+	public List<Semester> getSemester(){
+
+		String getSemesterQuery=masterQueryProps.getProperty("getSemester");
+
+		List<Semester> semesters =new ArrayList<Semester>(); 
+
+		semesters = getNamedParamJdbcTemplate().query(getSemesterQuery, new RowMapper<Semester>() {
+
+			public Semester mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Semester semester = new Semester();
+				
+				semester.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+				semester.setSemester(rs.getString("Semester"));
+				semester.setId(CommonUtil.getLongValue(rs.getLong("Id")));
+				return semester;
+			}
+		});
+
+		return semesters;
+	}
 
 	
 

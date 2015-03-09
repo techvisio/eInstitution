@@ -329,6 +329,27 @@ admissionModule
 				 
 			 }
 
+			 $scope.showDetail =  function(index){
+			
+				 admissionService.getStudent($scope.latestAdmission[index].fileNo)
+				 .then(function(response) {
+					 console.log('Data received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student = response.data.responseBody;
+						 $scope.populateMissingData($scope.student);
+						 $scope.form.isNew=false;
+						 $scope.form.isEdit=false;
+						 $scope.dashboard=false;
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+
+			 }
+
+			 
 			 $scope.getStudentByCriteria = function() {
 				 console.log('get student by search criteria in controller');
 				 console.log($scope.searchCriteria);

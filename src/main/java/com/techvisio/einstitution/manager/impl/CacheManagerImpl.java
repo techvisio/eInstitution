@@ -16,6 +16,7 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
@@ -242,6 +243,28 @@ public class CacheManagerImpl implements CacheManager {
      	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(FeeDiscountHead feeDiscountHead : getsFeeDiscounts()){
 			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead());
+			masterData.add(bean);
+		}
+		return masterData;
+	}	
+
+	
+	@SuppressWarnings("unchecked")
+	public synchronized  List<Semester> getSemester() {
+		if(cacheMap.get(AppConstants.SEMESTER) == null){
+			List<Semester> semesters=null;
+			semesters=cacheDao.getSemester();
+			cacheMap.put(AppConstants.SEMESTER, semesters);
+		}
+		
+		return (List<Semester>)cacheMap.get(AppConstants.SEMESTER);
+	}
+	
+	
+	public List<MasterDataBean> getSemesterAsMasterdata(){
+     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		for(Semester semester : getSemester()){
+			MasterDataBean bean=new MasterDataBean(semester.getId().toString(), semester.getSemester(),semester.getCourseId().toString());
 			masterData.add(bean);
 		}
 		return masterData;

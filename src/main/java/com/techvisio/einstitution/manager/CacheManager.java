@@ -25,6 +25,8 @@ public interface CacheManager {
 	public List<MasterDataBean> getConsultantAsMasterdata();
 	
 	public List<MasterDataBean> getFeeDiscountAsMasterdata();
+	
+	public List<MasterDataBean> getSemesterAsMasterdata();
 
 
 }
