@@ -1,0 +1,9 @@
+<div ng-controller="managementController" ng-init="getUnapprovedRecords()">
+<table>
+<tr ng-repeat="object in unapprovedRecords">
+	<td><span ng-bind="object.fileNo"></span></td>
+	<td><span ng-bind="object.firstName+' '+object.lastName"></span></td>
+	<td><span ng-bind="object.fatherName"></span></td>
+</tr>
+</table>
+</div>

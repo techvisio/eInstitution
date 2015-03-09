@@ -63,4 +63,9 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		List<StudentBasicInfo> basicInfos = admissionManager.getLatestAdmissionInfo(limit);
 		return basicInfos;
 	}
+	
+	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
+		List<StudentBasicInfo> basicInfos = admissionManager.getUnapprovedAdmissions(limit);
+		return basicInfos;
+	}
 }

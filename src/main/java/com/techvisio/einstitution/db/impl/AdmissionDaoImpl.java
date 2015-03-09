@@ -1013,6 +1013,18 @@ public StudentBasicInfo getStudentBsInfo(String fileNo) {
 	return info;
 }
 
+
+public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
+	
+	String getQuery = admissionQueryProps.getProperty("getUnapprovedAdmissions");
+	SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
+	
+	List<StudentBasicInfo> infos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new StudentBasicInfoRowMaper());
+	return infos;
+}
+
+
+
 class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 
 	public StudentBasicInfo mapRow(ResultSet rs, int rowNum)

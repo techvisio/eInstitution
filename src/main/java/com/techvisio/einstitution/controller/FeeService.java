@@ -24,12 +24,12 @@ public class FeeService {
 	
 
 //FeeDetail	
-	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/semester/{semester}", method = RequestMethod.GET)
-	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch,@PathVariable Integer semester){
+	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}", method = RequestMethod.GET)
+	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch){
 		
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		
-		List<FeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch,semester);
+		List<FeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch);
 		return details;
 		
 	}

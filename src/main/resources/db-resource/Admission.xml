@@ -93,6 +93,22 @@ Academic_Year,
 Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
+<entry key="getUnapprovedAdmissions">
+    <![CDATA[
+select * from (select File_No,
+First_Name,
+Last_Name,
+Enroll_No,
+Father_Name,
+Gender,
+DOB,
+Course,
+Branch,
+Semester,
+Academic_Year,
+Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
+</entry>
+
 <entry key="getStudentDtlByFileNo">
     <![CDATA[
 SELECT

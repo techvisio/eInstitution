@@ -27,10 +27,10 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 
-	public List<FeeDetail> getFeeDetail(Long course, Long branch, Integer semester) {
+	public List<FeeDetail> getFeeDetail(Long course, Long branch) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
-		.addValue("BRANCH", branch).addValue("SEMESTER", semester );
+		.addValue("BRANCH", branch);
 		List<FeeDetail> feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, namedParameter, new RowMapper<FeeDetail>(){
 
 			public FeeDetail mapRow(ResultSet rs, int rowNum)

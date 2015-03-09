@@ -5,6 +5,7 @@ var erpModule = angular
     'masterdataModule',
     'transportModule',
     'hostelModule',
+    'managementModule',
     'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
@@ -18,10 +19,6 @@ var erpModule = angular
         controller: 'admissionController'
         
       })
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'admissionController'
-      })
       .when('/transportFrom', {
         templateUrl: 'views/transport.html',
         controller: 'transportController'
@@ -30,6 +27,11 @@ var erpModule = angular
       .when('/hostelFrom', {
         templateUrl: 'views/hostel.html',
         controller: 'hostelController'
+        
+      })
+       .when('/managementform', {
+        templateUrl: 'views/management.html',
+        controller: 'managementController'
         
       })
       .otherwise({

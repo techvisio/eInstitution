@@ -91,5 +91,11 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		List<StudentBasicInfo> basicInfos = admissionDao.getLatestAdmissionInfo(limit);
 		return basicInfos;
 	}
+	
+	
+	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
+		List<StudentBasicInfo> basicInfos = admissionDao.getUnapprovedAdmissions(limit);
+		return basicInfos;
+	}
 
 }

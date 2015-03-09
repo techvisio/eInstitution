@@ -25,6 +25,8 @@ public interface AdmissionDao {
 	
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit);
 
+	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
+
 	
 //	
 //	public List<StudentAcademicDetail> getAcademicDtl(String fileNo);

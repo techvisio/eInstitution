@@ -9,7 +9,7 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeDao {
 	
-	public List<FeeDetail> getFeeDetail(Long course, Long branch, Integer semester );
+	public List<FeeDetail> getFeeDetail(Long course, Long branch);
 	public void addFeeDetail(FeeDetail feeDetail);
 	public void updateFeeDetail(FeeDetail feeDetail);
 	public void deleteFeeDetail(Long course, Long branch, Integer semester );

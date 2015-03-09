@@ -32,7 +32,6 @@ public class FeeDetailDaoTest {
 		detail.setCourse(2L);
 		detail.setFeeAmount(2000.0);
 		detail.setFeeHeadId(2L);
-		detail.setSemester(1);
 		
 		dao.addFeeDetail(detail);
 		
@@ -40,7 +39,7 @@ public class FeeDetailDaoTest {
 	
 	@Test
 	public void testGetFeedetail(){
-		List<FeeDetail> detail = dao.getFeeDetail(2L, 2L, 4);
+		List<FeeDetail> detail = dao.getFeeDetail(2L, 2L);
 		System.out.println("Data is :- "+detail);
 	}
 	

@@ -18,4 +18,6 @@ public interface AdmissionManager {
 	public StudentBasicInfo getStudentBsInfo(String fileNo);
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit);
 
+	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
+
 }

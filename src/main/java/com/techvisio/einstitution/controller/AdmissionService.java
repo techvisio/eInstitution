@@ -162,4 +162,21 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
      	}
 	
+	@RequestMapping(value = "/uapprovedList/{limit}", method = RequestMethod.GET)
+	public  ResponseEntity<Response> getUnapprovedAdmissions(@PathVariable int limit){
+		
+		Response response = new Response();
+		try
+		{
+			AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
+		    List<StudentBasicInfo> basicInfo = manager.getUnapprovedAdmissions(limit);
+		    response.setResponseBody(basicInfo);
+		}
+		catch(Exception e)
+		{
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+     	}
+	
 }

@@ -37,9 +37,9 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		manager.deleteFeeDiscountHead(headId);
 	}
 
-	public List<FeeDetail> getFeeDetail(Long course,Long branch, Integer semester) {
+	public List<FeeDetail> getFeeDetail(Long course,Long branch) {
 		// details = null;
-		 List<FeeDetail>	details =manager.getFeeDetail(course, branch, semester);
+		 List<FeeDetail>	details =manager.getFeeDetail(course, branch);
 		return details;
 	}
 

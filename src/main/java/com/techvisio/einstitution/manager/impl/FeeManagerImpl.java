@@ -54,9 +54,9 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.deleteFeeDiscountHead(headId);
 	}
 
-	public List<FeeDetail> getFeeDetail(Long course,Long branch, Integer semester ) {
+	public List<FeeDetail> getFeeDetail(Long course,Long branch ) {
 		// details = null;
-		 List<FeeDetail> details =  feeDetailDao.getFeeDetail(course, branch, semester);
+		 List<FeeDetail> details =  feeDetailDao.getFeeDetail(course, branch);
 		return details;
 	}
 
