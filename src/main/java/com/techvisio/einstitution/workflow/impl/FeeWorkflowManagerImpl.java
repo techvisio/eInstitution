@@ -13,88 +13,88 @@ import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	
 	
-	FeeManager manager=FeeManagerImpl.getInstance();
+	FeeManager feeManager=FeeManagerImpl.getInstance();
 	
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
 
-		FeeDiscountHead feeDiscountHead = manager.getfeeDiscountHead(headId);
+		FeeDiscountHead feeDiscountHead = feeManager.getfeeDiscountHead(headId);
 		
 		return feeDiscountHead;
 	}
 
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
 
-		manager.addFeeDiscountHead(feeDiscountHead);
+		feeManager.addFeeDiscountHead(feeDiscountHead);
 	}
 
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
 
-		manager.updateFeeDiscountHead(feeDiscountHead);
+		feeManager.updateFeeDiscountHead(feeDiscountHead);
 	}
 
 	public void deleteFeeDiscountHead(Long headId) {
 
-		manager.deleteFeeDiscountHead(headId);
+		feeManager.deleteFeeDiscountHead(headId);
 	}
 
 	public List<FeeDetail> getFeeDetail(Long course,Long branch) {
 		// details = null;
-		 List<FeeDetail>	details =manager.getFeeDetail(course, branch);
+		 List<FeeDetail>	details =feeManager.getFeeDetail(course, branch);
 		return details;
 	}
 
 	public void addFeeDetail(FeeDetail feeDetail) {
-		manager.addFeeDetail(feeDetail);
+		feeManager.addFeeDetail(feeDetail);
 		
 	}
 
 	public void updateFeeDetail(FeeDetail feeDetail) {
-		manager.updateFeeDetail(feeDetail);
+		feeManager.updateFeeDetail(feeDetail);
 	}
 
 	public void deleteFeeDetail(Long course,Long branch, Integer semester) {
-		manager.deleteFeeDetail(course, branch, semester);
+		feeManager.deleteFeeDetail(course, branch, semester);
 	}
 
 	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
-		List<StudentFeeStaging> feeStaging = manager.getStudentFeeStaging(fileNo);
+		List<StudentFeeStaging> feeStaging = feeManager.getStudentFeeStaging(fileNo);
 		return feeStaging;
 	}
 
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		manager.addStudentFeeStaging(studentFeeStaging);
+		feeManager.addStudentFeeStaging(studentFeeStaging);
 		
 	}
 
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		manager.updateStudentFeeStaging(studentFeeStaging);
+		feeManager.updateStudentFeeStaging(studentFeeStaging);
 	}
 
 	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		manager.deleteStudentFeeStaging(studentFeeStaging);
+		feeManager.deleteStudentFeeStaging(studentFeeStaging);
 	}
 
-	public FeeTransaction getDebitedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo) {
 	
-		FeeTransaction transaction = manager.getDebitedFeeTransaction(fileNo);
-		return transaction;
+		List<FeeTransaction> feeTransactions = feeManager.getDebitedFeeTransaction(fileNo);
+		return feeTransactions;
 	}
 
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
 		
-		manager.addFeeTransactionDebit(feeTransaction);
+		feeManager.addFeeTransactionDebit(feeTransaction);
 		
 	}
 
-	public FeeTransaction getCreditedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
 
-		FeeTransaction transaction = manager.getCreditedFeeTransaction(fileNo);
-		return transaction;
+		List<FeeTransaction> feeTransactions = feeManager.getCreditedFeeTransaction(fileNo);
+		return feeTransactions;
 	}
 
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
 
-		manager.addFeeTransactionCredit(feeTransaction);
+		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
 
 	

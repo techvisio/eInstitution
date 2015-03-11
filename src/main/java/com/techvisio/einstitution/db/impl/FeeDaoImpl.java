@@ -190,7 +190,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	
-	public  List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionCredit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
