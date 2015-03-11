@@ -20,9 +20,9 @@ public interface FeeDao {
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 
-	public FeeTransaction getDebitedFeeTransaction(String fileNo);
+    public List<FeeTransaction> getDebitedFeeTransaction(String fileNo);
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction);
-	public FeeTransaction getCreditedFeeTransaction(String fileNo);
+	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo);
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction);
 	
 	public FeeDiscountHead getfeeDiscountHead(Long headId);

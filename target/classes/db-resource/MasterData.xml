@@ -402,6 +402,20 @@ Select
 
 	</entry>
 	
+		<entry key="getSemester">
+    <![CDATA[
+      
+Select 
+
+	Course_Id, 
+	Id,
+	Semester
+	
+ from SemesterMaster;
+    ]]>
+
+	</entry>
+	
 	
 	
 </properties>

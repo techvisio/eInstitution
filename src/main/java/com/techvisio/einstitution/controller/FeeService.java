@@ -3,6 +3,8 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
+import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.FeeWorkflowManagerImpl;
@@ -86,21 +89,72 @@ public class FeeService {
 
 
 ////FeeTransaction	
-//	@RequestMapping(value="/FeeTransaction/{fileNo}", method = RequestMethod.GET)
-//	public FeeTransaction getFeeTransaction(@PathVariable String fileNo){
-//		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-//		FeeTransaction transaction = detailWorkflowManager.getFeeTransaction(fileNo);
-//		return transaction;
-//		
-//	}
-//	
-//	@RequestMapping(value="/FeeTransaction" , method = RequestMethod.POST)
-//	public void addFeeTransaction(@RequestBody FeeTransaction feeTransaction){
-//		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-//		detailWorkflowManager.addFeeTransaction(feeTransaction);
-//	}
-//	
-
+	@RequestMapping(value="/debitedFeeTransaction/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getDebitedFeeTransaction(@PathVariable String fileNo){
+		Response response = new Response();
+		try {
+			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
+			FeeTransaction transaction = manager.getDebitedFeeTransaction(fileNo);
+			response.setResponseBody(transaction);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+		}
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+	}
+	
+	
+	@RequestMapping(value="/feeTransactionDebit" , method = RequestMethod.POST)
+	public ResponseEntity<Response> addFeeTransactionDebit(@RequestBody FeeTransaction feeTransaction){
+		Response response = new Response();
+		try {
+			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
+		    manager.addFeeTransactionDebit(feeTransaction);
+			response.setResponseBody(feeTransaction);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/creditedFeeTransaction/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getCreditedFeeTransaction(@PathVariable String fileNo){
+		Response response = new Response();
+		try {
+			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
+			FeeTransaction transaction = manager.getCreditedFeeTransaction(fileNo);
+			response.setResponseBody(transaction);
+		} catch (Exception e) {
+	
+			 e.printStackTrace();
+			 response.setError(e.getMessage());
+		}
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+		
+	}
+	
+	@RequestMapping(value="/feeTransactionCredit" , method = RequestMethod.POST)
+	public ResponseEntity<Response> addFeeTransactionCredit(@RequestBody FeeTransaction feeTransaction){
+		Response response = new Response();
+		try {
+			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
+			manager.addFeeTransactionCredit(feeTransaction);
+			response.setResponseBody(feeTransaction);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.setError(e.getLocalizedMessage());
+		}
+		
+		
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	
+		
+	}
 //FeeDiscountHead
 	@RequestMapping(value="/FeeDiscountHead/{headId}", method = RequestMethod.GET)
 	public FeeDiscountHead getfeeDiscountHead(@PathVariable Long headId){

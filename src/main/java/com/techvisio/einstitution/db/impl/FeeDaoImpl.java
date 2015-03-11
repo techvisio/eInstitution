@@ -2,7 +2,6 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -152,7 +151,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 
 	//FeeTransaction
-	public FeeTransaction getDebitedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionDebit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -168,16 +167,13 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setRemark(rs.getString("Remark"));
 				return feeTransaction;
 			}
-
-		});
-
-		FeeTransaction feeTransaction = null;
-		if(feeTransactions != null && feeTransactions.size()>0){
-			feeTransaction = feeTransactions.get(0);
-		}
-		return feeTransaction;
+			
+			});
+			
+			
+			return feeTransactions ;
+		
 	}
-
 
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
 		String addQuery = feeQueryProps.getProperty("addFeeTransactionDebit");
@@ -194,7 +190,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	
-	public FeeTransaction getCreditedFeeTransaction(String fileNo) {
+	public  List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionCredit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -214,11 +210,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 		});
 
-		FeeTransaction feeTransaction = null;
-		if(feeTransactions != null && feeTransactions.size()>0){
-			feeTransaction = feeTransactions.get(0);
-		}
-		return feeTransaction;
+		return feeTransactions;
 	}
 
 

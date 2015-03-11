@@ -1,0 +1,74 @@
+<div ng-controller = "feeController" ng-init="getPendingFee()">
+	<div class = "six-column-view" >
+	<table >
+	<tr>
+	<div class="panel-div">Student Basic Information</div>
+	</tr>
+	<tr>
+	<td><span> File No </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.fileNo" ></td>
+	<td><input type="submit" ng-click="getStudentBsInfo()"></td> 
+	</tr>
+	<tr>
+	<td><span> First Name </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.firstName"></td>
+	<td><span> Last Name </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.lastName"></td>
+	<td><span> Enrollment No </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.enrollmentNo"></td>
+	</tr>
+	<tr>
+	<td><span> Father Name </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.fatherName"></td>
+	<td><span> Gender </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.gender"></td>
+	<td><span> Date Of Birth </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.dob"></td>
+	</tr>
+	<tr>
+	<td><span> Course </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.course"></td>
+	<td><span> Branch </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.branch"></td>
+	<td><span> Semester </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.semester"></td>
+	</tr>
+	<tr>
+	<td><span> Academic Year </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.academicYear"></td>
+	<td><span> Modified Date </span></td>
+	<td><input type="text" ng-model="studentBasicInfo.modifiedDate"></td>
+	</tr>
+	</table>
+</div>
+
+<div class="six-column-view" >
+<div class="panel-div">Pending Fee</div>
+<table>
+<tr>
+<td><span>File No</span></td>
+<td><input type="text" ng-model="feeTransaction.fileNo"></td>
+<td><span>Semester</span></td>
+<td><input type="text" ng-model="feeTransaction.semester"></td>
+</tr>
+
+<tr>
+<td><span>Component Id</span></td>
+<td><input type="text" ng-model="feeTransaction.componentId"></td>
+<td><span>User</span></td>
+<td><input type="text" ng-model="feeTransaction.user"></td>
+</tr>
+
+<tr>
+<td><span>Created Date</span></td>
+<td><input type="text" ng-model="feeTransaction.createdDate"></td>
+<td><span>Remark</span></td>
+<td><input type="text" ng-model="feeTransaction.remark"></td>
+<td><span>Mode</span></td>
+<td><input type="text" ng-model="feeTransaction.mode"></td>
+</tr>
+</table>
+</div>
+
+
+</div>

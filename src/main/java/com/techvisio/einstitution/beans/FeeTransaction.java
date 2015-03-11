@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class FeeTransaction {
 	private Integer semester;
-	private Long ComponentId;
+	private Long componentId;
+	private String head;
 	private String user;
 	private Date createdDate;
 	private String remark;
-	private String Mode;
+	private String mode;
 	private String fileNo;
 	public Integer getSemester() {
 		return semester;
@@ -17,10 +18,10 @@ public class FeeTransaction {
 		this.semester = semester;
 	}
 	public Long getComponentId() {
-		return ComponentId;
+		return componentId;
 	}
 	public void setComponentId(Long componentId) {
-		ComponentId = componentId;
+		this.componentId = componentId;
 	}
 	public String getUser() {
 		return user;
@@ -41,10 +42,10 @@ public class FeeTransaction {
 		this.remark = remark;
 	}
 	public String getMode() {
-		return Mode;
+		return mode;
 	}
 	public void setMode(String mode) {
-		Mode = mode;
+		this.mode = mode;
 	}
 	public String getFileNo() {
 		return fileNo;
@@ -55,9 +56,15 @@ public class FeeTransaction {
 	@Override
 	public String toString() {
 		return "FeeTransaction [semester=" + semester + ", ComponentId="
-				+ ComponentId + ", user=" + user + ", createdDate="
-				+ createdDate + ", remark=" + remark + ", Mode=" + Mode
+				+ componentId + ", user=" + user + ", createdDate="
+				+ createdDate + ", remark=" + remark + ", Mode=" + mode
 				+ ", fileNo=" + fileNo + "]";
+	}
+	public String getHead() {
+		return head;
+	}
+	public void setHead(String head) {
+		this.head = head;
 	}
 	
 	

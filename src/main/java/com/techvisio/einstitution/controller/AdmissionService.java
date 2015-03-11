@@ -137,12 +137,18 @@ public class AdmissionService {
 		}
 
 	@RequestMapping(value = "/StudentBsInfo/{fileNo}", method = RequestMethod.GET)
-	public StudentBasicInfo getStudentBsInfo(@PathVariable String fileNo){
-		AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
-		StudentBasicInfo info = manager.getStudentBsInfo(fileNo);
-		
-		return info;
-		
+	public ResponseEntity<Response> getStudentBsInfo(@PathVariable String fileNo){
+		Response response = new Response();
+		try {
+			AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
+			StudentBasicInfo info = manager.getStudentBsInfo(fileNo);
+			
+			response.setResponseBody(info); 
+				
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/LatestAdmissionInfo/{limit}", method = RequestMethod.GET)
