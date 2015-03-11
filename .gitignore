@@ -16,3 +16,4 @@ hs_err_pid*
 org.eclipse.*
 .jsdtscope
 target/*
+/target/
