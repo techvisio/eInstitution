@@ -108,11 +108,11 @@ public class FeeManagerImpl implements FeeManager{
 		feeStaging.setCreatedBy("testUser");
 	}
 
-	public FeeTransaction getDebitedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo) {
 
-		FeeTransaction transaction = null;
-		transaction = feeDetailDao.getDebitedFeeTransaction(fileNo);
-		return transaction;
+		List<FeeTransaction> feeTransactions = null;
+		feeTransactions = feeDetailDao.getDebitedFeeTransaction(fileNo);
+		return feeTransactions;
 	}
 
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
@@ -121,11 +121,11 @@ public class FeeManagerImpl implements FeeManager{
 		
 	}
 
-	public FeeTransaction getCreditedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
 
-		FeeTransaction transaction = null;
-		transaction = feeDetailDao.getCreditedFeeTransaction(fileNo);
-		return transaction;
+		List<FeeTransaction> feeTransactions = null;
+		feeTransactions = feeDetailDao.getCreditedFeeTransaction(fileNo);
+		return feeTransactions;
 	}
 
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {

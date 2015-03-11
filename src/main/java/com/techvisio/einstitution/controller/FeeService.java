@@ -94,8 +94,8 @@ public class FeeService {
 		Response response = new Response();
 		try {
 			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			FeeTransaction transaction = manager.getDebitedFeeTransaction(fileNo);
-			response.setResponseBody(transaction);
+			List<FeeTransaction> transactions = manager.getDebitedFeeTransaction(fileNo);
+			response.setResponseBody(transactions);
 		} catch (Exception e) {
 			response.setError(e.getMessage());
 		}
@@ -124,8 +124,8 @@ public class FeeService {
 		Response response = new Response();
 		try {
 			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			FeeTransaction transaction = manager.getCreditedFeeTransaction(fileNo);
-			response.setResponseBody(transaction);
+			List<FeeTransaction> transactions = manager.getCreditedFeeTransaction(fileNo);
+			response.setResponseBody(transactions);
 		} catch (Exception e) {
 	
 			 e.printStackTrace();
