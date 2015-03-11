@@ -58,7 +58,7 @@
 					<td><span ng-bind="object.fatherName"></span></td>
 					<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Show Detail</button></td>
 				</tr>
-				<tr><td colspan=3><button type="button" class="btn btn-primary showmore">Load more data</button></td></tr>
+				<tr><td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="LoadMoreData()">Load more data</button></td></tr>
 
 			</table>
 		</div>
@@ -82,7 +82,7 @@
 					</li>
 					<li>
 						<button type="button" class="btn btn-success"
-							ng-click="dashboard=true;resetForm()">Back</button>
+							ng-click="backtoDashboard()">Back</button>
 					</li>
 		</div>
 		<form name="admissionForm" id="admissionForm">
@@ -118,7 +118,7 @@
 						</select></td>
 						<td><span>File No</span></td>
 						<td><input type="text" ng-model="student.fileNo"
-							ng-Readonly="!form.isNew"></td>
+							ng-Readonly="true"></td>
 					</tr>
 					<tr>
 						<td><span> Enrollment No </span></td>
@@ -193,7 +193,7 @@
 								<td><span> Semester </span></td>
 								<td><select select ng-model="student.semester"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}"></select>
+									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}"></select>
 								</td>
 							</tr>
 
@@ -531,9 +531,9 @@
 									class="inner-element" ng-click="showHostelModal('lg')"></td>
 								<td><span> Transport Required </span></td>
 								<td><input type="checkbox"
-									ng-model="student.transportation" ng-disabled="true"> <img
+									ng-model="student.transportation" ng-disabled="true" > <img
 									src="images/edit.png" class="inner-element"
-									ng-click="showTransportModal('lg')"></td>
+									ng-click="showTransportModal('lg')" ng-Readonly="!form.isEdit && !form.isNew"></td>
 							</tr>
 							<tr>
 								<td><span> Management Approval </span></td>

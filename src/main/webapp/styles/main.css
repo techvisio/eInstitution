@@ -628,7 +628,7 @@ border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:
 
 .latest-admission table tr 
 {
-	 border-bottom: 1px solid grey;
+	 border-bottom: 1px solid #E0E0EB;
 }
 
 .latest-admission table tr td,.latest-admission table tr th
@@ -659,7 +659,7 @@ border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:
 
 .side-menu{
   position: fixed;
-  top:150px;
+  top:115px;
   left: 1px;
   width: 120px;
   height: 200px;
@@ -728,3 +728,8 @@ color:white;
 .showmore{
 	width:300px;
 	}
+	
+.content input[type="text"].ng-invalid {
+	border: 1px solid red;
+}	
+

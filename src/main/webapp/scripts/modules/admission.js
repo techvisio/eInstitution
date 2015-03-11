@@ -8,11 +8,11 @@ admissionModule
 		 'admissionService',
 		 'masterdataService',
 		 '$modal',
-		  function($scope, admissionService,masterdataService,$modal) {
-			 
-		
-		 	$scope.form = {};
-		 	$scope.form.sameAsAbove=false;
+		 function($scope, admissionService,masterdataService,$modal) {
+
+
+			 $scope.form = {};
+			 $scope.form.sameAsAbove=false;
 			 $scope.form.processing=false;
 			 $scope.form.isEdit=true;
 			 $scope.form.isNew=true;
@@ -24,13 +24,14 @@ admissionModule
 			 $scope.student = {};
 			 $scope.latestAdmission=[];
 			 $scope.searchCriteria={};
-			 
+			 $scope.currentFetchLimit=2;
+
 			 $scope.student.addressDtl = [];
-			 
+
 			 $scope.student.academicDtl = [];
 			 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
-			 
-			 
+
+
 			 $scope.student.discountDtl = [];
 			 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 
@@ -91,19 +92,39 @@ admissionModule
 					 "percentile" : 0.0
 			 };
 
-			 
-			 $scope.admissionMode={"C":"Counselling",
-		 				"W":"Walk-In",
-		 				"A":"Consultant",
-		 				"R":"Referral"};
-			    
-			    $scope.selectTab = function (setTab){
-			     $scope.tab = setTab;
-			    };
-			    $scope.isSelected = function(checkTab) {
-			     return $scope.tab === checkTab;
-			    };
 
+			 $scope.admissionMode={"C":"Counselling",
+					 "W":"Walk-In",
+					 "A":"Consultant",
+					 "R":"Referral"};
+
+
+			 $scope.LoadMoreData = function() {
+
+				 $scope.currentFetchLimit += 5;
+
+				 $scope.getLatestAdmission();
+
+			 };
+
+			 $scope.selectTab = function (setTab){
+				 $scope.tab = setTab;
+			 };
+			 $scope.isSelected = function(checkTab) {
+				 return $scope.tab === checkTab;
+			 };
+
+			 $scope.backtoDashboard = function(){
+				 if($scope.form.isNew || $scope.form.isEdit ){
+					 var response=confirm("Current data will be lost..\nContinue?");
+					 if(!response){
+						 return;
+					 }
+				 }
+
+				 $scope.dashboard=true;
+				 $scope.resetSearchCriteria();
+			 }
 			 $scope.checkAmout=function(index,type){
 				 if(type=='amount'){
 					 if($scope.student.discountDtl[index].amount>0){
@@ -111,14 +132,14 @@ admissionModule
 					 }
 				 }
 				 else
-					 {
+				 {
 					 if($scope.student.discountDtl[index].percent>0){
 						 $scope.student.discountDtl[index].amount=0;
 					 }
-					 }
-				 
+				 }
+
 			 }
-				 
+
 			 $scope.init=function(){
 
 				 console.log('getting masterdata for admission module in init block');
@@ -137,7 +158,7 @@ admissionModule
 
 
 			 $scope.click = function(arg) {
-				 
+
 				 console.log("print on submit click");
 				 console.log($scope.student);
 			 }
@@ -175,6 +196,11 @@ admissionModule
 				 $scope.student.academicDtl.splice(index, 1);
 			 };
 
+
+			 $scope.resetSearchCriteria = function(){
+
+				 $scope.searchCriteria={};
+			 }
 
 			 $scope.addSubject = function(object) {
 				 var qualificationSub = angular
@@ -235,8 +261,8 @@ admissionModule
 				 {
 					 $scope.addStudent();
 				 }
-			 
-			 
+
+
 			 }
 
 
@@ -257,7 +283,9 @@ admissionModule
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
+
 					 $scope.processing=false;  
+					 alert("Your Records Saved Successfully")
 				 })
 
 
@@ -301,7 +329,7 @@ admissionModule
 						 $scope.populateMissingData($scope.student);
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
-						 
+
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -311,26 +339,26 @@ admissionModule
 
 			 }
 
-			 
+
 			 $scope.getLatestAdmission = function(){
 
-				 admissionService.getLatestAdmission(5)
+				 admissionService.getLatestAdmission($scope.currentFetchLimit)
 				 .then(function(response) {
 					 console.log('Latest admission data received in controller : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.latestAdmission = response.data.responseBody;
-						 
+
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
 				 })
-				 
+
 			 }
 
 			 $scope.showDetail =  function(index){
-			
+
 				 admissionService.getStudent($scope.latestAdmission[index].fileNo)
 				 .then(function(response) {
 					 console.log('Data received from service : ');
@@ -349,7 +377,7 @@ admissionModule
 
 			 }
 
-			 
+
 			 $scope.getStudentByCriteria = function() {
 				 console.log('get student by search criteria in controller');
 				 console.log($scope.searchCriteria);
@@ -368,30 +396,30 @@ admissionModule
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
-				 
+
 					 $scope.processing=false;
 				 })
-				 
+
 
 			 }
 
-				 $scope.next=function(){
+			 $scope.next=function(){
 				 var selectionIndex=$scope.subModules.indexOf($scope.selection);
 				 if(selectionIndex != $scope.subModules.length-1){
-				 selectionIndex=selectionIndex+1;
-				 $scope.selection=$scope.subModules[selectionIndex];
-				 $scope.form.direction=1;
+					 selectionIndex=selectionIndex+1;
+					 $scope.selection=$scope.subModules[selectionIndex];
+					 $scope.form.direction=1;
 				 }
-				 }
-				 
-				 $scope.prev=function(){
-					 var selectionIndex=$scope.subModules.indexOf($scope.selection);
-					 if(selectionIndex != 0){
+			 }
+
+			 $scope.prev=function(){
+				 var selectionIndex=$scope.subModules.indexOf($scope.selection);
+				 if(selectionIndex != 0){
 					 selectionIndex=selectionIndex-1;
 					 $scope.selection=$scope.subModules[selectionIndex];
 					 $scope.form.direction=0;
-					 }
-					 }
+				 }
+			 }
 
 			 $scope.resetForm = function(){
 
@@ -401,10 +429,10 @@ admissionModule
 				 $scope.form.isEdit=true;
 				 $scope.student = {};
 				 $scope.student.addressDtl = [];
-				 
+
 				 $scope.student.academicDtl = [];
 				 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
-				 
+
 				 $scope.student.discountDtl = [];
 				 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 
@@ -435,69 +463,69 @@ admissionModule
 				 }
 
 				 for(var i=0; i<$scope.student.academicDtl.length; i++){
-					
-					if(angular.isUndefined($scope.student.academicDtl[i].qualificationSubDtl) ||$scope.student.academicDtl[i].qualificationSubDtl==null || $scope.student.academicDtl[i].qualificationSubDtl.length==0)
-					{
-				
-						$scope.student.academicDtl[i].qualificationSubDtl=[];
-						$scope.student.academicDtl[i].qualificationSubDtl.push(angular.copy($scope.dummyQualificationSubDtl))
-					}
-				} 
-				 
+
+					 if(angular.isUndefined($scope.student.academicDtl[i].qualificationSubDtl) ||$scope.student.academicDtl[i].qualificationSubDtl==null || $scope.student.academicDtl[i].qualificationSubDtl.length==0)
+					 {
+
+						 $scope.student.academicDtl[i].qualificationSubDtl=[];
+						 $scope.student.academicDtl[i].qualificationSubDtl.push(angular.copy($scope.dummyQualificationSubDtl))
+					 }
+				 } 
+
 			 }
 
 			 $scope.showTransportModal=function (size) {
- 
-				  var fileNo=$scope.student.fileNo;
-				  if($scope.form.isNew){
-					  alert("Please save record before reserving transport");
-					  return;
-				  }
-				  
-				    var modalInstance = $modal.open({
-				      templateUrl: 'views/transport.html',
-				      controller: 'transportController',
-				      scope:$scope,
-				      size: size,
-				      resolve: {
-				        items: function () {
-				          return $scope.items;
-				        }
-				      }
-				    });
 
-				    modalInstance.result.then(function (selectedItem) {
-				      $scope.selected = selectedItem;
-				    });
-				  };
-				  
-				  
-					 $scope.showHostelModal=function (size) {
+				 var fileNo=$scope.student.fileNo;
+				 if($scope.form.isNew){
+					 alert("Please save record before reserving transport");
+					 return;
+				 }
 
-						 var fileNo=$scope.student.fileNo;
-						 
-						 if($scope.form.isNew){
-							  alert("Please save record before reserving hostel");
-							  return;
-						  }
-						 
-						 var modalInstance = $modal.open({
-						      templateUrl: 'views/hostel.html',
-						      controller: 'hostelController',
-						      scope:$scope,
-						      size: size,
-						      resolve: {
-						        items: function () {
-						          return $scope.items;
-						        }
-						      }
-						    });
+				 var modalInstance = $modal.open({
+					 templateUrl: 'views/transport.html',
+					 controller: 'transportController',
+					 scope:$scope,
+					 size: size,
+					 resolve: {
+						 items: function () {
+							 return $scope.items;
+						 }
+					 }
+				 });
 
-						    modalInstance.result.then(function (selectedItem) {
-						      $scope.selected = selectedItem;
-						    });
-						  };
-				  
+				 modalInstance.result.then(function (selectedItem) {
+					 $scope.selected = selectedItem;
+				 });
+			 };
+
+
+			 $scope.showHostelModal=function (size) {
+
+				 var fileNo=$scope.student.fileNo;
+
+				 if($scope.form.isNew){
+					 alert("Please save record before reserving hostel");
+					 return;
+				 }
+
+				 var modalInstance = $modal.open({
+					 templateUrl: 'views/hostel.html',
+					 controller: 'hostelController',
+					 scope:$scope,
+					 size: size,
+					 resolve: {
+						 items: function () {
+							 return $scope.items;
+						 }
+					 }
+				 });
+
+				 modalInstance.result.then(function (selectedItem) {
+					 $scope.selected = selectedItem;
+				 });
+			 };
+
 		 } ])
 
 		 admissionModule.service("admissionService", function($http, $q) {
@@ -541,7 +569,7 @@ admissionModule
 
 			 }
 
-			 
+
 			 function getStudent(fileNo) {
 
 				 var request = $http({
@@ -585,7 +613,7 @@ admissionModule
 				 return (request.then(handleSuccess, handleError));
 			 }
 
-			 
+
 			 function handleError(response) {
 				 console.log('Error occured while calling service');
 				 console.log(response);
@@ -609,7 +637,7 @@ admissionModule
 
 			 }
 
-			 
+
 
 		 });
 

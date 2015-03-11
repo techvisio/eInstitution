@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -39,11 +40,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				.getProperty("getStudentDtlDynamically");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", searchCriteria.getFileNo())
-		.addValue("Email_Id", searchCriteria.getEmailId())
-		.addValue("Enroll_No", searchCriteria.getEnrollNo())
-		.addValue("Uni_Enroll_No", searchCriteria.getUniEnrollNo())
-		.addValue("Self_Mobile_No", searchCriteria.getMobileNo());
+				"File_No", StringUtils.isEmpty(searchCriteria.getFileNo())?null:searchCriteria.getFileNo())
+		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
+		.addValue("Enroll_No", StringUtils.isEmpty(searchCriteria.getEnrollNo())?null:searchCriteria.getEnrollNo())
+		.addValue("Uni_Enroll_No", StringUtils.isEmpty(searchCriteria.getUniEnrollNo())?null:searchCriteria.getUniEnrollNo())
+		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo());
 		
 		StudentDetail studentDetail=getNamedParamJdbcTemplate().queryForObject(
 				getQuery, namedParameter, new StudentDetailRowMapper());
@@ -132,9 +133,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Course_Id", studentDtl.getCourseId())
 						.addValue("Branch_Id", studentDtl.getBranchId())
 						.addValue("Created_By", studentDtl.getCreatedBy())
-						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
-						.addValue("Updated_On", studentDtl.getUpdatedOn())
 						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
@@ -208,9 +207,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Course_Id", studentDtl.getCourseId())
 						.addValue("Branch_Id", studentDtl.getBranchId())
 						.addValue("Created_By", studentDtl.getCreatedBy())
-						.addValue("Created_On", studentDtl.getCreatedOn())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
-						.addValue("Updated_On", studentDtl.getUpdatedOn())
 						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
 						.addValue("Scholarship", studentDtl.isScholarship())
 						.addValue("Remarks", studentDtl.getRemarks())
