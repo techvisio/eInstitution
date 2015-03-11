@@ -236,10 +236,10 @@
 							</tr>
 							<tr>
 								<td><span> Mobile No </span></td>
-								<td><input type="text" ng-model="student.selfMobileNo"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+								<td><input type="number" ng-model="student.selfMobileNo"
+									ng-Readonly="!form.isEdit && !form.isNew" min="1000000000" max="9999999999"></td>
 								<td><span> Email Id </span></td>
-								<td><input type="text" ng-model="student.emailId"
+								<td><input type="email" ng-model="student.emailId"
 									ng-Readonly="!form.isEdit && !form.isNew"></td>
 							</tr>
 
