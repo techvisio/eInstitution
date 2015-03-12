@@ -28,28 +28,29 @@ public class CacheManagerImpl implements CacheManager {
 
 	@Autowired
 	CacheDao cacheDao;
-	
-	
+
+
 	public void setCacheDao(CacheDaoImpl cacheDao) {
 		this.cacheDao = cacheDao;
 	}
 
-	private  Map<String,Object> cacheMap=new HashMap<String, Object>();
-
-	
-	@SuppressWarnings("unchecked")
-	public synchronized List<Branch> getBranchs(){
-		
-		if(cacheMap.get(AppConstants.BRANCH) == null){
-			
-			List<Branch> branchs =null;
-			branchs=cacheDao.getBranch();
-			cacheMap.put(AppConstants.BRANCH, branchs);
-		}
-		return (List<Branch>) cacheMap.get(AppConstants.BRANCH);
+	public CacheManagerImpl(){
+		builtEntityListCache();
 	}
 	
-	
+	private static Map<String,List> entityListMap=new HashMap<String, List>();
+	private static Map<Long,FeeDiscountHead> feeDetailMap = new HashMap<Long, FeeDiscountHead>();
+
+	@SuppressWarnings("unchecked")
+	public synchronized List<Branch> getBranchs(){
+
+		if(entityListMap.get(AppConstants.BRANCH) == null||entityListMap.get(AppConstants.BRANCH).size()==0){
+			refreshCacheList(AppConstants.BRANCH);
+		}
+		return (List<Branch>) entityListMap.get(AppConstants.BRANCH);
+	}
+
+
 	public List<MasterDataBean> getBranchAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Branch branch:getBranchs()){
@@ -58,19 +59,17 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
-	
-	
+
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Course> getCourses() {
-		if(cacheMap.get(AppConstants.COURSE) == null){
-			List<Course> courses=null;
-			courses=cacheDao.getCourse();
-			cacheMap.put(AppConstants.COURSE, courses);
+		if(entityListMap.get(AppConstants.COURSE) == null||entityListMap.get(AppConstants.COURSE).size()==0){
+			refreshCacheList(AppConstants.COURSE);
 		}
-		
-		return (List<Course>)cacheMap.get(AppConstants.COURSE);
+
+		return (List<Course>)entityListMap.get(AppConstants.COURSE);
 	}
-	
+
 	public List<MasterDataBean> getCourseAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Course course:getCourses()){
@@ -82,15 +81,13 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CasteCategory> getCategories() {
-		if(cacheMap.get(AppConstants.CATEGORY) == null){
-			List<CasteCategory> categories=null;
-			categories=cacheDao.getCatagory();
-			cacheMap.put(AppConstants.CATEGORY, categories);
+		if(entityListMap.get(AppConstants.CATEGORY) == null||entityListMap.get(AppConstants.CATEGORY).size()==0){
+			refreshCacheList(AppConstants.CATEGORY);
 		}
-		
-		return (List<CasteCategory>)cacheMap.get(AppConstants.CATEGORY);
+
+		return (List<CasteCategory>)entityListMap.get(AppConstants.CATEGORY);
 	}
-	
+
 	public List<MasterDataBean> getCategoryAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(CasteCategory category:getCategories()){
@@ -102,15 +99,12 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CounsellingBody> getCounsellingBodies() {
-		if(cacheMap.get(AppConstants.COUNSELLING) == null){
-			List<CounsellingBody> counsellingBodies=null;
-			counsellingBodies=cacheDao.getCounsellingBody();
-			cacheMap.put(AppConstants.COUNSELLING, counsellingBodies);
+		if(entityListMap.get(AppConstants.COUNSELLING) == null||entityListMap.get(AppConstants.COUNSELLING).size()==0){
+			refreshCacheList(AppConstants.COUNSELLING);
 		}
-		
-		return (List<CounsellingBody>)cacheMap.get(AppConstants.COUNSELLING);
+		return (List<CounsellingBody>)entityListMap.get(AppConstants.COUNSELLING);
 	}
-	
+
 	public List<MasterDataBean> getCounsellingBodyAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(CounsellingBody body:getCounsellingBodies()){
@@ -119,19 +113,16 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
-	
-	
+
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Qualification> getQualifications() {
-		if(cacheMap.get(AppConstants.QUALIFICATION) == null){
-			List<Qualification> qualifications=null;
-			qualifications=cacheDao.getQualification();
-			cacheMap.put(AppConstants.QUALIFICATION, qualifications);
+		if(entityListMap.get(AppConstants.QUALIFICATION) == null||entityListMap.get(AppConstants.QUALIFICATION).size()==0){
+			refreshCacheList(AppConstants.QUALIFICATION);
 		}
-		
-		return (List<Qualification>)cacheMap.get(AppConstants.QUALIFICATION);
+		return (List<Qualification>)entityListMap.get(AppConstants.QUALIFICATION);
 	}
-	
+
 	public List<MasterDataBean> getQualificationAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Qualification qualification:getQualifications()){
@@ -140,18 +131,15 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<QuotaCode> getQuotaCodes() {
-		if(cacheMap.get(AppConstants.QUOTACODE) == null){
-			List<QuotaCode> quotaCodes=null;
-			quotaCodes=cacheDao.getQuotaCode();
-			cacheMap.put(AppConstants.QUOTACODE, quotaCodes);
+		if(entityListMap.get(AppConstants.QUOTACODE) == null||entityListMap.get(AppConstants.QUOTACODE).size()==0){
+			refreshCacheList(AppConstants.QUOTACODE);
 		}
-		
-		return (List<QuotaCode>)cacheMap.get(AppConstants.QUOTACODE);
+		return (List<QuotaCode>)entityListMap.get(AppConstants.QUOTACODE);
 	}
-	
+
 	public List<MasterDataBean> getQuotaCodeAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(QuotaCode quotaCode : getQuotaCodes()){
@@ -160,18 +148,15 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<State> getStates() {
-		if(cacheMap.get(AppConstants.STATE) == null){
-			List<State> states=null;
-			states=cacheDao.getState();
-			cacheMap.put(AppConstants.STATE, states);
+		if(entityListMap.get(AppConstants.STATE) == null||entityListMap.get(AppConstants.STATE).size()==0){
+			refreshCacheList(AppConstants.STATE);
 		}
-		
-		return (List<State>)cacheMap.get(AppConstants.STATE);
+		return (List<State>)entityListMap.get(AppConstants.STATE);
 	}
-	
+
 	public List<MasterDataBean> getStateAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(State state : getStates()){
@@ -180,19 +165,16 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Consultant> getConsultant() {
-		if(cacheMap.get(AppConstants.CONSULTANT) == null){
-			List<Consultant> consultants=null;
-			consultants=cacheDao.getConsultant();
-			cacheMap.put(AppConstants.CONSULTANT, consultants);
+		if(entityListMap.get(AppConstants.CONSULTANT) == null||entityListMap.get(AppConstants.CONSULTANT).size()==0){
+			refreshCacheList(AppConstants.CONSULTANT);
 		}
-		
-		return (List<Consultant>)cacheMap.get(AppConstants.CONSULTANT);
+		return (List<Consultant>)entityListMap.get(AppConstants.CONSULTANT);
 	}
-	
-	
+
+
 	public List<MasterDataBean> getConsultantAsMasterdata(){
 
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
@@ -202,23 +184,20 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return masterData;
 
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Subject> getSubjects() {
-		if(cacheMap.get(AppConstants.SUBJECT) == null){
-			List<Subject> subjectes=null;
-			subjectes=cacheDao.getSubject();
-			cacheMap.put(AppConstants.SUBJECT, subjectes);
+		if(entityListMap.get(AppConstants.SUBJECT) == null||entityListMap.get(AppConstants.SUBJECT).size()==0){
+			refreshCacheList(AppConstants.SUBJECT);
 		}
-		
-		return (List<Subject>)cacheMap.get(AppConstants.SUBJECT);
+		return (List<Subject>)entityListMap.get(AppConstants.SUBJECT);
 	}
-	
-	
+
+
 	public List<MasterDataBean> getSubjectAsMasterdata(){
-     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Subject subject : getSubjects()){
 			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
 			masterData.add(bean);
@@ -229,18 +208,15 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<FeeDiscountHead> getsFeeDiscounts() {
-		if(cacheMap.get(AppConstants.FEEHEAD) == null){
-			List<FeeDiscountHead> feeDiscountHeads=null;
-			feeDiscountHeads=cacheDao.getFeeDiscountHeadMaster();
-			cacheMap.put(AppConstants.FEEHEAD, feeDiscountHeads);
+		if(entityListMap.get(AppConstants.FEEHEAD) == null||entityListMap.get(AppConstants.FEEHEAD).size()==0){
+			refreshCacheList(AppConstants.FEEHEAD);
 		}
-		
-		return (List<FeeDiscountHead>)cacheMap.get(AppConstants.FEEHEAD);
+		return (List<FeeDiscountHead>)entityListMap.get(AppConstants.FEEHEAD);
 	}
-	
-	
+
+
 	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
-     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(FeeDiscountHead feeDiscountHead : feeDetailList){
 			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead());
 			masterData.add(bean);
@@ -248,21 +224,18 @@ public class CacheManagerImpl implements CacheManager {
 		return masterData;
 	}	
 
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Semester> getSemester() {
-		if(cacheMap.get(AppConstants.SEMESTER) == null){
-			List<Semester> semesters=null;
-			semesters=cacheDao.getSemester();
-			cacheMap.put(AppConstants.SEMESTER, semesters);
+		if(entityListMap.get(AppConstants.SEMESTER) == null||entityListMap.get(AppConstants.SEMESTER).size()==0){
+			refreshCacheList(AppConstants.SEMESTER);
 		}
-		
-		return (List<Semester>)cacheMap.get(AppConstants.SEMESTER);
+		return (List<Semester>)entityListMap.get(AppConstants.SEMESTER);
 	}
-	
-	
+
+
 	public List<MasterDataBean> getSemesterAsMasterdata(){
-     	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Semester semester : getSemester()){
 			MasterDataBean bean=new MasterDataBean(semester.getId().toString(), semester.getSemester(),semester.getCourseId().toString());
 			masterData.add(bean);
@@ -271,25 +244,146 @@ public class CacheManagerImpl implements CacheManager {
 	}	
 
 
-	public static Map<Long,FeeDiscountHead> feeDetailMap = new HashMap<Long, FeeDiscountHead>();
+
 	public static List<FeeDiscountHead> feeDetailList=new ArrayList<FeeDiscountHead>();
-	
-	public void builtCache(){
 
-		feeDetailList=cacheDao.getFeeDiscountHeadMaster();
-		for(FeeDiscountHead discountHead:feeDetailList){
-			
-			feeDetailMap.put(discountHead.getHeadId(), discountHead);
+	public void builtEntityListCache(){
+
+		List<Branch> branchs =new ArrayList<Branch>();
+		branchs=cacheDao.getBranch();
+		entityListMap.put(AppConstants.BRANCH, branchs);
+
+
+		List<Course> courses=new ArrayList<Course>();
+		courses=cacheDao.getCourse();
+		entityListMap.put(AppConstants.COURSE, courses);
+
+		List<CasteCategory> categories=new ArrayList<CasteCategory>();
+		categories=cacheDao.getCatagory();
+		entityListMap.put(AppConstants.CATEGORY, categories);
+
+		List<CounsellingBody> counsellingBodies=new ArrayList<CounsellingBody>();
+		counsellingBodies=cacheDao.getCounsellingBody();
+		entityListMap.put(AppConstants.COUNSELLING, counsellingBodies);
+
+		List<Qualification> qualifications=new ArrayList<Qualification>();
+		qualifications=cacheDao.getQualification();
+		entityListMap.put(AppConstants.QUALIFICATION, qualifications);
+
+		List<QuotaCode> quotaCodes=new ArrayList<QuotaCode>();
+		quotaCodes=cacheDao.getQuotaCode();
+		entityListMap.put(AppConstants.QUOTACODE, quotaCodes);
+
+		List<State> states=new ArrayList<State>();
+		states=cacheDao.getState();
+		entityListMap.put(AppConstants.STATE, states);
+
+		List<Consultant> consultants=new ArrayList<Consultant>();
+		consultants=cacheDao.getConsultant();
+		entityListMap.put(AppConstants.CONSULTANT, consultants);
+
+		List<Subject> subjectes=new ArrayList<Subject>();
+		subjectes=cacheDao.getSubject();
+		entityListMap.put(AppConstants.SUBJECT, subjectes);
+
+		List<FeeDiscountHead> feeDiscountHeads=new ArrayList<FeeDiscountHead>();
+		feeDiscountHeads=cacheDao.getFeeDiscountHeadMaster();
+		entityListMap.put(AppConstants.FEEHEAD, feeDiscountHeads);
+
+		List<Semester> semesters=new ArrayList<Semester>();
+		semesters=cacheDao.getSemester();
+		entityListMap.put(AppConstants.SEMESTER, semesters);
+
+		buildEntityMap();
+
+	}
+
+	public void refreshCacheList(final String entity){
+		switch (entity) {
+		case AppConstants.BRANCH:
+			List<Branch> branchs =new ArrayList<Branch>();
+			branchs=cacheDao.getBranch();
+			entityListMap.put(AppConstants.BRANCH, branchs);
+			break;
+
+		case AppConstants.COURSE:	
+			List<Course> courses=new ArrayList<Course>();
+			courses=cacheDao.getCourse();
+			entityListMap.put(AppConstants.COURSE, courses);
+			break;
+
+		case AppConstants.CATEGORY:
+			List<CasteCategory> categories=new ArrayList<CasteCategory>();
+			categories=cacheDao.getCatagory();
+			entityListMap.put(AppConstants.CATEGORY, categories);
+			break;
+
+		case AppConstants.COUNSELLING:
+			List<CounsellingBody> counsellingBodies=new ArrayList<CounsellingBody>();
+			counsellingBodies=cacheDao.getCounsellingBody();
+			entityListMap.put(AppConstants.COUNSELLING, counsellingBodies);
+			break;
+
+		case AppConstants.QUALIFICATION:
+			List<Qualification> qualifications=new ArrayList<Qualification>();
+			qualifications=cacheDao.getQualification();
+			entityListMap.put(AppConstants.QUALIFICATION, qualifications);
+
+		case AppConstants.QUOTACODE:
+			List<QuotaCode> quotaCodes=new ArrayList<QuotaCode>();
+			quotaCodes=cacheDao.getQuotaCode();
+			entityListMap.put(AppConstants.QUOTACODE, quotaCodes);
+			break;
+
+		case AppConstants.STATE:
+			List<State> states=new ArrayList<State>();
+			states=cacheDao.getState();
+			entityListMap.put(AppConstants.STATE, states);
+			break;
+
+		case AppConstants.CONSULTANT:
+			List<Consultant> consultants=new ArrayList<Consultant>();
+			consultants=cacheDao.getConsultant();
+			entityListMap.put(AppConstants.CONSULTANT, consultants);
+			break;
+
+		case AppConstants.SUBJECT:
+			List<Subject> subjectes=new ArrayList<Subject>();
+			subjectes=cacheDao.getSubject();
+			entityListMap.put(AppConstants.SUBJECT, subjectes);
+			break;
+
+		case AppConstants.FEEHEAD:
+			List<FeeDiscountHead> feeDiscountHeads=new ArrayList<FeeDiscountHead>();
+			feeDiscountHeads=cacheDao.getFeeDiscountHeadMaster();
+			entityListMap.put(AppConstants.FEEHEAD, feeDiscountHeads);
+			break;
+
+		case AppConstants.SEMESTER:
+			List<Semester> semesters=new ArrayList<Semester>();
+			semesters=cacheDao.getSemester();
+			entityListMap.put(AppConstants.SEMESTER, semesters);
+			break;
+
+		default:
+
 		}
-		
 	}
 
+	private void buildEntityMap(){
+
+		for(FeeDiscountHead feeDiscountHead:getsFeeDiscounts()){
+			feeDetailMap.put(feeDiscountHead.getHeadId(), feeDiscountHead);
+		}
+	}
+
+	@Override
 	public FeeDiscountHead getFeeDiscountById(Long headId){
-		
+
 		return feeDetailMap.get(headId);
-		
+
 	}
-	
-	
-	}
+
+
+}
 

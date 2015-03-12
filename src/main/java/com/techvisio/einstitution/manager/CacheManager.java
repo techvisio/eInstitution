@@ -2,6 +2,7 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
 
 public interface CacheManager {
@@ -27,6 +28,8 @@ public interface CacheManager {
 	public List<MasterDataBean> getFeeDiscountAsMasterdata();
 	
 	public List<MasterDataBean> getSemesterAsMasterdata();
+
+	FeeDiscountHead getFeeDiscountById(Long headId);
 
 
 }
