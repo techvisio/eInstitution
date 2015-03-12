@@ -8,7 +8,6 @@ public class StudentFeeStaging {
 	private String fileNo;
 	private String academicYear;
 	private Integer semester;
-	private Long feeHeadId;
 	private Double amount;
 	private String createdBy;
 	private String updatedBy;
@@ -30,12 +29,7 @@ public class StudentFeeStaging {
 	public void setSemester(Integer semester) {
 		this.semester = semester;
 	}
-	public Long getFeeHeadId() {
-		return feeHeadId;
-	}
-	public void setFeeHeadId(Long feeHeadId) {
-		this.feeHeadId = feeHeadId;
-	}
+	
 	public Double getAmount() {
 		return amount;
 	}
@@ -89,8 +83,7 @@ public class StudentFeeStaging {
 	@Override
 	public String toString() {
 		return "StudentFeeStaging [fileNo=" + fileNo + ", academicYear="
-				+ academicYear + ", semester=" + semester + ", feeHeadId="
-				+ feeHeadId + ", amount=" + amount + ", createdBy=" + createdBy
+				+ academicYear + ", semester=" + semester + ", amount=" + amount + ", createdBy=" + createdBy
 				+ ", updatedBy=" + updatedBy + ", Approved=" + Approved
 				+ ", feeGenerated=" + feeGenerated + ", createdDate="
 				+ createdDate + ", modifiedDate=" + modifiedDate + "]";
@@ -101,5 +94,6 @@ public class StudentFeeStaging {
 	public void setDiscountHead(FeeDiscountHead discountHead) {
 		this.discountHead = discountHead;
 	}
+	
 }
 

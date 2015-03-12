@@ -14,6 +14,8 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDao;
+import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class FeeDaoImpl extends BaseDao implements FeeDao{
@@ -25,6 +27,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		this.feeQueryProps = feeQueryProps;
 	}
 
+	CacheManager cacheManager =  new CacheManagerImpl(); 
 
 	public List<FeeDetail> getFeeDetail(Long course, Long branch) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
@@ -100,7 +103,9 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeStaging.setCreatedDate(rs.getDate("Created_Date"));
 				feeStaging.setUpdatedBy(rs.getString("Updated_By"));
 				feeStaging.setModifiedDate(rs.getDate("Modified_Date"));
-				feeStaging.setFeeHeadId(CommonUtil.getLongValue(rs.getLong("FeeHead_Id")));
+				Long feeId=(CommonUtil.getLongValue(rs.getLong("FeeHead_Id")));
+			    FeeDiscountHead feeDiscountHead=cacheManager.getFeeDiscountById(feeId);
+				feeStaging.setDiscountHead(feeDiscountHead);
 				return feeStaging;
 			}
 
@@ -120,7 +125,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		String addQuery = feeQueryProps.getProperty("addStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
 		.addValue("Created_By", studentFeeStaging.getCreatedBy())
-		.addValue("FeeHead_Id", studentFeeStaging.getFeeHeadId())
+		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
 		.addValue("Amount", studentFeeStaging.getAmount());
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
@@ -128,7 +133,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		String updateQuery = feeQueryProps.getProperty("updateStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
-		.addValue("FeeHead_Id", studentFeeStaging.getFeeHeadId())
+		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
 		.addValue("Amount", studentFeeStaging.getAmount())
 		.addValue("Updated_By", studentFeeStaging.getUpdatedBy());
 	
@@ -143,7 +148,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeStaging.getFileNo())
-											.addValue("FeeHead_Id", feeStaging.getFeeHeadId());
+											.addValue("FeeHead_Id", feeStaging.getDiscountHead().getHeadId());
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
@@ -165,7 +170,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setMode(rs.getString("Mode"));
 				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				feeTransaction.setRemark(rs.getString("Remark"));
-				feeTransaction.setComponentName(rs.getString("Head"));
 				return feeTransaction;
 			}
 			
@@ -206,7 +210,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
 				feeTransaction.setRemark(rs.getString("Remark"));
-				feeTransaction.setComponentName(rs.getString("Head"));
 				return feeTransaction;
 			}
 
