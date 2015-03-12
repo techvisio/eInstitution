@@ -165,15 +165,17 @@ Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER
     <![CDATA[
 SELECT 
 	
-	File_No,
-	Semester, 
-	Component_Id, 
-	User, 
-	Created_Date,
-	Remark,
-	Mode
+	ftd.File_No,
+	ftd.Semester, 
+	ftd.Component_Id, 
+	ftd.User,
+	fdm.Head, 
+	ftd.Created_Date,
+	ftd.Remark,
+	ftd.Mode
 	
-FROM feetransactionDebit where File_No=:File_No;]]>
+FROM feetransactionDebit ftd join feediscountheadmaster fdm on ftd.Component_Id= fdm.Head_Id where File_No=:File_No;
+]]>
 
 	</entry>
 
@@ -206,15 +208,18 @@ Insert into feetransactionDebit
     <![CDATA[
 SELECT 
 	
-	File_No,
-	Semester, 
-	Component_Id, 
-	User, 
-	Created_Date,
-	Remark,
-	Mode
+	SELECT 
 	
-FROM feetransactionCredit where File_No=:File_No;]]>
+	ftc.File_No,
+	ftc.Semester, 
+	ftc.Component_Id, 
+	ftc.User,
+	fdm.Head 
+	ftc.Created_Date,
+	ftc.Remark,
+	ftc.Mode
+	
+FROM feetransactionCredit ftc join feediscountheadmaster fdm on ftc.Component_Id= fdm.Head_Id where File_No=:File_No;]]>
 
 	</entry>
 

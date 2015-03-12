@@ -12,6 +12,7 @@ Select
 	Amount,
 	State_Id,
 	Remark,
+    Approved,
 	Created_Date
 	
 from scholarshipdetail where File_No=:File_No;	
@@ -28,12 +29,14 @@ Insert into scholarshipdetail
 	Amount,
 	State_Id,
 	Remark,
+	Approved,
 	Created_Date) values
 	
 	(:File_No,
 	:Amount,
 	:State_Id,
 	:Remark,
+	:Approved,
 	:Created_Date);	
     ]]>
 
@@ -48,6 +51,7 @@ Update scholarshipdetail set
 	Amount=:Amount,
 	State_Id=:State_Id,
 	Remark=:Remark,
+	Approved=:Approved,
 	Created_Date=:Created_Date
 	
 	where File_No=:File_No;

@@ -10,6 +10,7 @@ public class ScholarshipDetail {
 	private Long stateId;
 	private String remark;
 	private Date createdDate;
+    private boolean approved; 
 	private List<ScholarshipPaymentDetail> scholarshipPaymentDetail;
 	
 	public String getFileNo() {
@@ -47,6 +48,12 @@ public class ScholarshipDetail {
 	}
 	public void setScholarshipPaymentDetail(List<ScholarshipPaymentDetail> scholarshipPaymentDetail) {
 		this.scholarshipPaymentDetail = scholarshipPaymentDetail;
+	}
+	public boolean isApproved() {
+		return approved;
+	}
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 

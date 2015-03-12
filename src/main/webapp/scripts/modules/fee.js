@@ -3,13 +3,16 @@ var feeModule = angular.module('feeModule' , []);
 feeModule.controller('feeController',['$scope','feeService',function($scope,feeService){
 	
 	$scope.studentBasicInfo = {};
-	$scope.feeTransaction = {};
+	$scope.FeeTransactionAdmissionBean = {};
+
+	$scope.FeeTransactionAdmissionBean.feeTransactionDebit=[];
+	$scope.FeeTransactionAdmissionBean.feeTransactionCredit=[];
 	
 	$scope.getStudentBsInfo = function(){
 		
 			var fileNo=prompt("file No","");
 			if(fileNo){
-				feeService.getStudentBsInfo(fileNo)
+				feeService.getFeeTransactionAndBasicInfoDetail(fileNo)
 								.then(function(response){
 									 console.log('Getting Student Basic Information in controller : ');
 							          console.log(response);
@@ -82,7 +85,8 @@ feeModule.service('feeService', function($http, $q){
 	return ({
 		getStudentBsInfo : getStudentBsInfo,
 	    getPendingFee : getPendingFee,
-	    getDiscountDetail : getDiscountDetail
+	    getDiscountDetail : getDiscountDetail,
+	    getFeeTransactionAndBasicInfoDetail : getFeeTransactionAndBasicInfoDetail
 	});
 	
 	function getStudentBsInfo(fileNo) {
@@ -131,6 +135,20 @@ feeModule.service('feeService', function($http, $q){
 
 	}
 
+	function getFeeTransactionAndBasicInfoDetail(fileNo) {
+
+		console.log('fee Transaction called in service');
+		var request = $http({
+			method : "get",
+			url : "fee/feeTransaction/" + fileNo,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
 	
 	function handleError(response) {
 		console.log('handle error');

@@ -42,7 +42,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 				scholarshipDetail.setStateId(CommonUtil.getLongValue(rs.getLong("State_Id")));
 				scholarshipDetail.setCreateDate(rs.getDate("Created_Date"));
 				scholarshipDetail.setRemark(rs.getString("Remark"));
-				
+				scholarshipDetail.setApproved(rs.getBoolean("Approved"));
 				return scholarshipDetail;			}
 		});
 
@@ -62,7 +62,8 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		.addValue("Amount", scholarshipDetail.getAmount())
 		.addValue("State_Id", scholarshipDetail.getStateId())
 		.addValue("Created_Date", scholarshipDetail.getCreateDate())
-		.addValue("Remark", scholarshipDetail.getRemark());
+		.addValue("Remark", scholarshipDetail.getRemark())
+		.addValue("Approved", scholarshipDetail.isApproved());
 		
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -83,8 +84,8 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		.addValue("Amount", scholarshipDetail.getAmount())
 		.addValue("State_Id", scholarshipDetail.getStateId())
 		.addValue("Created_Date", scholarshipDetail.getCreateDate())
-		.addValue("Remark", scholarshipDetail.getRemark());
-		
+		.addValue("Remark", scholarshipDetail.getRemark())
+		.addValue("Approved", scholarshipDetail.isApproved());
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 		if (scholarshipDetail.getScholarshipPaymentDetail() != null) {

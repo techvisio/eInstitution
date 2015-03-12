@@ -16,7 +16,7 @@ public class StudentFeeStaging {
 	private boolean feeGenerated;
 	private Date createdDate;
 	private Date modifiedDate;
-
+    private FeeDiscountHead discountHead;
 
 	public String getAcademicYear() {
 		return academicYear;
@@ -94,6 +94,12 @@ public class StudentFeeStaging {
 				+ ", updatedBy=" + updatedBy + ", Approved=" + Approved
 				+ ", feeGenerated=" + feeGenerated + ", createdDate="
 				+ createdDate + ", modifiedDate=" + modifiedDate + "]";
+	}
+	public FeeDiscountHead getDiscountHead() {
+		return discountHead;
+	}
+	public void setDiscountHead(FeeDiscountHead discountHead) {
+		this.discountHead = discountHead;
 	}
 }
 

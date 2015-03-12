@@ -47,26 +47,31 @@
 <table>
 <tr>
 <td><span>File No</span></td>
-<td><input type="text" ng-model="feeTransaction.fileNo"></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.fileNo"></td>
 <td><span>Semester</span></td>
-<td><input type="text" ng-model="feeTransaction.semester"></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.semester"></td>
 </tr>
 
 <tr>
 <td><span>Component Id</span></td>
-<td><input type="text" ng-model="feeTransaction.componentId"></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.componentId"></td>
 <td><span>User</span></td>
-<td><input type="text" ng-model="feeTransaction.user"></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.user"></td>
 </tr>
 
 <tr>
 <td><span>Created Date</span></td>
-<td><input type="text" ng-model="feeTransaction.createdDate"></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.createdDate"></td>
 <td><span>Remark</span></td>
-<td><input type="text" ng-model="feeTransaction.remark"></td>
-<td><span>Mode</span></td>
-<td><input type="text" ng-model="feeTransaction.mode"></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.remark"></td>
+
 </tr>
+
+<tr>
+<td><span>Mode</span></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.mode"></td>
+<td><span>Component Name</span></td>
+<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.componentName"></td></tr>
 </table>
 </div>
 

@@ -5,7 +5,7 @@ import java.util.Date;
 public class FeeTransaction {
 	private Integer semester;
 	private Long componentId;
-	private String head;
+	private String componentName;
 	private String user;
 	private Date createdDate;
 	private String remark;
@@ -53,18 +53,20 @@ public class FeeTransaction {
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 	}
+	
 	@Override
 	public String toString() {
-		return "FeeTransaction [semester=" + semester + ", ComponentId="
-				+ componentId + ", user=" + user + ", createdDate="
-				+ createdDate + ", remark=" + remark + ", Mode=" + mode
-				+ ", fileNo=" + fileNo + "]";
+		return "FeeTransaction [semester=" + semester + ", componentId="
+				+ componentId + ", componaentName=" + componentName
+				+ ", user=" + user + ", createdDate=" + createdDate
+				+ ", remark=" + remark + ", mode=" + mode + ", fileNo="
+				+ fileNo + "]";
 	}
-	public String getHead() {
-		return head;
+	public String getComponentName() {
+		return componentName;
 	}
-	public void setHead(String head) {
-		this.head = head;
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
 	}
 	
 	

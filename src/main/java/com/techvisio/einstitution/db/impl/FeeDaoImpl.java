@@ -165,6 +165,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setMode(rs.getString("Mode"));
 				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				feeTransaction.setRemark(rs.getString("Remark"));
+				feeTransaction.setComponentName(rs.getString("Head"));
 				return feeTransaction;
 			}
 			
@@ -205,6 +206,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
 				feeTransaction.setRemark(rs.getString("Remark"));
+				feeTransaction.setComponentName(rs.getString("Head"));
 				return feeTransaction;
 			}
 

@@ -110,7 +110,7 @@
 				<table>
 					<tr>
 						<td><span>Admission Mode</span></td>
-						<td><select ng-model="student.admissionMode">
+						<td><select ng-model="student.admissionMode" ng-disabled="!form.isEdit && !form.isNew" required>
 								<option value="C">Counselling</option>
 								<option value="A">Consultant</option>
 								<option value="R">Referral</option>
@@ -126,18 +126,18 @@
 							ng-Readonly="!form.isEdit && !form.isNew"></td>
 						<td><span> Uni Enrollment No </span></td>
 						<td><input type="text" ng-model="student.uniEnrollNo"
-							ng-Readonly="!form.isEdit && !form.isNew"></td>
+							ng-Readonly="!form.isEdit && !form.isNew" required></td>
 					</tr>
 					<tr>
 						<td><span> Course </span></td>
 						<td><select select ng-model="student.courseId"
 							ng-disabled="!form.isEdit && !form.isNew"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select>
+							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE" required></select>
 						</td>
 						<td><span> Branch </span></td>
 						<td><select select ng-model="student.branchId"
 							ng-disabled="!form.isEdit && !form.isNew"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"></select>
+							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}" required></select>
 						</td>
 					</tr>
 					<tr>
@@ -180,20 +180,20 @@
 							<tr>
 								<td><span> Father Name </span></td>
 								<td><input type="text" ng-model="student.fatherName"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 								<td><span> Mother Name </span></td>
 								<td><input type="text" ng-model="student.motherName"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 
 							</tr>
 							<tr>
 								<td><span> Academic Year </span></td>
 								<td><input type="text" ng-model="student.academicYear"
-									ng-disabled="!form.isEdit && !form.isNew"></td>
+									ng-disabled="!form.isEdit && !form.isNew" required></td>
 								<td><span> Semester </span></td>
 								<td><select select ng-model="student.semester"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}"></select>
+									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}" required></select>
 								</td>
 							</tr>
 
@@ -209,14 +209,14 @@
 								</td>
 								<td><span> Date of Birth </span></td>
 								<td><input type="date" ng-model="student.dob"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							</tr>
 							<tr>
 
 								<td><span> Category </span></td>
 								<td><select select ng-model="student.categoryId"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY" required></select>
 								</td>
 								<td><span> Blood Group </span></td>
 								<td><select select ng-model="student.bloodGroup"
@@ -236,8 +236,8 @@
 							</tr>
 							<tr>
 								<td><span> Mobile No </span></td>
-								<td><input type="number" ng-model="student.selfMobileNo"
-									ng-Readonly="!form.isEdit && !form.isNew" min="1000000000" max="9999999999"></td>
+								<td><input type="text" ng-model="student.selfMobileNo"
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 								<td><span> Email Id </span></td>
 								<td><input type="email" ng-model="student.emailId"
 									ng-Readonly="!form.isEdit && !form.isNew"></td>
@@ -276,37 +276,37 @@
 								<td><span>House No.</span></td>
 								<td><input type="Text"
 									ng-model="getStudentAddress('P').houseNo"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 								<td><span>Locality</span></td>
 								<td><input type="Text"
 									ng-model="getStudentAddress('P').locality"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							</tr>
 							<tr>
 								<td><span>Land Mark</span></td>
 								<td><input type="Text"
 									ng-model="getStudentAddress('P').landmark"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" ></td>
 								<td><span>District</span></td>
 								<td><input type="Text"
 									ng-model="getStudentAddress('P').district"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							</tr>
 							<tr>
 								<td><span>City</span></td>
 								<td><input type="Text"
 									ng-model="getStudentAddress('P').city"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 								<td><span>Pincode</span></td>
 								<td><input type="Text"
 									ng-model="getStudentAddress('P').pincode"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							</tr>
 							<tr>
 								<td><span>State</span></td>
 								<td><select ng-model="getStudentAddress('P').state"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
+									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE" required>
 								</select></td>
 								<th></th>
 								<td></td>
@@ -373,19 +373,19 @@
 						<tr>
 							<td><select ng-model="object.qualificationId"
 								ng-disabled="!form.isEdit && !form.isNew"
-								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION" required>
 									<!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
 							</select></td>
 							<td><input type="Text" ng-model="object.university"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><input type="Text" ng-model="object.collegeName"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><input type="Text" ng-model="object.rollNo"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><input type="Text" ng-model="object.passingYear"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><input type="Text" ng-model="object.percentage"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><img height="35" width="35" ng-src="images/plus.png"
 								ng-click="addQualification($index)" /></td>
 							<td><img height="35" width="35" ng-src="images/minus.png"
@@ -397,13 +397,13 @@
 							<td><span>Subject</span></td>
 							<td><select ng-model=subject.subjectId
 								ng-disabled="!form.isEdit && !form.isNew"
-								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT" required></select></td>
 							<td><span>Marks Obtained</span></td>
 							<td><input type="Text" ng-model="subject.marksObtained"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><span>Maximum Marks</span></td>
 							<td><input type="Text" ng-model="subject.maxMarks"
-								ng-Readonly="!form.isEdit && !form.isNew"></td>
+								ng-Readonly="!form.isEdit && !form.isNew" required></td>
 							<td><img height="35" width="35" ng-src="images/plus.png"
 								ng-click="addSubject(object)" /></td>
 							<td><img height="35" width="35" ng-src="images/minus.png"
@@ -515,7 +515,7 @@
 							<tr>
 								<th><span>Referred By</span></th>
 								<td><input type="Text" ng-model="student.referredBy"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-disabled="!form.isEdit && !form.isNew"></td>
 							</tr>
 						</table>
 
@@ -533,7 +533,7 @@
 								<td><input type="checkbox"
 									ng-model="student.transportation" ng-disabled="true" > <img
 									src="images/edit.png" class="inner-element"
-									ng-click="showTransportModal('lg')" ng-Readonly="!form.isEdit && !form.isNew"></td>
+									ng-click="showTransportModal('lg')"></td>
 							</tr>
 							<tr>
 								<td><span> Management Approval </span></td>

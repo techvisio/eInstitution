@@ -392,6 +392,7 @@ admissionModule
 						 $scope.form.isEdit=false;
 						 $scope.dashboard=false;
 						 $scope.student = response.data.responseBody;
+						 $scope.populateMissingData($scope.student);
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -476,6 +477,9 @@ admissionModule
 
 			 $scope.showTransportModal=function (size) {
 
+				 if(!$scope.form.isEdit && !scope.form.isNew){
+					 return;
+				 }
 				 var fileNo=$scope.student.fileNo;
 				 if($scope.form.isNew){
 					 alert("Please save record before reserving transport");
@@ -502,6 +506,9 @@ admissionModule
 
 			 $scope.showHostelModal=function (size) {
 
+				 if(!$scope.form.isEdit && !scope.form.isNew){
+					 return;
+				 }
 				 var fileNo=$scope.student.fileNo;
 
 				 if($scope.form.isNew){

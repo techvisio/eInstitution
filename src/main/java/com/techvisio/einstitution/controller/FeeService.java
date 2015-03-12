@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
+import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.FeeWorkflowManagerImpl;
 
 @RestController
@@ -25,7 +29,6 @@ public class FeeService {
 	
 	private static final Logger logger = Logger.getLogger(FeeService.class);
 	
-
 //FeeDetail	
 	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}", method = RequestMethod.GET)
 	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch){
@@ -182,4 +185,37 @@ public class FeeService {
 		detailWorkflowManager.deleteFeeDiscountHead(headId);
 	}
 
+	@RequestMapping(value="/feeTransaction/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getfeeTransactionDtl(@PathVariable String fileNo){
+		
+		AdmissionWorkflowManager admissionWorkFlow=new AdmissionWorkflowManagerImpl();
+		FeeWorkflowManager feeworkFlow= new FeeWorkflowManagerImpl();
+		
+		Response response=new Response();
+		ResponseEntity<Response> result=new ResponseEntity<Response>(response, HttpStatus.OK);
+		try
+		{
+			FeeTransactionAdmissionBean transactionAdmissionBean = new FeeTransactionAdmissionBean();
+			StudentBasicInfo basicInfo=admissionWorkFlow.getStudentBsInfo(fileNo);
+			transactionAdmissionBean.setBasicInfo(basicInfo);
+			
+			if(basicInfo!=null){
+				
+				List<FeeTransaction> TransactionCredit = feeworkFlow.getCreditedFeeTransaction(fileNo);
+			    transactionAdmissionBean.setFeeTransactionCredit(TransactionCredit); 	
+		
+			    List<FeeTransaction> TransactionDebit = feeworkFlow.getDebitedFeeTransaction(fileNo);
+			    transactionAdmissionBean.setFeeTransactionDebit(TransactionDebit);
+			
+			    response.setResponseBody(transactionAdmissionBean);
+			}
+		}
+			catch(Exception e)
+			{
+				response.setError(e.getLocalizedMessage());
+			}
+			return result;
+	}
+		
+	
 }
