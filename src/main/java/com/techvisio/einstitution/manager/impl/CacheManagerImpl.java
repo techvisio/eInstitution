@@ -241,7 +241,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
      	List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-		for(FeeDiscountHead feeDiscountHead : getsFeeDiscounts()){
+		for(FeeDiscountHead feeDiscountHead : feeDetailList){
 			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead());
 			masterData.add(bean);
 		}
@@ -270,5 +270,26 @@ public class CacheManagerImpl implements CacheManager {
 		return masterData;
 	}	
 
+
+	public static Map<Long,FeeDiscountHead> feeDetailMap = new HashMap<Long, FeeDiscountHead>();
+	public static List<FeeDiscountHead> feeDetailList=new ArrayList<FeeDiscountHead>();
 	
-}
+	public void builtCache(){
+
+		feeDetailList=cacheDao.getFeeDiscountHeadMaster();
+		for(FeeDiscountHead discountHead:feeDetailList){
+			
+			feeDetailMap.put(discountHead.getHeadId(), discountHead);
+		}
+		
+	}
+
+	public FeeDiscountHead getFeeDiscountById(Long headId){
+		
+		return feeDetailMap.get(headId);
+		
+	}
+	
+	
+	}
+
