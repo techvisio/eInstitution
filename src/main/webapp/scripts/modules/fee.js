@@ -2,138 +2,83 @@ var feeModule = angular.module('feeModule' , []);
 
 feeModule.controller('feeController',['$scope','feeService',function($scope,feeService){
 	
-	$scope.studentBasicInfo = {};
-	$scope.FeeTransactionAdmissionBean = {};
+	$scope.feeTransactionAdmissionBean = {};
+	$scope.feeTransactionAdmissionBean.basicInfo={};
+	$scope.fileNo=null;
+	
+	 $scope.newTransaction={};
+	 $scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
+	                          {"id":"9995","value":"DEMAND DRAFT"},
+	                          {"id":"9994","value":"CHEQUE DEPOSITE"}];
+	 
+	 $scope.getFeeTransactionAndBasicInfoDetail = function() {
+		 console.log('FeeTransactionAndBasicInfoDetail called in controller');
+		 if($scope.fileNo==null){
+			 $scope.fileNo=prompt("file No","");
+		 }
+		if($scope.fileNo){
+		 feeService.getFeeTransactionAndBasicInfoDetail($scope.fileNo)
+		 .then(function(response) {
+			 console.log('Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.feeTransactionAdmissionBean = response.data.responseBody;
+			 }
+		 
+			 else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
 
-	$scope.FeeTransactionAdmissionBean.feeTransactionDebit=[];
-	$scope.FeeTransactionAdmissionBean.feeTransactionCredit=[];
-	
-	$scope.getStudentBsInfo = function(){
-		
-			var fileNo=prompt("file No","");
-			if(fileNo){
-				feeService.getFeeTransactionAndBasicInfoDetail(fileNo)
-								.then(function(response){
-									 console.log('Getting Student Basic Information in controller : ');
-							          console.log(response);
-					if (response !=null && response.data != null && response.data.responseBody != null){
-						$scope.studentBasicInfo = response.data.responseBody;
-						$scope.getPendingFee();
-					}
-					else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
-									
-								})
-			}
-			//console.log(response);
-	}
 
-	
-	$scope.getPendingFee = function(){
-		
-		var fileNo=$scope.studentBasicInfo.fileNo;
-		
-		if(fileNo){
-			feeService.getPendingFee(fileNo)
-							.then(function(response){
-								 console.log('Getting Pending Fees Information in controller : ');
-						          console.log(response);
-				if (response !=null && response.data != null && response.data.responseBody != null){
-					$scope.feeTransaction = response.data.responseBody;	
-				}
-				else {
-					 console.log(response.data.error);
-					 alert(response.data.error);
-				 }
-								
-							})
-		}
-	}
+	 }
+	 }
+	 
+	 $scope.depositeFee = function() {
 
-	
-$scope.getDiscountDetail = function(){
-		
-		var fileNo=$scope.feeTransaction.fileNo;
-		
-		if(fileNo){
-			feeService.getDiscountDetail(fileNo)
-							.then(function(response){
-								 console.log('Fee Discount Information in controller : ');
-						          console.log(response);
-				if (response !=null && response.data != null && response.data.responseBody != null){
-					$scope.feeTransaction = response.data.responseBody;	
-				}
-				else {
-					 console.log(response.data.error);
-					 alert(response.data.error);
-				 }
-								
-							})
-		}
-	}
-	
-	
-	
-	
+		 if(angular.isUndefined($scope.feeTransactionAdmissionBean.basicInfo.fileNo) || $scope.feeTransactionAdmissionBean.basicInfo.fileNo==null )
+		 {
+			 alert("Please select student before depositing fee")
+			 return;
+		 }
+		      
+		 $scope.newTransaction.fileNo=$scope.feeTransactionAdmissionBean.basicInfo.fileNo;
+		 
+			 console.log('fee deposite called in controller');
+		 
+		 feeService.depositeFee($scope.newTransaction)
+		 .then(function(response) {
+			 console.log('Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.newTransaction = response.data.responseBody;
+				 alert("fee has been deposited successfully")
+				 $scope.newTransaction={};
+				 $scope.getFeeTransactionAndBasicInfoDetail();
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+			 
+		 })
+
+
+	 }
+
+	 
+	 
 }]);
 
 
 feeModule.service('feeService', function($http, $q){
 	// Return public API.
 	return ({
-		getStudentBsInfo : getStudentBsInfo,
-	    getPendingFee : getPendingFee,
-	    getDiscountDetail : getDiscountDetail,
-	    getFeeTransactionAndBasicInfoDetail : getFeeTransactionAndBasicInfoDetail
+	    getFeeTransactionAndBasicInfoDetail : getFeeTransactionAndBasicInfoDetail,
+	    depositeFee : depositeFee
 	});
 	
-	function getStudentBsInfo(fileNo) {
-
-		console.log('getStudentBsInfo called in service');
-		var request = $http({
-			method : "get",
-			url : "admission/StudentBsInfo/" + fileNo,
-			params : {
-				action : "get"
-			}
-		});
-
-		return (request.then(handleSuccess, handleError));
-
-	}
-	
-	function getPendingFee(fileNo) {
-
-		console.log('Pending fee called in service');
-		var request = $http({
-			method : "get",
-			url : "fee/debitedFeeTransaction/" + fileNo,
-			params : {
-				action : "get"
-			}
-		});
-
-		return (request.then(handleSuccess, handleError));
-
-	}
-
-
-	function getDiscountDetail(fileNo) {
-
-		console.log('fee discount called in service');
-		var request = $http({
-			method : "get",
-			url : "fee/creditedFeeTransaction/" + fileNo,
-			params : {
-				action : "get"
-			}
-		});
-
-		return (request.then(handleSuccess, handleError));
-
-	}
 
 	function getFeeTransactionAndBasicInfoDetail(fileNo) {
 
@@ -149,6 +94,22 @@ feeModule.service('feeService', function($http, $q){
 		return (request.then(handleSuccess, handleError));
 
 	}
+	
+	function depositeFee(newTransaction) {
+
+		 console.log('fee deposite called in service');
+		 var request = $http({
+			 method : "post",
+			 url : "fee/feeTransactionCredit/",
+			 params : "",
+			 data : newTransaction
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+	 }
+
 	
 	function handleError(response) {
 		console.log('handle error');

@@ -10,9 +10,9 @@
  
    Head_Id,
    Head,
-   Type,
+   Transaction_Type,
    Parent_Type_Id,
-   Discount_Type,
+   isReoccurring,
    Refund_Type
 
 from feeDiscountHeadMaster;

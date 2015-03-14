@@ -55,13 +55,11 @@ public class StudentDetail {
 				+ ", managementApproval=" + managementApproval + ", feePaid="
 				+ feePaid + ", createdBy=" + createdBy + ", createdOn="
 				+ createdOn + ", updatedBy=" + updatedBy + ", updatedOn="
-				+ updatedOn + ", scholarship=" + scholarship + ", remarks="
-				+ remarks + ", photo=" + Arrays.toString(photo)
-				+ ", domicileState=" + domicileState + ", academicDtl="
+				+ updatedOn + ", academicDtl="
 				+ academicDtl + ", DiscountDtl=" + DiscountDtl
 				+ ", addressDtl=" + addressDtl + ", branchPreference="
 				+ branchPreference + ", counsellingDtl=" + counsellingDtl
-				+ ", consultant=" + consultant + ", quotaCode=" + quotaCode
+				+ ", quotaCode=" + quotaCode
 				+ ", referredBy=" + referredBy + "]";
 	}
 
@@ -111,9 +109,6 @@ public class StudentDetail {
 	@DynamicProperties(id="updatedOn", title="updatedOn")
 	private Date updatedOn;
 	
-	private boolean scholarship;
-	private String remarks;
-	
 	private byte[] photo;
 //	private String feeReceivedBy;
 //	private Date feeReceivedOn;
@@ -123,8 +118,6 @@ public class StudentDetail {
 //	private Date documentVerifiedOn;
 //	private String managementApprovedBy;
 //	private Date managementApprovedOn;
-	@DynamicProperties(id="domicileState", title="Domicile State", type="select", masterDataCode=AppConstants.STATE)
-	private String domicileState;
 	private List<StudentAcademicDetail> academicDtl=new ArrayList<StudentAcademicDetail>();
 	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
 	private List<AddressDetail> addressDtl=new ArrayList<AddressDetail>();
@@ -132,7 +125,8 @@ public class StudentDetail {
 	private List<CounsellingDetail> counsellingDtl=new ArrayList<CounsellingDetail>();
 	
 	private TransportReservation reservation;
-    private Consultant consultant;
+    private ConsultantDetail consultantDetail;
+    private ScholarshipDetail scholarshipDetail;
     private String quotaCode;
     private String referredBy;
     
@@ -378,13 +372,7 @@ public class StudentDetail {
 	}
 
 
-	public String getDomicileState() {
-		return domicileState;
-	}
-
-	public void setDomicileState(String domicileState) {
-		this.domicileState = domicileState;
-	}
+	
 
 	public List<AddressDetail> getAddressDtl() {
 		return addressDtl;
@@ -434,30 +422,7 @@ public class StudentDetail {
 		this.branchPreference = branchPreference;
 	}
 
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public boolean isScholarship() {
-		return scholarship;
-	}
-
-	public void setScholarship(boolean scholarship) {
-		this.scholarship = scholarship;
-	}
-
-	public Consultant getConsultant() {
-		return consultant;
-	}
-
-	public void setConsultant(Consultant consultant) {
-		this.consultant = consultant;
-	}
-
+	
 	public String getReferredBy() {
 		return referredBy;
 	}
@@ -488,6 +453,22 @@ public class StudentDetail {
 
 	public void setReservation(TransportReservation reservation) {
 		this.reservation = reservation;
+	}
+
+	public ScholarshipDetail getScholarshipDetail() {
+		return scholarshipDetail;
+	}
+
+	public void setScholarshipDetail(ScholarshipDetail scholarshipDetail) {
+		this.scholarshipDetail = scholarshipDetail;
+	}
+
+	public ConsultantDetail getConsultantDetail() {
+		return consultantDetail;
+	}
+
+	public void setConsultantDetail(ConsultantDetail consultantDetail) {
+		this.consultantDetail = consultantDetail;
 	}
 	
 }

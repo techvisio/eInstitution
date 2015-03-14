@@ -641,22 +641,35 @@ border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:
 	
 }
 
-.admission-dashboard-menu
+.module-dashboard-content
 {
 	height:50%;
 	width:60%;
 	float:left;
 }
 
-.admission-dashboard-menu table tr td{
+.module-dashboard-content table tr td{
 	text-align:left;
 	padding-top:10px;
 	padding-left:10px;
 } 
 
-.admission-dashboard-menu input[type="text"],.admission-dashboard-menu select{
+.module-dashboard-content input[type="text"],.module-dashboard-content select{
 	width:170px;
 } 
+
+.module-dashboard-content .left-div
+{
+	width:50%;
+	float:left;
+	border-right: 1px solid #ff0000;
+}
+.module-dashboard-content .right-div
+{
+	width:50%;
+	float:right;
+	border-left: 1px solid #ff0000;
+}
 
 .side-menu{
   position: fixed;
@@ -729,8 +742,13 @@ color:white;
 .showmore{
 	width:300px;
 	}
-	
-.content input[type="text"].ng-invalid {
+
+.content input[type="text"].ng-invalid, .content select.ng-invalid {
 	border: 1px solid red;
 }	
 
+span.header
+{
+font-size: 20px;
+margin-left:80px;
+}

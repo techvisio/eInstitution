@@ -259,8 +259,8 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				feeDiscountHead.setHeadId(CommonUtil.getLongValue(rs.getLong("Head_Id")));
 				feeDiscountHead.setHead(rs.getString("Head"));
 				feeDiscountHead.setParentId(CommonUtil.getLongValue(rs.getLong("Parent_Type_Id")));
-				feeDiscountHead.setType(rs.getString("Type"));
-				feeDiscountHead.setDiscountType(rs.getString("Discount_Type"));
+				feeDiscountHead.setTransactionType(rs.getString("Transaction_Type"));
+				feeDiscountHead.setReoccurring(rs.getBoolean("isReoccurring"));
 				feeDiscountHead.setRefundType(rs.getString("Refund_Type"));
 
 				return feeDiscountHead;

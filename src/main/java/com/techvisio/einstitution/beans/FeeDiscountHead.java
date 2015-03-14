@@ -4,24 +4,15 @@ public class FeeDiscountHead {
 
 	private Long headId;
 	private String head;
-	private String type;
+	private String transactionType;
 	private Long parentId;
-	private String discountType;
+	private boolean isReoccurring;
 	private String refundType;
-	
-	
 	public Long getHeadId() {
 		return headId;
 	}
 	public void setHeadId(Long headId) {
 		this.headId = headId;
-	}
-	@Override
-	public String toString() {
-		return "FeeDiscountHead [headId=" + headId + ", head=" + head
-				+ ", type=" + type + ", parentId=" + parentId
-				+ ", discountType=" + discountType + ", refundType="
-				+ refundType + "]";
 	}
 	public String getHead() {
 		return head;
@@ -29,11 +20,11 @@ public class FeeDiscountHead {
 	public void setHead(String head) {
 		this.head = head;
 	}
-	public String getType() {
-		return type;
+	public String getTransactionType() {
+		return transactionType;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
 	}
 	public Long getParentId() {
 		return parentId;
@@ -41,11 +32,11 @@ public class FeeDiscountHead {
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
-	public String getDiscountType() {
-		return discountType;
+	public boolean isReoccurring() {
+		return isReoccurring;
 	}
-	public void setDiscountType(String discountType) {
-		this.discountType = discountType;
+	public void setReoccurring(boolean isReoccurring) {
+		this.isReoccurring = isReoccurring;
 	}
 	public String getRefundType() {
 		return refundType;
@@ -53,5 +44,6 @@ public class FeeDiscountHead {
 	public void setRefundType(String refundType) {
 		this.refundType = refundType;
 	}
-
+	
+	
 }

@@ -94,47 +94,47 @@ public class FeeDetailDaoTest {
 	
 //FeeTransaction	
 	
-	@Test
-	public void testAddFeeTransactiondr(){
-		FeeTransaction feeTransaction1 = new FeeTransaction();
-	
-		feeTransaction1.setComponentId(897L);
-		feeTransaction1.setFileNo("2015-148");
-        feeTransaction1.setUser("Vikas");
-        feeTransaction1.setSemester(2);
-        feeTransaction1.setRemark("jshshshshshshsh");
-		dao.addFeeTransactionDebit(feeTransaction1);
-	}
-	
-	@Test
-	public void testGetFeeTransaction(){
-		FeeTransaction feeTransaction = dao.getDebitedFeeTransaction("2015-151");
-		System.out.println("Data is :- "+feeTransaction);
-	}
-	
-	@Test
-	public void testAddFeeTransactionCr(){
-		FeeTransaction feeTransaction = new FeeTransaction();
-	
-		feeTransaction.setComponentId(897L);
-		feeTransaction.setFileNo("2015-151");
-        feeTransaction.setUser("Anil");
-        feeTransaction.setSemester(2);
-        feeTransaction.setRemark("qwerttytdadsa");
-		dao.addFeeTransactionCredit(feeTransaction);
-	}
-
-	@Test
-	public void testGetFeeTransactionCr(){
-		FeeTransaction feeTransaction = dao.getCreditedFeeTransaction("2015-151");
-		System.out.println("Data is :- "+feeTransaction);
-	}
-	
-	@Test
-	public void testDeleteStudentFeeStaging(){
-		//dao.deleteStudentFeeStaging("1");
-	}
-
+//	@Test
+//	public void testAddFeeTransactiondr(){
+//		FeeTransaction feeTransaction1 = new FeeTransaction();
+//	
+//		feeTransaction1.setComponentId(897L);
+//		feeTransaction1.setFileNo("2015-148");
+//        feeTransaction1.setUser("Vikas");
+//        feeTransaction1.setSemester(2);
+//        feeTransaction1.setRemark("jshshshshshshsh");
+//		dao.addFeeTransactionDebit(feeTransaction1);
+//	}
+//	
+//	@Test
+//	public void testGetFeeTransaction(){
+//		FeeTransaction feeTransaction = dao.getDebitedFeeTransaction("2015-151");
+//		System.out.println("Data is :- "+feeTransaction);
+//	}
+//	
+//	@Test
+//	public void testAddFeeTransactionCr(){
+//		FeeTransaction feeTransaction = new FeeTransaction();
+//	
+//		feeTransaction.setComponentId(897L);
+//		feeTransaction.setFileNo("2015-151");
+//        feeTransaction.setUser("Anil");
+//        feeTransaction.setSemester(2);
+//        feeTransaction.setRemark("qwerttytdadsa");
+//		dao.addFeeTransactionCredit(feeTransaction);
+//	}
+//
+//	@Test
+//	public void testGetFeeTransactionCr(){
+//		FeeTransaction feeTransaction = dao.getCreditedFeeTransaction("2015-151");
+//		System.out.println("Data is :- "+feeTransaction);
+//	}
+//	
+//	@Test
+//	public void testDeleteStudentFeeStaging(){
+//		//dao.deleteStudentFeeStaging("1");
+//	}
+//
 
     @Test
     public void testFeeDiscountHead(){

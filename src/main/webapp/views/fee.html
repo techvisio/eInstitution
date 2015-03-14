@@ -1,79 +1,91 @@
-<div ng-controller = "feeController" ng-init="getPendingFee()">
-	<div class = "six-column-view" >
-	<table >
-	<tr>
-	<div class="panel-div">Student Basic Information</div>
-	</tr>
-	<tr>
-	<td><span> File No </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.fileNo" ></td>
-	<td><input type="submit" ng-click="getStudentBsInfo()"></td> 
-	</tr>
-	<tr>
-	<td><span> First Name </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.firstName"></td>
-	<td><span> Last Name </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.lastName"></td>
-	<td><span> Enrollment No </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.enrollmentNo"></td>
-	</tr>
-	<tr>
-	<td><span> Father Name </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.fatherName"></td>
-	<td><span> Gender </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.gender"></td>
-	<td><span> Date Of Birth </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.dob"></td>
-	</tr>
-	<tr>
-	<td><span> Course </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.course"></td>
-	<td><span> Branch </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.branch"></td>
-	<td><span> Semester </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.semester"></td>
-	</tr>
-	<tr>
-	<td><span> Academic Year </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.academicYear"></td>
-	<td><span> Modified Date </span></td>
-	<td><input type="text" ng-model="studentBasicInfo.modifiedDate"></td>
-	</tr>
-	</table>
-</div>
+<div ng-controller="feeController" ng-init="">
+	<div class="latest-admission"></div>
 
-<div class="six-column-view" >
-<div class="panel-div">Pending Fee</div>
-<table>
-<tr>
-<td><span>File No</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.fileNo"></td>
-<td><span>Semester</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.semester"></td>
-</tr>
+	<div class="module-dashboard-content">
+	<div class="panel-div">
+				<span ng-if="!feeTransactionAdmissionBean.basicInfo.fileNo">Fee Detail</span> <span
+					ng-if="feeTransactionAdmissionBean.basicInfo.fileNo">{{feeTransactionAdmissionBean.basicInfo.firstName}}
+					{{feeTransactionAdmissionBean.basicInfo.lastName}} ({{feeTransactionAdmissionBean.basicInfo.fileNo}})</span>
+			</div>
+		<div>
+			<span class="header">Student Info.</span>
+			<table>
+				<tr>
+					<td><span> File No </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.fileNo"></td>
+					<td><span> Enrollment No </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.enrollmentNo"></td>
+				</tr>
+				<tr>
+					<td><span> First Name </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.firstName"></td>
+					<td><span> Last Name </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.lastName"></td>
 
-<tr>
-<td><span>Component Id</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.componentId"></td>
-<td><span>User</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.user"></td>
-</tr>
-
-<tr>
-<td><span>Created Date</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.createdDate"></td>
-<td><span>Remark</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.remark"></td>
-
-</tr>
-
-<tr>
-<td><span>Mode</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.mode"></td>
-<td><span>Component Name</span></td>
-<td ng-repeat="object in feeTransaction"><input type="text" ng-model="object.componentName"></td></tr>
-</table>
-</div>
+				</tr>
+				<tr>
+					<td><span> Father Name </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.fatherName"></td>
+					<td><span> Date Of Birth </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.dob"></td>
+				</tr>
+				<tr>
+					<td><span> Course </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.course"></td>
+					<td><span> Branch </span></td>
+					<td><input type="text"
+						ng-model="feeTransactionAdmissionBean.basicInfo.branch"></td>
+				</tr>
+				<tr><td><input type="submit"
+						ng-click="getFeeTransactionAndBasicInfoDetail()"></td></tr>
+			<tr><td colspan=4><hr><td></tr>
+			</table>
+		</div>
+		
+		<div class="left-div">
+			<span class="header">Debit</span>
+			<table>
+				<tr
+					ng-repeat="object in feeTransactionAdmissionBean.feeTransactionDebit">
+					<td><span ng-bind="object.feeDiscountHead.head"></span></td>
+					<td><input type="text" ng-model="object.amount"
+						readonly="true"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="right-div">
+			<span class="header">Credit</span>
+			<table>
+				<tr
+					ng-repeat="object in feeTransactionAdmissionBean.feeTransactionCredit">
+					<td><span ng-bind="object.feeDiscountHead.head"></span></td>
+					<td><input type="text" ng-model="object.amount"
+						readonly="true"></td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table>
+				<tr>
+					<td><select ng-model=newTransaction.feeDiscountHead.headId
+						ng-options="item.id as item.value for item in transactionTypes"></select>
+					</td>
+					<td><input type="number" ng-model="newTransaction.amount" /></td>
+				<tr>
+					<td><input type="button" value="Deposite"
+						ng-click="depositeFee()" /></td>
+				<tr>
+				</tr>
+			</table>
+		</div>
+	</div>
 
 
 </div>

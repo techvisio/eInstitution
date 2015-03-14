@@ -4,25 +4,21 @@ import java.util.Date;
 
 public class FeeTransaction {
 	private Integer semester;
-	private Long componentId;
-	private String componentName;
+	private FeeDiscountHead feeDiscountHead;
 	private String user;
 	private Date createdDate;
 	private String remark;
 	private String mode;
 	private String fileNo;
+	private Double amount;
+	
 	public Integer getSemester() {
 		return semester;
 	}
 	public void setSemester(Integer semester) {
 		this.semester = semester;
 	}
-	public Long getComponentId() {
-		return componentId;
-	}
-	public void setComponentId(Long componentId) {
-		this.componentId = componentId;
-	}
+	
 	public String getUser() {
 		return user;
 	}
@@ -56,17 +52,22 @@ public class FeeTransaction {
 	
 	@Override
 	public String toString() {
-		return "FeeTransaction [semester=" + semester + ", componentId="
-				+ componentId + ", componaentName=" + componentName
-				+ ", user=" + user + ", createdDate=" + createdDate
+		return "FeeTransaction [semester=" + semester + ", user=" + user + ", createdDate=" + createdDate
 				+ ", remark=" + remark + ", mode=" + mode + ", fileNo="
 				+ fileNo + "]";
 	}
-	public String getComponentName() {
-		return componentName;
+	
+	public Double getAmount() {
+		return amount;
 	}
-	public void setComponentName(String componentName) {
-		this.componentName = componentName;
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+	public FeeDiscountHead getFeeDiscountHead() {
+		return feeDiscountHead;
+	}
+	public void setFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
+		this.feeDiscountHead = feeDiscountHead;
 	}
 	
 	

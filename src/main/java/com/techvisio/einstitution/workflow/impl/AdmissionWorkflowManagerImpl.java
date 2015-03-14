@@ -1,8 +1,10 @@
 package com.techvisio.einstitution.workflow.impl;
 
-import com.techvisio.einstitution.beans.SearchCriteria;
 import java.util.List;
 
+import com.techvisio.einstitution.beans.ConsultantDetail;
+import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -11,6 +13,8 @@ import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.util.AppConstants.AdmissionWorkFlowStatus;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
+import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
+import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 
 public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
@@ -18,7 +22,22 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	FeeManager feeManager=FeeManagerImpl.getInstance();
 	
 	public String addStudentDetails(StudentDetail studentDetail) {
-		return admissionManager.addStudentDtl(studentDetail);
+		
+		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
+		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
+	
+		String fileNo = admissionManager.addStudentDtl(studentDetail);
+		
+		ConsultantDetail consultantDetail = studentDetail.getConsultantDetail();
+		consultantDetail.setFileNo(fileNo);
+		consultantWorkflowManager.addConsultantDtl(consultantDetail);
+        
+		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();
+		scholarshipDetail.setFileNo(fileNo);
+		scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
+	
+		
+		return fileNo;
 	}
 
 	public String updateStudentDetails(StudentDetail studentDetail) {
@@ -28,8 +47,19 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	public StudentDetail getStudentDetails(String fileNo) {
 
+	ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();	
+	ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();	
 	StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
-		return studentDetail;
+	
+	ScholarshipDetail scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
+	studentDetail.setScholarshipDetail(scholarshipDetail);
+	
+	ConsultantDetail consultantDetail = consultantWorkflowManager.getConsultantDtl(fileNo);
+	studentDetail.setConsultantDetail(consultantDetail);
+	
+	return studentDetail;
+	
+	
 	}
 
 	public void deleteStudentDetails(String fileNo){
@@ -49,8 +79,13 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	public StudentDetail getStudentDtlBySearchCriteria(
 			SearchCriteria searchCriteria) {
-
+		
 		StudentDetail studentDetail = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
+	      	
+		String fileNo = studentDetail.getFileNo();
+		
+		studentDetail=getStudentDetails(fileNo);
+	
 		return studentDetail;
 	}
 

@@ -403,6 +403,7 @@ admissionModule
 
 
 			 }
+			 
 
 			 $scope.next=function(){
 				 var selectionIndex=$scope.subModules.indexOf($scope.selection);
@@ -620,6 +621,8 @@ admissionModule
 				 return (request.then(handleSuccess, handleError));
 			 }
 
+			 
+			 			 
 
 			 function handleError(response) {
 				 console.log('Error occured while calling service');

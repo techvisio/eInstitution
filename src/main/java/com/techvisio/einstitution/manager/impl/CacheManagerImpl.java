@@ -26,7 +26,6 @@ import com.techvisio.einstitution.util.AppConstants;
 
 public class CacheManagerImpl implements CacheManager {
 
-	@Autowired
 	CacheDao cacheDao;
 
 
@@ -34,8 +33,13 @@ public class CacheManagerImpl implements CacheManager {
 		this.cacheDao = cacheDao;
 	}
 
-	public CacheManagerImpl(){
+	@Autowired
+	public CacheManagerImpl(CacheDao cacheDao){
+		this.cacheDao = cacheDao;
 		builtEntityListCache();
+	}
+	
+	public CacheManagerImpl(){
 	}
 	
 	private static Map<String,List> entityListMap=new HashMap<String, List>();
@@ -377,7 +381,6 @@ public class CacheManagerImpl implements CacheManager {
 		}
 	}
 
-	@Override
 	public FeeDiscountHead getFeeDiscountById(Long headId){
 
 		return feeDetailMap.get(headId);

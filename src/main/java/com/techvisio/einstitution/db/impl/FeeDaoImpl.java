@@ -168,8 +168,11 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setUser(rs.getString("User"));
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));
-				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);
+				feeTransaction.setFeeDiscountHead(feeDiscountHead);
 				feeTransaction.setRemark(rs.getString("Remark"));
+				feeTransaction.setAmount(rs.getDouble("Amount"));
 				return feeTransaction;
 			}
 			
@@ -186,9 +189,10 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
 		.addValue("Semester", feeTransaction.getSemester())
-		.addValue("Component_Id", feeTransaction.getComponentId())
+		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
 		.addValue("Mode", feeTransaction.getMode())
-		.addValue("Remark", feeTransaction.getRemark());
+		.addValue("Remark", feeTransaction.getRemark())
+		.addValue("Amount", feeTransaction.getAmount());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -207,9 +211,12 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setUser(rs.getString("User"));
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));
-				feeTransaction.setComponentId(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);		
+				feeTransaction.setFeeDiscountHead(feeDiscountHead);
 				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
 				feeTransaction.setRemark(rs.getString("Remark"));
+				feeTransaction.setAmount(rs.getDouble("Amount"));
 				return feeTransaction;
 			}
 
@@ -226,9 +233,10 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		.addValue("User", feeTransaction.getUser())
 		.addValue("Created_Date", feeTransaction.getCreatedDate())
 		.addValue("Semester", feeTransaction.getSemester())
-		.addValue("Component_Id", feeTransaction.getComponentId())
+		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
 		.addValue("Mode", feeTransaction.getMode())
-		.addValue("Remark", feeTransaction.getRemark());
+		.addValue("Remark", feeTransaction.getRemark())
+		.addValue("Amount", feeTransaction.getAmount());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -251,8 +259,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeDiscountHead.setHeadId(CommonUtil.getLongValue(rs.getLong("Head_Id")));
 				feeDiscountHead.setHead(rs.getString("Head"));
 				feeDiscountHead.setParentId(CommonUtil.getLongValue(rs.getLong("Parent_Type_Id")));
-				feeDiscountHead.setType(rs.getString("Type"));
-				feeDiscountHead.setDiscountType(rs.getString("Discount_Type"));
+				feeDiscountHead.setTransactionType(rs.getString("Transaction_Type"));
+				feeDiscountHead.setReoccurring(rs.getBoolean("isReoccurring"));
 				feeDiscountHead.setRefundType(rs.getString("Refund_Type"));
 
 				return feeDiscountHead;
@@ -269,8 +277,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", feeDiscountHead.getHeadId())
 		.addValue("Parent_Type_Id", feeDiscountHead.getParentId())
 		.addValue("Head", feeDiscountHead.getHead())
-		.addValue("Type", feeDiscountHead.getType())
-		.addValue("Discount_Type", feeDiscountHead.getDiscountType())
+		.addValue("Transaction_Type", feeDiscountHead.getTransactionType())
+		.addValue("isReoccurring", feeDiscountHead.isReoccurring()) 
 		.addValue("Refund_Type", feeDiscountHead.getRefundType());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
@@ -284,8 +292,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", feeDiscountHead.getHeadId())
 		.addValue("Parent_Type_Id", feeDiscountHead.getParentId())
 		.addValue("Head", feeDiscountHead.getHead())
-		.addValue("Type", feeDiscountHead.getType())
-		.addValue("Discount_Type", feeDiscountHead.getDiscountType())
+		.addValue("Transaction_Type", feeDiscountHead.getTransactionType())
+		.addValue("isReoccurring", feeDiscountHead.isReoccurring())
 		.addValue("Refund_Type", feeDiscountHead.getRefundType());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
