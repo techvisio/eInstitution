@@ -17,6 +17,10 @@ public interface AppConstants {
 	public static final String SEMESTER="SEMESTER";
 	public static final Long HOSTEL_FEE_ID=9999L;
 	public static final Long TRANSPORT_FEE_ID=9998L;
+	public static final Long CASH_DEPOSITE_ID=9996L;
+	public static final Long DD_DEPOSITE_ID=9995L;
+	public static final Long CHQ_DEPOSITE_ID=9994L;
+	
 	
 	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,APPROVED,FEE_DEPOSITED,COMPLETE};
 	

@@ -3,19 +3,19 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
-import com.techvisio.einstitution.beans.HostelReservation;
+import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
+import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.FeeManager;
-import com.techvisio.einstitution.manager.HostelManager;
 import com.techvisio.einstitution.manager.TransportManager;
 import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
+import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
-import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
 import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
@@ -25,6 +25,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
 	FeeManager feeManager=FeeManagerImpl.getInstance();
 	TransportManager transportManager = TransportManagerImpl.getInstance();
+	CacheManager cacheManager=new CacheManagerImpl();
 	
 	public List<AvailableTransport> getAvailableTransport() {
 
@@ -76,9 +77,11 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 		TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
 		
 		//create a staging fee entry
+		FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
+		
 		StudentFeeStaging stagingFee=new StudentFeeStaging();
 		stagingFee.setFileNo(fileNo);
-		stagingFee.setFeeHeadId(AppConstants.TRANSPORT_FEE_ID);
+		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
 		feeManager.addStudentFeeStaging(stagingFee);
 		
@@ -102,9 +105,11 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 		TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
 		
 		//updating fee staging entry
-				StudentFeeStaging stagingFee=new StudentFeeStaging();
+				FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
+		
+		        StudentFeeStaging stagingFee=new StudentFeeStaging();
 				stagingFee.setFileNo(fileNo);
-				stagingFee.setFeeHeadId(AppConstants.TRANSPORT_FEE_ID);
+				stagingFee.setDiscountHead(discountHead);
 				stagingFee.setAmount(reservedObject.getPrice());
 				feeManager.updateStudentFeeStaging(stagingFee);
 		
@@ -114,10 +119,11 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 	public void deleteTransportReservationDtl(String fileNo) {
 
              TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
-		
+             FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);    
+             
 				StudentFeeStaging stagingFee=new StudentFeeStaging();
 				stagingFee.setFileNo(reservedObject.getFileNo());
-				stagingFee.setFeeHeadId(AppConstants.TRANSPORT_FEE_ID);
+				stagingFee.setDiscountHead(discountHead);
 				feeManager.deleteStudentFeeStaging(stagingFee);
 		
 		

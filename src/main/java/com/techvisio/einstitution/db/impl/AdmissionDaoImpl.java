@@ -48,23 +48,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		
 		StudentDetail studentDetail=getNamedParamJdbcTemplate().queryForObject(
 				getQuery, namedParameter, new StudentDetailRowMapper());
-
-		String fileNo=studentDetail.getFileNo();
-		
-			List<StudentAcademicDetail> academicDetails = getAcademicDtl(fileNo);
-			studentDetail.setAcademicDtl(academicDetails);
-
-			List<AddressDetail> addressDetails = getAddressDtl(fileNo);
-			studentDetail.setAddressDtl(addressDetails);
-
-			List<AdmissionDiscountDtl> admissionDiscountDtls = getAdmissionDisDtl(fileNo);
-			studentDetail.setDiscountDtl(admissionDiscountDtls);
-
-			List<BranchPreference> branchPreferences = getBranchPreference(fileNo);
-			studentDetail.setBranchPreference(branchPreferences);
-
-			List<CounsellingDetail> counsellingDetails = getCounsellingDetail(fileNo);
-			studentDetail.setCounsellingDtl(counsellingDetails);
 		
 		    return studentDetail;
 	}
@@ -134,9 +117,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Branch_Id", studentDtl.getBranchId())
 						.addValue("Created_By", studentDtl.getCreatedBy())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
-						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
-						.addValue("Scholarship", studentDtl.isScholarship())
-						.addValue("Remarks", studentDtl.getRemarks())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
 						.addValue("Referred_By", studentDtl.getReferredBy())
 						.addValue("Quota_Code", studentDtl.getQuotaCode()); 
@@ -208,9 +188,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Branch_Id", studentDtl.getBranchId())
 						.addValue("Created_By", studentDtl.getCreatedBy())
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
-						.addValue("Domicile_State_Id", studentDtl.getDomicileState())
-						.addValue("Scholarship", studentDtl.isScholarship())
-						.addValue("Remarks", studentDtl.getRemarks())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
 						.addValue("Referred_By", studentDtl.getReferredBy())
 						.addValue("Quota_Code", studentDtl.getQuotaCode());
@@ -979,10 +956,6 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		studentDetail.setCreated_On(rs.getDate("Created_On"));
 		studentDetail.setUpdatedBy(rs.getString("Updated_By"));
 		studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
-		studentDetail.setDomicileState(rs
-				.getString("Domicile_State_Id"));
-		studentDetail.setScholarship(rs.getBoolean("Scholarship"));
-		studentDetail.setRemarks(rs.getString("Remarks"));
 		studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
 		studentDetail.setReferredBy(rs.getString("Referred_By"));
 		studentDetail.setQuotaCode(rs.getString("Quota_Code"));	

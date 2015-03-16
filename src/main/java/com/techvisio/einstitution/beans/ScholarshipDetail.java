@@ -6,7 +6,7 @@ import java.util.List;
 public class ScholarshipDetail {
 
 	private String fileNo;
-	private Double Amount;
+	private Double amount;
 	private Long stateId;
 	private String remark;
 	private Date createdDate;
@@ -20,10 +20,10 @@ public class ScholarshipDetail {
 		this.fileNo = fileNo;
 	}
 	public Double getAmount() {
-		return Amount;
+		return amount;
 	}
 	public void setAmount(Double amount) {
-		Amount = amount;
+		this.amount = amount;
 	}
 	public Long getStateId() {
 		return stateId;
