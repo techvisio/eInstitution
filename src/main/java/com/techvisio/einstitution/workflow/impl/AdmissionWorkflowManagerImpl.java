@@ -28,19 +28,39 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	
 		String fileNo = admissionManager.addStudentDtl(studentDetail);
 		
+		if(studentDetail.getConsultantDetail() !=null){
 		ConsultantDetail consultantDetail = studentDetail.getConsultantDetail();
 		consultantDetail.setFileNo(fileNo);
-		consultantWorkflowManager.addConsultantDtl(consultantDetail);
-        
+		}
+		
+		if(studentDetail.getScholarshipDetail() != null){
 		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();
 		scholarshipDetail.setFileNo(fileNo);
 		scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
-	
+		}
 		
 		return fileNo;
 	}
 
 	public String updateStudentDetails(StudentDetail studentDetail) {
+	
+		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
+		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
+	
+		String fileNo = admissionManager.updateStudentDtl(studentDetail);
+		
+		if(studentDetail.getConsultantDetail() !=null){
+		ConsultantDetail consultantDetail = studentDetail.getConsultantDetail();
+		consultantDetail.setFileNo(fileNo);
+		consultantWorkflowManager.updateConsultantDtl(consultantDetail);
+		}
+		
+		if(studentDetail.getScholarshipDetail() != null){
+		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();
+		scholarshipDetail.setFileNo(fileNo);
+		scholarshipWorkflowManager.updateScholarDetail(scholarshipDetail);
+		}
+	
 		
 		return admissionManager.updateStudentDtl(studentDetail);
 	}
@@ -50,6 +70,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();	
 	ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();	
 	StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
+
 	
 	ScholarshipDetail scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
 	studentDetail.setScholarshipDetail(scholarshipDetail);

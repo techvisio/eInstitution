@@ -87,6 +87,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	//	StudentFeeStaging
 
 	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
+
 		String getQuery = feeQueryProps.getProperty("getStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -115,6 +116,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	public void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
+		
+		
 		String addQuery = feeQueryProps.getProperty("generateStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
 		.addValue("Created_By", studentFeeStaging.getCreatedBy());
@@ -122,6 +125,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+		
+		
 		String addQuery = feeQueryProps.getProperty("addStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
 		.addValue("Created_By", studentFeeStaging.getCreatedBy())

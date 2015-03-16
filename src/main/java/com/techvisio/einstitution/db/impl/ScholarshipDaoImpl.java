@@ -27,12 +27,14 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	
 	public ScholarshipDetail getScholarshipDetail(String fileNo) {
 
-
+		ScholarshipDetail scholarshipDetail = null;
+		
+		try{
 		String getQuery = scholarshipQueryProps.getProperty("getScholarshipDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 
-		ScholarshipDetail scholarshipDetail = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<ScholarshipDetail>() {
+		scholarshipDetail = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<ScholarshipDetail>() {
 
 			public ScholarshipDetail mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
@@ -48,7 +50,11 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 			List<ScholarshipPaymentDetail> scholarshipDetails = getScholarshipPaymentDetail(fileNo);
 			scholarshipDetail.setScholarshipPaymentDetail(scholarshipDetails);
-			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 		return scholarshipDetail;
 

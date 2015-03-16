@@ -279,13 +279,14 @@ admissionModule
 						 $scope.student = response.data.responseBody;
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
+						 alert("Your Records Saved Successfully")
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
 					 }
 
 					 $scope.processing=false;  
-					 alert("Your Records Saved Successfully")
+					 
 				 })
 
 

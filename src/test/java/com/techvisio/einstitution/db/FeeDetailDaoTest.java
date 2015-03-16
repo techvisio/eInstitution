@@ -69,7 +69,7 @@ public class FeeDetailDaoTest {
 		StudentFeeStaging feeStaging = new StudentFeeStaging();
 		//feeStaging.setBranch(1L);
 		//feeStaging.setCourse(1L);
-		feeStaging.setFileNo("122");
+		feeStaging.setFileNo("2015-151");
 		feeStaging.setCreatedBy("Anil");
 		
 		dao.addStudentFeeStaging(feeStaging);
@@ -146,12 +146,10 @@ public class FeeDetailDaoTest {
     @Test
 	public void testAddFeeDiscountHead(){
     	FeeDiscountHead feeDiscountHead = new FeeDiscountHead();
-		feeDiscountHead.setDiscountType("IOP");
 		feeDiscountHead.setHead("QWE");
 		feeDiscountHead.setHeadId(897L);
 		feeDiscountHead.setParentId(343L);
 		feeDiscountHead.setRefundType("MNB");
-		feeDiscountHead.setType("ZXC");
 		dao.addFeeDiscountHead(feeDiscountHead);
 	}
 
