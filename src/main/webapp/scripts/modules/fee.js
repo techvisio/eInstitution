@@ -11,6 +11,12 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 	                          {"id":"9995","value":"DEMAND DRAFT"},
 	                          {"id":"9994","value":"CHEQUE DEPOSITE"}];
 	 
+	 $scope.getHighestListLength=function(){
+		 var lenght=0;
+		 if(feeTransactionAdmissionBean && feeTransactionAdmissionBean.feeTransactionDebit && feeTransactionAdmissionBean.feeTransactionCredit){
+			 
+		 }
+	 }
 	 $scope.getFeeTransactionAndBasicInfoDetail = function() {
 		 console.log('FeeTransactionAndBasicInfoDetail called in controller');
 		 if($scope.fileNo==null){
