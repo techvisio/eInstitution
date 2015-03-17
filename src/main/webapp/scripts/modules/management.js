@@ -4,10 +4,10 @@ managementModule.controller('managementController',['$scope','managementService'
 	
 	$scope.unapprovedRecords=[];
 	$scope.currentFetchLimit=20;
-<<<<<<< HEAD
+	
 	$scope.feeTransactionAdmissionBean = {};
 	
-	$scope.getPreviousBalace = function(){
+	$scope.getAdmissionDetailsManagement = function(){
 		var fileNo = $scope.feeTransactionAdmissionBean.basicInfo.fileNo;
 		managementService.getPreviousBalace(fileNo).then(function(response) {
 			 console.log('get privious balance data received from service : ');
@@ -19,7 +19,7 @@ managementModule.controller('managementController',['$scope','managementService'
 			 }
 		 })
 };
-=======
+
 	$scope.form.fileNo="";
 	$scope.managementData={};
 	
@@ -27,7 +27,6 @@ managementModule.controller('managementController',['$scope','managementService'
 		$scope.form.fileNo=prompt("Provide file no","");
 		$scope.getAdmissionDetail();
 	};
->>>>>>> branch 'master' of https://github.com/techvisio/eInstitution
 	
 	$scope.getUnapprovedRecords=function(){
 		managementService.getUnapprovedList($scope.currentFetchLimit)
@@ -42,18 +41,6 @@ managementModule.controller('managementController',['$scope','managementService'
 				 })
 	};
 	
-	$scope.getAdmissionDetail=function(){
-		managementService.getAdmissionDetail($scope.form.fileNo)
-		.then(function(response) {
-					 console.log('Data received from service : ');
-					 console.log(response);
-					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.managementData = response.data.responseBody;
-					 } else {
-						 console.log(response.data.error);
-					 }
-				 })
-	};
 }]);
 
 managementModule.service("managementService", function($http, $q) {
@@ -61,11 +48,7 @@ managementModule.service("managementService", function($http, $q) {
 	 // Return public API.
 	 return ({
 		 getUnapprovedList : getUnapprovedList,
-<<<<<<< HEAD
-		 getPreviousBalace : getPreviousBalace
-=======
-		 getAdmissionDetail: getAdmissionDetail
->>>>>>> branch 'master' of https://github.com/techvisio/eInstitution
+		 getAdmissionDetailsManagement : getAdmissionDetailsManagement
 	 });
 
 	 function getUnapprovedList(size) {
@@ -82,23 +65,8 @@ managementModule.service("managementService", function($http, $q) {
 
 	 }
 	 
-	 function getAdmissionDetail(fileNo)
-	 {
-
-		 console.log('Get admission detail service');
-		 var request = $http({
-			 method : "get",
-			 url : "management/admission/approval/"+fileNo,
-			 params : ""
-
-		 });
-
-		 return (request.then(handleSuccess, handleError));
-
-	 }
-
 	 
-	 function getPreviousBalace(fileNo) {
+	 function getAdmissionDetailsManagement(fileNo) {
 
 		 console.log('getting previous balance in service');
 		 var request = $http({
