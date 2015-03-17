@@ -211,7 +211,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	@SuppressWarnings("unchecked")
-	public synchronized  List<FeeDiscountHead> getsFeeDiscounts() {
+	public synchronized  List<FeeDiscountHead> getFeeDiscountHeads() {
 		if(entityListMap.get(AppConstants.FEEHEAD) == null||entityListMap.get(AppConstants.FEEHEAD).size()==0){
 			refreshCacheList(AppConstants.FEEHEAD);
 		}
@@ -221,7 +221,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
-		for(FeeDiscountHead feeDiscountHead : feeDetailList){
+		for(FeeDiscountHead feeDiscountHead : getFeeDiscountHeads()){
 			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead());
 			masterData.add(bean);
 		}
@@ -249,7 +249,6 @@ public class CacheManagerImpl implements CacheManager {
 
 
 
-	public static List<FeeDiscountHead> feeDetailList=new ArrayList<FeeDiscountHead>();
 
 	public void builtEntityListCache(){
 
@@ -376,7 +375,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	private void buildEntityMap(){
 
-		for(FeeDiscountHead feeDiscountHead:getsFeeDiscounts()){
+		for(FeeDiscountHead feeDiscountHead:getFeeDiscountHeads()){
 			feeDetailMap.put(feeDiscountHead.getHeadId(), feeDiscountHead);
 		}
 	}
