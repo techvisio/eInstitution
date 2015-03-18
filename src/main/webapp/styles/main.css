@@ -648,27 +648,18 @@ border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:
 	float:left;
 }
 
-.module-dashboard-content table tr td{
+.module-dashboard-content table tr td,.module-dashboard-content table tr th{
 	text-align:left;
-	padding-top:10px;
 	padding-left:10px;
+	padding-bottom:7px;
 } 
 
 .module-dashboard-content input[type="text"],.module-dashboard-content select{
-	width:170px;
+	width:200px;
 } 
 
-.module-dashboard-content .left-div
-{
-	width:50%;
-	float:left;
-	border-right: 1px solid #ff0000;
-}
-.module-dashboard-content .right-div
-{
-	width:50%;
-	float:right;
-	border-left: 1px solid #ff0000;
+input[type="number"].two-column-input,select.two-column-input{
+	width:300px;
 }
 
 .side-menu{
@@ -750,5 +741,5 @@ color:white;
 span.header
 {
 font-size: 20px;
-margin-left:80px;
+color:#50A4D0;
 }

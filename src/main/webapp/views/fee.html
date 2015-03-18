@@ -8,8 +8,9 @@
 					{{feeTransactionAdmissionBean.basicInfo.lastName}} ({{feeTransactionAdmissionBean.basicInfo.fileNo}})</span>
 			</div>
 		<div>
-			<span class="header">Student Info.</span>
+			
 			<table>
+			<tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 				<tr>
 					<td><span> File No </span></td>
 					<td><input type="text"
@@ -19,7 +20,7 @@
 						ng-model="feeTransactionAdmissionBean.basicInfo.enrollmentNo"></td>
 				</tr>
 				<tr>
-					<td><span> First Name </span></td>
+					<td> First Name</td>
 					<td><input type="text"
 						ng-model="feeTransactionAdmissionBean.basicInfo.firstName"></td>
 					<td><span> Last Name </span></td>
@@ -46,45 +47,43 @@
 				<tr><td><input type="submit"
 						ng-click="getFeeTransactionAndBasicInfoDetail()"></td></tr>
 			<tr><td colspan=4><hr><td></tr>
-			</table>
-		</div>
-		
-		<div class="left-div">
-			<span class="header">Debit</span>
-			<table>
-				<tr
-					ng-repeat="object in feeTransactionAdmissionBean.feeTransactionDebit">
-					<td><span ng-bind="object.feeDiscountHead.head"></span></td>
-					<td><input type="text" ng-model="object.amount"
-						readonly="true"></td>
+	
+	<tr><td colspan=2><span class="header">Debit Heads</span></td>
+	<td colspan=2><span class="header">Credit Heads</span></td>
+	</tr>
+				<tr	ng-repeat="i in getMaxListLengthArray() track by $index">
+					<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionDebit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></span></td>
+					<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionDebit[i].amount"
+						readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></td>
+						<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionCredit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></span></td>
+					<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionCredit[i].amount"
+						readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></td>
 				</tr>
-			</table>
-		</div>
-		<div class="right-div">
-			<span class="header">Credit</span>
-			<table>
-				<tr
-					ng-repeat="object in feeTransactionAdmissionBean.feeTransactionCredit">
-					<td><span ng-bind="object.feeDiscountHead.head"></span></td>
-					<td><input type="text" ng-model="object.amount"
-						readonly="true"></td>
+				<tr><th>Total Debit</th><td>{{totalDebit()}}</td>
+				<th>Total Credit</th><td>{{totalCredit()}}</td>
 				</tr>
-			</table>
-		</div>
-		<div>
-			<table>
 				<tr>
-					<td><select ng-model=newTransaction.feeDiscountHead.headId
-						ng-options="item.id as item.value for item in transactionTypes"></select>
-					</td>
-					<td><input type="number" ng-model="newTransaction.amount" /></td>
-				<tr>
-					<td><input type="button" value="Deposite"
-						ng-click="depositeFee()" /></td>
-				<tr>
+				<td colspan=2></td>
+				<th>Previous Balance<th>
+				<td>{{feeTransactionAdmissionBean.amountDiffrence}}</td>
 				</tr>
+					<tr>
+				<td colspan=2></td>
+				<th>Balance Amount</th>
+				<td>{{feeTransactionAdmissionBean.amountDiffrence+totalDebit()-totalCredit()}}</td>
+				</tr>
+				<tr><td colspan=4><hr></td></tr>
+				<tr><td colspan=2><span class="header">Deposit Fee</span>  </td></tr>
+				<tr><td colspan=2>Mode<p><select class="two-column-input" ng-model=newTransaction.feeDiscountHead.headId
+						ng-options="item.id as item.value for item in transactionTypes"></select></td>
+					<td colspan=2>Amount<p><input type="number" class="two-column-input" ng-model="newTransaction.amount" /></select></td>
+				</tr>
+				
+				<tr><td colspan=2>Remark<p><textarea rows="2" cols="40" ng-model="newTransaction.remark"></textarea></td>
+				<td colspan=2><button type="button" class="btn btn-success btn-lg"  ng-click="depositeFee()">Deposite</button></td></tr>
 			</table>
 		</div>
+
 	</div>
 
 

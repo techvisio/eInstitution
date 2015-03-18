@@ -11,12 +11,36 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 	                          {"id":"9995","value":"DEMAND DRAFT"},
 	                          {"id":"9994","value":"CHEQUE DEPOSITE"}];
 	 
-	 $scope.getHighestListLength=function(){
-		 var lenght=0;
-		 if(feeTransactionAdmissionBean && feeTransactionAdmissionBean.feeTransactionDebit && feeTransactionAdmissionBean.feeTransactionCredit){
-			 
+	 $scope.getMaxListLengthArray=function(){
+		 var size=0;
+		 if($scope.feeTransactionAdmissionBean && $scope.feeTransactionAdmissionBean.feeTransactionDebit && $scope.feeTransactionAdmissionBean.feeTransactionCredit){
+			 size=Math.max($scope.feeTransactionAdmissionBean.feeTransactionDebit.length,$scope.feeTransactionAdmissionBean.feeTransactionCredit.length);
 		 }
+		 if(size>0){
+		 return Array.apply(null, {length:size}).map(Number.call, Number);
 	 }
+	 };
+	 
+	 $scope.totalDebit=function(){
+		 var sum=0;
+		 if($scope.feeTransactionAdmissionBean && $scope.feeTransactionAdmissionBean.feeTransactionDebit){
+			 angular.forEach($scope.feeTransactionAdmissionBean.feeTransactionDebit, function(transaction) {
+				 sum=sum+transaction.amount;
+				});
+		 }
+		 return sum;
+	 }
+	 
+	 $scope.totalCredit=function(){
+		 var sum=0;
+		 if($scope.feeTransactionAdmissionBean && $scope.feeTransactionAdmissionBean.feeTransactionCredit){
+			 angular.forEach($scope.feeTransactionAdmissionBean.feeTransactionCredit, function(transaction) {
+				 sum=sum+transaction.amount;
+				});
+		 }
+		 return sum;
+	 }
+	 
 	 $scope.getFeeTransactionAndBasicInfoDetail = function() {
 		 console.log('FeeTransactionAndBasicInfoDetail called in controller');
 		 if($scope.fileNo==null){
