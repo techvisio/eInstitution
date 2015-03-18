@@ -5,9 +5,12 @@ import java.util.List;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
+import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 
 public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
@@ -56,8 +59,8 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.deleteFeeDetail(course, branch, semester);
 	}
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
-		List<StudentFeeStaging> feeStaging = feeManager.getStudentFeeStaging(fileNo);
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId) {
+		List<StudentFeeStaging> feeStaging = feeManager.getStudentFeeStaging(fileNo,feeHeadId);
 		return feeStaging;
 	}
 
@@ -70,6 +73,10 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.updateStudentFeeStaging(studentFeeStaging);
 	}
 
+	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
+		feeManager.updateStudentFeeStaging(studentFeeStagings);
+		
+	} 
 	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		feeManager.deleteStudentFeeStaging(studentFeeStaging);
 	}
@@ -96,7 +103,22 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 
 		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
+    @Override
+	public FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo){
+		
+		AdmissionWorkflowManager admissionWorkFlow = new AdmissionWorkflowManagerImpl();
+		FeeTransactionAdmissionBean admissionBean = new FeeTransactionAdmissionBean();
+		
+		StudentBasicInfo basicInfo=admissionWorkFlow.getStudentBsInfo(fileNo);
+		
+		if(basicInfo!=null){
 
+			admissionBean = feeManager.getFeeTransactionDetail(fileNo);
+			
+	}
+		admissionBean.setBasicInfo(basicInfo);
+		
+		return admissionBean;
 	
-	
+}
 }

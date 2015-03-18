@@ -4,6 +4,16 @@
 <properties>
 
 
+<entry key="getPreviousSemBalance">
+    <![CDATA[
+select 
+
+sum(cr.amount)-sum(dr.amount)as difference from feetransactioncredit cr join feetransactiondebit dr on cr.File_No=dr.File_No
+where cr.Semester  != (select GREATEST(max(cr.semester), max(dr.semester)) from feetransactioncredit cr 
+join feetransactiondebit dr on cr.File_No=dr.File_No) and cr.File_No=:File_No group by cr.File_No;
+]]>
+</entry>
+
 	<entry key="generateStudentFeeStaging">
     <![CDATA[
       
@@ -89,7 +99,7 @@ select
       Created_Date,
       Modified_Date
 
-FROM studentfeestaging where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
+FROM studentfeestaging where File_No=:File_No and FeeHead_Id=ifNull(:FeeHead_Id,FeeHead_Id);
 ]]>
 
 	</entry>
@@ -174,7 +184,7 @@ SELECT
 	Mode,
     Amount
     	
-FROM feetransactionDebit where File_No=:File_No;
+ from feetransactiondebit where semester = (select max(SEMESTER) from feetransactiondebit where file_no=:File_No) and file_no=:File_No;
 ]]>
 
 	</entry>
@@ -220,7 +230,8 @@ Insert into feetransactionDebit
 	Mode,
 	Amount
 	
-FROM feetransactionCredit where File_No=:File_No;]]>
+from feetransactionCredit where semester = (select max(SEMESTER) from feetransactionCredit where file_no=:File_No) and file_no=:File_No;
+]]>
 
 	</entry>
 

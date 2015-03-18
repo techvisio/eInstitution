@@ -448,3 +448,6 @@ CREATE TABLE `feetransactioncredit` (
   CONSTRAINT `feetransactioncredit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Alter statement in scholarshipDtail*/
+
+alter table scholarshipdetail add COLUMN Is_Reoccurring bit(1);

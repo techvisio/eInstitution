@@ -29,6 +29,25 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	CacheManager cacheManager =  new CacheManagerImpl(); 
 
+	@Override
+	public Double getPreviousSemBalance(String fileNo){
+		
+		String getQuery = feeQueryProps.getProperty("getPreviousSemBalance");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
+		
+		Double previousBalance = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<Double>() {
+
+			@Override
+			public Double mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				return rs.getDouble("difference");
+			}
+		});
+		return previousBalance;
+		
+		
+	}
+	
 	public List<FeeDetail> getFeeDetail(Long course, Long branch) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
@@ -86,10 +105,10 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	//	StudentFeeStaging
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId) {
 
 		String getQuery = feeQueryProps.getProperty("getStudentFeeStaging");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo).addValue("FeeHead_Id", feeHeadId);
 
 		List<StudentFeeStaging> feeStagings = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<StudentFeeStaging>(){
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
@@ -144,6 +163,16 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
+	}
+
+	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+		
+		if(studentFeeStagings != null){
+		
+		for(StudentFeeStaging feeStaging : studentFeeStagings){
+			updateStudentFeeStaging(feeStaging);
+		}
+		}
 	}
 
 

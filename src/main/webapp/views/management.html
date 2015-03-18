@@ -1,4 +1,5 @@
 <div ng-controller="managementController" ng-init="getUnapprovedRecords()">
+<div>
 <table>
 <tr ng-repeat="object in unapprovedRecords">
 	<td><span ng-bind="object.fileNo"></span></td>
@@ -6,4 +7,74 @@
 	<td><span ng-bind="object.fatherName"></span></td>
 </tr>
 </table>
+</div>
+
+<div>
+<div>Student Personal Detail</div>
+
+<table>
+
+<tr>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.fileNo"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.firstName"></td>
+</tr>
+<tr>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.lastName"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.enrollmentNo"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.fatherName"></td>
+</tr>
+<tr>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.gender"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.dob"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.course"></td>
+</tr>
+<tr>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.branch"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.semester"></td>
+<td><input type="text" ng-model="admissionDetailManagement.basicInfo.academicYear"></td>
+
+</tr>
+</table>
+</div>
+
+<div>
+<div>scholarship Detail</div>
+
+<table>    
+<tr>
+<td><span>State Id</span></td>
+<td> <input type="text" ng-model="admissionDetailManagement.scholarship.stateId"></td>
+<td><span>Remark</span></td>
+<td> <input type="text" ng-model="admissionDetailManagement.scholarship.remark"></td>
+<td><span>Amount</span></td>
+<td> <input type="text" ng-model="admissionDetailManagement.scholarship.amount"></td>
+
+</tr>
+<tr>
+<td><span>Approved</span></td>
+<td> <input type="text" ng-model="admissionDetailManagement.scholarship.approved"></td>
+<td><span>Reoccurring</span></td>
+<td> <input type="text" ng-model="admissionDetailManagement.scholarship.isReoccurring"></td>
+<td><input type="button" value="click" ng-click="getAdmissionDetailManagement()"></td>
+</tr>
+
+</table>
+</div>
+<div>
+<div>Fee Staging Detail</div>
+<table>
+<tr ng-repeat="object in admissionDetailManagement.stagingFee">
+<td><input type="text" ng-model="object.amount"></td>
+<td><input type="text" ng-model="object.Approved"></td>
+
+<td><input type="text" ng-model="object.feeGenerated"></td>
+<td><input type="text" ng-model="object.discountHead.head"></td>
+</tr>
+
+</table>
+</div>
+<div>
+<input type="button" value="update" ng-click="updateAdmissionDetailManagement()">
+</div>
+
 </div>

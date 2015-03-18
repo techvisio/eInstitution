@@ -106,6 +106,15 @@ admissionModule
 				 $scope.getLatestAdmission();
 
 			 };
+			 
+
+			 $scope.lessData = function() {
+
+				 $scope.currentFetchLimit -= 5;
+
+				 $scope.getLatestAdmission();
+
+			 };
 
 			 $scope.selectTab = function (setTab){
 				 $scope.tab = setTab;
@@ -292,6 +301,7 @@ admissionModule
 
 			 }
 
+			 
 			 $scope.updateStudent = function() {
 				 console.log('update student called');
 				 console.log($scope.student);
@@ -444,6 +454,15 @@ admissionModule
 
 			 }
 
+			 $scope.resetAdmissionMode = function(){
+				 
+				 $scope.student.counsellingDtl = [];
+				 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
+				 
+				 $scope.student.consultantDetail = null;
+				 $scope.student.referredBy = null;
+				 
+			 }
 			 $scope.populateMissingData = function(data){
 
 				 if(angular.isUndefined(data.academicDtl) || data.academicDtl==null || data.academicDtl.length == 0)

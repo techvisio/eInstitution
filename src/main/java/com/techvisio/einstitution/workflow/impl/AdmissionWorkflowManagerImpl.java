@@ -31,6 +31,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		if(studentDetail.getConsultantDetail() !=null){
 		ConsultantDetail consultantDetail = studentDetail.getConsultantDetail();
 		consultantDetail.setFileNo(fileNo);
+	    consultantWorkflowManager.addConsultantDtl(consultantDetail);
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null){
@@ -62,7 +63,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		}
 	
 		
-		return admissionManager.updateStudentDtl(studentDetail);
+		return fileNo;
 	}
 
 	public StudentDetail getStudentDetails(String fileNo) {

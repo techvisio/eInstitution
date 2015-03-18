@@ -222,7 +222,7 @@ public class CacheManagerImpl implements CacheManager {
 	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(FeeDiscountHead feeDiscountHead : getFeeDiscountHeads()){
-			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead());
+			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead(), feeDiscountHead.getTransactionType());
 			masterData.add(bean);
 		}
 		return masterData;

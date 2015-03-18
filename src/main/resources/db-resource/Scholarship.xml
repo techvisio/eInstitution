@@ -13,7 +13,8 @@ Select
 	State_Id,
 	Remark,
     Approved,
-	Created_Date
+	Created_Date,
+	Is_Reoccurring
 	
 from scholarshipdetail where File_No=:File_No;	
     ]]>
@@ -30,14 +31,16 @@ Insert into scholarshipdetail
 	State_Id,
 	Remark,
 	Approved,
-	Created_Date) values
+	Created_Date,
+	Is_Reoccurring) values
 	
 	(:File_No,
 	:Amount,
 	:State_Id,
 	:Remark,
 	:Approved,
-	:Created_Date);	
+	:Created_Date,
+	:Is_Reoccurring);	
     ]]>
 
 	</entry>
@@ -52,9 +55,10 @@ Update scholarshipdetail set
 	State_Id=:State_Id,
 	Remark=:Remark,
 	Approved=:Approved,
-	Created_Date=:Created_Date
+	Created_Date=:Created_Date,
+	Is_Reoccurring=:Is_Reoccurring
 	
-	where File_No=:File_No;
+where File_No=:File_No;
     ]]>
 
 </entry>

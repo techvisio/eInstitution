@@ -5,6 +5,7 @@ import java.util.List;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
+import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeManager {
@@ -15,9 +16,10 @@ public interface FeeManager {
 	public void deleteFeeDetail(Long course,Long branch, Integer semester );
 	
 	
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo);
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
+	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings); 
 	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 
 	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo);
@@ -31,5 +33,6 @@ public interface FeeManager {
 	public void deleteFeeDiscountHead(Long headId);
 	
 	public void generateStudentFeeStaging(String fileNo);
+	FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo);
 
 }

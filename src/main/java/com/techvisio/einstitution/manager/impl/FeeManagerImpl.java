@@ -6,10 +6,16 @@ import java.util.List;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
+import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
+import com.techvisio.einstitution.workflow.FeeWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
+import com.techvisio.einstitution.workflow.impl.FeeWorkflowManagerImpl;
 
 public class FeeManagerImpl implements FeeManager{
 
@@ -73,9 +79,9 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.deleteFeeDetail(course, branch, semester);
 	}
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo) {
+	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId) {
 		List<StudentFeeStaging> feeStaging = new ArrayList<StudentFeeStaging>();
-		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo);
+		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo,feeHeadId);
 		return feeStaging;
 	}
 
@@ -86,6 +92,11 @@ public class FeeManagerImpl implements FeeManager{
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
 		feeDetailDao.updateStudentFeeStaging(studentFeeStaging);
 	}
+	
+	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
+		
+		feeDetailDao.updateStudentFeeStaging(studentFeeStagings);
+	} 
 	
 	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging){
 
@@ -134,6 +145,23 @@ public class FeeManagerImpl implements FeeManager{
 		
 	}
 
-}
+	@Override
+	public FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo){
+		
+		FeeTransactionAdmissionBean transactionAdmissionBean = new FeeTransactionAdmissionBean();
+			
+		List<FeeTransaction> TransactionCredit = feeDetailDao.getCreditedFeeTransaction(fileNo);
+	    transactionAdmissionBean.setFeeTransactionCredit(TransactionCredit); 	
 
+	    List<FeeTransaction> TransactionDebit = feeDetailDao.getDebitedFeeTransaction(fileNo);
+	    transactionAdmissionBean.setFeeTransactionDebit(TransactionDebit);
+
+	    Double previousBalance = feeDetailDao.getPreviousSemBalance(fileNo);
+	    transactionAdmissionBean.setAmountDiffrence(previousBalance);
+	    
+	    return transactionAdmissionBean;
+	}
+	
+
+}
 
