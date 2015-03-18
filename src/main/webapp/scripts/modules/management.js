@@ -25,11 +25,6 @@ managementModule.controller('managementController',['$scope','managementService'
 //	$scope.form.fileNo=$scope.feeTransactionAdmissionBean.studentBasicInfo.fileNo;
 	$scope.managementData={};
 	
-	$scope.getDetails = function(){
-		$scope.form.fileNo=prompt("Provide file no","");
-		$scope.getAdmissionDetail();
-	};
-	
 	$scope.getUnapprovedRecords=function(){
 		managementService.getUnapprovedList($scope.currentFetchLimit)
 		.then(function(response) {
@@ -43,9 +38,12 @@ managementModule.controller('managementController',['$scope','managementService'
 				 })
 	};
 	
-	$scope.getAdmissionDetailManagement=function(){
+	$scope.getFileNoandFetchDetails=function(){
 		var fileNo=prompt("Enter File No", "");
-		
+		$scope.getAdmissionDetailManagement(fileNo);
+	}
+	
+	$scope.getAdmissionDetailManagement=function(fileNo){
 		managementService.getAdmissionDetailManagement(fileNo)
 		.then(function(response) {
 					 console.log('Admission detail for management received from service : ');

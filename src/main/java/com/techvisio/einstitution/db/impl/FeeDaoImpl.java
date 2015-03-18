@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -34,8 +35,9 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		
 		String getQuery = feeQueryProps.getProperty("getPreviousSemBalance");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
-		
-		Double previousBalance = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<Double>() {
+		Double previousBalance=0.0;
+		try{
+		previousBalance = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<Double>() {
 
 			@Override
 			public Double mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -43,6 +45,11 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				return rs.getDouble("difference");
 			}
 		});
+		}
+		catch(EmptyResultDataAccessException e){
+			System.out.println("No previous balance");
+			e.printStackTrace();
+		}
 		return previousBalance;
 		
 		
