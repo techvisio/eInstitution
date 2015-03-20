@@ -41,12 +41,11 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 		 return sum;
 	 }
 	 
-	 $scope.getFeeTransactionAndBasicInfoDetail = function() {
+	 $scope.getFeeTransactionAndBasicInfoDetail = function(fileNo) {
 		 console.log('FeeTransactionAndBasicInfoDetail called in controller');
-		 if($scope.fileNo==null){
-			 $scope.fileNo=prompt("file No","");
+		 if(!fileNo){
+		 $scope.fileNo=prompt("file No","");
 		 }
-		if($scope.fileNo){
 		 feeService.getFeeTransactionAndBasicInfoDetail($scope.fileNo)
 		 .then(function(response) {
 			 console.log('Data received from service : ');
@@ -60,9 +59,6 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 				 alert(response.data.error);
 			 }
 		 })
-
-
-	 }
 	 }
 	 
 	 $scope.depositeFee = function() {
@@ -74,7 +70,7 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 		 }
 		      
 		 $scope.newTransaction.fileNo=$scope.feeTransactionAdmissionBean.basicInfo.fileNo;
-		 
+		 $scope.newTransaction.semester=$scope.feeTransactionAdmissionBean.basicInfo.semester;
 			 console.log('fee deposite called in controller');
 		 
 		 feeService.depositeFee($scope.newTransaction)
@@ -82,7 +78,6 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 			 console.log('Data received from service : ');
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
-				 $scope.newTransaction = response.data.responseBody;
 				 alert("fee has been deposited successfully")
 				 $scope.newTransaction={};
 				 $scope.getFeeTransactionAndBasicInfoDetail();
