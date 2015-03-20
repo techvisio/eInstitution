@@ -31,7 +31,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	CacheManager cacheManager =  new CacheManagerImpl(); 
 
-	
+	@Override
 	public List<FeeAdmissionBean> getPendingfeeInfo(int limit) {
 		//StudentfeeAdmissionBean info = new StudentfeeAdmissionBean();
 		

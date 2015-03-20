@@ -2,6 +2,7 @@ package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -17,6 +18,15 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	
 	
 	FeeManager feeManager=FeeManagerImpl.getInstance();
+
+	@Override
+	public List<FeeAdmissionBean> getPendingfeeInfo(int limit){
+		
+		List<FeeAdmissionBean> feeAdmissionBeans = feeManager.getPendingfeeInfo(limit);
+		
+		return feeAdmissionBeans;
+		
+	}
 	
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
 

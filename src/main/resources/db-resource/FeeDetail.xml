@@ -28,7 +28,7 @@ bm.Branch,
 sd.Semester,
 sd.Academic_Year,
 sd.Updated_On,
-balanceAmount.Pending_Fee, sd.first_Name from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on balanceAmount.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id group by sd.File_No having balanceAmount.diff > 0;
+balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on balanceAmount.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
 ]]>
 </entry>
 

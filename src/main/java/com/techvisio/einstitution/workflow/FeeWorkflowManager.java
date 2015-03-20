@@ -2,6 +2,7 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -31,6 +32,7 @@ public interface FeeWorkflowManager {
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
 	FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo);
+	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 
 	
 	

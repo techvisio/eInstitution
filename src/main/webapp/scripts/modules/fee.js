@@ -5,6 +5,8 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 	$scope.feeTransactionAdmissionBean = {};
 	$scope.feeTransactionAdmissionBean.basicInfo={};
 	$scope.fileNo=null;
+	$scope.currentFetchLimit=5;
+	$scope.feeAdmissionBean=[];
 	
 	 $scope.newTransaction={};
 	 $scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
@@ -61,6 +63,24 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 		 })
 	 }
 	 
+	 $scope.getPendingFee = function(){
+
+		 feeService.getPendingFee($scope.currentFetchLimit)
+		 .then(function(response) {
+			 console.log('pending fee data received in controller : ');
+			 console.log(response);
+			 if (response !=null && response.data != null && response.data.responseBody != null) {
+				 $scope.feeAdmissionBean = response.data.responseBody;
+
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+
+	 }
+
+	 
 	 $scope.depositeFee = function() {
 
 		 if(angular.isUndefined($scope.feeTransactionAdmissionBean.basicInfo.fileNo) || $scope.feeTransactionAdmissionBean.basicInfo.fileNo==null )
@@ -101,7 +121,8 @@ feeModule.service('feeService', function($http, $q){
 	// Return public API.
 	return ({
 	    getFeeTransactionAndBasicInfoDetail : getFeeTransactionAndBasicInfoDetail,
-	    depositeFee : depositeFee
+	    depositeFee : depositeFee,
+	    getPendingFee : getPendingFee
 	});
 	
 
@@ -134,6 +155,21 @@ feeModule.service('feeService', function($http, $q){
 		 return (request.then(handleSuccess, handleError));
 
 	 }
+
+	function getPendingFee(limit) {
+
+		console.log('pending fee called in service');
+		var request = $http({
+			method : "get",
+			url : "fee/pandingFee/" + limit,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
 
 	
 	function handleError(response) {

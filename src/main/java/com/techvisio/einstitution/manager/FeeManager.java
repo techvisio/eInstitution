@@ -2,6 +2,7 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -34,5 +35,6 @@ public interface FeeManager {
 	
 	public void generateStudentFeeStaging(String fileNo);
 	FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo);
+	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 
 }

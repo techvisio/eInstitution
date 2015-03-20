@@ -3,6 +3,7 @@ package com.techvisio.einstitution.manager.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -31,7 +32,14 @@ public class FeeManagerImpl implements FeeManager{
 	private FeeManagerImpl() {
 
 	}
+@Override
+	public List<FeeAdmissionBean> getPendingfeeInfo(int limit){
+		
+	List<FeeAdmissionBean> feeAdmissionBeans = feeDetailDao.getPendingfeeInfo(limit);
 	
+	return feeAdmissionBeans;
+		
+	}
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
 
 		FeeDiscountHead feeDiscountHead =  null;

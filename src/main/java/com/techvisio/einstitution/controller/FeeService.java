@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -243,5 +244,21 @@ public class FeeService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping(value = "/pandingFee/{limit}", method = RequestMethod.GET)
+	public  ResponseEntity<Response> getPendingFeeInfo(@PathVariable int limit){
+		
+		Response response = new Response();
+		try
+		{
+			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
+		    List<FeeAdmissionBean> feeAdmissionBeans = manager.getPendingfeeInfo(limit);
+		    response.setResponseBody(feeAdmissionBeans);
+		}
+		catch(Exception e)
+		{
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+     	}
+
 }
