@@ -49,7 +49,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 	    ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	    ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
-	    scholarshipWorkflowManager.updateScholarDetail(scholarshipDetail);
+	    scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
 	    admissionBean.getScholarship();
 	    
 		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();

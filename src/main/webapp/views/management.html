@@ -47,14 +47,45 @@
 	<td>Scholarship Amount<p><select ng-model="admissionDetailManagement.scholarship.amount" ng-option=""></td>
 	</tr>
 	<tr>
-	<td>Reoccuring<p><input type="checkbox" ng-model="admissionDetailManagement.scholarship.isReoccurring"></td>
-	<td>Remarks<p><textArea ng-model="admissionDetailManagement.scholarship.remark" ng-option=""></td>
+	<td>Reoccuring<p><input type="checkbox" ng-model="admissionDetailManagement.scholarship.reoccurring"></td>
+	<td>Remarks<p><textArea ng-model="admissionDetailManagement.scholarship.remark" ng-option=""></textArea></td>
 	</tr>
-				
+	<tr>
+	<td><span class="header">Fee Staging Detail</span></td>
+	</tr>			
+	<tr ng-repeat="object in admissionDetailManagement.stagingFee">
+	<td>Fee Head<p><input type="text" ng-model="object.discountHead.head"></td>
+	<td>Fee Amount<p><input type="text" ng-model="object.amount"></td>
+	<td>Fee Generated<p><input type="checkbox" ng-model="object.feeGenerated"></td>
+	<td>Approved<p><input type="checkbox" ng-model="object.approved"></td>
+	</tr>
+	<tr><td><input type="button" value="Update Record"
+						ng-click="updateAdmissionDetailManagement()"></td></tr>
+	
+		
 			</table>
 		</div>
+<!-- <div> -->
+
+<!-- <table>		 -->
+<!-- 	<tr><td><span class="header">Fee Staging Detail</span></td> -->
+<!-- 	</tr>			 -->
+<!-- 	<tr ng-repeat="object in admissionDetailManagement.stagingFee"> -->
+<!-- 	<td>Fee Head<p><input type="text" ng-model="object.discountHead.head"></td> -->
+<!-- 	<td>Fee Amount<p><input type="text" ng-model="object.amount"></td> -->
+<!-- 	</tr>	 -->
+	
+<!-- 	<tr ng-repeat="object in admissionDetailManagement.stagingFee"> -->
+<!-- 	<td>Fee Generated<p><input type="checkbox" ng-model="object.feeGenerated"></td> -->
+<!-- 	<td>Approved<p><input type="checkbox" ng-model="object.approved"></td> -->
+<!-- 	</tr>	 -->
+
+<!--      <tr><td><input type="button" value="Update Record" -->
+<!-- 						ng-click="updateAdmissionDetailManagement()"></td></tr> -->
+<!-- 		</table> -->
+
+<!-- </div> -->
 
 	</div>
-
 
 </div>

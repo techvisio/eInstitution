@@ -7,15 +7,10 @@ import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
-import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.ContextProvider;
-import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
-import com.techvisio.einstitution.workflow.FeeWorkflowManager;
-import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
-import com.techvisio.einstitution.workflow.impl.FeeWorkflowManagerImpl;
 
 public class FeeManagerImpl implements FeeManager{
 

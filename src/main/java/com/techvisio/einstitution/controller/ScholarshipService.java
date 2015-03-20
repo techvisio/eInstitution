@@ -43,6 +43,10 @@ public class ScholarshipService {
   			response.setError("No such record found");
   		}
 		}
+		catch(EmptyResultDataAccessException e)
+		{
+			response.setError("No such record found");
+		}
 		
 		catch(Exception e)
 		{
@@ -72,28 +76,7 @@ public class ScholarshipService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
-	
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response> updateScholarshipDetail(@RequestBody ScholarshipDetail scholarshipDetail) {  
 		
-		Response response = new Response();
-		try
-		{
-		ScholarshipWorkflowManager workflowManager= new ScholarshipWorkflowManagerImpl();
-		workflowManager.updateScholarDetail(scholarshipDetail);
-		
-		response.setResponseBody(scholarshipDetail);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			response.setError(e.getLocalizedMessage());
-		}
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
-		}
-
-	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable String fileNo) {  
 		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();

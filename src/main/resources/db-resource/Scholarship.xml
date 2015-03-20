@@ -21,7 +21,7 @@ from scholarshipdetail where File_No=:File_No;
 
 	</entry>
 
-<entry key="addScholarshipDetail">
+<entry key="upsertScholarshipDetail">
     <![CDATA[
       
 Insert into scholarshipdetail
@@ -40,16 +40,10 @@ Insert into scholarshipdetail
 	:Remark,
 	:Approved,
 	:Created_Date,
-	:Is_Reoccurring);	
-    ]]>
-
-	</entry>
-
-<entry key="updateScholarshipDetail">
-    <![CDATA[
-      
-Update scholarshipdetail set
-
+	:Is_Reoccurring)
+	
+	on duplicate key update
+	
 	File_No=:File_No,
 	Amount=:Amount,
 	State_Id=:State_Id,
@@ -58,10 +52,10 @@ Update scholarshipdetail set
 	Created_Date=:Created_Date,
 	Is_Reoccurring=:Is_Reoccurring
 	
-where File_No=:File_No;
+		
     ]]>
 
-</entry>
+	</entry>
 
 <entry key="deleteScholarshipDetail">
     <![CDATA[

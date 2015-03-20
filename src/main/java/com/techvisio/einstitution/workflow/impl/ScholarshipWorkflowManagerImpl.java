@@ -11,7 +11,9 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 	
 	public ScholarshipDetail getScholarshipDetail(String fileNo) {
 
+		
 		ScholarshipDetail scholarshipDetail = scholarshipManager.getScholarshipDetail(fileNo);
+	
 		return scholarshipDetail;
 	}
 
@@ -20,10 +22,6 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 		scholarshipManager.addScholarDetail(scholarshipDetail);
 	}
 
-	public void updateScholarDetail(ScholarshipDetail scholarshipDetail) {
-
-		scholarshipManager.updateScholarDetail(scholarshipDetail);
-	}
 
 	public void deleteScholarshipDetail(String fileNo) {
 

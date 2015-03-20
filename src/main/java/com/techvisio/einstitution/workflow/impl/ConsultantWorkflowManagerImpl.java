@@ -21,11 +21,6 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 		manager.addConsultantDtl(consultantDetail);
 	}
 
-	public void updateConsultantDtl(ConsultantDetail consultantDetail) {
-
-		manager.updateConsultantDtl(consultantDetail);
-	}
-
 	public void deleteConsultantDtl(String fileNo) {
 
 		manager.deleteConsultantDtl(fileNo);

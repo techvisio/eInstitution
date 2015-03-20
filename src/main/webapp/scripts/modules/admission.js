@@ -284,8 +284,9 @@ admissionModule
 					 console.log('Data received from service : ');
 					 console.log(response);
 					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.populateMissingData(response.data.responseBody);
 						 $scope.student = response.data.responseBody;
+						 $scope.populateMissingData($scope.student);
+						 $scope.getLatestAdmission();
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
 						 alert("Your Records Saved Successfully")
@@ -311,8 +312,9 @@ admissionModule
 					 console.log('Data received from service : ');
 					 console.log(response);
 					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.populateMissingData(response.data.responseBody);
 						 $scope.student = response.data.responseBody;
+						 $scope.populateMissingData($scope.student);
+						 $scope.getLatestAdmission();
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
 					 } else {
@@ -325,11 +327,7 @@ admissionModule
 
 			 }
 
-			 $scope.getStudent = function() {
-				 var fileNo=prompt("Enter File No", "");
-				 if(!fileNo){
-					 return;
-				 }
+			 $scope.getStudent = function(fileNo) {
 				 $scope.processing=true;
 				 admissionService.getStudent(fileNo)
 				 .then(function(response) {
@@ -338,6 +336,7 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student = response.data.responseBody;
 						 $scope.populateMissingData($scope.student);
+						 $scope.getLatestAdmission();
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
 
@@ -370,22 +369,8 @@ admissionModule
 
 			 $scope.showDetail =  function(index){
 
-				 admissionService.getStudent($scope.latestAdmission[index].fileNo)
-				 .then(function(response) {
-					 console.log('Data received from service : ');
-					 console.log(response);
-					 if (response !=null && response.data != null && response.data.responseBody != null) {
-						 $scope.student = response.data.responseBody;
-						 $scope.populateMissingData($scope.student);
-						 $scope.form.isNew=false;
-						 $scope.form.isEdit=false;
-						 $scope.dashboard=false;
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
-				 })
-
+				 var fileNo=admissionService.getStudent($scope.latestAdmission[index].fileNo);
+				 $scope.getStudent(fileNo);
 			 }
 
 

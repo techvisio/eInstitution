@@ -11,7 +11,7 @@ public class ScholarshipDetail {
 	private String remark;
 	private Date createdDate;
     private boolean approved; 
-    private boolean isReoccurring;
+    private boolean reoccurring;
     private List<ScholarshipPaymentDetail> scholarshipPaymentDetail;
 	
 	public String getFileNo() {
@@ -57,10 +57,10 @@ public class ScholarshipDetail {
 		this.approved = approved;
 	}
 	public boolean isReoccurring() {
-		return isReoccurring;
+		return reoccurring;
 	}
 	public void setReoccurring(boolean isReoccurring) {
-		this.isReoccurring = isReoccurring;
+		this.reoccurring = isReoccurring;
 	}
 
 

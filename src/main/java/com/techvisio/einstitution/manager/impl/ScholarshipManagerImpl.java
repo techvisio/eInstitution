@@ -42,10 +42,6 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 		scholarshipDao.addScholarDetail(scholarshipDetail);
 	}
 
-	public void updateScholarDetail(ScholarshipDetail scholarshipDetail) {
-
-		scholarshipDao.updateScholarDetail(scholarshipDetail);
-	}
 
 	public void deleteScholarshipDetail(String fileNo) {
 

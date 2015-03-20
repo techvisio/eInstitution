@@ -65,7 +65,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
 		
-		String addQuery = scholarshipQueryProps.getProperty("addScholarshipDetail");
+		String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", scholarshipDetail.getFileNo())
 		.addValue("Amount", scholarshipDetail.getAmount())
@@ -75,7 +75,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		.addValue("Approved", scholarshipDetail.isApproved())
 		.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring());
 		
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 
 		if (scholarshipDetail.getScholarshipPaymentDetail() != null) {
 			for (ScholarshipPaymentDetail scholarshipPaymentDetail:scholarshipDetail
@@ -86,28 +86,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	}
 
-	public void updateScholarDetail(ScholarshipDetail scholarshipDetail) {
-
-		String updateQuery = scholarshipQueryProps.getProperty("updateScholarshipDetail");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", scholarshipDetail.getFileNo())
-		.addValue("Amount", scholarshipDetail.getAmount())
-		.addValue("State_Id", scholarshipDetail.getStateId())
-		.addValue("Created_Date", scholarshipDetail.getCreateDate())
-		.addValue("Remark", scholarshipDetail.getRemark())
-		.addValue("Approved", scholarshipDetail.isApproved())
-		.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring());
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-
-		if (scholarshipDetail.getScholarshipPaymentDetail() != null) {
-			for (ScholarshipPaymentDetail scholarshipPaymentDetail:scholarshipDetail
-					.getScholarshipPaymentDetail()) {
-				updateScholarshipPaymentDetail(scholarshipPaymentDetail);
-			}
-		}
-		
-	}
-
+	
 	public void deleteScholarshipDetail(String fileNo) {
 		
          deleteScholarshipPaymentDetail(fileNo);

@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -30,6 +31,38 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	CacheManager cacheManager =  new CacheManagerImpl(); 
 
+	
+	public List<FeeAdmissionBean> getPendingfeeInfo(int limit) {
+		//StudentfeeAdmissionBean info = new StudentfeeAdmissionBean();
+		
+		String getQuery = feeQueryProps.getProperty("getPendingFee");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
+		
+		List<FeeAdmissionBean> pendingFeeInfos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new RowMapper<FeeAdmissionBean>() {
+
+			@Override
+			public FeeAdmissionBean mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+
+				FeeAdmissionBean feeAdmissionBean = new FeeAdmissionBean();
+				feeAdmissionBean.setFirstName(rs.getString("First_Name"));
+				feeAdmissionBean.setLastName(rs.getString("Last_Name"));
+				feeAdmissionBean.setAcademicYear(rs.getString("Academic_Year"));
+				feeAdmissionBean.setBranch(rs.getString("Branch"));
+				feeAdmissionBean.setCourse(rs.getString("Course"));
+				feeAdmissionBean.setDob(rs.getDate("DOB"));
+				feeAdmissionBean.setEnrollmentNo(rs.getString("Enroll_No"));
+				feeAdmissionBean.setFatherName(rs.getString("Father_Name"));
+				feeAdmissionBean.setFileNo(rs.getString("File_No"));
+				feeAdmissionBean.setGender(rs.getString("Gender"));
+				feeAdmissionBean.setSemester(rs.getString("Semester"));
+                feeAdmissionBean.setPendingFee(rs.getDouble("Pending_Fee"));				
+				return feeAdmissionBean;
+			}
+		});
+		return pendingFeeInfos;
+	}
+	
 	@Override
 	public Double getPreviousSemBalance(String fileNo){
 		
@@ -157,7 +190,9 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
 		.addValue("Created_By", studentFeeStaging.getCreatedBy())
 		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
-		.addValue("Amount", studentFeeStaging.getAmount());
+		.addValue("Amount", studentFeeStaging.getAmount())
+		.addValue("Fee_Generated", studentFeeStaging.isFeeGenerated())
+		.addValue("Approved", studentFeeStaging.isApproved());
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
@@ -166,7 +201,9 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
 		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
 		.addValue("Amount", studentFeeStaging.getAmount())
-		.addValue("Updated_By", studentFeeStaging.getUpdatedBy());
+		.addValue("Updated_By", studentFeeStaging.getUpdatedBy())
+		.addValue("Fee_Generated", studentFeeStaging.isFeeGenerated())
+		.addValue("Approved", studentFeeStaging.isApproved());
 	
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
@@ -348,6 +385,5 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
-
 
 }

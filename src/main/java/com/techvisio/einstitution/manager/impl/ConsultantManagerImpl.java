@@ -38,11 +38,6 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		consultantDao.addConsultantDtl(consultantDetail);
 	}
 
-	public void updateConsultantDtl(ConsultantDetail consultantDetail) {
-
-		consultantDao.updateConsultantDtl(consultantDetail);
-	}
-
 	public void deleteConsultantDtl(String fileNo) {
 
 		consultantDao.deleteConsultantDtl(fileNo);;

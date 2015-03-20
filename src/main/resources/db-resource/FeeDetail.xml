@@ -14,6 +14,24 @@ join feetransactiondebit dr on cr.File_No=dr.File_No) and cr.File_No=:File_No gr
 ]]>
 </entry>
 
+<entry key="getPendingFee">
+    <![CDATA[
+select sd.File_No,
+sd.First_Name,
+sd.Last_Name,
+sd.Enroll_No,
+sd.Father_Name,
+sd.Gender,
+sd.DOB,
+cm.Course,
+bm.Branch,
+sd.Semester,
+sd.Academic_Year,
+sd.Updated_On,
+balanceAmount.Pending_Fee, sd.first_Name from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on balanceAmount.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id group by sd.File_No having balanceAmount.diff > 0;
+]]>
+</entry>
+
 	<entry key="generateStudentFeeStaging">
     <![CDATA[
       
@@ -73,8 +91,8 @@ Update studentfeestaging set
       FeeHead_Id=:FeeHead_Id,
       Amount=:Amount,
       Updated_By=:Updated_By,
-      Approved=null,
-      Fee_Generated=null,
+      Approved=:Approved,
+      Fee_Generated=:Fee_Generated,
       Modified_Date=now()
    
 where File_No=:File_No and FeeHead_Id=:FeeHead_Id;

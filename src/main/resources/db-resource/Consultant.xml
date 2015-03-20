@@ -83,7 +83,7 @@ from ConsultantDetail where File_No=:File_No;
 
 	</entry>
 
-	<entry key="addConsultantDtl">
+	<entry key="upsertConsultantDtl">
     <![CDATA[
       
 Insert into ConsultantDetail
@@ -100,27 +100,20 @@ Insert into ConsultantDetail
  :Consultancy_Agreed, 
  :Payment_Mode, 
  :Amount_To_Pay, 
- :Due_Date);
+ :Due_Date)
 
-    ]]>
-
-	</entry>
-
-	<entry key="updateConsultantDtl">
-    <![CDATA[
-      
- Update ConsultantDetail set
+on duplicate key update
 
     Consultancy_Agreed=:Consultancy_Agreed, 
     Payment_Mode=:Payment_Mode, 
     Amount_To_Pay=:Amount_To_Pay, 
     Due_Date=:Due_Date
     
- where File_No=:File_No;
     ]]>
 
 	</entry>
 
+	
 	<entry key="deleteConsultantDtl">
     <![CDATA[
       

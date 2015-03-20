@@ -9,7 +9,6 @@ public interface ScholarshipDao {
 
 	public ScholarshipDetail getScholarshipDetail(String fileNo);
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail);
-	public void updateScholarDetail(ScholarshipDetail scholarshipDetail);
 	public void deleteScholarshipDetail(String fileNo);
 	
 	

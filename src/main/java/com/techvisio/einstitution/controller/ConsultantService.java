@@ -68,27 +68,6 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
-	
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response> updateConsultantDtl(@RequestBody ConsultantDetail consultantDetail) {  
-		
-		Response response = new Response();
-		try
-		{
-		ConsultantWorkflowManager workflowManager= new ConsultantWorkflowManagerImpl();
-		workflowManager.updateConsultantDtl(consultantDetail);
-		
-		response.setResponseBody(consultantDetail);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			response.setError(e.getLocalizedMessage());
-		}
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
-		}
-
-	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable String fileNo) {  
 		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();

@@ -136,8 +136,8 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	public void addConsultantDtl(ConsultantDetail consultantDetail) {
 
-		String addQuery = consultantQueryProps.getProperty("addConsultantDtl");
-
+		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
+        if(consultantDetail.getConsultantId()!=null){
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId())
 		.addValue("File_No", consultantDetail.getFileNo())
 		.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
@@ -145,7 +145,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		.addValue("Amount_To_Pay", consultantDetail.getAmountToPay())
 		.addValue("Due_Date", consultantDetail.getDueDate());
 
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 
 		if (consultantDetail.getConsultantPaymentDetail() != null) {
 			for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail
@@ -153,32 +153,12 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				addConsultantPaymentDtl(consultantPaymentDtl);
 			}
 		}
-
+        }
 	}
 
-	public void updateConsultantDtl(ConsultantDetail consultantDetail) {
 
-		String updateQuery = consultantQueryProps.getProperty("updateConsultantDtl");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", consultantDetail.getFileNo())
-		.addValue("Consultant_Id", consultantDetail.getConsultantId())
-		.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
-		.addValue("Payment_Mode", consultantDetail.getPaymentMode())
-		.addValue("Amount_To_Pay", consultantDetail.getAmountToPay())
-		.addValue("Due_Date", consultantDetail.getDueDate());
-
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-
-		if (consultantDetail.getConsultantPaymentDetail() != null) {
-			for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail
-					.getConsultantPaymentDetail()) {
-				updateConsultantPaymentDtl(consultantPaymentDtl);
-			}
-		}
-
+//TODO: WE NEED TO CONSULTANT PAYMENT WORK   		
 		
-		
-	}
 
 	public void deleteConsultantDtl(String fileNo) {
 
