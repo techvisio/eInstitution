@@ -339,6 +339,7 @@ admissionModule
 						 $scope.getLatestAdmission();
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
+						 $scope.dashboard=false;
 
 					 } else {
 						 console.log(response.data.error);
@@ -369,8 +370,14 @@ admissionModule
 
 			 $scope.showDetail =  function(index){
 
-				 var fileNo=admissionService.getStudent($scope.latestAdmission[index].fileNo);
+				 var fileNo=$scope.latestAdmission[index].fileNo;
+				 if(fileNo){
 				 $scope.getStudent(fileNo);
+				 }
+				 else
+					 {
+					 alert("No valid fileNo provided");
+					 }
 			 }
 
 
@@ -383,12 +390,12 @@ admissionModule
 					 console.log('Data received from service in controller : ');
 					 console.log(response);
 					 if (response != null && response.data != null && response.data.responseBody != null) {
+						 $scope.student = response.data.responseBody;
+						 $scope.populateMissingData($scope.student);
 						 $scope.showCriteria=false;
 						 $scope.form.isNew=false;
 						 $scope.form.isEdit=false;
 						 $scope.dashboard=false;
-						 $scope.student = response.data.responseBody;
-						 $scope.populateMissingData($scope.student);
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
