@@ -2,6 +2,8 @@ package com.techvisio.einstitution.manager.impl;
 
 import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.db.InquiryDao;
+import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
+import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.InquiryManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
@@ -9,7 +11,7 @@ public class InquiryManagerImpl implements InquiryManager {
 
 	
 	InquiryDao inquiryDao=ContextProvider.getContext().getBean(InquiryDao.class);
-	
+	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
 
 
 	public AdmissionInquiry getInquiry(Long inquiryId) {
@@ -21,9 +23,14 @@ public class InquiryManagerImpl implements InquiryManager {
 		return admissionInquiry;
 	}
 
-	public void addInquiry (AdmissionInquiry admissionInquiry) {
-
+	public Long addInquiry (AdmissionInquiry admissionInquiry) {
+		Long enquiryId=null;
+		if(admissionInquiry!=null){
+		 enquiryId=identifierGenerator.getUniqueIdentifierForEnquiry();
+		admissionInquiry.setEnquiryId(enquiryId);
 		inquiryDao.addInquiry(admissionInquiry);
+		}
+		return enquiryId;
 	}
 
 	public void updateInquiry(AdmissionInquiry admissionInquiry) {

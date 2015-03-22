@@ -7,6 +7,7 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 	$scope.fileNo=null;
 	$scope.currentFetchLimit=5;
 	$scope.feeAdmissionBean=[];
+	$scope.collapse=true;
 	
 	 $scope.newTransaction={};
 	 $scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
@@ -30,6 +31,9 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 				 sum=sum+transaction.amount;
 				});
 		 }
+		 if(sum>0){
+			 collapse=false;
+		 }
 		 return sum;
 	 }
 	 
@@ -46,9 +50,12 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 	 $scope.getFeeTransactionAndBasicInfoDetail = function(fileNo) {
 		 console.log('FeeTransactionAndBasicInfoDetail called in controller');
 		 if(!fileNo){
-		 $scope.fileNo=prompt("file No","");
+		 fileNo=alert("Enter file number to search.");
+		 if(!fileNo){
+			 return;
 		 }
-		 feeService.getFeeTransactionAndBasicInfoDetail($scope.fileNo)
+		 }
+		 feeService.getFeeTransactionAndBasicInfoDetail(fileNo)
 		 .then(function(response) {
 			 console.log('Data received from service : ');
 			 console.log(response);
@@ -100,7 +107,7 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 alert("fee has been deposited successfully")
 				 $scope.newTransaction={};
-				 $scope.getFeeTransactionAndBasicInfoDetail();
+				 $scope.getFeeTransactionAndBasicInfoDetail($scope.feeTransactionAdmissionBean.basicInfo.fileNo);
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);

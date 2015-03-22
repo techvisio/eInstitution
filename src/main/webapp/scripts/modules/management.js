@@ -8,6 +8,7 @@ managementModule.controller('managementController',['$scope','managementService'
 	$scope.admissionDetailManagement={};
 	
 	$scope.feeTransactionAdmissionBean = {};
+	$scope.fileNo=null;
 	
 //	$scope.getAdmissionDetailsManagement = function(){
 //		var fileNo = $scope.feeTransactionAdmissionBean.basicInfo.fileNo;
@@ -38,9 +39,13 @@ managementModule.controller('managementController',['$scope','managementService'
 				 })
 	};
 	
-	$scope.getFileNoandFetchDetails=function(){
-		var fileNo=prompt("Enter File No", "");
-		$scope.getAdmissionDetailManagement(fileNo);
+	$scope.getFileNoandFetchDetails=function(fileNo){
+		if(!fileNo){
+			alter("Please enter file number.");
+			return;
+		}else{
+			$scope.getAdmissionDetailManagement(fileNo);			
+		}		
 	}
 	
 	$scope.getAdmissionDetailManagement=function(fileNo){

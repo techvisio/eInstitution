@@ -22,6 +22,17 @@ public class UniqueIdentifierFactory {
 				
 				
 			}
+			
+			public Long getUniqueIdentifierForEnquiry() {
+
+				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
+				
+				Long Id = sf.getSequence("ENQUIRY");
+				
+			    return Id;
+				
+				
+			}
 
 		};
 	}

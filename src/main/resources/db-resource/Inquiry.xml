@@ -7,20 +7,22 @@
     <![CDATA[
 Select
 
-Inquiry_Id, 
-Name, 
-Father_Name, 
-DOB, 
-Contact_No,
-Application_Status, 
-Due_Date, 
-Created_By, 
-Created_On, 
-Updated_By, 
-Updated_On, 
-Intrested_Course_Id, 
-Intrested_Branch_Id, 
-FollowUp_Rquired
+Inquiry_Id,
+ Name,
+ Father_Name,
+ DOB, 
+ Contact_No, 
+ Application_Status, 
+ Due_Date, 
+ Created_By, 
+ created_on, 
+ Updated_By, 
+ updated_on, 
+ Branch_Id, 
+ FollowUp_Required, 
+ File_no, 
+ Course_Id, 
+ Remarks
 
 from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;    
     ]]>
@@ -43,9 +45,11 @@ Created_By,
 Created_On, 
 Updated_By, 
 Updated_On, 
-Intrested_Course_Id, 
-Intrested_Branch_Id, 
-FollowUp_Rquired ) values
+Course_Id, 
+Branch_Id, 
+FollowUp_Required,
+File_no,
+Remarks ) values
     
  (:Inquiry_Id,
  :Name, 
@@ -58,9 +62,11 @@ FollowUp_Rquired ) values
 :Created_On, 
 :Updated_By, 
 :Updated_On, 
-:Intrested_Course_Id, 
-:Intrested_Branch_Id, 
-:FollowUp_Rquired);
+:Course_Id, 
+:Branch_Id, 
+:FollowUp_Required,
+:File_No,
+:Remarks);
        
     ]]>
 
@@ -81,9 +87,11 @@ Created_By=:Created_By,
 Created_On=:Created_On, 
 Updated_By=:Updated_By, 
 Updated_On=:Updated_On, 
-Intrested_Course_Id=:Intrested_Course_Id, 
-Intrested_Branch_Id=:Intrested_Branch_Id, 
-FollowUp_Rquired=:FollowUp_Rquired
+Course_Id=:Course_Id, 
+Branch_Id=:Branch_Id, 
+FollowUp_Required=:FollowUp_Required,
+Remarks=:Remarks,
+File_No=:File_No
 
  where Inquiry_Id=:Inquiry_Id;  
     ]]>

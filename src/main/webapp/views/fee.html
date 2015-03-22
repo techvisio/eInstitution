@@ -45,12 +45,13 @@
 						ng-model="feeTransactionAdmissionBean.basicInfo.branch"></td>
 				</tr>
 				<tr><td><input type="submit"
-						ng-click="getFeeTransactionAndBasicInfoDetail()"></td></tr>
+						ng-click="getFeeTransactionAndBasicInfoDetail(feeTransactionAdmissionBean.basicInfo.fileNo)"></td></tr>
 			<tr><td colspan=4><hr><td></tr>
 	
-	<tr><td colspan=2><span class="header">Debit Heads</span></td>
-	<td colspan=2><span class="header">Credit Heads</span></td>
+	<tr><td colspan=2><span class="header">Fees</span></td>
+	<td colspan=2><span class="header">Discounts and Deposites</span></td>
 	</tr>
+	<div collapse="collapse">
 				<tr	ng-repeat="i in getMaxListLengthArray() track by $index">
 					<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionDebit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></span></td>
 					<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionDebit[i].amount"
@@ -72,6 +73,7 @@
 				<th>Balance Amount</th>
 				<td>{{feeTransactionAdmissionBean.amountDiffrence+totalDebit()-totalCredit()}}</td>
 				</tr>
+				</div>
 				<tr><td colspan=4><hr></td></tr>
 				<tr><td colspan=2><span class="header">Deposit Fee</span>  </td></tr>
 				<tr><td colspan=2>Mode<p><select class="two-column-input" ng-model=newTransaction.feeDiscountHead.headId

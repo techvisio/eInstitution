@@ -59,7 +59,7 @@
 					<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Show Detail</button></td>
 				</tr>
 				<tr><td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="LoadMoreData()">Load more data</button></td>
-				     <td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="lessData()">Less data</button>
+<!-- 				     <td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="lessData()">Less data</button> -->
 				</tr>
 
 			</table>
@@ -90,9 +90,9 @@
 		<form name="admissionForm" id="admissionForm">
 			<div class="ajax-busy-indicator" ng-show="processing"></div>
 			<div class="panel-div">
-				<span ng-if="form.isNew">New Admission Process ...</span> <span
+				<span ng-if="form.isNew">Admission Process</span> <span
 					ng-if="!form.isNew">{{student.firstName}}
-					{{student.lastName}} ({{student.fileNo}})</span>
+					{{student.lastName}} ({{student.fileNo}})</span><span ng-if="!form.isEdit">(Read Only)</span>
 			</div>
 			<div class="photo-fixed-div">
 				<table>
@@ -145,7 +145,7 @@
 					<tr>
 						<td><span> First Name </span></td>
 						<td><input type="text" ng-model="student.firstName"
-							ng-Readonly="!form.isEdit && !form.isNew" required></td>
+							ng-disabled="!form.isEdit && !form.isNew" required></td>
 						<td><span> Last Name </span></td>
 						<td><input type="text" ng-model="student.lastName"
 							ng-Readonly="!form.isEdit && !form.isNew" required></td>
@@ -170,8 +170,8 @@
 									ng-click="selectTab(5)"
 									ng-bind="admissionMode[student.admissionMode]"></a></span>
 							</td>
-							<td ng-show="!form.isNew"><span ng-class="{active:isSelected(6)}"><a href
-									ng-click="selectTab(6)">Other Detail</a></span></td>
+							<td popover="Please Save record before accessing Other Services!" popover-trigger="mouseenter"><span ng-class="{active:isSelected(6)}"><a href
+									ng-click="selectTab(6)">Other Services</a></span></td>
 						</tr>
 					</table>
 				</div>
@@ -210,8 +210,14 @@
 										ng-disabled="!form.isEdit && !form.isNew" /><span>Female</span></li>
 								</td>
 								<td><span> Date of Birth </span></td>
-								<td><input type="date" ng-model="student.dob"
+						<td><input type="date" ng-model="student.dob"
 									ng-Readonly="!form.isEdit && !form.isNew"></td>
+									<!-- <td><p class="input-group">
+              <input type="dropdown" class="dropdown-toggle" datepicker-popup="{{format}}" ng-model="student.dob" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p></td> -->
 							</tr>
 							<tr>
 

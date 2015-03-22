@@ -6,7 +6,7 @@ public interface InquiryManager {
 
 	public AdmissionInquiry getInquiry(Long inquiryId);
 
-	public void addInquiry (AdmissionInquiry admissionInquiry);
+	public Long addInquiry (AdmissionInquiry admissionInquiry);
 
 	public void updateInquiry(AdmissionInquiry admissionInquiry);
 

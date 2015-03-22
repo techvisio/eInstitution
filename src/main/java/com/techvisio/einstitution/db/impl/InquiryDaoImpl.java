@@ -57,12 +57,14 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 										.getString("Updated_By"));
 								admissionInquiry.setUpdatedDate(rs
 										.getDate("Updated_On"));
-								admissionInquiry.setIntrestedCourseId(CommonUtil.getLongValue(rs
-										.getLong("Intrested_Course_Id")));
-								admissionInquiry.setIntrestedBranchId(CommonUtil.getLongValue(rs
-										.getLong("Intrested_Branch_Id")));
+								admissionInquiry.setCourseId(CommonUtil.getLongValue(rs
+										.getLong("Course_Id")));
+								admissionInquiry.setBranchId(CommonUtil.getLongValue(rs
+										.getLong("Branch_Id")));
 								admissionInquiry.setFollowupRequired(rs
-										.getBoolean("FollowUp_Rquired"));
+										.getBoolean("FollowUp_Required"));
+								admissionInquiry.setFileNo(rs.getString("File_No"));
+								admissionInquiry.setRemarks(rs.getString("Remarks"));
 
 								return admissionInquiry;
 							}
@@ -88,19 +90,21 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 				.addValue("Father_Name", admissionInquiry.getFatherName())
 				.addValue("DOB", admissionInquiry.getDob())
 				.addValue("Due_Date", admissionInquiry.getDueDate())
-				.addValue("Intrested_Branch_Id",
-						admissionInquiry.getIntrestedBranchId())
-				.addValue("Intrested_Course_Id",
-						admissionInquiry.getIntrestedCourseId())
+				.addValue("Branch_Id",
+						admissionInquiry.getBranchId())
+				.addValue("Course_Id",
+						admissionInquiry.getCourseId())
 				.addValue("Created_On", admissionInquiry.getCreatedDate())
 				.addValue("Created_By", admissionInquiry.getCreateBy())
 				.addValue("Updated_On", admissionInquiry.getUpdatedDate())
 				.addValue("Updated_By", admissionInquiry.getUpdatedBy())
 				.addValue("Contact_No", admissionInquiry.getContactNo())
-				.addValue("FollowUp_Rquired",
+				.addValue("FollowUp_Required",
 						admissionInquiry.isFollowupRequired())
 				.addValue("Application_Status",
-						admissionInquiry.getApplicationStatus());
+						admissionInquiry.getApplicationStatus())
+						.addValue("Remarks", admissionInquiry.getRemarks())
+						.addValue("File_No", admissionInquiry.getFileNo());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameters);
 
@@ -118,9 +122,9 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 				.addValue("DOB", admissionInquiry.getDob())
 				.addValue("Due_Date", admissionInquiry.getDueDate())
 				.addValue("Intrested_Branch_Id",
-						admissionInquiry.getIntrestedBranchId())
+						admissionInquiry.getBranchId())
 				.addValue("Intrested_Course_Id",
-						admissionInquiry.getIntrestedCourseId())
+						admissionInquiry.getCourseId())
 				.addValue("Created_On", admissionInquiry.getCreatedDate())
 				.addValue("Created_By", admissionInquiry.getCreateBy())
 				.addValue("Updated_On", admissionInquiry.getUpdatedDate())
@@ -129,7 +133,9 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 				.addValue("FollowUp_Rquired",
 						admissionInquiry.isFollowupRequired())
 				.addValue("Application_Status",
-						admissionInquiry.getApplicationStatus());
+						admissionInquiry.getApplicationStatus())
+						.addValue("Remarks", admissionInquiry.getRemarks())
+						.addValue("File_No", admissionInquiry.getFileNo());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameters);
 	}

@@ -1,35 +1,3 @@
-CREATE TABLE `subjectmaster` (
-  `Subject_Id` int(11) NOT NULL,
-  `Subject` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`Subject_Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `quotacodemaster` (
-  `Id` int(11) NOT NULL,
-  `Code` varchar(50) DEFAULT NULL,
-  `Description` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `qualificationmaster` (
-  `Id` int(11) NOT NULL,
-  `QualifyingExam` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `statemaster` (
-  `Id` int(11) NOT NULL,
-  `State` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `transportmaster` (
-  `Route_Code` varchar(100) NOT NULL,
-  `Description` varchar(200) DEFAULT NULL,
-  `Threshold` varchar(200) DEFAULT NULL,
-  `Price` double DEFAULT NULL,
-  PRIMARY KEY (`Route_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `castecategorymaster` (
   `Id` int(11) NOT NULL,
@@ -37,6 +5,15 @@ CREATE TABLE `castecategorymaster` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `consultantmaster` (
+  `Id` bigint(20) NOT NULL,
+  `Name` varchar(50) DEFAULT NULL,
+  `Primary_Contact_No` varchar(50) DEFAULT NULL,
+  `Secondary_contact_No` varchar(50) DEFAULT NULL,
+  `Address` varchar(200) DEFAULT NULL,
+  `Email_Id` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `counsellingmaster` (
   `Id` bigint(20) NOT NULL,
@@ -44,13 +21,13 @@ CREATE TABLE `counsellingmaster` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 CREATE TABLE `coursemaster` (
   `Id` int(11) NOT NULL,
   `Course` varchar(50) DEFAULT NULL,
   `Course_Type` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `coursebranchmaster` (
   `Course_Id` int(11) NOT NULL,
@@ -61,15 +38,17 @@ CREATE TABLE `coursebranchmaster` (
   CONSTRAINT `coursebranchmaster_ibfk_1` FOREIGN KEY (`Course_Id`) REFERENCES `coursemaster` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 CREATE TABLE `feediscountheadmaster` (
   `Head_Id` int(11) NOT NULL DEFAULT '0',
   `Head` varchar(100) DEFAULT NULL,
-  `Type` varchar(100) DEFAULT NULL,
+  `Transaction_Type` char(1) DEFAULT NULL,
   `Parent_type_id` int(11) DEFAULT NULL,
-  `Discount_Type` varchar(100) DEFAULT NULL,
+  `isReoccurring` bit(1) DEFAULT NULL,
   `Refund_Type` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Head_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 CREATE TABLE `feedetailmaster` (
@@ -86,32 +65,53 @@ CREATE TABLE `feedetailmaster` (
   CONSTRAINT `feedetailmaster_ibfk_3` FOREIGN KEY (`BRANCH`) REFERENCES `coursebranchmaster` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `consultantmaster` (
-  `Id` bigint(20) NOT NULL,
-  `Name` varchar(50) DEFAULT NULL,
-  `Primary_Contact_No` varchar(50) DEFAULT NULL,
-  `Secondary_contact_No` varchar(50) DEFAULT NULL,
-  `Address` varchar(200) DEFAULT NULL,
-  `Email_Id` varchar(100) DEFAULT NULL,
+
+CREATE TABLE `qualificationmaster` (
+  `Id` int(11) NOT NULL,
+  `QualifyingExam` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `hostelinventory` (
-  `Type_Code` varchar(200) NOT NULL,
+
+CREATE TABLE `quotacodemaster` (
+  `Id` int(11) NOT NULL,
+  `Code` varchar(50) DEFAULT NULL,
   `Description` varchar(200) DEFAULT NULL,
-  `Threshold` int(11) DEFAULT NULL,
-  `Price` double DEFAULT NULL,
-  `Room_Capacity` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Type_Code`)
+  PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `roomtypedetail` (
-  `Room_No` varchar(200) NOT NULL,
-  `Type_Code` varchar(200) NOT NULL,
-  PRIMARY KEY (`Room_No`),
-  KEY `Type_Code` (`Type_Code`),
-  CONSTRAINT `roomtypedetail_ibfk_1` FOREIGN KEY (`Type_Code`) REFERENCES `hostelinventory` (`Type_Code`)
+
+CREATE TABLE `statemaster` (
+  `Id` int(11) NOT NULL,
+  `State` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `subjectmaster` (
+  `Subject_Id` int(11) NOT NULL,
+  `Subject` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Subject_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `semestermaster` (
+  `Course_Id` int(11) NOT NULL DEFAULT '0',
+  `Semester` varchar(100) DEFAULT NULL,
+  `Id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Course_Id`,`Id`),
+  CONSTRAINT `semestermaster_ibfk_1` FOREIGN KEY (`Course_Id`) REFERENCES `coursemaster` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `transportmaster` (
+  `Route_Code` varchar(100) NOT NULL,
+  `Description` varchar(200) DEFAULT NULL,
+  `Threshold` varchar(200) DEFAULT NULL,
+  `Price` double DEFAULT NULL,
+  PRIMARY KEY (`Route_Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `studentdetail` (
   `File_No` varchar(100) NOT NULL,
@@ -141,39 +141,40 @@ CREATE TABLE `studentdetail` (
   `Category_Id` int(11) DEFAULT NULL,
   `Branch_Id` int(11) DEFAULT NULL,
   `Created_By` varchar(100) DEFAULT NULL,
-  `Created_On` date DEFAULT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Updated_By` varchar(100) DEFAULT NULL,
-  `Updated_On` date DEFAULT NULL,
-  `Domicile_State_Id` int(11) DEFAULT NULL,
-  `Scholarship` bit(1) DEFAULT NULL,
-  `Remarks` varchar(500) DEFAULT NULL,
+  `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `Course_Id` int(11) DEFAULT NULL,
   `Admission_Mode` varchar(100) DEFAULT NULL,
   `Referred_By` varchar(100) DEFAULT NULL,
   `Quota_Code` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`File_No`),
   UNIQUE KEY `Uni_Enroll_No` (`Uni_Enroll_No`),
-  KEY `studentdetail_ibfk_4` (`Domicile_State_Id`),
+  UNIQUE KEY `Self_Mobile_No` (`Self_Mobile_No`,`Enroll_No`,`Uni_Enroll_No`,`Email_Id`),
+
   KEY `studentdetail_ibfk_1` (`Category_Id`),
   KEY `studentdetail_ibfk_2` (`Branch_Id`),
   KEY `studentdetail_ibfk_3` (`Course_Id`),
   CONSTRAINT `studentdetail_ibfk_1` FOREIGN KEY (`Category_Id`) REFERENCES `castecategorymaster` (`Id`),
   CONSTRAINT `studentdetail_ibfk_2` FOREIGN KEY (`Branch_Id`) REFERENCES `coursebranchmaster` (`Id`),
-  CONSTRAINT `studentdetail_ibfk_3` FOREIGN KEY (`Course_Id`) REFERENCES `coursemaster` (`Id`),
-  CONSTRAINT `studentdetail_ibfk_4` FOREIGN KEY (`Domicile_State_Id`) REFERENCES `statemaster` (`Id`)
+  CONSTRAINT `studentdetail_ibfk_3` FOREIGN KEY (`Course_Id`) REFERENCES `coursemaster` (`Id`)
+ 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `taskandfollowup` (
-  `USER_ID` varchar(220) DEFAULT NULL,
-  `TASK_ID` int(11) NOT NULL DEFAULT '0',
-  `TASK_ENTRY` varchar(220) DEFAULT NULL,
-  `STATUS` varchar(220) DEFAULT NULL,
-  `ROLE` varchar(220) DEFAULT NULL,
-  `REMARK` varchar(500) DEFAULT NULL,
-  `PARENTTASK_ID` int(11) DEFAULT NULL,
-  `DUE_DATE` date DEFAULT NULL,
-  PRIMARY KEY (`TASK_ID`)
+
+CREATE TABLE `qualificationsubjectdtl` (
+  `Subject_Id` int(11) NOT NULL,
+  `Qualification_Id` int(11) NOT NULL,
+  `Marks_Obtained` decimal(10,0) DEFAULT NULL,
+  `Max_Marks` decimal(10,0) DEFAULT NULL,
+  `File_No` varchar(100) NOT NULL,
+  PRIMARY KEY (`Subject_Id`,`File_No`),
+  KEY `Qualification_Id` (`Qualification_Id`),
+  KEY `File_No` (`File_No`),
+  CONSTRAINT `qualificationsubjectdtl_ibfk_1` FOREIGN KEY (`Qualification_Id`) REFERENCES `qualificationmaster` (`Id`),
+  CONSTRAINT `qualificationsubjectdtl_ibfk_2` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
+  CONSTRAINT `qualificationsubjectdtl_ibfk_3` FOREIGN KEY (`Subject_Id`) REFERENCES `subjectmaster` (`Subject_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `academicdetail` (
@@ -225,15 +226,19 @@ CREATE TABLE `admissioninquiry` (
   `Application_Status` varchar(50) DEFAULT NULL,
   `Due_Date` date DEFAULT NULL,
   `Created_By` varchar(100) DEFAULT NULL,
-  `Created_On` date DEFAULT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Updated_By` varchar(100) DEFAULT NULL,
-  `Updated_On` date DEFAULT NULL,
-  `Intrested_Branch_Id` int(11) NOT NULL,
-  `FollowUp_Rquired` bit(1) DEFAULT NULL,
+  `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Branch_Id` int(11) NOT NULL,
+  `FollowUp_Required` bit(1) DEFAULT NULL,
+  `File_no` varchar(20) DEFAULT NULL,
+  `Course_Id` int(11) DEFAULT NULL,
+  `Remarks` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`Inquiry_Id`),
-  KEY `Intrested_Branch_Id` (`Intrested_Branch_Id`),
-  CONSTRAINT `admissioninquiry_ibfk_1` FOREIGN KEY (`Intrested_Branch_Id`) REFERENCES `coursebranchmaster` (`Id`)
+  KEY `admissioninquiry_ibfk_1` (`Branch_Id`),
+  CONSTRAINT `admissioninquiry_ibfk_1` FOREIGN KEY (`Branch_Id`) REFERENCES `coursebranchmaster` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `branchpreference` (
   `Branch_Preference_Id` int(11) DEFAULT NULL,
@@ -244,7 +249,6 @@ CREATE TABLE `branchpreference` (
   CONSTRAINT `branchpreference_ibfk_1` FOREIGN KEY (`Branch_Id`) REFERENCES `coursebranchmaster` (`Id`),
   CONSTRAINT `branchpreference_ibfk_2` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 CREATE TABLE `consultantdetail` (
   `File_No` varchar(100) NOT NULL,
@@ -260,7 +264,7 @@ CREATE TABLE `consultantdetail` (
 
 CREATE TABLE `consultantpaymentdetail` (
   `Amount` decimal(10,0) DEFAULT NULL,
-  `Pay_Date` date DEFAULT NULL,
+  `pay_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `File_No` varchar(100) NOT NULL,
   PRIMARY KEY (`File_No`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -279,18 +283,54 @@ CREATE TABLE `counsellingdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `feetransaction` (
-  `FEE_ID` int(11) DEFAULT NULL,
-  `DATE` date DEFAULT NULL,
-  `USER` varchar(100) DEFAULT NULL,
-  `AMOUNT` double DEFAULT NULL,
-  `AMOUNT_TRANSACTION_TYPE` varchar(100) DEFAULT NULL,
-  `File_No` varchar(100) DEFAULT NULL,
-  KEY `FEE_ID` (`FEE_ID`),
-  KEY `File_No` (`File_No`),
-  CONSTRAINT `feetransaction_ibfk_1` FOREIGN KEY (`FEE_ID`) REFERENCES `feediscountheadmaster` (`Head_Id`),
-  CONSTRAINT `feetransaction_ibfk_2` FOREIGN KEY (`File_no`) REFERENCES `studentdetail` (`File_No`),
-  CONSTRAINT `feetransaction_ibfk_3` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`)
+
+
+CREATE TABLE `feetransactioncredit` (
+  `File_No` varchar(100) NOT NULL DEFAULT '',
+  `Semester` int(11) DEFAULT NULL,
+  `Component_Id` int(11) DEFAULT NULL,
+  `user` varchar(100) DEFAULT NULL,
+  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Remark` varchar(500) DEFAULT NULL,
+  `Mode` varchar(100) DEFAULT NULL,
+  `Amount` double DEFAULT NULL,
+  KEY `feetransactioncredit_ibfk_1` (`File_No`),
+  KEY `feetransactioncredit_ibfk_2` (`Component_Id`),
+  CONSTRAINT `feetransactioncredit_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
+  CONSTRAINT `feetransactioncredit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `feetransactiondebit` (
+  `File_No` varchar(100) NOT NULL DEFAULT '',
+  `Semester` int(11) DEFAULT NULL,
+  `Component_Id` int(11) DEFAULT NULL,
+  `user` varchar(100) DEFAULT NULL,
+  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Remark` varchar(500) DEFAULT NULL,
+  `Mode` varchar(100) DEFAULT NULL,
+  `Amount` double DEFAULT NULL,
+  KEY `feetransactiondebit_ibfk_1` (`File_No`),
+  KEY `feetransactiondebit_ibfk_2` (`Component_Id`),
+  CONSTRAINT `feetransactiondebit_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
+  CONSTRAINT `feetransactiondebit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hostelinventory` (
+  `Type_Code` varchar(200) NOT NULL,
+  `Description` varchar(200) DEFAULT NULL,
+  `Threshold` int(11) DEFAULT NULL,
+  `Price` double DEFAULT NULL,
+  `Room_Capacity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Type_Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `roomtypedetail` (
+  `Room_No` varchar(200) NOT NULL,
+  `Type_Code` varchar(200) NOT NULL,
+  PRIMARY KEY (`Room_No`),
+  KEY `Type_Code` (`Type_Code`),
+  CONSTRAINT `roomtypedetail_ibfk_1` FOREIGN KEY (`Type_Code`) REFERENCES `hostelinventory` (`Type_Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `hostelallocation` (
@@ -326,31 +366,37 @@ CREATE TABLE `modulelog` (
   `OPERATION` varchar(100) DEFAULT NULL,
   `ERROR_MESSAGE` varchar(2000) DEFAULT NULL,
   `ENTITY_ID` int(11) DEFAULT NULL,
-  `DATE` date DEFAULT NULL
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
-CREATE TABLE `qualificationsubjectdtl` (
-  `Subject_Id` int(11) NOT NULL,
-  `Qualification_Id` int(11) NOT NULL,
-  `Marks_Obtained` decimal(10,0) DEFAULT NULL,
-  `Max_Marks` decimal(10,0) DEFAULT NULL,
-  `File_No` varchar(100) NOT NULL,
-  PRIMARY KEY (`Subject_Id`,`File_No`),
-  KEY `Qualification_Id` (`Qualification_Id`),
-  KEY `File_No` (`File_No`),
-  CONSTRAINT `qualificationsubjectdtl_ibfk_1` FOREIGN KEY (`Qualification_Id`) REFERENCES `qualificationmaster` (`Id`),
-  CONSTRAINT `qualificationsubjectdtl_ibfk_2` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
-  CONSTRAINT `qualificationsubjectdtl_ibfk_3` FOREIGN KEY (`Subject_Id`) REFERENCES `subjectmaster` (`Subject_Id`)
+
+CREATE TABLE `scholarshipdetail` (
+  `File_No` varchar(100) NOT NULL DEFAULT '',
+  `Amount` double DEFAULT NULL,
+  `State_Id` int(11) DEFAULT NULL,
+  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Remark` varchar(500) DEFAULT NULL,
+  `Approved` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`File_No`),
+  KEY `State_Id` (`State_Id`),
+  CONSTRAINT `scholarshipdetail_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
+  CONSTRAINT `scholarshipdetail_ibfk_2` FOREIGN KEY (`State_Id`) REFERENCES `statemaster` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `scholarshippaymentdetail` (
+  `File_No` varchar(100) NOT NULL DEFAULT '',
+  `Amount_Received` double DEFAULT NULL,
+  `Receiving_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`File_No`),
+  CONSTRAINT `scholarshippaymentdetail_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `seq` (
   `name` varchar(20) DEFAULT NULL,
   `val` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 
 
@@ -363,8 +409,8 @@ CREATE TABLE `studentfeestaging` (
   `Created_By` varchar(50) DEFAULT NULL,
   `Updated_By` varchar(50) DEFAULT NULL,
   `Approved` bit(1) DEFAULT NULL,
-  `Modified_Date` date DEFAULT NULL,
-  `Created_Date` date DEFAULT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `Feehead_Id` int(11) DEFAULT NULL,
   KEY `FILE_NO` (`FILE_NO`),
   KEY `Feehead_Id` (`Feehead_Id`),
@@ -373,13 +419,24 @@ CREATE TABLE `studentfeestaging` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+CREATE TABLE `taskandfollowup` (
+  `USER_ID` varchar(220) DEFAULT NULL,
+  `TASK_ID` int(11) NOT NULL DEFAULT '0',
+  `TASK_ENTRY` varchar(220) DEFAULT NULL,
+  `STATUS` varchar(220) DEFAULT NULL,
+  `ROLE` varchar(220) DEFAULT NULL,
+  `REMARK` varchar(500) DEFAULT NULL,
+  `PARENTTASK_ID` int(11) DEFAULT NULL,
+  `DUE_DATE` date DEFAULT NULL,
+  PRIMARY KEY (`TASK_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `transportallocation` (
   `File_No` varchar(200) NOT NULL,
   `Vehicle_Id` varchar(100) NOT NULL,
   PRIMARY KEY (`File_No`),
   CONSTRAINT `transportallocation_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 
 CREATE TABLE `transportreservation` (
@@ -417,37 +474,3 @@ CREATE TABLE `workflowfieldmapping` (
   `FIELD_DESC_ID` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
-/* feetransaction's table* (3 mar,2015)*/
-
-CREATE TABLE `feetransactiondebit` (
-  `File_No` varchar(100) NOT NULL DEFAULT '',
-  `Semester` int(11) DEFAULT NULL,
-  `Component_Id` int(11) DEFAULT NULL,
-  `user` varchar(100) DEFAULT NULL,
-  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Remark` varchar(500) DEFAULT NULL,
-  `Mode` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`File_No`),
-  KEY `Component_Id` (`Component_Id`),
-  CONSTRAINT `feetransactiondebit_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
-  CONSTRAINT `feetransactiondebit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `feetransactioncredit` (
-  `File_No` varchar(100) NOT NULL DEFAULT '',
-  `Semester` int(11) DEFAULT NULL,
-  `Component_Id` int(11) DEFAULT NULL,
-  `user` varchar(100) DEFAULT NULL,
-  `Created_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Remark` varchar(500) DEFAULT NULL,
-  `Mode` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`File_No`),
-  KEY `Component_Id` (`Component_Id`),
-  CONSTRAINT `feetransactioncredit_ibfk_1` FOREIGN KEY (`File_No`) REFERENCES `studentdetail` (`File_No`),
-  CONSTRAINT `feetransactioncredit_ibfk_2` FOREIGN KEY (`Component_Id`) REFERENCES `feediscountheadmaster` (`Head_Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Alter statement in scholarshipDtail*/
-
-alter table scholarshipdetail add COLUMN Is_Reoccurring bit(1);
