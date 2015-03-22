@@ -1,0 +1,155 @@
+<div ng-controller="enquiryController" ng-init="init()">
+	<div ng-show="dashboard" class="module-dashboard-container">
+
+		<div class="module-dashboard-content">
+			<div>
+				<table>
+					<tr>
+						<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="showCriteria=!showCriteria">Search Existing</button></td>
+						<td><button type="button" class="btn btn-success btn-lg"
+								ng-click="resetForm()">New Enquiry</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="searchcriteria" ng-show="showCriteria">
+				<table>
+					<tr>
+						<td><span>Enquiry No</span></td>
+						<td><input type="text" ng-model="searchCriteria.fileNo"></td>
+					</tr>
+					<tr>
+						<td><span>Course Name</span></td>
+						<td><input type="text" ng-model="searchCriteria.fileNo"></td>
+					</tr>
+					<tr>
+						<td><span>Email Id</span></td>
+						<td><input type="text" ng-model="searchCriteria.emailId"></td>
+					</tr>
+					<tr>
+						<td><span>Mobile No</span></td>
+						<td><input type="text" ng-model="searchCriteria.mobileNo"></td>
+					</tr>
+
+					<tr>
+						<td><button type="button" class="btn btn-success"
+								ng-click="getEnquiryByCriteria()">Get Details</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="latest-admission" ng-init="getDueEnquiry()">
+			<span class="title-span">Due Enquiries</span>
+			<table>
+				<tr>
+					<th><span>Enquiry No.</span></th>
+					<th><span>Student Name</span></th>
+					<th><span>Phone Name</span></th>
+					<th><span>Course Name</span></th>
+
+				</tr>
+				<tr ng-repeat="object in dueEnquiries">
+					<td><span ng-bind="object.fileNo"></span></td>
+					<td><span ng-bind="object.firstName+' '+object.lastName"></span></td>
+					<td><span ng-bind="object.fatherName"></span></td>
+					<td><button type="button" class="btn btn-success btn-xs"
+							ng-click="showDetail($index)">Show Detail</button></td>
+				</tr>
+				<tr>
+					<td colspan=3><button type="button"
+							class="btn btn-primary showmore" ng-click="LoadMoreData()">Load
+							more data</button></td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+	<form name="enquiryFrom" id="enquiryFrom">
+		<div class="ajax-busy-indicator" ng-show="processing"></div>
+		<div class="panel-div">
+			<span ng-if="form.isNew">New Enquiry Process</span> <span
+				ng-if="!form.isNew">{{student.firstName}}
+				{{student.lastName}} ({{student.fileNo}})</span>
+		</div>
+		<div class="admission-fixed-div">
+			<table>
+				<tr>
+					<td><span> Course </span></td>
+					<td><select select ng-model="enquiry.courseId"
+						ng-disabled="!form.isEdit && !form.isNew"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
+						required></select></td>
+					<td><span> Branch </span></td>
+					<td><select select ng-model="enquiry.branchId"
+						ng-disabled="!form.isEdit && !form.isNew"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
+						required></select></td>
+				</tr>
+				<tr>
+					<td><span> First Name </span></td>
+					<td><input type="text" ng-model="enquiry.firstName" required></td>
+					<td><span> Last Name </span></td>
+					<td><input type="text" ng-model="enquiry.lastName" required></td>
+				</tr>
+				<tr>
+					<td><span> Gender </span></td>
+					<td>
+						<li><input type="radio" ng-model="enquiry.gender"
+							name="gender" value='M' /><span>Male</span></li>
+						<li><input type="radio" ng-model="enquiry.gender"
+							name="gender" value='F' /><span>Female</span></li>
+					</td>
+					<td><span> Reminder Date </span></td>
+					<td><input type="date" ng-model="enquiry.reminderDate"></td>
+				</tr>
+				<tr>
+					<td><span> Remarks </span></td>
+					<td><textarea ng-model="enquiry.remark"></textarea></td>
+				</tr>
+				<tr>
+					<td><span class="header">TASKS</span></td>
+				</tr>
+				
+				<tr ng-show="data.task.length == 0">
+					<td>
+						<span>---------No Tasks--------</span>
+					</td>
+				</tr>
+				<tr ng-repeat="oldTask in data.task"><td>
+					<span> Reminder Date </span></td>
+					<td><input type="date" ng-model="oldTask.reminderDate"
+						ng-Readonly="!form.isEdit && !form.isNew">
+					<td ng-show=!form.isNew><span> Follow-up Remark </span></td>
+					<td><textarea ng-model="oldTask.remark"></textarea></td>
+				</tr>
+				
+				<tr>
+					<td><button type="button" class="btn btn-primary"
+							ng-click="addReminder=!addReminder">Add Task</button></td>
+				</tr>
+				<tr ng-show=addReminder>
+					<td><span> Reminder Date </span></td>
+					<td><input type="date" ng-model="task.reminderDate"
+						ng-Readonly="!form.isEdit && !form.isNew"></td>
+					<td ng-show=!form.isNew><span> Follow-up Remark </span></td>
+					<td><textarea ng-model="task.remark"></textarea></td>
+				</tr>
+				<tr>
+					<td>
+						<button type="button" class="btn btn-primary"
+							ng-click="addEnquiry()">Save Enquiry</button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-success" disabled=form.isNew
+							ng-click="updateEnquiry()">Proceed to Admission</button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger"
+							ng-click="updateEnquiry()">Close Enquiry</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>

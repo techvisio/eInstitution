@@ -1,46 +1,51 @@
-var masterDataModule=angular.module('masterdataModule',[]);
+var masterDataModule = angular.module('masterdataModule', []);
 
-masterDataModule.service('masterdataService', function($http, $q){
+masterDataModule.service('masterdataService', function($http, $q) {
 
-	 return ({
-         getAdmissionMasterData : getAdmissionMasterData
-         
-       });
+	var masterData = null;
+	return ({
+		getAdmissionMasterData : getAdmissionMasterData
 
-       function getAdmissionMasterData() {
+	});
 
-         console.log('Getting masterdata for admission module');
-         var request = $http({
-           method : "get",
-           url : "masterdata/admission",
-           params : "",
-           data : ""
-         });
+	function getAdmissionMasterData() {
 
-         return (request.then(handleSuccess, handleError));
+		if (masterData) {
+			console.log('Getting masterdata for admission module');
+			var request = $http({
+				method : "get",
+				url : "masterdata/admission",
+				params : "",
+				data : ""
+			});
+			return (request.then(handleSuccess, handleError));
+		}else{
+			return masterData;
+		}
 
-       }
 
-        function handleError(response) {
-         console.log('handle error');
-         console.log(response);
-        
-         if (!angular.isObject(response.data) || !response.data.message) {
+	}
 
-           return ($q.reject("An unknown error occurred."));
+	function handleError(response) {
+		console.log('handle error');
+		console.log(response);
 
-         }
+		if (!angular.isObject(response.data) || !response.data.message) {
 
-           return ($q.reject(response.data.message));
+			return ($q.reject("An unknown error occurred."));
 
-       }
+		}
 
-       
-       function handleSuccess(response) {
-         console.log('handle success');
-         console.log(response);
-         return (response.data);
+		return ($q.reject(response.data.message));
 
-       }
-	
+	}
+
+	function handleSuccess(response) {
+		console.log('handle success');
+		console.log(response);
+		masterData = data;
+		return (response.data);
+
+	}
+
 });
