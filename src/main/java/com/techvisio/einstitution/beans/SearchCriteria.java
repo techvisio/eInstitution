@@ -8,6 +8,10 @@ public class SearchCriteria {
 	private String enrollNo;
 	private String uniEnrollNo;
 	
+	// Specific to Inquiry.
+	private Long inquryNo;
+	private Long courseId;
+	
 	
 	@Override
 	public String toString() {
@@ -44,6 +48,18 @@ public class SearchCriteria {
 	}
 	public void setUniEnrollNo(String uniEnrollNo) {
 		this.uniEnrollNo = uniEnrollNo;
+	}
+	public Long getInquryNo() {
+		return inquryNo;
+	}
+	public void setInquryNo(Long inquryNo) {
+		this.inquryNo = inquryNo;
+	}
+	public Long getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
 	}
 	
 }

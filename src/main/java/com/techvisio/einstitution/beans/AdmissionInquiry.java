@@ -20,6 +20,7 @@ public class AdmissionInquiry {
 	private Long branchId;
 	private boolean followupRequired;
 	private String remarks;
+	private String emailId;
 	public Long getEnquiryId() {
 		return enquiryId;
 	}
@@ -116,6 +117,13 @@ public class AdmissionInquiry {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+	
 	@Override
 	public String toString() {
 		return "AdmissionInquiry [enquiryId=" + enquiryId + ", fileNo="
