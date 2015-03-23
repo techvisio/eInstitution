@@ -76,36 +76,36 @@
 			<table>
 				<tr>
 					<td><span> Course </span></td>
-					<td><select select ng-model="enquiry.courseId"
+					<td><select select ng-model="data.enquiry.courseId"
 						ng-disabled="!form.isEdit && !form.isNew"
 						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
-						required></select></td>
+						></select></td>
 					<td><span> Branch </span></td>
-					<td><select select ng-model="enquiry.branchId"
+					<td><select select ng-model="data.enquiry.branchId"
 						ng-disabled="!form.isEdit && !form.isNew"
 						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
-						required></select></td>
+						></select></td>
 				</tr>
 				<tr>
 					<td><span> First Name </span></td>
-					<td><input type="text" ng-model="enquiry.firstName" required></td>
+					<td><input type="text" ng-model="data.enquiry.firstName" required></td>
 					<td><span> Last Name </span></td>
-					<td><input type="text" ng-model="enquiry.lastName" required></td>
+					<td><input type="text" ng-model="data.enquiry.lastName"></td>
 				</tr>
 				<tr>
 					<td><span> Gender </span></td>
 					<td>
-						<li><input type="radio" ng-model="enquiry.gender"
+						<li><input type="radio" ng-model="data.enquiry.gender"
 							name="gender" value='M' /><span>Male</span></li>
-						<li><input type="radio" ng-model="enquiry.gender"
+						<li><input type="radio" ng-model="data.enquiry.gender"
 							name="gender" value='F' /><span>Female</span></li>
 					</td>
 					<td><span> Reminder Date </span></td>
-					<td><input type="date" ng-model="enquiry.reminderDate"></td>
+					<td><input type="date" ng-model="data.enquiry.reminderDate"></td>
 				</tr>
 				<tr>
 					<td><span> Remarks </span></td>
-					<td><textarea ng-model="enquiry.remark"></textarea></td>
+					<td><textarea ng-model="data.enquiry.remark"></textarea></td>
 				</tr>
 				<tr>
 					<td><span class="header">TASKS</span></td>
@@ -130,10 +130,10 @@
 				</tr>
 				<tr ng-show=addReminder>
 					<td><span> Reminder Date </span></td>
-					<td><input type="date" ng-model="task.reminderDate"
+					<td><input type="date" ng-model="data.task.reminderDate"
 						ng-Readonly="!form.isEdit && !form.isNew"></td>
 					<td ng-show=!form.isNew><span> Follow-up Remark </span></td>
-					<td><textarea ng-model="task.remark"></textarea></td>
+					<td><textarea ng-model="data.task.remark"></textarea></td>
 				</tr>
 				<tr>
 					<td>

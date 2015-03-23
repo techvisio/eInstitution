@@ -1,9 +1,12 @@
 package com.techvisio.einstitution.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.InquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.InquiryWorkflowManagerImpl;
@@ -75,5 +79,35 @@ public class InquiryService {
 		InquiryWorkflowManager inquiryWorkflowManager= new InquiryWorkflowManagerImpl();
 		inquiryWorkflowManager.deleteInquiry(inquiryId);
 	}
+	
+	@RequestMapping(value ="/search/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getInquiryByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		Response response=new Response();
+		try
+		{
+			InquiryWorkflowManager workflowManager = new InquiryWorkflowManagerImpl();
+			List<AdmissionInquiry> admissionInquiry = workflowManager.searchInqByCriteria(searchCriteria);
+			response.setResponseBody(admissionInquiry);
+			
+			if(admissionInquiry == null){
+				
+				response.setError("No such record found");
+			}
+			}
+		catch(EmptyResultDataAccessException e)
+		{
+			response.setError("No such record found");
+		}
+		catch(IncorrectResultSizeDataAccessException e)
+		{
+			response.setError("multiple record found for this idetifier");
+		}
+			catch(Exception e)
+			{
+			e.printStackTrace();
+			response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
 
 }
