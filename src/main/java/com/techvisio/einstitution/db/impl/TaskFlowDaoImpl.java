@@ -9,8 +9,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.db.TaskFollowDao;
+import com.techvisio.einstitution.util.CommonUtil;
 
 public class TaskFlowDaoImpl extends BaseDao implements TaskFollowDao {
 		
@@ -21,105 +23,77 @@ public class TaskFlowDaoImpl extends BaseDao implements TaskFollowDao {
 		this.taskFollowQueryProps = taskFollowQueryProps;
 	}
 
-	
-	public TaskAndFollowUp getTaskAndFollowUpByTaskId(int taskId) {
-		String getQuery = taskFollowQueryProps.getProperty("getTaskAndFollowUpByTaskId");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("TASK_ID", taskId);
+	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module) {
+		String getQuery = taskFollowQueryProps.getProperty("getTaskAndFollowUpByModuleAndEntityId");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Entity_Id", entityId)
+											.addValue("Module", module);
 		
 		List<TaskAndFollowUp> taskAndFollowUps = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<TaskAndFollowUp>(){
 
 			public TaskAndFollowUp mapRow(ResultSet rs, int rowNum)throws SQLException {
 				TaskAndFollowUp followUp = new TaskAndFollowUp();
-				followUp.setUserId(rs.getString("USER_ID"));
-				followUp.setTaskId(rs.getInt("TASK_ID"));
-				followUp.setTaskEntry(rs.getString("TASK_ENTRY"));
-				followUp.setStatus(rs.getString("STATUS"));
-				followUp.setRole(rs.getString("ROLE"));
-				followUp.setRemark(rs.getString("REMARK"));
-				followUp.setParentTaskId(rs.getInt("PARENTTASK_ID"));
-				followUp.setDueDate(rs.getDate("DUE_DATE"));
-				
+				followUp.setEntityId(CommonUtil.getLongValue(rs.getLong("Entity_Id")));
+				followUp.setModule(rs.getString("Module"));
+				followUp.setParentTaskId(CommonUtil.getLongValue(rs.getLong("Parent_Task_Id")));
+				followUp.setRemark(rs.getString("Remark"));
+				followUp.setRole(rs.getString("Role"));
+				followUp.setStatus(rs.getString("Status"));
+				followUp.setTaskDate(rs.getDate("Task_Date"));
+				followUp.setTaskId(CommonUtil.getLongValue(rs.getLong("Task_Id")));
+				followUp.setUser(rs.getString("User"));
 				return followUp;
 
 			}
 			
 			
 		});
-		TaskAndFollowUp taskAndFollowUp = null;
-		if(taskAndFollowUps != null && taskAndFollowUps.size()>0){
-			taskAndFollowUp = taskAndFollowUps.get(0);
-		}
-		
-		
-		return taskAndFollowUp;
-	}
-
-	public TaskAndFollowUp getTaskAndFollowUpByParentTaskId(int parentTaskId) {
-		String getQuery = taskFollowQueryProps.getProperty("getTaskAndFollowUpByParentTaskId");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("PARENTTASK_ID", parentTaskId);
-		
-		List<TaskAndFollowUp> taskAndFollowUps = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<TaskAndFollowUp>(){
-
-			public TaskAndFollowUp mapRow(ResultSet rs, int rowNum)throws SQLException {
-				TaskAndFollowUp followUp = new TaskAndFollowUp();
-				followUp.setUserId(rs.getString("USER_ID"));
-				followUp.setTaskId(rs.getInt("TASK_ID"));
-				followUp.setTaskEntry(rs.getString("TASK_ENTRY"));
-				followUp.setStatus(rs.getString("STATUS"));
-				followUp.setRole(rs.getString("ROLE"));
-				followUp.setRemark(rs.getString("REMARK"));
-				followUp.setParentTaskId(rs.getInt("PARENTTASK_ID"));
-				followUp.setDueDate(rs.getDate("DUE_DATE"));
 				
-				return followUp;
+		return taskAndFollowUps;
+	}
 
-			}
-			
-			
-		});
-		TaskAndFollowUp taskAndFollowUp = null;
-		if(taskAndFollowUps != null && taskAndFollowUps.size()>0){
-			taskAndFollowUp = taskAndFollowUps.get(0);
+	/*
+	 private void saveQualificationDtl(QualificationSubjectDtl qualificationDtl) {
+
+		String upsertQuery = admissionQueryProps
+				.getProperty("upsertQualificationSubjectDtl");
+
+		if(qualificationDtl.getSubjectId() != null)
+		{
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"File_No", qualificationDtl.getFileNo())
+			.addValue("Subject_Id", qualificationDtl.getSubjectId())
+			.addValue("Qualification_Id",
+					qualificationDtl.getQualificationId())
+					.addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
+					.addValue("Max_Marks", qualificationDtl.getMaxMarks());
+
+			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 		}
-		
-		
-		return taskAndFollowUp;
-
-		
 	}
+
+	 */	
 	
 	
-	
-	public void addTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
-		String addQuery = taskFollowQueryProps.getProperty("addTaskAndFollowUp");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("TASK_ID", taskAndFollowUp.getTaskId())
-											.addValue("PARENTTASK_ID", taskAndFollowUp.getParentTaskId())
-											.addValue("TASK_ENTRY", taskAndFollowUp.getTaskEntry())
-											.addValue("ROLE", taskAndFollowUp.getRole())
-											.addValue("USER_ID", taskAndFollowUp.getUserId())
-											.addValue("DUE_DATE",taskAndFollowUp.getDueDate())
-											.addValue("STATUS", taskAndFollowUp.getStatus())
-											.addValue("REMARK", taskAndFollowUp.getRemark());
+	public void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
+		String addQuery = taskFollowQueryProps.getProperty("upsertTaskAndFollowUp");
+		if(taskAndFollowUp.getTaskId() != null)
+		{
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Entity_Id", taskAndFollowUp.getEntityId())
+											.addValue("Module", taskAndFollowUp.getModule())
+											.addValue("Parent_Task_Id", taskAndFollowUp.getParentTaskId())
+											.addValue("Remark", taskAndFollowUp.getRemark())
+											.addValue("Role", taskAndFollowUp.getRole())
+											.addValue("Status",taskAndFollowUp.getStatus())
+											.addValue("Task_Date", taskAndFollowUp.getTaskDate())
+											.addValue("Task_Id", taskAndFollowUp.getTaskId())
+											.addValue("User", taskAndFollowUp.getUser());
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-		
+		}
 	}
 	
 	
-	public void updateTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
-		String addQuery = taskFollowQueryProps.getProperty("updateTaskAndFollowUp");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("TASK_ID", taskAndFollowUp.getTaskId())
-											.addValue("PARENTTASK_ID", taskAndFollowUp.getParentTaskId())
-											.addValue("TASK_ENTRY", taskAndFollowUp.getTaskEntry())
-											.addValue("ROLE", taskAndFollowUp.getRole())
-											.addValue("USER_ID", taskAndFollowUp.getUserId())
-											.addValue("DUE_DATE",taskAndFollowUp.getDueDate())
-											.addValue("STATUS", taskAndFollowUp.getStatus())
-											.addValue("REMARK", taskAndFollowUp.getRemark());
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
-		
-	}
-
+	
+/*
 	public void deleteTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
 		String addQuery = taskFollowQueryProps.getProperty("deleteTaskAndFollowUp");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("TASK_ID", taskAndFollowUp.getTaskId())
@@ -130,7 +104,7 @@ public class TaskFlowDaoImpl extends BaseDao implements TaskFollowDao {
 		
 	}
 
-
+*/
 	
 	
 }

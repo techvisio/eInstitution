@@ -3,91 +3,63 @@
 
 <properties>
 
-<entry key="getTaskAndFollowUpByTaskId">
+<entry key="getTaskAndFollowUpByModuleAndEntityId">
     <![CDATA[
 SELECT 
-	TASK_ID, 
-	PARENTTASK_ID,
-	TASK_ENTRY,
-	ROLE, 
-	USER_ID, 
-	DUE_DATE, 
-	STATUS, 
-	REMARK 
-FROM taskandfollowup where TASK_ID=:TASK_ID; ]]>
+	Task_Id,
+	User,
+	Role,
+	Module,
+	Entity_Id,
+	Parent_Task_Id,
+	Task_Date,
+	Remark,
+	Status
+
+FROM taskandfollowup where Entity_Id=:Entity_Id and Module=:Module ; ]]>
 
 	</entry>
 
 
-<entry key="getTaskAndFollowUpByParentTaskId">
-    <![CDATA[
-SELECT 
-	TASK_ID, 
-	PARENTTASK_ID,
-	TASK_ENTRY,
-	ROLE, 
-	USER_ID, 
-	DUE_DATE, 
-	STATUS, 
-	REMARK 
-FROM taskandfollowup where PARENTTASK_ID=:PARENTTASK_ID;]]>
-
-	</entry>
-
-
-
-	<entry key="addTaskAndFollowUp">
+<entry key="upsertTaskAndFollowUp">
     <![CDATA[
       
 INSERT INTO taskandfollowup
-(TASK_ID,
- PARENTTASK_ID,
- TASK_ENTRY,
- ROLE,
- USER_ID,
- DUE_DATE,
- STATUS,
- REMARK) 
-VALUES 
-(:TASK_ID,
- :PARENTTASK_ID,
- :TASK_ENTRY,
- :ROLE,
- :USER_ID,
- :DUE_DATE,
- :STATUS,
- :REMARK)    ]]>
+(
+	Task_Id,
+	User,
+	Role,
+	Module,
+	Entity_Id,
+	Parent_Task_Id,
+	Task_Date,
+	Remark,
+	Status
+) 
+VALUES( 
+:Task_Id,
+:User,
+:Role,
+:Module,
+:Entity_Id,
+:Parent_Task_Id,
+:Task_Date,
+:Remark,
+:Status
+) 
+on duplicate key update
 
-	</entry>
-
-	<entry key="updateTaskAndFollowUp">
-    <![CDATA[
-      
-Update taskandfollowup set
- 
-	TASK_ID=:TASK_ID,
- 	PARENTTASK_ID=:PARENTTASK_ID,
- 	TASK_ENTRY=:TASK_ENTRY,
- 	ROLE=:ROLE,
- 	USER_ID=:USER_ID,
- 	DUE_DATE=:DUE_DATE,
- 	STATUS=:STATUS,
- 	REMARK=:REMARK   
-
-where TASK_ID=:TASK_ID;
-    ]]>
-
-	</entry>
-
-	<entry key="deleteTaskAndFollowUp">
-    <![CDATA[
-      
-Update taskandfollowup set
- 
- 	STATUS=:STATUS
-
-where TASK_ID=:TASK_ID;
-    ]]>
+	Task_Id=:Task_Id,
+	User=:User,
+	Role=:Role,
+	Module=:Module,
+	Entity_Id=:Entity_Id,
+	Parent_Task_Id=:Parent_Task_Id,
+	Task_Date=:Task_Date,
+	Remark=:Remark,
+	Status=:Status
+	
+   ]]>
 
 	</entry>
 
