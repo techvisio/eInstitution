@@ -1,4 +1,4 @@
-var enquiryModule = angular.module('enquiryModule', ['masterdataModule']);
+var enquiryModule = angular.module('enquiryModule', []);
 
 enquiryModule.controller('enquiryController', ['$scope','enquiryService','masterdataService',function($scope,enquiryService,masterdataService) {
 
@@ -10,6 +10,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.data.enquiry={};
 	$scope.data.task=[];
 	$scope.enqCriteria={};
+	$scope.serverModelData={};
 	
 	// Variables for show and hiding.
 	$scope.processing=false;
@@ -35,12 +36,24 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 
 	 };
 	 
-	 $scope.getmaster = function(entity){
-		 return masterdataService.get(entity);
+	 $scope.init=function(){
+
+		 console.log('getting masterdata for admission module in init block');
+
+		 $scope.serverModelData = masterdataService.getAdmissionMasterData();
+//		 .then(function(data) {
+//			 console.log(data);
+//			 if (data != null) {
+//				 $scope.serverModelData = data;
+//			 } else {
+//				 console.log('error');
+//			 }
+//		 })
+
 	 }
 	 
 	 $scope.addEnquiry=function(){
-		 enquiryService.addEnquiry($scope.enquiry);
+		 enquiryService.addEnquiry(scope.data);
 	 }
 	 
 	 $scope.proceedToAdmission=function(){
@@ -56,7 +69,8 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 getDueEnquiry : getDueEnquiry,
 		 getEnquiryByCriteria : getEnquiryByCriteria,
 		 addEnquiry : addEnquiry,
-		 proceedToAdmission : proceedToAdmission
+		 proceedToAdmission : proceedToAdmission,
+		 getEnquiry : getEnquiry
 	 });
 	
 	function getDueEnquiry() {
@@ -74,8 +88,22 @@ enquiryModule.service('enquiryService', function($http, $q) {
 
 	 }
 	
-	function getEnquiryByCriteria(EnqCriteria){
+	function getEnquiry(enquiryId){
 		 console.log('get due enquiries');
+		 var request = $http({
+			 method : "get",
+			 url : "inquiry/"+enquiryId,
+			 params : "",
+			 data: ""
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+	}
+	
+	function getEnquiryByCriteria(EnqCriteria){
+		 console.log('search enquiries');
 		 var request = $http({
 			 method : "get",
 			 url : "inquiry",
@@ -88,7 +116,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 	}
 	
 	function addEnquiry(enquiry){
-		 console.log('get due enquiries');
+		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
 			 url : "inquiry",
