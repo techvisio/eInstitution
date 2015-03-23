@@ -14,6 +14,21 @@ public class InquiryManagerImpl implements InquiryManager {
 	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
 
 
+	private static InquiryManagerImpl instance=null;
+	public static synchronized InquiryManagerImpl getInstance()
+	{
+		if(instance == null){
+			instance=new InquiryManagerImpl();
+		}
+		
+		return instance;
+	}
+	
+	private InquiryManagerImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	public AdmissionInquiry getInquiry(Long inquiryId) {
 
 		AdmissionInquiry admissionInquiry=null;
