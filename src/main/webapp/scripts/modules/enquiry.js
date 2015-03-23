@@ -9,6 +9,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.dueEnquiries=[];
 	$scope.data.enquiry={};
 	$scope.data.task=[];
+	$scope.enqCriteria={};
 	
 	// Variables for show and hiding.
 	$scope.processing=false;
@@ -73,16 +74,39 @@ enquiryModule.service('enquiryService', function($http, $q) {
 
 	 }
 	
-	function getEnquiryByCriteria(){
-		
+	function getEnquiryByCriteria(EnqCriteria){
+		 console.log('get due enquiries');
+		 var request = $http({
+			 method : "get",
+			 url : "inquiry",
+			 params : "",
+			 data: EnqCriteria
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
 	}
 	
 	function addEnquiry(enquiry){
-		
+		 console.log('get due enquiries');
+		 var request = $http({
+			 method : "post",
+			 url : "inquiry",
+			 params : "",
+			 data: enquiry
+
+		 });
 	}
 	
 	function proceedToAdmission(enquiry){
-		
+		 console.log('get due enquiries');
+		 var request = $http({
+			 method : "put",
+			 url : "inquiry",
+			 params : "",
+			 data: enquiry
+
+		 });
 	}
 
 
