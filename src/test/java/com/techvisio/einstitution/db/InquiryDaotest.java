@@ -39,8 +39,6 @@ public class InquiryDaotest {
 		AdmissionInquiry admissionInquiry = new AdmissionInquiry();
 
 		admissionInquiry.setEnquiryId(2L);
-		admissionInquiry.setIntrestedCourseId(2L);
-		admissionInquiry.setIntrestedBranchId(2L);
 		admissionInquiry.setFatherName("Anil Pathak");
 		admissionInquiry.setName("Ananad");
 		admissionInquiry.setContactNo("8087682394");
