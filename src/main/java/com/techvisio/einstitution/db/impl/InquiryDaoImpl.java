@@ -5,12 +5,16 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.InquiryDao;
+import com.techvisio.einstitution.db.impl.AdmissionDaoImpl.StudentDetailRowMapper;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class InquiryDaoImpl extends BaseDao implements InquiryDao {
@@ -31,44 +35,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
 		List<AdmissionInquiry> admissionInquiries = getNamedParamJdbcTemplate()
 				.query(getQuery, namedParameter,
-						new RowMapper<AdmissionInquiry>() {
-
-							public AdmissionInquiry mapRow(ResultSet rs,
-									int rowNum) throws SQLException {
-
-								AdmissionInquiry admissionInquiry = new AdmissionInquiry();
-								admissionInquiry.setEnquiryId(CommonUtil.getLongValue(rs
-										.getLong("Inquiry_Id")));
-								admissionInquiry.setName(rs.getString("Name"));
-								admissionInquiry.setFatherName(rs
-										.getString("Father_Name"));
-								admissionInquiry.setDob(rs.getDate("DOB"));
-								admissionInquiry.setContactNo(rs
-										.getString("Contact_No"));
-								admissionInquiry.setApplicationStatus(rs
-										.getString("Application_Status"));
-								admissionInquiry.setDueDate(rs
-										.getDate("Due_Date"));
-								admissionInquiry.setCreateBy(rs
-										.getString("Created_By"));
-								admissionInquiry.setCreatedDate(rs
-										.getDate("Created_On"));
-								admissionInquiry.setUpdatedBy(rs
-										.getString("Updated_By"));
-								admissionInquiry.setUpdatedDate(rs
-										.getDate("Updated_On"));
-								admissionInquiry.setCourseId(CommonUtil.getLongValue(rs
-										.getLong("Course_Id")));
-								admissionInquiry.setBranchId(CommonUtil.getLongValue(rs
-										.getLong("Branch_Id")));
-								admissionInquiry.setFollowupRequired(rs
-										.getBoolean("FollowUp_Required"));
-								admissionInquiry.setFileNo(rs.getString("File_No"));
-								admissionInquiry.setRemarks(rs.getString("Remarks"));
-
-								return admissionInquiry;
-							}
-						});
+						new AdmissionINquiryRowMapper());
 
 		AdmissionInquiry admissionInquiry=null;
 
@@ -149,6 +116,68 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 				"Inquiry_Id",inquiryId);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameters);
+	}
+
+	@Override
+	public List<AdmissionInquiry> searchInqByCriteria(
+			SearchCriteria searchCriteria) {
+		String getQuery = inquiryQueryProps
+				.getProperty("searchInquiry");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Inquiry_Id", searchCriteria.getInquryNo()==null?null:searchCriteria.getInquryNo())
+		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
+		.addValue("name", StringUtils.isEmpty(searchCriteria.getName())?null:searchCriteria.getName())
+		.addValue("phoneNo", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
+		.addValue("courseId", searchCriteria.getCourseId()==null?null:searchCriteria.getCourseId())
+		.addValue("branchId", searchCriteria.getBranchId()==null?null:searchCriteria.getBranchId());
+		
+		List<AdmissionInquiry> admissionInquiries=getNamedParamJdbcTemplate().query(
+				getQuery, namedParameter, new AdmissionINquiryRowMapper());
+		
+		    return admissionInquiries;
+	}
+	
+	private class AdmissionINquiryRowMapper implements RowMapper<AdmissionInquiry>
+	{
+
+		@Override
+				public AdmissionInquiry mapRow(ResultSet rs,
+						int rowNum) throws SQLException {
+
+					AdmissionInquiry admissionInquiry = new AdmissionInquiry();
+					admissionInquiry.setEnquiryId(CommonUtil.getLongValue(rs
+							.getLong("Inquiry_Id")));
+					admissionInquiry.setName(rs.getString("Name"));
+					admissionInquiry.setFatherName(rs
+							.getString("Father_Name"));
+					admissionInquiry.setDob(rs.getDate("DOB"));
+					admissionInquiry.setContactNo(rs
+							.getString("Contact_No"));
+					admissionInquiry.setApplicationStatus(rs
+							.getString("Application_Status"));
+					admissionInquiry.setDueDate(rs
+							.getDate("Due_Date"));
+					admissionInquiry.setCreateBy(rs
+							.getString("Created_By"));
+					admissionInquiry.setCreatedDate(rs
+							.getDate("Created_On"));
+					admissionInquiry.setUpdatedBy(rs
+							.getString("Updated_By"));
+					admissionInquiry.setUpdatedDate(rs
+							.getDate("Updated_On"));
+					admissionInquiry.setCourseId(CommonUtil.getLongValue(rs
+							.getLong("Course_Id")));
+					admissionInquiry.setBranchId(CommonUtil.getLongValue(rs
+							.getLong("Branch_Id")));
+					admissionInquiry.setFollowupRequired(rs
+							.getBoolean("FollowUp_Required"));
+					admissionInquiry.setFileNo(rs.getString("File_No"));
+					admissionInquiry.setRemarks(rs.getString("Remarks"));
+
+					return admissionInquiry;
+		}
+		
 	}
 
 }

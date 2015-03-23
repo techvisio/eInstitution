@@ -1,6 +1,9 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.InquiryDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
@@ -56,6 +59,11 @@ public class InquiryManagerImpl implements InquiryManager {
 	public void deleteInquiry(Long inquiryId) {
 
 		inquiryDao.deleteInquiry(inquiryId);;
+	}
+
+	@Override
+	public List<AdmissionInquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
+		return inquiryDao.searchInqByCriteria(searchCriteria);
 	}
 
 }

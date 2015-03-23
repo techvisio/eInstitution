@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -17,11 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.AdmissionInquiry;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.util.AppConstants;
-import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.InquiryWorkflowManager;
-import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.InquiryWorkflowManagerImpl;
 
 
@@ -87,11 +85,11 @@ public class InquiryService {
 		Response response=new Response();
 		try
 		{
-			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
-			StudentDetail studentDetail = workflowManager.getStudentDtlBySearchCriteria(searchCriteria);
-			response.setResponseBody(studentDetail);
+			InquiryWorkflowManager workflowManager = new InquiryWorkflowManagerImpl();
+			List<AdmissionInquiry> admissionInquiry = workflowManager.searchInqByCriteria(searchCriteria);
+			response.setResponseBody(admissionInquiry);
 			
-			if(studentDetail == null){
+			if(admissionInquiry == null){
 				
 				response.setError("No such record found");
 			}

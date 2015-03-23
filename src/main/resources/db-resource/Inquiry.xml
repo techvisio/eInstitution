@@ -105,5 +105,15 @@ Delete from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;
     ]]>
 
 	</entry>
+	
+	
+	<entry key="searchInquiry">
+    <![CDATA[
+      
+SELECT * FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and emailId = IFNULL(:emailId,emailId) and courseId = IFNULL(:courseId,courseId) and 
+Contact_No =IFNULL(:phoneNo,Contact_No) and Branch_Id = IFNULL(:branchId,Branch_Id) and name = ifnull(:name,Name); 
+    ]]>
+
+	</entry>
 
 </properties>

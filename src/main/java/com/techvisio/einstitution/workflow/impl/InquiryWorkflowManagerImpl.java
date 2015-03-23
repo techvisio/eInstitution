@@ -1,6 +1,9 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.manager.InquiryManager;
 import com.techvisio.einstitution.manager.impl.InquiryManagerImpl;
 import com.techvisio.einstitution.workflow.InquiryWorkflowManager;
@@ -34,6 +37,11 @@ public class InquiryWorkflowManagerImpl implements InquiryWorkflowManager {
 	public void deleteInquiry(Long inquiryId) {
 
 		inquiryManager.deleteInquiry(inquiryId);
+	}
+
+	@Override
+	public List<AdmissionInquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
+		return inquiryManager.searchInqByCriteria(searchCriteria);
 	}
 
 	
