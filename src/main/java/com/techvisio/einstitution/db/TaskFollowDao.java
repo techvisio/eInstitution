@@ -1,12 +1,12 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 
 public interface TaskFollowDao {
-	public TaskAndFollowUp getTaskAndFollowUpByTaskId(int taskId);
-	public TaskAndFollowUp getTaskAndFollowUpByParentTaskId(int parentTaskId);
-	public void addTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp);
-	public void updateTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp);
-	public void deleteTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp);
+	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module);
+	public void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp);
+	//public void deleteTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp);
 
 }

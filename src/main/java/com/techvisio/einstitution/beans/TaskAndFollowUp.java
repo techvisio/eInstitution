@@ -3,33 +3,27 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class TaskAndFollowUp {
- private int taskId;
- private int parentTaskId;
- private String taskEntry;
+ private Long taskId;
+ private String user;
  private String role;
- private String userId;
- private Date dueDate;
- private String status;
+ private String module;
+ private Long entityId;
+ private Long parentTaskId;
+ private Date taskDate;
  private String remark;
+ private String status;
  
- 
-public int getTaskId() {
+public Long getTaskId() {
 	return taskId;
 }
-public void setTaskId(int taskId) {
+public void setTaskId(Long taskId) {
 	this.taskId = taskId;
 }
-public int getParentTaskId() {
-	return parentTaskId;
+public String getUser() {
+	return user;
 }
-public void setParentTaskId(int parentTaskId) {
-	this.parentTaskId = parentTaskId;
-}
-public String getTaskEntry() {
-	return taskEntry;
-}
-public void setTaskEntry(String taskEntry) {
-	this.taskEntry = taskEntry;
+public void setUser(String user) {
+	this.user = user;
 }
 public String getRole() {
 	return role;
@@ -37,23 +31,29 @@ public String getRole() {
 public void setRole(String role) {
 	this.role = role;
 }
-public String getUserId() {
-	return userId;
+public String getModule() {
+	return module;
 }
-public void setUserId(String userId) {
-	this.userId = userId;
+public void setModule(String module) {
+	this.module = module;
 }
-public Date getDueDate() {
-	return dueDate;
+public Long getEntityId() {
+	return entityId;
 }
-public void setDueDate(Date dueDate) {
-	this.dueDate = dueDate;
+public void setEntityId(Long entityId) {
+	this.entityId = entityId;
 }
-public String getStatus() {
-	return status;
+public Long getParentTaskId() {
+	return parentTaskId;
 }
-public void setStatus(String status) {
-	this.status = status;
+public void setParentTaskId(Long parentTaskId) {
+	this.parentTaskId = parentTaskId;
+}
+public Date getTaskDate() {
+	return taskDate;
+}
+public void setTaskDate(Date taskDate) {
+	this.taskDate = taskDate;
 }
 public String getRemark() {
 	return remark;
@@ -61,11 +61,20 @@ public String getRemark() {
 public void setRemark(String remark) {
 	this.remark = remark;
 }
+public String getStatus() {
+	return status;
+}
+public void setStatus(String status) {
+	this.status = status;
+}
 @Override
 public String toString() {
-	return "TaskAndFollowUp [taskId=" + taskId + ", parentTaskId="
-			+ parentTaskId + ", taskEntry=" + taskEntry + ", role=" + role
-			+ ", userId=" + userId + ", dueDate=" + dueDate + ", status="
-			+ status + ", remark=" + remark + "]";
+	return "TaskAndFollowUp [taskId=" + taskId + ", user=" + user + ", role="
+			+ role + ", module=" + module + ", entityId=" + entityId
+			+ ", parentTaskId=" + parentTaskId + ", taskDate=" + taskDate
+			+ ", remark=" + remark + ", status=" + status + "]";
 }
+
+ 
+ 
 }
