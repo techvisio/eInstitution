@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.manager.ConsultantManager;
-import com.techvisio.einstitution.manager.impl.ConsultantManagerImpl;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.ConsultantWorkflowManagerImpl;
 
@@ -31,15 +31,12 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 		try
 		{
 			ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
-      		ConsultantDetail consultantDetail = workflowManager.getConsultantDtl(fileNo);
-		    
-      		response.setResponseBody(consultantDetail);
-      		
-      		if(consultantDetail == null)
-      		{
-    			response.setError("No such record found");
-    		}
-		}
+      		List<ConsultantDetail> consultantDetails = workflowManager.getConsultantDtl(fileNo);
+               
+      		for(ConsultantDetail consultantDetail : consultantDetails){
+      			response.setResponseBody(consultantDetail);
+      			}
+      		}
 		catch(Exception e)
 		{
 			response.setError(e.getMessage());

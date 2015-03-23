@@ -83,8 +83,11 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	ScholarshipDetail scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
 	studentDetail.setScholarshipDetail(scholarshipDetail);
 	
-	ConsultantDetail consultantDetail = consultantWorkflowManager.getConsultantDtl(fileNo);
+	List<ConsultantDetail> consultantDetails = consultantWorkflowManager.getConsultantDtl(fileNo);
+	
+	for(ConsultantDetail consultantDetail : consultantDetails){
 	studentDetail.setConsultantDetail(consultantDetail);
+	}
 	
 	return studentDetail;
 	

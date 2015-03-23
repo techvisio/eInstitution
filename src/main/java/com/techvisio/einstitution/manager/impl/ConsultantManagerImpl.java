@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.ConsultantManager;
@@ -25,12 +27,12 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	}
 	
 	
-	public ConsultantDetail getConsultantDtl(String fileNo) {
+	public List<ConsultantDetail> getConsultantDtl(String fileNo) {
 
-		ConsultantDetail consultantDetail = null;
-		consultantDetail = consultantDao.getConsultantDtl(fileNo);
+	List<ConsultantDetail> consultantDetails = null;
+		consultantDetails = consultantDao.getConsultantDtl(fileNo);
 	
-		return consultantDetail;
+		return consultantDetails;
 	}
 
 	public void addConsultantDtl(ConsultantDetail consultantDetail){

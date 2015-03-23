@@ -11,8 +11,10 @@ public class ConsultantDetail {
 	private String paymentMode;
 	private Double amountToPay; 
 	private Date dueDate;
+    private String remarks;
 	private List<ConsultantPaymentDtl> consultantPaymentDetail;
-
+    private List<ConsultantPaymentCriteria> consultantPaymentCriterias;
+	
 	public String getFileNo() {
 		return fileNo;
 	}
@@ -77,13 +79,33 @@ public class ConsultantDetail {
 		this.consultantPaymentDetail = consultantPaymentDetail;
 	}
 
+
+	public List<ConsultantPaymentCriteria> getConsultantPaymentCriterias() {
+		return consultantPaymentCriterias;
+	}
+
+	public void setConsultantPaymentCriterias(
+			List<ConsultantPaymentCriteria> consultantPaymentCriterias) {
+		this.consultantPaymentCriterias = consultantPaymentCriterias;
+	}
+
 	@Override
 	public String toString() {
 		return "ConsultantDetail [fileNo=" + fileNo + ", consultantId="
 				+ consultantId + ", consultancyAgreed=" + consultancyAgreed
 				+ ", paymentMode=" + paymentMode + ", amountToPay="
 				+ amountToPay + ", dueDate=" + dueDate
-				+ ", consultantPaymentDetail=" + consultantPaymentDetail + "]";
+				+ ", consultantPaymentDetail=" + consultantPaymentDetail
+				+ ", consultantPaymentCriterias=" + consultantPaymentCriterias
+				+ "]";
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 }

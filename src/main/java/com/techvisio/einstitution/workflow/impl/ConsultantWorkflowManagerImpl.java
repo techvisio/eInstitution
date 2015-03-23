@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.List;
+
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.manager.impl.ConsultantManagerImpl;
@@ -9,11 +11,11 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 
 	ConsultantManager manager=ConsultantManagerImpl.getInstance();
 	
-	public ConsultantDetail getConsultantDtl(String fileNo) {
+	public List<ConsultantDetail> getConsultantDtl(String fileNo) {
 
-		ConsultantDetail consultantDetail = manager.getConsultantDtl(fileNo);
+		List<ConsultantDetail> consultantDetails = manager.getConsultantDtl(fileNo);
 		
-		return consultantDetail;
+		return consultantDetails;
 	}
 
 	public void addConsultantDtl(ConsultantDetail consultantDetail) {
