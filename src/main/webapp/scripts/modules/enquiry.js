@@ -3,13 +3,14 @@ var enquiryModule = angular.module('enquiryModule', []);
 enquiryModule.controller('enquiryController', ['$scope','enquiryService','masterdataService',function($scope,enquiryService,masterdataService) {
 
 	// Data variables.
+	
+	$scope.admissionInquiry={};
 	$scope.form={};
 	$scope.data={};
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
 	$scope.data.enquiry={};
 	$scope.data.task=[];
-	$scope.enqCriteria={};
 	$scope.serverModelData={};
 	
 	// Variables for show and hiding.
@@ -20,9 +21,44 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.form.isEdit=false;
 	$scope.dashboard=true;
 	
-	$scope.getEnquiryByCriteria = function(){
+	$scope.getEnquiryBySearchCriteria = function() {
+		 console.log('get enquiry by search criteria in controller');
+		 console.log($scope.searchCriteria);
+		 enquiryService.getEnquiryBySearchCriteria($scope.searchCriteria)
+		 .then(function(response) {
+			 console.log('Data received from service in controller : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.data.enquiry = response.data.responseBody;
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+		 })
+
+
+	 }
+
+	 $scope.getEnquiry = function() {
 		
-	}
+		 var enquiryId=prompt("Enter File No", "");
+		 
+		 enquiryService.getEnquiry(enquiryId)
+		 .then(function(response) {
+			 console.log('Data received from service : ');
+			 console.log(response);
+			 if (response !=null && response.data != null && response.data.responseBody != null) {
+				$scope.data.enquiry = response.data.responseBody;
+
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+
+	 }
+
 	
 	$scope.getDueEnquiry=function(){
 		
@@ -52,10 +88,26 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 
 	 }
 	 
-	 $scope.addEnquiry=function(){
-		 enquiryService.addEnquiry(scope.data);
+	 $scope.addEnquiry = function() {
+		 console.log('add student called');
+		 console.log($scope.student);
+		 enquiryService.addEnquiry($scope.admissionInquiry)
+		 .then(function(response) {
+			 console.log('Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.admissionInquiry = response.data.responseBody;
+				 alert("Your Records Saved Successfully")
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+		 })
+
+
 	 }
-	 
+ 
 	 $scope.proceedToAdmission=function(){
 		 enquiryService.proceedToAdmission($scope.enquiry);
 	 }
@@ -67,7 +119,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 	// Return public API.
 	return ({
 		 getDueEnquiry : getDueEnquiry,
-		 getEnquiryByCriteria : getEnquiryByCriteria,
+		 getEnquiryBySearchCriteria : getEnquiryBySearchCriteria,
 		 addEnquiry : addEnquiry,
 		 proceedToAdmission : proceedToAdmission,
 		 getEnquiry : getEnquiry
@@ -88,40 +140,42 @@ enquiryModule.service('enquiryService', function($http, $q) {
 
 	 }
 	
-	function getEnquiry(enquiryId){
-		 console.log('get due enquiries');
+	function getEnquiry(enquiryId) {
+
 		 var request = $http({
 			 method : "get",
 			 url : "inquiry/"+enquiryId,
-			 params : "",
-			 data: ""
-
+			 params : {
+				 action : "get"
+			 }
 		 });
 
 		 return (request.then(handleSuccess, handleError));
 
-	}
+	 }
 	
-	function getEnquiryByCriteria(EnqCriteria){
-		 console.log('search enquiries');
+	 function getEnquiryBySearchCriteria(searchCriteria){
+
+		 console.log('Getting enquiry by search criteria in service');
 		 var request = $http({
-			 method : "get",
-			 url : "inquiry",
+			 method : "post",
+			 url : "inquiry/search/",
 			 params : "",
-			 data: EnqCriteria
+			 data : searchCriteria
 
 		 });
 
 		 return (request.then(handleSuccess, handleError));
-	}
-	
-	function addEnquiry(enquiry){
+	 }
+
+	 
+	 function addEnquiry(admissionInquiry){
 		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
 			 url : "inquiry",
 			 params : "",
-			 data: enquiry
+			 data: admissionInquiry
 
 		 });
 	}
@@ -138,31 +192,28 @@ enquiryModule.service('enquiryService', function($http, $q) {
 	}
 
 
-	function handleError(response) {
-		console.log('handle error');
-		console.log(response);
-		// The API response from the server should be returned in a
-		// nomralized format. However, if the request was not handled by the
-		// server (or what not handles properly - ex. server error), then we
-		// may have to normalize it on our end, as best we can.
-		if (!angular.isObject(response.data) || !response.data.message) {
+	 function handleError(response) {
+		 console.log('Error occured while calling service');
+		 console.log(response);
+		 if (!angular.isObject(response.data) || !response.data.message) {
 
-			return ($q.reject("An unknown error occurred."));
+			 return ($q.reject("An unknown error occurred."));
 
-		}
+		 }
 
-		// Otherwise, use expected error message.
-		return ($q.reject(response.data.message));
+		 // Otherwise, use expected error message.
+		 return ($q.reject(response.data.message));
 
-	}
+	 }
 
-	// I transform the successful response, unwrapping the application data
-	// from the API response payload.
-	function handleSuccess(response) {
-		console.log('handle success');
-		console.log(response);
-		return (response);
+	 // I transform the successful response, unwrapping the application data
+	 // from the API response payload.
+	 function handleSuccess(response) {
+		 console.log('handle success');
+		 console.log(response);
+		 return (response);
 
-	}
+	 }
+
 
 });

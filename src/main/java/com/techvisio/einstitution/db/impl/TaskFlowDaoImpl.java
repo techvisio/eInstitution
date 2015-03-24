@@ -51,28 +51,6 @@ public class TaskFlowDaoImpl extends BaseDao implements TaskFollowDao {
 		return taskAndFollowUps;
 	}
 
-	/*
-	 private void saveQualificationDtl(QualificationSubjectDtl qualificationDtl) {
-
-		String upsertQuery = admissionQueryProps
-				.getProperty("upsertQualificationSubjectDtl");
-
-		if(qualificationDtl.getSubjectId() != null)
-		{
-			SqlParameterSource namedParameter = new MapSqlParameterSource(
-					"File_No", qualificationDtl.getFileNo())
-			.addValue("Subject_Id", qualificationDtl.getSubjectId())
-			.addValue("Qualification_Id",
-					qualificationDtl.getQualificationId())
-					.addValue("Marks_Obtained", qualificationDtl.getMarksObtained())
-					.addValue("Max_Marks", qualificationDtl.getMaxMarks());
-
-			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
-		}
-	}
-
-	 */	
-	
 	
 	public void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
 		String addQuery = taskFollowQueryProps.getProperty("upsertTaskAndFollowUp");
@@ -90,21 +68,6 @@ public class TaskFlowDaoImpl extends BaseDao implements TaskFollowDao {
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 		}
 	}
-	
-	
-	
-/*
-	public void deleteTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
-		String addQuery = taskFollowQueryProps.getProperty("deleteTaskAndFollowUp");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("TASK_ID", taskAndFollowUp.getTaskId())
-											.addValue("STATUS", taskAndFollowUp.getStatus());
-											
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
-		
-	}
-
-*/
 	
 	
 }

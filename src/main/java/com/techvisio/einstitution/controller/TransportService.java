@@ -27,7 +27,7 @@ import com.techvisio.einstitution.workflow.impl.TransportWorkflowManagerImpl;
 public class TransportService {
 
 	
-		private static final Logger logger = Logger.getLogger(InquiryService.class);
+		private static final Logger logger = Logger.getLogger(EnquiryService.class);
 		
 		@RequestMapping(value="/availableTransport",method = RequestMethod.GET)
 		  public List<AvailableTransport> getTransportAllocation() {

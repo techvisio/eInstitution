@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.AdmissionEnquiry;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,7 +36,7 @@ public class InquiryDaotest {
 	@Test
 	public void testAddInquiry(){
 
-		AdmissionInquiry admissionInquiry = new AdmissionInquiry();
+		AdmissionEnquiry admissionInquiry = new AdmissionEnquiry();
 
 		admissionInquiry.setEnquiryId(2L);
 		admissionInquiry.setFatherName("Anil Pathak");
@@ -51,7 +51,7 @@ public class InquiryDaotest {
 	@Test
 	public void testGetInquiry() {
 
-		AdmissionInquiry admissionInquiry = dao.getInquiry(1L);
+		AdmissionEnquiry admissionInquiry = dao.getInquiry(1L);
 		System.out.println(admissionInquiry);
 
 
@@ -60,7 +60,7 @@ public class InquiryDaotest {
 	@Test	
 	public void testUpdateInquiry(){
 
-		AdmissionInquiry admissionInquiry = dao.getInquiry(1L);
+		AdmissionEnquiry admissionInquiry = dao.getInquiry(1L);
 		admissionInquiry.setContactNo("9808790878");
 		dao.updateInquiry(admissionInquiry);
 

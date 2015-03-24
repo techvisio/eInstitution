@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class AdmissionInquiry {
+public class AdmissionEnquiry {
 	
 	private Long enquiryId;
 	private String fileNo;

@@ -16,24 +16,28 @@
 				<table>
 					<tr>
 						<td><span>Enquiry No</span></td>
-						<td><input type="text" ng-model="enqCriteria.enqNo"></td>
+						<td><input type="text" ng-model="searchCriteria.inquryId"></td>
 					</tr>
 					<tr>
-						<td><span>Course Name</span></td>
-						<td><input type="text" ng-model="enqCriteria.courseId"></td>
+						<td><span>Course</span></td>
+						<td><select ng-model="searchCriteria.courseId"></td>
+					</tr>
+					<tr>
+						<td><span>Branch</span></td>
+						<td><select ng-model="searchCriteria.branchId"></td>
 					</tr>
 					<tr>
 						<td><span>Email Id</span></td>
-						<td><input type="text" ng-model="enqCriteria.emailId"></td>
+						<td><input type="text" ng-model="searchCriteria.emailId"></td>
 					</tr>
 					<tr>
 						<td><span>Mobile No</span></td>
-						<td><input type="text" ng-model="enqCriteria.mobileNo"></td>
+						<td><input type="text" ng-model="searchCriteria.mobileNo"></td>
 					</tr>
 
 					<tr>
 						<td><button type="button" class="btn btn-success"
-								ng-click="getEnquiryByCriteria()">Get Details</button></td>
+								ng-click="getEnquiryBySearchCriteria()">Get Details</button></td>
 					</tr>
 				</table>
 			</div>
@@ -146,7 +150,7 @@
 					</td>
 					<td>
 						<button type="button" class="btn btn-danger"
-							ng-click="updateEnquiry()">Close Enquiry</button>
+							ng-click="getEnquiry()">Close Enquiry</button>
 					</td>
 				</tr>
 			</table>

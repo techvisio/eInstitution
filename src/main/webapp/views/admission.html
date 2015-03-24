@@ -114,7 +114,6 @@
 						<td><span>Admission Mode</span></td>
 						<td><select ng-model="student.admissionMode" ng-change="resetAdmissionMode()" ng-disabled="!form.isEdit && !form.isNew" required>
 								<option value="C">Counselling</option>
-								<option value="A">Consultant</option>
 								<option value="R">Referral</option>
 								<option value="W">Walk-In</option>
 						</select></td>
@@ -163,15 +162,17 @@
 							<td><span ng-class="{active:isSelected(3)}"><a href
 									ng-click="selectTab(3)">Academic</a></span></td>
 							<td><span ng-class="{active:isSelected(4)}"><a href
-									ng-click="selectTab(4)">Fee/Discount & Scholarship</a></span></td>
+									ng-click="selectTab(4)">Discount & Scholarship</a></span></td>
 							<td
 								ng-show="student.admissionMode && student.admissionMode != 'W'">
 								<span ng-class="{active:isSelected(5)}"><a href
 									ng-click="selectTab(5)"
 									ng-bind="admissionMode[student.admissionMode]"></a></span>
 							</td>
-							<td popover="Please Save record before accessing Other Services!" popover-trigger="mouseenter"><span ng-class="{active:isSelected(6)}"><a href
-									ng-click="selectTab(6)">Other Services</a></span></td>
+							<td><span ng-class="{active:isSelected(6)}"><a href
+									ng-click="selectTab(6)">Consultant</a></span></td>
+							<td popover="Please Save record before accessing Other Services!" popover-trigger="mouseenter"><span ng-class="{active:isSelected(7)}"><a href
+									ng-click="selectTab(7)">Other</a></span></td>
 						</tr>
 					</table>
 				</div>
@@ -511,16 +512,16 @@
 							</tr>
 						</table>
 					</div>
-					<div ng-show="student.admissionMode == 'A'" class="two-column-view">
-						<table>
-							<tr>
-								<th><span>Consultant Name</span></th>
-								<td><select ng-model="student.consultantDetail.consultantId"
-									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
-							</tr>
-						</table>
-					</div>
+<!-- 					<div ng-show="student.admissionMode == 'A'" class="two-column-view"> -->
+<!-- 						<table> -->
+<!-- 							<tr> -->
+<!-- 								<th><span>Consultant Name</span></th> -->
+<!-- 								<td><select ng-model="student.consultantDetail.consultantId" -->
+<!-- 									ng-disabled="!form.isEdit && !form.isNew" -->
+<!-- 									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
 
 					<div ng-show="student.admissionMode == 'R'" class="two-column-view">
 						<table>
@@ -533,7 +534,25 @@
 
 					</div>
 				</div>
-				<div class="admission-tab-inner" ng-show="isSelected(6)" >
+					
+					<div class="admission-tab-inner" ng-show="isSelected(6)" >
+					<div class="two-column-view">
+						<table>
+                               <tr ng-repeat="consultant in student.consultantDetail">
+
+                                 <td><select ng-model="consultant.consultantId"
+									ng-disabled="!form.isEdit && !form.isNew"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
+								<td><img height="35" width="35" ng-src="images/plus.png"
+									ng-click="addConsultantDetail()" /></td>
+								<td><img height="35" width="35" ng-src="images/minus.png"
+									ng-click="removeConsultantDetail($index)" ng-show="$index>0" /></td>
+							</tr>
+						
+						</table>
+					</div>
+				</div>
+				<div class="admission-tab-inner" ng-show="isSelected(7)" >
 					<div class="four-column-view">
 						<table>
 							<tr>

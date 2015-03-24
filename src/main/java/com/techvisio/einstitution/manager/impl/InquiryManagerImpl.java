@@ -2,7 +2,7 @@ package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
 
-import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.InquiryDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
@@ -32,16 +32,16 @@ public class InquiryManagerImpl implements InquiryManager {
 	}
 	
 	
-	public AdmissionInquiry getInquiry(Long inquiryId) {
+	public AdmissionEnquiry getInquiry(Long inquiryId) {
 
-		AdmissionInquiry admissionInquiry=null;
+		AdmissionEnquiry admissionInquiry=null;
 		
 		admissionInquiry=inquiryDao.getInquiry(inquiryId);
 		
 		return admissionInquiry;
 	}
 
-	public Long addInquiry (AdmissionInquiry admissionInquiry) {
+	public Long addInquiry (AdmissionEnquiry admissionInquiry) {
 		Long enquiryId=null;
 		if(admissionInquiry!=null){
 		 enquiryId=identifierGenerator.getUniqueIdentifierForEnquiry();
@@ -51,7 +51,7 @@ public class InquiryManagerImpl implements InquiryManager {
 		return enquiryId;
 	}
 
-	public void updateInquiry(AdmissionInquiry admissionInquiry) {
+	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
 
 		inquiryDao.updateInquiry(admissionInquiry);
 	}
@@ -62,7 +62,7 @@ public class InquiryManagerImpl implements InquiryManager {
 	}
 
 	@Override
-	public List<AdmissionInquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
+	public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
 		return inquiryDao.searchInqByCriteria(searchCriteria);
 	}
 

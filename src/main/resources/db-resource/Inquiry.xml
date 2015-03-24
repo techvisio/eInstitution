@@ -10,6 +10,7 @@ Select
 Inquiry_Id,
  Name,
  Father_Name,
+ Email_Id,
  DOB, 
  Contact_No, 
  Application_Status, 
@@ -37,6 +38,7 @@ Insert into AdmissionInquiry
 (Inquiry_Id,
 Name, 
 Father_Name, 
+Email_Id,
 DOB, 
 Contact_No,
 Application_Status, 
@@ -54,6 +56,7 @@ Remarks ) values
  (:Inquiry_Id,
  :Name, 
 :Father_Name, 
+:Email_Id,
 :DOB, 
 :Contact_No,
 :Application_Status, 
@@ -79,6 +82,7 @@ Update AdmissionInquiry set
 
 Name=:Name, 
 Father_Name=:Father_Name, 
+Email_Id=:Email_Id,
 DOB=:DOB, 
 Contact_No=:Contact_No,
 Application_Status=:Application_Status, 
@@ -110,8 +114,8 @@ Delete from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;
 	<entry key="searchInquiry">
     <![CDATA[
       
-SELECT * FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and emailId = IFNULL(:emailId,emailId) and courseId = IFNULL(:courseId,courseId) and 
-Contact_No =IFNULL(:phoneNo,Contact_No) and Branch_Id = IFNULL(:branchId,Branch_Id) and name = ifnull(:name,Name); 
+SELECT * FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
+IFNULL(Contact_No,'-1') =IFNULL(:Phone_No,IFNULL(Contact_No,'-1')) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and Name like :Name; 
     ]]>
 
 	</entry>

@@ -28,6 +28,9 @@ admissionModule
 
 			 $scope.student.addressDtl = [];
 
+			 $scope.student.consultantDetail=[];
+			 $scope.student.consultantDetail.push(angular.copy($scope.dummyConsultantDetail));
+			 
 			 $scope.student.academicDtl = [];
 			 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
 
@@ -93,9 +96,13 @@ admissionModule
 			 };
 
 
+			 $scope.dummyConsultantDetail={
+					 
+					 "consultantId" : null
+			 };
+			 
 			 $scope.admissionMode={"C":"Counselling",
 					 "W":"Walk-In",
-					 "A":"Consultant",
 					 "R":"Referral"};
 
 
@@ -133,6 +140,7 @@ admissionModule
 
 				 $scope.dashboard=true;
 				 $scope.resetSearchCriteria();
+				 
 			 }
 			 $scope.checkAmout=function(index,type){
 				 if(type=='amount'){
@@ -172,6 +180,18 @@ admissionModule
 				 console.log($scope.student);
 			 }
 
+			 $scope.addConsultantDetail = function(){
+
+				 var consultantDetail = angular.copy($scope.dummyConsultantDetail);
+				 $scope.student.consultantDetail.push(consultantDetail);
+			 };       
+
+			 $scope.removeConsultantDetail = function(index){
+
+				 $scope.student.consultantDetail.splice(index, 1);
+			 };
+
+			 
 			 $scope.addDiscountDtl = function(){
 
 				 var discountDtl = angular.copy($scope.dummyDiscountDtl);
@@ -451,7 +471,6 @@ admissionModule
 				 $scope.student.counsellingDtl = [];
 				 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
 				 
-				 $scope.student.consultantDetail = null;
 				 $scope.student.referredBy = null;
 				 
 			 }
@@ -469,6 +488,11 @@ admissionModule
 					 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 				 }
 
+				 if(angular.isUndefined(data.consultantDetail) || data.consultantDetail==null || data.consultantDetail.length == 0)
+				 {
+					 $scope.student.consultantDetail=[];
+					 $scope.student.consultantDetail.push(angular.copy($scope.dummyConsultantDetail));
+				 }
 
 				 if(angular.isUndefined(data.counsellingDtl) || data.counsellingDtl==null || data.counsellingDtl.length == 0)
 				 {

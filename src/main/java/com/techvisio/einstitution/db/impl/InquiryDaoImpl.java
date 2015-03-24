@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.InquiryDao;
@@ -25,7 +25,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		this.inquiryQueryProps = inquiryQueryProps;
 	}
 
-	public AdmissionInquiry getInquiry(Long inquiryId) {
+	public AdmissionEnquiry getInquiry(Long inquiryId) {
 
 		String getQuery = inquiryQueryProps
 				.getProperty("getAdmissionInquiryByInquiryId");
@@ -33,11 +33,11 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"Inquiry_Id", inquiryId);
 
-		List<AdmissionInquiry> admissionInquiries = getNamedParamJdbcTemplate()
+		List<AdmissionEnquiry> admissionInquiries = getNamedParamJdbcTemplate()
 				.query(getQuery, namedParameter,
 						new AdmissionINquiryRowMapper());
 
-		AdmissionInquiry admissionInquiry=null;
+		AdmissionEnquiry admissionInquiry=null;
 
 		if(admissionInquiries != null && admissionInquiries.size()>0){
 			
@@ -47,7 +47,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		return admissionInquiry;
 	}
 
-	public void addInquiry(AdmissionInquiry admissionInquiry) {
+	public void addInquiry(AdmissionEnquiry admissionInquiry) {
 
 		String addQuery = inquiryQueryProps.getProperty("addAdmissionInquiry");
 
@@ -77,7 +77,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
 	}
 
-	public void updateInquiry(AdmissionInquiry admissionInquiry) {
+	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
 
 		String updateQuery = inquiryQueryProps
 				.getProperty("updateAdmissionInquiry");
@@ -119,33 +119,33 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 	}
 
 	@Override
-	public List<AdmissionInquiry> searchInqByCriteria(
+	public List<AdmissionEnquiry> searchInqByCriteria(
 			SearchCriteria searchCriteria) {
 		String getQuery = inquiryQueryProps
 				.getProperty("searchInquiry");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Inquiry_Id", searchCriteria.getInquryNo()==null?null:searchCriteria.getInquryNo())
+				"Inquiry_Id", searchCriteria.getInquryId()==null?null:searchCriteria.getInquryId())
 		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
-		.addValue("name", StringUtils.isEmpty(searchCriteria.getName())?null:searchCriteria.getName())
-		.addValue("phoneNo", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
-		.addValue("courseId", searchCriteria.getCourseId()==null?null:searchCriteria.getCourseId())
-		.addValue("branchId", searchCriteria.getBranchId()==null?null:searchCriteria.getBranchId());
+		.addValue("Name", StringUtils.isEmpty(searchCriteria.getName())?"%":searchCriteria.getName()+"%")
+		.addValue("Phone_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
+		.addValue("Course_Id", searchCriteria.getCourseId()==null?null:searchCriteria.getCourseId())
+		.addValue("Branch_Id", searchCriteria.getBranchId()==null?null:searchCriteria.getBranchId());
 		
-		List<AdmissionInquiry> admissionInquiries=getNamedParamJdbcTemplate().query(
+		List<AdmissionEnquiry> admissionInquiries=getNamedParamJdbcTemplate().query(
 				getQuery, namedParameter, new AdmissionINquiryRowMapper());
 		
 		    return admissionInquiries;
 	}
 	
-	private class AdmissionINquiryRowMapper implements RowMapper<AdmissionInquiry>
+	private class AdmissionINquiryRowMapper implements RowMapper<AdmissionEnquiry>
 	{
 
 		@Override
-				public AdmissionInquiry mapRow(ResultSet rs,
+				public AdmissionEnquiry mapRow(ResultSet rs,
 						int rowNum) throws SQLException {
 
-					AdmissionInquiry admissionInquiry = new AdmissionInquiry();
+					AdmissionEnquiry admissionInquiry = new AdmissionEnquiry();
 					admissionInquiry.setEnquiryId(CommonUtil.getLongValue(rs
 							.getLong("Inquiry_Id")));
 					admissionInquiry.setName(rs.getString("Name"));
@@ -154,6 +154,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 					admissionInquiry.setDob(rs.getDate("DOB"));
 					admissionInquiry.setContactNo(rs
 							.getString("Contact_No"));
+					admissionInquiry.setEmailId(rs.getString("Email_Id"));
 					admissionInquiry.setApplicationStatus(rs
 							.getString("Application_Status"));
 					admissionInquiry.setDueDate(rs

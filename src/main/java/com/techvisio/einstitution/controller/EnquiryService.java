@@ -1,4 +1,4 @@
-package com.techvisio.einstitution.controller;
+ package com.techvisio.einstitution.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,19 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.AdmissionInquiry;
+import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.util.AppConstants;
-import com.techvisio.einstitution.workflow.InquiryWorkflowManager;
-import com.techvisio.einstitution.workflow.impl.InquiryWorkflowManagerImpl;
+import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 
 
 @RestController
 @RequestMapping("/inquiry")
-public class InquiryService {
+public class EnquiryService {
 	
-	private static final Logger logger = Logger.getLogger(InquiryService.class);
+	private static final Logger logger = Logger.getLogger(EnquiryService.class);
 	
 	@RequestMapping(value="/{inquiryId}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getInquiry(@PathVariable Long inquiryId) {  
@@ -35,9 +36,9 @@ public class InquiryService {
 		Response response=new Response();
 		try{
 		
-		InquiryWorkflowManager inquiryWorkflowManager= new InquiryWorkflowManagerImpl();
+		EnquiryWorkflowManager enquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
 		
-		AdmissionInquiry admissionInquiry= inquiryWorkflowManager.getInquiry(inquiryId);
+		EnquiryAndTaskBean admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(inquiryId);
 		
 		response.setResponseBody(admissionInquiry);
                   		
@@ -51,13 +52,13 @@ public class InquiryService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response> addInquiry(@RequestBody AdmissionInquiry admissionInquiry) {  
+	public ResponseEntity<Response> addInquiry(@RequestBody AdmissionEnquiry admissionInquiry) {  
 		Map<String,Object> enquiryData=new HashMap<String, Object>();
 		Response response=new Response();
 		try{
-			InquiryWorkflowManager inquiryWorkflowManager= new InquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.addInquiry(admissionInquiry);
-		AdmissionInquiry admissionInquiryDB=inquiryWorkflowManager.getInquiry(enquiryId);
+			EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
+		Long enquiryId=inquiryWorkflowManager.addEnquiryandTask(admissionInquiry);
+		AdmissionEnquiry admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 			enquiryData.put(AppConstants.ENQUIRY, admissionInquiryDB);
 		}
@@ -70,13 +71,13 @@ public class InquiryService {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public void updateInquiry(@RequestBody AdmissionInquiry admissionInquiry) {  
-		InquiryWorkflowManager inquiryWorkflowManager= new InquiryWorkflowManagerImpl();
-		inquiryWorkflowManager.updateInquiry(admissionInquiry);
+	public void updateInquiry(@RequestBody AdmissionEnquiry admissionInquiry) {  
+		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
+		inquiryWorkflowManager.updateEnquiryandTask(admissionInquiry);
 	}
 	@RequestMapping(value="/{inquiryId}",method = RequestMethod.DELETE)
 	public void deleteInquiry(@PathVariable Long inquiryId) {  
-		InquiryWorkflowManager inquiryWorkflowManager= new InquiryWorkflowManagerImpl();
+		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
 		inquiryWorkflowManager.deleteInquiry(inquiryId);
 	}
 	
@@ -85,8 +86,8 @@ public class InquiryService {
 		Response response=new Response();
 		try
 		{
-			InquiryWorkflowManager workflowManager = new InquiryWorkflowManagerImpl();
-			List<AdmissionInquiry> admissionInquiry = workflowManager.searchInqByCriteria(searchCriteria);
+			EnquiryWorkflowManager workflowManager = new EnquiryWorkflowManagerImpl();
+			List<AdmissionEnquiry> admissionInquiry = workflowManager.searchInqByCriteria(searchCriteria);
 			response.setResponseBody(admissionInquiry);
 			
 			if(admissionInquiry == null){

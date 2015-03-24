@@ -9,7 +9,7 @@ public class SearchCriteria {
 	private String uniEnrollNo;
 
 	// Specific to Inquiry.
-	private Long inquryNo;
+	private Long inquryId;
 	private Long courseId;
 	private String name;
 	private Long branchId;
@@ -61,13 +61,6 @@ public class SearchCriteria {
 		this.uniEnrollNo = uniEnrollNo;
 	}
 
-	public Long getInquryNo() {
-		return inquryNo;
-	}
-
-	public void setInquryNo(Long inquryNo) {
-		this.inquryNo = inquryNo;
-	}
 
 	public Long getCourseId() {
 		return courseId;
@@ -91,5 +84,13 @@ public class SearchCriteria {
 
 	public void setBranchId(Long branchId) {
 		this.branchId = branchId;
+	}
+
+	public Long getInquryId() {
+		return inquryId;
+	}
+
+	public void setInquryId(Long inquryId) {
+		this.inquryId = inquryId;
 	}
 }
