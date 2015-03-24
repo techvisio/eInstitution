@@ -22,7 +22,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 
 	private Properties enquiryQueryProps;
 
-	public void setInquiryQueryProps(Properties inquiryQueryProps) {
+	public void setEnquiryQueryProps(Properties inquiryQueryProps) {
 		this.enquiryQueryProps = inquiryQueryProps;
 	}
 

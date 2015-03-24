@@ -8,7 +8,8 @@ var erpModule = angular
     'managementModule',
     'feeModule',
     'ui.bootstrap',
-    'enquiryModule'
+    'enquiryModule',
+    'consultantModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -45,7 +46,9 @@ var erpModule = angular
         templateUrl: 'views/enquiry.html',
         controller: 'enquiryController'
         
-      })
+      }).when('/consultantForm', {
+          templateUrl: 'views/consultant.html',
+          controller: 'consultantController'})
       .otherwise({
         redirectTo: '/'
       });

@@ -76,14 +76,15 @@ Select
 	Consultancy_Agreed, 
 	Payment_Mode, 
 	Amount_To_Pay, 
-	Due_Date
+	Due_Date,
+	Remarks
 
 from ConsultantDetail where File_No=:File_No;
     ]]>
 
 	</entry>
 
-	<entry key="addConsultantDtl">
+	<entry key="upsertConsultantDtl">
     <![CDATA[
       
 Insert into ConsultantDetail
@@ -93,38 +94,33 @@ Insert into ConsultantDetail
    Consultancy_Agreed, 
    Payment_Mode, 
    Amount_To_Pay, 
-   Due_Date) values
+   Due_Date,
+   Remarks) values
    
  (:File_No, 
  :Consultant_Id, 
  :Consultancy_Agreed, 
  :Payment_Mode, 
  :Amount_To_Pay, 
- :Due_Date);
+ :Due_Date,
+ :Remarks)
 
-    ]]>
-
-	</entry>
-
-	<entry key="updateConsultantDtl">
-    <![CDATA[
-      
- Update ConsultantDetail set
+on duplicate key update
 
     Consultancy_Agreed=:Consultancy_Agreed, 
     Payment_Mode=:Payment_Mode, 
     Amount_To_Pay=:Amount_To_Pay, 
-    Due_Date=:Due_Date
-    
- where File_No=:File_No;
+    Due_Date=:Due_Date,
+    Remarks = :Remarks
     ]]>
 
 	</entry>
 
+	
 	<entry key="deleteConsultantDtl">
     <![CDATA[
       
-Delete from ConsultantDetail where File_No=:File_No;
+Delete from ConsultantDetail where File_No=:File_No and Consultant_Id not in (:Consultant_Id);
 
     ]]>
 
@@ -182,4 +178,55 @@ Delete from ConsultantPaymentDetail where File_No=:File_No;
 
 	</entry>
 
+
+	<entry key="getConsultantPaymentCriteria">
+    <![CDATA[
+      
+SELECT 
+
+File_No, Consultant_Id, Fee_Received, Amount_To_Be_Paid, Fee_Due_Date, Approved, Paid, Triggered 
+
+FROM consultantpaymentcriteria where File_No=:File_No; 
+    ]]>
+
+	</entry>
+
+	<entry key="addConsultantPaymentCriteria">
+    <![CDATA[
+      
+Insert into  consultantpaymentcriteria
+
+(File_No, 
+Consultant_Id, 
+Fee_Received, 
+Amount_To_Be_Paid, 
+Fee_Due_Date, 
+Approved, 
+Paid, 
+Triggered) values
+
+(:File_No, 
+:Consultant_Id, 
+:Fee_Received, 
+:Amount_To_Be_Paid, 
+:Fee_Due_Date, 
+:Approved, Paid, 
+:Triggered);
+
+   ]]>
+
+	</entry>
+
+	<entry key="deleteConsultantPaymentCriteria">
+    <![CDATA[
+      
+Delete from consultantpaymentcriteria where File_No = :File_No;
+
+   ]]>
+
+	</entry>
+
+
+
 </properties>
+

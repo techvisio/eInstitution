@@ -1,0 +1,122 @@
+<div ng-controller="consultantController" ng-init="init()">
+	<div ng-show="dashboard" class="module-dashboard-container">
+		<div class="module-dashboard-content">
+			<div>
+				<table>
+					<tr>
+						<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="showCriteria=!showCriteria">Search Existing</button></td>
+						<td><button type="button" class="btn btn-success btn-lg"
+								ng-click="addNew=!addNew">New Consultant</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="searchcriteria" ng-show="showCriteria">
+				<table>
+					<tr>
+						<td><span>Consultant No</span></td>
+						<td><input type="text" ng-model="enqCriteria.enqNo"></td>
+					</tr>
+					<tr>
+						<td><span>Consultant Name</span></td>
+						<td><input type="text" ng-model="enqCriteria.courseId"></td>
+					</tr>
+					<tr>
+						<td><span>Primary Phone No</span></td>
+						<td><input type="text" ng-model="enqCriteria.mobileNo"></td>
+					</tr>
+					<tr>
+						<td><span>Secondary Contact No</span></td>
+						<td><input type="text" ng-model="enqCriteria.mobileNo"></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-success"
+								ng-click="getEnquiryByCriteria()">Get Details</button></td>
+					</tr>
+				</table>
+			</div>
+
+			<div ng-show=searchResult>
+				<table ng-repeat="obj in searchRes">
+					<tr>
+						<!-- <td><span> Name </span></td> -->
+						<td><span> {{obj.name}} </span></td>
+						<!-- <td><span> Name </span></td> -->
+						<td><span> {{obj.primaryPhone}} </span></td>
+						<td><span> {{obj.SecondaryPhone}} </span></td>
+						<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Show Detail</button></td>
+					</tr>
+				</table>
+			</div>
+			<!-- Consultants approval peding -->
+			<!-- <div class="latest-admission" ng-init="getDueEnquiry()">
+			<span class="title-span">Due Enquiries</span>
+			<table>
+				<tr>
+					<th><span>Enquiry No.</span></th>
+					<th><span>Student Name</span></th>
+					<th><span>Phone Name</span></th>
+					<th><span>Course Name</span></th>
+
+				</tr>
+				<tr ng-repeat="object in dueEnquiries">
+					<td><span ng-bind="object.fileNo"></span></td>
+					<td><span ng-bind="object.firstName+' '+object.lastName"></span></td>
+					<td><span ng-bind="object.fatherName"></span></td>
+					<td><button type="button" class="btn btn-success btn-xs"
+							ng-click="showDetail($index)">Show Detail</button></td>
+				</tr>
+				<tr>
+					<td colspan=3><button type="button"
+							class="btn btn-primary showmore" ng-click="LoadMoreData()">Load
+							more data</button></td>
+				</tr>
+
+			</table>
+		</div> -->
+
+			<form ng-show=addNew name="enquiryFrom" id="enquiryFrom">
+				<div class="ajax-busy-indicator" ng-show="processing"></div>
+				<div class="panel-div">
+					<span ng-if="form.isNew">Adding Consultant</span> <span
+						ng-if="!form.isNew">{{consultant.name}}
+						{{consultant.phone}}</span>
+				</div>
+				<div class="admission-fixed-div">
+					<table>
+						<tr>
+							<td><span> Name </span>
+							<td><input type="text" ng-model="consultant.name" required></td>
+						</tr>
+						<tr>
+							<td><span> Primary Phone Number </span></td>
+							<td><input type="text" ng-model="consultant.primaryPhone" required></td>
+						</tr>
+						<tr>
+							<td><span> Secondary Phone Number </span></td>
+							<td><input type="text" ng-model="consultant.SecondaryPhone"></td>
+						</tr>
+						<tr>
+							<td><span> Email ID </span></td>
+							<td><input type="text" ng-model="consultant.emailId"></td>
+						</tr>
+						<tr>
+							<td><span> Address </span></td>
+							<td><textarea type="text" ng-model="consultant.address"></textarea></td>
+						</tr>
+						<tr>
+							<td>
+								<button type="button" class="btn btn-primary"
+									ng-click="addConsultant()">Add</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger"
+									ng-click="resetForm()">Cancel</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
