@@ -62,8 +62,8 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 		<property name="locations" value="classpath:db-resource/Enquiry.xml" />
 	</bean>
 
-	<bean id="inquiryDao" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">
-		<property name="inquiryQueryProps" ref="inquiryQueryProps" />
+	<bean id="enquiryDao" class="com.techvisio.einstitution.db.impl.EnquiryDaoImpl">
+		<property name="enquiryQueryProps" ref="enquiryQueryProps" />
 	</bean>
 
 	<bean id="admissionQueryProps"
@@ -122,7 +122,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<property name="locations"
 		value="classpath:db-resource/TaskAndFollowUp.xml"></property>
 	</bean>
-	<bean id="taskFlowDaoImpl" class="com.techvisio.einstitution.db.impl.TaskFlowDaoImpl">
+	<bean id="taskFollowDaoImpl" class="com.techvisio.einstitution.db.impl.TaskFollowDaoImpl">
 		<property name="taskFollowQueryProps" ref="taskFollowQueryProps"></property>	
 	</bean>
 
