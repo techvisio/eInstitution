@@ -3,7 +3,32 @@
 
 <properties>
 
-	<entry key="getAdmissionInquiryByInquiryId">
+
+<entry key="getAdmissionInquiryByTask_date">
+    <![CDATA[
+select 
+AI.Inquiry_Id, 
+AI.Name, 
+AI.Father_Name,
+AI.DOB, 
+AI.Contact_No,
+AI.Application_Status,
+AI.Due_Date, 
+AI.Created_By, 
+AI.created_on,
+AI.Updated_By, 
+AI.updated_on,
+AI.Branch_Id,
+AI.FollowUp_Required,
+AI.File_no,
+AI.Course_Id,
+AI.Remarks
+
+from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and  TF.Module=:'ENQUIRY';     ]]>
+
+</entry>
+
+<entry key="getAdmissionInquiryByInquiryId">
     <![CDATA[
 Select
 

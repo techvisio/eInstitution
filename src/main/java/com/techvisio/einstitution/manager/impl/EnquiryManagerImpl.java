@@ -1,33 +1,34 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.db.InquiryDao;
+import com.techvisio.einstitution.db.EnquiryDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
-import com.techvisio.einstitution.manager.InquiryManager;
+import com.techvisio.einstitution.manager.EnquiryManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
-public class InquiryManagerImpl implements InquiryManager {
+public class EnquiryManagerImpl implements EnquiryManager {
 
 	
-	InquiryDao inquiryDao=ContextProvider.getContext().getBean(InquiryDao.class);
+	EnquiryDao inquiryDao=ContextProvider.getContext().getBean(EnquiryDao.class);
 	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
 
 
-	private static InquiryManagerImpl instance=null;
-	public static synchronized InquiryManagerImpl getInstance()
+	private static EnquiryManagerImpl instance=null;
+	public static synchronized EnquiryManagerImpl getInstance()
 	{
 		if(instance == null){
-			instance=new InquiryManagerImpl();
+			instance=new EnquiryManagerImpl();
 		}
 		
 		return instance;
 	}
 	
-	private InquiryManagerImpl() {
+	private EnquiryManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -64,6 +65,12 @@ public class InquiryManagerImpl implements InquiryManager {
 	@Override
 	public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
 		return inquiryDao.searchInqByCriteria(searchCriteria);
+	}
+
+	@Override
+	public AdmissionEnquiry getInquiryByTaskDate(Date taskDate) {
+
+		return inquiryDao.getInquiryByTaskDate(taskDate);
 	}
 
 }

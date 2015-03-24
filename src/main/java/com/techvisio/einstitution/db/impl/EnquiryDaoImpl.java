@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -13,21 +14,43 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
-import com.techvisio.einstitution.db.InquiryDao;
+import com.techvisio.einstitution.db.EnquiryDao;
 import com.techvisio.einstitution.db.impl.AdmissionDaoImpl.StudentDetailRowMapper;
 import com.techvisio.einstitution.util.CommonUtil;
 
-public class InquiryDaoImpl extends BaseDao implements InquiryDao {
+public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 
-	private Properties inquiryQueryProps;
+	private Properties enquiryQueryProps;
 
 	public void setInquiryQueryProps(Properties inquiryQueryProps) {
-		this.inquiryQueryProps = inquiryQueryProps;
+		this.enquiryQueryProps = inquiryQueryProps;
 	}
 
+	public AdmissionEnquiry getInquiryByTaskDate(Date taskDate) {
+
+		String getQuery = enquiryQueryProps
+				.getProperty("getAdmissionInquiryByTask_date");
+		
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Task_Date", taskDate);
+		
+		List<AdmissionEnquiry> admissionInquiries = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new AdmissionINquiryRowMapper());
+		AdmissionEnquiry admissionInquiry=null;
+
+		if(admissionInquiries != null && admissionInquiries.size()>0){
+			
+			admissionInquiry = admissionInquiries.get(0);
+		}
+
+		return admissionInquiry;
+	}
+	
+	
 	public AdmissionEnquiry getInquiry(Long inquiryId) {
 
-		String getQuery = inquiryQueryProps
+		String getQuery = enquiryQueryProps
 				.getProperty("getAdmissionInquiryByInquiryId");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -49,7 +72,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
 	public void addInquiry(AdmissionEnquiry admissionInquiry) {
 
-		String addQuery = inquiryQueryProps.getProperty("addAdmissionInquiry");
+		String addQuery = enquiryQueryProps.getProperty("addAdmissionInquiry");
 
 		SqlParameterSource namedParameters = new MapSqlParameterSource(
 				"Inquiry_Id", admissionInquiry.getEnquiryId())
@@ -79,7 +102,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
 	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
 
-		String updateQuery = inquiryQueryProps
+		String updateQuery = enquiryQueryProps
 				.getProperty("updateAdmissionInquiry");
 
 		SqlParameterSource namedParameters = new MapSqlParameterSource(
@@ -109,7 +132,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 
 	public void deleteInquiry(Long inquiryId) {
 
-		String deleteQuery = inquiryQueryProps
+		String deleteQuery = enquiryQueryProps
 				.getProperty("deleteAdmissionInquiry");
 
 		SqlParameterSource namedParameters = new MapSqlParameterSource(
@@ -121,7 +144,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 	@Override
 	public List<AdmissionEnquiry> searchInqByCriteria(
 			SearchCriteria searchCriteria) {
-		String getQuery = inquiryQueryProps
+		String getQuery = enquiryQueryProps
 				.getProperty("searchInquiry");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -180,5 +203,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		}
 		
 	}
+
+	
 
 }

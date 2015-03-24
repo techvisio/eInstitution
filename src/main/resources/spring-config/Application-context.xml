@@ -57,9 +57,9 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	</bean>
 
 
-	<bean id="inquiryQueryProps"
+	<bean id="enquiryQueryProps"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="locations" value="classpath:db-resource/Inquiry.xml" />
+		<property name="locations" value="classpath:db-resource/Enquiry.xml" />
 	</bean>
 
 	<bean id="inquiryDao" class="com.techvisio.einstitution.db.impl.InquiryDaoImpl">

@@ -6,15 +6,15 @@ import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
-import com.techvisio.einstitution.manager.InquiryManager;
-import com.techvisio.einstitution.manager.impl.InquiryManagerImpl;
+import com.techvisio.einstitution.manager.EnquiryManager;
+import com.techvisio.einstitution.manager.impl.EnquiryManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.TaskFollowWorkflowManager;
 
 public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
-	InquiryManager enquiryManager = InquiryManagerImpl.getInstance();
+	EnquiryManager enquiryManager = EnquiryManagerImpl.getInstance();
 	
 	
 	@Override

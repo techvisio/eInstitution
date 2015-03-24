@@ -40,7 +40,7 @@ public class EnquiryService {
 		
 		EnquiryAndTaskBean admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(inquiryId);
 		
-		response.setResponseBody(admissionInquiry);
+		response.setResponseBody(admissionInquiAndTask);
                   		
 		}
 		
@@ -58,7 +58,7 @@ public class EnquiryService {
 		try{
 			EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
 		Long enquiryId=inquiryWorkflowManager.addEnquiryandTask(admissionInquiry);
-		AdmissionEnquiry admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 			enquiryData.put(AppConstants.ENQUIRY, admissionInquiryDB);
 		}

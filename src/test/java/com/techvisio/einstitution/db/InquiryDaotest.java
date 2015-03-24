@@ -18,7 +18,7 @@ import com.techvisio.einstitution.beans.AdmissionEnquiry;
 public class InquiryDaotest {
 
 	@Autowired
-	InquiryDao dao;
+	EnquiryDao dao;
 
 	// @Test
 	// public void testAddInquiry(){
