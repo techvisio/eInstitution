@@ -14,7 +14,7 @@ import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.db.TaskFollowDao;
 import com.techvisio.einstitution.util.CommonUtil;
 
-public class TaskFlowDaoImpl extends BaseDao implements TaskFollowDao {
+public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 		
 	private Properties  taskFollowQueryProps;
 
