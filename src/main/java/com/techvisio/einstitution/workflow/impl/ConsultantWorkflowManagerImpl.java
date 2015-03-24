@@ -18,14 +18,14 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 		return consultantDetails;
 	}
 
-	public void addConsultantDtl(ConsultantDetail consultantDetail) {
+	public void saveConsultant(List<ConsultantDetail> consultantDetails) {
            
-		manager.addConsultantDtl(consultantDetail);
+		manager.saveConsultant(consultantDetails);
 	}
 
-	public void deleteConsultantDtl(String fileNo) {
+	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails) {
 
-		manager.deleteConsultantDtl(fileNo);
+		manager.deleteConsultantDtl(consultantDetails);
 	}
 
 }

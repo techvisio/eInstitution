@@ -35,14 +35,14 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		return consultantDetails;
 	}
 
-	public void addConsultantDtl(ConsultantDetail consultantDetail){
+	public void saveConsultant(List<ConsultantDetail> consultantDetails){
 
-		consultantDao.addConsultantDtl(consultantDetail);
+		consultantDao.saveConsultant(consultantDetails);
 	}
 
-	public void deleteConsultantDtl(String fileNo) {
+	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails) {
 
-		consultantDao.deleteConsultantDtl(fileNo);;
+		consultantDao.deleteConsultantDtl(consultantDetails);
 	}
 
 }

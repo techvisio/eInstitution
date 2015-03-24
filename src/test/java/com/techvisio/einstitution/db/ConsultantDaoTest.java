@@ -52,14 +52,6 @@ public void testGetConsulTant(){
 }
 
 
-
-@Test
-public void testDeleteConsultantDtl(){
-	
-	dao.deleteConsultantDtl("11");
-}
-
-
 @Test
 public void testAddConsultantPaymentCriteria(){
 
@@ -93,9 +85,10 @@ for(ConsultantPaymentCriteria consultantPaymentCriteria2 : consultantPaymentCrit
     dao.updateConsultantPaymentCriteria(consultantPaymentCriteria2);
     
 }
-}
-
 
 }
 
 
+
+
+}

@@ -29,9 +29,14 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		String fileNo = admissionManager.addStudentDtl(studentDetail);
 		
 		if(studentDetail.getConsultantDetail() !=null){
-		ConsultantDetail consultantDetail = studentDetail.getConsultantDetail();
-		consultantDetail.setFileNo(fileNo);
-	    consultantWorkflowManager.addConsultantDtl(consultantDetail);
+		List<ConsultantDetail> consultantDetails = studentDetail.getConsultantDetail();
+		if(consultantDetails != null){
+		
+			for(ConsultantDetail consultantDetail : consultantDetails){
+			consultantDetail.setFileNo(fileNo);
+			}
+		}
+	    consultantWorkflowManager.saveConsultant(consultantDetails);
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null){
@@ -51,13 +56,19 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		String fileNo = admissionManager.updateStudentDtl(studentDetail);
 		
 		if(studentDetail.getConsultantDetail() !=null){
-		ConsultantDetail consultantDetail = studentDetail.getConsultantDetail();
+		List<ConsultantDetail >consultantDetails = studentDetail.getConsultantDetail();
+		if(consultantDetails != null){
+		for(ConsultantDetail consultantDetail : consultantDetails){	
+		
 		consultantDetail.setFileNo(fileNo);
-		consultantWorkflowManager.addConsultantDtl(consultantDetail);
+		}
+		}
+		consultantWorkflowManager.saveConsultant(consultantDetails);
 		}
 		else
 		{
-			consultantWorkflowManager.deleteConsultantDtl(fileNo);
+			List<ConsultantDetail> consultantDetails = consultantWorkflowManager.getConsultantDtl(fileNo); 
+			consultantWorkflowManager.deleteConsultantDtl(consultantDetails);
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null){
@@ -84,10 +95,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	studentDetail.setScholarshipDetail(scholarshipDetail);
 	
 	List<ConsultantDetail> consultantDetails = consultantWorkflowManager.getConsultantDtl(fileNo);
-	
-	for(ConsultantDetail consultantDetail : consultantDetails){
-	studentDetail.setConsultantDetail(consultantDetail);
-	}
+	studentDetail.setConsultantDetail(consultantDetails);
 	
 	return studentDetail;
 	

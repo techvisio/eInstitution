@@ -132,9 +132,15 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		return consultantDetails;
 	}
 
+	public void saveConsultant(List<ConsultantDetail> consultantDetails){
+		deleteConsultantDtl(consultantDetails);
+		for(ConsultantDetail consultantDetail:consultantDetails){
+			addConsultantDtl(consultantDetail);
+		}
+	}
 
-	public void addConsultantDtl(ConsultantDetail consultantDetail) {
-
+	private void addConsultantDtl(ConsultantDetail consultantDetail) {
+		
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
 		if(consultantDetail.getConsultantId()!=null){
 			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId())
@@ -150,6 +156,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 			if (consultantDetail.getConsultantPaymentDetail() != null) {
 				for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail
 						.getConsultantPaymentDetail()) {
+			
 					addConsultantPaymentDtl(consultantPaymentDtl);
 				}
 			}

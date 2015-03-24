@@ -46,16 +46,16 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response> addConsultantDtl(@RequestBody ConsultantDetail consultantDetail) {  
+	public ResponseEntity<Response> addConsultantDtl(@RequestBody List<ConsultantDetail> consultantDetails) {  
         
 		Response response = new Response();
 		
 		try
 		{
 		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
-		workflowManager.addConsultantDtl(consultantDetail);
+		workflowManager.saveConsultant(consultantDetails);
      
-		response.setResponseBody(consultantDetail);
+		response.setResponseBody(consultantDetails);
 		}
 		catch(Exception e)
 		{
@@ -65,11 +65,11 @@ private static final Logger logger = Logger.getLogger(ConsultantService.class);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
-	public void deleteConsultantDtl(@PathVariable String fileNo) {  
-		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
-		workflowManager.deleteConsultantDtl(fileNo);
-	}
+//	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
+//	public void deleteConsultantDtl(@PathVariable List fileNo) {  
+//		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
+//		
+//	}
 
 	
 }

@@ -17,7 +17,7 @@ public interface ConsultantDao {
 	
 	
 	public List<ConsultantDetail> getConsultantDtl(String fileNo);
-	public void addConsultantDtl(ConsultantDetail consultantDetail);
+	public void saveConsultant(List<ConsultantDetail> consultantDetails);
 	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails);
 	
 	

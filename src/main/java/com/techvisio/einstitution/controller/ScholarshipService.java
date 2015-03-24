@@ -79,8 +79,8 @@ public class ScholarshipService {
 		
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable String fileNo) {  
-		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
-		workflowManager.deleteConsultantDtl(fileNo);
+		ScholarshipWorkflowManager workflowManager=new ScholarshipWorkflowManagerImpl();
+		workflowManager.deleteScholarshipDetail(fileNo);
 	}
 
 	

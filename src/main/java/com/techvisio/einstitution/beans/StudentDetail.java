@@ -125,7 +125,7 @@ public class StudentDetail {
 	private List<CounsellingDetail> counsellingDtl=new ArrayList<CounsellingDetail>();
 	
 	private TransportReservation reservation;
-    private ConsultantDetail consultantDetail;
+    private List<ConsultantDetail> consultantDetail;
     private ScholarshipDetail scholarshipDetail;
     private String quotaCode;
     private String referredBy;
@@ -463,12 +463,13 @@ public class StudentDetail {
 		this.scholarshipDetail = scholarshipDetail;
 	}
 
-	public ConsultantDetail getConsultantDetail() {
+	public List<ConsultantDetail> getConsultantDetail() {
 		return consultantDetail;
 	}
 
-	public void setConsultantDetail(ConsultantDetail consultantDetail) {
+	public void setConsultantDetail(List<ConsultantDetail> consultantDetail) {
 		this.consultantDetail = consultantDetail;
 	}
-	
+
+
 }
