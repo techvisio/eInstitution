@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,31 @@ import com.techvisio.einstitution.workflow.impl.InquiryWorkflowManagerImpl;
 public class InquiryService {
 	
 	private static final Logger logger = Logger.getLogger(InquiryService.class);
+	
+	@RequestMapping(value="/InquiryByTaskDate",method = RequestMethod.POST)
+	public ResponseEntity<Response> getInquiryByTaskDate(@RequestBody Date taskDate){
+		Response response=new Response();
+		try{
+		
+		InquiryWorkflowManager inquiryWorkflowManager= new InquiryWorkflowManagerImpl();
+		
+		AdmissionInquiry admissionInquiry= inquiryWorkflowManager.getInquiryByTaskDate(taskDate);
+		response.setResponseBody(admissionInquiry);
+  		
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			e.getLocalizedMessage();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+		
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/{inquiryId}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getInquiry(@PathVariable Long inquiryId) {  

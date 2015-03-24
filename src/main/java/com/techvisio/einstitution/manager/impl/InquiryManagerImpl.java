@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.AdmissionInquiry;
@@ -64,6 +65,12 @@ public class InquiryManagerImpl implements InquiryManager {
 	@Override
 	public List<AdmissionInquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
 		return inquiryDao.searchInqByCriteria(searchCriteria);
+	}
+
+	@Override
+	public AdmissionInquiry getInquiryByTaskDate(Date taskDate) {
+
+		return inquiryDao.getInquiryByTaskDate(taskDate);
 	}
 
 }

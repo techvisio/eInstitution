@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.AdmissionInquiry;
@@ -42,6 +43,11 @@ public class InquiryWorkflowManagerImpl implements InquiryWorkflowManager {
 	@Override
 	public List<AdmissionInquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
 		return inquiryManager.searchInqByCriteria(searchCriteria);
+	}
+
+	@Override
+	public AdmissionInquiry getInquiryByTaskDate(Date taskDate) {
+		return inquiryManager.getInquiryByTaskDate(taskDate);
 	}
 
 	

@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,6 +26,28 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		this.inquiryQueryProps = inquiryQueryProps;
 	}
 
+	public AdmissionInquiry getInquiryByTaskDate(Date taskDate) {
+
+		String getQuery = inquiryQueryProps
+				.getProperty("getAdmissionInquiryByTask_date");
+		
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Task_Date", taskDate);
+		
+		List<AdmissionInquiry> admissionInquiries = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter,
+						new AdmissionINquiryRowMapper());
+		AdmissionInquiry admissionInquiry=null;
+
+		if(admissionInquiries != null && admissionInquiries.size()>0){
+			
+			admissionInquiry = admissionInquiries.get(0);
+		}
+
+		return admissionInquiry;
+	}
+	
+	
 	public AdmissionInquiry getInquiry(Long inquiryId) {
 
 		String getQuery = inquiryQueryProps
@@ -179,5 +202,7 @@ public class InquiryDaoImpl extends BaseDao implements InquiryDao {
 		}
 		
 	}
+
+	
 
 }
