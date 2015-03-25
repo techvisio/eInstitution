@@ -2,6 +2,7 @@ package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.ConsultantManager;
@@ -27,6 +28,25 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	}
 	
 	
+	@Override
+	public Consultant getConsultant(Long consultantId) {
+		Consultant consultant = consultantDao.getConsultant(consultantId);
+		return consultant;
+	}
+
+	@Override
+	public void saveConsultant(Consultant consultant) {
+		consultantDao.saveConsultant(consultant);
+	}
+
+	@Override
+	public void deleteConsultant(Long consultantId) {
+		consultantDao.deleteConsultant(consultantId);
+	}
+
+	
+	
+	
 	public List<ConsultantDetail> getConsultantDtl(String fileNo) {
 
 	List<ConsultantDetail> consultantDetails = null;
@@ -45,4 +65,5 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		consultantDao.deleteConsultantDtl(consultantDetails);
 	}
 
+	
 }

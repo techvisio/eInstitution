@@ -11,9 +11,9 @@ import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 public interface ConsultantDao {
 
 	public Consultant getConsultant(Long consultantId);
-	public void addConsultant(Consultant consultant);
-	public void updateConsultant(Consultant consultant);
-	public void deleteConsultant(String fileNo);
+	public void saveConsultant(Consultant consultant);
+	//public void updateConsultant(Consultant consultant);
+	public void deleteConsultant(Long consultantId);
 	
 	
 	public List<ConsultantDetail> getConsultantDtl(String fileNo);

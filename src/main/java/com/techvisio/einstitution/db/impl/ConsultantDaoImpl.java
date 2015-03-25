@@ -14,7 +14,6 @@ import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
-import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.util.CommonUtil;
 
@@ -60,10 +59,12 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 
 
-	public void addConsultant(Consultant consultant) {
+	public void saveConsultant(Consultant consultant) {
 
-		String addQuery = consultantQueryProps.getProperty("addConsultant");
-
+		String upsertQuery = consultantQueryProps.getProperty("upsertConsultant");
+		
+		if(consultant.getConsultantId() != null){
+		
 		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", consultant.getConsultantId())
 		.addValue("Name", consultant.getName())
 		.addValue("Primary_Contact_No", consultant.getPrimaryContactNo())
@@ -71,10 +72,11 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		.addValue("Address", consultant.getAddress())
 		.addValue("Email_Id", consultant.getEmailId());
 
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
+		}
 	}
 
-	public void updateConsultant(Consultant consultant) {
+/*	public void updateConsultant(Consultant consultant) {
 
 		String updateQuery = consultantQueryProps.getProperty("updateConsultant");
 
@@ -87,13 +89,13 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 	}
-
+*/
 	public void deleteConsultant(
-			String fileNo) {
+			Long consultantId) {
 
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultant");
 
-		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", fileNo);
+		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", consultantId);
 
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);

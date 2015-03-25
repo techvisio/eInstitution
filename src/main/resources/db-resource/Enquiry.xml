@@ -49,7 +49,8 @@ Inquiry_Id,
  FollowUp_Required, 
  File_no, 
  Course_Id, 
- Remarks
+ Remarks,Lateral,
+ Gender
 
 from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;    
     ]]>
