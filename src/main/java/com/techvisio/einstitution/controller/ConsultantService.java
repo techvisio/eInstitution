@@ -24,7 +24,7 @@ public class ConsultantService {
 
 private static final Logger logger = Logger.getLogger(ConsultantService.class);
 
-@RequestMapping(value="/ConsultantMaster/{consultantId}",method = RequestMethod.GET)
+@RequestMapping(value="/consultantMaster/{consultantId}",method = RequestMethod.GET)
 public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
 	Response response = new Response();
 	
@@ -44,7 +44,7 @@ public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
 	
 }
 
-@RequestMapping(value="/ConsultantMaster",method = RequestMethod.POST)
+@RequestMapping(value="/consultantMaster",method = RequestMethod.POST)
 public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultant){
 	 
 	Response response = new Response();
@@ -64,7 +64,7 @@ public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultan
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
 }
 
-@RequestMapping(value="/ConsultantMaster/{consultantId}",method = RequestMethod.DELETE)
+@RequestMapping(value="/consultantMaster/{consultantId}",method = RequestMethod.DELETE)
 public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId){
 	Response response = new Response();
 	
