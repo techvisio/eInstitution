@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
@@ -22,7 +23,70 @@ import com.techvisio.einstitution.workflow.impl.ConsultantWorkflowManagerImpl;
 public class ConsultantService {
 
 private static final Logger logger = Logger.getLogger(ConsultantService.class);
+
+@RequestMapping(value="/ConsultantMaster/{consultantId}",method = RequestMethod.GET)
+public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
+	Response response = new Response();
 	
+	try
+	{
+		ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
+  		Consultant consultant = workflowManager.getConsultant(consultantId);
+           
+  			response.setResponseBody(consultant);
+  		}
+	catch(Exception e)
+	{
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+
+	
+}
+
+@RequestMapping(value="/ConsultantMaster",method = RequestMethod.POST)
+public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultant){
+	 
+	Response response = new Response();
+	
+	try
+	{
+	ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
+	workflowManager.saveConsultant(consultant);
+ 
+	response.setResponseBody(consultant);
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		response.setError(e.getLocalizedMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+}
+
+@RequestMapping(value="/ConsultantMaster/{consultantId}",method = RequestMethod.DELETE)
+public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId){
+	Response response = new Response();
+	
+	try
+	{
+		ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
+  		 workflowManager.deleteConsultant(consultantId);
+           
+  		
+  			response.setResponseBody(consultantId);
+  			
+  		}
+	catch(Exception e)
+	{
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+	
+}
+
+
+
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getConsultantDetail(@PathVariable String fileNo) {  
 	  

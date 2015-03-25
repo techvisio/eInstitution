@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class AdmissionEnquiry {
-	
+
 	private Long enquiryId;
 	private String fileNo;
 	private String name;
@@ -21,6 +21,8 @@ public class AdmissionEnquiry {
 	private boolean followupRequired;
 	private String remarks;
 	private String emailId;
+	private boolean Lateral;
+	private String gender;
 	public Long getEnquiryId() {
 		return enquiryId;
 	}
@@ -124,6 +126,8 @@ public class AdmissionEnquiry {
 		this.emailId = emailId;
 	}
 	
+	
+	
 	@Override
 	public String toString() {
 		return "AdmissionInquiry [enquiryId=" + enquiryId + ", fileNo="
@@ -134,7 +138,20 @@ public class AdmissionEnquiry {
 				+ createBy + ", updatedDate=" + updatedDate + ", updatedBy="
 				+ updatedBy + ", courseId=" + courseId + ", branchId="
 				+ branchId + ", followupRequired=" + followupRequired
-				+ ", remarks=" + remarks + "]";
+				+ ", remarks=" + remarks + ", emailId=" + emailId
+				+ ", Lateral=" + Lateral + ", gender=" + gender + "]";
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public boolean isLateral() {
+		return Lateral;
+	}
+	public void setLateral(boolean lateral) {
+		this.Lateral = lateral;
 	}
 	
 

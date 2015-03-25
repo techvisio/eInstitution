@@ -75,30 +75,38 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 
 		String addQuery = enquiryQueryProps.getProperty("addAdmissionInquiry");
 
-		SqlParameterSource namedParameters = new MapSqlParameterSource(
-				"Inquiry_Id", admissionInquiry.getEnquiryId())
-				.addValue("Name", admissionInquiry.getName())
-				.addValue("Father_Name", admissionInquiry.getFatherName())
-				.addValue("DOB", admissionInquiry.getDob())
-				.addValue("Due_Date", admissionInquiry.getDueDate())
-				.addValue("Branch_Id",
-						admissionInquiry.getBranchId())
-				.addValue("Course_Id",
-						admissionInquiry.getCourseId())
-				.addValue("Created_On", admissionInquiry.getCreatedDate())
-				.addValue("Created_By", admissionInquiry.getCreateBy())
-				.addValue("Updated_On", admissionInquiry.getUpdatedDate())
-				.addValue("Updated_By", admissionInquiry.getUpdatedBy())
-				.addValue("Contact_No", admissionInquiry.getContactNo())
-				.addValue("FollowUp_Required",
-						admissionInquiry.isFollowupRequired())
-				.addValue("Application_Status",
-						admissionInquiry.getApplicationStatus())
-						.addValue("Remarks", admissionInquiry.getRemarks())
-						.addValue("File_No", admissionInquiry.getFileNo());
+		SqlParameterSource namedParameters = getParameterMap(admissionInquiry);
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameters);
 
+	}
+
+
+	private MapSqlParameterSource getParameterMap(
+			AdmissionEnquiry admissionInquiry) {
+		return new MapSqlParameterSource(
+				"Inquiry_Id", admissionInquiry.getEnquiryId())
+		.addValue("Name", admissionInquiry.getName())
+		.addValue("Father_Name", admissionInquiry.getFatherName())
+		.addValue("DOB", admissionInquiry.getDob())
+		.addValue("Due_Date", admissionInquiry.getDueDate())
+		.addValue("Branch_Id",
+				admissionInquiry.getBranchId())
+		.addValue("Course_Id",
+				admissionInquiry.getCourseId())
+		.addValue("Created_On", admissionInquiry.getCreatedDate())
+		.addValue("Created_By", admissionInquiry.getCreateBy())
+		.addValue("Updated_On", admissionInquiry.getUpdatedDate())
+		.addValue("Updated_By", admissionInquiry.getUpdatedBy())
+		.addValue("Contact_No", admissionInquiry.getContactNo())
+		.addValue("FollowUp_Required",
+				admissionInquiry.isFollowupRequired())
+		.addValue("Application_Status",
+				admissionInquiry.getApplicationStatus())
+				.addValue("Remarks", admissionInquiry.getRemarks())
+				.addValue("File_No", admissionInquiry.getFileNo())
+				.addValue("Gender", admissionInquiry.getGender())
+				.addValue("Lateral", admissionInquiry.isLateral());
 	}
 
 	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
@@ -106,27 +114,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		String updateQuery = enquiryQueryProps
 				.getProperty("updateAdmissionInquiry");
 
-		SqlParameterSource namedParameters = new MapSqlParameterSource(
-				"Inquiry_Id", admissionInquiry.getEnquiryId())
-				.addValue("Name", admissionInquiry.getName())
-				.addValue("Father_Name", admissionInquiry.getFatherName())
-				.addValue("DOB", admissionInquiry.getDob())
-				.addValue("Due_Date", admissionInquiry.getDueDate())
-				.addValue("Intrested_Branch_Id",
-						admissionInquiry.getBranchId())
-				.addValue("Intrested_Course_Id",
-						admissionInquiry.getCourseId())
-				.addValue("Created_On", admissionInquiry.getCreatedDate())
-				.addValue("Created_By", admissionInquiry.getCreateBy())
-				.addValue("Updated_On", admissionInquiry.getUpdatedDate())
-				.addValue("Updated_By", admissionInquiry.getUpdatedBy())
-				.addValue("Contact_No", admissionInquiry.getContactNo())
-				.addValue("FollowUp_Rquired",
-						admissionInquiry.isFollowupRequired())
-				.addValue("Application_Status",
-						admissionInquiry.getApplicationStatus())
-						.addValue("Remarks", admissionInquiry.getRemarks())
-						.addValue("File_No", admissionInquiry.getFileNo());
+		SqlParameterSource namedParameters = getParameterMap(admissionInquiry);
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameters);
 	}
