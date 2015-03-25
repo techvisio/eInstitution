@@ -13,7 +13,7 @@ public interface EnquiryManager {
 
 	public Long addInquiry (AdmissionEnquiry admissionInquiry);
 
-	public void updateInquiry(AdmissionEnquiry admissionInquiry);
+	public Long updateInquiry(AdmissionEnquiry admissionInquiry);
 
 	public void deleteInquiry(Long inquiryId);
 	

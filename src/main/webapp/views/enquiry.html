@@ -41,6 +41,28 @@
 					</tr>
 				</table>
 			</div>
+			<div class="searchList" ng-show="!showCriteria">
+			<table>
+			<tr ng-show="searchEnquiryList.length>0"><th><span>Name</span></th>
+			<th><span>Father Name</span></th>
+			<th><span>DOB</span></th>
+			<th><span>Course</span></th>
+			<th><span>Branch</span></th>
+			<th><span>Updated On</span></th>
+			</tr>
+			<tr ng-repeat="object in searchEnquiryList" ng-click="getEnquiry(object.enquiryId)">
+			<td><span>{{object.name}}</span></td>
+			<td><span>{{object.fatherName}}</span></td>
+			<td><span>{{object.dob}}</span></td>
+			<td><select select ng-model="object.courseId"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
+						ng-disabled="true"></select></td>
+			<td><select select ng-model="object.branchId"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
+						ng-disabled="true"></select></td>
+		<td><span ng-bind="object.updatedDate"></span></td>
+			</tr>
+			</table></div>
 		</div>
 
 		<div class="latest-admission" ng-init="getDueEnquiry()">
@@ -49,8 +71,8 @@
 				<tr>
 					<th><span>Enquiry No.</span></th>
 					<th><span>Student Name</span></th>
-					<th><span>Phone Name</span></th>
-					<th><span>Course Name</span></th>
+					<th><span>Father Name</span></th>
+					<th><span>Course</span></th>
 
 				</tr>
 				<tr ng-repeat="object in dueEnquiries">
@@ -80,69 +102,58 @@
 			<table>
 				<tr>
 					<td><span> Course </span></td>
-					<td><select select ng-model="data.enquiry.courseId"
+					<td><select select ng-model="data.admissionEnquiry.courseId"
 						ng-disabled="!form.isEdit && !form.isNew"
 						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
 						></select></td>
 					<td><span> Branch </span></td>
-					<td><select select ng-model="data.enquiry.branchId"
+					<td><select select ng-model="data.admissionEnquiry.branchId"
 						ng-disabled="!form.isEdit && !form.isNew"
 						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
 						></select></td>
 				</tr>
 				<tr>
-					<td><span> First Name </span></td>
-					<td><input type="text" ng-model="data.enquiry.firstName" required></td>
-					<td><span> Last Name </span></td>
-					<td><input type="text" ng-model="data.enquiry.lastName"></td>
+					<td><span> Name </span></td>
+					<td><input type="text" ng-model="data.admissionEnquiry.name" required></td>
+					<td><span> Father Name </span></td>
+					<td><input type="text" ng-model="data.admissionEnquiry.fatherName"></td>
 				</tr>
 				<tr>
-					<td><span> Gender </span></td>
-					<td>
-						<li><input type="radio" ng-model="data.enquiry.gender"
-							name="gender" value='M' /><span>Male</span></li>
-						<li><input type="radio" ng-model="data.enquiry.gender"
-							name="gender" value='F' /><span>Female</span></li>
-					</td>
-					<td><span> Reminder Date </span></td>
-					<td><input type="date" ng-model="data.enquiry.reminderDate"></td>
+					<td><span> Cut Off Date </span></td>
+					<td><input type="date" ng-model="data.admissionEnquiry.dueDate"></td>
 				</tr>
 				<tr>
 					<td><span> Remarks </span></td>
-					<td><textarea ng-model="data.enquiry.remark"></textarea></td>
+					<td><textarea ng-model="data.admissionEnquiry.remarks"></textarea></td>
 				</tr>
 				<tr>
 					<td><span class="header">TASKS</span></td>
 				</tr>
 				
-				<tr ng-show="data.task.length == 0">
+				<tr ng-show="data.tasks.length == 0">
 					<td>
 						<span>---------No Tasks--------</span>
 					</td>
 				</tr>
-				<tr ng-repeat="oldTask in data.task"><td>
+				<tr ng-repeat="task in data.tasks"><td>
 					<span> Reminder Date </span></td>
-					<td><input type="date" ng-model="oldTask.reminderDate"
-						ng-Readonly="!form.isEdit && !form.isNew">
-					<td ng-show=!form.isNew><span> Follow-up Remark </span></td>
-					<td><textarea ng-model="oldTask.remark"></textarea></td>
+					<td><input type="date" ng-model="task.taskDate">
+					<td ng-show="task.taskId"><span> Follow-up Remark </span></td>
+					<td ng-show="task.taskId"><textarea ng-model="task.remark"></textarea></td>
+					<td><button type="button" class="btn btn-primary"
+							ng-click="closeTask(task)" ng-disabled="task.status=='C'">Close Task</button>
+					</td>
 				</tr>
 				
 				<tr>
 					<td><button type="button" class="btn btn-primary"
-							ng-click="addReminder=!addReminder">Add Task</button></td>
-				</tr>
-				<tr ng-show=addReminder>
-					<td><span> Reminder Date </span></td>
-					<td><input type="date" ng-model="data.task.reminderDate"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
-					<td ng-show=!form.isNew><span> Follow-up Remark </span></td>
-					<td><textarea ng-model="data.task.remark"></textarea></td>
+							ng-click="AddTask()">Add Task</button></td>
+						
 				</tr>
 				<tr>
 					<td>
 						<button type="button" class="btn btn-primary"
-							ng-click="addEnquiry()">Save Enquiry</button>
+							ng-click="saveEnquiry()">Save Enquiry</button>
 					</td>
 					<td>
 						<button type="button" class="btn btn-success" disabled=form.isNew

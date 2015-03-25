@@ -9,6 +9,7 @@ import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.manager.EnquiryManager;
 import com.techvisio.einstitution.manager.impl.EnquiryManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.TaskFollowWorkflowManager;
 
@@ -24,7 +25,8 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		EnquiryAndTaskBean enquiryAndTask=new EnquiryAndTaskBean();
 		
 		AdmissionEnquiry admissionEnquiry=enquiryManager.getInquiry(inquiryId);
-		enquiryAndTask.setAdmissionInquiry(admissionEnquiry);
+		enquiryAndTask.setAdmissionEnquiry(admissionEnquiry);
+		
 		
 		List<TaskAndFollowUp> tasks=taskFollowWorkflowManager.getTaskAndFollowUpByByModuleAndEntityId(inquiryId, AppConstants.ENQUIRY);
 		enquiryAndTask.setTasks(tasks);
@@ -33,16 +35,35 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 
 	@Override
-	public Long addEnquiryandTask(AdmissionEnquiry admissionInquiry) {
+	public Long addEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
 	
-		return  enquiryManager.addInquiry(admissionInquiry);
+		 
+		
+		Long enquiryId=enquiryManager.addInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
+		
+		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
+	
+		List<TaskAndFollowUp> followUps = enquiryAndTaskBean.getTasks();
+		CommonUtil.propogateEntityIdToTaskAndFollowup(followUps, enquiryId, AppConstants.ENQUIRY);
+		taskFollowWorkflowManager.saveTaskAndFollowUp(followUps);
+		
+		return enquiryId; 
+		
 	}
 
 	@Override
-	public void updateEnquiryandTask(AdmissionEnquiry admissionInquiry) {
+	public Long updateEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
 		
-		enquiryManager.updateInquiry(admissionInquiry);
 		
+		Long enquiryId=enquiryManager.updateInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
+	
+		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
+		
+		List<TaskAndFollowUp> followUps = enquiryAndTaskBean.getTasks();
+		CommonUtil.propogateEntityIdToTaskAndFollowup(followUps, enquiryId, AppConstants.ENQUIRY);
+		taskFollowWorkflowManager.saveTaskAndFollowUp(followUps);
+		
+		return enquiryId;
 	}
 
 	@Override

@@ -22,7 +22,8 @@ AI.Branch_Id,
 AI.FollowUp_Required,
 AI.File_no,
 AI.Course_Id,
-AI.Remarks
+AI.Remarks,
+AI.Email_Id
 
 from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and  TF.Module=:'ENQUIRY';     ]]>
 

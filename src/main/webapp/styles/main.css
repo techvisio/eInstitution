@@ -764,3 +764,12 @@ color:#50A4D0;
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   background-clip: padding-box;
 }
+
+.searchList tr td {
+	cursor: pointer;
+	padding-right:10px;
+}
+
+.searchList tr:HOVER {
+	background-color: #ccc;
+}

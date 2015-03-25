@@ -95,7 +95,8 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 				.addValue("Application_Status",
 						admissionInquiry.getApplicationStatus())
 						.addValue("Remarks", admissionInquiry.getRemarks())
-						.addValue("File_No", admissionInquiry.getFileNo());
+						.addValue("File_No", admissionInquiry.getFileNo())
+						.addValue("Email_Id", admissionInquiry.getEmailId());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameters);
 
@@ -112,21 +113,22 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 				.addValue("Father_Name", admissionInquiry.getFatherName())
 				.addValue("DOB", admissionInquiry.getDob())
 				.addValue("Due_Date", admissionInquiry.getDueDate())
-				.addValue("Intrested_Branch_Id",
+				.addValue("Branch_Id",
 						admissionInquiry.getBranchId())
-				.addValue("Intrested_Course_Id",
+				.addValue("Course_Id",
 						admissionInquiry.getCourseId())
 				.addValue("Created_On", admissionInquiry.getCreatedDate())
 				.addValue("Created_By", admissionInquiry.getCreateBy())
 				.addValue("Updated_On", admissionInquiry.getUpdatedDate())
 				.addValue("Updated_By", admissionInquiry.getUpdatedBy())
 				.addValue("Contact_No", admissionInquiry.getContactNo())
-				.addValue("FollowUp_Rquired",
+				.addValue("FollowUp_Required",
 						admissionInquiry.isFollowupRequired())
 				.addValue("Application_Status",
 						admissionInquiry.getApplicationStatus())
 						.addValue("Remarks", admissionInquiry.getRemarks())
-						.addValue("File_No", admissionInquiry.getFileNo());
+						.addValue("File_No", admissionInquiry.getFileNo())
+						.addValue("Email_Id", admissionInquiry.getEmailId());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameters);
 	}
@@ -199,7 +201,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 							.getBoolean("FollowUp_Required"));
 					admissionInquiry.setFileNo(rs.getString("File_No"));
 					admissionInquiry.setRemarks(rs.getString("Remarks"));
-
+					admissionInquiry.setEmailId(rs.getString("Email_Id"));
 					return admissionInquiry;
 		}
 		

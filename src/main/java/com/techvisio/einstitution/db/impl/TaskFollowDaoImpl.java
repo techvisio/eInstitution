@@ -51,8 +51,18 @@ public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 		return taskAndFollowUps;
 	}
 
+	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps){
+		
+		if(taskAndFollowUps != null){
+			
+			for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
+				
+				saveTaskAndFollowUp(taskAndFollowUp);
+			}
+		}
+	}
 	
-	public void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
+	private void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
 		String addQuery = taskFollowQueryProps.getProperty("upsertTaskAndFollowUp");
 		if(taskAndFollowUp.getTaskId() != null)
 		{

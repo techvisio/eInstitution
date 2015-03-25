@@ -4,13 +4,15 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.db.TaskFollowDao;
+import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
+import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.TaskFollowManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
 public class TaskFollowManagerImpl implements TaskFollowManager {
 	
 	TaskFollowDao  taskFollowDao = ContextProvider.getContext().getBean(TaskFollowDao.class);
-	
+	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
 	
 
 	private static TaskFollowManagerImpl instance=null;
@@ -35,9 +37,20 @@ public class TaskFollowManagerImpl implements TaskFollowManager {
 
 	
 
-	public void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
-		taskFollowDao.saveTaskAndFollowUp(taskAndFollowUp);
+	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps){
+if(taskAndFollowUps !=null){
+		for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
+			
+			if(taskAndFollowUp.getTaskId()==null){
+				
+				Long taskId = identifierGenerator.getUniqueIdentifierForTask();
+				
+				taskAndFollowUp.setTaskId(taskId);
+			}
+		}
 		
+		taskFollowDao.saveTaskAndFollowUp(taskAndFollowUps);
+}
 	}
 
 

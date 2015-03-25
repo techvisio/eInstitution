@@ -10,9 +10,9 @@ public interface EnquiryWorkflowManager {
 
 	public EnquiryAndTaskBean getEnquiryandTask(Long inquiryId);
 
-	public Long addEnquiryandTask (AdmissionEnquiry admissionInquiry);
+	public Long addEnquiryandTask (EnquiryAndTaskBean enquiryAndTaskBean);
 
-	public void updateEnquiryandTask(AdmissionEnquiry admissionInquiry);
+	public Long updateEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean);
 
 	public void deleteInquiry(Long inquiryId);
 	

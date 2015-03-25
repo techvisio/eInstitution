@@ -25,20 +25,20 @@ import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 
 
 @RestController
-@RequestMapping("/inquiry")
+@RequestMapping("/enquiry")
 public class EnquiryService {
 	
 	private static final Logger logger = Logger.getLogger(EnquiryService.class);
 	
-	@RequestMapping(value="/{inquiryId}",method = RequestMethod.GET)
-	  public ResponseEntity<Response> getInquiry(@PathVariable Long inquiryId) {  
+	@RequestMapping(value="/{enquiryId}",method = RequestMethod.GET)
+	  public ResponseEntity<Response> getEnquiryandTask(@PathVariable Long enquiryId) {  
 	 
 		Response response=new Response();
 		try{
 		
 		EnquiryWorkflowManager enquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
 		
-		EnquiryAndTaskBean admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(inquiryId);
+		EnquiryAndTaskBean admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		
 		response.setResponseBody(admissionInquiAndTask);
                   		
@@ -47,35 +47,50 @@ public class EnquiryService {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			e.getLocalizedMessage();
+			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response> addInquiry(@RequestBody AdmissionEnquiry admissionInquiry) {  
-		Map<String,Object> enquiryData=new HashMap<String, Object>();
+	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
 		Response response=new Response();
 		try{
-			EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.addEnquiryandTask(admissionInquiry);
+			
+		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
+		Long enquiryId=inquiryWorkflowManager.addEnquiryandTask(enquirynTask);
 		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
-			enquiryData.put(AppConstants.ENQUIRY, admissionInquiryDB);
+			response.setResponseBody(admissionInquiryDB);
 		}
-		response.setResponseBody(enquiryData);
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public void updateInquiry(@RequestBody AdmissionEnquiry admissionInquiry) {  
+	public ResponseEntity<Response> updateEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		Response response=new Response();
+		try{
+			
 		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		inquiryWorkflowManager.updateEnquiryandTask(admissionInquiry);
+		Long enquiryId=inquiryWorkflowManager.updateEnquiryandTask(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		if(admissionInquiryDB != null){
+		}
+		response.setResponseBody(admissionInquiryDB);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	@RequestMapping(value="/{inquiryId}",method = RequestMethod.DELETE)
+	
+	
+	@RequestMapping(value="/{enquiryId}",method = RequestMethod.DELETE)
 	public void deleteInquiry(@PathVariable Long inquiryId) {  
 		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
 		inquiryWorkflowManager.deleteInquiry(inquiryId);

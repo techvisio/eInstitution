@@ -3,14 +3,14 @@ var enquiryModule = angular.module('enquiryModule', []);
 enquiryModule.controller('enquiryController', ['$scope','enquiryService','masterdataService',function($scope,enquiryService,masterdataService) {
 
 	// Data variables.
-	
-	$scope.admissionInquiry={};
 	$scope.form={};
 	$scope.data={};
+	$scope.data.admissionEnquiry={};
+	$scope.data.tasks=[];
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
-	$scope.data.enquiry={};
-	$scope.data.task=[];
+	$scope.searchEnquiryList=[];
+	
 	$scope.serverModelData={};
 	
 	// Variables for show and hiding.
@@ -18,18 +18,45 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.showCriteria=false;
 	$scope.addReminder=false;
 	$scope.form.isNew=true;
-	$scope.form.isEdit=false;
+	$scope.form.isEdit=true;
 	$scope.dashboard=true;
 	
+	 $scope.dummyTask = {
+			 "taskDate" : null,
+			 "remark" : null,
+			
+	 };
+	
+	
+	 $scope.closeTask = function(task) {
+		
+		 if(!task.remark){
+			 
+			 alert("you must provide remark")
+            return;
+		 }
+		 var cnfirm=confirm("closing a task can not be undone. \n would you like to continue?");
+		 
+		 if(cnfirm){
+			 
+			 task.status='C';
+		 }
+	}
 	$scope.getEnquiryBySearchCriteria = function() {
 		 console.log('get enquiry by search criteria in controller');
-		 console.log($scope.searchCriteria);
 		 enquiryService.getEnquiryBySearchCriteria($scope.searchCriteria)
 		 .then(function(response) {
 			 console.log('Data received from service in controller : ');
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
-				 $scope.data.enquiry = response.data.responseBody;
+				 $scope.searchEnquiryList = response.data.responseBody;
+				 if($scope.searchEnquiryList.length>0){
+					 $scope.showCriteria=false;
+				 }
+				 else
+					 {
+					 alert('No records availble for given criteria');
+					 }
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);
@@ -37,19 +64,15 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 
 		 })
 
-
 	 }
 
-	 $scope.getEnquiry = function() {
-		
-		 var enquiryId=prompt("Enter File No", "");
-		 
+	 $scope.getEnquiry = function(enquiryId) {
 		 enquiryService.getEnquiry(enquiryId)
 		 .then(function(response) {
 			 console.log('Data received from service : ');
 			 console.log(response);
 			 if (response !=null && response.data != null && response.data.responseBody != null) {
-				$scope.data.enquiry = response.data.responseBody;
+				$scope.data = response.data.responseBody;
 
 			 } else {
 				 console.log(response.data.error);
@@ -72,31 +95,50 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 
 	 };
 	 
-	 $scope.init=function(){
+	 $scope.init=function(){	
+		 
+	console.log('getting masterdata for Enquiry module in init block');
 
-		 console.log('getting masterdata for admission module in init block');
-
-		 $scope.serverModelData = masterdataService.getAdmissionMasterData();
-//		 .then(function(data) {
-//			 console.log(data);
-//			 if (data != null) {
-//				 $scope.serverModelData = data;
-//			 } else {
-//				 console.log('error');
-//			 }
-//		 })
-
-	 }
+	 masterdataService.getAdmissionMasterData()
+	 .then(function(data) {
+		 console.log(data);
+		 if (data != null) {
+			 $scope.serverModelData = data;
+		 } else {
+			 console.log('error');
+		 }
+	 })}
 	 
+$scope.AddTask = function(){
+		 $scope.data.tasks.push(angular.copy($scope.dummyTask));
+	 }
+
+$scope.saveEnquiry = function(){
+	
+	 if(!$scope.data.admissionEnquiry.enquiryId){
+		
+		 $scope.addEnquiry();
+		
+	 }
+	 else
+	 {
+		 $scope.updateEnquiry();
+	 }
+
+
+}
+	 
+
 	 $scope.addEnquiry = function() {
-		 console.log('add student called');
-		 console.log($scope.student);
-		 enquiryService.addEnquiry($scope.admissionInquiry)
+		 console.log('add enquiry called');
+		 enquiryService.addEnquiry($scope.data)
 		 .then(function(response) {
 			 console.log('Data received from service : ');
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
-				 $scope.admissionInquiry = response.data.responseBody;
+				 $scope.data = response.data.responseBody;
+				 $scope.form.isNew=false;
+				 $scope.form.isEdit=false;
 				 alert("Your Records Saved Successfully")
 			 } else {
 				 console.log(response.data.error);
@@ -107,7 +149,30 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 
 
 	 }
- 
+
+	 $scope.updateEnquiry = function() {
+		 console.log('update enquiry called');
+		 enquiryService.updateEnquiry($scope.data)
+		 .then(function(response) {
+			 console.log('udpate Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.data = response.data.responseBody;
+				 $scope.form.isNew=false;
+				 $scope.form.isEdit=false;
+				 alert("Your Records has been updated Successfully")
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+		 })
+
+
+	 }
+
+	 
+	 
 	 $scope.proceedToAdmission=function(){
 		 enquiryService.proceedToAdmission($scope.enquiry);
 	 }
@@ -122,7 +187,8 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 getEnquiryBySearchCriteria : getEnquiryBySearchCriteria,
 		 addEnquiry : addEnquiry,
 		 proceedToAdmission : proceedToAdmission,
-		 getEnquiry : getEnquiry
+		 getEnquiry : getEnquiry,
+		 updateEnquiry : updateEnquiry
 	 });
 	
 	function getDueEnquiry() {
@@ -144,7 +210,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 
 		 var request = $http({
 			 method : "get",
-			 url : "inquiry/"+enquiryId,
+			 url : "enquiry/"+enquiryId,
 			 params : {
 				 action : "get"
 			 }
@@ -159,7 +225,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('Getting enquiry by search criteria in service');
 		 var request = $http({
 			 method : "post",
-			 url : "inquiry/search/",
+			 url : "enquiry/search/",
 			 params : "",
 			 data : searchCriteria
 
@@ -169,22 +235,40 @@ enquiryModule.service('enquiryService', function($http, $q) {
 	 }
 
 	 
-	 function addEnquiry(admissionInquiry){
+	 function addEnquiry(enquiryAndTaskBean){
 		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
-			 url : "inquiry",
+			 url : "enquiry",
 			 params : "",
-			 data: admissionInquiry
+			 data: enquiryAndTaskBean
 
 		 });
+		 
+		 return (request.then(handleSuccess, handleError));
 	}
 	
+	 function updateEnquiry(enquiryAndTaskBean){
+		 
+		 console.log('update student called in service');
+		 var request = $http({
+			 method : "put",
+			 url : "enquiry",
+			 params : "",
+			 data : enquiryAndTaskBean
+
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+
+		 
+	 }
+	 	 
 	function proceedToAdmission(enquiry){
 		 console.log('get due enquiries');
 		 var request = $http({
 			 method : "put",
-			 url : "inquiry",
+			 url : "enquiry",
 			 params : "",
 			 data: enquiry
 
