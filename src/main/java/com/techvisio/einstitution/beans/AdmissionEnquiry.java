@@ -21,7 +21,7 @@ public class AdmissionEnquiry {
 	private boolean followupRequired;
 	private String remarks;
 	private String emailId;
-	private boolean Lateral;
+	private boolean lateral;
 	private String gender;
 	public Long getEnquiryId() {
 		return enquiryId;
@@ -139,7 +139,7 @@ public class AdmissionEnquiry {
 				+ updatedBy + ", courseId=" + courseId + ", branchId="
 				+ branchId + ", followupRequired=" + followupRequired
 				+ ", remarks=" + remarks + ", emailId=" + emailId
-				+ ", Lateral=" + Lateral + ", gender=" + gender + "]";
+				+ ", Lateral=" + lateral + ", gender=" + gender + "]";
 	}
 	public String getGender() {
 		return gender;
@@ -148,10 +148,10 @@ public class AdmissionEnquiry {
 		this.gender = gender;
 	}
 	public boolean isLateral() {
-		return Lateral;
+		return lateral;
 	}
 	public void setLateral(boolean lateral) {
-		this.Lateral = lateral;
+		this.lateral = lateral;
 	}
 	
 

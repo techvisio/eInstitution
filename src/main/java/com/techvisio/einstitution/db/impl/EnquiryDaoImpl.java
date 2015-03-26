@@ -13,9 +13,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.EnquiryDao;
-import com.techvisio.einstitution.db.impl.AdmissionDaoImpl.StudentDetailRowMapper;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
@@ -27,7 +25,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 
 
-	public AdmissionEnquiry getInquiryByTaskDate(Date taskDate) {
+	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 
 		String getQuery = enquiryQueryProps
 				.getProperty("getAdmissionInquiryByTask_date");
@@ -38,14 +36,8 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		List<AdmissionEnquiry> admissionInquiries = getNamedParamJdbcTemplate()
 				.query(getQuery, namedParameter,
 						new AdmissionINquiryRowMapper());
-		AdmissionEnquiry admissionInquiry=null;
 
-		if(admissionInquiries != null && admissionInquiries.size()>0){
-			
-			admissionInquiry = admissionInquiries.get(0);
-		}
-
-		return admissionInquiry;
+		return admissionInquiries;
 	}
 	
 	

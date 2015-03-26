@@ -11,7 +11,7 @@ public interface EnquiryWorkflowManager {
 
 	public EnquiryAndTaskBean getEnquiryandTask(Long inquiryId);
 	
-	public AdmissionEnquiry getInquiryByTaskDate(Date taskDate);
+	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate);
 
 	public Long addEnquiryandTask (EnquiryAndTaskBean enquiryAndTaskBean);
 
@@ -21,4 +21,7 @@ public interface EnquiryWorkflowManager {
 	
 	List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria  searchCriteria);
 
+	public Long proceedToAdmission(EnquiryAndTaskBean enquiryAndTaskBean);
+
+	public Long closeEnquiry(EnquiryAndTaskBean enquiryAndTaskBean);
 }

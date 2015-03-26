@@ -23,9 +23,12 @@ AI.FollowUp_Required,
 AI.File_no,
 AI.Course_Id,
 AI.Remarks,
-AI.Email_Id
+AI.Email_Id,
+AI.Lateral,
+AI.Gender
 
-from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and  TF.Module=:'ENQUIRY';     ]]>
+
+from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and  TF.Module='ENQUIRY' and TF.Status != 'C';     ]]>
 
 </entry>
 
@@ -49,7 +52,8 @@ Inquiry_Id,
  FollowUp_Required, 
  File_no, 
  Course_Id, 
- Remarks,Lateral,
+ Remarks,
+ Lateral,
  Gender
 
 from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;    
@@ -78,7 +82,10 @@ Course_Id,
 Branch_Id, 
 FollowUp_Required,
 File_no,
-Remarks ) values
+Remarks,
+Lateral,
+Gender
+ ) values
     
  (:Inquiry_Id,
  :Name, 
@@ -96,7 +103,10 @@ Remarks ) values
 :Branch_Id, 
 :FollowUp_Required,
 :File_No,
-:Remarks);
+:Remarks,
+:Lateral,
+:Gender
+);
        
     ]]>
 
@@ -122,7 +132,10 @@ Course_Id=:Course_Id,
 Branch_Id=:Branch_Id, 
 FollowUp_Required=:FollowUp_Required,
 Remarks=:Remarks,
-File_No=:File_No
+File_No=:File_No,
+Lateral=:Lateral,
+Gender=:Gender
+
 
  where Inquiry_Id=:Inquiry_Id;  
     ]]>

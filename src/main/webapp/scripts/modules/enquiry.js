@@ -27,11 +27,14 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 			
 	 };
 	
+	$scope.isTaskClosedOrInAdmission=function(){
+		return $scope.data.admissionEnquiry.applicationStatus=='CLOSED'||$scope.data.admissionEnquiry.applicationStatus=='MOVED_TO_ADMISSION';
+	}
 	
 	 $scope.closeTask = function(task) {
 		
 		 if(!task.remark){
-			 
+			
 			 alert("you must provide remark")
             return;
 		 }
@@ -40,6 +43,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 		 if(cnfirm){
 			 
 			 task.status='C';
+			 
 		 }
 	}
 	$scope.getEnquiryBySearchCriteria = function() {
@@ -65,7 +69,38 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 		 })
 
 	 }
+	 $scope.showDetail =  function(index){
 
+		 var enquiryId=$scope.dueEnquiries[index].enquiryId;
+		 if(enquiryId){
+		 $scope.getEnquiry(enquiryId);
+		 }
+		 else
+			 {
+			 alert("No valid enquiryId provided");
+			 }
+	 }
+
+
+	$scope.getDueEnquiry = function(){
+
+		console.log('get enquiry by taskId in controller');
+		 enquiryService.getDueEnquiry()
+		 .then(function(response) {
+			 console.log('Data received by taskId in controller : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.dueEnquiries = response.data.responseBody;
+				
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+		 })
+	}
+		
+		
 	 $scope.getEnquiry = function(enquiryId) {
 		 enquiryService.getEnquiry(enquiryId)
 		 .then(function(response) {
@@ -82,10 +117,6 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 
 	 }
 
-	
-	$scope.getDueEnquiry=function(){
-		
-	}
 	
 	 $scope.LoadMoreData = function() {
 
@@ -144,10 +175,7 @@ $scope.saveEnquiry = function(){
 				 console.log(response.data.error);
 				 alert(response.data.error);
 			 }
-
 		 })
-
-
 	 }
 
 	 $scope.updateEnquiry = function() {
@@ -165,18 +193,46 @@ $scope.saveEnquiry = function(){
 				 console.log(response.data.error);
 				 alert(response.data.error);
 			 }
-
 		 })
-
-
 	 }
 
+	 
 	 
 	 
 	 $scope.proceedToAdmission=function(){
-		 enquiryService.proceedToAdmission($scope.enquiry);
+		 enquiryService.proceedToAdmission($scope.data)
+		 .then(function(response) {
+			 console.log('proceed to admission Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.data = response.data.responseBody;
+				 alert("proceeding to admission......")
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+
 	 }
 
+	 
+	 $scope.closeEnquiry=function(){
+		 enquiryService.closeEnquiry($scope.data)
+		 .then(function(response) {
+			 console.log('close enquiry Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.data = response.data.responseBody;
+				 alert("enquiry has been closed")
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+
+	 }
+
+	 
 } ]);
 
 enquiryModule.service('enquiryService', function($http, $q) {
@@ -186,9 +242,11 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 getDueEnquiry : getDueEnquiry,
 		 getEnquiryBySearchCriteria : getEnquiryBySearchCriteria,
 		 addEnquiry : addEnquiry,
-		 proceedToAdmission : proceedToAdmission,
 		 getEnquiry : getEnquiry,
-		 updateEnquiry : updateEnquiry
+		 updateEnquiry : updateEnquiry,
+		 getDueEnquiry : getDueEnquiry,
+		 closeEnquiry : closeEnquiry,
+		 proceedToAdmission : proceedToAdmission
 	 });
 	
 	function getDueEnquiry() {
@@ -196,10 +254,10 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('get due enquiries');
 		 var request = $http({
 			 method : "get",
-			 url : "inquiry",
-			 params : "",
-			 data: ""
-
+			 url : "enquiry/enquiryByTaskDate/",
+			 params : {
+				 action : "get"
+			 }
 		 });
 
 		 return (request.then(handleSuccess, handleError));
@@ -260,20 +318,35 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 });
 
 		 return (request.then(handleSuccess, handleError));
-
-		 
 	 }
 	 	 
-	function proceedToAdmission(enquiry){
-		 console.log('get due enquiries');
+	function proceedToAdmission(enquiryAndTaskBean){
+		 console.log('proceed to admission called ins service');
+		 var request = $http({
+			 method : "post",
+			 url : "enquiry/proceedToAdmission/",
+			 params : "",
+			 data: enquiryAndTaskBean
+
+		 });	
+		 
+		 return (request.then(handleSuccess, handleError));
+	}
+
+	
+	 function closeEnquiry(enquiryAndTaskBean){
+		 
+		 console.log('close enquiry called in service');
 		 var request = $http({
 			 method : "put",
-			 url : "enquiry",
+			 url : "enquiry/closeEnquiry/",
 			 params : "",
-			 data: enquiry
+			 data : enquiryAndTaskBean
 
 		 });
-	}
+
+		 return (request.then(handleSuccess, handleError));
+	 }
 
 
 	 function handleError(response) {

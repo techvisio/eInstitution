@@ -72,7 +72,7 @@ public class EnquiryManagerImpl implements EnquiryManager {
 	}
 
 	@Override
-	public AdmissionEnquiry getInquiryByTaskDate(Date taskDate) {
+	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 
 		return inquiryDao.getInquiryByTaskDate(taskDate);
 	}

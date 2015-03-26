@@ -18,6 +18,7 @@ import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 
@@ -29,14 +30,16 @@ public class EnquiryService {
 	private static final Logger logger = Logger.getLogger(EnquiryService.class);
 	
 	
-	@RequestMapping(value="/enquiryByTaskDate",method = RequestMethod.POST)
-	public ResponseEntity<Response> getInquiryByTaskDate(@RequestBody Date taskDate){
+	@RequestMapping(value="/enquiryByTaskDate/",method = RequestMethod.GET)
+	public ResponseEntity<Response> getInquiryByTaskDate(Date taskDate){
 		Response response=new Response();
 		try{
 		
 		EnquiryWorkflowManager enquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
 		
-		AdmissionEnquiry admissionEnquiry= enquiryWorkflowManager.getInquiryByTaskDate(taskDate);
+		Date date = new Date();
+		taskDate=CommonUtil.removeTimeFromDate(date);
+		List<AdmissionEnquiry> admissionEnquiry= enquiryWorkflowManager.getInquiryByTaskDate(taskDate);
 		response.setResponseBody(admissionEnquiry);
   		
 		}
@@ -147,4 +150,44 @@ public class EnquiryService {
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
 		}
 
+	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
+	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		Response response=new Response();
+		try{
+			
+		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
+		Long enquiryId=inquiryWorkflowManager.proceedToAdmission(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		if(admissionInquiryDB != null){
+			response.setResponseBody(admissionInquiryDB);
+		}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/closeEnquiry",method = RequestMethod.PUT)
+	public ResponseEntity<Response> closeEnquiry(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		Response response=new Response();
+		try{
+			
+		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
+		Long enquiryId=inquiryWorkflowManager.closeEnquiry(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		if(admissionInquiryDB != null){
+		}
+		response.setResponseBody(admissionInquiryDB);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	
 }

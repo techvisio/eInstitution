@@ -46,6 +46,7 @@ if(taskAndFollowUps !=null){
 				Long taskId = identifierGenerator.getUniqueIdentifierForTask();
 				
 				taskAndFollowUp.setTaskId(taskId);
+				taskAndFollowUp.setStatus("O");
 			}
 		}
 		
