@@ -1,8 +1,7 @@
  package com.techvisio.einstitution.controller;
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,7 +18,6 @@ import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 
@@ -29,6 +27,29 @@ import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 public class EnquiryService {
 	
 	private static final Logger logger = Logger.getLogger(EnquiryService.class);
+	
+	
+	@RequestMapping(value="/enquiryByTaskDate",method = RequestMethod.POST)
+	public ResponseEntity<Response> getInquiryByTaskDate(@RequestBody Date taskDate){
+		Response response=new Response();
+		try{
+		
+		EnquiryWorkflowManager enquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
+		
+		AdmissionEnquiry admissionEnquiry= enquiryWorkflowManager.getInquiryByTaskDate(taskDate);
+		response.setResponseBody(admissionEnquiry);
+  		
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			e.getLocalizedMessage();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+		
+	}
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getEnquiryandTask(@PathVariable Long enquiryId) {  
