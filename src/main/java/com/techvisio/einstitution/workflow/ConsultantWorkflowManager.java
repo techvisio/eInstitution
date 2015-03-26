@@ -9,7 +9,7 @@ import com.techvisio.einstitution.beans.ConsultantDetail;
 public interface ConsultantWorkflowManager {
 	
 	public Consultant getConsultant(Long consultantId);
-	public void saveConsultant(Consultant consultant);
+	public Long saveConsultant(Consultant consultant);
 	public void deleteConsultant(Long consultantId);
 	
 

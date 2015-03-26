@@ -52,9 +52,10 @@ public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultan
 	try
 	{
 	ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
-	workflowManager.saveConsultant(consultant);
- 
-	response.setResponseBody(consultant);
+	//workflowManager.saveConsultant(consultant);
+	Long consultantId = workflowManager.saveConsultant(consultant);
+	Consultant consultantFromDb = workflowManager.getConsultant(consultantId);
+	response.setResponseBody(consultantFromDb);
 	}
 	catch(Exception e)
 	{

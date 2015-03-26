@@ -5,6 +5,8 @@ import java.util.List;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.db.ConsultantDao;
+import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
+import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.util.ContextProvider;
 
@@ -12,6 +14,7 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 	ConsultantDao consultantDao = ContextProvider.getContext().getBean(
 			ConsultantDao.class);
+	UniqueIdentifierGenerator identifierGenerator = new UniqueIdentifierFactory().getGenerator();
 
 	private static ConsultantManagerImpl instance=null;
 	public static synchronized ConsultantManagerImpl getInstance()
@@ -35,8 +38,14 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	}
 
 	@Override
-	public void saveConsultant(Consultant consultant) {
+	public Long saveConsultant(Consultant consultant) {
+		Long consultantId = consultant.getConsultantId();
+		if(consultantId == null){
+			consultantId = identifierGenerator.getUniqueIdentifierForConsultant(); 
+		}
+		consultant.setConsultantId(consultantId);
 		consultantDao.saveConsultant(consultant);
+		return consultantId;
 	}
 
 	@Override

@@ -20,8 +20,10 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	}
 
 	@Override
-	public void saveConsultant(Consultant consultant) {
-		manager.saveConsultant(consultant);
+	public Long saveConsultant(Consultant consultant) {
+		Long consultantId = manager.saveConsultant(consultant);
+		consultant.setConsultantId(consultantId);
+		return consultantId;
 	}
 
 	@Override
