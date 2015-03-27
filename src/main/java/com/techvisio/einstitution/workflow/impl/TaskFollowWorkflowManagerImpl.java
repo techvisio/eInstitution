@@ -17,8 +17,10 @@ public class TaskFollowWorkflowManagerImpl implements TaskFollowWorkflowManager{
 		return followUps;
 	}
 
-	public void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
-		manager.saveTaskAndFollowUp(taskAndFollowUp);
+	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps) {
+		if(taskAndFollowUps != null){
+		manager.saveTaskAndFollowUp(taskAndFollowUps);
+		}
 	}
 
 }

@@ -126,7 +126,7 @@ public class AdmissionService {
 		}
 		catch(IncorrectResultSizeDataAccessException e)
 		{
-			response.setError("multiple record found for this idetifier");
+			response.setError("multiple record found for this identifier");
 		}
 			catch(Exception e)
 			{

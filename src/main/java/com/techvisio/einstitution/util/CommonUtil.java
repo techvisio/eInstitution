@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -12,10 +14,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
 import com.techvisio.einstitution.beans.CounsellingDetail;
+import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.TaskAndFollowUp;
 
 public class CommonUtil {
 
@@ -72,6 +76,35 @@ public class CommonUtil {
 				
 				qualificationSubjectDtl.setFileNo(fileNo);
 				qualificationSubjectDtl.setQualificationId(academicDetail.getQualificationId());
+			}
+		}
+		
+	}
+	
+	public static Date removeTimeFromDate(Date date) {
+		 
+        if (date == null) {
+            return null;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+	
+	public static void propogateEntityIdToTaskAndFollowup(List<TaskAndFollowUp> taskAndFollowUps, Long entityId, String module){
+		
+		
+		if(taskAndFollowUps !=null){
+			
+			for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
+				
+				taskAndFollowUp.setEntityId(entityId);
+				taskAndFollowUp.setModule(module);
+				
 			}
 		}
 		

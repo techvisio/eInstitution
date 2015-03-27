@@ -3,9 +3,15 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 
 public interface ConsultantWorkflowManager {
+	
+	public Consultant getConsultant(Long consultantId);
+	public Long saveConsultant(Consultant consultant);
+	public void deleteConsultant(Long consultantId);
+	
 
 	public List<ConsultantDetail> getConsultantDtl(String fileNo);
 	public void saveConsultant(List<ConsultantDetail> consultantDetails);

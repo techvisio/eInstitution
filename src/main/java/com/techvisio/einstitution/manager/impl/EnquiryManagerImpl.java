@@ -52,9 +52,13 @@ public class EnquiryManagerImpl implements EnquiryManager {
 		return enquiryId;
 	}
 
-	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
+	public Long updateInquiry(AdmissionEnquiry admissionInquiry) {
+
+		Long enquiryId = admissionInquiry.getEnquiryId();
 
 		inquiryDao.updateInquiry(admissionInquiry);
+
+		return enquiryId;
 	}
 
 	public void deleteInquiry(Long inquiryId) {
@@ -68,7 +72,7 @@ public class EnquiryManagerImpl implements EnquiryManager {
 	}
 
 	@Override
-	public AdmissionEnquiry getInquiryByTaskDate(Date taskDate) {
+	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 
 		return inquiryDao.getInquiryByTaskDate(taskDate);
 	}

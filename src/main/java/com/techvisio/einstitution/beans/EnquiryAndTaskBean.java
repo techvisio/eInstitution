@@ -8,10 +8,10 @@ public class EnquiryAndTaskBean {
 	private List<TaskAndFollowUp> tasks;
 	
 	
-	public AdmissionEnquiry getAdmissionInquiry() {
+	public AdmissionEnquiry getAdmissionEnquiry() {
 		return admissionEnquiry;
 	}
-	public void setAdmissionInquiry(AdmissionEnquiry admissionInquiry) {
+	public void setAdmissionEnquiry(AdmissionEnquiry admissionInquiry) {
 		this.admissionEnquiry = admissionInquiry;
 	}
 	public List<TaskAndFollowUp> getTasks() {

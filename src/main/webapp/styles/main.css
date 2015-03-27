@@ -618,45 +618,54 @@ border:1px solid #26759E;text-decoration:none; display:inline-block;font-weight:
 	float:left;
 }
 
-.latest-admission
+.side-live-bar
 {
 	height:100%;
-	width:40%;
+	width:30%;
 	float:right;
 	text-align:center;
 	font-size: 10px;
 }
 
-.latest-admission table tr 
+.side-live-bar table tr 
 {
 	 border-bottom: 1px solid #E0E0EB;
 }
 
-.latest-admission table tr td,.latest-admission table tr th
+.side-live-bar table tr td,.side-live-bar table tr th
 {
 	padding-top:10px;
-	padding-right:20px;
+	padding-right:15px;
 	text-align:left;
 	padding-left:0px;
+	font-size: 12px;
 	
 }
 
 .module-dashboard-content
 {
 	height:50%;
-	width:60%;
+	width:70%;
 	float:left;
 }
 
 .module-dashboard-content table tr td,.module-dashboard-content table tr th{
 	text-align:left;
 	padding-left:10px;
-	padding-bottom:7px;
+	padding-bottom:3px;
+	padding-top: 3px;
 } 
 
 .module-dashboard-content input[type="text"],.module-dashboard-content select{
 	width:200px;
 } 
+
+
+.module-dashboard-content  li {
+	display: inline;
+	list-style: none;
+	
+}
 
 input[type="number"].two-column-input,select.two-column-input{
 	width:300px;
@@ -764,3 +773,37 @@ color:#50A4D0;
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   background-clip: padding-box;
 }
+
+.searchList tr td {
+	cursor: pointer;
+	padding-right:10px;
+}
+
+.searchList tr:HOVER {
+	background-color: #ccc;
+}
+.searchList input[type="text"],.searchList select {
+	width:150px;
+}
+
+.enquiry-detail-div{
+	width:100%;
+	float:left;
+	padding-bottom:10px;
+	border-radius:10px;
+	margin-left:20px;
+	margin-top:10px;
+}
+
+.enquiry-detail-div table tr td{
+	text-align:left;
+	padding-top:10px;
+	padding-left:10px;
+	padding-right: 10px;
+}
+
+.content .enquiry-detail-div input[type="text"],.content .enquiry-detail-div select {
+	width:250px;
+	height:25px;
+}
+

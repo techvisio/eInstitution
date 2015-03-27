@@ -43,20 +43,20 @@
 			</div>
 		</div>
 
-		<div class="latest-admission" ng-init="getLatestAdmission()">
-			<span class="title-span">Latest Admissions</span>
+		<div class="side-live-bar" ng-init="getLatestAdmission()">
+			<span class="header">Latest Admissions</span>
 			<table>
 				<tr>
-					<th><span>File No.</span></th>
-					<th><span>Student Name</span></th>
-					<th><span>Father Name</span></th>
+					<th>File No.</th>
+					<th>Student Name</th>
+					<th>Father Name</th>
 
 				</tr>
 				<tr ng-repeat="object in latestAdmission">
-					<td><span ng-bind="object.fileNo"></span></td>
-					<td><span ng-bind="object.firstName+' '+object.lastName"></span></td>
-					<td><span ng-bind="object.fatherName"></span></td>
-					<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Show Detail</button></td>
+					<td>{{object.fileNo}}</td>
+					<td>{{object.firstName+' '+object.lastName}}</td>
+					<td>{{object.fatherName}}</td>
+					<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Detail</button></td>
 				</tr>
 				<tr><td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="LoadMoreData()">Load more data</button></td>
 <!-- 				     <td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="lessData()">Less data</button> -->

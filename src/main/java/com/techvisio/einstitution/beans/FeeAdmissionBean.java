@@ -16,6 +16,8 @@ public class FeeAdmissionBean {
 	private String branch;
 	private String semester;
 	private String academicYear;
+	private String instructionForFee;
+	private Date feeInstructionDate;
 	public Double getPendingFee() {
 		return pendingFee;
 	}
@@ -87,6 +89,29 @@ public class FeeAdmissionBean {
 	}
 	public void setAcademicYear(String academicYear) {
 		this.academicYear = academicYear;
+	}
+	public String getInstructionForFee() {
+		return instructionForFee;
+	}
+	public void setInstructionForFee(String instructionForFee) {
+		this.instructionForFee = instructionForFee;
+	}
+	public Date getFeeInstructionDate() {
+		return feeInstructionDate;
+	}
+	public void setFeeInstructionDate(Date feeInstructionDate) {
+		this.feeInstructionDate = feeInstructionDate;
+	}
+	@Override
+	public String toString() {
+		return "FeeAdmissionBean [pendingFee=" + pendingFee + ", fileNo="
+				+ fileNo + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", enrollmentNo=" + enrollmentNo + ", fatherName="
+				+ fatherName + ", gender=" + gender + ", dob=" + dob
+				+ ", course=" + course + ", branch=" + branch + ", semester="
+				+ semester + ", academicYear=" + academicYear
+				+ ", instructionForFee=" + instructionForFee
+				+ ", feeInstructionDate=" + feeInstructionDate + "]";
 	}
 	
     
