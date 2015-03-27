@@ -36,6 +36,7 @@ public class StudentDetail {
 	private String uniEnrollNo;
 	@DynamicProperties(id="dob", title="DOB", type="date")
 	private Date dob;
+	
 	@Override
 	public String toString() {
 		return "StudentDetail [admissionMode=" + admissionMode + ", fileNo="
@@ -55,12 +56,15 @@ public class StudentDetail {
 				+ ", managementApproval=" + managementApproval + ", feePaid="
 				+ feePaid + ", createdBy=" + createdBy + ", createdOn="
 				+ createdOn + ", updatedBy=" + updatedBy + ", updatedOn="
-				+ updatedOn + ", academicDtl="
-				+ academicDtl + ", DiscountDtl=" + DiscountDtl
-				+ ", addressDtl=" + addressDtl + ", branchPreference="
-				+ branchPreference + ", counsellingDtl=" + counsellingDtl
-				+ ", quotaCode=" + quotaCode
-				+ ", referredBy=" + referredBy + "]";
+				+ updatedOn + ", photo=" + Arrays.toString(photo)
+				+ ", academicDtl=" + academicDtl + ", DiscountDtl="
+				+ DiscountDtl + ", addressDtl=" + addressDtl
+				+ ", branchPreference=" + branchPreference
+				+ ", counsellingDtl=" + counsellingDtl + ", reservation="
+				+ reservation + ", consultantDetail=" + consultantDetail
+				+ ", scholarshipDetail=" + scholarshipDetail + ", quotaCode="
+				+ quotaCode + ", referredBy=" + referredBy + ", lateral="
+				+ lateral + "]";
 	}
 
 	@DynamicProperties(id="fatherName", title="Father Name")
@@ -129,7 +133,7 @@ public class StudentDetail {
     private ScholarshipDetail scholarshipDetail;
     private String quotaCode;
     private String referredBy;
-    
+    private boolean lateral;
 	public String getAdmissionMode() {
 		return admissionMode;
 	}
@@ -469,6 +473,14 @@ public class StudentDetail {
 
 	public void setConsultantDetail(List<ConsultantDetail> consultantDetail) {
 		this.consultantDetail = consultantDetail;
+	}
+
+	public boolean isLateral() {
+		return lateral;
+	}
+
+	public void setLateral(boolean lateral) {
+		this.lateral = lateral;
 	}
 
 

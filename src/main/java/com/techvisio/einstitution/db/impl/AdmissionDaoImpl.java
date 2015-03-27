@@ -119,7 +119,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
 						.addValue("Referred_By", studentDtl.getReferredBy())
-						.addValue("Quota_Code", studentDtl.getQuotaCode()); 
+						.addValue("Quota_Code", studentDtl.getQuotaCode())
+						.addValue("Lateral", studentDtl.isLateral());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -190,7 +191,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Updated_By", studentDtl.getUpdatedBy())
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
 						.addValue("Referred_By", studentDtl.getReferredBy())
-						.addValue("Quota_Code", studentDtl.getQuotaCode());
+						.addValue("Quota_Code", studentDtl.getQuotaCode())
+						.addValue("Lateral", studentDtl.isLateral());
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
@@ -958,7 +960,8 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		studentDetail.setUpdatedOn(rs.getDate("Updated_On"));
 		studentDetail.setAdmissionMode(rs.getString("Admission_Mode"));
 		studentDetail.setReferredBy(rs.getString("Referred_By"));
-		studentDetail.setQuotaCode(rs.getString("Quota_Code"));	
+		studentDetail.setQuotaCode(rs.getString("Quota_Code"));
+		studentDetail.setLateral(rs.getBoolean("Lateral"));
 
 		return studentDetail;
 	}
