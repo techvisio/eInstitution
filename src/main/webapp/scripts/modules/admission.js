@@ -463,6 +463,9 @@ admissionModule
 
 				 $scope.student.counsellingDtl = [];
 				 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
+				 
+				 $scope.student.consultantDetail=[];
+				 $scope.student.consultantDetail.push(angular.copy($scope.dummyConsultantDetail));
 
 			 }
 

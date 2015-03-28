@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>eInstitution</groupId>
   <artifactId>eInstitution</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <packaging>war</packaging>
   <properties>
 		<spring.version>4.0.0.RELEASE</spring.version>
@@ -104,7 +104,7 @@
     </configuration>
    </plugin> 
   </plugins>
- 
+ <finalName>eInstitution</finalName>
  </build>
 </project>
 

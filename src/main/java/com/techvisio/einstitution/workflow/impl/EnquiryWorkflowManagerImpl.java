@@ -3,6 +3,8 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.SearchCriteria;
@@ -41,12 +43,12 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	@Override
 	public Long addEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
 	
-		 
+		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
+        enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  
 		
 		Long enquiryId=enquiryManager.addInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
 		
-		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
-         enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  	
+			
 		
 		
 		List<TaskAndFollowUp> followUps = enquiryAndTaskBean.getTasks();
@@ -110,7 +112,9 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	private void closeAllTasks(EnquiryAndTaskBean enquiryAndTaskBean) {
 		if(enquiryAndTaskBean.getTasks() != null){
         for(TaskAndFollowUp taskAndFollowUp : enquiryAndTaskBean.getTasks()){
+        	if(StringUtils.isEmpty(taskAndFollowUp.getRemark())){
         	taskAndFollowUp.setRemark("Auto Closed by System");
+        	}
         	taskAndFollowUp.setStatus("C");
         }
         	
@@ -127,13 +131,20 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         studentDetail.setBranchId(enquiry.getBranchId());
         studentDetail.setEmailId(enquiry.getEmailId());
         studentDetail.setGender(enquiry.getGender());
+        studentDetail.setLateral(enquiry.isLateral());
 		return studentDetail;
 	}
 	@Override
-	public Long closeEnquiry(EnquiryAndTaskBean enquiryAndTaskBean){
+	public Long toggleEnquiryStatus(EnquiryAndTaskBean enquiryAndTaskBean){
 		
 		 AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
+		 if(EnquiryStatus.OPEN.name().equals(enquiry.getApplicationStatus())){
          enquiry.setApplicationStatus(EnquiryStatus.CLOSED.name());
+		 }
+		 else
+		 {
+			 enquiry.setApplicationStatus(EnquiryStatus.OPEN.name());
+		 }
         
          closeAllTasks(enquiryAndTaskBean);
         

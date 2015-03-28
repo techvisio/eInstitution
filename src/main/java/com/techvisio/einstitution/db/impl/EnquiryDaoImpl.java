@@ -130,7 +130,8 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		.addValue("Name", StringUtils.isEmpty(searchCriteria.getName())?"%":searchCriteria.getName()+"%")
 		.addValue("Phone_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
 		.addValue("Course_Id", searchCriteria.getCourseId()==null?null:searchCriteria.getCourseId())
-		.addValue("Branch_Id", searchCriteria.getBranchId()==null?null:searchCriteria.getBranchId());
+		.addValue("Branch_Id", searchCriteria.getBranchId()==null?null:searchCriteria.getBranchId())
+		.addValue("status", searchCriteria.getStatus()==null?null:searchCriteria.getStatus());
 		
 		List<AdmissionEnquiry> admissionInquiries=getNamedParamJdbcTemplate().query(
 				getQuery, namedParameter, new AdmissionINquiryRowMapper());

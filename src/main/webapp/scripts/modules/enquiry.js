@@ -26,7 +26,18 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 			 "remark" : null,
 			
 	 };
-	
+	 $scope.resetForm = function(){
+		 console.log("calling reset.....")
+		 $scope.data = {};
+		 $scope.data.admissionEnquiry={};
+		 $scope.data.tasks=[];
+		 $scope.data.tasks.push(angular.copy($scope.dummyTask));
+	 }
+
+	 $scope.backtoDashboard = function(){
+		 $scope.dashboard=true;
+	 }
+
 	$scope.isTaskClosedOrInAdmission=function(){
 		return $scope.data.admissionEnquiry.applicationStatus=='CLOSED'||$scope.data.admissionEnquiry.applicationStatus=='MOVED_TO_ADMISSION';
 	}
@@ -56,10 +67,21 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 				 $scope.searchEnquiryList = response.data.responseBody;
 				 if($scope.searchEnquiryList.length>0){
 					 $scope.showCriteria=false;
+					 $scope.dashboard = false;
+				 
 				 }
 				 else
 					 {
-					 alert('No records availble for given criteria');
+					 var createNew=confirm('No records availble for given criteria.\n Would you like to create One?');
+					 if(createNew){
+						 $scope.resetForm();
+						 $scope.data.admissionEnquiry.courseId=angular.copy($scope.searchCriteria.courseId);
+						 $scope.data.admissionEnquiry.branchId=angular.copy($scope.searchCriteria.branchId);
+						 $scope.data.admissionEnquiry.name=angular.copy($scope.searchCriteria.name);
+						 $scope.data.admissionEnquiry.emailId=angular.copy($scope.searchCriteria.emailId);
+						 $scope.data.admissionEnquiry.contactNo=angular.copy($scope.searchCriteria.mobileNo);
+						 $scope.dashboard = false;
+					 }
 					 }
 			 } else {
 				 console.log(response.data.error);
@@ -74,6 +96,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 		 var enquiryId=$scope.dueEnquiries[index].enquiryId;
 		 if(enquiryId){
 		 $scope.getEnquiry(enquiryId);
+		 $scope.dashboard=false;
 		 }
 		 else
 			 {
@@ -206,7 +229,7 @@ $scope.saveEnquiry = function(){
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 $scope.data = response.data.responseBody;
-				 alert("proceeding to admission......")
+				 alert("Successfully Moved to Admission\n File No. "+$scope.data.admissionEnquiry.fileNo);
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);
@@ -216,14 +239,14 @@ $scope.saveEnquiry = function(){
 	 }
 
 	 
-	 $scope.closeEnquiry=function(){
+	 $scope.toggleEnquiryStatus=function(){
 		 enquiryService.closeEnquiry($scope.data)
 		 .then(function(response) {
 			 console.log('close enquiry Data received from service : ');
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 $scope.data = response.data.responseBody;
-				 alert("enquiry has been closed")
+				 alert("Enquiry Status updated")
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);
@@ -339,7 +362,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('close enquiry called in service');
 		 var request = $http({
 			 method : "put",
-			 url : "enquiry/closeEnquiry/",
+			 url : "enquiry/toggleEnquiryStatus/",
 			 params : "",
 			 data : enquiryAndTaskBean
 

@@ -13,6 +13,7 @@ public class SearchCriteria {
 	private Long courseId;
 	private String name;
 	private Long branchId;
+	private String status;
 
 	@Override
 	public String toString() {
@@ -20,6 +21,17 @@ public class SearchCriteria {
 				+ ", mobileNo=" + mobileNo + ", enrollNo=" + enrollNo
 				+ ", uniEnrollNo=" + uniEnrollNo + "]";
 	}
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 
 	public String getFileNo() {
 		return fileNo;

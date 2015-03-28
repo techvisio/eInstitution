@@ -23,5 +23,5 @@ public interface EnquiryWorkflowManager {
 
 	public Long proceedToAdmission(EnquiryAndTaskBean enquiryAndTaskBean);
 
-	public Long closeEnquiry(EnquiryAndTaskBean enquiryAndTaskBean);
+	public Long toggleEnquiryStatus(EnquiryAndTaskBean enquiryAndTaskBean);
 }
