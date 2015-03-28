@@ -18,21 +18,6 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.addNew=false;
 	$scope.searchResult=false;
 	
-/*	$scope.getEnquiryByCriteria = function(){
-		
-	}*/
-	
-/*	$scope.getDueEnquiry=function(){
-		
-	}*/
-	
-/*	 $scope.LoadMoreData = function() {
-
-		 $scope.currentFetchLimit += 5;
-
-		 $scope.getDueEnquiry();
-
-	 };*/
 	 
 	 $scope.search = function(searchCriteria){
 		 consultantService.getConsultantByCriteria(searchCriteria)
@@ -53,26 +38,26 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	 
 	 $scope.saveConsultant=function(){
 		 if($scope.consultant.consultantId){
-			updateConsultant();
+			$scope.updateConsultant();
 		 }else{
-			addConsultant();
+			 $scope.addConsultant();
 		 }
 	 }
 	 
-	 $scope.addConsultant = function(){
+	 $scope.addConsultant = function() {
+		 console.log('add consultant called');
 		 consultantService.addConsultant($scope.consultant)
 		 .then(function(response) {
-		 console.log('Adding consultant : ');
-		 console.log(response);
-		 if (response != null && response.data != null && response.data.responseBody != null) {
-			 $scope.consultant = response.data.responseBody;
-			
-		 } else {
-			 console.log(response.data.error);
-			 alert(response.data.error);
-		 }
-
-	 })
+			 console.log('Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.consultant = response.data.responseBody;
+				 alert("Your Records Saved Successfully")
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
 	 }
 	
 	 
@@ -110,14 +95,14 @@ consultantModule.service('consultantService', function($http, $q) {
 
 	// Return public API.
 	return ({
-		 addConsultant : addConsultant,
+		addConsultant  : addConsultant ,
 		 getConsultantByCriteria : getConsultantByCriteria,
 		 updateConsultant : updateConsultant,
 		 getConsultant : getConsultant
 	 });
 	
 	function addConsultant(consultant){
-		 console.log('add consultant enquiries');
+		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
 			 url : "consultant/consultantMaster",
@@ -125,9 +110,8 @@ consultantModule.service('consultantService', function($http, $q) {
 			 data: consultant
 
 		 });
-
+		 
 		 return (request.then(handleSuccess, handleError));
-
 	}
 	
 	function getConsultant(consultantId){
@@ -166,45 +150,45 @@ consultantModule.service('consultantService', function($http, $q) {
 			 data: consultant
 
 		 });
+		 
+		 return (request.then(handleSuccess, handleError));
 	}
 	
 	function updateConsultant(consultant){
 		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "put",
-			 url : "consultant",
+			 url : "consultant/consultantMaster",
 			 params : "",
 			 data: consultant
 
 		 });
+		 
+		 return (request.then(handleSuccess, handleError));
 	}
 	
 
-	function handleError(response) {
-		console.log('handle error');
-		console.log(response);
-		// The API response from the server should be returned in a
-		// nomralized format. However, if the request was not handled by the
-		// server (or what not handles properly - ex. server error), then we
-		// may have to normalize it on our end, as best we can.
-		if (!angular.isObject(response.data) || !response.data.message) {
+	 function handleError(response) {
+		 console.log('Error occured while calling service');
+		 console.log(response);
+		 if (!angular.isObject(response.data) || !response.data.message) {
 
-			return ($q.reject("An unknown error occurred."));
+			 return ($q.reject("An unknown error occurred."));
 
-		}
+		 }
 
-		// Otherwise, use expected error message.
-		return ($q.reject(response.data.message));
+		 // Otherwise, use expected error message.
+		 return ($q.reject(response.data.message));
 
-	}
+	 }
 
-	// I transform the successful response, unwrapping the application data
-	// from the API response payload.
-	function handleSuccess(response) {
-		console.log('handle success');
-		console.log(response);
-		return (response);
+	 // I transform the successful response, unwrapping the application data
+	 // from the API response payload.
+	 function handleSuccess(response) {
+		 console.log('handle success');
+		 console.log(response);
+		 return (response);
 
-	}
+	 }
 
 });
