@@ -1,6 +1,6 @@
 var consultantModule = angular.module('consultantModule', []);
 
-consultantModule.controller('consultantController', ['$scope','consultantService','masterdataService',function($scope,enquiryService,masterdataService) {
+consultantModule.controller('consultantController', ['$scope','consultantService','masterdataService',function($scope,consultantService,masterdataService) {
 
 	// Data variables.
 	$scope.form={};
@@ -35,17 +35,29 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	 };*/
 	 
 	 $scope.search = function(searchCriteria){
-		 searchRes = consultantService.getConsultantByCriteria(searchCriteria);
+		 consultantService.getConsultantByCriteria(searchCriteria)
+		 .then(function(response) {
+			 console.log('Data searched in controller : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.searchRes = response.data.responseBody;
+				
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+		 })
 		 searchResult = true;
 	 }
 	 
 	 $scope.addConsultant=function(){
-		 consultantService.addConsultant(scope.data);
+		 consultantService.addConsultant($scope.consultant);
 	 }
 	
 	 
 	 $scope.updateConsultant=function(){
-		 consultantService.updateConsultant(scope.data);
+		 consultantService.updateConsultant($scope.consultant);
 	 }
 	 
 	 $scope.resetForm = function(){
@@ -54,7 +66,19 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	 
 	 $scope.showDetail = function(index){
 		 var consoltantId = $scope.searchRes[index].consultantId;
-		 consultant = consultantService.getConsultant(consoltantId);
+		 consultantService.getConsultant(consoltantId)
+		 .then(function(response) {
+			 console.log('Data received by consultantID in controller : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.consultant = response.data.responseBody;
+				
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+
+		 })
 		 searchResult = false;
 		 addNew = true;
 		 form.isEdit=true;
@@ -72,26 +96,25 @@ consultantModule.service('consultantService', function($http, $q) {
 		 getConsultant : getConsultant
 	 });
 	
-	function getDueEnquiry() {
-
-		 console.log('get due enquiries');
+	function addConsultant(consultant){
+		 console.log('add consultant enquiries');
 		 var request = $http({
-			 method : "get",
-			 url : "inquiry",
+			 method : "post",
+			 url : "consultant/consultantMaster",
 			 params : "",
-			 data: ""
+			 data: consultant
 
 		 });
 
 		 return (request.then(handleSuccess, handleError));
 
-	 }
+	}
 	
 	function getConsultant(consultantId){
 		 console.log('get due enquiries');
 		 var request = $http({
 			 method : "get",
-			 url : "consultant/"+consultantId,
+			 url : "consultant/consultantMaster/"+consultantId,
 			 params : "",
 			 data: ""
 
@@ -118,7 +141,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
-			 url : "consultant",
+			 url : "consultant/consultantMaster",
 			 params : "",
 			 data: consultant
 
