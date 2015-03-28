@@ -51,8 +51,28 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		 searchResult = true;
 	 }
 	 
-	 $scope.addConsultant=function(){
-		 consultantService.addConsultant($scope.consultant);
+	 $scope.saveConsultant=function(){
+		 if($scope.consultant.consultantId){
+			updateConsultant();
+		 }else{
+			addConsultant();
+		 }
+	 }
+	 
+	 $scope.addConsultant = function(){
+		 consultantService.addConsultant($scope.consultant)
+		 .then(function(response) {
+		 console.log('Adding consultant : ');
+		 console.log(response);
+		 if (response != null && response.data != null && response.data.responseBody != null) {
+			 $scope.consultant = response.data.responseBody;
+			
+		 } else {
+			 console.log(response.data.error);
+			 alert(response.data.error);
+		 }
+
+	 })
 	 }
 	
 	 
