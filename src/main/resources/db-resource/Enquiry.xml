@@ -155,7 +155,7 @@ Delete from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;
     <![CDATA[
       
 SELECT * FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
-IFNULL(Contact_No,'-1') =IFNULL(:Phone_No,IFNULL(Contact_No,'-1')) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and Name like :Name; 
+IFNULL(Contact_No,'-1') =IFNULL(:Phone_No,IFNULL(Contact_No,'-1')) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and Name like :Name and Application_Status=IFNULL(:status,Application_Status); 
     ]]>
 
 	</entry>

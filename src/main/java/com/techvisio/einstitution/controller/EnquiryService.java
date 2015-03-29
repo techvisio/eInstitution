@@ -170,13 +170,13 @@ public class EnquiryService {
 	}
 	
 	
-	@RequestMapping(value="/closeEnquiry",method = RequestMethod.PUT)
-	public ResponseEntity<Response> closeEnquiry(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+	@RequestMapping(value="/toggleEnquiryStatus",method = RequestMethod.PUT)
+	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTaskBean enquirynTask) {  
 		Response response=new Response();
 		try{
 			
 		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.closeEnquiry(enquirynTask);
+		Long enquiryId=inquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
 		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 		}
