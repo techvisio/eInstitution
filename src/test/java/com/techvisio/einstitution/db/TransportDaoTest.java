@@ -93,7 +93,7 @@ public class TransportDaoTest {
 
 		TransportAllocation transportAllocation = new TransportAllocation();
 
-		transportAllocation.setFileNo("1");
+		transportAllocation.setFileNo(1L);
 		transportAllocation.setVehicleId(189L);
 
 		dao.addTransportAllocationDtl(transportAllocation);
@@ -104,7 +104,7 @@ public class TransportDaoTest {
 	public void testGetTransportAllocation() {
 
 		TransportAllocation transportAllocation = dao
-				.getTransportAllocationDtl("11");
+				.getTransportAllocationDtl(11L);
 		System.out.println(transportAllocation);
 
 	}
@@ -113,7 +113,7 @@ public class TransportDaoTest {
 	public void testUpdateTransportAllocation() {
 
 		TransportAllocation transportAllocation = dao
-				.getTransportAllocationDtl("11");
+				.getTransportAllocationDtl(11L);
 		transportAllocation.setVehicleId(189L);
 		dao.updateTransportAllocationDtl(transportAllocation);
 	}
@@ -121,7 +121,7 @@ public class TransportDaoTest {
 	@Test
 	public void testDeleteTransportAllocation() {
 
-		dao.deleteTransportAllocationDtl("1");
+		dao.deleteTransportAllocationDtl(1L);
 
 	}
 
@@ -130,7 +130,7 @@ public class TransportDaoTest {
 
 		TransportReservation transportReservation = new TransportReservation();
 
-		transportReservation.setFileNo("11");
+		transportReservation.setFileNo(11L);
 		transportReservation.setFeePaid(true);
 		transportReservation.setRouteCode("indira007");
 		dao.addTransportReservationDtl(transportReservation);
@@ -141,7 +141,7 @@ public class TransportDaoTest {
 	public void testGetTransportReservation() {
 
 		TransportReservation transportReservation = dao
-				.getTransportReservationDtl("11");
+				.getTransportReservationDtl(11L);
 		System.out.println(transportReservation);
 
 	}
@@ -150,7 +150,7 @@ public class TransportDaoTest {
 	public void testUpdateTransportReservation() {
 
 		TransportReservation transportReservation = dao
-				.getTransportReservationDtl("11");
+				.getTransportReservationDtl(11L);
 
 		transportReservation.setRouteCode("vkNgr12");
 		dao.updateTransportReservationDtl(transportReservation);
@@ -160,7 +160,7 @@ public class TransportDaoTest {
 	@Test
 	public void testDeleteTransportReservation() {
 
-		dao.deleteTransportReservationDtl("11");
+		dao.deleteTransportReservationDtl(11L);
 
 	}
 

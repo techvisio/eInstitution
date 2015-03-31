@@ -69,7 +69,7 @@ public class FeeDetailDaoTest {
 		StudentFeeStaging feeStaging = new StudentFeeStaging();
 		//feeStaging.setBranch(1L);
 		//feeStaging.setCourse(1L);
-		feeStaging.setFileNo("2015-151");
+		feeStaging.setFileNo(2015-151L);
 		feeStaging.setCreatedBy("Anil");
 		
 		dao.addStudentFeeStaging(feeStaging);
@@ -87,7 +87,7 @@ public class FeeDetailDaoTest {
 		StudentFeeStaging feeStaging = new StudentFeeStaging();
 		//feeStaging.setBranch(4L);
 	//	feeStaging.setCourse(2L);
-		feeStaging.setFileNo("1");
+		feeStaging.setFileNo(1L);
 		
 		dao.updateStudentFeeStaging(feeStaging);
 	}

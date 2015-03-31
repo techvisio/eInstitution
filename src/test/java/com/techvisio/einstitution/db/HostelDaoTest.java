@@ -27,7 +27,7 @@ public class HostelDaoTest {
 	public void testAddHostelAllocation(){
 		HostelAllocation hostel = new HostelAllocation();	
 		hostel.setBlock("A");
-		hostel.setFileNo("11");
+		hostel.setFileNo(11L);
 		hostel.setFloor("2");
 		hostel.setName("nikhil");
 		hostel.setRoomNo("2");
@@ -38,7 +38,7 @@ public class HostelDaoTest {
 
 	@Test
 	public void testGetHostelAllocation(){
-		HostelAllocation hAllocation = dao.getHostelAllocation("1");
+		HostelAllocation hAllocation = dao.getHostelAllocation(1L);
 		System.out.println(hAllocation);
 	}
 	
@@ -74,7 +74,7 @@ public class HostelDaoTest {
 	public void testAddHostelReservation(){
 		HostelReservation hostel = new HostelReservation();
 		hostel.setFeePaid(true);
-		hostel.setFileNo("11");
+		hostel.setFileNo(11L);
 		hostel.setTypeCode("1");
 		hostel.setAllocationStatus("alloted");
 		hostel.setActive(false);
@@ -84,7 +84,7 @@ public class HostelDaoTest {
 
 	@Test
 	public void testGetHostelReservation(){
-		HostelReservation hostelReservation=dao.getHostelReservation("2");
+		HostelReservation hostelReservation=dao.getHostelReservation(2L);
 
 		System.out.println(hostelReservation);
 	}
@@ -128,7 +128,7 @@ public class HostelDaoTest {
 	public void testUpdateHostelAllocation(){
 		HostelAllocation hostel2 = new HostelAllocation();
 		hostel2.setBlock("A");
-		hostel2.setFileNo("13");
+		hostel2.setFileNo(13L);
 		hostel2.setFloor("2");
 		hostel2.setName("Sandeep Gusain");
 		hostel2.setRoomNo("2");
@@ -143,7 +143,7 @@ public class HostelDaoTest {
 	public void testUpdateHostelReservation(){
 		HostelReservation hostel = new HostelReservation();
 		hostel.setFeePaid(false);
-		hostel.setFileNo("11");
+		hostel.setFileNo(11L);
 		hostel.setTypeCode("1");
 		hostel.setAllocationStatus("Not-Alloted");
 		hostel.setActive(true);
@@ -170,7 +170,7 @@ public class HostelDaoTest {
 	@Test
 	
 	public void testDeleteHotelReservation(){
-		dao.deleteHostelReservation("11");
+		dao.deleteHostelReservation(11L);
 	}
 	
 	@Test
@@ -183,7 +183,7 @@ public class HostelDaoTest {
 	@Test
 	
 	public void testDeleteHostelAllocation(){
-		dao.deleteHostelAllocation("11");
+		dao.deleteHostelAllocation(11L);
 	}
 	
 }

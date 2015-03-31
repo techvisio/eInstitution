@@ -23,7 +23,7 @@ public class AdmissionDaoTest {
 	public void testaddAdmissionDao(){
 		
 		StudentDetail studentDetail=new StudentDetail();
-		studentDetail.setFileNo("11");
+		studentDetail.setFileNo(11L);
 		studentDetail.setEnrollNo("3");
 		studentDetail.setFirstName("Sandeep");
 		studentDetail.setLastName("Gusain");
@@ -43,13 +43,13 @@ public class AdmissionDaoTest {
 	
 	@Test
 	public void testGetStudentDtl(){
-		StudentDetail detail = dao.getStudentDtl("1");
+		StudentDetail detail = dao.getStudentDtl(1L);
 		System.out.println("Data is :- "+detail);
 	}
 	
 	@Test
 	public void testGetAdmission(){
-		StudentDetail detail=dao.getStudentDtl("11");
+		StudentDetail detail=dao.getStudentDtl(11L);
 		System.out.println(detail);
 		
 		

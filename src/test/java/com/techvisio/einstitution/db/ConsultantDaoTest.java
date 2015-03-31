@@ -56,7 +56,7 @@ public void testGetConsulTant(){
 public void testAddConsultantPaymentCriteria(){
 
 	ConsultantPaymentCriteria consultantPaymentCriteria1 =  new ConsultantPaymentCriteria();
-	consultantPaymentCriteria1.setFileNo("2015-151");
+	consultantPaymentCriteria1.setFileNo(2015-151L);
 	consultantPaymentCriteria1.setConsultantId(2L);
 	consultantPaymentCriteria1.setFeeReceived(30000D);
 	consultantPaymentCriteria1.setAmountToBePaid(6000D);
@@ -68,7 +68,7 @@ public void testAddConsultantPaymentCriteria(){
 @Test
 public void testGetConsultantPaymentCriteria(){
 
-	List<ConsultantPaymentCriteria> consultantPaymentCriteria = dao.getConsultantPaymentCriteria("2015-151", 1L);
+	List<ConsultantPaymentCriteria> consultantPaymentCriteria = dao.getConsultantPaymentCriteria(2015-151L, 1L);
      
 	System.out.println("Data is:" + consultantPaymentCriteria);
 
@@ -77,7 +77,7 @@ public void testGetConsultantPaymentCriteria(){
 @Test
 public void testUpdateConsultantPaymentCriteria(){
 
-	List<ConsultantPaymentCriteria> consultantPaymentCriteria = dao.getConsultantPaymentCriteria("2015-151", 1L);
+	List<ConsultantPaymentCriteria> consultantPaymentCriteria = dao.getConsultantPaymentCriteria(2015-151L, 1L);
 for(ConsultantPaymentCriteria consultantPaymentCriteria2 : consultantPaymentCriteria)  
 {
 	consultantPaymentCriteria2.setAmountToBePaid(9000D); 
