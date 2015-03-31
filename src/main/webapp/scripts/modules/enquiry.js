@@ -21,10 +21,18 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.form.isNew=true;
 	$scope.form.isEdit=true;
 	$scope.dashboard=true;
-	$scope.currentPage = 1;
-	$scope.numPerPage = 10;
-	$scope.maxSize = 5;
-	
+
+	 $scope.itemsPerPage = 5
+	  $scope.currentPage = 1;
+	 $scope.totalItems = 0;
+	  // $scope.maxSize = 5;
+	  // $scope.bigTotalItems = 175;
+	  // $scope.bigCurrentPage = 1;
+
+	  $scope.pageCount = function () {
+	    return Math.ceil($scope.searchEnquiryList.length / $scope.itemsPerPage);
+	  };
+	  
 	 $scope.dummyTask = {
 			 "taskDate" : null,
 			 "remark" : null,
@@ -75,7 +83,13 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 				 if($scope.searchEnquiryList.length>0){
 					 $scope.showCriteria=false;
 					 //$scope.dashboard = false;
-				 
+					 $scope.totalItems = $scope.searchEnquiryList.length;
+					    $scope.$watch('currentPage + itemsPerPage', function() {
+					      var begin = (($scope.currentPage - 1) * $scope.itemsPerPage),
+					        end = begin + $scope.itemsPerPage;
+
+					      $scope.filteredSearch = $scope.searchEnquiryList.slice(begin, end);
+					    });
 				 }
 				 else
 					 {

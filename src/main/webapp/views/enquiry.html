@@ -66,7 +66,7 @@
 				<th><span>Course</span></th>
 				<th><span>Branch</span></th>
 			</tr>
-			<tr ng-repeat="object in searchEnquiryList"
+			<tr ng-repeat="object in filteredSearch"
 				ng-click="getEnquiry(object.enquiryId)">
 				<td><span>{{object.name}}</span></td>
 				<td><span>{{object.fatherName}}</span></td>
@@ -79,6 +79,9 @@
 					ng-disabled="true"></select></td>
 			</tr>
 		</table>
+			
+			<pagination ng-show="searchEnquiryList.length>0" total-items="totalItems" items-per-page="itemsPerPage" 
+         ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	</div>
 			</div>
 			
