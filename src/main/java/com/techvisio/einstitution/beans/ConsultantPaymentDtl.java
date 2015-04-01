@@ -6,7 +6,7 @@ public class ConsultantPaymentDtl {
 	
 	private Double amount;
     private Date payDate; 
-    private String fileNo;
+    private Long fileNo;
 	
     public Double getAmount() {
 		return amount;
@@ -25,12 +25,12 @@ public class ConsultantPaymentDtl {
 		this.payDate = payDate;
 	}
 	
-    
-    public String getFileNo() {
+
+	public Long getFileNo() {
 		return fileNo;
 	}
-	
-    public void setFileNo(String fileNo) {
+
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 

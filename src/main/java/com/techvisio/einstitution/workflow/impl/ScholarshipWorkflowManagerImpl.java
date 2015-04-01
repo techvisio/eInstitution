@@ -9,7 +9,7 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 
 	ScholarshipManager scholarshipManager=ScholarshipManagerImpl.getInstance();
 	
-	public ScholarshipDetail getScholarshipDetail(String fileNo) {
+	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
 
 		
 		ScholarshipDetail scholarshipDetail = scholarshipManager.getScholarshipDetail(fileNo);
@@ -23,7 +23,7 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 	}
 
 
-	public void deleteScholarshipDetail(String fileNo) {
+	public void deleteScholarshipDetail(Long fileNo) {
 
 		scholarshipManager.deleteScholarshipDetail(fileNo);
 	}

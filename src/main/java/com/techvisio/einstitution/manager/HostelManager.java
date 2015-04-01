@@ -11,16 +11,16 @@ public interface HostelManager {
 	
 	public List<HostelAvailability> getHostelAvailability();
 	
-	public HostelAllocation getHostelAllocation(String fileNo);
+	public HostelAllocation getHostelAllocation(Long fileNo);
 	public void addHostelAllocation(HostelAllocation hostelAllocation);
 	public void updateHostelAllocation(HostelAllocation hostelAllocation);
-	public void deleteHostelAllocation( String fileNo);
+	public void deleteHostelAllocation( Long fileNo);
 
 	
-	public HostelReservation getHostelReservation(String fileNo);
+	public HostelReservation getHostelReservation(Long fileNo);
 	public void addHostelReservation(HostelReservation hostelReservation);
 	public void updateHostelReservation(HostelReservation hostelReservation);
-	public void deleteHostelReservation(String fileNo);
+	public void deleteHostelReservation(Long fileNo);
 
 	
 	public RoomTypeDetail getRoomTypeDetail(String typeCode);

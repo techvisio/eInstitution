@@ -32,7 +32,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 		return transportManager.getAvailableTransport();
 	}
 
-	public TransportAllocation getTransportAllocationDtl(String fileNo) {
+	public TransportAllocation getTransportAllocationDtl(Long fileNo) {
 
 		return transportManager.getTransportAllocationDtl(fileNo);
 	}
@@ -49,20 +49,20 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 		transportManager.updateTransportAllocationDtl(transportAllocation);
 	}
 
-	public void deleteTransportAllocationDtl(String fileNo) {
+	public void deleteTransportAllocationDtl(Long fileNo) {
 
 		transportManager.deleteTransportAllocationDtl(fileNo);
 	}
 
-	public TransportReservation getTransportReservationDtl(String fileNo) {
+	public TransportReservation getTransportReservationDtl(Long fileNo) {
 
 		return transportManager.getTransportReservationDtl(fileNo);
 	}
 
-	public String addTransportReservationDtl(
+	public Long addTransportReservationDtl(
 			TransportReservation transportReservation) {
 
-        String fileNo=transportReservation.getFileNo();
+        Long fileNo=transportReservation.getFileNo();
 		
 		//if file No is missing create student
 		if(fileNo == null ){
@@ -88,10 +88,10 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 		return fileNo;
 	}
 
-	public String updateTransportReservationDtl(
+	public Long updateTransportReservationDtl(
 			TransportReservation transportReservation) {
 
-		String fileNo=transportReservation.getFileNo();
+		Long fileNo=transportReservation.getFileNo();
 		
 		if(fileNo == null ){
 			StudentDetail newStudentDetail=new StudentDetail();
@@ -116,7 +116,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 				return fileNo;
 	}
 
-	public void deleteTransportReservationDtl(String fileNo) {
+	public void deleteTransportReservationDtl(Long fileNo) {
 
              TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
              FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);    

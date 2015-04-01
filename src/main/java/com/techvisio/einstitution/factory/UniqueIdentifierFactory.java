@@ -10,14 +10,14 @@ public class UniqueIdentifierFactory {
 	public static UniqueIdentifierGenerator getGenerator(){
 		return new UniqueIdentifierGenerator() {
 		
-			public String getUniqueIdentifierForAdmission() {
+			public Long getUniqueIdentifierForAdmission() {
 
 				Calendar now = Calendar.getInstance();
 				int year = now.get(Calendar.YEAR);
 			    
 				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
 				
-				String fileNo = year+"-"+sf.getSequence("ADMISSION").toString();
+				Long fileNo = sf.getSequence(AppConstants.ADMISSION);
 				
 			    return fileNo;
 				

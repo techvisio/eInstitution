@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 public class SearchCriteria {
 
-	private String fileNo;
+	private Long fileNo;
 	private String emailId;
 	private String mobileNo;
 	private String enrollNo;
@@ -33,13 +33,15 @@ public class SearchCriteria {
 	}
 
 
-	public String getFileNo() {
+	public Long getFileNo() {
 		return fileNo;
 	}
 
-	public void setFileNo(String fileNo) {
+
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
+
 
 	public String getEmailId() {
 		return emailId;

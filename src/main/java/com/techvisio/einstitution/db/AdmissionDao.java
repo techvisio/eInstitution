@@ -16,12 +16,12 @@ public interface AdmissionDao {
 	
 	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 	
-	public StudentDetail getStudentDtl(String fileNo);
+	public StudentDetail getStudentDtl(Long fileNo);
 	public void addStudentDtl(StudentDetail studentDetail);
 	public void updateStudentDtl(StudentDetail studentDetail);
-	public void deleteSudentDtl(String fileNo);
+	public void deleteSudentDtl(Long fileNo);
 	
-	public StudentBasicInfo getStudentBsInfo(String fileNo);
+	public StudentBasicInfo getStudentBsInfo(Long fileNo);
 	
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit);
 

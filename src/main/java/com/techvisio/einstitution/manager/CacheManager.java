@@ -31,5 +31,7 @@ public interface CacheManager {
 
 	FeeDiscountHead getFeeDiscountById(Long headId);
 
+	void refreshCacheList(String entity);
+
 
 }

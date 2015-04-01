@@ -11,15 +11,15 @@ public interface TransportManager {
 
 	public List<AvailableTransport> getAvailableTransport();
 	
-	public TransportAllocation getTransportAllocationDtl(String fileNo);
+	public TransportAllocation getTransportAllocationDtl(Long fileNo);
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
 	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
-	public void deleteTransportAllocationDtl(String fileNo);
+	public void deleteTransportAllocationDtl(Long fileNo);
 
-	public TransportReservation getTransportReservationDtl(String fileNo);
+	public TransportReservation getTransportReservationDtl(Long fileNo);
 	public void addTransportReservationDtl(TransportReservation transportReservation);
 	public void updateTransportReservationDtl(TransportReservation transportReservation);
-	public void deleteTransportReservationDtl(String fileNo);
+	public void deleteTransportReservationDtl(Long fileNo);
 
 	public VehicleDetail getVehicleDetail(Long vehicleId);
 	public void addVehicleDetail(VehicleDetail vehicleDetail);

@@ -123,7 +123,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	}
 
-	public TransportAllocation getTransportAllocationDtl(String fileNo) {
+	public TransportAllocation getTransportAllocationDtl(Long fileNo) {
 
 		String getQuery = transportQueryProps
 				.getProperty("getTransportAllocationByFileNo");
@@ -141,7 +141,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 						TransportAllocation transportAllocation = new TransportAllocation();
 
 						transportAllocation.setFileNo(rs
-								.getString("File_No"));
+								.getLong("File_No"));
 						transportAllocation.setVehicleId(CommonUtil.getLongValue(rs
 								.getLong("Vehicle_Id")));
 						return transportAllocation;
@@ -184,7 +184,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	}
 
-	public void deleteTransportAllocationDtl(String fileNo) {
+	public void deleteTransportAllocationDtl(Long fileNo) {
 
 		String deleteQuery = transportQueryProps
 				.getProperty("deleteTransportAllocation");
@@ -196,7 +196,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	}
 
-	public TransportReservation getTransportReservationDtl(String fileNo) {
+	public TransportReservation getTransportReservationDtl(Long fileNo) {
 
 		String getQuery = transportQueryProps
 				.getProperty("getTransportReservationByFileNo");
@@ -214,7 +214,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 						TransportReservation transportReservation = new TransportReservation();
 
 						transportReservation.setFileNo(rs
-								.getString("File_No"));
+								.getLong("File_No"));
 						transportReservation.setRouteCode(rs
 								.getString("Route_Code"));
 						transportReservation.setFeePaid(rs
@@ -270,7 +270,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 	}
 
-	public void deleteTransportReservationDtl(String fileNo) {
+	public void deleteTransportReservationDtl(Long fileNo) {
 
 		String deleteQuery = transportQueryProps
 				.getProperty("deleteTransportReservation");

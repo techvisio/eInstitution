@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ConsultantDetail {
 
-	private String fileNo;
+	private Long fileNo;
 	private Long consultantId;
 	private boolean consultancyAgreed; 
 	private String paymentMode;
@@ -14,15 +14,6 @@ public class ConsultantDetail {
     private String remarks;
 	private List<ConsultantPaymentDtl> consultantPaymentDetail;
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias;
-	
-	public String getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(String fileNo) {
-		this.fileNo = fileNo;
-	}
-
 
 	public String getPaymentMode() {
 		return paymentMode;
@@ -99,6 +90,16 @@ public class ConsultantDetail {
 				+ ", consultantPaymentCriterias=" + consultantPaymentCriterias
 				+ "]";
 	}
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
+
 
 	public String getRemarks() {
 		return remarks;

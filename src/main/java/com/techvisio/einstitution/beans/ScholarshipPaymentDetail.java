@@ -4,14 +4,15 @@ import java.util.Date;
 
 public class ScholarshipPaymentDetail {
 
-	private String fileNo;
+	private Long fileNo;
 	private Double amountReceived;
 	private Date receivingDate;
 	
-	public String getFileNo() {
+	
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 	public Double getAmountReceived() {

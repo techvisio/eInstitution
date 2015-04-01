@@ -4,9 +4,9 @@ import com.techvisio.einstitution.beans.ScholarshipDetail;
 
 public interface ScholarshipManager {
 
-	public ScholarshipDetail getScholarshipDetail(String fileNo);
+	public ScholarshipDetail getScholarshipDetail(Long fileNo);
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail);
-	public void deleteScholarshipDetail(String fileNo);
+	public void deleteScholarshipDetail(Long fileNo);
 	
 
 //	List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(String fileNo);

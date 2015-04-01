@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ScholarshipDetail {
 
-	private String fileNo;
+	private Long fileNo;
 	private Double amount;
 	private Long stateId;
 	private String remark;
@@ -14,10 +14,11 @@ public class ScholarshipDetail {
     private boolean reoccurring;
     private List<ScholarshipPaymentDetail> scholarshipPaymentDetail;
 	
-	public String getFileNo() {
+	
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 	public Double getAmount() {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -15,6 +16,9 @@ import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 import com.techvisio.einstitution.db.ConsultantDao;
+import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
+import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
@@ -25,7 +29,13 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		this.consultantQueryProps = consultantQueryProps;
 	}
 
-
+	
+	CacheManager cacheManager;
+		
+	@Autowired
+	public void setCacheManager(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
+	}
 	public Consultant getConsultant(Long consultantId) {
 
 		String getQuery = consultantQueryProps.getProperty("getConsultantById");
@@ -74,6 +84,10 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 		}
+		
+		//refresh cache
+		//CacheManager cacheManager=new CacheManagerImpl();
+		cacheManager.refreshCacheList(AppConstants.CONSULTANT);
 	}
 
 /*	public void updateConsultant(Consultant consultant) {
@@ -102,7 +116,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public List<ConsultantDetail> getConsultantDtl(final String fileNo) {
+	public List<ConsultantDetail> getConsultantDtl(final Long fileNo) {
 
 		String getQuery = consultantQueryProps.getProperty("getConsultantDtlByFileNo");
 
@@ -115,7 +129,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				ConsultantDetail consultantDetail = new ConsultantDetail();
 
 				consultantDetail.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
-				consultantDetail.setFileNo(rs.getString("File_No"));
+				consultantDetail.setFileNo(rs.getLong("File_No"));
 				consultantDetail.setAmountToPay(rs.getDouble("Amount_To_Pay"));
 				consultantDetail.setConsultancyAgreed(rs.getBoolean("Consultancy_Agreed"));
 				consultantDetail.setPaymentMode(rs.getString("Payment_Mode"));
@@ -180,7 +194,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails) {
 
 		List<Long> consultantIds=new ArrayList<Long>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(consultantDetails != null){
 			for(ConsultantDetail consultantDetail:consultantDetails){
 				consultantIds.add(consultantDetail.getConsultantId());
@@ -207,7 +221,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public List<ConsultantPaymentDtl> getConsultantPaymentDtl(String fileNo, Long consultantId) {
+	public List<ConsultantPaymentDtl> getConsultantPaymentDtl(Long fileNo, Long consultantId) {
 
 		String getQuery= consultantQueryProps.getProperty("getConsultantPaymentDtlByFileNo");
 
@@ -222,7 +236,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				ConsultantPaymentDtl consultantPaymentDtl=  new ConsultantPaymentDtl();
 
 				consultantPaymentDtl.setAmount(rs.getDouble("Amount"));
-				consultantPaymentDtl.setFileNo(rs.getString("File_No"));
+				consultantPaymentDtl.setFileNo(rs.getLong("File_No"));
 				consultantPaymentDtl.setPayDate(rs.getDate("Pay_Date"));
 
 				return consultantPaymentDtl;
@@ -257,7 +271,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public void deleteConsultantPaymentDtl(String fileNo, Long consultantId) {
+	public void deleteConsultantPaymentDtl(Long fileNo, Long consultantId) {
 
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtl");
 
@@ -269,7 +283,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 
 	@Override
-	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(String fileNo, Long consultantId) {
+	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo, Long consultantId) {
 
 		String getQuery = consultantQueryProps.getProperty("getConsultantPaymentCriteria");
 
@@ -284,7 +298,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 				ConsultantPaymentCriteria consultantPaymentCriteria = new ConsultantPaymentCriteria();
 
-				consultantPaymentCriteria.setFileNo(rs.getString("File_No"));
+				consultantPaymentCriteria.setFileNo(rs.getLong("File_No"));
 				consultantPaymentCriteria.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
 				consultantPaymentCriteria.setFeeReceived(rs.getDouble("Fee_Received"));
 				consultantPaymentCriteria.setAmountToBePaid(rs.getDouble("Amount_To_Be_Paid"));
@@ -329,7 +343,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 
 	@Override
-	public void deleteConsultantPaymentCriteria(String fileNo, Long consultantId) {
+	public void deleteConsultantPaymentCriteria(Long fileNo, Long consultantId) {
 
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteria");
 

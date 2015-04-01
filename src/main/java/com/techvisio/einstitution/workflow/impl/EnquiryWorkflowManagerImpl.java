@@ -43,12 +43,12 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	@Override
 	public Long addEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
 	
+		
 		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
         enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  
-		
+	
+        
 		Long enquiryId=enquiryManager.addInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
-		
-			
 		
 		
 		List<TaskAndFollowUp> followUps = enquiryAndTaskBean.getTasks();
@@ -96,7 +96,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
         StudentDetail studentDetail = getStudentFromEquiry(enquiry);
         
-        String fileNo=admissionWorkflowManager.addStudentDetails(studentDetail);
+        Long fileNo=admissionWorkflowManager.addStudentDetails(studentDetail);
         enquiry.setFileNo(fileNo);
         
         enquiry.setApplicationStatus(EnquiryStatus.MOVED_TO_ADMISSION.name());

@@ -40,7 +40,7 @@ public class TransportService {
 		  }
 		
 		@RequestMapping(value="/allocation/{fileNo}",method = RequestMethod.GET)
-		  public TransportAllocation getTransportAllocation(@PathVariable String fileNo) {
+		  public TransportAllocation getTransportAllocation(@PathVariable Long fileNo) {
 			TransportWorkflowManager workflowManager=new TransportWorkflowManagerImpl();
 			TransportAllocation transportAllocation=workflowManager.getTransportAllocationDtl(fileNo);
 			
@@ -60,7 +60,7 @@ public class TransportService {
 			workflowManager.updateTransportAllocationDtl(transportAllocation);
 		}
 		@RequestMapping(value="/allocation/{fileNo}",method = RequestMethod.DELETE)
-		public void deleteTransportAllocationDtl(@PathVariable String fileNo ) {  
+		public void deleteTransportAllocationDtl(@PathVariable Long fileNo ) {  
 			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
 			workflowManager.deleteTransportAllocationDtl(fileNo);
 		}
@@ -68,7 +68,7 @@ public class TransportService {
 
 
 		@RequestMapping(value="/reservation/{fileNo}",method = RequestMethod.GET)
-		  public ResponseEntity<Response> getTransportReservation(@PathVariable String fileNo) {  
+		  public ResponseEntity<Response> getTransportReservation(@PathVariable Long fileNo) {  
 		
 			Response response=new Response();
 			try
@@ -101,7 +101,7 @@ public class TransportService {
 			try
 			{
 			   TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
-			   String fileNo=workflowManager.addTransportReservationDtl(transportReservation);
+			   Long fileNo=workflowManager.addTransportReservationDtl(transportReservation);
 			   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
 			   response.setResponseBody(updatedReservation);
 			}
@@ -121,7 +121,7 @@ public class TransportService {
 			try
 			{
 				   TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
-				   String fileNo=workflowManager.updateTransportReservationDtl(transportReservation);
+				   Long fileNo=workflowManager.updateTransportReservationDtl(transportReservation);
 				   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
 				   response.setResponseBody(updatedReservation);
 			}
@@ -134,7 +134,7 @@ public class TransportService {
 			}
 			
 		@RequestMapping(value="/reservation/{fileNo}",method = RequestMethod.DELETE)
-		public ResponseEntity deleteTransportReservation(@PathVariable String fileNo ) {  
+		public ResponseEntity deleteTransportReservation(@PathVariable Long fileNo ) {  
 			TransportWorkflowManager workflowManager = new TransportWorkflowManagerImpl();
 			workflowManager.deleteTransportReservationDtl(fileNo);
 			return new ResponseEntity(HttpStatus.OK);

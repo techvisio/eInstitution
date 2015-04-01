@@ -1,11 +1,12 @@
 package com.techvisio.einstitution.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class AdmissionEnquiry {
 
 	private Long enquiryId;
-	private String fileNo;
+	private Long fileNo;
 	private String name;
 	private String fatherName;
 	private Date dob;
@@ -23,16 +24,18 @@ public class AdmissionEnquiry {
 	private String emailId;
 	private boolean lateral;
 	private String gender;
+	private List<ConsultantDetail> consultantDetail;
 	public Long getEnquiryId() {
 		return enquiryId;
 	}
 	public void setEnquiryId(Long enquiryId) {
 		this.enquiryId = enquiryId;
 	}
-	public String getFileNo() {
+
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 	public String getName() {
@@ -152,6 +155,12 @@ public class AdmissionEnquiry {
 	}
 	public void setLateral(boolean lateral) {
 		this.lateral = lateral;
+	}
+	public List<ConsultantDetail> getConsultantDetail() {
+		return consultantDetail;
+	}
+	public void setConsultantDetail(List<ConsultantDetail> consultantDetail) {
+		this.consultantDetail = consultantDetail;
 	}
 	
 

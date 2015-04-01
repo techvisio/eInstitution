@@ -16,6 +16,7 @@ public interface AppConstants {
 	public static final String CONSULTANT="CONSULTANT";
 	public static final String SEMESTER="SEMESTER";
 	public static final String ENQUIRY="ENQUIRY";
+	public static final String ADMISSION="ADMISSION";
 	public static final String TASK="TASK";
 	public static final Long HOSTEL_FEE_ID=9999L;
 	public static final Long TRANSPORT_FEE_ID=9998L;

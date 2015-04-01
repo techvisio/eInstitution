@@ -82,7 +82,7 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.deleteFeeDetail(course, branch, semester);
 	}
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId) {
+	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {
 		List<StudentFeeStaging> feeStaging = new ArrayList<StudentFeeStaging>();
 		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo,feeHeadId);
 		return feeStaging;
@@ -116,13 +116,13 @@ public class FeeManagerImpl implements FeeManager{
 //		feeDetailDao.addFeeTransaction(feeTransaction);
 //	}
 
-	public void generateStudentFeeStaging(String fileNo) {
+	public void generateStudentFeeStaging(Long fileNo) {
 		StudentFeeStaging feeStaging=new StudentFeeStaging();
 		feeStaging.setFileNo(fileNo);
 		feeStaging.setCreatedBy("testUser");
 	}
 
-	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
 
 		List<FeeTransaction> feeTransactions = null;
 		feeTransactions = feeDetailDao.getDebitedFeeTransaction(fileNo);
@@ -135,7 +135,7 @@ public class FeeManagerImpl implements FeeManager{
 		
 	}
 
-	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo) {
 
 		List<FeeTransaction> feeTransactions = null;
 		feeTransactions = feeDetailDao.getCreditedFeeTransaction(fileNo);
@@ -149,7 +149,7 @@ public class FeeManagerImpl implements FeeManager{
 	}
 
 	@Override
-	public FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo){
+	public FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo){
 		
 		FeeTransactionAdmissionBean transactionAdmissionBean = new FeeTransactionAdmissionBean();
 			

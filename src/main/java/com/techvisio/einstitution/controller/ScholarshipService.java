@@ -27,7 +27,7 @@ public class ScholarshipService {
 	private static final Logger logger = Logger.getLogger(ScholarshipService.class);
 	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
-	  public ResponseEntity<Response> getScholarshipDetail(@PathVariable String fileNo) {  
+	  public ResponseEntity<Response> getScholarshipDetail(@PathVariable Long fileNo) {  
 	  
 		Response response = new Response();
 		
@@ -78,7 +78,7 @@ public class ScholarshipService {
 	}
 		
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
-	public void deleteConsultantDtl(@PathVariable String fileNo) {  
+	public void deleteConsultantDtl(@PathVariable Long fileNo) {  
 		ScholarshipWorkflowManager workflowManager=new ScholarshipWorkflowManagerImpl();
 		workflowManager.deleteScholarshipDetail(fileNo);
 	}

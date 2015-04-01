@@ -56,7 +56,7 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	
 	
 	
-	public List<ConsultantDetail> getConsultantDtl(String fileNo) {
+	public List<ConsultantDetail> getConsultantDtl(Long fileNo) {
 
 	List<ConsultantDetail> consultantDetails = null;
 		consultantDetails = consultantDao.getConsultantDtl(fileNo);

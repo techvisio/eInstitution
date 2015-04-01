@@ -9,7 +9,7 @@ public class FeeTransaction {
 	private Date createdDate;
 	private String remark;
 	private String mode;
-	private String fileNo;
+	private Long fileNo;
 	private Double amount;
 	
 	public Integer getSemester() {
@@ -43,13 +43,13 @@ public class FeeTransaction {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-	public String getFileNo() {
+
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-	
 	@Override
 	public String toString() {
 		return "FeeTransaction [semester=" + semester + ", user=" + user + ", createdDate=" + createdDate

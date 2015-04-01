@@ -25,7 +25,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	
-	public ScholarshipDetail getScholarshipDetail(String fileNo) {
+	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
 
 		ScholarshipDetail scholarshipDetail = null;
 		
@@ -39,7 +39,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 			public ScholarshipDetail mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
 				ScholarshipDetail scholarshipDetail = new ScholarshipDetail();
-				scholarshipDetail.setFileNo(rs.getString("File_No"));
+				scholarshipDetail.setFileNo(rs.getLong("File_No"));
 				scholarshipDetail.setAmount(rs.getDouble("Amount"));
 				scholarshipDetail.setStateId(CommonUtil.getLongValue(rs.getLong("State_Id")));
 				scholarshipDetail.setCreateDate(rs.getDate("Created_Date"));
@@ -87,7 +87,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	
-	public void deleteScholarshipDetail(String fileNo) {
+	public void deleteScholarshipDetail(Long fileNo) {
 		
          deleteScholarshipPaymentDetail(fileNo);
 		
@@ -99,7 +99,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		
 	}
 
-	public List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(String fileNo) {
+	public List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(Long fileNo) {
 
 		String getQuery= scholarshipQueryProps.getProperty("getScholarshipPaymentDetail");
 
@@ -112,7 +112,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 					throws SQLException {
 				ScholarshipPaymentDetail scholarshipPaymentDetail=  new ScholarshipPaymentDetail();
 
-				scholarshipPaymentDetail.setFileNo(rs.getString("File_No"));
+				scholarshipPaymentDetail.setFileNo(rs.getLong("File_No"));
 				scholarshipPaymentDetail.setAmountReceived(rs.getDouble("Amount_Received"));
 				scholarshipPaymentDetail.setReceivingDate(rs.getDate("Receiving_Date"));
 				return scholarshipPaymentDetail;
@@ -152,7 +152,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		
 	}
 
-	public void deleteScholarshipPaymentDetail(String fileNo) {
+	public void deleteScholarshipPaymentDetail(Long fileNo) {
 		
 		String deleteQuery = scholarshipQueryProps.getProperty("deleteScholarshipPaymentDetail");
 

@@ -30,7 +30,7 @@ public class AdmissionService {
 			.getLogger(AdmissionService.class);
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getStudentDetail(@PathVariable String fileNo) {
+	public ResponseEntity<Response> getStudentDetail(@PathVariable Long fileNo) {
 		Response response=new Response();
 		try
 		{
@@ -57,7 +57,7 @@ public class AdmissionService {
 		try
 		{
 			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
-		    String fileNo=workflowManager.addStudentDetails(studentDetail); 
+		    Long fileNo=workflowManager.addStudentDetails(studentDetail); 
 		    StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
 		}
@@ -77,7 +77,7 @@ public class AdmissionService {
 		try
 		{
 			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
-			String fileNo=workflowManager.updateStudentDetails(studentDetail);
+			Long fileNo=workflowManager.updateStudentDetails(studentDetail);
 			StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
 		}
@@ -92,7 +92,7 @@ public class AdmissionService {
 	
 	
 	@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
-	public void deleteStudentDtl(@PathVariable String fileNo) {
+	public void deleteStudentDtl(@PathVariable Long fileNo) {
 		
 		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 		workflowManager.deleteStudentDetails(fileNo);
@@ -137,7 +137,7 @@ public class AdmissionService {
 		}
 
 	@RequestMapping(value = "/StudentBsInfo/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getStudentBsInfo(@PathVariable String fileNo){
+	public ResponseEntity<Response> getStudentBsInfo(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
 			AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();

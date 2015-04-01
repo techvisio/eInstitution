@@ -89,7 +89,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 
 
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
-	  public ResponseEntity<Response> getConsultantDetail(@PathVariable String fileNo) {  
+	  public ResponseEntity<Response> getConsultantDetail(@PathVariable Long fileNo) {  
 	  
 		Response response = new Response();
 		

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ConsultantPaymentCriteria {
 
-	private String fileNo; 
+	private Long fileNo; 
 	private Long consultantId; 
 	private Double feeReceived; 
 	private Double amountToBePaid; 
@@ -13,10 +13,11 @@ public class ConsultantPaymentCriteria {
 	private boolean paid; 
 	private boolean triggered;
 
-	public String getFileNo() {
+	
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 	public Long getConsultantId() {

@@ -14,7 +14,7 @@ import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 	@Override
-	public ManagementAdmissionBean getAdmissionManagementView(String fileNo) {
+	public ManagementAdmissionBean getAdmissionManagementView(Long fileNo) {
 
 		AdmissionWorkflowManager admissionWorkFlow=new AdmissionWorkflowManagerImpl();
 		FeeWorkflowManager feeworkFlow= new FeeWorkflowManagerImpl();

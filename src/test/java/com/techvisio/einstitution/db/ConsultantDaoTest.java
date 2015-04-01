@@ -40,7 +40,7 @@ public class ConsultantDaoTest {
 	@Test
 public void testGetConsultantDtl(){
 	
-	List<ConsultantDetail> consultantDetail = dao.getConsultantDtl("2015-151");
+	List<ConsultantDetail> consultantDetail = dao.getConsultantDtl(102L);
 	System.out.println("consultant:" + consultantDetail);
 }
 	

@@ -40,7 +40,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				.getProperty("getStudentDtlDynamically");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", StringUtils.isEmpty(searchCriteria.getFileNo())?null:searchCriteria.getFileNo())
+				"File_No", searchCriteria.getFileNo()==null?null:searchCriteria.getFileNo())
 		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
 		.addValue("Enroll_No", StringUtils.isEmpty(searchCriteria.getEnrollNo())?null:searchCriteria.getEnrollNo())
 		.addValue("Uni_Enroll_No", StringUtils.isEmpty(searchCriteria.getUniEnrollNo())?null:searchCriteria.getUniEnrollNo())
@@ -52,7 +52,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		    return studentDetail;
 	}
 	
-	public StudentDetail getStudentDtl(String fileNo) {
+	public StudentDetail getStudentDtl(Long fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getStudentDtlByFileNo");
@@ -224,7 +224,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	public void deleteSudentDtl(String fileNo) {
+	public void deleteSudentDtl(Long fileNo) {
 
         StudentDetail detail = new StudentDetail();
 		
@@ -248,7 +248,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 
-	private List<StudentAcademicDetail> getAcademicDtl(final String fileNo) {
+	private List<StudentAcademicDetail> getAcademicDtl(final Long fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getAcademicDtlByFileNo");
@@ -265,7 +265,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						StudentAcademicDetail studentAcademicDetail = new StudentAcademicDetail();
 
 						studentAcademicDetail.setFileNo(rs
-								.getString("File_No"));
+								.getLong("File_No"));
 						studentAcademicDetail.setQualificationId(CommonUtil.getLongValue(rs
 								.getLong("Qualification_Id")));
 						studentAcademicDetail.setUniversity(rs
@@ -367,7 +367,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		deleteQualificationDtl(detail.getQualificationSubDtl());
 
 		List<Long> qualificationIds=new ArrayList<Long>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(academicDetails != null){
 			for(StudentAcademicDetail academicDetail:academicDetails){
 				qualificationIds.add(academicDetail.getQualificationId());
@@ -391,7 +391,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 	}
-	private List<AddressDetail> getAddressDtl(String fileNo) {
+	private List<AddressDetail> getAddressDtl(Long fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getAddressDtlByFileNo");
@@ -412,7 +412,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						addressDetail.setDistrict(rs.getString("District"));
 						addressDetail.setCity(rs.getString("City"));
 						addressDetail.setPincode(rs.getInt("Pincode"));
-						addressDetail.setFileNo(rs.getString("File_No"));
+						addressDetail.setFileNo(rs.getLong("File_No"));
 						addressDetail.setAddressType(rs
 								.getString("Address_Type"));
 						addressDetail.setState(rs.getString("State_Id"));
@@ -484,7 +484,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void deleteAddressDtl(List<AddressDetail> addresses) {
 		
 		List<String> addressTypes=new ArrayList<String>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(addresses != null){
 			for(AddressDetail address:addresses){
 				addressTypes.add(address.getAddressType());
@@ -508,7 +508,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		}
 	}
 
-	private List<AdmissionDiscountDtl> getAdmissionDisDtl(String fileNo) {
+	private List<AdmissionDiscountDtl> getAdmissionDisDtl(Long fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getAdmissionDisDtlByFileNo");
@@ -529,7 +529,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						admissionDiscountDtl.setFeeHeadId(CommonUtil.getLongValue(rs
 								.getLong("FeeHead_Id")));
 						admissionDiscountDtl.setFileNo(rs
-								.getString("File_No"));
+								.getLong("File_No"));
 						admissionDiscountDtl.setPercent(rs
 								.getFloat("Percent"));
 						admissionDiscountDtl.setDiscountType(rs.getString("Discount_Type"));
@@ -593,7 +593,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void deleteAdmissionDisDtl(List<AdmissionDiscountDtl> admissionDiscountDtls) {
 
 		List<Long> feeHeadIds=new ArrayList<Long>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(admissionDiscountDtls != null){
 			for(AdmissionDiscountDtl admissionDiscountDtl:admissionDiscountDtls){
 				feeHeadIds.add(admissionDiscountDtl.getFeeHeadId());
@@ -616,7 +616,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 	}
-	private List<QualificationSubjectDtl> getQualificationDtl(String fileNo) {
+	private List<QualificationSubjectDtl> getQualificationDtl(Long fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getQualificationSubjectDtlByFileNo");
@@ -638,7 +638,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						qualificationSubjectDtl.setQualificationId(CommonUtil.getLongValue(rs
 								.getLong("Qualification_Id")));
 						qualificationSubjectDtl.setFileNo(rs
-								.getString("File_No"));
+								.getLong("File_No"));
 						qualificationSubjectDtl.setMarksObtained(rs
 								.getDouble("Marks_Obtained"));
 						qualificationSubjectDtl.setMaxMarks(rs
@@ -707,7 +707,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void deleteQualificationDtl(List<QualificationSubjectDtl> qualificationSubjectDtls) {
 
 		List<Long> subjectIds=new ArrayList<Long>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(qualificationSubjectDtls != null){
 			for(QualificationSubjectDtl qualificationSubjectDtl:qualificationSubjectDtls){
 				subjectIds.add(qualificationSubjectDtl.getSubjectId());
@@ -728,7 +728,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
 	}
-	private List<BranchPreference> getBranchPreference(String fileNo) {
+	private List<BranchPreference> getBranchPreference(Long fileNo) {
 
 		String getQuery = admissionQueryProps
 				.getProperty("getBranchPreferenceByFileNo");
@@ -746,7 +746,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						BranchPreference branchPreference = new BranchPreference();
 
 						branchPreference.setFileNo(rs
-								.getString("File_No"));
+								.getLong("File_No"));
 
 						branchPreference.setBranchId(CommonUtil.getLongValue(rs
 								.getLong("Branch_Id")));
@@ -797,7 +797,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void deleteBranchPreference(List<BranchPreference> branchPreferences) {
 
 		List<Long> branchPreferenceIds=new ArrayList<Long>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(branchPreferences != null){
 			for(BranchPreference branchPreference:branchPreferences){
 				branchPreferenceIds.add(branchPreference.getBranchPreferenceId());
@@ -818,7 +818,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	}
 	}
-	private List<CounsellingDetail> getCounsellingDetail(String fileNo) {
+	private List<CounsellingDetail> getCounsellingDetail(Long fileNo) {
 		String getQuery = admissionQueryProps.getProperty("getcounsellingDetailByFileNo");
 
 
@@ -833,7 +833,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 						CounsellingDetail counsellingDetail = new CounsellingDetail();
 
-						counsellingDetail.setFileNo(rs.getString("File_No"));
+						counsellingDetail.setFileNo(rs.getLong("File_No"));
 						counsellingDetail.setCounsellingId(CommonUtil.getLongValue(rs.getLong("Counselling_Id")));
 						counsellingDetail.setRollNo(rs.getString("Roll_No"));
 						counsellingDetail.setRank(CommonUtil.getLongValue(rs.getLong("Rank")));
@@ -889,7 +889,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void deleteCounsellingDetail(List<CounsellingDetail> counsellingDetails) {
 
 		List<Long> counsellingIds=new ArrayList<Long>();
-		String fileNo=null;
+		Long fileNo=null;
 		if(counsellingDetails != null){
 			for(CounsellingDetail counsellingDetail:counsellingDetails){
 				counsellingIds.add(counsellingDetail.getCounsellingId());
@@ -917,7 +917,7 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 
 		StudentDetail studentDetail = new StudentDetail();
 
-		studentDetail.setFileNo(rs.getString("File_No"));
+		studentDetail.setFileNo(rs.getLong("File_No"));
 		studentDetail.setEnrollNo(rs.getString("Enroll_No"));
 		studentDetail.setUniEnrollNo(rs
 				.getString("Uni_Enroll_No"));
@@ -978,7 +978,7 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		return infos;
 	}
 
-public StudentBasicInfo getStudentBsInfo(String fileNo) {
+public StudentBasicInfo getStudentBsInfo(Long fileNo) {
 	String getQuery = admissionQueryProps.getProperty("getStudentBasicInfoByFileNo");
 	SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 	StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new StudentBasicInfoRowMaper());
@@ -1011,7 +1011,7 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setDob(rs.getDate("DOB"));
 		basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
 		basicInfo.setFatherName(rs.getString("Father_Name"));
-		basicInfo.setFileNo(rs.getString("File_No"));
+		basicInfo.setFileNo(rs.getLong("File_No"));
 		basicInfo.setGender(rs.getString("Gender"));
 		basicInfo.setModifiedDate(rs.getDate("Updated_On"));
 		basicInfo.setSemester(rs.getString("Semester"));

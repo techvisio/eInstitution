@@ -10,6 +10,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
 	$scope.searchEnquiryList=[];
+	$scope.filteredSearch=[];
 	
 	$scope.serverModelData={};
 	
@@ -20,12 +21,18 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.form.isNew=true;
 	$scope.form.isEdit=true;
 	$scope.dashboard=true;
+	$scope.currentPage = 1;
+	$scope.numPerPage = 10;
+	$scope.maxSize = 5;
 	
 	 $scope.dummyTask = {
 			 "taskDate" : null,
 			 "remark" : null,
 			
 	 };
+	 
+	 
+	 
 	 $scope.resetForm = function(){
 		 console.log("calling reset.....")
 		 $scope.data = {};
@@ -67,7 +74,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 				 $scope.searchEnquiryList = response.data.responseBody;
 				 if($scope.searchEnquiryList.length>0){
 					 $scope.showCriteria=false;
-					 $scope.dashboard = false;
+					 //$scope.dashboard = false;
 				 
 				 }
 				 else
@@ -80,7 +87,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 						 $scope.data.admissionEnquiry.name=angular.copy($scope.searchCriteria.name);
 						 $scope.data.admissionEnquiry.emailId=angular.copy($scope.searchCriteria.emailId);
 						 $scope.data.admissionEnquiry.contactNo=angular.copy($scope.searchCriteria.mobileNo);
-						 $scope.dashboard = false;
+						 //$scope.dashboard = false;
 					 }
 					 }
 			 } else {
@@ -131,7 +138,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 			 console.log(response);
 			 if (response !=null && response.data != null && response.data.responseBody != null) {
 				$scope.data = response.data.responseBody;
-
+				$scope.dashboard=false;
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);
@@ -179,7 +186,7 @@ $scope.saveEnquiry = function(){
 		 $scope.updateEnquiry();
 	 }
 
-
+	 $scope.getDueEnquiry();
 }
 	 
 
@@ -255,6 +262,16 @@ $scope.saveEnquiry = function(){
 
 	 }
 
+	 $scope.numPages = function () {
+		    return Math.ceil($scope.searchEnquiryList.length / $scope.numPerPage);
+		  };
+
+		  $scope.$watch('currentPage + numPerPage', function() {
+		    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+		    , end = begin + $scope.numPerPage;
+
+		    $scope.filteredSearch = $scope.searchEnquiryList.slice(begin, end);
+		  });
 	 
 } ]);
 

@@ -31,7 +31,7 @@ public class HostelManagerImpl implements HostelManager {
 	}
 	
 	
-	public HostelAllocation getHostelAllocation(String fileNo) {
+	public HostelAllocation getHostelAllocation(Long fileNo) {
 		HostelAllocation h = hostelDao.getHostelAllocation(fileNo);
 		return h;
 	}
@@ -44,7 +44,7 @@ public class HostelManagerImpl implements HostelManager {
 		hostelDao.updateHostelAllocation(hostelAllocation);
 	}
 
-	public void deleteHostelAllocation(String fileNo) {
+	public void deleteHostelAllocation(Long fileNo) {
 		hostelDao.deleteHostelAllocation(fileNo);
 	}
 
@@ -52,7 +52,7 @@ public class HostelManagerImpl implements HostelManager {
 //HostelReservation
 	
 	
-	public HostelReservation getHostelReservation(String fileNo) {
+	public HostelReservation getHostelReservation(Long fileNo) {
 		HostelReservation hostelReservation = hostelDao.getHostelReservation(fileNo);
 		return hostelReservation;	}
 
@@ -64,7 +64,7 @@ public class HostelManagerImpl implements HostelManager {
 		hostelDao.updateHostelReservation(hostelReservation);
 	}
 
-	public void deleteHostelReservation(String fileNo) {
+	public void deleteHostelReservation(Long fileNo) {
 		hostelDao.deleteHostelReservation(fileNo);
 	}
 

@@ -9,7 +9,7 @@ public class AddressDetail {
 	private String city;
 	private int pincode;
 	private String State;
-	private String fileNo;
+	private Long fileNo;
 	private String addressType;
 	
 	
@@ -62,6 +62,14 @@ public class AddressDetail {
 		return pincode;
 	}
 	
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
+
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
@@ -75,16 +83,6 @@ public class AddressDetail {
 	public void setState(String state) {
 		State = state;
 	}
-	
-	
-	public String getFileNo() {
-		return fileNo;
-	}
-	
-	public void setFileNo(String fileNo) {
-		this.fileNo = fileNo;
-	}
-	
 	
 	public String getAddressType() {
 		return addressType;

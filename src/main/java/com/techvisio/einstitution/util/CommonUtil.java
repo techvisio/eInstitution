@@ -26,7 +26,7 @@ public class CommonUtil {
 	public static void propogateIdentifiertoAdmission(
 			StudentDetail studentDetail) {
 
-		String fileNo = studentDetail.getFileNo();
+		Long fileNo = studentDetail.getFileNo();
 		if (studentDetail.getAcademicDtl() != null) {
 			for (StudentAcademicDetail studentAcademicDetail : studentDetail
 					.getAcademicDtl()) {
@@ -68,7 +68,7 @@ public class CommonUtil {
 
 	public static void propogateIdentifierToQualification(StudentAcademicDetail academicDetail){
 		
-		String fileNo=academicDetail.getFileNo();
+		Long fileNo=academicDetail.getFileNo();
 		
 		if(academicDetail.getQualificationSubDtl() != null){
 			

@@ -5,7 +5,7 @@ import java.util.Date;
 public class FeeAdmissionBean {
 
 	private Double pendingFee;
-	private String fileNo;
+	private Long fileNo;
 	private String firstName;
 	private String lastName;
 	private String enrollmentNo;
@@ -24,10 +24,11 @@ public class FeeAdmissionBean {
 	public void setPendingFee(Double pendingFee) {
 		this.pendingFee = pendingFee;
 	}
-	public String getFileNo() {
+	
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 	public String getFirstName() {

@@ -21,12 +21,12 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	AdmissionManager admissionManager=AdmissionManagerImpl.getInstance();
 	FeeManager feeManager=FeeManagerImpl.getInstance();
 	
-	public String addStudentDetails(StudentDetail studentDetail) {
+	public Long addStudentDetails(StudentDetail studentDetail) {
 		
 		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
 		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
-		String fileNo = admissionManager.addStudentDtl(studentDetail);
+		Long fileNo = admissionManager.addStudentDtl(studentDetail);
 		
 		if(studentDetail.getConsultantDetail() !=null){
 		List<ConsultantDetail> consultantDetails = studentDetail.getConsultantDetail();
@@ -48,12 +48,12 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return fileNo;
 	}
 
-	public String updateStudentDetails(StudentDetail studentDetail) {
+	public Long updateStudentDetails(StudentDetail studentDetail) {
 	
 		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
 		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
-		String fileNo = admissionManager.updateStudentDtl(studentDetail);
+		Long fileNo = admissionManager.updateStudentDtl(studentDetail);
 		
 		if(studentDetail.getConsultantDetail() !=null){
 		List<ConsultantDetail >consultantDetails = studentDetail.getConsultantDetail();
@@ -84,7 +84,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return fileNo;
 	}
 
-	public StudentDetail getStudentDetails(String fileNo) {
+	public StudentDetail getStudentDetails(Long fileNo) {
 
 	ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();	
 	ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();	
@@ -102,13 +102,13 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	
 	}
 
-	public void deleteStudentDetails(String fileNo){
+	public void deleteStudentDetails(Long fileNo){
 		
 	 admissionManager.deleteSudentDtl(fileNo);
 	
 	}
 
-	public void proceedToNextStep(String workFlow, String fileNo) {
+	public void proceedToNextStep(String workFlow, Long fileNo) {
 		if(workFlow !=null){
 			AdmissionWorkFlowStatus workFlowStatus=AdmissionWorkFlowStatus.valueOf(workFlow);
 			if(AdmissionWorkFlowStatus.FEE_NEGOTIATED.equals(workFlowStatus)){
@@ -122,14 +122,14 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		
 		StudentDetail studentDetail = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
 	      	
-		String fileNo = studentDetail.getFileNo();
+		Long fileNo = studentDetail.getFileNo();
 		
 		studentDetail=getStudentDetails(fileNo);
 	
 		return studentDetail;
 	}
 
-	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
 		StudentBasicInfo info = admissionManager.getStudentBsInfo(fileNo); 
 		return info;
 	}
@@ -143,4 +143,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		List<StudentBasicInfo> basicInfos = admissionManager.getUnapprovedAdmissions(limit);
 		return basicInfos;
 	}
+
+	
 }

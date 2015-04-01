@@ -31,7 +31,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		return hostelManager.getHostelAvailability();
 	}
 
-	public HostelAllocation getHostelAllocation(String fileNo) {
+	public HostelAllocation getHostelAllocation(Long fileNo) {
 
 		return hostelManager.getHostelAllocation(fileNo);
 	}
@@ -46,19 +46,19 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		hostelManager.updateHostelAllocation(hostelAllocation);
 	}
 
-	public void deleteHostelAllocation(String fileNo) {
+	public void deleteHostelAllocation(Long fileNo) {
 
 		hostelManager.deleteHostelAllocation(fileNo);
 	}
 
-	public HostelReservation getHostelReservation(String fileNo) {
+	public HostelReservation getHostelReservation(Long fileNo) {
 
 		return hostelManager.getHostelReservation(fileNo);
 	}
 
-	public String addHostelReservation(HostelReservation hostelReservation) {
+	public Long addHostelReservation(HostelReservation hostelReservation) {
 
-		String fileNo=hostelReservation.getFileNo();
+		Long fileNo=hostelReservation.getFileNo();
 		
 		//if file No is missing create student
 		if(fileNo == null ){
@@ -86,9 +86,9 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	
 	}
 
-	public String updateHostelReservation(HostelReservation hostelReservation) {
+	public Long updateHostelReservation(HostelReservation hostelReservation) {
 
-             String fileNo=hostelReservation.getFileNo();
+             Long fileNo=hostelReservation.getFileNo();
 		
 		//if file No is missing create student
 		    if(fileNo == null ){
@@ -115,7 +115,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		
 	}
 
-	public void deleteHostelReservation(String fileNo) {
+	public void deleteHostelReservation(Long fileNo) {
 
 		hostelManager.deleteHostelReservation(fileNo);
 	}

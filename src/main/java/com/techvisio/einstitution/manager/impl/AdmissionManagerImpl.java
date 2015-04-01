@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.manager.impl;
 
 import com.techvisio.einstitution.beans.SearchCriteria;
+
 import java.util.List;
 
 import com.techvisio.einstitution.beans.StudentBasicInfo;
@@ -32,7 +33,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	private AdmissionManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
-	public StudentDetail getStudentDtl(String fileNo) {
+	public StudentDetail getStudentDtl(Long fileNo) {
 
 		StudentDetail studentDetail=null;
 		
@@ -42,9 +43,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	}
 
-	public String addStudentDtl(StudentDetail studentDetail) {
+	public Long addStudentDtl(StudentDetail studentDetail) {
 
-		String fileNo=studentDetail.getFileNo();
+		Long fileNo=studentDetail.getFileNo();
 		if(fileNo==null){
 			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
 		}
@@ -56,9 +57,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		
 	}
 
-	public String updateStudentDtl(StudentDetail studentDetail) {
+	public Long updateStudentDtl(StudentDetail studentDetail) {
 
-		String fileNo=studentDetail.getFileNo();;
+		Long fileNo=studentDetail.getFileNo();;
 		if(fileNo==null){
 			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
 		}
@@ -69,7 +70,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		return fileNo;
 	}
 
-	public void deleteSudentDtl(String fileNo) {
+	public void deleteSudentDtl(Long fileNo) {
 
 		admissionDao.deleteSudentDtl(fileNo);
 	}
@@ -81,7 +82,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		
 		return studentDetail;
 	}
-	public StudentBasicInfo getStudentBsInfo(String fileNo) {
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
 		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);
 		
 		return info;

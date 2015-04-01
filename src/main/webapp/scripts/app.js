@@ -9,7 +9,8 @@ var erpModule = angular
     'feeModule',
     'ui.bootstrap',
     'enquiryModule',
-    'consultantModule'
+    'consultantModule',
+    'ui.bootstrap.pagination'
   ])
   .config(function ($routeProvider) {
     $routeProvider

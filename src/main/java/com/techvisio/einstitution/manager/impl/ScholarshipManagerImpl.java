@@ -27,7 +27,7 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	
-	public ScholarshipDetail getScholarshipDetail(String fileNo) {
+	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
 
 		ScholarshipDetail scholarshipDetail = null;
 		scholarshipDetail = scholarshipDao.getScholarshipDetail(fileNo);
@@ -43,7 +43,7 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 
-	public void deleteScholarshipDetail(String fileNo) {
+	public void deleteScholarshipDetail(Long fileNo) {
 
 		scholarshipDao.deleteScholarshipDetail(fileNo);
 	}

@@ -7,7 +7,7 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 
 public interface ManagementWorkflowManager {
 
-	public ManagementAdmissionBean getAdmissionManagementView(String fileNo);
+	public ManagementAdmissionBean getAdmissionManagementView(Long fileNo);
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
 

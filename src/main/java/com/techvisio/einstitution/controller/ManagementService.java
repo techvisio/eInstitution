@@ -32,7 +32,7 @@ import com.techvisio.einstitution.workflow.impl.ScholarshipWorkflowManagerImpl;
 public class ManagementService {
 
 	@RequestMapping(value ="/admission/approval/{fileNo}", method = RequestMethod.GET )
-	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable String fileNo){
+	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable Long fileNo){
 
 		Response response = new Response();
 		ResponseEntity<Response> result = new ResponseEntity<Response>(response, HttpStatus.OK);

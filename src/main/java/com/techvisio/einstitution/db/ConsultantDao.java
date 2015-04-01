@@ -16,19 +16,19 @@ public interface ConsultantDao {
 	public void deleteConsultant(Long consultantId);
 	
 	
-	public List<ConsultantDetail> getConsultantDtl(String fileNo);
+	public List<ConsultantDetail> getConsultantDtl(Long fileNo);
 	public void saveConsultant(List<ConsultantDetail> consultantDetails);
 	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails);
 	
 	
-	List<ConsultantPaymentDtl> getConsultantPaymentDtl(String fileNo,Long consultantId);
+	List<ConsultantPaymentDtl> getConsultantPaymentDtl(Long fileNo,Long consultantId);
 	public void addConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
 	public void updateConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
-	public void deleteConsultantPaymentDtl(String fileNo, Long consultantId);
+	public void deleteConsultantPaymentDtl(Long fileNo, Long consultantId);
 	
 	
-	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(String fileNo, Long consultantId);
+	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo, Long consultantId);
 	public void addConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
 	public void updateConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
-	public void deleteConsultantPaymentCriteria(String fileNo, Long consultantId);
+	public void deleteConsultantPaymentCriteria(Long fileNo, Long consultantId);
 }

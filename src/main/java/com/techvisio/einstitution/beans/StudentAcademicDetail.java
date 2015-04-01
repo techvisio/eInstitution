@@ -11,7 +11,7 @@ public class StudentAcademicDetail {
 	private String passingYear;
 	private float percentage;
 	private String rollNo;
-	private String fileNo;
+	private Long fileNo;
 	private Long qualificationId;
 	private List<QualificationSubjectDtl> qualificationSubDtl;
 
@@ -55,12 +55,13 @@ public class StudentAcademicDetail {
 		this.rollNo = rollNo;
 	}
 
-	public String getFileNo() {
-		return fileNo;
 
+
+	public Long getFileNo() {
+		return fileNo;
 	}
 
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 		CommonUtil.propogateIdentifierToQualification(this);
 	}

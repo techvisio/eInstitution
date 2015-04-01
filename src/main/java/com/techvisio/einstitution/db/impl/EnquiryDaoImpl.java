@@ -174,7 +174,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 							.getLong("Branch_Id")));
 					admissionInquiry.setFollowupRequired(rs
 							.getBoolean("FollowUp_Required"));
-					admissionInquiry.setFileNo(rs.getString("File_No"));
+					admissionInquiry.setFileNo(rs.getLong("File_No"));
 					admissionInquiry.setRemarks(rs.getString("Remarks"));
 					admissionInquiry.setEmailId(rs.getString("Email_Id"));
 					admissionInquiry.setLateral(rs.getBoolean("Lateral"));

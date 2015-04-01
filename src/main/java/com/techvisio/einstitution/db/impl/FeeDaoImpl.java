@@ -53,7 +53,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeAdmissionBean.setDob(rs.getDate("DOB"));
 				feeAdmissionBean.setEnrollmentNo(rs.getString("Enroll_No"));
 				feeAdmissionBean.setFatherName(rs.getString("Father_Name"));
-				feeAdmissionBean.setFileNo(rs.getString("File_No"));
+				feeAdmissionBean.setFileNo(rs.getLong("File_No"));
 				feeAdmissionBean.setGender(rs.getString("Gender"));
 				feeAdmissionBean.setSemester(rs.getString("Semester"));
                 feeAdmissionBean.setPendingFee(rs.getDouble("Pending_Fee"));				
@@ -64,7 +64,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 	
 	@Override
-	public Double getPreviousSemBalance(String fileNo){
+	public Double getPreviousSemBalance(Long fileNo){
 		
 		String getQuery = feeQueryProps.getProperty("getPreviousSemBalance");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
@@ -145,7 +145,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	//	StudentFeeStaging
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId) {
+	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {
 
 		String getQuery = feeQueryProps.getProperty("getStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo).addValue("FeeHead_Id", feeHeadId);
@@ -154,7 +154,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
 				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
-				feeStaging.setFileNo(rs.getString("File_No"));
+				feeStaging.setFileNo(rs.getLong("File_No"));
 				feeStaging.setSemester(rs.getInt("Semester"));
 				feeStaging.setAcademicYear(rs.getString("Academic_Year"));
 				feeStaging.setAmount(rs.getDouble("Amount"));
@@ -234,7 +234,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 
 	//FeeTransaction
-	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionDebit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -242,7 +242,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(rs.getString("File_No"));
+				feeTransaction.setFileNo(rs.getLong("File_No"));
 				feeTransaction.setUser(rs.getString("User"));
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));
@@ -277,7 +277,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	
-	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionCredit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -285,7 +285,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(rs.getString("File_No"));
+				feeTransaction.setFileNo(rs.getLong("File_No"));
 				feeTransaction.setUser(rs.getString("User"));
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));

@@ -69,7 +69,7 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.deleteFeeDetail(course, branch, semester);
 	}
 
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId) {
+	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {
 		List<StudentFeeStaging> feeStaging = feeManager.getStudentFeeStaging(fileNo,feeHeadId);
 		return feeStaging;
 	}
@@ -91,7 +91,7 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.deleteStudentFeeStaging(studentFeeStaging);
 	}
 
-	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
 	
 		List<FeeTransaction> feeTransactions = feeManager.getDebitedFeeTransaction(fileNo);
 		return feeTransactions;
@@ -103,7 +103,7 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		
 	}
 
-	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo) {
+	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo) {
 
 		List<FeeTransaction> feeTransactions = feeManager.getCreditedFeeTransaction(fileNo);
 		return feeTransactions;
@@ -114,7 +114,7 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
     @Override
-	public FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo){
+	public FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo){
 		
 		AdmissionWorkflowManager admissionWorkFlow = new AdmissionWorkflowManagerImpl();
 		FeeTransactionAdmissionBean admissionBean = new FeeTransactionAdmissionBean();
@@ -131,4 +131,5 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		return admissionBean;
 	
 }
-}
+
+	}

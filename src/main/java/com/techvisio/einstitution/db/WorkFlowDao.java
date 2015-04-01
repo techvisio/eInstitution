@@ -1,6 +1,5 @@
 package com.techvisio.einstitution.db;
 
-import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.WorkFlowFieldMapping;
 
 public interface WorkFlowDao   {

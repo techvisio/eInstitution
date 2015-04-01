@@ -114,7 +114,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	
 	
 	
-	public HostelAllocation getHostelAllocation(String fileNo) {
+	public HostelAllocation getHostelAllocation(Long fileNo) {
 		String getQuery = hostelQueryProps.getProperty("getHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 		
@@ -123,7 +123,7 @@ HostelAllocation hostelAllocation =  getNamedParamJdbcTemplate().queryForObject(
 		public HostelAllocation mapRow(ResultSet rs,int rowNum)throws SQLException {
 		HostelAllocation hostel = new HostelAllocation();
 		hostel.setBlock(rs.getString("Block"));
-		hostel.setFileNo(rs.getString("File_No"));
+		hostel.setFileNo(rs.getLong("File_No"));
 		hostel.setFloor(rs.getString("Floor"));
 		hostel.setName(rs.getString("Name"));
 		hostel.setRoomNo(rs.getString("Room_No"));
@@ -192,7 +192,7 @@ return hostelAllocation;
 //DELETE DATA FROM HostelAllocation TABLE	
 
 	
-	public void deleteHostelAllocation(String fileNo) {
+	public void deleteHostelAllocation(Long fileNo) {
 
 		String addQuery = hostelQueryProps.getProperty("deleteHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
@@ -204,7 +204,7 @@ return hostelAllocation;
 // GET DATA FROM HostelReservation TABLE
 	
 	
-	public HostelReservation getHostelReservation(String fileNo) {
+	public HostelReservation getHostelReservation(Long fileNo) {
 		String getQuery = hostelQueryProps.getProperty("getHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 HostelReservation hostelReservation = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<HostelReservation>(){
@@ -213,7 +213,7 @@ HostelReservation hostelReservation = getNamedParamJdbcTemplate().queryForObject
 			throws SQLException {
 		HostelReservation hostel = new HostelReservation();
 		hostel.setFeePaid(rs.getBoolean("Fee_Paid"));
-		hostel.setFileNo(rs.getString("File_No"));
+		hostel.setFileNo(rs.getLong("File_No"));
 		hostel.setTypeCode(rs.getString("Type_Code"));
 		hostel.setAllocationStatus(rs.getString("Allocation_Status"));
 		hostel.setActive(rs.getBoolean("Is_Active"));
@@ -272,7 +272,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	
 // DELETE DATA FROM HostelReservation TABLE	
 
-	public void deleteHostelReservation(String fileNo) {
+	public void deleteHostelReservation(Long fileNo) {
 
 		String addQuery = hostelQueryProps.getProperty("deleteHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);

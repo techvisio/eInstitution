@@ -17,15 +17,15 @@ public interface FeeManager {
 	public void deleteFeeDetail(Long course,Long branch, Integer semester );
 	
 	
-	public List<StudentFeeStaging> getStudentFeeStaging(String fileNo, Long feeHeadId);
+	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings); 
 	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 
-	public List<FeeTransaction> getDebitedFeeTransaction(String fileNo);
+	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo);
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction);
-	public List<FeeTransaction> getCreditedFeeTransaction(String fileNo);
+	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo);
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction);
 
 	public FeeDiscountHead getfeeDiscountHead(Long headId);
@@ -33,8 +33,8 @@ public interface FeeManager {
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
 	
-	public void generateStudentFeeStaging(String fileNo);
-	FeeTransactionAdmissionBean getFeeTransactionDetail(String fileNo);
+	public void generateStudentFeeStaging(Long fileNo);
+	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 
 }

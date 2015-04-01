@@ -1,22 +1,21 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.List;
 
 public class HostelReservation {
-private String	fileNo ;
+private Long	fileNo ;
 private	boolean feePaid ;
 private String	typeCode;
 private String allocationStatus;
 private boolean isActive;
 private Double price;
 private String description;
-public String getFileNo() {
+
+public Long getFileNo() {
 	return fileNo;
 }
-public void setFileNo(String fileNo) {
+public void setFileNo(Long fileNo) {
 	this.fileNo = fileNo;
 }
-
 public String getTypeCode() {
 	return typeCode;
 }

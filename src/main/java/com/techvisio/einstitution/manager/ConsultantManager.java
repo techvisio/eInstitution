@@ -12,7 +12,7 @@ public interface ConsultantManager {
 	
 	
 
-	public List<ConsultantDetail> getConsultantDtl(String fileNo);
+	public List<ConsultantDetail> getConsultantDtl(Long fileNo);
 	public void saveConsultant(List<ConsultantDetail> consultantDetails);
 	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails);
 	

@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class StudentBasicInfo {
-	private String fileNo;
+	private Long fileNo;
 	private String firstName;
 	private String lastName;
 	private String enrollmentNo;
@@ -16,10 +16,11 @@ public class StudentBasicInfo {
 	private String academicYear;
 	private Date modifiedDate;
 	
-	public String getFileNo() {
+	
+	public Long getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 	public String getEnrollmentNo() {

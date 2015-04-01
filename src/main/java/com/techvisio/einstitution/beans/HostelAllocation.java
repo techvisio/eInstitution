@@ -6,7 +6,7 @@ private	String wing ;
 private String	floor;
 private String	block ;
 private String	name;
-private String	fileNo ;
+private Long	fileNo ;
 public String getRoomNo() {
 	return roomNo;
 }
@@ -37,10 +37,11 @@ public String getName() {
 public void setName(String name) {
 	this.name = name;
 }
-public String getFileNo() {
+
+public Long getFileNo() {
 	return fileNo;
 }
-public void setFileNo(String fileNo) {
+public void setFileNo(Long fileNo) {
 	this.fileNo = fileNo;
 }
 @Override

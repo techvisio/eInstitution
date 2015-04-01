@@ -13,8 +13,26 @@ public class StudentDetail {
 
 	private String admissionMode;
 	
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
+	}
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+		CommonUtil.propogateIdentifiertoAdmission(this);
+	}
+
 	@DynamicProperties(id="fileNo", title="File No")
-	private String fileNo;
+    private String registrationNo;  
+	private Long fileNo;
 	@DynamicProperties(id="enrollNo", title="Enrollment No")
 	private String enrollNo;
 	@DynamicProperties(id="academicYear", title="Academic Year")
@@ -158,14 +176,7 @@ public class StudentDetail {
 		this.DiscountDtl = discountDtl;
 	}
 
-	public String getFileNo() {
-		return fileNo;
-	}
 
-	public void setFileNo(String fileNo) {
-		this.fileNo = fileNo;
-		CommonUtil.propogateIdentifiertoAdmission(this);
-	}
 
 	public String getEnrollNo() {
 		return enrollNo;

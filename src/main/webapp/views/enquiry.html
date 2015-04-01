@@ -5,7 +5,7 @@
 				<table>
 					<tr>
 						<td><button type="button" class="btn btn-primary btn-lg"
-								ng-click="showCriteria=!showCriteria">Search
+								ng-click="searchEnquiryList=[];showCriteria=!showCriteria">Search
 								Existing</button></td>
 						<td><button type="button" class="btn btn-success btn-lg"
 								ng-click="searchEnquiryList=[];dashboard=false; resetForm()">New Enquiry</button></td>
@@ -53,11 +53,7 @@
 					</tr>
 				</table>
 			</div>
-			</div>
-			
-
-	<div ng-show="!dashboard">
-	<div class="searchList">
+				<div class="searchList">
 			<table>
 			<tr>
 				<td colspan="2" ng-show="searchEnquiryList.length>0"><span
@@ -84,6 +80,11 @@
 			</tr>
 		</table>
 	</div>
+			</div>
+			
+
+	<div ng-show="!dashboard">
+
 		<form name="enquiryFrom" id="enquiryFrom">
 			<div class="ajax-busy-indicator" ng-show="processing"></div>
 			<div class="enquiry-detail-div">

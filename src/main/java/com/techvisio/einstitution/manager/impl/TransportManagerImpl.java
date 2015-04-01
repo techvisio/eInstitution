@@ -40,7 +40,7 @@ public class TransportManagerImpl implements TransportManager {
 	}
 	
 	
-	public TransportAllocation getTransportAllocationDtl(String fileNo) {
+	public TransportAllocation getTransportAllocationDtl(Long fileNo) {
 
 		TransportAllocation transportAllocation=null;
 	
@@ -61,12 +61,12 @@ public class TransportManagerImpl implements TransportManager {
 		transportDao.updateTransportAllocationDtl(transportAllocation);
 	}
 
-	public void deleteTransportAllocationDtl(String fileNo) {
+	public void deleteTransportAllocationDtl(Long fileNo) {
 
 		transportDao.deleteTransportAllocationDtl(fileNo);
 	}
 
-	public TransportReservation getTransportReservationDtl(String fileNo) {
+	public TransportReservation getTransportReservationDtl(Long fileNo) {
 
 		TransportReservation transportReservation=null;
 		transportReservation= transportDao.getTransportReservationDtl(fileNo);
@@ -86,7 +86,7 @@ public class TransportManagerImpl implements TransportManager {
 		transportDao.updateTransportReservationDtl(transportReservation);
 	}
 
-	public void deleteTransportReservationDtl(String fileNo) {
+	public void deleteTransportReservationDtl(Long fileNo) {
 
 		transportDao.deleteTransportReservationDtl(fileNo);
 	}

@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 public class TransportAllocation {
 
-	private String fileNo;
+	private Long fileNo;
 	private Long vehicleId;
 
 	@Override
@@ -11,13 +11,19 @@ public class TransportAllocation {
 				+ vehicleId + "]";
 	}
 
-	public String getFileNo() {
+	
+
+	public Long getFileNo() {
 		return fileNo;
 	}
 
-	public void setFileNo(String fileNo) {
+
+
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
+
+
 
 	public Long getVehicleId() {
 		return vehicleId;

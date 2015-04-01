@@ -4,7 +4,7 @@ public class QualificationSubjectDtl {
 
 	private Long subjectId;
 	private Long qualificationId;
-	private String fileNo;
+	private Long fileNo;
 	private double marksObtained;
 	private double maxMarks;
 	
@@ -27,15 +27,14 @@ public class QualificationSubjectDtl {
 	}
 	
 	
-	public String getFileNo() {
+	public Long getFileNo() {
 		return fileNo;
 	}
-	
-	public void setFileNo(String fileNo) {
+
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-	
-	
+
 	public double getMarksObtained() {
 		return marksObtained;
 	}

@@ -1,8 +1,12 @@
 package com.techvisio.einstitution.beans;
 
+/**
+ * @author f
+ *
+ */
 public class CounsellingDetail {
 
-	private String fileNo;
+	private Long fileNo;
 	private Long counsellingId;
 	private String rollNo;
 	private Long rank;
@@ -19,13 +23,16 @@ public class CounsellingDetail {
 				+ percentile + "]";
 	}
 
-	public String getFileNo() {
+
+	public Long getFileNo() {
 		return fileNo;
 	}
 
-	public void setFileNo(String fileNo) {
+
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
+
 
 	public Long getCounsellingId() {
 		return counsellingId;

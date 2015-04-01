@@ -34,7 +34,7 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	
 	
 	
-	public List<ConsultantDetail> getConsultantDtl(String fileNo) {
+	public List<ConsultantDetail> getConsultantDtl(Long fileNo) {
 
 		List<ConsultantDetail> consultantDetails = manager.getConsultantDtl(fileNo);
 		

@@ -3,9 +3,17 @@ package com.techvisio.einstitution.beans;
 public class BranchPreference {
 
 	private Long branchPreferenceId;
-	private String fileNo;
+	private Long fileNo;
 	private Long branchId;
 	private Long coureseId;
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
 
 	public Long getBranchPreferenceId() {
 		return branchPreferenceId;
@@ -13,14 +21,6 @@ public class BranchPreference {
 
 	public void setBranchPreferenceId(Long branchPreferenceId) {
 		this.branchPreferenceId = branchPreferenceId;
-	}
-
-	public String getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(String fileNo) {
-		this.fileNo = fileNo;
 	}
 
 	public Long getBranchId() {

@@ -61,7 +61,7 @@ public class FeeService {
 
 	//StudentFeeStaging	
 	@RequestMapping(value="/studentFeeStaging/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getStudentFeeStaging(@PathVariable String fileNo){
+	public ResponseEntity<Response> getStudentFeeStaging(@PathVariable Long fileNo){
 	  
 		Response response = new Response();
 		try
@@ -134,7 +134,7 @@ public class FeeService {
 
 	////FeeTransaction	
 	@RequestMapping(value="/debitedFeeTransaction/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getDebitedFeeTransaction(@PathVariable String fileNo){
+	public ResponseEntity<Response> getDebitedFeeTransaction(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
 			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
@@ -164,7 +164,7 @@ public class FeeService {
 	}
 
 	@RequestMapping(value="/creditedFeeTransaction/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getCreditedFeeTransaction(@PathVariable String fileNo){
+	public ResponseEntity<Response> getCreditedFeeTransaction(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
 			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
@@ -223,7 +223,7 @@ public class FeeService {
 	}
 
 	@RequestMapping(value="/feeTransaction/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getfeeTransactionDtl(@PathVariable String fileNo){
+	public ResponseEntity<Response> getfeeTransactionDtl(@PathVariable Long fileNo){
 
 		Response response = new Response();
 

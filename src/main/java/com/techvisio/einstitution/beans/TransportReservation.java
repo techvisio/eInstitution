@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 public class TransportReservation {
 
-	private String fileNo;
+	private Long fileNo;
 	private String routeCode;
 	private boolean feePaid;
     private boolean isActive;
@@ -10,11 +10,12 @@ public class TransportReservation {
     private Double price;
     private String description;
     
-    public String getFileNo() {
+
+	public Long getFileNo() {
 		return fileNo;
 	}
 
-	public void setFileNo(String fileNo) {
+	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
 

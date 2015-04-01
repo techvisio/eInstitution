@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.workflow;
 
 import com.techvisio.einstitution.beans.SearchCriteria;
+
 import java.util.List;
 
 import com.techvisio.einstitution.beans.StudentBasicInfo;
@@ -10,14 +11,14 @@ public interface AdmissionWorkflowManager {
 
 	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 	
-	public String addStudentDetails(StudentDetail studentDetail);
-	public String updateStudentDetails(StudentDetail studentDetail);
-	public StudentDetail getStudentDetails(String fileNo);
-	public void deleteStudentDetails(String fileNo);
+	public Long addStudentDetails(StudentDetail studentDetail);
+	public Long updateStudentDetails(StudentDetail studentDetail);
+	public StudentDetail getStudentDetails(Long fileNo);
+	public void deleteStudentDetails(Long fileNo);
 	//public void updateWorkflowStatus(String fileNo);
-	public void proceedToNextStep(String workFlow,String FileNo);
+	public void proceedToNextStep(String workFlow,Long FileNo);
 	
-	public StudentBasicInfo getStudentBsInfo(String fileNo);
+	public StudentBasicInfo getStudentBsInfo(Long fileNo);
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit);
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
