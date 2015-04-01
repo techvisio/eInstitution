@@ -87,6 +87,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", studentDtl.getFileNo())
+        .addValue("Registration_No", studentDtl.getRegistrationNo())
 		.addValue("Enroll_No", studentDtl.getEnrollNo())
 		.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
 		.addValue("First_Name", studentDtl.getFirstName())
@@ -120,7 +121,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
 						.addValue("Referred_By", studentDtl.getReferredBy())
 						.addValue("Quota_Code", studentDtl.getQuotaCode())
-						.addValue("Lateral", studentDtl.isLateral());
+						.addValue("Lateral", studentDtl.isLateral())
+						.addValue("Remarks", studentDtl.getRemarks())
+						.addValue("Application_Status",studentDtl.getApplicationStatus());;
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -159,6 +162,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"File_No", studentDtl.getFileNo())
+		.addValue("Registration_No",studentDtl.getRegistrationNo())
 		.addValue("Enroll_No", studentDtl.getEnrollNo())
 		.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
 		.addValue("First_Name", studentDtl.getFirstName())
@@ -192,7 +196,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
 						.addValue("Referred_By", studentDtl.getReferredBy())
 						.addValue("Quota_Code", studentDtl.getQuotaCode())
-						.addValue("Lateral", studentDtl.isLateral());
+						.addValue("Lateral", studentDtl.isLateral())
+						.addValue("Remarks", studentDtl.getRemarks())
+						.addValue("Application_Status", studentDtl.getApplicationStatus());;
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
@@ -287,7 +293,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 					}
 				});
-		
 		return studentAcademicDetails;
 	}
 
@@ -917,6 +922,7 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 
 		StudentDetail studentDetail = new StudentDetail();
 
+		studentDetail.setRegistrationNo(rs.getString("Registration_No"));
 		studentDetail.setFileNo(rs.getLong("File_No"));
 		studentDetail.setEnrollNo(rs.getString("Enroll_No"));
 		studentDetail.setUniEnrollNo(rs
@@ -962,6 +968,8 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		studentDetail.setReferredBy(rs.getString("Referred_By"));
 		studentDetail.setQuotaCode(rs.getString("Quota_Code"));
 		studentDetail.setLateral(rs.getBoolean("Lateral"));
+		studentDetail.setRemarks(rs.getString("Remarks"));
+		studentDetail.setApplicationStatus(rs.getString("Application_Status"));
 
 		return studentDetail;
 	}

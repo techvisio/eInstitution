@@ -132,6 +132,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         studentDetail.setEmailId(enquiry.getEmailId());
         studentDetail.setGender(enquiry.getGender());
         studentDetail.setLateral(enquiry.isLateral());
+        studentDetail.setRemarks(enquiry.getRemarks());
 		return studentDetail;
 	}
 	@Override

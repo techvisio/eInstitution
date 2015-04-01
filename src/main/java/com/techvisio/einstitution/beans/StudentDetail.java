@@ -12,23 +12,6 @@ import com.techvisio.einstitution.util.DynamicProperties;
 public class StudentDetail {
 
 	private String admissionMode;
-	
-	public String getRegistrationNo() {
-		return registrationNo;
-	}
-
-	public void setRegistrationNo(String registrationNo) {
-		this.registrationNo = registrationNo;
-	}
-
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-		CommonUtil.propogateIdentifiertoAdmission(this);
-	}
 
 	@DynamicProperties(id="fileNo", title="File No")
     private String registrationNo;  
@@ -152,7 +135,28 @@ public class StudentDetail {
     private String quotaCode;
     private String referredBy;
     private boolean lateral;
-	public String getAdmissionMode() {
+    private String remarks;
+    private String applicationStatus;
+	
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
+	}
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+		CommonUtil.propogateIdentifiertoAdmission(this);
+	}
+
+    
+    public String getAdmissionMode() {
 		return admissionMode;
 	}
 
@@ -492,6 +496,14 @@ public class StudentDetail {
 
 	public void setLateral(boolean lateral) {
 		this.lateral = lateral;
+	}
+
+	public String getApplicationStatus() {
+		return applicationStatus;
+	}
+
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
 	}
 
 

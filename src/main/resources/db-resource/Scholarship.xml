@@ -14,7 +14,8 @@ Select
 	Remark,
     Approved,
 	Created_Date,
-	Is_Reoccurring
+	Is_Reoccurring,
+	Parent_Income
 	
 from scholarshipdetail where File_No=:File_No;	
     ]]>
@@ -32,7 +33,8 @@ Insert into scholarshipdetail
 	Remark,
 	Approved,
 	Created_Date,
-	Is_Reoccurring) values
+	Is_Reoccurring,
+	Parent_Income) values
 	
 	(:File_No,
 	:Amount,
@@ -40,7 +42,8 @@ Insert into scholarshipdetail
 	:Remark,
 	:Approved,
 	:Created_Date,
-	:Is_Reoccurring)
+	:Is_Reoccurring,
+	:Parent_Income)
 	
 	on duplicate key update
 	
@@ -50,7 +53,9 @@ Insert into scholarshipdetail
 	Remark=:Remark,
 	Approved=:Approved,
 	Created_Date=:Created_Date,
-	Is_Reoccurring=:Is_Reoccurring
+	Is_Reoccurring=:Is_Reoccurring,
+	Parent_Income=:Parent_Income
+	
 	
 		
     ]]>

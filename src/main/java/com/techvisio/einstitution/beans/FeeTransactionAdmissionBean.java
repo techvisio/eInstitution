@@ -9,6 +9,8 @@ public class FeeTransactionAdmissionBean extends BasicDetailBeanEntity {
 	private List<FeeTransaction> feeTransactionDebit;
 	private List<FeeTransaction> feeTransactionCredit;
 	private Double amountDiffrence;
+	private Remark remark;
+
 	
 	public List<FeeTransaction> getFeeTransactionDebit() {
 		return feeTransactionDebit;
@@ -32,6 +34,14 @@ public class FeeTransactionAdmissionBean extends BasicDetailBeanEntity {
 
 	public void setAmountDiffrence(Double amountDiffrence) {
 		this.amountDiffrence = amountDiffrence;
+	}
+
+	public Remark getRemark() {
+		return remark;
+	}
+
+	public void setRemark(Remark remark) {
+		this.remark = remark;
 	}
 
 }

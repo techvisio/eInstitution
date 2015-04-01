@@ -1,7 +1,6 @@
 package com.techvisio.einstitution.beans;
 
 import java.util.Date;
-import java.util.List;
 
 public class AdmissionEnquiry {
 
@@ -24,7 +23,9 @@ public class AdmissionEnquiry {
 	private String emailId;
 	private boolean lateral;
 	private String gender;
-	private List<ConsultantDetail> consultantDetail;
+	private Long consultantId;
+
+	
 	public Long getEnquiryId() {
 		return enquiryId;
 	}
@@ -156,11 +157,12 @@ public class AdmissionEnquiry {
 	public void setLateral(boolean lateral) {
 		this.lateral = lateral;
 	}
-	public List<ConsultantDetail> getConsultantDetail() {
-		return consultantDetail;
+	
+	public Long getConsultantId() {
+		return consultantId;
 	}
-	public void setConsultantDetail(List<ConsultantDetail> consultantDetail) {
-		this.consultantDetail = consultantDetail;
+	public void setConsultantId(Long consultantId) {
+		this.consultantId = consultantId;
 	}
 	
 

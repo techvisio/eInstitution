@@ -12,6 +12,7 @@ public class ScholarshipDetail {
 	private Date createdDate;
     private boolean approved; 
     private boolean reoccurring;
+    private Double parentIncome;
     private List<ScholarshipPaymentDetail> scholarshipPaymentDetail;
 	
 	
@@ -62,6 +63,12 @@ public class ScholarshipDetail {
 	}
 	public void setReoccurring(boolean isReoccurring) {
 		this.reoccurring = isReoccurring;
+	}
+	public Double getParentIncome() {
+		return parentIncome;
+	}
+	public void setParentIncome(Double parentIncome) {
+		this.parentIncome = parentIncome;
 	}
 
 
