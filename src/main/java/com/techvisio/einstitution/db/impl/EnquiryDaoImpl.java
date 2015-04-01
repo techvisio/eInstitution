@@ -97,7 +97,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 				.addValue("Gender", admissionInquiry.getGender())
 				.addValue("Lateral", admissionInquiry.isLateral())
 				.addValue("Email_Id", admissionInquiry.getEmailId())
-				.addValue("Consultant",admissionInquiry.getConsultantId());
+				.addValue("Consultant_Id",admissionInquiry.getConsultantId());
 	}
 
 	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
@@ -180,7 +180,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 					admissionInquiry.setEmailId(rs.getString("Email_Id"));
 					admissionInquiry.setLateral(rs.getBoolean("Lateral"));
 					admissionInquiry.setGender(rs.getString("Gender"));
-					admissionInquiry.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant")));
+					admissionInquiry.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
 					return admissionInquiry;
 		}
 		
