@@ -6,6 +6,7 @@ public class AdmissionEnquiry {
 
 	private Long enquiryId;
 	private Long fileNo;
+	private String registrationNo;
 	private String name;
 	private String fatherName;
 	private Date dob;
@@ -163,6 +164,12 @@ public class AdmissionEnquiry {
 	}
 	public void setConsultantId(Long consultantId) {
 		this.consultantId = consultantId;
+	}
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
 	}
 	
 
