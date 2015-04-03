@@ -38,14 +38,17 @@ public class StudentDetail {
 	@DynamicProperties(id="dob", title="DOB", type="date")
 	private Date dob;
 	
+	
+
 	@Override
 	public String toString() {
-		return "StudentDetail [admissionMode=" + admissionMode + ", fileNo="
-				+ fileNo + ", enrollNo=" + enrollNo + ", academicYear="
-				+ academicYear + ", semester=" + semester + ", courseId="
-				+ courseId + ", branchId=" + branchId + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", uniEnrollNo="
-				+ uniEnrollNo + ", dob=" + dob + ", fatherName=" + fatherName
+		return "StudentDetail [admissionMode=" + admissionMode
+				+ ", registrationNo=" + registrationNo + ", fileNo=" + fileNo
+				+ ", enrollNo=" + enrollNo + ", academicYear=" + academicYear
+				+ ", semester=" + semester + ", courseId=" + courseId
+				+ ", branchId=" + branchId + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", uniEnrollNo=" + uniEnrollNo
+				+ ", dob=" + dob + ", fatherName=" + fatherName
 				+ ", motherName=" + motherName + ", gender=" + gender
 				+ ", bloodGroup=" + bloodGroup + ", emailId=" + emailId
 				+ ", gaurdianEmailId=" + gaurdianEmailId + ", fixedlineNo="
@@ -65,7 +68,10 @@ public class StudentDetail {
 				+ reservation + ", consultantDetail=" + consultantDetail
 				+ ", scholarshipDetail=" + scholarshipDetail + ", quotaCode="
 				+ quotaCode + ", referredBy=" + referredBy + ", lateral="
-				+ lateral + "]";
+				+ lateral + ", remarks=" + remarks + ", applicationStatus="
+				+ applicationStatus + ", sectionId=" + sectionId + ", shiftId="
+				+ shiftId + ", centreId=" + centreId + ", batchId=" + batchId
+				+ ", sessionId=" + sessionId + "]";
 	}
 
 	@DynamicProperties(id="fatherName", title="Father Name")
@@ -137,6 +143,12 @@ public class StudentDetail {
     private boolean lateral;
     private String remarks;
     private String applicationStatus;
+    private Long sectionId;
+    private Long shiftId;
+    private Long centreId;
+    private Long batchId;
+    private Long sessionId;
+    
 	
 	public String getRegistrationNo() {
 		return registrationNo;
@@ -512,6 +524,46 @@ public class StudentDetail {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public Long getSectionId() {
+		return sectionId;
+	}
+
+	public void setSectionId(Long sectionId) {
+		this.sectionId = sectionId;
+	}
+
+	public Long getShiftId() {
+		return shiftId;
+	}
+
+	public void setShiftId(Long shiftId) {
+		this.shiftId = shiftId;
+	}
+
+	public Long getCentreId() {
+		return centreId;
+	}
+
+	public void setCentreId(Long centreId) {
+		this.centreId = centreId;
+	}
+
+	public Long getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
+	}
+
+	public Long getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(Long sessionId) {
+		this.sessionId = sessionId;
 	}
 
 }
