@@ -6,7 +6,7 @@ managementModule.controller('managementController',['$scope','managementService'
 	$scope.unapprovedRecords=[];
 	$scope.currentFetchLimit=20;
 	$scope.admissionDetailManagement={};
-	
+	$scope.content="dashboard";
 	$scope.feeTransactionAdmissionBean = {};
 	$scope.fileNo=null;
 	
@@ -26,146 +26,8 @@ managementModule.controller('managementController',['$scope','managementService'
 //	$scope.form.fileNo=$scope.feeTransactionAdmissionBean.studentBasicInfo.fileNo;
 	$scope.managementData={};
 	
-	$scope.getUnapprovedRecords=function(){
-		managementService.getUnapprovedList($scope.currentFetchLimit)
-		.then(function(response) {
-					 console.log('Data received from service : ');
-					 console.log(response);
-					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.unapprovedRecords = response.data.responseBody;
-					 } else {
-						 console.log(response.data.error);
-					 }
-				 })
-	};
 	
-	$scope.getFileNoandFetchDetails=function(fileNo){
-		if(!fileNo){
-			alter("Please enter file number.");
-			return;
-		}else{
-			$scope.getAdmissionDetailManagement(fileNo);			
-		}		
-	}
-	
-	$scope.getAdmissionDetailManagement=function(fileNo){
-		managementService.getAdmissionDetailManagement(fileNo)
-		.then(function(response) {
-					 console.log('Admission detail for management received from service : ');
-					 console.log(response);
-					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.admissionDetailManagement = response.data.responseBody;
-					 } else {
-						 console.log(response.data.error);
-					 }
-				 })
-	};
-
-
-	$scope.updateAdmissionDetailManagement=function(){
-		managementService.updateAdmissionDetailManagement($scope.admissionDetailManagement)
-		.then(function(response) {
-					 console.log('update Admission detail for management received from service in controller : ');
-					 console.log(response);
-					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.updatedDetail = response.data.responseBody;
-					 } else {
-						 console.log(response.data.error);
-					 }
-				 })
-	};
 
 }]);
 
-managementModule.service("managementService", function($http, $q) {
 
-	 // Return public API.
-	 return ({
-		 getUnapprovedList : getUnapprovedList,
-		 getAdmissionDetailManagement : getAdmissionDetailManagement,
-		 updateAdmissionDetailManagement : updateAdmissionDetailManagement
-	 });
-
-	 function getUnapprovedList(size) {
-
-		 console.log('Get unapproved list service');
-		 var request = $http({
-			 method : "get",
-			 url : "management/uapprovedList/"+size,
-			 params : ""
-
-		 });
-
-		 return (request.then(handleSuccess, handleError));
-
-	 }
-	 
-	 
-//	 function getAdmissionDetailsManagement(fileNo) {
-//
-//		 console.log('getting previous balance in service');
-//		 var request = $http({
-//			 method : "get",
-//			 url : "fee/feeTransaction/"+fileNo,
-//			 params : ""
-//
-//		 });
-//
-//		 
-//		 return (request.then(handleSuccess, handleError));
-//
-//	 }
-
-	 function getAdmissionDetailManagement(fileNo) {
-	 
-	 		 console.log('getting Admission detail for management in service');
-	 		 var request = $http({
-	 			 method : "get",
-	 			 url : "management/admission/approval/"+fileNo,
-	 			 params : ""
-	 
-	 		 });
-	 		 
-		 return (request.then(handleSuccess, handleError));
-	 
-	 	 }
-	 
-	 
-	 function updateAdmissionDetailManagement(student) {
-
-		 console.log('update Admission Detail for Management called in service');
-		 var request = $http({
-			 method : "put",
-			 url : "management/updateManagementChanges/",
-			 params : "",
-			 data : student
-
-		 });
-
-		 return (request.then(handleSuccess, handleError));
-
-	 }
-
-	 function handleError(response) {
-		 console.log('Error occured while calling service');
-		 console.log(response);
-		 if (!angular.isObject(response.data) || !response.data.message) {
-
-			 return ($q.reject("An unknown error occurred."));
-
-		 }
-
-		 return ($q.reject(response.data.message));
-
-	 }
-
-	 function handleSuccess(response) {
-		 console.log('handle success');
-		 console.log(response);
-		 return (response);
-
-	 }
-
-	 
-
-});
