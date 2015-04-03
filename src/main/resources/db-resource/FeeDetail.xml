@@ -16,9 +16,7 @@ join feetransactiondebit dr on cr.File_No=dr.File_No) and cr.File_No=:File_No gr
 
 <entry key="getPendingFee">
     <![CDATA[
-select 
-sd.Registration_No,
-sd.File_No,
+select sd.File_No,
 sd.First_Name,
 sd.Last_Name,
 sd.Enroll_No,
@@ -38,7 +36,6 @@ balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount)
     <![CDATA[
       
 insert into studentfeestaging (
-      Registration_No,
       File_No,
       Academic_Year,
       Semester,
@@ -53,7 +50,7 @@ insert into studentfeestaging (
     
 )
 
-select sd.Registration_No, sd.File_No ,sd.Academic_Year,sd.Semester,fd.Fee_Head_Id,fd.Fee_Amount, 
+select sd.File_No ,sd.Academic_Year,sd.Semester,fd.Fee_Head_Id,fd.Fee_Amount, 
 :Created_By, :Created_By ,null,null,  now(), now()  from studentdetail sd join feeDetailmaster fd on sd.Semester=fd.Semester and sd.Course_Id=fd.Course
 
 and sd.Branch_Id=fd.Branch where sd.File_No=:File_No;
@@ -66,7 +63,6 @@ and sd.Branch_Id=fd.Branch where sd.File_No=:File_No;
 	 <![CDATA[
       
 insert into studentfeestaging (
-      Registration_No,
       File_No,
       Academic_Year,
       Semester,
@@ -79,7 +75,7 @@ insert into studentfeestaging (
       Created_Date,
       Modified_Date
 )
-select sd.Registration_No,sd.File_No ,sd.Academic_Year,sd.Semester,:FeeHead_Id,:Amount, 
+select sd.File_No ,sd.Academic_Year,sd.Semester,:FeeHead_Id,:Amount, 
 :Created_By, :Created_By ,null,null,  now(), now()  from studentdetail sd 
 where sd.File_No=:File_No;
     ]]>
@@ -109,7 +105,6 @@ where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     <![CDATA[
 select 
      
-      Registration_No,
       File_No,
       Academic_Year,
       Semester,
@@ -199,7 +194,8 @@ Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER
 SELECT 
 	
 	File_No,
-    Semester, 
+    Batch_Id,
+    Session_Id, 
 	Component_Id, 
 	User,
 	Created_Date,
@@ -218,7 +214,8 @@ SELECT
 Insert into feetransactionDebit
 
 	(File_No,
-	Semester, 
+	Batch_Id,
+	Session_Id, 
 	Component_Id, 
 	User, 
 	Created_Date,
@@ -228,7 +225,8 @@ Insert into feetransactionDebit
 	       
    (  
     :File_No,
-	:Semester, 
+	:Batch_Id,
+	:Session_Id, 
 	:Component_Id, 
 	:User, 
 	 now(),
@@ -245,7 +243,8 @@ Insert into feetransactionDebit
 	SELECT 
 	
 	File_No,
-	Semester, 
+	Batch_Id,
+	Session_Id, 
 	Component_Id, 
 	User,
 	Created_Date,
@@ -264,7 +263,8 @@ from feetransactionCredit where semester = (select max(SEMESTER) from feetransac
 Insert into feetransactionCredit
 
 	(File_No,
-	Semester, 
+	Batch_Id,
+	Session_Id, 
 	Component_Id, 
 	User, 
 	Created_Date,
@@ -274,7 +274,8 @@ Insert into feetransactionCredit
 	       
    (  
     :File_No,
-	:Semester, 
+	:Batch_Id, 
+	:Session_Id,
 	:Component_Id, 
 	:User, 
 	now(),

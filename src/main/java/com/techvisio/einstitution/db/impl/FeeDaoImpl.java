@@ -53,8 +53,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeAdmissionBean.setDob(rs.getDate("DOB"));
 				feeAdmissionBean.setEnrollmentNo(rs.getString("Enroll_No"));
 				feeAdmissionBean.setFatherName(rs.getString("Father_Name"));
-				feeAdmissionBean.setRegistrationNo(rs.getString("Registration_No"));
-				feeAdmissionBean.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				feeAdmissionBean.setFileNo(rs.getLong("File_No"));
 				feeAdmissionBean.setGender(rs.getString("Gender"));
 				feeAdmissionBean.setSemester(rs.getString("Semester"));
                 feeAdmissionBean.setPendingFee(rs.getDouble("Pending_Fee"));				
@@ -155,7 +154,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
 				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
-				feeStaging.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				feeStaging.setFileNo(rs.getLong("File_No"));
 				feeStaging.setSemester(rs.getInt("Semester"));
 				feeStaging.setAcademicYear(rs.getString("Academic_Year"));
 				feeStaging.setAmount(rs.getDouble("Amount"));
@@ -243,9 +242,10 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				feeTransaction.setFileNo(rs.getLong("File_No"));
 				feeTransaction.setUser(rs.getString("User"));
-				feeTransaction.setSemester(rs.getInt("Semester"));
+				feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+				feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 				feeTransaction.setMode(rs.getString("Mode"));
 				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);
@@ -257,7 +257,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 			
 			});
 			
-			
+	
 			return feeTransactions ;
 		
 	}
@@ -267,14 +267,15 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
-		.addValue("Semester", feeTransaction.getSemester())
+		.addValue("Batch_Id", feeTransaction.getBatchId())
+		.addValue("Session_Id", feeTransaction.getSessionId() )
 		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
 		.addValue("Mode", feeTransaction.getMode())
 		.addValue("Remark", feeTransaction.getRemark())
 		.addValue("Amount", feeTransaction.getAmount());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+				
 	}
 
 	
@@ -286,9 +287,10 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				feeTransaction.setFileNo(rs.getLong("File_No"));
 				feeTransaction.setUser(rs.getString("User"));
-				feeTransaction.setSemester(rs.getInt("Semester"));
+				feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+				feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 				feeTransaction.setMode(rs.getString("Mode"));
 				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);		
@@ -298,7 +300,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setAmount(rs.getDouble("Amount"));
 				return feeTransaction;
 			}
-
+			
 		});
 
 		return feeTransactions;
@@ -311,14 +313,15 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
 		.addValue("Created_Date", feeTransaction.getCreatedDate())
-		.addValue("Semester", feeTransaction.getSemester())
+		.addValue("Batch_Id",feeTransaction.getBatchId())
+		.addValue("Session_Id", feeTransaction.getSessionId())
 		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
 		.addValue("Mode", feeTransaction.getMode())
 		.addValue("Remark", feeTransaction.getRemark())
 		.addValue("Amount", feeTransaction.getAmount());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+		
 	}
 
 	//FeeDiscountHead
