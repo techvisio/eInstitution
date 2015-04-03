@@ -34,22 +34,23 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	
-	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
 
 		String getQuery = admissionQueryProps
 				.getProperty("getStudentDtlDynamically");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", searchCriteria.getFileNo()==null?null:searchCriteria.getFileNo())
+				"Registration_No", searchCriteria.getRegistrationNo()==null?null:searchCriteria.getRegistrationNo())
 		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
 		.addValue("Enroll_No", StringUtils.isEmpty(searchCriteria.getEnrollNo())?null:searchCriteria.getEnrollNo())
 		.addValue("Uni_Enroll_No", StringUtils.isEmpty(searchCriteria.getUniEnrollNo())?null:searchCriteria.getUniEnrollNo())
+		.addValue("First_Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getFirstName()+"%")
 		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo());
 		
-		StudentDetail studentDetail=getNamedParamJdbcTemplate().queryForObject(
-				getQuery, namedParameter, new StudentDetailRowMapper());
+	List<StudentBasicInfo> studentBasicInfos=getNamedParamJdbcTemplate().query(
+				getQuery, namedParameter, new StudentBasicInfoRowMaper());
 		
-		    return studentDetail;
+		    return studentBasicInfos;
 	}
 	
 	public StudentDetail getStudentDtl(Long fileNo) {

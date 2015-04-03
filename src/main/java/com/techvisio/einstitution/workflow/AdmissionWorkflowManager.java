@@ -9,7 +9,7 @@ import com.techvisio.einstitution.beans.StudentDetail;
 
 public interface AdmissionWorkflowManager {
 
-	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 	
 	public Long addStudentDetails(StudentDetail studentDetail);
 	public Long updateStudentDetails(StudentDetail studentDetail);

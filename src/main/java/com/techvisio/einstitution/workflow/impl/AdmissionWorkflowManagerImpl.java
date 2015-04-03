@@ -117,16 +117,16 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		}		
 	}
 
-	public StudentDetail getStudentDtlBySearchCriteria(
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(
 			SearchCriteria searchCriteria) {
 		
-		StudentDetail studentDetail = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
-	      	
-		Long fileNo = studentDetail.getFileNo();
+		List<StudentBasicInfo> studentBasicInfos = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
+	      	for(StudentBasicInfo studentBasicInfo: studentBasicInfos){
+		Long fileNo = studentBasicInfo.getFileNo();
 		
-		studentDetail=getStudentDetails(fileNo);
-	
-		return studentDetail;
+		studentBasicInfo=getStudentBsInfo(fileNo);
+	      	}
+		return studentBasicInfos;
 	}
 
 	public StudentBasicInfo getStudentBsInfo(Long fileNo) {

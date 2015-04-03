@@ -75,12 +75,12 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		admissionDao.deleteSudentDtl(fileNo);
 	}
 
-	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
 
-		StudentDetail studentDetail = null;
-		studentDetail=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
+		List<StudentBasicInfo> studentBasicInfos = null;
+		studentBasicInfos=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
 		
-		return studentDetail;
+		return studentBasicInfos;
 	}
 	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
 		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);

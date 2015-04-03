@@ -112,10 +112,10 @@ public class AdmissionService {
 		try
 		{
 			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
-			StudentDetail studentDetail = workflowManager.getStudentDtlBySearchCriteria(searchCriteria);
-			response.setResponseBody(studentDetail);
+			List<StudentBasicInfo> studentBasicInfo = workflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+			response.setResponseBody(studentBasicInfo);
 			
-			if(studentDetail == null){
+			if(studentBasicInfo == null){
 				
 				response.setError("No such record found");
 			}
