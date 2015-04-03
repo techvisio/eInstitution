@@ -7,7 +7,7 @@ public class ConsultantPaymentDtl {
 	private Double amount;
     private Date payDate; 
     private Long fileNo;
-	
+    private Long consultantId; 	
     public Double getAmount() {
 		return amount;
 	}
@@ -38,6 +38,14 @@ public class ConsultantPaymentDtl {
 	public String toString() {
 		return "ConsultantPaymentDtl [amount=" + amount + ", payDate="
 				+ payDate + ", fileNo=" + fileNo + "]";
+	}
+
+	public Long getConsultantId() {
+		return consultantId;
+	}
+
+	public void setConsultantId(Long consultantId) {
+		this.consultantId = consultantId;
 	}
 
 }

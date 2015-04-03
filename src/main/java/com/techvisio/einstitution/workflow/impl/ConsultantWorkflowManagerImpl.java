@@ -46,9 +46,9 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 		manager.saveConsultant(consultantDetails);
 	}
 
-	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails) {
+	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
 
-		manager.deleteConsultantDtl(consultantDetails);
+		manager.deleteConsultantDtl(fileNo, consultantDetails);
 	}
 
 	

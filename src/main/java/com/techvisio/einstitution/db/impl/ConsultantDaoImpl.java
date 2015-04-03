@@ -149,12 +149,17 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public void saveConsultant(List<ConsultantDetail> consultantDetails){
-		deleteConsultantDtl(consultantDetails);
+		
+		if(consultantDetails != null){
 		for(ConsultantDetail consultantDetail:consultantDetails){
+	
+			Long fileNo = consultantDetail.getFileNo();
+			deleteConsultantDtl(fileNo, consultantDetails);
+		
 			addConsultantDtl(consultantDetail);
 		}
 	}
-
+	}
 	private void addConsultantDtl(ConsultantDetail consultantDetail) {
 		
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
@@ -191,28 +196,30 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	//TODO: WE NEED TO CONSULTANT PAYMENT WORK   		
 
 
-	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails) {
-
+	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
+	
 		List<Long> consultantIds=new ArrayList<Long>();
-		Long fileNo=null;
+		if(consultantDetails==null || consultantDetails.size()==0){
+			consultantIds.add(-1L);
+		}
+		else
+		{
 		if(consultantDetails != null){
 			for(ConsultantDetail consultantDetail:consultantDetails){
 				consultantIds.add(consultantDetail.getConsultantId());
-				fileNo=consultantDetail.getFileNo();
-		
-				deleteConsultantPaymentDtl(fileNo, consultantDetail.getConsultantId());
+                fileNo= consultantDetail.getFileNo();
+        		
+				deleteConsultantPaymentDtl(fileNo, consultantDetail.getConsultantPaymentDetail());
 
-				deleteConsultantPaymentCriteria(fileNo, consultantDetail.getConsultantId());
+				deleteConsultantPaymentCriteria(fileNo, consultantDetail.getConsultantPaymentCriterias());
 
 			}
 		
-			  if(consultantIds.size()==0){
-					
-				  consultantIds.add(-1L);
-			     }
+		}
 
 		}
 				
+		
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtl");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo)
@@ -252,7 +259,8 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("FileNo", consultantPaymentDtl.getFileNo())
 		.addValue("Amount", consultantPaymentDtl.getAmount())
-		.addValue("Pay_Date", consultantPaymentDtl.getPayDate());
+		.addValue("Pay_Date", consultantPaymentDtl.getPayDate())
+		.addValue("Consultant_Id", consultantPaymentDtl.getConsultantId());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
@@ -271,12 +279,27 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public void deleteConsultantPaymentDtl(Long fileNo, Long consultantId) {
+	public void deleteConsultantPaymentDtl(Long fileNo, List<ConsultantPaymentDtl> consultantPaymentDtls) {
 
+		List<Long> consultantIds=new ArrayList<Long>();
+		if(consultantPaymentDtls==null || consultantPaymentDtls.size()==0){
+			consultantIds.add(-1L);
+		}
+		else
+		{
+		if(consultantPaymentDtls != null){
+			for(ConsultantPaymentDtl consultantPaymentDtl:consultantPaymentDtls){
+				consultantIds.add(consultantPaymentDtl.getConsultantId());
+			    fileNo= consultantPaymentDtl.getFileNo();
+			}
+		
+		}
+
+		}
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
-		.addValue("Consultant_Id", consultantId);
+		.addValue("Consultant_Id", consultantIds);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
@@ -337,18 +360,36 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	public void updateConsultantPaymentCriteria(
 			ConsultantPaymentCriteria consultantPaymentCriteria) {
 
-		deleteConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
+		List<ConsultantPaymentCriteria> consultantPaymentCriterias = getConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
+		deleteConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriterias);
 		addConsultantPaymentCriteria(consultantPaymentCriteria);
 	}
 
 
 	@Override
-	public void deleteConsultantPaymentCriteria(Long fileNo, Long consultantId) {
+	public void deleteConsultantPaymentCriteria(Long fileNo, List<ConsultantPaymentCriteria> consultantPaymentCriterias) {
 
+		List<Long> consultantIds=new ArrayList<Long>();
+		if(consultantPaymentCriterias==null || consultantPaymentCriterias.size()==0){
+			consultantIds.add(-1L);
+		}
+		else
+		{
+		if(consultantPaymentCriterias != null){
+			for(ConsultantPaymentCriteria consultantPaymentCriteria:consultantPaymentCriterias){
+				consultantIds.add(consultantPaymentCriteria.getConsultantId());
+				fileNo=consultantPaymentCriteria.getFileNo();
+			}
+		
+		}
+
+		}
+
+		
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteria");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo)
-		.addValue("Consultant_Id",consultantId);
+		.addValue("Consultant_Id",consultantIds);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 

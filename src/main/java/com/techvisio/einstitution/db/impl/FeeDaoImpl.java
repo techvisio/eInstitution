@@ -244,7 +244,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				FeeTransaction feeTransaction = new FeeTransaction();
 				feeTransaction.setFileNo(rs.getLong("File_No"));
 				feeTransaction.setUser(rs.getString("User"));
-				feeTransaction.setSemester(rs.getInt("Semester"));
+				feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+				feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 				feeTransaction.setMode(rs.getString("Mode"));
 				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);
@@ -256,7 +257,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 			
 			});
 			
-			
+	
 			return feeTransactions ;
 		
 	}
@@ -266,14 +267,15 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
-		.addValue("Semester", feeTransaction.getSemester())
+		.addValue("Batch_Id", feeTransaction.getBatchId())
+		.addValue("Session_Id", feeTransaction.getSessionId() )
 		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
 		.addValue("Mode", feeTransaction.getMode())
 		.addValue("Remark", feeTransaction.getRemark())
 		.addValue("Amount", feeTransaction.getAmount());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+				
 	}
 
 	
@@ -287,7 +289,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				FeeTransaction feeTransaction = new FeeTransaction();
 				feeTransaction.setFileNo(rs.getLong("File_No"));
 				feeTransaction.setUser(rs.getString("User"));
-				feeTransaction.setSemester(rs.getInt("Semester"));
+				feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+				feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 				feeTransaction.setMode(rs.getString("Mode"));
 				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
 				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);		
@@ -297,7 +300,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeTransaction.setAmount(rs.getDouble("Amount"));
 				return feeTransaction;
 			}
-
+			
 		});
 
 		return feeTransactions;
@@ -310,14 +313,15 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
 		.addValue("Created_Date", feeTransaction.getCreatedDate())
-		.addValue("Semester", feeTransaction.getSemester())
+		.addValue("Batch_Id",feeTransaction.getBatchId())
+		.addValue("Session_Id", feeTransaction.getSessionId())
 		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
 		.addValue("Mode", feeTransaction.getMode())
 		.addValue("Remark", feeTransaction.getRemark())
 		.addValue("Amount", feeTransaction.getAmount());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
+		
 	}
 
 	//FeeDiscountHead

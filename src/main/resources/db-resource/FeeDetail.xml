@@ -194,7 +194,8 @@ Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER
 SELECT 
 	
 	File_No,
-    Semester, 
+    Batch_Id,
+    Session_Id, 
 	Component_Id, 
 	User,
 	Created_Date,
@@ -213,7 +214,8 @@ SELECT
 Insert into feetransactionDebit
 
 	(File_No,
-	Semester, 
+	Batch_Id,
+	Session_Id, 
 	Component_Id, 
 	User, 
 	Created_Date,
@@ -223,7 +225,8 @@ Insert into feetransactionDebit
 	       
    (  
     :File_No,
-	:Semester, 
+	:Batch_Id,
+	:Session_Id, 
 	:Component_Id, 
 	:User, 
 	 now(),
@@ -240,7 +243,8 @@ Insert into feetransactionDebit
 	SELECT 
 	
 	File_No,
-	Semester, 
+	Batch_Id,
+	Session_Id, 
 	Component_Id, 
 	User,
 	Created_Date,
@@ -259,7 +263,8 @@ from feetransactionCredit where semester = (select max(SEMESTER) from feetransac
 Insert into feetransactionCredit
 
 	(File_No,
-	Semester, 
+	Batch_Id,
+	Session_Id, 
 	Component_Id, 
 	User, 
 	Created_Date,
@@ -269,7 +274,8 @@ Insert into feetransactionCredit
 	       
    (  
     :File_No,
-	:Semester, 
+	:Batch_Id, 
+	:Session_Id,
 	:Component_Id, 
 	:User, 
 	now(),

@@ -69,9 +69,9 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		consultantDao.saveConsultant(consultantDetails);
 	}
 
-	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails) {
+	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
 
-		consultantDao.deleteConsultantDtl(consultantDetails);
+		consultantDao.deleteConsultantDtl(fileNo, consultantDetails);
 	}
 
 	
