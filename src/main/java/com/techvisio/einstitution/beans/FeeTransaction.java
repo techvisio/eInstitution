@@ -3,7 +3,6 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class FeeTransaction {
-	private Integer semester;
 	private FeeDiscountHead feeDiscountHead;
 	private String user;
 	private Date createdDate;
@@ -11,13 +10,8 @@ public class FeeTransaction {
 	private String mode;
 	private Long fileNo;
 	private Double amount;
-	
-	public Integer getSemester() {
-		return semester;
-	}
-	public void setSemester(Integer semester) {
-		this.semester = semester;
-	}
+	private Long batchId;
+	private Long sessionId;
 	
 	public String getUser() {
 		return user;
@@ -50,12 +44,7 @@ public class FeeTransaction {
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-	@Override
-	public String toString() {
-		return "FeeTransaction [semester=" + semester + ", user=" + user + ", createdDate=" + createdDate
-				+ ", remark=" + remark + ", mode=" + mode + ", fileNo="
-				+ fileNo + "]";
-	}
+	
 	
 	public Double getAmount() {
 		return amount;
@@ -68,6 +57,26 @@ public class FeeTransaction {
 	}
 	public void setFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
 		this.feeDiscountHead = feeDiscountHead;
+	}
+	public Long getBatchId() {
+		return batchId;
+	}
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
+	}
+	public Long getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(Long sessionId) {
+		this.sessionId = sessionId;
+	}
+	@Override
+	public String toString() {
+		return "FeeTransaction [feeDiscountHead=" + feeDiscountHead + ", user="
+				+ user + ", createdDate=" + createdDate + ", remark=" + remark
+				+ ", mode=" + mode + ", fileNo=" + fileNo + ", amount="
+				+ amount + ", batchId=" + batchId + ", sessionId=" + sessionId
+				+ "]";
 	}
 	
 	
