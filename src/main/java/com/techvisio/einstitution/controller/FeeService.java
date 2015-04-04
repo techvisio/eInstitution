@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
-import com.techvisio.einstitution.beans.FeeDetail;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
@@ -29,23 +29,23 @@ public class FeeService {
 
 	//FeeDetail	
 	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/feeHeadId/{feeHeadId}", method = RequestMethod.GET)
-	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch,@PathVariable Long feeHeadId){
+	public List<ApplicableFeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch,@PathVariable Long feeHeadId){
 
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 
-		List<FeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch,feeHeadId);
+		List<ApplicableFeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch,feeHeadId);
 		return details;
 
 	}
 
 	@RequestMapping(value="/feeDetail",method = RequestMethod.POST)
-	public void addFeeDetail(@RequestBody FeeDetail feeDetail){
+	public void addFeeDetail(@RequestBody ApplicableFeeDetail feeDetail){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.addFeeDetail(feeDetail);
 	}
 
 	@RequestMapping(value="/feeDetail", method = RequestMethod.PUT)
-	public void updateFeeDetail(@RequestBody FeeDetail feeDetail){
+	public void updateFeeDetail(@RequestBody ApplicableFeeDetail feeDetail){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.updateFeeDetail(feeDetail);
 

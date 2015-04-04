@@ -43,5 +43,7 @@ public interface CacheManager {
 
 	String getCodeMappingByName(String name);
 
+	List<MasterDataBean> getBatchAsMasterdata();
+
 
 }

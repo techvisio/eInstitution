@@ -1,12 +1,13 @@
 package com.techvisio.einstitution.beans;
 
-public class FeeDetail {
+public class ApplicableFeeDetail {
 private Long course;
 private Long branch;
-private Long feeHeadId;
+private FeeDiscountHead feeDetail;
 private Double feeAmount;
 private Long centreId;
 private Long shiftId;
+
 private Long sessionId;
 
 public Long getCourse() {
@@ -21,11 +22,12 @@ public Long getBranch() {
 public void setBranch(Long branch) {
 	this.branch = branch;
 }
-public Long getFeeHeadId() {
-	return feeHeadId;
+
+public FeeDiscountHead getFeeDetail() {
+	return feeDetail;
 }
-public void setFeeHeadId(Long feeHeadId) {
-	this.feeHeadId = feeHeadId;
+public void setFeeDetail(FeeDiscountHead feeDetail) {
+	this.feeDetail = feeDetail;
 }
 public Double getFeeAmount() {
 	return feeAmount;
@@ -54,8 +56,8 @@ public void setSessionId(Long sessionId) {
 }
 @Override
 public String toString() {
-	return "FeeDetail [course=" + course + ", branch=" + branch
-			+ ", feeHeadId=" + feeHeadId + ", feeAmount=" + feeAmount
+	return "ApplicableFeeDetail [course=" + course + ", branch=" + branch
+			+ ", feeDetail=" + feeDetail + ", feeAmount=" + feeAmount
 			+ ", centreId=" + centreId + ", shiftId=" + shiftId
 			+ ", sessionId=" + sessionId + "]";
 }

@@ -142,7 +142,7 @@ SELECT
 	Shift_Id,
 	Session_Id
 	 
-FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND FEE_HEAD_ID=:FEE_HEAD_ID;]]>
+FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND Session_Id=:SESSION_ID AND Shift_Id=:SHIFT_ID AND Centre_Id=:CENTRE_ID;]]>
 
 	</entry>
 

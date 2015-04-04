@@ -101,43 +101,53 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 			<table>
 			<tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 				<tr>
-					<td>File No<p><input type="text"
+					<td>Registration No</td>
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.fileNo"></td>
-					<td>Enrollment No<p><input type="text"
+					<td>Enrollment No</td>
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.enrollmentNo"></td>
 				</tr>
 				<tr>
-					<td>First Name<p><input type="text"
+					<td>First Name</td>
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.firstName"></td>
-					<td>Last Name<p><input type="text"
+					<td>Last Name</td>					
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.lastName"></td>
 
 				</tr>
 				<tr>
-					<td>Father Name<p><input type="text"
+					<td>Father Name</td>	
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.fatherName"></td>
-					<td>Date Of Birth<p><input type="text"
+					<td>Date Of Birth</td>					
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.dob"></td>
 				</tr>
 				<tr>
-					<td>Course<p><input type="text"
+					<td>Course</td>	
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.course"></td>
-					<td>Branch<p><input type="text"
+					<td>Branch</td>	
+					<td><input type="text"
 						ng-model="admissionDetailManagement.basicInfo.branch"></td>
 				</tr>
-				<tr><td><input type="submit"
-						ng-click="getFileNoandFetchDetails(admissionDetailManagement.basicInfo.fileNo)"></td></tr>
 			<tr><td colspan=4><hr><td></tr>
 	
 	<tr><td><span class="header">Scholarship Detail</span></td>
 	</tr>
 	<tr>
-	<td>Domicile State<p><select ng-model="admissionDetailManagement.scholarship.stateId" ng-option=""></td>
-	<td>Scholarship Amount<p><input type="text" ng-model="admissionDetailManagement.scholarship.amount" ng-option=""></td>
+	<td>Domicile State</td>
+	<td><select ng-model="admissionDetailManagement.scholarship.stateId" ng-option=""></td>
+	<td>Scholarship Amount</td>
+	<td><input type="text" ng-model="admissionDetailManagement.scholarship.amount" ng-option=""></td>
 	</tr>
 	<tr>
-	<td>Reoccuring<p><input type="checkbox" ng-model="admissionDetailManagement.scholarship.reoccurring"></td>
-	<td>Remarks<p><textArea ng-model="admissionDetailManagement.scholarship.remark" ng-option=""></textArea></td>
+	<td>Reoccuring</td>
+	<td><input type="checkbox" ng-model="admissionDetailManagement.scholarship.reoccurring"></td>
+	<td>Remarks</td>
+	<td><textArea ng-model="admissionDetailManagement.scholarship.remark" ng-option=""></textArea></td>
 	</tr>
 	<tr>
 	<td><span class="header">Fee Staging Detail</span></td>

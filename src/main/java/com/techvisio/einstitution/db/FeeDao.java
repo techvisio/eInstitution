@@ -3,16 +3,15 @@ package com.techvisio.einstitution.db;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
-import com.techvisio.einstitution.beans.FeeDetail;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeDao {
 	
-	public List<FeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId);
-	public void addFeeDetail(FeeDetail feeDetail);
-	public void updateFeeDetail(FeeDetail feeDetail);
+	public void addFeeDetail(ApplicableFeeDetail feeDetail);
+	public void updateFeeDetail(ApplicableFeeDetail feeDetail);
 	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId );
 	
 	
@@ -34,6 +33,7 @@ public interface FeeDao {
 	void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	Double getPreviousSemBalance(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
+	List<ApplicableFeeDetail> getApplicableFeeDetails(Long course, Long branch,Long sessionId, Long centerId, Long shiftId);
 	
 		
 }
