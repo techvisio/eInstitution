@@ -20,7 +20,7 @@
 <div ng-include src="'feeAdministration.html'" ng-if="content=='feeManagement'">
 </div>
 	
-<!-- 	<script type="text/ng-template" id="feeDashboard.html"> -->
+	<script type="text/ng-template" id="feeDashboard.html">
 	<div>
 	<div class="searchcriteria">
 	<table>
@@ -70,10 +70,10 @@
 	<th><span>Course</span></th>
 	<th><span>Branch</span></th>
 </tr>
-<tr ng-repeat="object in filteredSearch"
-	ng-click="">
+<tr ng-repeat="object in filteredSearch">
 	<td><span>{{object.firstName}}</span></td>
-	
+	<td><button ng-click="getFeeTransactionAndBasicInfoDetail(object.fileNo)">Fee</button></td>
+	<td><button ng-click="getAdmissionDetailManagement(object.fileNo)">Management</button></td>
 </tr>
 <tr>
 <td colspan=2>
@@ -87,7 +87,7 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 
 </div>
 </div>
-<!-- </script> -->
+ </script> 
 	
 	
 	<script type="text/ng-template" id="managementPendingfeeApproval.html">

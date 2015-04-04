@@ -35,5 +35,8 @@ public interface CacheManager {
 	
 	public List<MasterDataBean> getBatchAsMasterdata();
 
+	public List<MasterDataBean> getCodeMappingAsMasterdata();
+	public List<MasterDataBean> getBatchAsMasterdata();
+
 
 }

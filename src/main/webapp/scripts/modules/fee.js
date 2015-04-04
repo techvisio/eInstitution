@@ -94,6 +94,7 @@ feeModule.controller('feeController',['$scope','feeService','admissionService',f
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.feeTransactionAdmissionBean = response.data.responseBody;
+				$scope.content='feeManagement';
 			}
 
 			else {
@@ -147,7 +148,7 @@ feeModule.controller('feeController',['$scope','feeService','admissionService',f
 	}
 
 	$scope.getUnapprovedRecords=function(){
-		managementService.getUnapprovedList($scope.currentFetchLimit)
+		feeService.getUnapprovedList($scope.currentFetchLimit)
 		.then(function(response) {
 			console.log('Data received from service : ');
 			console.log(response);
@@ -160,12 +161,13 @@ feeModule.controller('feeController',['$scope','feeService','admissionService',f
 	};
 
 	$scope.getAdmissionDetailManagement=function(fileNo){
-		managementService.getAdmissionDetailManagement(fileNo)
+		feeService.getAdmissionDetailManagement(fileNo)
 		.then(function(response) {
 			console.log('Admission detail for management received from service : ');
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.admissionDetailManagement = response.data.responseBody;
+				$scope.content='managementApproval';
 			} else {
 				console.log(response.data.error);
 			}
@@ -174,7 +176,7 @@ feeModule.controller('feeController',['$scope','feeService','admissionService',f
 
 
 	$scope.updateAdmissionDetailManagement=function(){
-		managementService.updateAdmissionDetailManagement($scope.admissionDetailManagement)
+		feeService.updateAdmissionDetailManagement($scope.admissionDetailManagement)
 		.then(function(response) {
 			console.log('update Admission detail for management received from service in controller : ');
 			console.log(response);
