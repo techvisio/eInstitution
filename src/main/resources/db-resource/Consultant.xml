@@ -126,7 +126,8 @@ Select
 
 	Amount, 
 	Pay_Date, 
-	File_No
+	File_No,
+	Consultant_Id
    
 from ConsultantPaymentDetail where File_No=:File_No;
     ]]>
@@ -139,10 +140,12 @@ from ConsultantPaymentDetail where File_No=:File_No;
 Insert into ConsultantPaymentDetail
 
       (File_No,
+      Consultant_Id,
       Amount, 
       Pay_Date) values 
       
      (:File_No,
+     :Consultant_Id,
      :Amount, 
      :Pay_Date);
     ]]>
@@ -154,6 +157,7 @@ Insert into ConsultantPaymentDetail
       
 Update ConsultantPaymentDetail set
 
+      
       Amount=:Amount, 
       Pay_Date=:Pay_Date
       
@@ -166,7 +170,7 @@ where File_No=:File_No;
 	<entry key="deleteConsultantPaymentDtl">
     <![CDATA[
       
-Delete from ConsultantPaymentDetail where File_No=:File_No;  
+Delete from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id not in (:Consultant_Id);  
     ]]>
 
 	</entry>
@@ -213,7 +217,7 @@ Triggered) values
 	<entry key="deleteConsultantPaymentCriteria">
     <![CDATA[
       
-Delete from consultantpaymentcriteria where File_No = :File_No;
+Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id not in (:Consultant_Id);
 
    ]]>
 

@@ -65,11 +65,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		}
 		consultantWorkflowManager.saveConsultant(consultantDetails);
 		}
-		else
-		{
-			List<ConsultantDetail> consultantDetails = consultantWorkflowManager.getConsultantDtl(fileNo); 
-			consultantWorkflowManager.deleteConsultantDtl(consultantDetails);
-		}
 		
 		if(studentDetail.getScholarshipDetail() != null){
 		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();

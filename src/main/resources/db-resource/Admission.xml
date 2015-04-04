@@ -51,9 +51,10 @@ s.Admission_Mode,
 s.Referred_By,
 s.Quota_Code,
 s.Lateral,
+s.Remarks,
 s.Application_Status
 
-from  studentdetail s left join transportreservation t on (s.File_No = t.File_No) left join hostelreservation h on (s.File_No = h.File_No) WHERE s.File_No=IFNULL(:File_No,s.File_No) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1'));    
+from  studentdetail s left join transportreservation t on (s.File_No = t.File_No) left join hostelreservation h on (s.File_No = h.File_No) WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
     ]]>
 
 	</entry>

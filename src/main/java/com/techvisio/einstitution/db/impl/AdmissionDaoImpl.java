@@ -234,15 +234,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
         StudentDetail detail = new StudentDetail();
 		
-		deleteAcademicDtl(detail.getAcademicDtl());
+		deleteAcademicDtl(fileNo,detail.getAcademicDtl());
 
-		deleteAdmissionDisDtl(detail.getDiscountDtl());
+		deleteAdmissionDisDtl(fileNo, detail.getDiscountDtl());
 
-		deleteAddressDtl(detail.getAddressDtl());
+		deleteAddressDtl(fileNo,detail.getAddressDtl());
 
-		deleteBranchPreference(detail.getBranchPreference());
+		deleteBranchPreference(fileNo, detail.getBranchPreference());
 
-		deleteCounsellingDetail(detail.getCounsellingDtl());
+		deleteCounsellingDetail(fileNo, detail.getCounsellingDtl());
 
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteStudentDtl");
@@ -299,8 +299,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void saveAcademicDtl(List<StudentAcademicDetail> academicDetails){
 		
 		if(academicDetails != null){
-			deleteAcademicDtl(academicDetails);
 			for(StudentAcademicDetail academicDetail:academicDetails){
+			Long fileNo=academicDetail.getFileNo();
+			deleteAcademicDtl(fileNo,academicDetails);
 				saveAcademicDtl(academicDetail);
 			}
 			}
@@ -366,25 +367,26 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 //
 //	}
 
-	private void deleteAcademicDtl(List<StudentAcademicDetail> academicDetails) {
+	private void deleteAcademicDtl(Long fileNo,List<StudentAcademicDetail> academicDetails) {
 
 		StudentAcademicDetail detail = new StudentAcademicDetail();
-		deleteQualificationDtl(detail.getQualificationSubDtl());
-
+	
 		List<Long> qualificationIds=new ArrayList<Long>();
-		Long fileNo=null;
+		
+		if(academicDetails==null || academicDetails.size()==0){
+			qualificationIds.add(-1L);
+		}
+		
+		else{
+		
 		if(academicDetails != null){
 			for(StudentAcademicDetail academicDetail:academicDetails){
 				qualificationIds.add(academicDetail.getQualificationId());
 				fileNo=academicDetail.getFileNo();
+				deleteQualificationDtl(fileNo, detail.getQualificationSubDtl());
 			}
-
-			 if(qualificationIds.size()==0){
-					
-				 qualificationIds.add(-1L);
-			     }
-			
-			
+		}			
+		
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAcademicDtl");
 
@@ -417,7 +419,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						addressDetail.setDistrict(rs.getString("District"));
 						addressDetail.setCity(rs.getString("City"));
 						addressDetail.setPincode(rs.getInt("Pincode"));
-						addressDetail.setFileNo(rs.getLong("File_No"));
+						addressDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 						addressDetail.setAddressType(rs
 								.getString("Address_Type"));
 						addressDetail.setState(rs.getString("State_Id"));
@@ -431,8 +433,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void saveAddressDetails(List<AddressDetail> addresses){
 	
 		if(addresses != null){
-		deleteAddressDtl(addresses);
-		for(AddressDetail address:addresses){
+			for(AddressDetail address:addresses){
+			Long fileNo=address.getFileNo();
+				deleteAddressDtl(fileNo, addresses);
+		
 			saveAddressDtl(address);
 		}
 		}
@@ -486,22 +490,24 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 //		//
 //	}
 
-	private void deleteAddressDtl(List<AddressDetail> addresses) {
+	private void deleteAddressDtl(Long fileNo, List<AddressDetail> addresses) {
 		
 		List<String> addressTypes=new ArrayList<String>();
-		Long fileNo=null;
+
+		if(addresses==null || addresses.size()==0){
+			addressTypes.add(" ");
+		}
+		
+		else{
+
 		if(addresses != null){
 			for(AddressDetail address:addresses){
 				addressTypes.add(address.getAddressType());
 				fileNo=address.getFileNo();
 			}
-
-			  if(addressTypes.size()==0){
-					
-				  addressTypes.add(" ");
-			     }
+		}
 			  
-			
+		
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteAddressDtl");
 
@@ -549,8 +555,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		
 
 		if(admissionDiscountDtls != null){
-			deleteAdmissionDisDtl(admissionDiscountDtls);
 			for(AdmissionDiscountDtl admissionDiscountDtl:admissionDiscountDtls){
+				
+				Long fileNo = admissionDiscountDtl.getFileNo();
+			deleteAdmissionDisDtl(fileNo, admissionDiscountDtls);
+			
 				saveAdmissionDisDtl(admissionDiscountDtl);
 			}
 			}
@@ -595,20 +604,20 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 //		//
 //	}
 
-	private void deleteAdmissionDisDtl(List<AdmissionDiscountDtl> admissionDiscountDtls) {
+	private void deleteAdmissionDisDtl(Long fileNo, List<AdmissionDiscountDtl> admissionDiscountDtls) {
 
 		List<Long> feeHeadIds=new ArrayList<Long>();
-		Long fileNo=null;
+		if(admissionDiscountDtls==null || admissionDiscountDtls.size()==0){
+			feeHeadIds.add(-1L);
+		}
+		
+		else{
 		if(admissionDiscountDtls != null){
 			for(AdmissionDiscountDtl admissionDiscountDtl:admissionDiscountDtls){
 				feeHeadIds.add(admissionDiscountDtl.getFeeHeadId());
 				fileNo=admissionDiscountDtl.getFileNo();
 			}
-		
-			  if(feeHeadIds.size()==0){
-					
-				  feeHeadIds.add(-1L);
-			     }
+		}	
 			  
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteAdmissionDisDtl");
@@ -659,8 +668,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void saveQualificationDtl(List<QualificationSubjectDtl> qualificationSubjectDtls){
 	
 		if(qualificationSubjectDtls != null){
-			deleteQualificationDtl(qualificationSubjectDtls);
 			for(QualificationSubjectDtl qualificationSubjectDtl:qualificationSubjectDtls){
+				
+				Long fileNo=qualificationSubjectDtl.getFileNo();
+			deleteQualificationDtl(fileNo, qualificationSubjectDtls);
+			
 				
 				saveQualificationDtl(qualificationSubjectDtl);
 			}
@@ -709,20 +721,21 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 //
 //	}
 //
-	private void deleteQualificationDtl(List<QualificationSubjectDtl> qualificationSubjectDtls) {
+	private void deleteQualificationDtl(Long fileNo, List<QualificationSubjectDtl> qualificationSubjectDtls) {
 
 		List<Long> subjectIds=new ArrayList<Long>();
-		Long fileNo=null;
+
+		if(qualificationSubjectDtls==null || qualificationSubjectDtls.size()==0){
+			subjectIds.add(-1L);
+		}
+		
+		else{
 		if(qualificationSubjectDtls != null){
 			for(QualificationSubjectDtl qualificationSubjectDtl:qualificationSubjectDtls){
 				subjectIds.add(qualificationSubjectDtl.getSubjectId());
 				fileNo=qualificationSubjectDtl.getFileNo();
 			}
-		
-			  if(subjectIds.size()==0){
-					
-				  subjectIds.add(-1L);
-			     }
+		}
 			
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteQualificationSubjectDtl");
@@ -750,8 +763,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 						BranchPreference branchPreference = new BranchPreference();
 
-						branchPreference.setFileNo(rs
-								.getLong("File_No"));
+						branchPreference.setFileNo(CommonUtil.getLongValue(rs
+								.getLong("File_No")));
 
 						branchPreference.setBranchId(CommonUtil.getLongValue(rs
 								.getLong("Branch_Id")));
@@ -767,8 +780,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void saveBranchPreference(List<BranchPreference> branchPreferences){
 		
 		if(branchPreferences != null){
-			deleteBranchPreference(branchPreferences);
 			for(BranchPreference branchPreference:branchPreferences){
+				Long fileNo=branchPreference.getFileNo();
+			deleteBranchPreference(fileNo, branchPreferences);
+			
 				saveBranchPreference(branchPreference);
 			}
 			}
@@ -799,19 +814,24 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 //
 //	}
 
-	private void deleteBranchPreference(List<BranchPreference> branchPreferences) {
+	private void deleteBranchPreference(Long fileNo, List<BranchPreference> branchPreferences) {
 
 		List<Long> branchPreferenceIds=new ArrayList<Long>();
-		Long fileNo=null;
+		
+
+		if(branchPreferences==null || branchPreferences.size()==0){
+			branchPreferenceIds.add(-1L);
+		}
+		
+		else{
 		if(branchPreferences != null){
 			for(BranchPreference branchPreference:branchPreferences){
 				branchPreferenceIds.add(branchPreference.getBranchPreferenceId());
 				fileNo=branchPreference.getFileNo();
 			}
-			if(branchPreferenceIds.size()==0){
+		}
 				
-				branchPreferenceIds.add(-1L);
-			}
+				
 		
 		String deleteQuery = admissionQueryProps
 				.getProperty("deleteBranchPreference");
@@ -838,7 +858,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 						CounsellingDetail counsellingDetail = new CounsellingDetail();
 
-						counsellingDetail.setFileNo(rs.getLong("File_No"));
+						counsellingDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 						counsellingDetail.setCounsellingId(CommonUtil.getLongValue(rs.getLong("Counselling_Id")));
 						counsellingDetail.setRollNo(rs.getString("Roll_No"));
 						counsellingDetail.setRank(CommonUtil.getLongValue(rs.getLong("Rank")));
@@ -855,8 +875,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private void saveCounsellingDetail(List<CounsellingDetail> counsellingDetails){
 		
 		if(counsellingDetails != null){
-			deleteCounsellingDetail(counsellingDetails);
 			for(CounsellingDetail counsellingDetail:counsellingDetails){
+			
+				Long fileNo=counsellingDetail.getFileNo();
+			deleteCounsellingDetail(fileNo, counsellingDetails);
+			
 				saveCounsellingDetail(counsellingDetail);
 			}
 			}
@@ -891,21 +914,23 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 //
 //	}
 //
-	private void deleteCounsellingDetail(List<CounsellingDetail> counsellingDetails) {
+	private void deleteCounsellingDetail(Long fileNo, List<CounsellingDetail> counsellingDetails) {
 
 		List<Long> counsellingIds=new ArrayList<Long>();
-		Long fileNo=null;
+
+		if(counsellingDetails==null || counsellingDetails.size()==0){
+			counsellingIds.add(-1L);
+		}
+		
+		else{
+			
 		if(counsellingDetails != null){
 			for(CounsellingDetail counsellingDetail:counsellingDetails){
 				counsellingIds.add(counsellingDetail.getCounsellingId());
 				fileNo=counsellingDetail.getFileNo();
 			}
-
-            if(counsellingIds.size()==0){
-				
-	              counsellingIds.add(-1L);
-			     }
-		
+		}
+         
 		
 		String deleteQuery = admissionQueryProps.getProperty("deleteCounsellingDetail");
 
@@ -923,7 +948,7 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		StudentDetail studentDetail = new StudentDetail();
 
 		studentDetail.setRegistrationNo(rs.getString("Registration_No"));
-		studentDetail.setFileNo(rs.getLong("File_No"));
+		studentDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 		studentDetail.setEnrollNo(rs.getString("Enroll_No"));
 		studentDetail.setUniEnrollNo(rs
 				.getString("Uni_Enroll_No"));
@@ -1019,11 +1044,11 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setDob(rs.getDate("DOB"));
 		basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
 		basicInfo.setFatherName(rs.getString("Father_Name"));
-		basicInfo.setFileNo(rs.getLong("File_No"));
+		basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 		basicInfo.setGender(rs.getString("Gender"));
 		basicInfo.setModifiedDate(rs.getDate("Updated_On"));
 		basicInfo.setSemester(rs.getString("Semester"));
-		
+		basicInfo.setRegistrationNo(rs.getString("Registration_No"));
 		return basicInfo;
 	}
 }

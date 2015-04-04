@@ -15,6 +15,6 @@ public interface ConsultantWorkflowManager {
 
 	public List<ConsultantDetail> getConsultantDtl(Long fileNo);
 	public void saveConsultant(List<ConsultantDetail> consultantDetails);
-	public void deleteConsultantDtl(List<ConsultantDetail> consultantDetails);
+	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails);
     	
 }

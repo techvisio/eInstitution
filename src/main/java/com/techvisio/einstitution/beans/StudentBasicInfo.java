@@ -3,6 +3,8 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class StudentBasicInfo {
+	
+	private String registrationNo;
 	private Long fileNo;
 	private String firstName;
 	private String lastName;
@@ -98,6 +100,12 @@ public class StudentBasicInfo {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
 	}
 	
 	

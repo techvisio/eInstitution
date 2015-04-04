@@ -53,7 +53,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				feeAdmissionBean.setDob(rs.getDate("DOB"));
 				feeAdmissionBean.setEnrollmentNo(rs.getString("Enroll_No"));
 				feeAdmissionBean.setFatherName(rs.getString("Father_Name"));
-				feeAdmissionBean.setFileNo(rs.getLong("File_No"));
+				feeAdmissionBean.setRegistrationNo(rs.getString("Registration_No"));
+				feeAdmissionBean.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 				feeAdmissionBean.setGender(rs.getString("Gender"));
 				feeAdmissionBean.setSemester(rs.getString("Semester"));
                 feeAdmissionBean.setPendingFee(rs.getDouble("Pending_Fee"));				
@@ -154,7 +155,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
 				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
-				feeStaging.setFileNo(rs.getLong("File_No"));
+				feeStaging.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 				feeStaging.setSemester(rs.getInt("Semester"));
 				feeStaging.setAcademicYear(rs.getString("Academic_Year"));
 				feeStaging.setAmount(rs.getDouble("Amount"));
@@ -242,7 +243,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(rs.getLong("File_No"));
+				feeTransaction.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 				feeTransaction.setUser(rs.getString("User"));
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));
@@ -285,7 +286,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
 				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(rs.getLong("File_No"));
+				feeTransaction.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 				feeTransaction.setUser(rs.getString("User"));
 				feeTransaction.setSemester(rs.getInt("Semester"));
 				feeTransaction.setMode(rs.getString("Mode"));

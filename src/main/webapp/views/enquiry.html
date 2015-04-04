@@ -155,7 +155,7 @@
 					</tr>
 					<tr>
 						<td>Enquiry Status</td>
-						<td>{{data.admissionEnquiry.applicationStatus}}<p><span ng-show="data.admissionEnquiry.fileNo" ng-bind="'File No : '+data.admissionEnquiry.fileNo"></span></td>
+						<td>{{data.admissionEnquiry.applicationStatus}}<p><span ng-show="data.admissionEnquiry.enquiryId" ng-bind="'Enquiry Id : '+data.admissionEnquiry.enquiryId"></span></td>
 						
 					</tr>
 					<tr>
@@ -177,8 +177,8 @@
 								Task</button></td>
 						<td><a ng-show="!task.taskId" class='expandable'
 							ng-click="data.tasks.splice($index, 1)"> <i
-								class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
-						</a></td>
+							class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
+						    </a></td>
 					</tr>
 
 					<tr>
@@ -209,7 +209,6 @@
 				</table>
 			</div>
 		</form>
-
 	</div>
 		</div>
 			<div class="side-live-bar" ng-init="getDueEnquiry()">

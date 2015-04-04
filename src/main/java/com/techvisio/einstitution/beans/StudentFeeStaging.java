@@ -6,6 +6,7 @@ public class StudentFeeStaging {
 	
 	
 	private Long fileNo;
+    private String registrationNo;
 	private String academicYear;
 	private Integer semester;
 	private Double amount;
@@ -93,6 +94,12 @@ public class StudentFeeStaging {
 	}
 	public void setDiscountHead(FeeDiscountHead discountHead) {
 		this.discountHead = discountHead;
+	}
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
 	}
 	
 }
