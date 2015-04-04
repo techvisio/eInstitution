@@ -73,7 +73,9 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		.addValue("Created_Date", scholarshipDetail.getCreateDate())
 		.addValue("Remark", scholarshipDetail.getRemark())
 		.addValue("Approved", scholarshipDetail.isApproved())
-		.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring());
+		.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring())
+		.addValue("Parent_Income", scholarshipDetail.getParentIncome());
+		
 		
 		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 
