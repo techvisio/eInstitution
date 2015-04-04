@@ -109,6 +109,9 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> semester=cacheManager.getSemesterAsMasterdata();
 	serverData.put(AppConstants.SEMESTER, semester);
 	
+	List<MasterDataBean> batch = cacheManager.getBatchAsMasterdata();
+	serverData.put(AppConstants.BATCH, batch);
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

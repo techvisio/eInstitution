@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Consultant;
@@ -249,7 +250,24 @@ public class CacheManagerImpl implements CacheManager {
 		return masterData;
 	}	
 
-
+	public synchronized List<Batch> getBatch(){
+		if(entityListMap.get(AppConstants.BATCH) == null || entityListMap.get(AppConstants.BATCH).size() == 0){
+			refreshCacheList(AppConstants.BATCH);
+		}
+		return (List<Batch>)entityListMap.get(AppConstants.BATCH);
+	}
+	
+	
+	
+	public List<MasterDataBean> getBatchAsMasterdata() {
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Batch batch : getBatch()){
+			MasterDataBean bean = new MasterDataBean(batch.getBatchId().toString(), batch.getBatch());
+			masterData.add(bean);
+		}
+		
+		return masterData;
+	}
 
 
 	public void builtEntityListCache(){
@@ -298,6 +316,10 @@ public class CacheManagerImpl implements CacheManager {
 		List<Semester> semesters=new ArrayList<Semester>();
 		semesters=cacheDao.getSemester();
 		entityListMap.put(AppConstants.SEMESTER, semesters);
+		
+		List<Batch> batchs = new ArrayList<Batch>();
+		batchs = cacheDao.getBatch();
+		entityListMap.put(AppConstants.BATCH, batchs);
 
 		buildEntityMap();
 
@@ -369,6 +391,12 @@ public class CacheManagerImpl implements CacheManager {
 			List<Semester> semesters=new ArrayList<Semester>();
 			semesters=cacheDao.getSemester();
 			entityListMap.put(AppConstants.SEMESTER, semesters);
+			break;
+			
+		case AppConstants.BATCH:
+			List<Batch> batchs = new ArrayList<Batch>();
+			batchs = cacheDao.getBatch();
+			entityListMap.put(AppConstants.BATCH, batchs);
 			break;
 
 		default:

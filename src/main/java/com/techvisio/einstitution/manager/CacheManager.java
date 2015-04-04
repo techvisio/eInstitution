@@ -32,6 +32,8 @@ public interface CacheManager {
 	FeeDiscountHead getFeeDiscountById(Long headId);
 
 	void refreshCacheList(String entity);
+	
+	public List<MasterDataBean> getBatchAsMasterdata();
 
 
 }

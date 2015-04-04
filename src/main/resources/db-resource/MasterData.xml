@@ -430,5 +430,19 @@ Select
 
 	</entry>
 	
+	<entry key="getBatch">
+    <![CDATA[
+ 
+ Select 
+  
+  Batch_Id,
+  Batch,
+  Course_Id,
+  Prev_Batch_Id,
+  Next_Batch_Id
+  
+from batchmaster;
+]]>	
+	</entry>
 	
 </properties>

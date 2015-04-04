@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.CodeMapping;
@@ -320,4 +321,26 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return codeMappings;
 	}
 
+	@Override
+	public List<Batch> getBatch() {
+		String getBatchQuery = masterQueryProps.getProperty("getBatch");
+		List<Batch> batchs = new ArrayList<Batch>();
+		batchs = getNamedParamJdbcTemplate().query(getBatchQuery, new RowMapper<Batch>(){
+
+			@Override
+			public Batch mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Batch batch = new Batch();
+				batch.setBatch(rs.getString("Batch"));
+				batch.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+				batch.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+				batch.setNextBatchId(CommonUtil.getLongValue(rs.getLong("Next_Batch_Id")));
+				batch.setPrevBatchId(CommonUtil.getLongValue(rs.getLong("Prev_Batch_Id")));
+				return batch;
+			}
+			
+		
+			
+		});
+		return batchs;
+	}
 }

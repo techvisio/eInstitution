@@ -18,6 +18,7 @@ public interface AppConstants {
 	public static final String ENQUIRY="ENQUIRY";
 	public static final String ADMISSION="ADMISSION";
 	public static final String CODE_MAP="CODE_MAP";
+	public static final String BATCH = "BATCH";
 	
 	public static final String TASK="TASK";
 	public static final Long HOSTEL_FEE_ID=9999L;
