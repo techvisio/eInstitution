@@ -136,10 +136,13 @@ Delete from studentfeestaging where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
 SELECT 
 	COURSE,
 	BRANCH,
-	SEMESTER,	
 	FEE_HEAD_ID,
-	FEE_AMOUNT 
-FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH;]]>
+	FEE_AMOUNT,
+	Centre_Id,
+	Shift_Id,
+	Session_Id
+	 
+FROM feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND FEE_HEAD_ID=:FEE_HEAD_ID;]]>
 
 	</entry>
 
@@ -150,15 +153,20 @@ Insert into feedetailmaster
 
 	(COURSE,
 	BRANCH,
-	SEMESTER,
 	FEE_HEAD_ID,
-	FEE_AMOUNT) values
+	FEE_AMOUNT,
+	Centre_Id,
+	Shift_Id,
+	Session_Id 
+	) values
 	       
    (:COURSE,
 	:BRANCH,
-	:SEMESTER,
 	:FEE_HEAD_ID,
-	:FEE_AMOUNT)
+	:FEE_AMOUNT,
+	:Centre_Id,
+	:Shift_Id,
+	:Session_Id )
     ]]>
 
 	</entry>
@@ -170,11 +178,14 @@ Update feedetailmaster set
  
 	COURSE=:COURSE,
 	BRANCH=:BRANCH,
-	SEMESTER=:SEMESTER,
 	FEE_HEAD_ID=:FEE_HEAD_ID,
-	FEE_AMOUNT=:FEE_AMOUNT       
+	FEE_AMOUNT=:FEE_AMOUNT,
+	Centre_Id=:Centre_Id,
+	Shift_Id=:Shift_Id,
+	Session_Id=:Session_Id 
+	       
    
-where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
+where COURSE=:COURSE AND BRANCH=:BRANCH AND FEE_HEAD_ID=:FEE_HEAD_ID ;
     ]]>
 
 	</entry>
@@ -182,7 +193,7 @@ where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
 	<entry key="deleteFeeDetailMaster">
     <![CDATA[
       
-Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND SEMESTER=:SEMESTER ;
+Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND FEE_HEAD_ID=:FEE_HEAD_ID ;
     ]]>
 
 	</entry>

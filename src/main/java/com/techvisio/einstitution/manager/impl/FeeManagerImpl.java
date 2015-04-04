@@ -63,9 +63,9 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.deleteFeeDiscountHead(headId);
 	}
 
-	public List<FeeDetail> getFeeDetail(Long course,Long branch ) {
+	public List<FeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId) {
 		// details = null;
-		 List<FeeDetail> details =  feeDetailDao.getFeeDetail(course, branch);
+		 List<FeeDetail> details =  feeDetailDao.getFeeDetail(course, branch, feeHeadId);
 		return details;
 	}
 
@@ -78,8 +78,8 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.updateFeeDetail(feeDetail);
 	}
 
-	public void deleteFeeDetail(Long course,Long branch, Integer semester ) {
-		feeDetailDao.deleteFeeDetail(course, branch, semester);
+	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId) {
+		feeDetailDao.deleteFeeDetail(course, branch, feeHeadId);
 	}
 
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {

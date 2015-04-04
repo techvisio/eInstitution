@@ -28,33 +28,33 @@ public class FeeService {
 	private static final Logger logger = Logger.getLogger(FeeService.class);
 
 	//FeeDetail	
-	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}", method = RequestMethod.GET)
-	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch){
+	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/feeHeadId/{feeHeadId}", method = RequestMethod.GET)
+	public List<FeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch,@PathVariable Long feeHeadId){
 
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 
-		List<FeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch);
+		List<FeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch,feeHeadId);
 		return details;
 
 	}
 
-	@RequestMapping(value="/FeeDetail",method = RequestMethod.POST)
+	@RequestMapping(value="/feeDetail",method = RequestMethod.POST)
 	public void addFeeDetail(@RequestBody FeeDetail feeDetail){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.addFeeDetail(feeDetail);
 	}
 
-	@RequestMapping(value="/FeeDetail", method = RequestMethod.PUT)
+	@RequestMapping(value="/feeDetail", method = RequestMethod.PUT)
 	public void updateFeeDetail(@RequestBody FeeDetail feeDetail){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.updateFeeDetail(feeDetail);
 
 	}
 
-	@RequestMapping(value="/FeeDetail/{feeHeadId/course/branch}", method = RequestMethod.DELETE)
-	public void deleteFeeDetail(@PathVariable Long course,Long branch, Integer semester ){
+	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/feeHeadId/{feeHeadId}", method = RequestMethod.DELETE)
+	public void deleteFeeDetail(@PathVariable Long course,@PathVariable Long branch, @PathVariable Long feeHeadId ){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.deleteFeeDetail(course, branch, semester);
+		detailWorkflowManager.deleteFeeDetail(course, branch, feeHeadId);
 	}
 
 

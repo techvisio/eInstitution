@@ -50,9 +50,9 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.deleteFeeDiscountHead(headId);
 	}
 
-	public List<FeeDetail> getFeeDetail(Long course,Long branch) {
+	public List<FeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId) {
 		// details = null;
-		 List<FeeDetail>	details =feeManager.getFeeDetail(course, branch);
+		 List<FeeDetail>	details =feeManager.getFeeDetail(course, branch, feeHeadId);
 		return details;
 	}
 
@@ -65,8 +65,8 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.updateFeeDetail(feeDetail);
 	}
 
-	public void deleteFeeDetail(Long course,Long branch, Integer semester) {
-		feeManager.deleteFeeDetail(course, branch, semester);
+	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId) {
+		feeManager.deleteFeeDetail(course, branch, feeHeadId);
 	}
 
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {
