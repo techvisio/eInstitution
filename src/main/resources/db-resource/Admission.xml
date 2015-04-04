@@ -131,7 +131,12 @@ s.Referred_By,
 s.Quota_Code,
 s.Lateral,
 s.Remarks,
-s.Application_Status
+s.Application_Status,
+s.Section_Id,
+s.Shift_Id,
+s.Centre_Id,
+s.Batch_Id,
+s.Session_Id
 
 from  studentdetail s left join transportreservation t on (s.File_No = t.File_No) left join hostelreservation h on (s.File_No = h.File_No)  where s.File_No=:File_No;    
   ]]>
@@ -179,7 +184,12 @@ Referred_By,
 Quota_Code,
 Lateral,
 Remarks,
-Application_Status
+Application_Status,
+Shift_Id,
+Centre_Id,
+Batch_Id,
+Session_Id
+
 ) values
     
  (:Registration_No,
@@ -219,7 +229,11 @@ now(),
 :Quota_Code,
 :Lateral,
 :Remarks,
-:Application_Status
+:Application_Status,
+:Shift_Id,
+:Centre_Id,
+:Batch_Id,
+:Session_Id
 );
        
     ]]>
@@ -265,7 +279,12 @@ Referred_By = :Referred_By,
 Quota_Code = :Quota_Code,
 Lateral = :Lateral,
 Remarks = :Remarks,
-Application_Status = :Application_Status
+Application_Status = :Application_Status,
+Shift_Id=:Shift_Id,
+Centre_Id=:Centre_Id,
+Batch_Id=:Batch_Id,
+Session_Id=:Session_Id
+
   
  where File_No=:File_No;  
     ]]>
