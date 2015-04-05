@@ -86,7 +86,42 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 		String addQuery = admissionQueryProps.getProperty("addStudentDtl");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
+		SqlParameterSource namedParameter = getParameterMap(studentDtl);
+
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+
+		if (studentDtl.getAcademicDtl() != null) {
+
+			saveAcademicDtl(studentDtl.getAcademicDtl());
+		}
+
+		if (studentDtl.getDiscountDtl() != null) {
+
+				saveAdmissionDisDtl(studentDtl.getDiscountDtl());
+		}
+
+		if (studentDtl.getAddressDtl() != null) {
+
+				saveAddressDetails(studentDtl.getAddressDtl());
+		}
+
+		if (studentDtl.getBranchPreference() != null) {
+
+				saveBranchPreference(studentDtl.getBranchPreference());
+		}
+
+		if (studentDtl.getCounsellingDtl() !=null) {
+
+				saveCounsellingDetail(studentDtl.getCounsellingDtl());
+		}
+
+
+	}
+	
+	
+	private MapSqlParameterSource getParameterMap(
+			StudentDetail studentDtl) {
+		return new MapSqlParameterSource(
 				"File_No", studentDtl.getFileNo())
         .addValue("Registration_No", studentDtl.getRegistrationNo())
 		.addValue("Enroll_No", studentDtl.getEnrollNo())
@@ -124,83 +159,20 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Quota_Code", studentDtl.getQuotaCode())
 						.addValue("Lateral", studentDtl.isLateral())
 						.addValue("Remarks", studentDtl.getRemarks())
-						.addValue("Application_Status",studentDtl.getApplicationStatus());;
-
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
-		if (studentDtl.getAcademicDtl() != null) {
-
-			saveAcademicDtl(studentDtl.getAcademicDtl());
-		}
-
-		if (studentDtl.getDiscountDtl() != null) {
-
-				saveAdmissionDisDtl(studentDtl.getDiscountDtl());
-		}
-
-		if (studentDtl.getAddressDtl() != null) {
-
-				saveAddressDetails(studentDtl.getAddressDtl());
-		}
-
-		if (studentDtl.getBranchPreference() != null) {
-
-				saveBranchPreference(studentDtl.getBranchPreference());
-		}
-
-		if (studentDtl.getCounsellingDtl() !=null) {
-
-				saveCounsellingDetail(studentDtl.getCounsellingDtl());
-		}
-
-
+						.addValue("Application_Status",studentDtl.getApplicationStatus())
+						.addValue("Shift_Id", studentDtl.getShiftId())
+						.addValue("Centre_Id", studentDtl.getCentreId())
+						.addValue("Batch_Id", studentDtl.getBatchId())
+						.addValue("Session_Id", studentDtl.getSessionId());
 	}
+
 
 	public void updateStudentDtl(StudentDetail studentDtl) {
 
 		String updateQuery = admissionQueryProps
 				.getProperty("updateStudentDtl");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", studentDtl.getFileNo())
-		.addValue("Registration_No",studentDtl.getRegistrationNo())
-		.addValue("Enroll_No", studentDtl.getEnrollNo())
-		.addValue("Uni_Enroll_No", studentDtl.getUniEnrollNo())
-		.addValue("First_Name", studentDtl.getFirstName())
-		.addValue("Last_Name", studentDtl.getLastName())
-		.addValue("Father_Name", studentDtl.getFatherName())
-		.addValue("Photo", studentDtl.getPhoto())
-		.addValue("Mother_Name", studentDtl.getMotherName())
-		.addValue("Gender", studentDtl.getGender())
-		.addValue("DOB", studentDtl.getDob())
-		.addValue("Blood_Group", studentDtl.getBloodGroup())
-		.addValue("Father_Occupation", studentDtl.getFatherOccupation())
-		.addValue("FixedLine_No", studentDtl.getFixedlineNo())
-		.addValue("Self_Mobile_No", studentDtl.getSelfMobileNo())
-		.addValue("Parent_Mobile_No", studentDtl.getParentMobileNo())
-		.addValue("Gaurdian_Mobile_No",
-				studentDtl.getGaurdianMobileNo())
-				.addValue("Email_Id", studentDtl.getEmailId())
-				.addValue("Gaurdian_Email_Id", studentDtl.getGaurdianEmailId())
-				.addValue("Hostel", studentDtl.isHostel())
-				.addValue("Transportation", studentDtl.isTransportation())
-				.addValue("Academic_Year", studentDtl.getAcademicYear())
-				.addValue("Semester", studentDtl.getSemester())
-				.addValue("Management_Approval",
-						studentDtl.isManagementApproval())
-						.addValue("Fee_Paid", studentDtl.isFeePaid())
-						.addValue("Category_Id", studentDtl.getCategoryId())
-						.addValue("Course_Id", studentDtl.getCourseId())
-						.addValue("Branch_Id", studentDtl.getBranchId())
-						.addValue("Created_By", studentDtl.getCreatedBy())
-						.addValue("Updated_By", studentDtl.getUpdatedBy())
-						.addValue("Admission_Mode", studentDtl.getAdmissionMode())
-						.addValue("Referred_By", studentDtl.getReferredBy())
-						.addValue("Quota_Code", studentDtl.getQuotaCode())
-						.addValue("Lateral", studentDtl.isLateral())
-						.addValue("Remarks", studentDtl.getRemarks())
-						.addValue("Application_Status", studentDtl.getApplicationStatus());;
-
+		SqlParameterSource namedParameter =  getParameterMap(studentDtl);
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 		if (studentDtl.getAcademicDtl() != null) {
@@ -996,10 +968,12 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		studentDetail.setLateral(rs.getBoolean("Lateral"));
 		studentDetail.setRemarks(rs.getString("Remarks"));
 		studentDetail.setApplicationStatus(rs.getString("Application_Status"));
-
+		studentDetail.setShiftId(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
+		studentDetail.setCentreId(CommonUtil.getLongValue(rs.getLong("Centre_Id")));
+		studentDetail.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+		studentDetail.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 		return studentDetail;
 	}
-	
 	
 }
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
