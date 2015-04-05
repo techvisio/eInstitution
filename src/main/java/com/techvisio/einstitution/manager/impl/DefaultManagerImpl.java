@@ -55,7 +55,7 @@ public class DefaultManagerImpl implements DefaultManager {
 	
 	@Override
 	public Long getDefaultAcademicYear(){
-		return new Long(Calendar.getInstance().YEAR);
+		return new Long(Calendar.getInstance().get(Calendar.YEAR));
 	}
 	
 	@Override
