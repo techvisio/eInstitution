@@ -46,6 +46,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	private static Map<String,List> entityListMap=new HashMap<String, List>();
 	private static Map<Long,FeeDiscountHead> feeDetailMap = new HashMap<Long, FeeDiscountHead>();
+	private static Map<Long, Branch> branchMap = new HashMap<Long, Branch>();
 	private static Map<String,String> codeMap=new HashMap<String, String>();
 	private static Map<Long,Course> courseMap=new HashMap<Long, Course>();
 	
@@ -432,6 +433,10 @@ public class CacheManagerImpl implements CacheManager {
 		for(Course course:getCourses()){
 			courseMap.put(course.getId(), course);
 		}
+		
+		for(Branch branch:getBranchs()){
+			branchMap.put(branch.getId(), branch);
+		}
 	}
 
 	public FeeDiscountHead getFeeDiscountById(Long headId){
@@ -440,12 +445,24 @@ public class CacheManagerImpl implements CacheManager {
 
 	}
 
+	public Course getCourseById(Long courseId){
+	
+		return courseMap.get(courseId);
+	}
+	
+	public Branch getBranchById(Long branchId){
+
+		return branchMap.get(branchId);
+		
+	}
+	
 	public static Map<String,String> getCodeMap() {
 		return codeMap;
 	}
 	
-	public static void setCodeMap(Map<String,String> codeMap) {
-		CacheManagerImpl.codeMap = codeMap;
+	public String getCodeMappingByName(String name){
+		
+		return codeMap.get(name);
 	}
 }
 
