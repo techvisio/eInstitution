@@ -41,9 +41,41 @@
 
 					<tr>
 						<td><button type="button" class="btn btn-success"
-								ng-click="dashboard=false; getStudentByCriteria()">Get Details</button></td>
+								ng-click="getStudentByCriteria()">Get Details</button></td>
 					</tr>
 				</table>
+				<div class="searchList">
+<table>
+<tr>
+	<td colspan="2" ng-show="searchResultList.length>0"><span
+		class="header">SEARCH RESULT</span></td>
+</tr>
+<tr><td colspan=2>
+<button type="button" class="btn btn-primary btn-lg"
+					ng-click="">New Search</button>
+</td></tr>
+<tr>
+	<th><span>Name</span></th>
+	<th><span>Father Name</span></th>
+	<th><span>DOB</span></th>
+	<th><span>Course</span></th>
+	<th><span>Branch</span></th>
+</tr>
+<tr ng-repeat="object in filteredSearch">
+	<td><span>{{object.firstName}}</span></td>
+	<td><button ng-click="">Fee</button></td>
+</tr>
+<tr>
+<td colspan=2>
+<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+ng-model="currentPage" ng-change="pageChanged()"></pagination>
+
+</td>
+</tr>
+
+</table>
+
+</div>
 			</div>
 		</div>
 

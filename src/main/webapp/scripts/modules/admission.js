@@ -42,6 +42,8 @@ admissionModule
 			 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
 
 			 $scope.form.showSub = false;
+			 $scope.searchResultList=[];
+			$scope.filteredSearch=[];
 
 			 $scope.dummyAddress = {
 					 "houseNo" : null,
@@ -104,7 +106,24 @@ admissionModule
 			 $scope.admissionMode={"C":"Counselling",
 					 "W":"Walk-In",
 					 "R":"Referral"};
+			 $scope.itemsPerPage = 5
+			  $scope.currentPage = 0;
+			 $scope.totalItems = 0;
 
+			  $scope.pageCount = function () {
+			    return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
+			  };
+
+			$scope.numPages = function () {
+				return Math.ceil($scope.searchResultList.length / $scope.numPerPage);
+			};
+
+			$scope.$watch('currentPage + numPerPage', function() {
+				var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
+				, end = begin + $scope.itemsPerPage;
+
+				$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
+			});
 
 			 $scope.LoadMoreData = function() {
 
@@ -410,12 +429,8 @@ admissionModule
 					 console.log('Data received from service in controller : ');
 					 console.log(response);
 					 if (response != null && response.data != null && response.data.responseBody != null) {
-						 $scope.student = response.data.responseBody;
-						 $scope.populateMissingData($scope.student);
-						 $scope.showCriteria=false;
-						 $scope.form.isNew=false;
-						 $scope.form.isEdit=false;
-						 $scope.dashboard=false;
+						$scope.searchResultList=response.data.responseBody;
+						$scope.currentPage=1;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);

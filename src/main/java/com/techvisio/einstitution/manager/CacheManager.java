@@ -2,6 +2,8 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
 
@@ -36,7 +38,12 @@ public interface CacheManager {
 	public List<MasterDataBean> getBatchAsMasterdata();
 
 	public List<MasterDataBean> getCodeMappingAsMasterdata();
-	public List<MasterDataBean> getBatchAsMasterdata();
+
+	Course getCourseById(Long courseId);
+
+	Branch getBranchById(Long branchId);
+
+	String getCodeMappingByName(String name);
 
 
 }

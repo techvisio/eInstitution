@@ -2,6 +2,14 @@ package com.techvisio.einstitution.factory;
 
 import java.util.Calendar;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.db.HostelDao;
+import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.ContextProvider;
 
@@ -10,10 +18,10 @@ public class UniqueIdentifierFactory {
 	public static UniqueIdentifierGenerator getGenerator(){
 		return new UniqueIdentifierGenerator() {
 		
+			CacheManager cacheManager = ContextProvider.getContext().getBean(CacheManager.class);
+			
 			public Long getUniqueIdentifierForAdmission() {
 
-				Calendar now = Calendar.getInstance();
-				int year = now.get(Calendar.YEAR);
 			    
 				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
 				
@@ -55,6 +63,33 @@ public class UniqueIdentifierFactory {
 				
 				
 				return Id;
+			}
+
+			@Override
+			public String getUniqueIdentifierForRegistration(StudentDetail studentDetail) {
+				
+				Course course = cacheManager.getCourseById(studentDetail.getCourseId());
+				String courseName = course.getCourse();
+				
+				Branch branch = cacheManager.getBranchById(studentDetail.getBranchId());
+				String branchName = branch.getBranchName();
+				
+				String courseCode = cacheManager.getCodeMappingByName(courseName);
+				String branchCode = cacheManager.getCodeMappingByName(branchName);
+				
+				String registrationCode = studentDetail.getAcademicYear()+"_"+courseCode+"_"+branchCode;
+				
+				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
+				
+				Long Id = sf.getSequence(registrationCode);
+				
+				if(Id==0){
+					throw new RuntimeException("Enable to generate registration no for code : "+ registrationCode);
+				}
+				
+				String registrationNo=studentDetail.getAcademicYear()+"/"+courseCode+"/"+branchCode+"/"+Id;
+				
+				return registrationNo;
 			}
 
 		};

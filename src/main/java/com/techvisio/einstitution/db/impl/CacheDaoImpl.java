@@ -300,7 +300,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	@Override
 	public List<CodeMapping> getCodeMapping(){
 
-		String getSemesterQuery=masterQueryProps.getProperty("getSemester");
+		String getSemesterQuery=masterQueryProps.getProperty("getCodeMap");
 
 		List<CodeMapping> codeMappings =new ArrayList<CodeMapping>(); 
 
