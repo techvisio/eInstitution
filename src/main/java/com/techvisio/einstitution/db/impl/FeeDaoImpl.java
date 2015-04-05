@@ -174,14 +174,16 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		List<StudentFeeStaging> feeStagings = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<StudentFeeStaging>(){
 			public StudentFeeStaging mapRow(ResultSet rs, int rowNum)throws SQLException {
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
-				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
-				feeStaging.setFileNo(rs.getLong("File_No"));
 				feeStaging.setAmount(rs.getDouble("Amount"));
 				feeStaging.setApproved(rs.getBoolean("Approved"));
+				feeStaging.setConditional(rs.getBoolean("Is_Conditional"));
 				feeStaging.setCreatedBy(rs.getString("Created_By"));
 				feeStaging.setCreatedDate(rs.getDate("Created_Date"));
-				feeStaging.setUpdatedBy(rs.getString("Updated_By"));
+				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
+				feeStaging.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 				feeStaging.setModifiedDate(rs.getDate("Modified_Date"));
+				feeStaging.setReoccuring(rs.getBoolean("Is_Reoccuring"));
+				feeStaging.setUpdatedBy(rs.getString("Updated_By"));
 				Long feeId=(CommonUtil.getLongValue(rs.getLong("FeeHead_Id")));
 			    FeeDiscountHead feeDiscountHead=cacheManager.getFeeDiscountById(feeId);
 				feeStaging.setDiscountHead(feeDiscountHead);
@@ -202,30 +204,23 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
-	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
 		
 		
-		String addQuery = feeQueryProps.getProperty("addStudentFeeStaging");
+		String addQuery = feeQueryProps.getProperty("upsertStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
+		.addValue("Is_Reoccuring", studentFeeStaging.isReoccuring())
+		.addValue("Is_Conditional", studentFeeStaging.isConditional())
+		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead())
+		.addValue("Amount", studentFeeStaging.getAmount())
 		.addValue("Created_By", studentFeeStaging.getCreatedBy())
-		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
-		.addValue("Amount", studentFeeStaging.getAmount())
-		.addValue("Fee_Generated", studentFeeStaging.isFeeGenerated())
-		.addValue("Approved", studentFeeStaging.isApproved());
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-	}
-
-	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		String updateQuery = feeQueryProps.getProperty("updateStudentFeeStaging");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
-		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
-		.addValue("Amount", studentFeeStaging.getAmount())
 		.addValue("Updated_By", studentFeeStaging.getUpdatedBy())
-		.addValue("Fee_Generated", studentFeeStaging.isFeeGenerated())
-		.addValue("Approved", studentFeeStaging.isApproved());
-	
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-
+		.addValue("Approved", studentFeeStaging.isApproved())
+		.addValue("Fee_Generated",studentFeeStaging.isFeeGenerated())
+		.addValue("Created_Date", studentFeeStaging.getCreatedDate())
+		.addValue("Modified_Date", studentFeeStaging.getModifiedDate());
+		
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
 	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
@@ -233,7 +228,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		if(studentFeeStagings != null){
 		
 		for(StudentFeeStaging feeStaging : studentFeeStagings){
-			updateStudentFeeStaging(feeStaging);
+			saveStudentFeeStaging(feeStaging);
 		}
 		}
 	}

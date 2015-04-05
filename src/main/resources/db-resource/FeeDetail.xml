@@ -37,8 +37,8 @@ balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount)
       
 insert into studentfeestaging (
       File_No,
-      Academic_Year,
-      Semester,
+      Is_Reoccuring,
+      Is_Conditional,
       FeeHead_Id,
       Amount,
       Created_By,
@@ -50,7 +50,7 @@ insert into studentfeestaging (
     
 )
 
-select sd.File_No ,sd.Academic_Year,sd.Semester,fd.Fee_Head_Id,fd.Fee_Amount, 
+select sd.File_No ,fd.Fee_Head_Id,fd.Fee_Amount, 
 :Created_By, :Created_By ,null,null,  now(), now()  from studentdetail sd join feeDetailmaster fd on sd.Semester=fd.Semester and sd.Course_Id=fd.Course
 
 and sd.Branch_Id=fd.Branch where sd.File_No=:File_No;
@@ -59,13 +59,13 @@ and sd.Branch_Id=fd.Branch where sd.File_No=:File_No;
 
 	</entry>
 
-	<entry key="addStudentFeeStaging">
+	<entry key="upsertStudentFeeStaging">
 	 <![CDATA[
       
 insert into studentfeestaging (
       File_No,
-      Academic_Year,
-      Semester,
+      Is_Reoccuring,
+      Is_Conditional,
       FeeHead_Id,
       Amount,
       Created_By,
@@ -75,19 +75,14 @@ insert into studentfeestaging (
       Created_Date,
       Modified_Date
 )
-select sd.File_No ,sd.Academic_Year,sd.Semester,:FeeHead_Id,:Amount, 
+select sd.File_No,:Is_Reoccuring,:Is_Conditional,:FeeHead_Id,:Amount, 
 :Created_By, :Created_By ,null,null,  now(), now()  from studentdetail sd 
 where sd.File_No=:File_No;
-    ]]>
-
-	</entry>
-
-	<entry key="updateStudentFeeStaging">
-    <![CDATA[
-      
-Update studentfeestaging set
- 
-     
+    
+on duplicate key update
+	  File_No=:File_No,
+ 	  Is_Conditional=:Is_Conditional	
+      Is_Reoccuring=:Is_Reoccuring,
       FeeHead_Id=:FeeHead_Id,
       Amount=:Amount,
       Updated_By=:Updated_By,
@@ -95,7 +90,6 @@ Update studentfeestaging set
       Fee_Generated=:Fee_Generated,
       Modified_Date=now()
    
-where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     ]]>
 
 	</entry>
@@ -106,8 +100,8 @@ where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
 select 
      
       File_No,
-      Academic_Year,
-      Semester,
+      Is_Reoccuring,
+      Is_Conditional,
       FeeHead_Id,
       Amount,
       Created_By,

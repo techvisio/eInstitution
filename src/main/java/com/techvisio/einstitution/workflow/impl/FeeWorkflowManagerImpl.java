@@ -76,14 +76,12 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		return feeStaging;
 	}
 
-	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeManager.addStudentFeeStaging(studentFeeStaging);
+	public void saveFeeStaging(StudentFeeStaging studentFeeStaging) {
+		feeManager.saveFeeStaging(studentFeeStaging);
 		
 	}
 
-	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeManager.updateStudentFeeStaging(studentFeeStaging);
-	}
+	
 
 	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
 		feeManager.updateStudentFeeStaging(studentFeeStagings);

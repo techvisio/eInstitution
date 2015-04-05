@@ -80,7 +80,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
-		feeManager.addStudentFeeStaging(stagingFee);
+		feeManager.saveFeeStaging(stagingFee);
 		
 		return fileNo;
 	
@@ -108,7 +108,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);;
 		stagingFee.setAmount(reservedObject.getPrice());
-		feeManager.updateStudentFeeStaging(stagingFee);
+		feeManager.saveFeeStaging(stagingFee);
 		
 		return fileNo;
 
