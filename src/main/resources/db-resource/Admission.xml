@@ -41,12 +41,12 @@ sd.Enroll_No,
 sd.Father_Name,
 sd.Gender,
 sd.DOB,
-cm.Course,
-bm.Branch,
+sd.Course_id,
+sd.Branch_id,
 sd.Semester,
 sd.Academic_Year,
 sd.Updated_On
-from StudentDetail sd join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id where File_No=:File_No;
+from StudentDetail sd  where File_No=:File_No;
  ]]>
 </entry>
 

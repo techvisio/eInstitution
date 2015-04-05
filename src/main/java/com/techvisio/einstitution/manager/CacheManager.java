@@ -33,5 +33,8 @@ public interface CacheManager {
 
 	void refreshCacheList(String entity);
 
+	public List<MasterDataBean> getCodeMappingAsMasterdata();
+	public List<MasterDataBean> getBatchAsMasterdata();
+
 
 }
