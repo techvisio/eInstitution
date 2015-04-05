@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.CodeMapping;
@@ -10,7 +11,6 @@ import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
-import com.techvisio.einstitution.beans.FeeHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.Semester;
@@ -44,6 +44,8 @@ public interface CacheDao {
 	public List<Semester> getSemester();
 
 	List<CodeMapping> getCodeMapping();
+
+	List<Batch> getBatch();
 	
 	
 }

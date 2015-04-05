@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.CodeMapping;
@@ -288,7 +289,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-
 	public void builtEntityListCache(){
 
 		List<Branch> branchs =new ArrayList<Branch>();
@@ -411,7 +411,7 @@ public class CacheManagerImpl implements CacheManager {
 			semesters=cacheDao.getSemester();
 			entityListMap.put(AppConstants.SEMESTER, semesters);
 			break;
-
+			
 		case AppConstants.BATCH:
 			List<Batch> batchs = new ArrayList<Batch>();
 			batchs = cacheDao.getBatch();
