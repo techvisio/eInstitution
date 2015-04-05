@@ -65,7 +65,7 @@ public class FeeManagerImpl implements FeeManager{
 	}
 
 	@Override
-	public List<ApplicableFeeDetail> getFeeDetail(ApplicableFeeCriteria criteria) {
+	public List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria) {
 		// details = null;
 		 List<ApplicableFeeDetail> details =  feeDetailDao.getApplicableFeeDetails(criteria);
 		return details;

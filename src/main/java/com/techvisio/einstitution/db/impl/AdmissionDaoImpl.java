@@ -1026,6 +1026,9 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setSessionId(rs.getLong("session_id"));
 		basicInfo.setBatchId(rs.getLong("Batch_id"));
 		basicInfo.setRegistrationNo(rs.getString("Registration_No"));
+		basicInfo.setCentreId(rs.getLong("Centre_id"));
+		basicInfo.setShiftId(rs.getLong("Shift_Id"));
+		basicInfo.setLateral(rs.getBoolean("Lateral"));
 		return basicInfo;
 	}
 }

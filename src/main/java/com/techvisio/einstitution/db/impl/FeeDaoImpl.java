@@ -19,7 +19,9 @@ import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
+import com.techvisio.einstitution.manager.impl.DefaultManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class FeeDaoImpl extends BaseDao implements FeeDao{
@@ -92,12 +94,13 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria) {
+		DefaultManager defaultManager=new DefaultManagerImpl();
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", criteria.getCourseId())
+		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE",criteria.getCourseId())
 		.addValue("BRANCH", criteria.getBranchId())
-		.addValue("SESSION_ID", criteria.getSessionId())
-		.addValue("SHIFT_ID", criteria.getShiftId())
-		.addValue("CENTRE_ID", criteria.getCentreId());
+		.addValue("SESSION_ID", CommonUtil.isNullLongValue(criteria.getSessionId())?defaultManager.getDefaultSession(criteria.getCourseId()):criteria.getSessionId())
+		.addValue("SHIFT_ID", CommonUtil.isNullLongValue(criteria.getShiftId())?defaultManager.getDefaultShift():criteria.getShiftId())
+		.addValue("CENTRE_ID", CommonUtil.isNullLongValue(criteria.getCentreId())?defaultManager.getDefaultCentre():criteria.getCentreId());
 		List<ApplicableFeeDetail> feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, namedParameter, new RowMapper<ApplicableFeeDetail>(){
 
 			public ApplicableFeeDetail mapRow(ResultSet rs, int rowNum)

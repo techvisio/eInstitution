@@ -34,7 +34,7 @@ public class FeeService {
 
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 
-		List<ApplicableFeeDetail> details = detailWorkflowManager.getFeeDetail(feeCriteria);
+		List<ApplicableFeeDetail> details = detailWorkflowManager.getApplicableFeeDetail(feeCriteria);
 		return details;
 
 	}

@@ -35,6 +35,6 @@ public interface FeeManager {
 	public void generateStudentFeeStaging(Long fileNo);
 	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
-	List<ApplicableFeeDetail> getFeeDetail(ApplicableFeeCriteria criteria);
+	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);
 
 }

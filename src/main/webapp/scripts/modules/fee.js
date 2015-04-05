@@ -1,6 +1,6 @@
 var feeModule = angular.module('feeModule' , [ ]);
 
-feeModule.controller('feeController',['$scope','feeService','admissionService',function($scope,feeService,admissionService){
+feeModule.controller('feeController',['$scope','feeService','admissionService','$modal',function($scope,feeService,admissionService,$modal){
 
 	$scope.searchResultList=[];
 	$scope.filteredSearch=[];
@@ -56,6 +56,17 @@ feeModule.controller('feeController',['$scope','feeService','admissionService',f
 		}
 		return sum;
 	}
+	
+	  $scope.showBaseFee = function (size) {
+
+		    var modalInstance = $modal.open({
+		      templateUrl: 'baseFee.html',
+		      controller: 'feeController',
+		      scope:$scope,
+		      size: size,
+		    });
+	  };
+		   
 
 	$scope.getSearchResult=function(){
 		console.log('get student by search criteria in controller');

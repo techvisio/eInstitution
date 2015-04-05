@@ -172,5 +172,9 @@ public class CommonUtil {
 		}
 	}
 	
+	public static boolean isNullLongValue(Long val){
+		return val==null||val.equals(0L);
+	}
+	
 
 }

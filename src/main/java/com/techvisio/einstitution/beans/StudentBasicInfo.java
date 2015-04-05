@@ -19,6 +19,9 @@ public class StudentBasicInfo {
 	private CasteCategory casteCategory; 
 	private Long batchId;
 	private Long sessionId;
+	private Long shiftId;
+	private Long centreId;
+	private boolean isLateral;
 	private Date modifiedDate;
 	private Remark remark;
 	
@@ -124,6 +127,24 @@ public class StudentBasicInfo {
 	}
 	public void setSessionId(Long sessionId) {
 		this.sessionId = sessionId;
+	}
+	public Long getShiftId() {
+		return shiftId;
+	}
+	public void setShiftId(Long shiftId) {
+		this.shiftId = shiftId;
+	}
+	public Long getCentreId() {
+		return centreId;
+	}
+	public void setCentreId(Long centreId) {
+		this.centreId = centreId;
+	}
+	public boolean isLateral() {
+		return isLateral;
+	}
+	public void setLateral(boolean isLateral) {
+		this.isLateral = isLateral;
 	}
 	
 	

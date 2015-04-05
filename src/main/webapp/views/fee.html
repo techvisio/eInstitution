@@ -134,7 +134,7 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 						ng-model="admissionDetailManagement.basicInfo.branch"></td>
 				</tr>
 			<tr><td colspan=4><hr><td></tr>
-	
+
 	<tr><td><span class="header">Scholarship Detail</span></td>
 	</tr>
 	<tr>
@@ -150,16 +150,22 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	<td><textArea ng-model="admissionDetailManagement.scholarship.remark" ng-option=""></textArea></td>
 	</tr>
 	<tr>
-	<td><span class="header">Fee Staging Detail</span></td>
+	<td><span class="header">Proposed Discounts</span></td>
 	</tr>			
 	<tr ng-repeat="object in admissionDetailManagement.stagingFee">
-	<td>Fee Head<p><input type="text" ng-model="object.discountHead.head"></td>
-	<td>Fee Amount<p><input type="text" ng-model="object.amount"></td>
-	<td>Fee Generated<p><input type="checkbox" ng-model="object.feeGenerated"></td>
-	<td>Approved<p><input type="checkbox" ng-model="object.approved"></td>
+	<td>{{object.discountHead.head}}</td>
+	<td><input type="text" ng-model="object.amount"></td>
+	<td colspan=2>
+	<button type="button" class="btn btn-success btn-xs">Approve</button>
+	<button type="button" class="btn btn-success btn-xs">Reoccuring</button>
+	<button type="button" class="btn btn-success btn-xs">Conditional</button></td>
+	<td><a class='expandable'
+							ng-click="data.tasks.splice($index, 1)"> <i
+							class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
+						    </a></td>
 	</tr>
 	<tr><td><input type="button" value="Update Record"
-						ng-click="updateAdmissionDetailManagement()"></td></tr>
+						ng-click="showBaseFee('lg')"></td></tr>
 	
 		
 			</table>
@@ -246,5 +252,14 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	</table>
 </div>
     </script>
-
+<script type="text/ng-template" id="baseFee.html">
+<div class="searchcriteria">
+<table>
+<tr><td><span class="header">Base Fee</span></td></tr>
+<tr ng-repeat="object in admissionDetailManagement.applicableFeeDetails">
+<td><span ng-bind="object.feeDetail.head"></span></td>
+<td><input type="text" ng-model="object.feeAmount"></td>
+</table>
+</div>
+</script>
 </div>

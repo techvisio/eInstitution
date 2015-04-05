@@ -52,9 +52,9 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	}
 
 	@Override
-	public List<ApplicableFeeDetail> getFeeDetail(ApplicableFeeCriteria criteria) {
+	public List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria) {
 		// details = null;
-		 List<ApplicableFeeDetail>	details =feeManager.getFeeDetail(criteria);
+		 List<ApplicableFeeDetail>	details =feeManager.getApplicableFeeDetail(criteria);
 		return details;
 	}
 

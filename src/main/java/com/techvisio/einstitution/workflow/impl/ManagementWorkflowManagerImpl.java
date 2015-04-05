@@ -2,6 +2,8 @@ package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.ManagementAdmissionBean;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
@@ -26,7 +28,18 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 		if(basicInfo!=null){
 			List<StudentFeeStaging> staggingFee=feeworkFlow.getStudentFeeStaging(fileNo,null);
 			admissionBean.setStagingFee(staggingFee);
-
+			
+			ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
+			criteria.setBranchId(basicInfo.getBranchId());
+			criteria.setCentreId(basicInfo.getCentreId());
+			criteria.setCourseId(basicInfo.getCourseId());
+			criteria.setLateral(basicInfo.isLateral());
+			criteria.setSessionId(basicInfo.getSessionId());
+			criteria.setShiftId(basicInfo.getShiftId());
+			
+			List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);
+			admissionBean.setApplicableFeeDetails(applicableFee);
+			
 			ScholarshipDetail scholarshipDetail=schlarshipWorkFlow.getScholarshipDetail(fileNo);
 			admissionBean.setScholarship(scholarshipDetail);
 
