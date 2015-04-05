@@ -11,10 +11,10 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeWorkflowManager {
 	
-	public List<FeeDetail> getFeeDetail(Long course,Long branch);
+	public List<FeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId);
 	public void addFeeDetail(FeeDetail feeDetail);
 	public void updateFeeDetail(FeeDetail feeDetail);
-	public void deleteFeeDetail(Long course,Long branch, Integer semester);
+	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId );
 	
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo,Long feeHeadId);
 	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging);

@@ -35,8 +35,6 @@ public interface CacheManager {
 
 	void refreshCacheList(String entity);
 	
-	public List<MasterDataBean> getBatchAsMasterdata();
-
 	public List<MasterDataBean> getCodeMappingAsMasterdata();
 
 	Course getCourseById(Long courseId);
