@@ -416,6 +416,19 @@ Select
 
 	</entry>
 	
+<entry key="getCodeMap">
+    <![CDATA[
+      
+Select 
+  
+   Name
+  ,Code
+  ,Description
+	
+ from codemappingmaster;
+    ]]>
+
+	</entry>
 	
 	
 </properties>

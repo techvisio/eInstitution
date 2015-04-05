@@ -78,10 +78,15 @@
 					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
 					ng-disabled="true"></select></td>
 			</tr>
-		</table>
-			
+			<tr>
+			<td colspan=2>
 			<pagination ng-show="searchEnquiryList.length>0" total-items="totalItems" items-per-page="itemsPerPage" 
          ng-model="currentPage" ng-change="pageChanged()"></pagination>
+         </td>
+			</tr>
+		</table>
+			
+			
 	</div>
 			</div>
 			
@@ -130,8 +135,20 @@
 							ng-disabled="isTaskClosedOrInAdmission()"></td>
 						
 					</tr>
-
-
+                      <tr>
+							<td><span> Category</span></td>
+						<td><input type="text"
+							ng-model="data.admissionEnquiry.categoryId"
+							ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<td><span>Admission Mode</span></td>
+						<td><select ng-model="data.admissionEnquiry.admissionMode" ng-change="resetAdmissionMode()" ng-disabled="isTaskClosedOrInAdmission()">
+								<option value="C">Consultant</option>
+								<option value="R">Referral</option>
+								<option value="W">Walk-In</option>
+						</select></td>
+						
+					</tr>
+                      
 					<tr>
 							<td><span> Email Id </span></td>
 						<td><input type="text"
@@ -144,10 +161,22 @@
 							
 					</tr>
 					<tr>
+							<td ng-show="data.admissionEnquiry.admissionMode=='C'"><span> Consultant Name </span>
+						<input type="text"
+							ng-model="data.admissionEnquiry.consultantId"
+							ng-disabled="isTaskClosedOrInAdmission()"></td>
+							<td ng-show="data.admissionEnquiry.admissionMode=='R'"><span> Referred By </span>
+						<input type="text"
+							ng-model="data.admissionEnquiry.referredBy"
+							ng-disabled="isTaskClosedOrInAdmission()"></td>
+							
+					</tr>
+					<tr>
 						<td><span> Remarks </span></td>
-						<td><textarea cols="32" rows="3"
+						<td><textarea cols="32" rows="4"
 								ng-model="data.admissionEnquiry.remarks"
 								ng-disabled="isTaskClosedOrInAdmission()"></textarea></td>
+								
 						<td><span> Is Lateral </span></td>
 						<td><input type="checkbox"
 							ng-model="data.admissionEnquiry.lateral"

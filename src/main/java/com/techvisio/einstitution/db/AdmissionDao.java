@@ -2,19 +2,14 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
-import com.techvisio.einstitution.beans.CounsellingDetail;
-import com.techvisio.einstitution.beans.QuotaCode;
-
 import com.techvisio.einstitution.beans.SearchCriteria;
-
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-
 import com.techvisio.einstitution.beans.StudentDetail;
 
 public interface AdmissionDao {
 
 	
-	public StudentDetail getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 	
 	public StudentDetail getStudentDtl(Long fileNo);
 	public void addStudentDtl(StudentDetail studentDetail);

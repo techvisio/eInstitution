@@ -45,6 +45,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<String,List> entityListMap=new HashMap<String, List>();
 	private static Map<Long,FeeDiscountHead> feeDetailMap = new HashMap<Long, FeeDiscountHead>();
 	private static Map<String,String> codeMap=new HashMap<String, String>();
+	private static Map<Long,Course> courseMap=new HashMap<Long, Course>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -379,6 +380,10 @@ public class CacheManagerImpl implements CacheManager {
 
 		for(FeeDiscountHead feeDiscountHead:getFeeDiscountHeads()){
 			feeDetailMap.put(feeDiscountHead.getHeadId(), feeDiscountHead);
+		}
+		
+		for(Course course:getCourses()){
+			courseMap.put(course.getId(), course);
 		}
 	}
 

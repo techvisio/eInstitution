@@ -19,6 +19,10 @@
 						<td><input type="text" ng-model="searchCriteria.registrationNo"></td>
 					</tr>
 					<tr>
+						<td><span>Name</span></td>
+						<td><input type="text" ng-model="searchCriteria.firstName"></td>
+					</tr>
+					<tr>
 						<td><span>Enrollment No</span></td>
 						<td><input type="text" ng-model="searchCriteria.enrollNo"></td>
 					</tr>
@@ -47,13 +51,13 @@
 			<span class="header">Latest Admissions</span>
 			<table>
 				<tr>
-					<th>File No.</th>
+					<th>Registration No.</th>
 					<th>Student Name</th>
 					<th>Father Name</th>
 
 				</tr>
 				<tr ng-repeat="object in latestAdmission">
-					<td>{{object.fileNo}}</td>
+					<td>{{object.registrationNo}}</td>
 					<td>{{object.firstName+' '+object.lastName}}</td>
 					<td>{{object.fatherName}}</td>
 					<td><button type="button" class="btn btn-success btn-xs" ng-click="showDetail($index)">Detail</button></td>
@@ -86,6 +90,14 @@
 						<button type="button" class="btn btn-success"
 							ng-click="backtoDashboard()">Back</button>
 					</li>
+					<li>
+						<button type="button" class="btn btn-success"
+						ng-click="showTransportModal('lg')" ng-disabled="!form.isEdit && !form.isNew">Transport</button>
+					</li>
+					<li>
+						<button type="button" class="btn btn-success"
+							ng-click="showTransportModal('lg')" ng-disabled="!form.isEdit && !form.isNew">Hostel</button>
+					</li>
 		</div>
 		<form name="admissionForm" id="admissionForm">
 			<div class="ajax-busy-indicator" ng-show="processing"></div>
@@ -117,8 +129,8 @@
 								<option value="R">Referral</option>
 								<option value="W">Walk-In</option>
 						</select></td>
-						<td><span>File No</span></td>
-						<td><input type="text" ng-model="student.fileNo"
+						<td><span>Registration No</span></td>
+						<td><input type="text" ng-model="student.registrationNo"
 							ng-Readonly="true"></td>
 					</tr>
 					<tr>
@@ -558,20 +570,17 @@
 							<tr>
 								<td><span> Hostel Required </span></td>
 								<td><input type="checkbox" ng-model="student.hostel"
-									ng-disabled="true"> <img src="images/edit.png"
-									class="inner-element" ng-click="showHostelModal('lg')"></td>
+									ng-disabled="true"></td>
 								<td><span> Transport Required </span></td>
 								<td><input type="checkbox"
-									ng-model="student.transportation" ng-disabled="true" > <img
-									src="images/edit.png" class="inner-element"
-									ng-click="showTransportModal('lg')"></td>
+									ng-model="student.transportation" ng-disabled="true"></td>
 							</tr>
 							<tr>
 								<td><span> Management Approval </span></td>
 								<td><input type="checkbox"
-									ng-model="student.managementApproval" ng-disabled="!form.isEdit && !form.isNew"></td>
+									ng-model="student.managementApproval" ng-disabled="true"></td>
 								<td><span> Fee paid </span></td>
-								<td><input type="checkbox" ng-model="student.feePaid" ng-disabled="!form.isEdit && !form.isNew"></td>
+								<td><input type="checkbox" ng-model="student.feePaid" ng-disabled="true"></td>
 							</tr>
 						</table>
 					</div>

@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
@@ -294,7 +295,29 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 		return semesters;
 	}
-
 	
+	@Override
+	public List<CodeMapping> getCodeMapping(){
+
+		String getSemesterQuery=masterQueryProps.getProperty("getSemester");
+
+		List<CodeMapping> codeMappings =new ArrayList<CodeMapping>(); 
+
+		codeMappings = getNamedParamJdbcTemplate().query(getSemesterQuery, new RowMapper<CodeMapping>() {
+
+			public CodeMapping mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				CodeMapping codeMapping = new CodeMapping();
+				
+				codeMapping.setName(rs.getString("Name"));
+         		codeMapping.setCode(rs.getString("Code"));
+		        codeMapping.setDescription(rs.getString("Description"));
+				
+		        return codeMapping;
+			}
+		});
+
+		return codeMappings;
+	}
 
 }

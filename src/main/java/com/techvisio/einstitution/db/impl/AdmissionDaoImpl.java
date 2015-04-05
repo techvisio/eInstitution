@@ -1040,8 +1040,8 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setFirstName(rs.getString("First_Name"));
 		basicInfo.setLastName(rs.getString("Last_Name"));
 		basicInfo.setAcademicYear(rs.getString("Academic_Year"));
-		basicInfo.setBranch(rs.getString("Branch"));
-		basicInfo.setCourse(rs.getString("Course"));
+		basicInfo.setBranchId(rs.getLong("Branch_Id"));
+		basicInfo.setCourseId(rs.getLong("Course_Id"));
 		basicInfo.setDob(rs.getDate("DOB"));
 		basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
 		basicInfo.setFatherName(rs.getString("Father_Name"));

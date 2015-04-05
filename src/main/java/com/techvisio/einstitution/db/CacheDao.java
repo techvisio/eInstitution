@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
@@ -41,6 +42,8 @@ public interface CacheDao {
 	public List<FeeDiscountHead> getFeeDiscountHeadMaster();
 	
 	public List<Semester> getSemester();
+
+	List<CodeMapping> getCodeMapping();
 	
 	
 }

@@ -2,7 +2,9 @@ package com.techvisio.einstitution.beans;
 
 public class SearchCriteria {
 
-	private Long fileNo;
+	private String registrationNo;
+	
+	private String firstName;
 	private String emailId;
 	private String mobileNo;
 	private String enrollNo;
@@ -17,7 +19,7 @@ public class SearchCriteria {
 
 	@Override
 	public String toString() {
-		return "AdmissionIdentifier [fileNo=" + fileNo + ", emailId=" + emailId
+		return "AdmissionIdentifier [ emailId=" + emailId
 				+ ", mobileNo=" + mobileNo + ", enrollNo=" + enrollNo
 				+ ", uniEnrollNo=" + uniEnrollNo + "]";
 	}
@@ -31,17 +33,6 @@ public class SearchCriteria {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
-
 
 	public String getEmailId() {
 		return emailId;
@@ -106,5 +97,25 @@ public class SearchCriteria {
 
 	public void setInquryId(Long inquryId) {
 		this.inquryId = inquryId;
+	}
+
+
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+
+
+	public void setRegistrationNo(String registraitionNo) {
+		this.registrationNo = registraitionNo;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }

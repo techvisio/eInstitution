@@ -23,11 +23,8 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.dashboard=true;
 
 	 $scope.itemsPerPage = 5
-	  $scope.currentPage = 1;
+	  $scope.currentPage = 0;
 	 $scope.totalItems = 0;
-	  // $scope.maxSize = 5;
-	  // $scope.bigTotalItems = 175;
-	  // $scope.bigCurrentPage = 1;
 
 	  $scope.pageCount = function () {
 	    return Math.ceil($scope.searchEnquiryList.length / $scope.itemsPerPage);
@@ -40,6 +37,9 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	 };
 	 
 	 
+	 $scope.admissionMode={"C":"Consultant",
+			 "W":"Walk-In",
+			 "R":"Referral"};
 	 
 	 $scope.resetForm = function(){
 		 console.log("calling reset.....")
@@ -83,13 +83,8 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 				 if($scope.searchEnquiryList.length>0){
 					 $scope.showCriteria=false;
 					 //$scope.dashboard = false;
+					 $scope.currentPage=1;
 					 $scope.totalItems = $scope.searchEnquiryList.length;
-					    $scope.$watch('currentPage + itemsPerPage', function() {
-					      var begin = (($scope.currentPage - 1) * $scope.itemsPerPage),
-					        end = begin + $scope.itemsPerPage;
-
-					      $scope.filteredSearch = $scope.searchEnquiryList.slice(begin, end);
-					    });
 				 }
 				 else
 					 {

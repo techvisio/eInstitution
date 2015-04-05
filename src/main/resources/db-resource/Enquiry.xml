@@ -26,7 +26,10 @@ AI.Remarks,
 AI.Email_Id,
 AI.Lateral,
 AI.Gender,
-AI.Consultant_Id
+AI.Consultant_Id,
+AI.ReferredBy,
+AI.Category_Id,
+AI.Admission_Mode
 
 
 from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and  TF.Module='ENQUIRY' and TF.Status != 'C';     ]]>
@@ -56,7 +59,10 @@ Inquiry_Id,
  Remarks,
  Lateral,
  Gender,
- Consultant_Id
+ Consultant_Id,
+ ReferredBy,
+ Category_Id,
+ Admission_Mode
 
 from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;    
     ]]>
@@ -87,7 +93,10 @@ File_no,
 Remarks,
 Lateral,
 Gender,
-Consultant_Id
+Consultant_Id,
+ReferredBy,
+Category_Id,
+Admission_Mode
  ) values
     
  (:Inquiry_Id,
@@ -109,7 +118,10 @@ Consultant_Id
 :Remarks,
 :Lateral,
 :Gender,
-:Consultant_Id
+:Consultant_Id,
+:ReferredBy,
+:Category_Id,
+:Admission_Mode
 );
        
     ]]>
@@ -139,7 +151,10 @@ Remarks=:Remarks,
 File_No=:File_No,
 Lateral=:Lateral,
 Gender=:Gender,
-Consultant_Id=:Consultant_Id
+Consultant_Id=:Consultant_Id,
+ReferredBy=:ReferredBy,
+Category_Id=:Category_Id,
+Admission_Mode=:Admission_Mode
 
 
  where Inquiry_Id=:Inquiry_Id;  

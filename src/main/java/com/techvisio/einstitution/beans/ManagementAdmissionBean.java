@@ -2,16 +2,11 @@ package com.techvisio.einstitution.beans;
 
 import java.util.List;
 
-public class ManagementAdmissionBean {
-private StudentBasicInfo basicInfo;
+import com.techvisio.einstitution.db.impl.BasicDetailBeanEntity;
+
+public class ManagementAdmissionBean extends BasicDetailBeanEntity {
 private List<StudentFeeStaging> stagingFee;
 private ScholarshipDetail scholarship;
-public StudentBasicInfo getBasicInfo() {
-	return basicInfo;
-}
-public void setBasicInfo(StudentBasicInfo basicInfo) {
-	this.basicInfo = basicInfo;
-}
 public List<StudentFeeStaging> getStagingFee() {
 	return stagingFee;
 }

@@ -116,11 +116,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 			SearchCriteria searchCriteria) {
 		
 		List<StudentBasicInfo> studentBasicInfos = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
-	      	for(StudentBasicInfo studentBasicInfo: studentBasicInfos){
-		Long fileNo = studentBasicInfo.getFileNo();
-		
-		studentBasicInfo=getStudentBsInfo(fileNo);
-	      	}
 		return studentBasicInfos;
 	}
 

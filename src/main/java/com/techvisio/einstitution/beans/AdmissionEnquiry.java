@@ -25,7 +25,10 @@ public class AdmissionEnquiry {
 	private boolean lateral;
 	private String gender;
 	private Long consultantId;
-
+	private String referredBy;
+	private String admissionMode;
+	private Long categoryId;
+	
 	
 	public Long getEnquiryId() {
 		return enquiryId;
@@ -170,6 +173,24 @@ public class AdmissionEnquiry {
 	}
 	public void setRegistrationNo(String registrationNo) {
 		this.registrationNo = registrationNo;
+	}
+	public String getReferredBy() {
+		return referredBy;
+	}
+	public void setReferredBy(String referredBy) {
+		this.referredBy = referredBy;
+	}
+	public Long getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getAdmissionMode() {
+		return admissionMode;
+	}
+	public void setAdmissionMode(String admissionMode) {
+		this.admissionMode = admissionMode;
 	}
 	
 

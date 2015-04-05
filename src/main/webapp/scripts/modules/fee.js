@@ -1,18 +1,38 @@
-var feeModule = angular.module('feeModule' , []);
+var feeModule = angular.module('feeModule' , [ ]);
 
-feeModule.controller('feeController',['$scope','feeService',function($scope,feeService){
+feeModule.controller('feeController',['$scope','feeService','admissionService',function($scope,feeService,admissionService){
 
+	$scope.searchResultList=[];
+	$scope.filteredSearch=[];
 	$scope.feeTransactionAdmissionBean = {};
 	$scope.feeTransactionAdmissionBean.basicInfo={};
-	$scope.fileNo=null;
 	$scope.currentFetchLimit=5;
 	$scope.feeAdmissionBean=[];
+	$scope.searchCriteria={};
 	$scope.collapse=true;
 
 	$scope.newTransaction={};
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
 	                         {"id":"9995","value":"DEMAND DRAFT"},
 	                         {"id":"9994","value":"CHEQUE DEPOSITE"}];
+	 $scope.itemsPerPage = 5
+	  $scope.currentPage = 0;
+	 $scope.totalItems = 0;
+
+	  $scope.pageCount = function () {
+	    return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
+	  };
+
+	$scope.numPages = function () {
+		return Math.ceil($scope.searchResultList.length / $scope.numPerPage);
+	};
+
+	$scope.$watch('currentPage + numPerPage', function() {
+		var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
+		, end = begin + $scope.itemsPerPage;
+
+		$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
+	});
 
 	$scope.getMaxListLengthArray=function(){
 		var size=0;
@@ -37,6 +57,25 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 		return sum;
 	}
 
+	$scope.getSearchResult=function(){
+		console.log('get student by search criteria in controller');
+		console.log($scope.searchCriteria);
+		admissionService.getStudentByCriteria($scope.searchCriteria)
+		.then(function(response) {
+			console.log('Data received from service in controller : ');
+			console.log(response);
+			if (response != null && response.data != null && response.data.responseBody != null) {
+				$scope.searchResultList = response.data.responseBody;
+				$scope.currentPage=1;
+			} else {
+				console.log(response.data.error);
+				alert(response.data.error);
+			}
+		})
+
+
+	}
+
 	$scope.totalCredit=function(){
 		var sum=0;
 		if($scope.feeTransactionAdmissionBean && $scope.feeTransactionAdmissionBean.feeTransactionCredit){
@@ -49,12 +88,6 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 
 	$scope.getFeeTransactionAndBasicInfoDetail = function(fileNo) {
 		console.log('FeeTransactionAndBasicInfoDetail called in controller');
-		if(!fileNo){
-			fileNo=alert("Enter file number to search.");
-			if(!fileNo){
-				return;
-			}
-		}
 		feeService.getFeeTransactionAndBasicInfoDetail(fileNo)
 		.then(function(response) {
 			console.log('Data received from service : ');
@@ -125,15 +158,6 @@ feeModule.controller('feeController',['$scope','feeService',function($scope,feeS
 			}
 		})
 	};
-
-	$scope.getFileNoandFetchDetails=function(fileNo){
-		if(!fileNo){
-			alter("Please enter file number.");
-			return;
-		}else{
-			$scope.getAdmissionDetailManagement(fileNo);			
-		}		
-	}
 
 	$scope.getAdmissionDetailManagement=function(fileNo){
 		managementService.getAdmissionDetailManagement(fileNo)

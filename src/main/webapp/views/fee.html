@@ -20,7 +20,7 @@
 <div ng-include src="'feeAdministration.html'" ng-if="content=='feeManagement'">
 </div>
 	
-	<script type="text/ng-template" id="feeDashboard.html">
+<!-- 	<script type="text/ng-template" id="feeDashboard.html"> -->
 	<div>
 	<div class="searchcriteria">
 	<table>
@@ -49,21 +49,21 @@
 		</tr>
 		<tr>
 			<td><button type="button" class="btn btn-success"
-					ng-click="getEnquiryBySearchCriteria()">Search</button></td>
+					ng-click="getSearchResult()">Search</button></td>
 		</tr>
 	</table>
 </div>
 	<div class="searchList">
 <table>
 <tr>
-	<td colspan="2" ng-show="searchEnquiryList.length>0"><span
+	<td colspan="2" ng-show="searchResultList.length>0"><span
 		class="header">SEARCH RESULT</span></td>
 </tr>
 <tr><td colspan=2>
 <button type="button" class="btn btn-primary btn-lg"
-					ng-click="searchEnquiryList=[];showCriteria=!showCriteria">New Search</button>
+					ng-click="">New Search</button>
 </td></tr>
-<tr ng-show="searchEnquiryList.length>0">
+<tr>
 	<th><span>Name</span></th>
 	<th><span>Father Name</span></th>
 	<th><span>DOB</span></th>
@@ -71,24 +71,23 @@
 	<th><span>Branch</span></th>
 </tr>
 <tr ng-repeat="object in filteredSearch"
-	ng-click="getEnquiry(object.enquiryId)">
-	<td><span>{{object.name}}</span></td>
-	<td><span>{{object.fatherName}}</span></td>
-	<td><span>{{object.dob}}</span></td>
-	<td><select select ng-model="object.courseId"
-		ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
-		ng-disabled="true"></select></td>
-	<td><select select ng-model="object.branchId"
-		ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
-		ng-disabled="true"></select></td>
+	ng-click="">
+	<td><span>{{object.firstName}}</span></td>
+	
 </tr>
+<tr>
+<td colspan=2>
+<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+ng-model="currentPage" ng-change="pageChanged()"></pagination>
+
+</td>
+</tr>
+
 </table>
 
-<pagination ng-show="searchEnquiryList.length>0" total-items="totalItems" items-per-page="itemsPerPage" 
-ng-model="currentPage" ng-change="pageChanged()"></pagination>
 </div>
 </div>
-</script>
+<!-- </script> -->
 	
 	
 	<script type="text/ng-template" id="managementPendingfeeApproval.html">

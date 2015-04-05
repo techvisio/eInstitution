@@ -97,7 +97,10 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 				.addValue("Gender", admissionInquiry.getGender())
 				.addValue("Lateral", admissionInquiry.isLateral())
 				.addValue("Email_Id", admissionInquiry.getEmailId())
-				.addValue("Consultant_Id",admissionInquiry.getConsultantId());
+				.addValue("Consultant_Id",admissionInquiry.getConsultantId())
+				.addValue("Category_Id",admissionInquiry.getCategoryId())
+				.addValue("Referred_By",admissionInquiry.getReferredBy())
+				.addValue("Admission_Mode",admissionInquiry.getAdmissionMode());
 	}
 
 	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
@@ -181,6 +184,9 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 					admissionInquiry.setLateral(rs.getBoolean("Lateral"));
 					admissionInquiry.setGender(rs.getString("Gender"));
 					admissionInquiry.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
+					admissionInquiry.setReferredBy(rs.getString("Referred_By"));
+					admissionInquiry.setAdmissionMode(rs.getString("Admission_Mode"));
+					admissionInquiry.setCategoryId(CommonUtil.getLongValue(rs.getLong("Category_Id")));
 					return admissionInquiry;
 		}
 		

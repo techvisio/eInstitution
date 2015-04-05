@@ -12,8 +12,8 @@ public class StudentBasicInfo {
 	private String fatherName;
 	private String gender;
 	private Date dob;
-	private String course;
-	private String branch;
+	private Long courseId;
+	private Long branchId;
 	private String semester;
 	private String academicYear;
 	private Date modifiedDate;
@@ -49,18 +49,6 @@ public class StudentBasicInfo {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	public String getCourse() {
-		return course;
-	}
-	public void setCourse(String course) {
-		this.course = course;
-	}
-	public String getBranch() {
-		return branch;
-	}
-	public void setBranch(String branch) {
-		this.branch = branch;
-	}
 	public String getSemester() {
 		return semester;
 	}
@@ -80,15 +68,6 @@ public class StudentBasicInfo {
 		this.modifiedDate = modifiedDate;
 	}
 	
-	@Override
-	public String toString() {
-		return "StudentBasicInfo [fileNo=" + fileNo + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", enrollmentNo="
-				+ enrollmentNo + ", fatherName=" + fatherName + ", gender="
-				+ gender + ", dob=" + dob + ", course=" + course + ", branch="
-				+ branch + ", semester=" + semester + ", academicYear="
-				+ academicYear + ", modifiedDate=" + modifiedDate + "]";
-	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -106,6 +85,18 @@ public class StudentBasicInfo {
 	}
 	public void setRegistrationNo(String registrationNo) {
 		this.registrationNo = registrationNo;
+	}
+	public Long getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
+	public Long getBranchId() {
+		return branchId;
+	}
+	public void setBranchId(Long branchId) {
+		this.branchId = branchId;
 	}
 	
 	
