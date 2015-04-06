@@ -10,7 +10,9 @@ import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
+import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.manager.EnquiryManager;
+import com.techvisio.einstitution.manager.impl.DefaultManagerImpl;
 import com.techvisio.einstitution.manager.impl.EnquiryManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.AppConstants.EnquiryStatus;
@@ -123,6 +125,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 	private StudentDetail getStudentFromEquiry(AdmissionEnquiry enquiry) {
 		StudentDetail studentDetail = new StudentDetail();
+		DefaultManager defaultManager =  new DefaultManagerImpl();
 		studentDetail.setFirstName(enquiry.getName());
 		studentDetail.setFatherName(enquiry.getFatherName());
 		studentDetail.setDob(enquiry.getDob());
@@ -133,6 +136,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         studentDetail.setGender(enquiry.getGender());
         studentDetail.setLateral(enquiry.isLateral());
         studentDetail.setRemarks(enquiry.getRemarks());
+        studentDetail.setAcademicYear(defaultManager.getDefaultAcademicYear().toString());
 		return studentDetail;
 	}
 	@Override

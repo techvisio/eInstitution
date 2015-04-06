@@ -68,7 +68,9 @@ Course_Id,
 Branch_Id,
 Semester,
 Academic_Year,
-Category_Id
+Category_Id,
+Batch_Id,
+Session_Id,
 Updated_On from StudentDetail order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
