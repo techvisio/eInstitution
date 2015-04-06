@@ -31,13 +31,13 @@ public class FeeDetailDaoTest {
 		detail.setBranch(4L);
 		detail.setCourse(2L);
 		detail.setFeeAmount(2000.0);
-		detail.setFeeHeadId(2L);
+//		detail.setFeeHeadId(2L);
 		
 		dao.addFeeDetail(detail);
 		
 	}
 	
-	@Test
+/*	@Test
 	public void testGetFeedetail(){
 		List<ApplicableFeeDetail> detail = dao.getFeeDetail(2L, 2L);
 		System.out.println("Data is :- "+detail);
@@ -158,5 +158,5 @@ public class FeeDetailDaoTest {
 		feeDiscountHead.setRefundType("Refundable");
 		dao.updateFeeDiscountHead(feeDiscountHead);
 	}
-
+*/
 }
