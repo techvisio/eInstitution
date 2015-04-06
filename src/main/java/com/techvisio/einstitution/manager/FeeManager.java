@@ -2,6 +2,7 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
@@ -11,7 +12,6 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeManager {
 	
-	public List<ApplicableFeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId);
 	public void addFeeDetail(ApplicableFeeDetail feeDetail);
 	public void updateFeeDetail(ApplicableFeeDetail feeDetail);
 	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId );
@@ -36,5 +36,6 @@ public interface FeeManager {
 	public void generateStudentFeeStaging(Long fileNo);
 	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
+	List<ApplicableFeeDetail> getFeeDetail(ApplicableFeeCriteria criteria);
 
 }

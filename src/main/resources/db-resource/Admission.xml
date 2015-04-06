@@ -22,9 +22,11 @@ s.Branch_Id,
 s.Created_On,
 s.Updated_On,   
 s.Quota_Code,
-Academic_Year,
-Semester,
-s.Lateral
+s.Academic_Year,
+s.Semester,
+s.Lateral,
+s.Batch_Id,
+s.Session_Id
 from  studentdetail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
     ]]>
 
@@ -45,7 +47,10 @@ sd.Course_id,
 sd.Branch_id,
 sd.Semester,
 sd.Academic_Year,
-sd.Updated_On
+sd.Updated_On,
+sd.Category_Id,
+sd.Batch_Id,
+sd.Session_Id
 from StudentDetail sd  where File_No=:File_No;
  ]]>
 </entry>
@@ -63,6 +68,7 @@ Course_Id,
 Branch_Id,
 Semester,
 Academic_Year,
+Category_Id
 Updated_On from StudentDetail order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
@@ -79,7 +85,8 @@ Course_Id,
 Branch_Id,
 Semester,
 Academic_Year,
-Updated_On from StudentDetail where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
+Updated_On,
+Category_Id from StudentDetail where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
 <entry key="getStudentDtlByFileNo">

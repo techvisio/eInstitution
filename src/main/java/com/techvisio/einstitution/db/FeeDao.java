@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
@@ -33,7 +34,7 @@ public interface FeeDao {
 	void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	Double getPreviousSemBalance(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
-	List<ApplicableFeeDetail> getApplicableFeeDetails(Long course, Long branch,Long sessionId, Long centerId, Long shiftId);
+	List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria);
 	
 		
 }

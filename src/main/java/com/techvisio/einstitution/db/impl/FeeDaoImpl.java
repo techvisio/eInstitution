@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
@@ -89,13 +91,13 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 	
 	@Override
-	public List<ApplicableFeeDetail> getApplicableFeeDetails(Long course, Long branch, Long sessionId,Long centerId,Long shiftId) {
+	public List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria) {
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
-		.addValue("BRANCH", branch)
-		.addValue("SESSION_ID", sessionId)
-		.addValue("SHIFT_ID", shiftId)
-		.addValue("CENTRE_ID", centerId);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", criteria.getCourseId())
+		.addValue("BRANCH", criteria.getBranchId())
+		.addValue("SESSION_ID", criteria.getSessionId())
+		.addValue("SHIFT_ID", criteria.getShiftId())
+		.addValue("CENTRE_ID", criteria.getCentreId());
 		List<ApplicableFeeDetail> feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, namedParameter, new RowMapper<ApplicableFeeDetail>(){
 
 			public ApplicableFeeDetail mapRow(ResultSet rs, int rowNum)
@@ -117,6 +119,13 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 		});
 
+		Iterator<ApplicableFeeDetail> feeItr=feeDetails.iterator();
+		while(feeItr.hasNext()){
+			ApplicableFeeDetail fee=feeItr.next();
+			if(!criteria.isLateral() && "L".equalsIgnoreCase(fee.getFeeDetail().getTransactionType())){
+				feeItr.remove();
+			}
+		}
 
 		return feeDetails;
 
@@ -167,8 +176,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				StudentFeeStaging feeStaging = new StudentFeeStaging();
 				feeStaging.setFeeGenerated(rs.getBoolean("Fee_Generated"));
 				feeStaging.setFileNo(rs.getLong("File_No"));
-				feeStaging.setSemester(rs.getInt("Semester"));
-				feeStaging.setAcademicYear(rs.getString("Academic_Year"));
 				feeStaging.setAmount(rs.getDouble("Amount"));
 				feeStaging.setApproved(rs.getBoolean("Approved"));
 				feeStaging.setCreatedBy(rs.getString("Created_By"));

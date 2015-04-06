@@ -1023,6 +1023,8 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setGender(rs.getString("Gender"));
 		basicInfo.setModifiedDate(rs.getDate("Updated_On"));
 		basicInfo.setSemester(rs.getString("Semester"));
+		basicInfo.setSessionId(rs.getLong("session_id"));
+		basicInfo.setBatchId(rs.getLong("Batch_id"));
 		basicInfo.setRegistrationNo(rs.getString("Registration_No"));
 		return basicInfo;
 	}

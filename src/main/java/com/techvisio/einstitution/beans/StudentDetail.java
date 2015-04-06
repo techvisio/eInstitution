@@ -148,6 +148,7 @@ public class StudentDetail {
     private Long centreId;
     private Long batchId;
     private Long sessionId;
+    private Remark remark;
     
 	
 	public String getRegistrationNo() {
@@ -564,6 +565,14 @@ public class StudentDetail {
 
 	public void setSessionId(Long sessionId) {
 		this.sessionId = sessionId;
+	}
+
+	public Remark getRemark() {
+		return remark;
+	}
+
+	public void setRemark(Remark remark) {
+		this.remark = remark;
 	}
 
 }

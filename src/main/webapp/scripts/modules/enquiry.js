@@ -272,12 +272,12 @@ $scope.saveEnquiry = function(){
 	 }
 
 	 $scope.numPages = function () {
-		    return Math.ceil($scope.searchEnquiryList.length / $scope.numPerPage);
+		    return Math.ceil($scope.searchEnquiryList.length / $scope.itemsPerPage);
 		  };
 
-		  $scope.$watch('currentPage + numPerPage', function() {
-		    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-		    , end = begin + $scope.numPerPage;
+		  $scope.$watch('currentPage + itemsPerPage', function() {
+		    var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
+		    , end = begin + $scope.itemsPerPage;
 
 		    $scope.filteredSearch = $scope.searchEnquiryList.slice(begin, end);
 		  });
