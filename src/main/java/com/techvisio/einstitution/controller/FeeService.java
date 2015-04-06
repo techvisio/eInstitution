@@ -61,8 +61,8 @@ public class FeeService {
 
 
 	//StudentFeeStaging	
-	@RequestMapping(value="/studentFeeStaging/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getStudentFeeStaging(@PathVariable Long fileNo){
+	@RequestMapping(value="/studentFeeStaging/fileNo/{fileNo}/feeHeadId/{feeHeadId}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getStudentFeeStaging(@PathVariable Long fileNo, @PathVariable  Long feeHeadId){
 	  
 		Response response = new Response();
 		try
@@ -89,7 +89,7 @@ public class FeeService {
 		try
 		{
 			FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
-			feeWorkflowManager.addStudentFeeStaging(studentFeeStaging); 
+			feeWorkflowManager.saveFeeStaging(studentFeeStaging); 
 
 			response.setResponseBody(studentFeeStaging);
 		}
@@ -104,7 +104,7 @@ public class FeeService {
 	@RequestMapping(value="/studentFeeStaging" , method = RequestMethod.PUT)
 	public void updateStudentFeeStaging(@RequestBody StudentFeeStaging studentFeeStaging){
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.updateStudentFeeStaging(studentFeeStaging);
+		detailWorkflowManager.saveFeeStaging(studentFeeStaging);
 	}
 
 	@RequestMapping(value="/studentFeeStagings/" , method = RequestMethod.PUT)

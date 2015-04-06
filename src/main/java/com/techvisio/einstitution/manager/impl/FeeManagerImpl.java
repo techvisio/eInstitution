@@ -90,13 +90,11 @@ public class FeeManagerImpl implements FeeManager{
 		return feeStaging;
 	}
 
-	public void addStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeDetailDao.addStudentFeeStaging(studentFeeStaging);
+	public void saveFeeStaging(StudentFeeStaging studentFeeStaging) {
+		feeDetailDao.saveStudentFeeStaging(studentFeeStaging);
 	}
 
-	public void updateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeDetailDao.updateStudentFeeStaging(studentFeeStaging);
-	}
+	
 	
 	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
 		
