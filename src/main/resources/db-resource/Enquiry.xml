@@ -27,7 +27,7 @@ AI.Email_Id,
 AI.Lateral,
 AI.Gender,
 AI.Consultant_Id,
-AI.ReferredBy,
+AI.Referred_By,
 AI.Category_Id,
 AI.Admission_Mode
 

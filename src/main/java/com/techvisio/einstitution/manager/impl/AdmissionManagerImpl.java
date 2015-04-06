@@ -51,6 +51,12 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		}
 		studentDetail.setFileNo(fileNo);
 		
+		String registrationNo=studentDetail.getRegistrationNo();
+		if(registrationNo==null){
+			registrationNo=identifierGenerator.getUniqueIdentifierForRegistration(studentDetail);
+		}
+		studentDetail.setRegistrationNo(registrationNo);
+		
 		admissionDao.addStudentDtl(studentDetail);
 
 		return fileNo;
@@ -59,11 +65,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	public Long updateStudentDtl(StudentDetail studentDetail) {
 
-		Long fileNo=studentDetail.getFileNo();;
-		if(fileNo==null){
-			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
-		}
-		studentDetail.setFileNo(fileNo);
+		Long fileNo=studentDetail.getFileNo();
 		
 		admissionDao.updateStudentDtl(studentDetail);
 		

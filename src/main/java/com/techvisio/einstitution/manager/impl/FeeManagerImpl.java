@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
-import com.techvisio.einstitution.beans.FeeDetail;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
@@ -63,18 +63,18 @@ public class FeeManagerImpl implements FeeManager{
 		feeDetailDao.deleteFeeDiscountHead(headId);
 	}
 
-	public List<FeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId) {
+	public List<ApplicableFeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId) {
 		// details = null;
-		 List<FeeDetail> details =  feeDetailDao.getFeeDetail(course, branch, feeHeadId);
+		 List<ApplicableFeeDetail> details =  feeDetailDao.getApplicableFeeDetails(course, branch, feeHeadId,null,null);
 		return details;
 	}
 
-	public void addFeeDetail(FeeDetail feeDetail) {
+	public void addFeeDetail(ApplicableFeeDetail feeDetail) {
 		feeDetailDao.addFeeDetail(feeDetail);
 		
 	}
 
-	public void updateFeeDetail(FeeDetail feeDetail) {
+	public void updateFeeDetail(ApplicableFeeDetail feeDetail) {
 		feeDetailDao.updateFeeDetail(feeDetail);
 	}
 

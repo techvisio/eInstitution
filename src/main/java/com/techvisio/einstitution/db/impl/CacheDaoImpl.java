@@ -15,7 +15,7 @@ import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.FeeDetail;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
@@ -230,26 +230,6 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	}
 
 
-	public List<FeeDetail> getFeeDetailMaster() {
-		String getFeeDetailQuery=masterQueryProps.getProperty("getFeeDetailMaster");
-		List<FeeDetail> feeDetails = new ArrayList<FeeDetail>();
-		feeDetails = getNamedParamJdbcTemplate().query(getFeeDetailQuery, new RowMapper<FeeDetail>(){
-
-			public FeeDetail mapRow(ResultSet rs, int rowNum)throws SQLException {
-				FeeDetail detail = new FeeDetail();
-				detail.setBranch(CommonUtil.getLongValue(rs.getLong("BRANCH")));
-				detail.setCourse(CommonUtil.getLongValue(rs.getLong("COURSE")));
-				detail.setFeeAmount(rs.getDouble("FEE_AMOUNT"));
-				detail.setFeeHeadId(CommonUtil.getLongValue(rs.getLong("FEE_HEAD_ID")));
-				detail.setSemester(rs.getInt("SEMESTER"));
-				return detail;
-			}
-			
-		});
-		return feeDetails;
-	}
-
-
 	public List<FeeDiscountHead> getFeeDiscountHeadMaster() {
 		String getFeeDiscountHeadQuery=masterQueryProps.getProperty("getFeeDiscountHeadMaster");
 		List<FeeDiscountHead> feeDiscountHeads = new ArrayList<FeeDiscountHead>();
@@ -300,7 +280,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	@Override
 	public List<CodeMapping> getCodeMapping(){
 
-		String getSemesterQuery=masterQueryProps.getProperty("getSemester");
+		String getSemesterQuery=masterQueryProps.getProperty("getCodeMap");
 
 		List<CodeMapping> codeMappings =new ArrayList<CodeMapping>(); 
 

@@ -278,7 +278,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
-	
+	@Override
 	public List<MasterDataBean> getBatchAsMasterdata() {
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Batch batch : getBatch()){
@@ -336,6 +336,10 @@ public class CacheManagerImpl implements CacheManager {
 		List<Semester> semesters=new ArrayList<Semester>();
 		semesters=cacheDao.getSemester();
 		entityListMap.put(AppConstants.SEMESTER, semesters);
+		
+		List<CodeMapping> codeMappings=new ArrayList<CodeMapping>();
+		codeMappings=cacheDao.getCodeMapping();
+		entityListMap.put(AppConstants.CODE_MAP, codeMappings);
 
 		List<Batch> batchs = new ArrayList<Batch>();
 		batchs = cacheDao.getBatch();
@@ -437,29 +441,34 @@ public class CacheManagerImpl implements CacheManager {
 		for(Branch branch:getBranchs()){
 			branchMap.put(branch.getId(), branch);
 		}
+	
+		for(CodeMapping codeMapping:getCodeMapping()){
+			codeMap.put(codeMapping.getName(), codeMapping.getCode());
+		}
+	
 	}
-
+    
+	@Override
 	public FeeDiscountHead getFeeDiscountById(Long headId){
 
 		return feeDetailMap.get(headId);
 
 	}
 
+	@Override
 	public Course getCourseById(Long courseId){
 	
 		return courseMap.get(courseId);
 	}
 	
+	@Override
 	public Branch getBranchById(Long branchId){
 
 		return branchMap.get(branchId);
 		
 	}
 	
-	public static Map<String,String> getCodeMap() {
-		return codeMap;
-	}
-	
+	@Override
 	public String getCodeMappingByName(String name){
 		
 		return codeMap.get(name);

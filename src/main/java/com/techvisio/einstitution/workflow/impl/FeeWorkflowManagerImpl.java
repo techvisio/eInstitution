@@ -3,7 +3,7 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
-import com.techvisio.einstitution.beans.FeeDetail;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
@@ -50,18 +50,18 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.deleteFeeDiscountHead(headId);
 	}
 
-	public List<FeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId) {
+	public List<ApplicableFeeDetail> getFeeDetail(Long course, Long branch, Long feeHeadId) {
 		// details = null;
-		 List<FeeDetail>	details =feeManager.getFeeDetail(course, branch, feeHeadId);
+		 List<ApplicableFeeDetail>	details =feeManager.getFeeDetail(course, branch, feeHeadId);
 		return details;
 	}
 
-	public void addFeeDetail(FeeDetail feeDetail) {
+	public void addFeeDetail(ApplicableFeeDetail feeDetail) {
 		feeManager.addFeeDetail(feeDetail);
 		
 	}
 
-	public void updateFeeDetail(FeeDetail feeDetail) {
+	public void updateFeeDetail(ApplicableFeeDetail feeDetail) {
 		feeManager.updateFeeDetail(feeDetail);
 	}
 
