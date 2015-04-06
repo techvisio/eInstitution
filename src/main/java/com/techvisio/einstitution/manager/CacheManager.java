@@ -44,6 +44,12 @@ public interface CacheManager {
 	String getCodeMappingByName(String name);
 
 	List<MasterDataBean> getBatchAsMasterdata();
+	
+	public List<MasterDataBean> getSessionAsMasterdata();
 
+	public List<MasterDataBean> getCentreAsMasterdata();
 
+	public List<MasterDataBean> getShiftAsMasterdata();
+	
+	public List<MasterDataBean> getSectionAsMasterdata();
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
@@ -13,7 +14,10 @@ import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
+import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 
@@ -45,5 +49,11 @@ public interface CacheDao {
 
 	List<Batch> getBatch();
 	
+	public List<Session> getSession();
+		
+	public List<Centre> getCentre();
 	
+	public List<Shift> getShift();
+	
+	public List<Section> getSection();
 }

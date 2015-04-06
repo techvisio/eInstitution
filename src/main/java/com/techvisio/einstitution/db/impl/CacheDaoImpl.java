@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
@@ -19,7 +20,10 @@ import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
+import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
@@ -323,4 +327,91 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		});
 		return batchs;
 	}
+
+
+	@Override
+	public List<Session> getSession() {
+		String getSessionQuery = masterQueryProps.getProperty("getSession");
+		
+		List<Session> sessions = new ArrayList<Session>();
+		sessions = getNamedParamJdbcTemplate().query(getSessionQuery, new RowMapper<Session>(){
+
+			@Override
+			public Session mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Session session = new Session();
+				session.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+				session.setNextSessionId(CommonUtil.getLongValue(rs.getLong("Next_Session_Id")));
+				session.setPrevSessionId(CommonUtil.getLongValue(rs.getLong("Prev_Session_Id")));
+				session.setSession(rs.getString("Session"));
+				session.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
+				return session;
+			}
+			
+		});
+		return sessions;
+	}
+
+
+	@Override
+	public List<Centre> getCentre() {
+		String getCentreQuery = masterQueryProps.getProperty("getCentre");
+		
+		List<Centre> centres = new ArrayList<Centre>();
+		centres = getNamedParamJdbcTemplate().query(getCentreQuery, new RowMapper<Centre>(){
+
+			@Override
+			public Centre mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Centre centre = new Centre();
+				centre.setCentreId(CommonUtil.getLongValue(rs.getLong("Centre_Id")));
+				centre.setCentreName(rs.getString("Centre_Name"));
+				return centre;
+			}
+			
+		});
+		return centres;
+	}
+
+
+	@Override
+	public List<Shift> getShift() {
+		String getShiftQuery = masterQueryProps.getProperty("getShift");
+		
+		List<Shift> shifts = new ArrayList<Shift>();
+		shifts = getNamedParamJdbcTemplate().query(getShiftQuery, new RowMapper<Shift>(){
+
+			@Override
+			public Shift mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Shift shift = new Shift();
+				shift.setShiftId(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
+				shift.setShiftName(rs.getString("Shift_Name"));
+				
+				return shift;
+			}
+			
+		});
+		return shifts;
+	}
+
+
+	@Override
+	public List<Section> getSection() {
+		String getSectionQuery = masterQueryProps.getProperty("getSection");
+		
+		List<Section> sections = new ArrayList<Section>();
+		sections = getNamedParamJdbcTemplate().query(getSectionQuery, new RowMapper<Section>(){
+
+			@Override
+			public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Section section = new Section();
+				section.setBranchId(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+				section.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+				section.setSection(rs.getString("Section"));
+				section.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
+				return section;
+			}
+			
+		});
+		return sections;
+	}
+
 }
