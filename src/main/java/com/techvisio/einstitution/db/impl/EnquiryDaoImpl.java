@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
+//github.com/techvisio/eInstitution
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.SearchCriteria;
@@ -202,5 +203,4 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 
 	
-
 }

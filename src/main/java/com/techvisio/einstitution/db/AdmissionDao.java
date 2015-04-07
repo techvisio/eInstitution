@@ -2,6 +2,7 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -22,6 +23,8 @@ public interface AdmissionDao {
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
 
+	public Remark getRemarkByFileNo(Long fileNo);
+	public void saveRemark(Remark remark);
 	
 //	
 //	public List<StudentAcademicDetail> getAcademicDtl(String fileNo);

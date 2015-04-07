@@ -682,5 +682,57 @@ insert into Remark
 
     ]]>
 
-</entry>	
+</entry>
+
+<entry key="getRemarkByFileNo">
+    <![CDATA[
+select 
+	Enquiry_Remark,
+  	Enquiry_Remark_Date,
+  	Fee_Remark,
+  	Fee_Remark_Date,
+  	Management_Remark,
+  	Management_Remark_Date,
+  	File_No
+
+from remark where File_No=:File_No ;     ]]>
+
+</entry>
+
+	<entry key="upsertRemark">
+    <![CDATA[
+      
+Insert into remark
+
+(	Enquiry_Remark,
+  	Enquiry_Remark_Date,
+  	Fee_Remark,
+  	Fee_Remark_Date,
+  	Management_Remark,
+  	Management_Remark_Date,
+  	File_No
+) values
+    
+ (	:Enquiry_Remark,
+  	:Enquiry_Remark_Date,
+  	:Fee_Remark,
+  	:Fee_Remark_Date,
+  	:Management_Remark,
+  	:Management_Remark_Date,
+  	:File_No
+)
+
+on duplicate key update
+       
+    Enquiry_Remark=:Enquiry_Remark,
+  	Enquiry_Remark_Date=:Enquiry_Remark_Date,
+  	Fee_Remark=:Fee_Remark,
+  	Fee_Remark_Date=:Fee_Remark_Date,
+  	Management_Remark=:Management_Remark,
+  	Management_Remark_Date=:Management_Remark_Date,
+  	File_No = IFNULL(:File_No, -1)
+    ]]>
+
+	</entry>
+	
 </properties>

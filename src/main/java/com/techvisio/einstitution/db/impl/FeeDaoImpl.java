@@ -255,24 +255,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionDebit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
-		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new RowMapper<FeeTransaction>(){
-
-			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
-				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(rs.getLong("File_No"));
-				feeTransaction.setUser(rs.getString("User"));
-				feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
-				feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
-				feeTransaction.setMode(rs.getString("Mode"));
-				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
-				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);
-				feeTransaction.setFeeDiscountHead(feeDiscountHead);
-				feeTransaction.setRemark(rs.getString("Remark"));
-				feeTransaction.setAmount(rs.getDouble("Amount"));
-				return feeTransaction;
-			}
-			
-			});
+		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new FeeTransactionRowMapper());
 			
 	
 			return feeTransactions ;
@@ -282,7 +265,14 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
 		String addQuery = feeQueryProps.getProperty("addFeeTransactionDebit");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
+		SqlParameterSource namedParameter = getParameterMap(feeTransaction);
+
+		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+				
+	}
+
+private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
+	return new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
 		.addValue("Batch_Id", feeTransaction.getBatchId())
 		.addValue("Session_Id", feeTransaction.getSessionId() )
@@ -290,35 +280,14 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		.addValue("Mode", feeTransaction.getMode())
 		.addValue("Remark", feeTransaction.getRemark())
 		.addValue("Amount", feeTransaction.getAmount());
-
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-				
-	}
-
+	
+}
 	
 	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionCredit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
-		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new RowMapper<FeeTransaction>(){
-
-			public FeeTransaction mapRow(ResultSet rs, int rowNum)throws SQLException {
-				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setFileNo(rs.getLong("File_No"));
-				feeTransaction.setUser(rs.getString("User"));
-				feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
-				feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
-				feeTransaction.setMode(rs.getString("Mode"));
-				Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
-				FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);		
-				feeTransaction.setFeeDiscountHead(feeDiscountHead);
-				feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
-				feeTransaction.setRemark(rs.getString("Remark"));
-				feeTransaction.setAmount(rs.getDouble("Amount"));
-				return feeTransaction;
-			}
-			
-		});
+		List<FeeTransaction> feeTransactions = getNamedParamJdbcTemplate().query(getQuery, namedSqlParameter, new FeeTransactionRowMapper());
 
 		return feeTransactions;
 	}
@@ -327,17 +296,34 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
 		String addQuery = feeQueryProps.getProperty("addFeeTransactionCredit");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
-		.addValue("User", feeTransaction.getUser())
-		.addValue("Created_Date", feeTransaction.getCreatedDate())
-		.addValue("Batch_Id",feeTransaction.getBatchId())
-		.addValue("Session_Id", feeTransaction.getSessionId())
-		.addValue("Component_Id", feeTransaction.getFeeDiscountHead().getHeadId())
-		.addValue("Mode", feeTransaction.getMode())
-		.addValue("Remark", feeTransaction.getRemark())
-		.addValue("Amount", feeTransaction.getAmount());
+		SqlParameterSource namedParameter = getParameterMap(feeTransaction);
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
+		
+	}
+	
+	
+	
+	private class FeeTransactionRowMapper implements RowMapper<FeeTransaction> {
+
+		@Override
+		public FeeTransaction mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			FeeTransaction feeTransaction = new FeeTransaction();
+			feeTransaction.setFileNo(rs.getLong("File_No"));
+			feeTransaction.setUser(rs.getString("User"));
+			feeTransaction.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+			feeTransaction.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
+			feeTransaction.setMode(rs.getString("Mode"));
+			Long componentId=(CommonUtil.getLongValue(rs.getLong("Component_Id")));
+			FeeDiscountHead feeDiscountHead = cacheManager.getFeeDiscountById(componentId);		
+			feeTransaction.setFeeDiscountHead(feeDiscountHead);
+			feeTransaction.setCreatedDate(rs.getDate("Created_Date"));
+			feeTransaction.setRemark(rs.getString("Remark"));
+			feeTransaction.setAmount(rs.getDouble("Amount"));
+			return feeTransaction;
+
+		}
 		
 	}
 

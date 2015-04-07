@@ -1,11 +1,13 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -140,7 +142,23 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         studentDetail.setLateral(enquiry.isLateral());
         studentDetail.setRemarks(enquiry.getRemarks());
         studentDetail.setAcademicYear(defaultManager.getDefaultAcademicYear().toString());
-		return studentDetail;
+        studentDetail.setReferredBy(enquiry.getReferredBy());
+        if(enquiry.getConsultantId()!=null){
+        	
+           	ConsultantDetail consultantDetail  =new ConsultantDetail();
+              consultantDetail.setConsultantId(enquiry.getConsultantId());         		
+       
+              if(studentDetail.getConsultantDetail()==null){
+              
+              List<ConsultantDetail> consultantDetails = new ArrayList<ConsultantDetail>();
+              consultantDetails.add(consultantDetail);
+              
+              studentDetail.setConsultantDetail(consultantDetails);
+              
+              }
+        }
+        
+        return studentDetail;
 	}
 	@Override
 	public Long toggleEnquiryStatus(EnquiryAndTaskBean enquiryAndTaskBean){
