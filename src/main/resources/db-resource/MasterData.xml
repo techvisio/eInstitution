@@ -445,4 +445,60 @@ from batchmaster;
 ]]>	
 	</entry>
 	
+	<entry key="getSession">
+    <![CDATA[
+ 
+ Select 
+  
+   Session_Id,
+   Session,
+   Course_Id,
+   Prev_Session_Id,
+   Next_Session_Id 
+  
+from sessionmaster;
+]]>	
+	</entry>
+	
+	
+	<entry key="getCentre">
+    <![CDATA[
+ 
+ Select 
+  
+   Centre_Id,
+   Centre_Name
+  
+from centremaster;
+]]>	
+	</entry>
+
+	<entry key="getShift">
+    <![CDATA[
+ 
+ Select 
+  
+   Shift_Id,
+   Shift_Name
+  
+from shiftmaster;
+]]>	
+	</entry>
+
+	<entry key="getSection">
+    <![CDATA[
+ 
+ Select
+  
+  Section_Id,
+  Section,
+  Course_Id,
+  Branch_Id
+    
+from sectionmaster;
+]]>	
+	</entry>
+
+
+	
 </properties>

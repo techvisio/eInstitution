@@ -112,6 +112,18 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> batch = cacheManager.getBatchAsMasterdata();
 	serverData.put(AppConstants.BATCH, batch);
 	
+	List<MasterDataBean> session = cacheManager.getSessionAsMasterdata();
+	serverData.put(AppConstants.SESSION, session);
+	
+	List<MasterDataBean> centre = cacheManager.getCentreAsMasterdata();
+	serverData.put(AppConstants.CENTRE, centre);
+	
+	List<MasterDataBean> shift = cacheManager.getShiftAsMasterdata();
+	serverData.put(AppConstants.SHIFT, shift);
+	
+	List<MasterDataBean> section = cacheManager.getSectionAsMasterdata();
+	serverData.put(AppConstants.SECTION, section);
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
@@ -18,7 +20,10 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
+import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
@@ -270,6 +275,7 @@ public class CacheManagerImpl implements CacheManager {
 		return masterData;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public synchronized List<Batch> getBatch(){
 		if(entityListMap.get(AppConstants.BATCH) == null || entityListMap.get(AppConstants.BATCH).size() == 0){
 			refreshCacheList(AppConstants.BATCH);
@@ -282,14 +288,86 @@ public class CacheManagerImpl implements CacheManager {
 	public List<MasterDataBean> getBatchAsMasterdata() {
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Batch batch : getBatch()){
-			MasterDataBean bean = new MasterDataBean(batch.getBatchId().toString(), batch.getBatch());
+			MasterDataBean bean = new MasterDataBean(batch.getBatchId().toString(), batch.getBatch(), batch.getCourseId().toString());
 			masterData.add(bean);
 		}
 		
 		return masterData;
 	}
 
+	@SuppressWarnings("unchecked")
+	public synchronized List<Session> getSession(){
+		if(entityListMap.get(AppConstants.SESSION) == null || entityListMap.get(AppConstants.SESSION).size() == 0){
+			refreshCacheList(AppConstants.SESSION);
+		}
+		return (List<Session>)entityListMap.get(AppConstants.SESSION);
+	}
+	
+	@Override
+	public List<MasterDataBean> getSessionAsMasterdata() {
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Session session : getSession()){
+			MasterDataBean bean = new MasterDataBean(session.getSessionId().toString(), session.getSession(), session.getCourseId().toString());
+			masterData.add(bean);
+		}
+		return masterData;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized List<Centre> getCentre(){
+		if(entityListMap.get(AppConstants.CENTRE) == null || entityListMap.get(AppConstants.CENTRE).size() == 0){
+			refreshCacheList(AppConstants.CENTRE);
+		}
+	return (List<Centre>)entityListMap.get(AppConstants.CENTRE);
+	}
+	
+	@Override
+	public List<MasterDataBean> getCentreAsMasterdata() {
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Centre centre : getCentre()){
+			MasterDataBean bean = new MasterDataBean(centre.getCentreId().toString(), centre.getCentreName());
+			masterData.add(bean);
+		}
+		return masterData;
+	}
 
+	@SuppressWarnings("unchecked")
+	public synchronized List<Shift> getShift(){
+		if(entityListMap.get(AppConstants.SHIFT) == null || entityListMap.get(AppConstants.SHIFT).size() == 0){
+			refreshCacheList(AppConstants.SHIFT);
+		}
+	return (List<Shift>)entityListMap.get(AppConstants.SHIFT);
+	}
+	
+	@Override
+	public List<MasterDataBean> getShiftAsMasterdata() {
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Shift shift : getShift()){
+			MasterDataBean bean = new MasterDataBean(shift.getShiftId().toString(), shift.getShiftName());
+			masterData.add(bean);
+		}
+		return masterData;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized List<Section> getSection(){
+		if(entityListMap.get(AppConstants.SECTION) == null || entityListMap.get(AppConstants.SECTION).size() == 0){
+			refreshCacheList(AppConstants.SECTION);
+		}
+	return (List<Section>)entityListMap.get(AppConstants.SECTION);
+	}
+	
+	@Override
+	public List<MasterDataBean> getSectionAsMasterdata() {
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Section section : getSection()){
+			MasterDataBean bean = new MasterDataBean(section.getSectionId().toString(), section.getSection(), section.getBranchId().toString());
+			masterData.add(bean);
+		}
+		return masterData;
+	}
+
+	
 	public void builtEntityListCache(){
 
 		List<Branch> branchs =new ArrayList<Branch>();
@@ -344,7 +422,23 @@ public class CacheManagerImpl implements CacheManager {
 		List<Batch> batchs = new ArrayList<Batch>();
 		batchs = cacheDao.getBatch();
 		entityListMap.put(AppConstants.BATCH, batchs);
-
+		
+		List<Session> sessions = new ArrayList<Session>();
+		sessions = cacheDao.getSession();
+		entityListMap.put(AppConstants.SESSION, sessions);
+		
+		List<Centre> centres = new ArrayList<Centre>();
+		centres = cacheDao.getCentre();
+		entityListMap.put(AppConstants.CENTRE, centres);
+		
+		List<Shift> shifts= new ArrayList<Shift>();
+		shifts = cacheDao.getShift();
+		entityListMap.put(AppConstants.SHIFT, shifts);
+		
+		List<Section> sections = new ArrayList<Section>();
+		sections = cacheDao.getSection();
+		entityListMap.put(AppConstants.SECTION, sections);
+		
 		buildEntityMap();
 
 	}
@@ -422,7 +516,30 @@ public class CacheManagerImpl implements CacheManager {
 			batchs = cacheDao.getBatch();
 			entityListMap.put(AppConstants.BATCH, batchs);
 			break;
-
+			
+		case AppConstants.SESSION:
+			List<Session> sessions = new ArrayList<Session>();
+			sessions = cacheDao.getSession();
+			entityListMap.put(AppConstants.SESSION, sessions);
+			break;
+		
+		case AppConstants.CENTRE:
+			List<Centre> centres = new ArrayList<Centre>();
+			centres = cacheDao.getCentre();
+			entityListMap.put(AppConstants.CENTRE, centres);
+			break;
+		
+		case AppConstants.SHIFT:
+			List<Shift> shifts = new ArrayList<Shift>();
+			shifts = cacheDao.getShift();
+			entityListMap.put(AppConstants.SHIFT, shifts);
+			break;
+			
+		case AppConstants.SECTION:
+			List<Section> sections = new ArrayList<Section>();
+			sections = cacheDao.getSection();
+			entityListMap.put(AppConstants.SECTION, sections);
+			
 		default:
 
 		}
@@ -473,5 +590,11 @@ public class CacheManagerImpl implements CacheManager {
 		
 		return codeMap.get(name);
 	}
+
+	
+	
+
+	
+	
 }
 
