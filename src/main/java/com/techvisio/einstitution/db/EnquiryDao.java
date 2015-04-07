@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
 
 
@@ -15,4 +16,8 @@ public interface EnquiryDao {
 	public void updateInquiry(AdmissionEnquiry admissionInquiry);
 	public void deleteInquiry(Long inquiryId);
 	List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria  searchCriteria);
+	
+	
+	public Remark getRemarkByFileNo(Long fileNo);
+	public void saveRemark(Remark remark);
 }

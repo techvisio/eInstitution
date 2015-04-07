@@ -3,12 +3,13 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class Remark {
-
+	private Long fileNo;
 	private String enquiryRemark;
 	private Date enquiryRemarkDate;
 	private String feeRemark;
 	private Date feeRemarkDate;
 	private String managementRemark;
+	private Date managementRemarkDate;
 	
 	public String getEnquiryRemark() {
 		return enquiryRemark;
@@ -46,7 +47,21 @@ public class Remark {
 	public void setManagementRemarkDate(Date managementRemarkDate) {
 		this.managementRemarkDate = managementRemarkDate;
 	}
-	private Date managementRemarkDate;
+	public Long getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
+	@Override
+	public String toString() {
+		return "Remark [fileNo=" + fileNo + ", enquiryRemark=" + enquiryRemark
+				+ ", enquiryRemarkDate=" + enquiryRemarkDate + ", feeRemark="
+				+ feeRemark + ", feeRemarkDate=" + feeRemarkDate
+				+ ", managementRemark=" + managementRemark
+				+ ", managementRemarkDate=" + managementRemarkDate + "]";
+	}
+	
 	
 	
 }

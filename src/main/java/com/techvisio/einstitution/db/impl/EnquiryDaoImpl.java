@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.EnquiryDao;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -192,6 +193,47 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		
 	}
 
-	
+	@Override
+	public Remark getRemarkByFileNo(Long fileNo) {
+		String getQuery = enquiryQueryProps.getProperty("getRemarkByFileNo");
+		
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+		
+		Remark remark = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<Remark>(){
+
+			@Override
+			public Remark mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Remark r = new Remark();
+				r.setEnquiryRemark(rs.getString("Enquiry_Remark"));
+				r.setEnquiryRemarkDate(rs.getDate("Enquiry_Remark_Date"));
+				r.setFeeRemark(rs.getString("Fee_Remark"));
+				r.setFeeRemarkDate(rs.getDate("Fee_Remark_Date"));
+				r.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				r.setManagementRemark(rs.getString("Management_Remark"));
+				r.setManagementRemarkDate(rs.getDate("Management_Remark_Date"));
+				
+				return r;
+			}
+			
+		});
+		return remark;
+	}
+
+	@Override
+	public void saveRemark(Remark remark) {
+		String saveQuery = enquiryQueryProps.getProperty("upsertRemark");
+		if(remark.getFileNo() != null){
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Enquiry_Remark", remark.getEnquiryRemark())
+											.addValue("Enquiry_Remark_Date", remark.getEnquiryRemarkDate())
+											.addValue("Fee_Remark", remark.getFeeRemark())
+											.addValue("Fee_Remark_Date", remark.getFeeRemarkDate())
+											.addValue("Management_Remark", remark.getManagementRemark())
+											.addValue("Management_Remark_Date", remark.getManagementRemarkDate())
+											.addValue("File_No", remark.getFileNo());
+		
+		getNamedParamJdbcTemplate().update(saveQuery, namedParameter );
+	}
+			
+	}
 
 }
