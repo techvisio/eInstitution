@@ -1,6 +1,5 @@
 package com.techvisio.einstitution.manager.impl;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -543,6 +542,12 @@ public class CacheManagerImpl implements CacheManager {
 		default:
 
 		}
+	}
+	
+	
+	@Override
+	public <T> List<T> getEntityList(String entity){
+		return (List<T>)entityListMap.get(entity);
 	}
 
 	private void buildEntityMap(){

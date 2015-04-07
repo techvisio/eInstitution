@@ -52,4 +52,6 @@ public interface CacheManager {
 	public List<MasterDataBean> getShiftAsMasterdata();
 	
 	public List<MasterDataBean> getSectionAsMasterdata();
+
+	public <T> List<T> getEntityList(String entity);
 }
