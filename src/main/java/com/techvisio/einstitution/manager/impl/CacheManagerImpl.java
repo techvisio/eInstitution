@@ -53,6 +53,11 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, Branch> branchMap = new HashMap<Long, Branch>();
 	private static Map<String,String> codeMap=new HashMap<String, String>();
 	private static Map<Long,Course> courseMap=new HashMap<Long, Course>();
+	private static Map<Long,Batch> batchMap = new HashMap<Long, Batch>();
+	private static Map<Long,Centre> centreMap = new HashMap<Long, Centre>();
+	private static Map<Long,Section> sectionMap = new HashMap<Long, Section>();
+	private static Map<Long,Session> sessionMap = new HashMap<Long, Session>();
+	private static Map<Long,Shift> shiftMap = new HashMap<Long, Shift>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -545,6 +550,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> getEntityList(String entity){
 		return (List<T>)entityListMap.get(entity);
@@ -567,7 +573,26 @@ public class CacheManagerImpl implements CacheManager {
 		for(CodeMapping codeMapping:getCodeMapping()){
 			codeMap.put(codeMapping.getName(), codeMapping.getCode());
 		}
-	
+		
+		for(Batch batch : getBatch()){
+			batchMap.put(batch.getBatchId(),batch);
+		}
+		
+		for(Centre centre : getCentre()){
+			centreMap.put(centre.getCentreId(), centre);
+		}
+		
+		for(Section section : getSection()){
+			sectionMap.put(section.getSectionId(), section);
+		}
+		
+		for(Session session : getSession()){
+			sessionMap.put(session.getSessionId(), session);
+		}
+		
+		for(Shift shift : getShift()){
+			shiftMap.put(shift.getShiftId(), shift);
+		}
 	}
     
 	@Override
@@ -597,9 +622,29 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	
+	@Override
+	public Batch getBatchByBatchId(Long batchId){
+		return batchMap.get(batchId);
+	}
 	
-
+	@Override
+	public Centre getCentreByCentreId(Long centreId){
+		return centreMap.get(centreId);
+	}
 	
+	@Override
+	public Section getSectionBySectionId(Long sectionId){
+		return sectionMap.get(sectionId);
+	}
 	
+	@Override
+	public Session getSessionBySessionId(Long sessionId){
+		return sessionMap.get(sessionId);
+	}
+	
+	@Override
+	public Shift getShiftByShiftId(Long shiftId){
+		return shiftMap.get(shiftId);
+	}
 }
 

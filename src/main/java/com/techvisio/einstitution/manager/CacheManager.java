@@ -2,10 +2,15 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
+import com.techvisio.einstitution.beans.Section;
+import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 
 public interface CacheManager {
 
@@ -54,4 +59,14 @@ public interface CacheManager {
 	public List<MasterDataBean> getSectionAsMasterdata();
 
 	public <T> List<T> getEntityList(String entity);
+
+	Batch getBatchByBatchId(Long batchId);
+
+	Centre getCentreByCentreId(Long centreId);
+
+	Section getSectionBySectionId(Long sectionId);
+
+	Session getSessionBySessionId(Long sessionId);
+
+	Shift getShiftByShiftId(Long shiftId);
 }
