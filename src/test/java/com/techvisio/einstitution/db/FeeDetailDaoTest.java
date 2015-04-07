@@ -31,6 +31,7 @@ public class FeeDetailDaoTest {
 		detail.setBranch(4L);
 		detail.setCourse(2L);
 		detail.setFeeAmount(2000.0);
+		detail.setFeeHeadId(2L);
 		
 		dao.addFeeDetail(detail);
 		
@@ -48,15 +49,10 @@ public class FeeDetailDaoTest {
 		detail.setBranch(4L);
 		detail.setCourse(2L);
 		detail.setFeeAmount(2000.12);
-
 		detail.setFeeHeadId(2L);
 		dao.updateFeeDetail(detail);
 	}
 	
-//	@Test
-//	public void testDeleteFeeDetail(){
-//		dao.deleteFeeDetail(1L, 1L, 1);
-//	}
 	@Test
 	public void testDeleteFeeDetail(){
 		dao.deleteFeeDetail(1L, 1L, 1L);
