@@ -6,7 +6,8 @@ import com.techvisio.einstitution.db.impl.BasicDetailBeanEntity;
 
 public class ManagementAdmissionBean extends BasicDetailBeanEntity {
 private List<StudentFeeStaging> stagingFee;
-private ScholarshipDetail scholarship;
+private ScholarshipDetail scholarship; 
+private List<ApplicableFeeDetail> applicableFeeDetails;
 public List<StudentFeeStaging> getStagingFee() {
 	return stagingFee;
 }
@@ -18,6 +19,13 @@ public ScholarshipDetail getScholarship() {
 }
 public void setScholarship(ScholarshipDetail scholarship) {
 	this.scholarship = scholarship;
+}
+public List<ApplicableFeeDetail> getApplicableFeeDetails() {
+	return applicableFeeDetails;
+}
+public void setApplicableFeeDetails(
+		List<ApplicableFeeDetail> applicableFeeDetails) {
+	this.applicableFeeDetails = applicableFeeDetails;
 }
 
 }

@@ -16,8 +16,11 @@ public class StudentBasicInfo {
 	private Long branchId;
 	private String semester;
 	private String academicYear;
+	private CasteCategory casteCategory; 
+	private Long batchId;
+	private Long sessionId;
 	private Date modifiedDate;
-	
+	private Remark remark;
 	
 	public Long getFileNo() {
 		return fileNo;
@@ -97,6 +100,30 @@ public class StudentBasicInfo {
 	}
 	public void setBranchId(Long branchId) {
 		this.branchId = branchId;
+	}
+	public CasteCategory getCasteCategory() {
+		return casteCategory;
+	}
+	public void setCasteCategory(CasteCategory casteCategory) {
+		this.casteCategory = casteCategory;
+	}
+	public Remark getRemark() {
+		return remark;
+	}
+	public void setRemark(Remark remark) {
+		this.remark = remark;
+	}
+	public Long getBatchId() {
+		return batchId;
+	}
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
+	}
+	public Long getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(Long sessionId) {
+		this.sessionId = sessionId;
 	}
 	
 	

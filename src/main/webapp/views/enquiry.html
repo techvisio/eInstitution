@@ -137,9 +137,10 @@
 					</tr>
                       <tr>
 							<td><span> Category</span></td>
-						<td><input type="text"
-							ng-model="data.admissionEnquiry.categoryId"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<td><select select ng-model="data.admissionEnquiry.categoryId"
+									ng-disabled="isTaskClosedOrInAdmission()"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+								</td>
 						<td><span>Admission Mode</span></td>
 						<td><select ng-model="data.admissionEnquiry.admissionMode" ng-change="resetAdmissionMode()" ng-disabled="isTaskClosedOrInAdmission()">
 								<option value="C">Consultant</option>
@@ -161,10 +162,10 @@
 							
 					</tr>
 					<tr>
-							<td ng-show="data.admissionEnquiry.admissionMode=='C'"><span> Consultant Name </span>
-						<input type="text"
-							ng-model="data.admissionEnquiry.consultantId"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<td ng-show="data.admissionEnquiry.admissionMode=='C'"><span> Consultant Name </span>
+						<select ng-model="data.admissionEnquiry.consultantId"
+									ng-disabled="isTaskClosedOrInAdmission()"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
 							<td ng-show="data.admissionEnquiry.admissionMode=='R'"><span> Referred By </span>
 						<input type="text"
 							ng-model="data.admissionEnquiry.referredBy"

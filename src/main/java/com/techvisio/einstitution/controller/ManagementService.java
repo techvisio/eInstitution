@@ -46,6 +46,7 @@ public class ManagementService {
 
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			response.setError(e.getLocalizedMessage());
 		}
 		return result ;

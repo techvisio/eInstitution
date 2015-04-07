@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
@@ -28,12 +29,12 @@ public class FeeService {
 	private static final Logger logger = Logger.getLogger(FeeService.class);
 
 	//FeeDetail	
-	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/feeHeadId/{feeHeadId}", method = RequestMethod.GET)
-	public List<ApplicableFeeDetail> getFeeDetail(@PathVariable Long course,@PathVariable Long branch,@PathVariable Long feeHeadId){
+	@RequestMapping(value="/applicablefeeDetail/", method = RequestMethod.POST)
+	public List<ApplicableFeeDetail> getFeeDetail(@RequestBody ApplicableFeeCriteria feeCriteria){
 
 		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 
-		List<ApplicableFeeDetail> details = detailWorkflowManager.getFeeDetail( course, branch,feeHeadId);
+		List<ApplicableFeeDetail> details = detailWorkflowManager.getFeeDetail(feeCriteria);
 		return details;
 
 	}
