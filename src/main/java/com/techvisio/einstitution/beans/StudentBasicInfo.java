@@ -12,13 +12,13 @@ public class StudentBasicInfo {
 	private String fatherName;
 	private String gender;
 	private Date dob;
-	private Long courseId;
-	private Long branchId;
+	private Course course;
+	private Branch branch;
 	private String semester;
 	private String academicYear;
 	private CasteCategory casteCategory; 
-	private Long batchId;
-	private Long sessionId;
+	private Batch batch;
+	private Session session;
 	private Long shiftId;
 	private Long centreId;
 	private boolean isLateral;
@@ -92,18 +92,7 @@ public class StudentBasicInfo {
 	public void setRegistrationNo(String registrationNo) {
 		this.registrationNo = registrationNo;
 	}
-	public Long getCourseId() {
-		return courseId;
-	}
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
-	}
-	public Long getBranchId() {
-		return branchId;
-	}
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
-	}
+	
 	public CasteCategory getCasteCategory() {
 		return casteCategory;
 	}
@@ -116,18 +105,7 @@ public class StudentBasicInfo {
 	public void setRemark(Remark remark) {
 		this.remark = remark;
 	}
-	public Long getBatchId() {
-		return batchId;
-	}
-	public void setBatchId(Long batchId) {
-		this.batchId = batchId;
-	}
-	public Long getSessionId() {
-		return sessionId;
-	}
-	public void setSessionId(Long sessionId) {
-		this.sessionId = sessionId;
-	}
+	
 	public Long getShiftId() {
 		return shiftId;
 	}
@@ -145,6 +123,30 @@ public class StudentBasicInfo {
 	}
 	public void setLateral(boolean isLateral) {
 		this.isLateral = isLateral;
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public Branch getBranch() {
+		return branch;
+	}
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+	public Batch getBatch() {
+		return batch;
+	}
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
+	public Session getSession() {
+		return session;
+	}
+	public void setSession(Session session) {
+		this.session = session;
 	}
 	
 	

@@ -71,12 +71,8 @@
 				<td><span>{{object.name}}</span></td>
 				<td><span>{{object.fatherName}}</span></td>
 				<td><span>{{object.dob}}</span></td>
-				<td><select select ng-model="object.courseId"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
-					ng-disabled="true"></select></td>
-				<td><select select ng-model="object.branchId"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
-					ng-disabled="true"></select></td>
+				<td><span>{{object.course.course}}</span></td>
+				<td><span>{{object.branch.branchName}}</span></td>
 			</tr>
 			<tr>
 			<td colspan=2>
@@ -102,13 +98,13 @@
 					</tr>
 					<tr>
 						<td><span> Course </span></td>
-						<td><select select ng-model="data.admissionEnquiry.courseId"
+						<td><select select ng-model="data.admissionEnquiry.course.id" ng-init="data.admissionEnquiry.course=data.admissionEnquiry.course||{}"
 							ng-disabled="isTaskClosedOrInAdmission()"
 							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select></td>
 						<td><span> Branch </span></td>
-						<td><select select ng-model="data.admissionEnquiry.branchId"
+						<td><select select ng-model="data.admissionEnquiry.branch.id" ng-init="data.admissionEnquiry.branch=data.admissionEnquiry.branch||{}"
 							ng-disabled="isTaskClosedOrInAdmission()"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: data.admissionEnquiry.courseId}"></select></td>
+							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: data.admissionEnquiry.course.id}"></select></td>
 					</tr>
 					<tr>
 						<td><span> Name </span></td>
@@ -185,7 +181,7 @@
 					</tr>
 					<tr>
 						<td>Enquiry Status</td>
-						<td>{{data.admissionEnquiry.applicationStatus}}<p><span ng-show="data.admissionEnquiry.enquiryId" ng-bind="'Enquiry Id : '+data.admissionEnquiry.enquiryId"></span></td>
+						<td>{{data.admissionEnquiry.applicationStatus}}<p><span ng-show="data.admissionEnquiry.registrationNo" ng-bind="'Registration No : '+data.admissionEnquiry.registrationNo"></span></td>
 						
 					</tr>
 					<tr>

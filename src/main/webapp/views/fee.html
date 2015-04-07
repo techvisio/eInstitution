@@ -8,16 +8,13 @@
 	</table>
 	</div>
 <div>
-<button type="button" ng-click="content='dashboard'">Dashboard</button>
-<button type="button" ng-click="content='feeManagement'">Fee Management</button>
-<button type="button" ng-click="content='managementApproval'">Management View</button>
 </div>
 <div class="module-dashboard-content">
-<div ng-include src="'feeDashboard.html'" ng-if="content=='dashboard'">
+<div ng-include src="'feeDashboard.html'" ng-if="form.content==='dashboard'">
 </div>
-<div ng-include src="'managementPendingfeeApproval.html'" ng-if="content=='managementApproval'">
+<div ng-include src="'managementPendingfeeApproval.html'" ng-if="form.content==='managementApproval'">
 </div>
-<div ng-include src="'feeAdministration.html'" ng-if="content=='feeManagement'">
+<div ng-include src="'feeAdministration.html'" ng-if="form.content==='feeManagement'">
 </div>
 	
 	<script type="text/ng-template" id="feeDashboard.html">
@@ -91,56 +88,51 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	
 	
 	<script type="text/ng-template" id="managementPendingfeeApproval.html">
-       	<div class="panel-div">
-				<span ng-if="!admissionDetailManagement.basicInfo.fileNo">Management Approval</span> <span
-					ng-if="admissionDetailManagement.basicInfo.fileNo">{{admissionDetailManagement.basicInfo.firstName}}
-					{{admissionDetailManagement.basicInfo.lastName}} ({{admissionDetailManagement.basicInfo.fileNo}})</span>
-			</div>
 		<div class="enquiry-detail-div">
 			
 			<table>
 			<tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 				<tr>
-					<td>Registration No</td>
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.fileNo"></td>
-					<td>Enrollment No</td>
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.enrollmentNo"></td>
+					<th>Registration No</th>
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.registrationNo"></span></td>
+					<th>Enrollment No</th>
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.enrollmentNo"></span></td>
 				</tr>
 				<tr>
-					<td>First Name</td>
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.firstName"></td>
-					<td>Last Name</td>					
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.lastName"></td>
+					<th>First Name</th>
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.firstName"></span></td>
+					<th>Last Name</th>					
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.lastName"></span></td>
 
 				</tr>
 				<tr>
-					<td>Father Name</td>	
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.fatherName"></td>
-					<td>Date Of Birth</td>					
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.dob"></td>
+					<th>Father Name</th>	
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.fatherName"></span></td>
+					<th>Date Of Birth</th>					
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.dob"></span></td>
 				</tr>
 				<tr>
-					<td>Course</td>	
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.course"></td>
-					<td>Branch</td>	
-					<td><input type="text"
-						ng-model="admissionDetailManagement.basicInfo.branch"></td>
+					<th>Course</th>	
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.course.course"></span></td>
+					<th>Branch</th>	
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.branch.branchName"></span></td>
 				</tr>
 			<tr><td colspan=4><hr><td></tr>
 
 	<tr><td><span class="header">Scholarship Detail</span></td>
 	</tr>
 	<tr>
-	<td>Domicile State</td>
+	<th>Domicile State</th>
 	<td><select ng-model="admissionDetailManagement.scholarship.stateId" ng-option=""></td>
-	<td>Scholarship Amount</td>
+	<th>Scholarship Amount</th>
 	<td><input type="text" ng-model="admissionDetailManagement.scholarship.amount" ng-option=""></td>
 	</tr>
 	<tr>
@@ -152,19 +144,25 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	<tr>
 	<td><span class="header">Proposed Discounts</span></td>
 	</tr>			
-	<tr ng-repeat="object in admissionDetailManagement.stagingFee">
+	<tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('W')">
 	<td>{{object.discountHead.head}}</td>
 	<td><input type="text" ng-model="object.amount"></td>
 	<td colspan=2>
-	<button type="button" class="btn btn-success btn-xs">Approve</button>
-	<button type="button" class="btn btn-success btn-xs">Reoccuring</button>
-	<button type="button" class="btn btn-success btn-xs">Conditional</button></td>
+	<button type="button" class="btn btn-primary btn-xs" ng-class="{'btn-success':object.approved}" ng-click="object.approved= !object.approved">Approve</button>
+	<button type="button" class="btn btn-primary btn-xs" ng-class="{'btn-success':object.reoccuring}" ng-click="object.reoccuring= !object.isReoccuring">Reoccuring</button>
+	<button type="button" class="btn btn-primary btn-xs" ng-class="{'btn-success':object.conditional}" ng-click="object.conditional= !object.isConditional">Conditional</button></td>
 	<td><a class='expandable'
-							ng-click="data.tasks.splice($index, 1)"> <i
+							ng-click="admissionDetailManagement.stagingFee.splice($index, 1)"> <i
 							class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
 						    </a></td>
 	</tr>
-	<tr><td><input type="button" value="Update Record"
+	<tr>
+<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="form.content='dashboard'">Back to DashBoard</button></td>
+						<td><button type="button" class="btn btn-success btn-lg"
+								ng-click="updateAdmissionDetailManagement()">Save & Approve</button></td>
+
+<td><input type="button" value="Update Record"
 						ng-click="showBaseFee('lg')"></td></tr>
 	
 		
@@ -253,12 +251,27 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 </div>
     </script>
 <script type="text/ng-template" id="baseFee.html">
-<div class="searchcriteria">
+<div class="baseFee-popUp">
+<div class="panel-div-modal">{{admissionDetailManagement.basicInfo.firstName+' '+admissionDetailManagement.basicInfo.lastName}} ({{admissionDetailManagement.basicInfo.registrationNo}}) </div>
 <table>
 <tr><td><span class="header">Base Fee</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.applicableFeeDetails">
 <td><span ng-bind="object.feeDetail.head"></span></td>
 <td><input type="text" ng-model="object.feeAmount"></td>
+</tr>
+<tr>
+<th>Total Fee</th>
+<th>{{totalBaseFee()}}</th>
+</tr>
+<tr><td><span class="header">Amenities Charges</span></td></tr>
+<tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('D')">
+<td><span ng-bind="object.discountHead.head"></span></td>
+<td><input type="text" ng-model="object.amount"></td>
+</tr>
+<tr>
+<th>Total Charges</th>
+<th>{{totalCharges()}}</th>
+</tr>
 </table>
 </div>
 </script>

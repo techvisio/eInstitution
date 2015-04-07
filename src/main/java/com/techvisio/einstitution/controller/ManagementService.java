@@ -64,6 +64,7 @@ public class ManagementService {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -83,6 +84,7 @@ public  ResponseEntity<Response> getUnapprovedAdmissions(@RequestBody Management
 	}
 	catch(Exception e)
 	{
+		e.printStackTrace();
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);

@@ -214,7 +214,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
 		.addValue("Is_Reoccuring", studentFeeStaging.isReoccuring())
 		.addValue("Is_Conditional", studentFeeStaging.isConditional())
-		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead())
+		.addValue("FeeHead_Id", studentFeeStaging.getDiscountHead().getHeadId())
 		.addValue("Amount", studentFeeStaging.getAmount())
 		.addValue("Created_By", studentFeeStaging.getCreatedBy())
 		.addValue("Updated_By", studentFeeStaging.getUpdatedBy())

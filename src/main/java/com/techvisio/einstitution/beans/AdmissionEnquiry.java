@@ -17,8 +17,8 @@ public class AdmissionEnquiry {
 	private String createBy;
 	private Date updatedDate;
 	private String updatedBy;
-	private Long courseId;
-	private Long branchId;
+	private Course course;
+	private Branch branch;
 	private boolean followupRequired;
 	private String remarks;
 	private String emailId;
@@ -103,18 +103,7 @@ public class AdmissionEnquiry {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	public Long getCourseId() {
-		return courseId;
-	}
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
-	}
-	public Long getBranchId() {
-		return branchId;
-	}
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
-	}
+	
 	public boolean isFollowupRequired() {
 		return followupRequired;
 	}
@@ -144,8 +133,7 @@ public class AdmissionEnquiry {
 				+ ", applicationStatus=" + applicationStatus + ", dueDate="
 				+ dueDate + ", createdDate=" + createdDate + ", createBy="
 				+ createBy + ", updatedDate=" + updatedDate + ", updatedBy="
-				+ updatedBy + ", courseId=" + courseId + ", branchId="
-				+ branchId + ", followupRequired=" + followupRequired
+				+ updatedBy + ", followupRequired=" + followupRequired
 				+ ", remarks=" + remarks + ", emailId=" + emailId
 				+ ", Lateral=" + lateral + ", gender=" + gender + "]";
 	}
@@ -191,6 +179,18 @@ public class AdmissionEnquiry {
 	}
 	public void setAdmissionMode(String admissionMode) {
 		this.admissionMode = admissionMode;
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public Branch getBranch() {
+		return branch;
+	}
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
 	
 

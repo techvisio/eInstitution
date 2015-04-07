@@ -727,6 +727,24 @@ color:white;
 	
 }
 
+.baseFee-popUp{
+	transition:visibility 2s;
+	padding-bottom:30px;
+}
+
+.baseFee-popUp table{
+	margin: auto;
+}
+.baseFee-popUp table tr td,.baseFee-popUp table tr th{
+	padding-top:10px;
+	padding-left:10px;
+	padding-right:35px;
+}
+
+.baseFee-popUp input[type="text"],.baseFee-popUp select{
+	width:250px;
+}
+
 .searchcriteria{
 	transition:visibility 2s;
 }

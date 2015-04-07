@@ -10,6 +10,8 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 	$scope.feeAdmissionBean=[];
 	$scope.searchCriteria={};
 	$scope.collapse=true;
+	$scope.form={};
+	$scope.form.content='dashboard';
 
 	$scope.newTransaction={};
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
@@ -43,6 +45,35 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 			return Array.apply(null, {length:size}).map(Number.call, Number);
 		}
 	};
+	
+	$scope.transactonType = function(type) {
+		  return function(staggingFee) {
+		    return staggingFee.discountHead.transactionType === type;
+		  }
+		};
+	
+	$scope.totalBaseFee=function(){
+		var sum=0;
+		if($scope.admissionDetailManagement && $scope.admissionDetailManagement.applicableFeeDetails){
+			angular.forEach($scope.admissionDetailManagement.applicableFeeDetails, function(transaction) {
+				sum=sum+transaction.feeAmount;
+			});
+		}
+		
+		return sum;
+	}
+	$scope.totalCharges=function(){
+		var sum=0;
+		if($scope.admissionDetailManagement && $scope.admissionDetailManagement.stagingFee){
+			angular.forEach($scope.admissionDetailManagement.stagingFee, function(object) {
+				if(object.discountHead.transactionType!='W'){
+				sum=sum+object.amount;
+				}
+			});
+		}
+		
+		return sum;
+	}
 
 	$scope.totalDebit=function(){
 		var sum=0;
@@ -105,7 +136,7 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.feeTransactionAdmissionBean = response.data.responseBody;
-				$scope.content='feeManagement';
+				$scope.form.content='feeManagement';
 			}
 
 			else {
@@ -178,7 +209,7 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.admissionDetailManagement = response.data.responseBody;
-				$scope.content='managementApproval';
+				$scope.form.content='managementApproval';
 			} else {
 				console.log(response.data.error);
 			}

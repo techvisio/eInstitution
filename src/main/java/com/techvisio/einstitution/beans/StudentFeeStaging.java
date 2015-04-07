@@ -8,10 +8,10 @@ public class StudentFeeStaging {
 	private Long fileNo;
 	private FeeDiscountHead discountHead;
 	private Double amount;
-	private boolean Approved;
+	private boolean approved;
 	private boolean feeGenerated;
-	private boolean isReoccuring;
-	private boolean isConditional;
+	private boolean reoccuring;
+	private boolean conditional;
 	private Date createdDate;
 	private Date modifiedDate;
 	private String createdBy;
@@ -35,10 +35,10 @@ public class StudentFeeStaging {
 		this.amount = amount;
 	}
 	public boolean isApproved() {
-		return Approved;
+		return approved;
 	}
 	public void setApproved(boolean approved) {
-		Approved = approved;
+		this.approved = approved;
 	}
 	public boolean isFeeGenerated() {
 		return feeGenerated;
@@ -47,10 +47,10 @@ public class StudentFeeStaging {
 		this.feeGenerated = feeGenerated;
 	}
 	public boolean isReoccuring() {
-		return isReoccuring;
+		return reoccuring;
 	}
 	public void setReoccuring(boolean isReoccuring) {
-		this.isReoccuring = isReoccuring;
+		this.reoccuring = isReoccuring;
 	}
 	public Date getCreatedDate() {
 		return createdDate;
@@ -77,10 +77,10 @@ public class StudentFeeStaging {
 		this.updatedBy = updatedBy;
 	}
 	public boolean isConditional() {
-		return isConditional;
+		return conditional;
 	}
 	public void setConditional(boolean isConditional) {
-		this.isConditional = isConditional;
+		this.conditional = isConditional;
 	}
 
 	

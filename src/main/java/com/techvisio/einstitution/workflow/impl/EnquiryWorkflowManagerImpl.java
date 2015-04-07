@@ -99,7 +99,10 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         StudentDetail studentDetail = getStudentFromEquiry(enquiry);
         
         Long fileNo=admissionWorkflowManager.addStudentDetails(studentDetail);
+        
         enquiry.setFileNo(fileNo);
+        
+        
         
         enquiry.setApplicationStatus(EnquiryStatus.MOVED_TO_ADMISSION.name());
         
@@ -130,8 +133,8 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		studentDetail.setFatherName(enquiry.getFatherName());
 		studentDetail.setDob(enquiry.getDob());
         studentDetail.setSelfMobile_No(enquiry.getContactNo());
-        studentDetail.setCourseId(enquiry.getCourseId());
-        studentDetail.setBranchId(enquiry.getBranchId());
+        studentDetail.setCourseId(enquiry.getCourse().getId());
+        studentDetail.setBranchId(enquiry.getBranch().getId());
         studentDetail.setEmailId(enquiry.getEmailId());
         studentDetail.setGender(enquiry.getGender());
         studentDetail.setLateral(enquiry.isLateral());

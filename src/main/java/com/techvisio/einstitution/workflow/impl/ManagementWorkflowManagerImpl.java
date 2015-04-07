@@ -30,11 +30,11 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 			admissionBean.setStagingFee(staggingFee);
 			
 			ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
-			criteria.setBranchId(basicInfo.getBranchId());
+			criteria.setBranchId(basicInfo.getBranch().getId());
 			criteria.setCentreId(basicInfo.getCentreId());
-			criteria.setCourseId(basicInfo.getCourseId());
+			criteria.setCourseId(basicInfo.getCourse().getId());
 			criteria.setLateral(basicInfo.isLateral());
-			criteria.setSessionId(basicInfo.getSessionId());
+			criteria.setSessionId(basicInfo.getSession().getSessionId());
 			criteria.setShiftId(basicInfo.getShiftId());
 			
 			List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);

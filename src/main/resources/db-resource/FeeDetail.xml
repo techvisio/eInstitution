@@ -77,11 +77,11 @@ insert into studentfeestaging (
 )
 select sd.File_No,:Is_Reoccuring,:Is_Conditional,:FeeHead_Id,:Amount, 
 :Created_By, :Created_By ,null,null,  now(), now()  from studentdetail sd 
-where sd.File_No=:File_No;
+where sd.File_No=:File_No
     
 on duplicate key update
 	  File_No=:File_No,
- 	  Is_Conditional=:Is_Conditional	
+ 	  Is_Conditional=:Is_Conditional,	
       Is_Reoccuring=:Is_Reoccuring,
       FeeHead_Id=:FeeHead_Id,
       Amount=:Amount,

@@ -29,10 +29,11 @@ AI.Gender,
 AI.Consultant_Id,
 AI.Referred_By,
 AI.Category_Id,
-AI.Admission_Mode
+AI.Admission_Mode,
+null Registration_No
 
 
-from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and  TF.Module='ENQUIRY' and TF.Status != 'C';     ]]>
+from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and TF.Module='ENQUIRY' and TF.Status != 'C';     ]]>
 
 </entry>
 
@@ -40,31 +41,32 @@ from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id
     <![CDATA[
 Select
 
-Inquiry_Id,
- Name,
- Father_Name,
- Email_Id,
- DOB, 
- Contact_No, 
- Application_Status, 
- Due_Date, 
- Created_By, 
- created_on, 
- Updated_By, 
- updated_on, 
- Branch_Id, 
- FollowUp_Required, 
- File_no, 
- Course_Id, 
- Remarks,
- Lateral,
- Gender,
- Consultant_Id,
- Referred_By,
- Category_Id,
- Admission_Mode
+ ae.Inquiry_Id,
+ ae.Name,
+ ae.Father_Name,
+ ae.Email_Id,
+ ae.DOB, 
+ ae.Contact_No, 
+ ae.Application_Status, 
+ ae.Due_Date, 
+ ae.Created_By, 
+ ae.created_on, 
+ ae.Updated_By, 
+ ae.updated_on, 
+ ae.Branch_Id, 
+ ae.FollowUp_Required, 
+ ae.File_no, 
+ ae.Course_Id, 
+ ae.Remarks,
+ ae.Lateral,
+ ae.Gender,
+ ae.Consultant_Id,
+ ae.Referred_By,
+ ae.Category_Id,
+ ae.Admission_Mode,
+ sd.Registration_No
 
-from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;    
+from  AdmissionInquiry ae left join studentDetail sd on ae.File_No = sd.File_No where Inquiry_Id=:Inquiry_Id;    
     ]]>
 
 	</entry>
@@ -174,7 +176,33 @@ Delete from AdmissionInquiry where Inquiry_Id=:Inquiry_Id;
 	<entry key="searchInquiry">
     <![CDATA[
       
-SELECT * FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
+SELECT 
+Inquiry_Id, 
+Name, 
+Father_Name,
+DOB, 
+Contact_No,
+Application_Status,
+Due_Date, 
+Created_By, 
+created_on,
+Updated_By, 
+updated_on,
+Branch_Id,
+FollowUp_Required,
+File_no,
+Course_Id,
+Remarks,
+Email_Id,
+Lateral,
+Gender,
+Consultant_Id,
+Referred_By,
+Category_Id,
+Admission_Mode,
+null Registration_No
+
+ FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
 IFNULL(Contact_No,'-1') =IFNULL(:Phone_No,IFNULL(Contact_No,'-1')) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and Name like :Name and Application_Status=IFNULL(:status,Application_Status); 
     ]]>
 

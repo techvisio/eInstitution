@@ -12,8 +12,12 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.EnquiryDao;
+import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
@@ -24,6 +28,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		this.enquiryQueryProps = inquiryQueryProps;
 	}
 
+	CacheManager cacheManager =  new CacheManagerImpl();
 	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 
 		String getQuery = enquiryQueryProps
@@ -80,9 +85,9 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		.addValue("DOB", admissionInquiry.getDob())
 		.addValue("Due_Date", admissionInquiry.getDueDate())
 		.addValue("Branch_Id",
-				admissionInquiry.getBranchId())
+				admissionInquiry.getBranch().getId())
 		.addValue("Course_Id",
-				admissionInquiry.getCourseId())
+				admissionInquiry.getCourse().getId())
 		.addValue("Created_On", admissionInquiry.getCreatedDate())
 		.addValue("Created_By", admissionInquiry.getCreateBy())
 		.addValue("Updated_On", admissionInquiry.getUpdatedDate())
@@ -172,10 +177,13 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 							.getString("Updated_By"));
 					admissionInquiry.setUpdatedDate(rs
 							.getDate("Updated_On"));
-					admissionInquiry.setCourseId(CommonUtil.getLongValue(rs
-							.getLong("Course_Id")));
-					admissionInquiry.setBranchId(CommonUtil.getLongValue(rs
-							.getLong("Branch_Id")));
+					Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+				    Branch branch=cacheManager.getBranchById(branchId);
+					admissionInquiry.setBranch(branch);
+					
+					Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+				    Course course=cacheManager.getCourseById(courseId);
+					admissionInquiry.setCourse(course);
 					admissionInquiry.setFollowupRequired(rs
 							.getBoolean("FollowUp_Required"));
 					admissionInquiry.setFileNo(rs.getLong("File_No"));
@@ -187,6 +195,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 					admissionInquiry.setReferredBy(rs.getString("Referred_By"));
 					admissionInquiry.setAdmissionMode(rs.getString("Admission_Mode"));
 					admissionInquiry.setCategoryId(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+					admissionInquiry.setRegistrationNo(rs.getString("Registration_No"));
 					return admissionInquiry;
 		}
 		

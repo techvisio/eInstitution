@@ -13,19 +13,26 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
+import com.techvisio.einstitution.beans.Batch;
+import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.CounsellingDetail;
+import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
+import com.techvisio.einstitution.manager.CacheManager;
+import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	private Properties admissionQueryProps;
+	CacheManager cacheManager =  new CacheManagerImpl();
 
 	public void setAdmissionQueryProps(Properties admissionQueryProps) {
 
@@ -1014,8 +1021,12 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setFirstName(rs.getString("First_Name"));
 		basicInfo.setLastName(rs.getString("Last_Name"));
 		basicInfo.setAcademicYear(rs.getString("Academic_Year"));
-		basicInfo.setBranchId(rs.getLong("Branch_Id"));
-		basicInfo.setCourseId(rs.getLong("Course_Id"));
+		Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+	    Branch branch=cacheManager.getBranchById(branchId);
+		basicInfo.setBranch(branch); 
+		Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+	    Course course=cacheManager.getCourseById(courseId);
+		basicInfo.setCourse(course);
 		basicInfo.setDob(rs.getDate("DOB"));
 		basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
 		basicInfo.setFatherName(rs.getString("Father_Name"));
@@ -1023,8 +1034,12 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setGender(rs.getString("Gender"));
 		basicInfo.setModifiedDate(rs.getDate("Updated_On"));
 		basicInfo.setSemester(rs.getString("Semester"));
-		basicInfo.setSessionId(rs.getLong("session_id"));
-		basicInfo.setBatchId(rs.getLong("Batch_id"));
+		Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
+	    Session session=cacheManager.getSessionBySessionId(sessionId);
+		basicInfo.setSession(session);
+		Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+	    Batch batch=cacheManager.getBatchByBatchId(batchId);
+		basicInfo.setBatch(batch);
 		basicInfo.setRegistrationNo(rs.getString("Registration_No"));
 		basicInfo.setCentreId(rs.getLong("Centre_id"));
 		basicInfo.setShiftId(rs.getLong("Shift_Id"));

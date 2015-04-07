@@ -245,7 +245,7 @@ $scope.saveEnquiry = function(){
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 $scope.data = response.data.responseBody;
-				 alert("Successfully Moved to Admission\n File No. "+$scope.data.admissionEnquiry.fileNo);
+				 alert("Successfully Moved to Admission\n Registration No. "+$scope.data.admissionEnquiry.registrationNo);
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);
