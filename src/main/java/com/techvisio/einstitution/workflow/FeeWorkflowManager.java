@@ -17,9 +17,8 @@ public interface FeeWorkflowManager {
 	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId );
 	
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo,Long feeHeadId);
-	public void saveFeeStaging(StudentFeeStaging studentFeeStaging);
-	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings); 
-	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
+	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings);
+	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging);
 
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo);
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction);
@@ -30,6 +29,8 @@ public interface FeeWorkflowManager {
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
+
+	public void generateStudentFeeStaging(Long fileNo);
 	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);

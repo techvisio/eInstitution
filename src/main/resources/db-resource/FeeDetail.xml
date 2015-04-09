@@ -119,6 +119,14 @@ FROM studentfeestaging where File_No=:File_No and FeeHead_Id=ifNull(:FeeHead_Id,
 	<entry key="deleteStudentFeeStaging">
     <![CDATA[
       
+Delete from studentfeestaging where File_No=:File_No and FeeHead_Id not in (:FeeHead_Id);
+    ]]>
+
+	</entry>
+
+<entry key="deleteStudentFeeStagingByFileNo">
+    <![CDATA[
+      
 Delete from studentfeestaging where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
     ]]>
 

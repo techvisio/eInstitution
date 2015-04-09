@@ -1,4 +1,4 @@
-<div ng-controller="feeController" ng-init="">
+<div ng-controller="feeController" ng-init="init()">
     	<div class="panel-div">
 				<span >Fee Management & Approval</span> 
 			</div>
@@ -125,6 +125,11 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 					<td><span
 						ng-bind="admissionDetailManagement.basicInfo.branch.branchName"></span></td>
 				</tr>
+                  <tr>
+					<th>Category</th>	
+					<td><span
+						ng-bind="admissionDetailManagement.basicInfo.casteCategory.categoryName"></span></td>
+		              </tr>
 			<tr><td colspan=4><hr><td></tr>
 
 	<tr><td><span class="header">Scholarship Detail</span></td>
@@ -136,17 +141,22 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	<td><input type="text" ng-model="admissionDetailManagement.scholarship.amount" ng-option=""></td>
 	</tr>
 	<tr>
-	<td>Reoccuring</td>
-	<td><input type="checkbox" ng-model="admissionDetailManagement.scholarship.reoccurring"></td>
-	<td>Remarks</td>
-	<td><textArea ng-model="admissionDetailManagement.scholarship.remark" ng-option=""></textArea></td>
+<td>Remarks</td>
+	<td><textArea rows="3" cols="33"  ng-model="admissionDetailManagement.scholarship.remark"></textArea></td>
+<td colspan=2>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':object.approved}" ng-click="object.approved= !object.approved">Approve</button>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':object.reoccuring}" ng-click="object.reoccuring= !object.isReoccuring">Reoccuring</button>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':object.conditional}" ng-click="object.conditional= !object.isConditional">Conditional</button></td>	
+
 	</tr>
 	<tr>
 	<td><span class="header">Proposed Discounts</span></td>
 	</tr>			
 	<tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('W')">
-	<td>{{object.discountHead.head}}</td>
-	<td><input type="text" ng-model="object.amount"></td>
+    <td><select ng-model="object.discountHead.headId"
+	ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD|filter:{parentId:'W'}"></select>
+	</td>	
+<td><input type="text" ng-model="object.amount"></td>
 	<td colspan=2>
 	<button type="button" class="btn btn-primary btn-xs" ng-class="{'btn-success':object.approved}" ng-click="object.approved= !object.approved">Approve</button>
 	<button type="button" class="btn btn-primary btn-xs" ng-class="{'btn-success':object.reoccuring}" ng-click="object.reoccuring= !object.isReoccuring">Reoccuring</button>
@@ -154,9 +164,9 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	<td><a class='expandable'
 							ng-click="admissionDetailManagement.stagingFee.splice($index, 1)"> <i
 							class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
-						    </a></td>
-	</tr>
+						    </a></td>></</tr>
 	<tr>
+<tr><td><button type="button" class="btn btn-primary"ng-click="addNewDiscount()">Add New Discount</button></td></tr>
 <td><button type="button" class="btn btn-primary btn-lg"
 								ng-click="form.content='dashboard'">Back to DashBoard</button></td>
 						<td><button type="button" class="btn btn-success btn-lg"

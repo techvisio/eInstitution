@@ -8,6 +8,7 @@ import com.techvisio.einstitution.beans.ManagementAdmissionBean;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
+import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
@@ -60,6 +61,9 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	@Override
 	public ManagementAdmissionBean updateManagementChanges(ManagementAdmissionBean admissionBean) {
 
+		StudentBasicInfo basicInfo = admissionBean.getBasicInfo();
+		CommonUtil.propogateFileNoTofeeStaging(basicInfo.getFileNo(), admissionBean.getStagingFee());
+		
 	    ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	    ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
 	    scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
@@ -67,8 +71,10 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	    
 		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
 		List<StudentFeeStaging> feeStagings = admissionBean.getStagingFee();
-		feeWorkflowManager.updateStudentFeeStaging(feeStagings);
-	    admissionBean.getStagingFee();
+		
+		feeWorkflowManager.saveStudentFeeStaging(feeStagings);
+	    
+		admissionBean.getStagingFee();
 		
 		return admissionBean;
 	}

@@ -2,18 +2,22 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.object.StoredProcedure;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
@@ -23,6 +27,7 @@ import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.DefaultManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomStoredProcedure;
 
 public class FeeDaoImpl extends BaseDao implements FeeDao{
 
@@ -207,7 +212,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
-	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+	private void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
 		
 		
 		String addQuery = feeQueryProps.getProperty("upsertStudentFeeStaging");
@@ -226,21 +231,21 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
-	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
 		
 		if(studentFeeStagings != null){
 		
 		for(StudentFeeStaging feeStaging : studentFeeStagings){
+			deleteNonExsisting(feeStaging.getFileNo(), studentFeeStagings);
 			saveStudentFeeStaging(feeStaging);
 		}
 		}
 	}
 
-
-	public void deleteStudentFeeStaging(StudentFeeStaging feeStaging) {
+    public void deleteStudentFeeStagingByFileNo(StudentFeeStaging feeStaging) {
 		
 		
-		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
+		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStagingByFileNo");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeStaging.getFileNo())
 											.addValue("FeeHead_Id", feeStaging.getDiscountHead().getHeadId());
@@ -249,7 +254,33 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	
+	private void deleteNonExsisting(Long fileNo, List<StudentFeeStaging> feeStagings) {
+		
+		
+		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
 
+		List<Long> feeHeadIds=new ArrayList<Long>();
+		if(feeStagings==null || feeStagings.size()==0){
+			feeHeadIds.add(-1L);
+		}
+		else
+		{
+		if(feeStagings != null){
+			for(StudentFeeStaging feeStaging:feeStagings){
+				feeHeadIds.add(feeStaging.getDiscountHead().getHeadId());
+			    fileNo= feeStaging.getFileNo();
+			}
+		
+		}
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
+											.addValue("FeeHead_Id",feeHeadIds);
+
+		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+	}
+
+	
+	}
 	//FeeTransaction
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionDebit");
@@ -391,6 +422,16 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id",headId);
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+	}
+	
+	public void generateDiscountforStudent(Long fileNo){
+		StoredProcedure sp=new CustomStoredProcedure(getJdbcTemplate(),"generateDiscountStagging") {
+		};
+		SqlParameter paramFileNo = new SqlParameter("v_file_no", Types.VARCHAR);
+		SqlParameter[] paramArray = {paramFileNo};
+		sp.setParameters(paramArray);
+		sp.compile();
+		sp.execute(fileNo);
 	}
 
 }

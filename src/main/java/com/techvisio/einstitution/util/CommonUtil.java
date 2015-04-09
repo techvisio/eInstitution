@@ -19,6 +19,7 @@ import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 
 public class CommonUtil {
@@ -80,6 +81,20 @@ public class CommonUtil {
 		}
 		
 	}
+
+	
+	public static void propogateFileNoTofeeStaging(Long fileNo, List<StudentFeeStaging> feeStagings){
+		
+		
+		if(feeStagings != null){
+
+			for(StudentFeeStaging studentFeeStaging : feeStagings){
+				
+				studentFeeStaging.setFileNo(fileNo);
+			}
+		}
+	}
+	
 	
 	public static Date removeTimeFromDate(Date date) {
 		 

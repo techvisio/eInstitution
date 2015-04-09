@@ -83,15 +83,15 @@ public class FeeService {
 	}
 
 	@RequestMapping(value="/studentFeeStaging" , method = RequestMethod.POST)
-	public ResponseEntity<Response> addStudentFeeStaging(@RequestBody StudentFeeStaging studentFeeStaging){
+	public ResponseEntity<Response> addStudentFeeStaging(@RequestBody List<StudentFeeStaging> studentFeeStagings){
 
 		Response response = new Response();
 		try
 		{
 			FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
-			feeWorkflowManager.saveFeeStaging(studentFeeStaging); 
+			feeWorkflowManager.saveStudentFeeStaging(studentFeeStagings); 
 
-			response.setResponseBody(studentFeeStaging);
+			response.setResponseBody(studentFeeStagings);
 		}
 		catch(Exception e)
 		{
@@ -100,12 +100,12 @@ public class FeeService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-
-	@RequestMapping(value="/studentFeeStaging" , method = RequestMethod.PUT)
-	public void updateStudentFeeStaging(@RequestBody StudentFeeStaging studentFeeStaging){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.saveFeeStaging(studentFeeStaging);
-	}
+//
+//	@RequestMapping(value="/studentFeeStaging" , method = RequestMethod.PUT)
+//	public void updateStudentFeeStaging(@RequestBody List<StudentFeeStaging> studentFeeStagings){
+//		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
+//		detailWorkflowManager.saveStudentFeeStaging(studentFeeStagings);
+//	}
 
 	@RequestMapping(value="/studentFeeStagings/" , method = RequestMethod.PUT)
 	public ResponseEntity<Response> updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
@@ -114,7 +114,7 @@ public class FeeService {
 		try
 		{
 			FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
-			feeWorkflowManager.updateStudentFeeStaging(studentFeeStagings); 
+			feeWorkflowManager.saveStudentFeeStaging(studentFeeStagings); 
 
 			response.setResponseBody(studentFeeStagings);
 		}
@@ -126,11 +126,11 @@ public class FeeService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/StudentFeeStaging/{fileNo}", method = RequestMethod.DELETE)
-	public void deleteStudentFeeStaging(@PathVariable StudentFeeStaging studentFeeStaging){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
-		detailWorkflowManager.deleteStudentFeeStaging(studentFeeStaging);
-	}
+//	@RequestMapping(value="/StudentFeeStaging/{fileNo}", method = RequestMethod.DELETE)
+//	public void deleteStudentFeeStaging(@PathVariable Long fileNoStudentFeeStaging studentFeeStaging){
+//		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
+//		detailWorkflowManager.deleteStudentFeeStaging(studentFeeStaging);
+//	}
 
 
 	////FeeTransaction	

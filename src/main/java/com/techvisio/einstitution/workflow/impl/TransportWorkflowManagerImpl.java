@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
@@ -20,13 +21,13 @@ import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
 
-public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
+public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 
 	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	FeeManager feeManager=FeeManagerImpl.getInstance();
+	FeeManager feeManager = FeeManagerImpl.getInstance();
 	TransportManager transportManager = TransportManagerImpl.getInstance();
-	CacheManager cacheManager=new CacheManagerImpl();
-	
+	CacheManager cacheManager = new CacheManagerImpl();
+
 	public List<AvailableTransport> getAvailableTransport() {
 
 		return transportManager.getAvailableTransport();
@@ -62,73 +63,85 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager{
 	public Long addTransportReservationDtl(
 			TransportReservation transportReservation) {
 
-        Long fileNo=transportReservation.getFileNo();
-		
-		//if file No is missing create student
-		if(fileNo == null ){
-			StudentDetail newStudentDetail=new StudentDetail();
-			fileNo=admissionManager.addStudentDtl(newStudentDetail);
+		Long fileNo = transportReservation.getFileNo();
+
+		// if file No is missing create student
+		if (fileNo == null) {
+			StudentDetail newStudentDetail = new StudentDetail();
+			fileNo = admissionManager.addStudentDtl(newStudentDetail);
 		}
-		
-		//reserve a transport for student
+
+		// reserve a transport for student
 		transportReservation.setFileNo(fileNo);
 		transportManager.addTransportReservationDtl(transportReservation);
-		
-		TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
-		
-		//create a staging fee entry
-		FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
-		
-		StudentFeeStaging stagingFee=new StudentFeeStaging();
+
+		TransportReservation reservedObject = transportManager
+				.getTransportReservationDtl(fileNo);
+
+		// create a staging fee entry
+		FeeDiscountHead discountHead = cacheManager
+				.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
+
+		StudentFeeStaging stagingFee = new StudentFeeStaging();
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
-		feeManager.saveFeeStaging(stagingFee);
-		
+
+		List<StudentFeeStaging> feeStagings = new ArrayList<StudentFeeStaging>();
+		feeStagings.add(stagingFee);
+		feeManager.saveStudentFeeStaging(feeStagings);
+
 		return fileNo;
 	}
 
 	public Long updateTransportReservationDtl(
 			TransportReservation transportReservation) {
 
-		Long fileNo=transportReservation.getFileNo();
-		
-		if(fileNo == null ){
-			StudentDetail newStudentDetail=new StudentDetail();
-			fileNo=admissionManager.addStudentDtl(newStudentDetail);
+		Long fileNo = transportReservation.getFileNo();
+
+		if (fileNo == null) {
+			StudentDetail newStudentDetail = new StudentDetail();
+			fileNo = admissionManager.addStudentDtl(newStudentDetail);
 		}
-		
-		//updating  reserved transport for student
+
+		// updating reserved transport for student
 		transportReservation.setFileNo(fileNo);
 		transportManager.updateTransportReservationDtl(transportReservation);
-		
-		TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
-		
-		//updating fee staging entry
-				FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
-		
-		        StudentFeeStaging stagingFee=new StudentFeeStaging();
-				stagingFee.setFileNo(fileNo);
-				stagingFee.setDiscountHead(discountHead);
-				stagingFee.setAmount(reservedObject.getPrice());
-				feeManager.saveFeeStaging(stagingFee);
-		
-				return fileNo;
+
+		TransportReservation reservedObject = transportManager
+				.getTransportReservationDtl(fileNo);
+
+		// updating fee staging entry
+		FeeDiscountHead discountHead = cacheManager
+				.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
+
+		StudentFeeStaging stagingFee = new StudentFeeStaging();
+		stagingFee.setFileNo(fileNo);
+		stagingFee.setDiscountHead(discountHead);
+		stagingFee.setAmount(reservedObject.getPrice());
+
+		List<StudentFeeStaging> feeStagings = new ArrayList<StudentFeeStaging>();
+		feeStagings.add(stagingFee);
+		feeManager.saveStudentFeeStaging(feeStagings);
+
+		return fileNo;
 	}
 
 	public void deleteTransportReservationDtl(Long fileNo) {
 
-             TransportReservation reservedObject=transportManager.getTransportReservationDtl(fileNo);
-             FeeDiscountHead discountHead = cacheManager.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);    
-             
-				StudentFeeStaging stagingFee=new StudentFeeStaging();
-				stagingFee.setFileNo(reservedObject.getFileNo());
-				stagingFee.setDiscountHead(discountHead);
-				feeManager.deleteStudentFeeStaging(stagingFee);
-		
-		
-		
-			transportManager.deleteTransportReservationDtl(fileNo);
+		TransportReservation reservedObject = transportManager
+				.getTransportReservationDtl(fileNo);
+		FeeDiscountHead discountHead = cacheManager
+				.getFeeDiscountById(AppConstants.TRANSPORT_FEE_ID);
+
+		StudentFeeStaging stagingFee = new StudentFeeStaging();
+		stagingFee.setFileNo(reservedObject.getFileNo());
+		stagingFee.setDiscountHead(discountHead);
+
+		feeManager.deleteStudentFeeStagingbyfileNo(stagingFee);
+		;
+
+		transportManager.deleteTransportReservationDtl(fileNo);
 	}
 
 	public VehicleDetail getVehicleDetail(Long vehicleId) {

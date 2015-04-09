@@ -18,9 +18,8 @@ public interface FeeManager {
 	
 	
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId);
-	public void saveFeeStaging(StudentFeeStaging studentFeeStaging);
-	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings); 
-	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
+	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings);
+	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging);
 
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo);
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction);

@@ -62,7 +62,7 @@
 	<th><span>Branch</span></th>
 	<th><span>Registration No</span></th>
 </tr>
-<tr ng-repeat="object in filteredSearch" ng-click="showDetail($index)">
+<tr ng-repeat="object in filteredSearch" ng-click="showStudentDetail($index)">
 	<td><span>{{object.firstName}}</span></td>
 	<td><span>{{object.fatherName}}</span></td>
 	<td><span>{{object.dob}}</span></td>
@@ -132,6 +132,11 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 						<button type="button" class="btn btn-success"
 							ng-click="showHostelModal('lg')" ng-disabled="!form.isEdit && !form.isNew">Hostel</button>
 					</li>
+					<li>
+						<button type="button" class="btn btn-success"
+							ng-click="" >Submit To Management</button>
+					</li>
+					
 					<li>
 						<button type="button" class="btn btn-success"
 							ng-click="backtoDashboard()">Back</button>

@@ -90,20 +90,14 @@ public class FeeManagerImpl implements FeeManager{
 		return feeStaging;
 	}
 
-	public void saveFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeDetailDao.saveStudentFeeStaging(studentFeeStaging);
+	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
+		feeDetailDao.saveStudentFeeStaging(studentFeeStagings);
 	}
 
 	
-	
-	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
-		
-		feeDetailDao.updateStudentFeeStaging(studentFeeStagings);
-	} 
-	
-	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging){
 
-		feeDetailDao.deleteStudentFeeStaging(studentFeeStaging);
+		feeDetailDao.deleteStudentFeeStagingByFileNo(feeStaging);
 	}
 
 //	public FeeTransaction getFeeTransaction(String fileNo) {
@@ -116,6 +110,7 @@ public class FeeManagerImpl implements FeeManager{
 //		feeDetailDao.addFeeTransaction(feeTransaction);
 //	}
 
+	@Override
 	public void generateStudentFeeStaging(Long fileNo) {
 		StudentFeeStaging feeStaging=new StudentFeeStaging();
 		feeStaging.setFileNo(fileNo);

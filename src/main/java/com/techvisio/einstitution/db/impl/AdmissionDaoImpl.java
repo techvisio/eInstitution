@@ -16,6 +16,7 @@ import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.BranchPreference;
+import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
@@ -1071,6 +1072,9 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
 	    Course course=cacheManager.getCourseById(courseId);
 		basicInfo.setCourse(course);
+		Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+	    CasteCategory category=cacheManager.getCategoryId(categoryId);
+		basicInfo.setCasteCategory(category);
 		basicInfo.setDob(rs.getDate("DOB"));
 		basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
 		basicInfo.setFatherName(rs.getString("Father_Name"));

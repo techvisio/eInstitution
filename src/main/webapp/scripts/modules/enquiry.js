@@ -71,7 +71,9 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 			 task.status='C';
 			 
 		 }
-	}
+        
+	  
+	 }
 	$scope.getEnquiryBySearchCriteria = function() {
 		 console.log('get enquiry by search criteria in controller');
 		 enquiryService.getEnquiryBySearchCriteria($scope.searchCriteria)

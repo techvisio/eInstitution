@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
@@ -69,4 +70,6 @@ public interface CacheManager {
 	Session getSessionBySessionId(Long sessionId);
 
 	Shift getShiftByShiftId(Long shiftId);
+
+	CasteCategory getCategoryId(Long categoryId);
 }

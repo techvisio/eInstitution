@@ -76,19 +76,12 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		return feeStaging;
 	}
 
-	public void saveFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeManager.saveFeeStaging(studentFeeStaging);
-		
-	}
-
-	
-
-	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
-		feeManager.updateStudentFeeStaging(studentFeeStagings);
+	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
+		feeManager.saveStudentFeeStaging(studentFeeStagings);
 		
 	} 
-	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		feeManager.deleteStudentFeeStaging(studentFeeStaging);
+	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging){
+		feeManager.deleteStudentFeeStagingbyfileNo(feeStaging);
 	}
 
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
@@ -131,5 +124,12 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		return admissionBean;
 	
 }
+
+	@Override
+	public void generateStudentFeeStaging(Long fileNo) {
+
+       feeManager.generateStudentFeeStaging(fileNo);
+		
+	}
 
 	}

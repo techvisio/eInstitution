@@ -17,9 +17,8 @@ public interface FeeDao {
 	
 	
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId);
-	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging);
-	public void updateStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings); 
-	public void deleteStudentFeeStaging(StudentFeeStaging studentFeeStaging);
+	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings);
+	public void deleteStudentFeeStagingByFileNo(StudentFeeStaging feeStaging);
 
     public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo);
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction);

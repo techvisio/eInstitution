@@ -1,6 +1,6 @@
 var feeModule = angular.module('feeModule' , [ ]);
 
-feeModule.controller('feeController',['$scope','feeService','admissionService','$modal',function($scope,feeService,admissionService,$modal){
+feeModule.controller('feeController',['$scope','feeService','masterdataService','admissionService','$modal',function($scope,feeService,masterdataService,admissionService,$modal){
 
 	$scope.searchResultList=[];
 	$scope.filteredSearch=[];
@@ -13,6 +13,16 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 	$scope.form={};
 	$scope.form.content='dashboard';
 
+	
+	
+	$scope.staging = {
+			 "discountHead":{
+				 
+				 "transactionType": "W"
+			 }
+	 };
+
+	
 	$scope.newTransaction={};
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
 	                         {"id":"9995","value":"DEMAND DRAFT"},
@@ -21,6 +31,24 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 	  $scope.currentPage = 0;
 	 $scope.totalItems = 0;
 
+	
+	 $scope.init=function(){
+
+		 console.log('getting masterdata for admission module in init block');
+
+		 masterdataService.getAdmissionMasterData()
+		 .then(function(data) {
+			 console.log(data);
+			 if (data != null) {
+				 $scope.serverModelData = data;
+			 } else {
+				 console.log('error');
+			 }
+		 })
+
+	 }
+
+	 
 	  $scope.pageCount = function () {
 	    return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
 	  };
@@ -62,6 +90,14 @@ feeModule.controller('feeController',['$scope','feeService','admissionService','
 		
 		return sum;
 	}
+	
+	$scope.addNewDiscount = function(){
+		
+		console.log("addNewDiscount called");
+		 var discount = angular.copy($scope.staging);
+		 $scope.admissionDetailManagement.stagingFee.push(discount);
+	}
+	
 	$scope.totalCharges=function(){
 		var sum=0;
 		if($scope.admissionDetailManagement && $scope.admissionDetailManagement.stagingFee){

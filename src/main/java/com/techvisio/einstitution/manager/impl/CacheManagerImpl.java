@@ -58,6 +58,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long,Section> sectionMap = new HashMap<Long, Section>();
 	private static Map<Long,Session> sessionMap = new HashMap<Long, Session>();
 	private static Map<Long,Shift> shiftMap = new HashMap<Long, Shift>();
+	private static Map<Long, CasteCategory> categoryMap = new HashMap<Long, CasteCategory>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -566,6 +567,10 @@ public class CacheManagerImpl implements CacheManager {
 			courseMap.put(course.getId(), course);
 		}
 		
+		for(CasteCategory category:getCategories()){
+			categoryMap.put(category.getId(), category);
+		}
+		
 		for(Branch branch:getBranchs()){
 			branchMap.put(branch.getId(), branch);
 		}
@@ -645,6 +650,11 @@ public class CacheManagerImpl implements CacheManager {
 	@Override
 	public Shift getShiftByShiftId(Long shiftId){
 		return shiftMap.get(shiftId);
+	}
+	
+	@Override
+	public CasteCategory getCategoryId(Long categoryId){
+		return categoryMap.get(categoryId);
 	}
 }
 

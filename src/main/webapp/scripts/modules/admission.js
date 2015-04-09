@@ -418,7 +418,18 @@ admissionModule
 					 alert("No valid fileNo provided");
 					 }
 			 }
+			 
+			 $scope.showStudentDetail =  function(index){
 
+				 var fileNo=$scope.searchResultList[index].fileNo;
+				 if(fileNo){
+				 $scope.getStudent(fileNo);
+				 }
+				 else
+					 {
+					 alert("No valid fileNo provided");
+					 }
+			 }
 
 			 $scope.getStudentByCriteria = function() {
 				 console.log('get student by search criteria in controller');

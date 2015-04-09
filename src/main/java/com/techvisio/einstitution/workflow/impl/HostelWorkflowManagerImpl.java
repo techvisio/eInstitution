@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.FeeDiscountHead;
@@ -80,7 +81,11 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
-		feeManager.saveFeeStaging(stagingFee);
+
+		List<StudentFeeStaging> feeStagings = new ArrayList<StudentFeeStaging>();
+        feeStagings.add(stagingFee); 		
+		feeManager.saveStudentFeeStaging(feeStagings);
+		
 		
 		return fileNo;
 	
@@ -108,7 +113,10 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);;
 		stagingFee.setAmount(reservedObject.getPrice());
-		feeManager.saveFeeStaging(stagingFee);
+		
+		List<StudentFeeStaging> feeStagings = new ArrayList<StudentFeeStaging>();
+         feeStagings.add(stagingFee); 		
+		feeManager.saveStudentFeeStaging(feeStagings);
 		
 		return fileNo;
 
