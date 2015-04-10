@@ -128,7 +128,7 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	@Override
 	public void generateStudentFeeStaging(Long fileNo) {
 
-       feeManager.generateStudentFeeStaging(fileNo);
+       feeManager.generateDiscountinStagging(fileNo);
 		
 	}
 

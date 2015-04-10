@@ -31,7 +31,7 @@ public interface FeeManager {
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead);
 	public void deleteFeeDiscountHead(Long headId);
 	
-	public void generateStudentFeeStaging(Long fileNo);
+	public void generateDiscountinStagging(Long fileNo);
 	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);

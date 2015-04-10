@@ -167,5 +167,25 @@ public class AdmissionService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
      	}
-	
+
+	@RequestMapping(value ="/submitToManagement/", method = RequestMethod.POST)
+	public ResponseEntity<Response> submitToManagement(@RequestBody StudentDetail studentDetail) {
+		Response response=new Response();
+		try
+		{
+			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
+			Long fileNo=workflowManager.moveAdmissiontoNextStep(studentDetail,"PENDING_MANAGEMENT");
+		    StudentDetail student=workflowManager.getStudentDetails(fileNo);
+		    response.setResponseBody(student);
+			
+			}
+			catch(Exception e)
+			{
+			e.printStackTrace();
+			response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
+
+
 }

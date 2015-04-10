@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
+import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
@@ -111,10 +111,8 @@ public class FeeManagerImpl implements FeeManager{
 //	}
 
 	@Override
-	public void generateStudentFeeStaging(Long fileNo) {
-		StudentFeeStaging feeStaging=new StudentFeeStaging();
-		feeStaging.setFileNo(fileNo);
-		feeStaging.setCreatedBy("testUser");
+	public void generateDiscountinStagging(Long fileNo) {
+		feeDetailDao.generateDiscountforStudent(fileNo);
 	}
 
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {

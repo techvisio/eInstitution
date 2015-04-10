@@ -165,7 +165,6 @@ public class StudentDetail {
 
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
-		CommonUtil.propogateIdentifiertoAdmission(this);
 	}
 
     

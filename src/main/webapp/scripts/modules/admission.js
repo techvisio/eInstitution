@@ -313,6 +313,33 @@ admissionModule
 
 			 }
 
+			 $scope.submitToManagement = function(){
+				 
+				 console.log('submitToManagement called in controller')
+				 console.log($scope.student);
+				 $scope.processing=true;
+				 admissionService.submitToManagement($scope.student)
+				 .then(function(response) {
+					 console.log('submitToManagement Data received from service : ');
+					 console.log(response);
+					 if (response != null && response.data != null && response.data.responseBody != null) {
+						 $scope.student = response.data.responseBody;
+						 $scope.populateMissingData($scope.student);
+						 $scope.getLatestAdmission();
+						 $scope.form.isNew=false;
+						 $scope.form.isEdit=false;
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+
+					 $scope.processing=false;  
+					 
+				 })
+
+				 
+				 
+			 }
 
 			 $scope.addStudent = function() {
 				 console.log('add student called');
@@ -635,7 +662,8 @@ admissionModule
 				 getStudent : getStudent,
 				 updateStudent : updateStudent,
 				 getLatestAdmission : getLatestAdmission,
-				 getStudentByCriteria : getStudentByCriteria
+				 getStudentByCriteria : getStudentByCriteria,
+				 submitToManagement:submitToManagement
 			 });
 
 			 function addStudent(student) {
@@ -712,6 +740,19 @@ admissionModule
 				 return (request.then(handleSuccess, handleError));
 			 }
 
+			 function submitToManagement(student){
+
+				 console.log('submit to management called in service');
+				 var request = $http({
+					 method : "post",
+					 url : "admission/submitToManagement/",
+					 params : "",
+					 data : student
+
+				 });
+
+				 return (request.then(handleSuccess, handleError));
+			 }
 			 
 			 			 
 

@@ -14,6 +14,7 @@ import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.util.AppConstants.AdmissionWorkFlowStatus;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
+import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 
 public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
@@ -31,12 +32,10 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		if(studentDetail.getConsultantDetail() !=null){
 		List<ConsultantDetail> consultantDetails = studentDetail.getConsultantDetail();
 		if(consultantDetails != null){
-		
-			for(ConsultantDetail consultantDetail : consultantDetails){
-			consultantDetail.setFileNo(fileNo);
-			}
+			
+			consultantWorkflowManager.saveConsultant(consultantDetails);
 		}
-	    consultantWorkflowManager.saveConsultant(consultantDetails);
+	    
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null){
@@ -103,15 +102,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	
 	}
 
-	public void proceedToNextStep(String workFlow, Long fileNo) {
-		if(workFlow !=null){
-			AdmissionWorkFlowStatus workFlowStatus=AdmissionWorkFlowStatus.valueOf(workFlow);
-			if(AdmissionWorkFlowStatus.FEE_NEGOTIATED.equals(workFlowStatus)){
-				feeManager.generateStudentFeeStaging(fileNo);
-			}
-		}		
-	}
-
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(
 			SearchCriteria searchCriteria) {
 		
@@ -134,5 +124,19 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return basicInfos;
 	}
 
+	@Override
+	public Long moveAdmissiontoNextStep(StudentDetail studentDetail,String status){
+		
+		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
+		
+		studentDetail.setApplicationStatus(status);
+		
+		Long fileNo = admissionManager.updateStudentDtl(studentDetail);
+		
+		feeWorkflowManager.generateStudentFeeStaging(fileNo);
+		
+		return fileNo;
+		
+	}
 	
 }

@@ -22,8 +22,11 @@ declare continue handler for not found set done=1;
 Amount,
 Created_By,
 created_date,
-Feehead_Id)
-select sd.File_No,v_amount,'SYSTEM',now(),v_fee_head from studentdetail sd 
+Feehead_Id,
+Approved,
+Is_Reoccuring,
+Is_conditional)
+select sd.File_No,v_amount,'SYSTEM',now(),v_fee_head,0,0,0 from studentdetail sd 
 where sd.File_No=v_file_no;
 
 elseIf (v_percent>0) then  
@@ -39,8 +42,11 @@ insert into studentfeestaging(FILE_NO,
 Amount,
 Created_By,
 created_date,
-Feehead_Id)
-select sd.File_No,v_amount,'SYSTEM',now(),v_fee_head from studentdetail sd 
+Feehead_Id,
+Approved,
+Is_Reoccuring,
+Is_conditional)
+select sd.File_No,v_amount,'SYSTEM',now(),v_fee_head,0,0,0 from studentdetail sd 
 where sd.File_No=v_file_no;
 
 end if;

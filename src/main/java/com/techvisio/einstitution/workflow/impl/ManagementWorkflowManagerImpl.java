@@ -4,10 +4,13 @@ import java.util.List;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
+import com.techvisio.einstitution.beans.FeeDiscountHead;
+import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.ManagementAdmissionBean;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
+import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
@@ -74,6 +77,18 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 		
 		feeWorkflowManager.saveStudentFeeStaging(feeStagings);
 	    
+		for(StudentFeeStaging feeStaging:feeStagings){
+			
+			if(feeStaging.isApproved()){
+				
+				FeeDiscountHead discountHead = new FeeDiscountHead();
+				discountHead.setHead(AppConstants.FEEHEAD);
+				FeeTransaction feeTransaction = new FeeTransaction();
+				feeTransaction.setAmount(feeStaging.getAmount());
+			
+				
+			}
+		}
 		admissionBean.getStagingFee();
 		
 		return admissionBean;
