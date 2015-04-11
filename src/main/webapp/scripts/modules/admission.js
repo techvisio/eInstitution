@@ -105,7 +105,8 @@ admissionModule
 			 
 			 $scope.admissionMode={"C":"Counselling",
 					 "W":"Walk-In",
-					 "R":"Referral"};
+					 "R":"Referral",
+					 "A":"Consultant"	 };
 			 $scope.itemsPerPage = 5
 			  $scope.currentPage = 0;
 			 $scope.totalItems = 0;

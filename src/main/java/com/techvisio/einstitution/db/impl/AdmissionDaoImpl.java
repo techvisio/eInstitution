@@ -172,7 +172,8 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 						.addValue("Shift_Id", studentDtl.getShiftId())
 						.addValue("Centre_Id", studentDtl.getCentreId())
 						.addValue("Batch_Id", studentDtl.getBatchId())
-						.addValue("Session_Id", studentDtl.getSessionId());
+						.addValue("Session_Id", studentDtl.getSessionId())
+						.addValue("Section_Id", studentDtl.getSectionId());
 	}
 
 
@@ -1024,6 +1025,7 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 		studentDetail.setCentreId(CommonUtil.getLongValue(rs.getLong("Centre_Id")));
 		studentDetail.setBatchId(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
 		studentDetail.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
+        studentDetail.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
 		return studentDetail;
 	}
 	
@@ -1091,6 +1093,7 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setRegistrationNo(rs.getString("Registration_No"));
 		basicInfo.setCentreId(rs.getLong("Centre_id"));
 		basicInfo.setShiftId(rs.getLong("Shift_Id"));
+		basicInfo.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
 		basicInfo.setLateral(rs.getBoolean("Lateral"));
 		return basicInfo;
 	}

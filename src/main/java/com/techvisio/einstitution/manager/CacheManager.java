@@ -6,12 +6,18 @@ import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
+import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.MasterDataBean;
+import com.techvisio.einstitution.beans.Qualification;
+import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
+import com.techvisio.einstitution.beans.State;
+import com.techvisio.einstitution.beans.Subject;
 
 public interface CacheManager {
 
@@ -72,4 +78,16 @@ public interface CacheManager {
 	Shift getShiftByShiftId(Long shiftId);
 
 	CasteCategory getCategoryId(Long categoryId);
+
+	Consultant getConsultantId(Long consultantId);
+
+	CounsellingBody getCounsellingBodiesId(Long id);
+
+	Qualification getQualificationId(Long id);
+
+	QuotaCode getQuotaCodeId(Long id);
+
+	State getStateId(Long id);
+
+	Subject getSubjectId(Long id);
 }
