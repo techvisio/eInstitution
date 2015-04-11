@@ -30,9 +30,10 @@ public interface AppConstants {
 	public static final Long CASH_DEPOSITE_ID=9996L;
 	public static final Long DD_DEPOSITE_ID=9995L;
 	public static final Long CHQ_DEPOSITE_ID=9994L;
+	public static final Long SCHOLARSHIP_HEAD_ID=9993L;
 	
 	
-	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,APPROVED,FEE_DEPOSITED,COMPLETE};
+	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,MOVED_TO_MANAGEMENT,APPROVED,FEE_DEPOSITED,COMPLETE};
 	
 	public enum EnquiryStatus{OPEN,CLOSED,MOVED_TO_ADMISSION};
 }

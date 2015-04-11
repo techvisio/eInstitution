@@ -33,6 +33,7 @@ public interface FeeDao {
 	Double getPreviousSemBalance(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria);
+	void generateDiscountforStudent(Long fileNo);
 	
 		
 }

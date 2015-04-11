@@ -16,10 +16,11 @@ public interface AdmissionWorkflowManager {
 	public StudentDetail getStudentDetails(Long fileNo);
 	public void deleteStudentDetails(Long fileNo);
 	//public void updateWorkflowStatus(String fileNo);
-	public void proceedToNextStep(String workFlow,Long FileNo);
 	
 	public StudentBasicInfo getStudentBsInfo(Long fileNo);
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit);
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
+
+	public Long moveAdmissiontoNextStep(StudentDetail studentDetail,String status);
 }

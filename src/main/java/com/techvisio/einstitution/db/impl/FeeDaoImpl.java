@@ -424,6 +424,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 	}
 	
+	@Override
 	public void generateDiscountforStudent(Long fileNo){
 		StoredProcedure sp=new CustomStoredProcedure(getJdbcTemplate(),"generateDiscountStagging") {
 		};

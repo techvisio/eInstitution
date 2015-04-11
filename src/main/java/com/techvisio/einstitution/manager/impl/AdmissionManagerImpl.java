@@ -56,6 +56,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
 		}
 		studentDetail.setFileNo(fileNo);
+		CommonUtil.propogateIdentifiertoAdmission(studentDetail);;
 		
 		String registrationNo=studentDetail.getRegistrationNo();
 		if(registrationNo==null){
@@ -72,6 +73,8 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	private void updateMissingInfowithDefaultValue(StudentDetail studentDetail) {
 		DefaultManager defaultManager=new DefaultManagerImpl();
+		
+		
 		if(CommonUtil.isNullLongValue(studentDetail.getBatchId())){
 			Long defaultBatchId=defaultManager.getDefaultBatch(studentDetail.getCourseId());
 			studentDetail.setBatchId(defaultBatchId);
@@ -97,6 +100,8 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	public Long updateStudentDtl(StudentDetail studentDetail) {
 
 		Long fileNo=studentDetail.getFileNo();
+		
+		CommonUtil.propogateIdentifiertoAdmission(studentDetail);
 		
 		admissionDao.updateStudentDtl(studentDetail);
 		
