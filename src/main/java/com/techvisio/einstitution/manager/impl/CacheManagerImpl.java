@@ -59,6 +59,13 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long,Session> sessionMap = new HashMap<Long, Session>();
 	private static Map<Long,Shift> shiftMap = new HashMap<Long, Shift>();
 	private static Map<Long, CasteCategory> categoryMap = new HashMap<Long, CasteCategory>();
+	private static Map<Long, Consultant> consultantMap = new HashMap<Long, Consultant>();
+	private static Map<Long, CounsellingBody> counsellingMap = new HashMap<Long, CounsellingBody>();
+	private static Map<Long, Qualification> qualificationMap = new HashMap<Long, Qualification>();
+	private static Map<Long, QuotaCode> quotaCodeMap = new HashMap<Long, QuotaCode>();
+	private static Map<Long, State> stateMap = new HashMap<Long, State>();
+	private static Map<Long, Subject> subjectMap = new HashMap<Long, Subject>();
+	
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -598,6 +605,30 @@ public class CacheManagerImpl implements CacheManager {
 		for(Shift shift : getShift()){
 			shiftMap.put(shift.getShiftId(), shift);
 		}
+		
+		for(Consultant consultant : getConsultant()){
+			consultantMap.put(consultant.getConsultantId(), consultant);
+		}
+		
+		for(CounsellingBody counselling : getCounsellingBodies()){
+			counsellingMap.put(counselling.getId(), counselling);
+		}
+		
+		for(Qualification qualification : getQualifications()){
+			qualificationMap.put(qualification.getId(), qualification);
+		}
+		
+		for(QuotaCode quotaCode : getQuotaCodes()){
+			quotaCodeMap.put(quotaCode.getId(), quotaCode);
+		}
+		
+		for(State state : getStates()){
+			stateMap.put(state.getId(), state);
+		}
+		
+		for(Subject subject : getSubjects()){
+			subjectMap.put(subject.getId(), subject);
+		}
 	}
     
 	@Override
@@ -655,6 +686,37 @@ public class CacheManagerImpl implements CacheManager {
 	@Override
 	public CasteCategory getCategoryId(Long categoryId){
 		return categoryMap.get(categoryId);
+	}
+	
+	@Override
+	public Consultant getConsultantId(Long consultantId){
+		return consultantMap.get(consultantId);
+	}
+	
+	@Override
+	public CounsellingBody getCounsellingBodiesId(Long id){
+		return counsellingMap.get(id);
+	}
+	
+	@Override
+	public Qualification getQualificationId(Long id){
+		return qualificationMap.get(id);
+	}
+	
+	@Override
+	public QuotaCode getQuotaCodeId(Long id){
+		return quotaCodeMap.get(id);
+		
+	}
+	
+	@Override
+	public State getStateId(Long id){
+		return stateMap.get(id);
+	}
+	
+	@Override
+	public Subject getSubjectId(Long id){
+		return subjectMap.get(id);
 	}
 }
 
