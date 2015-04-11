@@ -8,6 +8,7 @@ var erpModule = angular
     'managementModule',
     'feeModule',
     'ui.bootstrap',
+    'ngGrid',
     'enquiryModule',
     'consultantModule',
     'ui.bootstrap.pagination'

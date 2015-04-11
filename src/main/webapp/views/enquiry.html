@@ -53,36 +53,14 @@
 					</tr>
 				</table>
 			</div>
-				<div class="searchList">
-			<table>
-			<tr>
-				<td colspan="2" ng-show="searchEnquiryList.length>0"><span
-					class="header">SEARCH RESULT</span></td>
-			</tr>
-			<tr ng-show="searchEnquiryList.length>0">
-				<th><span>Name</span></th>
-				<th><span>Father Name</span></th>
-				<th><span>DOB</span></th>
-				<th><span>Course</span></th>
-				<th><span>Branch</span></th>
-			</tr>
-			<tr ng-repeat="object in filteredSearch"
-				ng-click="getEnquiry(object.enquiryId)">
-				<td><span>{{object.name}}</span></td>
-				<td><span>{{object.fatherName}}</span></td>
-				<td><span>{{object.dob}}</span></td>
-				<td><span>{{object.course.course}}</span></td>
-				<td><span>{{object.branch.branchName}}</span></td>
-			</tr>
-			<tr>
-			<td colspan=2>
-			<pagination ng-show="searchEnquiryList.length>0" total-items="totalItems" items-per-page="itemsPerPage" 
+				<div class="searchList" ng-show="!showCriteria && searchEnquiryList.length>0">
+				<span class="header">Select a record for details</span>
+				<p>
+			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
          ng-model="currentPage" ng-change="pageChanged()"></pagination>
-         </td>
-			</tr>
-		</table>
-			
-			
+        
+        
 	</div>
 			</div>
 			

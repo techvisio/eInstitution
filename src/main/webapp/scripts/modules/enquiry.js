@@ -1,4 +1,4 @@
-var enquiryModule = angular.module('enquiryModule', []);
+var enquiryModule = angular.module('enquiryModule', ['ngGrid']);
 
 enquiryModule.controller('enquiryController', ['$scope','enquiryService','masterdataService',function($scope,enquiryService,masterdataService) {
 
@@ -22,7 +22,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.form.isEdit=true;
 	$scope.dashboard=true;
 
-	 $scope.itemsPerPage = 5
+	 $scope.itemsPerPage = 8
 	  $scope.currentPage = 0;
 	 $scope.totalItems = 0;
 
@@ -283,7 +283,17 @@ $scope.saveEnquiry = function(){
 
 		    $scope.filteredSearch = $scope.searchEnquiryList.slice(begin, end);
 		  });
-	 
+		  
+		  $scope.gridOptions = {
+			      multiSelect:false,
+			        data: 'filteredSearch',
+			        rowTemplate: '<div ng-dblclick="getEnquiry(row.config.selectedItems[0].enquiryId)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+			        columnDefs: [{ field: "name", width: 180,displayName :"Name"},
+			                    { field: "fatherName", width: 180,displayName :"Father Name" },
+			                    { field: "course.course", width: 140,displayName :"Course" },
+			                    { field: "branch.branchName", width: 180,displayName :"Branch" },
+			                    {field:"applicationStatus",width:200,displayName :"Status"}]
+			    };
 } ]);
 
 enquiryModule.service('enquiryService', function($http, $q) {
