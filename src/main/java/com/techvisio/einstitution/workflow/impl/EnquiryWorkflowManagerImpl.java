@@ -144,6 +144,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         studentDetail.setAcademicYear(defaultManager.getDefaultAcademicYear().toString());
         studentDetail.setReferredBy(enquiry.getReferredBy());
         studentDetail.setAdmissionMode(enquiry.getAdmissionMode());
+        studentDetail.setCategoryId(enquiry.getCategoryId());
         if(enquiry.getConsultantId()!=null){
         	
            	ConsultantDetail consultantDetail  =new ConsultantDetail();

@@ -21,6 +21,7 @@ public class StudentBasicInfo {
 	private Session session;
 	private Long shiftId;
 	private Long centreId;
+    private Long sectionId;
 	private boolean isLateral;
 	private Date modifiedDate;
 	private Remark remark;
@@ -147,6 +148,12 @@ public class StudentBasicInfo {
 	}
 	public void setSession(Session session) {
 		this.session = session;
+	}
+	public Long getSectionId() {
+		return sectionId;
+	}
+	public void setSectionId(Long sectionId) {
+		this.sectionId = sectionId;
 	}
 	
 	

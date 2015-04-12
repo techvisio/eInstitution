@@ -82,7 +82,38 @@ public class StudentFeeStaging {
 	public void setConditional(boolean isConditional) {
 		this.conditional = isConditional;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((discountHead == null) ? 0 : discountHead.hashCode());
+		result = prime * result + ((fileNo == null) ? 0 : fileNo.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StudentFeeStaging other = (StudentFeeStaging) obj;
+		if (discountHead == null) {
+			if (other.discountHead != null)
+				return false;
+		} else if (!discountHead.equals(other.discountHead))
+			return false;
+		if (fileNo == null) {
+			if (other.fileNo != null)
+				return false;
+		} else if (!fileNo.equals(other.fileNo))
+			return false;
+		return true;
+	}
 
+	
 	
 }
 
