@@ -37,7 +37,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	 };
 	 
 	 
-	 $scope.admissionMode={"C":"Consultant",
+	 $scope.admissionMode={"A":"Consultant",
 			 "W":"Walk-In",
 			 "R":"Referral"};
 	 

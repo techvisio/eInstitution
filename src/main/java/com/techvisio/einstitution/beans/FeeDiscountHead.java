@@ -2,6 +2,29 @@ package com.techvisio.einstitution.beans;
 
 public class FeeDiscountHead {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((headId == null) ? 0 : headId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FeeDiscountHead other = (FeeDiscountHead) obj;
+		if (headId == null) {
+			if (other.headId != null)
+				return false;
+		} else if (!headId.equals(other.headId))
+			return false;
+		return true;
+	}
 	private Long headId;
 	private String head;
 	private String transactionType;
