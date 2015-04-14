@@ -36,4 +36,5 @@ public interface FeeManager {
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);
 
+	public Boolean isManagementApproved(Long fileNo);
 }

@@ -33,15 +33,8 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 			List<StudentFeeStaging> staggingFee=feeworkFlow.getStudentFeeStaging(fileNo,null);
 			admissionBean.setStagingFee(staggingFee);
 			
-			ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
-			criteria.setBranchId(basicInfo.getBranch().getId());
-			criteria.setCentreId(basicInfo.getCentreId());
-			criteria.setCourseId(basicInfo.getCourse().getId());
-			criteria.setLateral(basicInfo.isLateral());
-			criteria.setSessionId(basicInfo.getSession().getSessionId());
-			criteria.setShiftId(basicInfo.getShiftId());
+			List<ApplicableFeeDetail> applicableFee = getApplicableFee(basicInfo);
 			
-			List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);
 			admissionBean.setApplicableFeeDetails(applicableFee);
 			
 			ScholarshipDetail scholarshipDetail=schlarshipWorkFlow.getScholarshipDetail(fileNo);
@@ -50,6 +43,21 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 		}
 		return admissionBean;
 
+	}
+
+	@Override
+	public List<ApplicableFeeDetail> getApplicableFee(StudentBasicInfo basicInfo) {
+		FeeWorkflowManager feeworkFlow=new FeeWorkflowManagerImpl();
+		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
+		criteria.setBranchId(basicInfo.getBranch().getId());
+		criteria.setCentreId(basicInfo.getCentreId());
+		criteria.setCourseId(basicInfo.getCourse().getId());
+		criteria.setLateral(basicInfo.isLateral());
+		criteria.setSessionId(basicInfo.getSession().getSessionId());
+		criteria.setShiftId(basicInfo.getShiftId());
+		
+		List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);
+		return applicableFee;
 	}
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit){
@@ -69,7 +77,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 		
 	    ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	    ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
-	    scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
+	    scholarshipWorkflowManager.accomodateManagementChanges(scholarshipDetail);
 	    admissionBean.getScholarship();
 	    
 		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();

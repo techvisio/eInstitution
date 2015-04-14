@@ -13,17 +13,22 @@ import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDao;
+import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.ManagementWorkflowManagerImpl;
 
 public class FeeManagerImpl implements FeeManager{
 
 	FeeDao feeDetailDao = ContextProvider.getContext().getBean(
 			FeeDao.class);
-
+	AdmissionManager admissionManager=AdmissionManagerImpl.getInstance();
 	
 	private static FeeManagerImpl instance=null;
 	public static synchronized FeeManagerImpl getInstance()
@@ -164,7 +169,7 @@ public class FeeManagerImpl implements FeeManager{
 						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
 						feeTransaction.setAmount(oldFeeStag.getAmount());
 						
-						creditFeetransaction.add(feeTransaction);
+						debitFeetransaction.add(feeTransaction);
 					}
 				}
 				else{
@@ -178,9 +183,37 @@ public class FeeManagerImpl implements FeeManager{
 						feeTransaction.setAmount(oldFeeStag.getAmount());
 						
 						debitFeetransaction.add(feeTransaction);
+						
 					}
 				}
 				
+			}
+			
+			Boolean managemetApproval=isManagementApproved(fileNo);
+			if(!managemetApproval){
+				
+				StudentBasicInfo basicInfo = admissionManager.getStudentBsInfo(fileNo);
+				ManagementWorkflowManager managementWorkflowManager = new ManagementWorkflowManagerImpl();
+				List<ApplicableFeeDetail> applicableFee=managementWorkflowManager.getApplicableFee(basicInfo);
+				
+				for(ApplicableFeeDetail applicableFeeDetail:applicableFee){
+				
+					FeeTransaction feeTransaction = new FeeTransaction();
+                    feeTransaction.setAmount(applicableFeeDetail.getFeeAmount());
+                    feeTransaction.setFeeDiscountHead(applicableFeeDetail.getFeeDetail());
+                    debitFeetransaction.add(feeTransaction);
+				}
+				
+				for(StudentFeeStaging feeStaging:newStagging){
+					
+					if(feeStaging.getDiscountHead().getTransactionType().equalsIgnoreCase("D")){
+
+						FeeTransaction feeTransaction = new FeeTransaction();
+						feeTransaction.setFeeDiscountHead(feeStaging.getDiscountHead());
+						feeTransaction.setAmount(feeStaging.getAmount());
+						debitFeetransaction.add(feeTransaction);
+					}
+				}
 			}
 
 		}
@@ -189,11 +222,27 @@ public class FeeManagerImpl implements FeeManager{
 
 		for(FeeTransaction feeTransaction : creditFeetransaction){
 			
+			feeTransaction.setFileNo(fileNo);
 			feeDetailDao.addFeeTransactionCredit(feeTransaction);
 		}
 
+		
 		for(FeeTransaction feeTransaction : debitFeetransaction){
-			
+
+			StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
+            Boolean managemetApproval=isManagementApproved(fileNo); 
+            if(managemetApproval==false){
+			for(StudentFeeStaging feeStaging:newStagging){
+				
+				if(feeStaging.getDiscountHead().getTransactionType().equalsIgnoreCase("D")){
+					
+					feeTransaction.setAmount(feeStaging.getAmount());
+					studentDetail.setManagementApproval(true);
+					admissionManager.updateStudentDtl(studentDetail);
+				}
+			}
+            }
+			feeTransaction.setFileNo(fileNo);
 			feeDetailDao.addFeeTransactionDebit(feeTransaction);
 		}
 	}
@@ -262,6 +311,10 @@ public class FeeManagerImpl implements FeeManager{
 	    return transactionAdmissionBean;
 	}
 
-
+	public Boolean isManagementApproved(Long fileNo){
+		return feeDetailDao.isManagementApproved(fileNo);
+		
+		
+	}
 }
 

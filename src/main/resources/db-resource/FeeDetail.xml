@@ -28,7 +28,7 @@ bm.Branch,
 sd.Semester,
 sd.Academic_Year,
 sd.Updated_On,
-balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on balanceAmount.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
+balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on balanceAmount.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id where balanceAmount.session_id!=sd.session_id and balanceAmount.batch_id!=sd.batch group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
 ]]>
 </entry>
 
@@ -168,7 +168,7 @@ Insert into feedetailmaster
 	:FEE_AMOUNT,
 	:Centre_Id,
 	:Shift_Id,
-	:Session_Id )
+	:Session_Id)
     ]]>
 
 	</entry>
@@ -206,17 +206,17 @@ Delete from feedetailmaster where COURSE=:COURSE AND BRANCH=:BRANCH AND FEE_HEAD
     <![CDATA[
 SELECT 
 	
-	File_No,
-    Batch_Id,
-    Session_Id, 
-	Component_Id, 
-	User,
-	Created_Date,
-	Remark,
-	Mode,
-    Amount
+	ftd.File_No,
+    ftd.Batch_Id,
+    ftd.Session_Id, 
+	ftd.Component_Id, 
+	ftd.User,
+	ftd.Created_Date,
+	ftd.Remark,
+	ftd.Mode,
+    ftd.Amount
     	
- from feetransactiondebit where semester = (select max(SEMESTER) from feetransactiondebit where file_no=:File_No) and file_no=:File_No;
+ from feetransactiondebit ftd join studentDetail sd on sd.session_id=ftd.session_id and sd.batch_id=ftd.batch_id where file_no=:File_No;
 ]]>
 
 	</entry>
@@ -246,6 +246,19 @@ Insert into feetransactionDebit
 	:Remark,
 	:Mode,
 	:Amount )
+	
+	on duplicate key update
+	
+	File_No=:File_No,
+	Batch_Id=:Batch_Id,
+	Session_Id=:Session_Id, 
+	Component_Id=:Component_Id, 
+	User=:User, 
+	Created_Date=now(),
+	Remark=:Remark,
+	Mode=:Mode,
+	Amount=:Amount;
+	
     ]]>
 
 	</entry>
@@ -255,17 +268,17 @@ Insert into feetransactionDebit
 	
 	SELECT 
 	
-	File_No,
-	Batch_Id,
-	Session_Id, 
-	Component_Id, 
-	User,
-	Created_Date,
-	Remark,
-	Mode,
-	Amount
+	ftc.File_No,
+	ftc.Batch_Id,
+	ftc.Session_Id, 
+	ftc.Component_Id, 
+	ftc.User,
+	ftc.Created_Date,
+	ftc.Remark,
+	ftc.Mode,
+	ftc.Amount
 	
-from feetransactionCredit where semester = (select max(SEMESTER) from feetransactionCredit where file_no=:File_No) and file_no=:File_No;
+from feetransactionCredit ftc join studentDetail sd on sd.session_id=ftd.session_id and sd.batch_id=ftd.batch_id where file_no=:File_No;
 ]]>
 
 	</entry>
@@ -364,5 +377,14 @@ from feeDiscountHeadmaster where Head_Id=:Head_Id ;
 
 ]]>
 	</entry>
+
+	<entry key="getPreviousManagementStatus">
+    <![CDATA[
+ 
+ select management_approval from studentdetail where file_no=:File_No;
+
+]]>
+	</entry>
+
 
 </properties>

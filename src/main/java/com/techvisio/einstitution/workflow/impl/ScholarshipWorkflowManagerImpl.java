@@ -28,4 +28,9 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 		scholarshipManager.deleteScholarshipDetail(fileNo);
 	}
 
+	public void accomodateManagementChanges(ScholarshipDetail newScholarshipDetail){
+		
+		scholarshipManager.accomodateManagementChanges(newScholarshipDetail);
+	}
+	
 }

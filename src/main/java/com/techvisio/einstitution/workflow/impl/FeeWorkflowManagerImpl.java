@@ -132,4 +132,8 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		
 	}
 
+	public Boolean isManagementApproved(Long fileNo){
+		
+		return feeManager.isManagementApproved(fileNo);
+	}
 	}

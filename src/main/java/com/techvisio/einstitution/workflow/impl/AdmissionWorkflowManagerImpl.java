@@ -38,7 +38,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	    
 		}
 		
-		if(studentDetail.getScholarshipDetail() != null){
+		if(studentDetail.getScholarshipDetail() != null && studentDetail.getScholarshipDetail().getStateId() != null){
 		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();
 		scholarshipDetail.setFileNo(fileNo);
 		scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);

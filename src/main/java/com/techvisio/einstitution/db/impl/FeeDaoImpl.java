@@ -71,6 +71,26 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		});
 		return pendingFeeInfos;
 	}
+    
+	@Override
+	public Boolean isManagementApproved(Long fileNo){
+	
+		String getQuery = feeQueryProps.getProperty("getPreviousManagementStatus");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
+		
+		Boolean managementStatus = false;
+		
+		managementStatus=getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<Boolean>(){
+
+			@Override
+			public Boolean mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				return rs.getBoolean("management_approval");
+			}
+		});	
+		return managementStatus;
+	}
+	
 	
 	@Override
 	public Double getPreviousSemBalance(Long fileNo){

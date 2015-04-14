@@ -34,6 +34,7 @@ public interface FeeDao {
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria);
 	void generateDiscountforStudent(Long fileNo);
+	Boolean isManagementApproved(Long fileNo);
 	
 		
 }

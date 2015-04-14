@@ -2,6 +2,7 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.ManagementAdmissionBean;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 
@@ -12,5 +13,7 @@ public interface ManagementWorkflowManager {
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit);
 
 	public ManagementAdmissionBean updateManagementChanges(ManagementAdmissionBean admissionBean);
+
+	public List<ApplicableFeeDetail> getApplicableFee(StudentBasicInfo basicInfo);
 
 }

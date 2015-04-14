@@ -34,8 +34,7 @@ public interface FeeWorkflowManager {
 	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
 	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);
-
 	
-	
+	public Boolean isManagementApproved(Long fileNo);
 
 }

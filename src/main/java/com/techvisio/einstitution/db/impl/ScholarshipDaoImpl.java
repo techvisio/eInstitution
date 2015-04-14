@@ -65,7 +65,8 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
-		
+
+		if(scholarshipDetail != null && scholarshipDetail.getStateId() != null){
 		String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", scholarshipDetail.getFileNo())
@@ -85,7 +86,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 				addScholarshipPaymentDetail(scholarshipPaymentDetail);
 			}
 		}
-
+		}
 	}
 
 	
