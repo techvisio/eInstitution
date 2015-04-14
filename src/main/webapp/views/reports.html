@@ -1,0 +1,62 @@
+<div ng-controller="reportsController" ng-init="init()">
+	<div class="module-dashboard-container">
+		<div class="module-dashboard-content">
+			<div>
+
+				<table>
+					<tr>
+						<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="getConsultantReport()">Consultant Report</button></td>
+						<td><button type="button" class="btn btn-success btn-lg"
+								ng-click="getAdmissionReport()">Admission Report</button></td>
+					</tr>
+				</table>
+
+
+			</div>
+
+			<div >
+			<div class="gridStyle" ng-grid="gridOptions"></div>
+			<!-- <accordion>  -->
+			<!-- <accordion-group ng-repeat="consultantDtl in consultantReport">
+			<accordion-heading >
+                    {{consultantDtl.consultantName}} - consultantDtl.students.count
+                      <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                  </accordion-heading> -->
+				<!-- <table >
+					<tr>
+						<td colspan="2"><span class="header">SEARCH RESULT</span></td>
+					</tr>
+					<tr>
+						<th><span>Name</span></th>
+						<th><span>DOB</span></th>
+						<th><span>Father Name</span></th>
+						<th><span>Fee Submitted</span></th>
+						<th><span>Course</span></th>
+						<th><span>Branch</span></th>
+						<th><span>Quota</span></th>
+						<th><span>Mobile</span></th>
+					</tr>
+					<tr ng-repeat="student in consultantReport.students">
+						NEED TO CHANGE THE VIEW TO ADMISSION DETAILS NEED TO CHECK
+						ng-click="getEnquiry(object.enquiryId)">
+						<td><span>{{student.name}}</span></td>
+						<td><span>{{student.dob}}</span></td>
+						<td><span>{{student.fatherName}}</span></td>
+						<td><span>{{student.feesSubmitted}}</span></td>
+						<td><span>{{student.course}}</span></td>
+						<td><span>{{student.branch}}</span></td>
+						<td><span>{{student.quota}}</span></td>
+						<td><span>{{student.mobile}}</span></td>
+					</tr>
+				</table> -->
+				<!-- </accordion-group> </accordion> -->
+			</div>
+			
+			<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="dashboard = true">Back To Dashboard</button></td>
+		</div>
+	</div>
+</div>
+

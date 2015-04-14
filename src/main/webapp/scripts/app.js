@@ -11,7 +11,9 @@ var erpModule = angular
     'ngGrid',
     'enquiryModule',
     'consultantModule',
-    'ui.bootstrap.pagination'
+    'ui.bootstrap.pagination',
+    'reportsModule',
+    'ngGrid'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -51,6 +53,11 @@ var erpModule = angular
       }).when('/consultantForm', {
           templateUrl: 'views/consultant.html',
           controller: 'consultantController'})
+      .otherwise({
+        redirectTo: '/'
+      }).when('/reports', {
+          templateUrl: 'views/reports.html',
+          controller: 'reportsController'})
       .otherwise({
         redirectTo: '/'
       });
