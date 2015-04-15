@@ -809,6 +809,10 @@ color:#50A4D0;
 	padding-left:50px;
 }
 
+.searchList span{
+	font-size:14px;
+}
+
 .searchList tr td {
 	cursor: pointer;
 	padding-right:10px;
@@ -840,15 +844,11 @@ color:#50A4D0;
 .content .enquiry-detail-div input[type="text"],.content .enquiry-detail-div select {
 	width:250px;
 	height:25px;
-}.gridStyle {
-    border: 1px solid rgb(212,212,212);
-    width: 400px; 
-    height: 300px
 }
 
 #gridStyle {
     border: 1px solid rgb(212,212,212);
     cursor: pointer;
-    width: 900px; 
+    width: 800px; 
     height: 300px
 }

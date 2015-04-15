@@ -48,6 +48,17 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 
 	 }
 
+	 $scope.gridOptions = {
+		      multiSelect:false,
+		        data: 'filteredSearch',
+		        columnDefs: [{ field: "firstName", width: 90,displayName :"First Name"},
+		                     { field: "lastName", width: 90,displayName :"Last Name"},
+		                    { field: "fatherName", width: 150,displayName :"Father Name" },
+		                    { field: "course.course", width: 90,displayName :"Course" },
+		                    { field: "branch.branchName", width: 180,displayName :"Branch" },
+		                    { field: '', cellTemplate: '<button class="btn btn-success btn-xs" ng-click="getAdmissionDetailManagement(row.config.selectedItems[0].fileNo)">Management</button>' },
+		                    { field: '', cellTemplate: '<button  class="btn btn-success btn-xs" ng-click="getFeeTransactionAndBasicInfoDetail(row.config.selectedItems[0].fileNo)">Fee Handling</button>' }]
+		    };
 	 
 	  $scope.pageCount = function () {
 	    return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
