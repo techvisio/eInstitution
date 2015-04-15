@@ -13,12 +13,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
@@ -206,5 +208,16 @@ public class CommonUtil {
 		return val==null||val.equals(0L);
 	}
 	
+	public static ApplicableFeeCriteria getApplicableFeeCriteriaFromStudentBasicInfo(
+			StudentBasicInfo basicInfo) {
+		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
+		criteria.setBranchId(basicInfo.getBranch().getId());
+		criteria.setCentreId(basicInfo.getCentreId());
+		criteria.setCourseId(basicInfo.getCourse().getId());
+		criteria.setLateral(basicInfo.isLateral());
+		criteria.setSessionId(basicInfo.getSession().getSessionId());
+		criteria.setShiftId(basicInfo.getShiftId());
+		return criteria;
+	}
 
 }

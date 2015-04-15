@@ -231,8 +231,8 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		.addValue("Created_By", studentFeeStaging.getCreatedBy());
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
-
-	private void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+    @Override
+	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
 		
 		
 		String addQuery = feeQueryProps.getProperty("upsertStudentFeeStaging");

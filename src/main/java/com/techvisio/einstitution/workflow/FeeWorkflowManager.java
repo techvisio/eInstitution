@@ -8,6 +8,7 @@ import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 
 public interface FeeWorkflowManager {
@@ -19,7 +20,8 @@ public interface FeeWorkflowManager {
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo,Long feeHeadId);
 	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings);
 	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging);
-
+	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging);
+	
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo);
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction);
 	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo);
@@ -36,5 +38,6 @@ public interface FeeWorkflowManager {
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);
 	
 	public Boolean isManagementApproved(Long fileNo);
+	void handleManagementChangesforDiscounts(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStaggingDiscounts);
 
 }

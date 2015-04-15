@@ -86,10 +86,8 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
-
-		List<StudentFeeStaging> feeStagings = new ArrayList<StudentFeeStaging>();
-		feeStagings.add(stagingFee);
-		feeManager.saveStudentFeeStaging(feeStagings);
+		
+		feeManager.saveStudentFeeStaging(stagingFee);
 
 		return fileNo;
 	}
@@ -139,7 +137,6 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		stagingFee.setDiscountHead(discountHead);
 
 		feeManager.deleteStudentFeeStagingbyfileNo(stagingFee);
-		;
 
 		transportManager.deleteTransportReservationDtl(fileNo);
 	}

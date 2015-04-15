@@ -10,6 +10,7 @@ import com.techvisio.einstitution.beans.ManagementAdmissionBean;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
+import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -48,17 +49,11 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFee(StudentBasicInfo basicInfo) {
 		FeeWorkflowManager feeworkFlow=new FeeWorkflowManagerImpl();
-		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
-		criteria.setBranchId(basicInfo.getBranch().getId());
-		criteria.setCentreId(basicInfo.getCentreId());
-		criteria.setCourseId(basicInfo.getCourse().getId());
-		criteria.setLateral(basicInfo.isLateral());
-		criteria.setSessionId(basicInfo.getSession().getSessionId());
-		criteria.setShiftId(basicInfo.getShiftId());
-		
+		ApplicableFeeCriteria criteria = CommonUtil.getApplicableFeeCriteriaFromStudentBasicInfo(basicInfo);
 		List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);
 		return applicableFee;
 	}
+
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit){
 		
@@ -72,34 +67,22 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	@Override
 	public ManagementAdmissionBean updateManagementChanges(ManagementAdmissionBean admissionBean) {
 
+		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
+		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
+		
 		StudentBasicInfo basicInfo = admissionBean.getBasicInfo();
 		CommonUtil.propogateFileNoTofeeStaging(basicInfo.getFileNo(), admissionBean.getStagingFee());
 		
-	    ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
+		//handling scholarship 
 	    ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
+	    scholarshipDetail.setFileNo(basicInfo.getFileNo());
 	    scholarshipWorkflowManager.accomodateManagementChanges(scholarshipDetail);
-	    admissionBean.getScholarship();
 	    
-		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
+	    //handling discounts , base applicable fee and other ameneties charges
 		List<StudentFeeStaging> feeStagings = admissionBean.getStagingFee();
+		feeWorkflowManager.handleManagementChangesforDiscounts(basicInfo, feeStagings);
 		
-		feeWorkflowManager.saveStudentFeeStaging(feeStagings);
-	    
-		for(StudentFeeStaging feeStaging:feeStagings){
-			
-			if(feeStaging.isApproved()){
-				
-				FeeDiscountHead discountHead = new FeeDiscountHead();
-				discountHead.setHead(AppConstants.FEEHEAD);
-				FeeTransaction feeTransaction = new FeeTransaction();
-				feeTransaction.setAmount(feeStaging.getAmount());
-			
-				
-			}
-		}
-		admissionBean.getStagingFee();
-		
-		return admissionBean;
+		return getAdmissionManagementView(basicInfo.getFileNo());
 	}
 }
 

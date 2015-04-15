@@ -2,111 +2,121 @@ var transportModule = angular.module('transportModule', []);
 
 transportModule.controller('transportController', ['$scope','transportService',function($scope,transportService) {
 
-			$scope.availableTransport = {};
+	$scope.availableTransport = {};
 
-			$scope.transportReservation = {};
-			
-			$scope.getAvailableTransport = function() {
+	$scope.transportReservation = {};
 
-				transportService.getAvailableTransport().then(function(response) {
-					console.log('Data received from service : ');
-					console.log(response);
-					if(response.data != null)
-						{
-						$scope.availableTransport=response.data;
-						}
-					else
-						{
-						console.log('Error getting transport inventory:'+data.error);
-						alert('Error getting transport inventory:'+data.error);
-						}
-				})
+	$scope.getAvailableTransport = function() {
 
+		transportService.getAvailableTransport().then(function(response) {
+			console.log('Data received from service : ');
+			console.log(response);
+			if(response.data != null)
+			{
+				$scope.availableTransport=response.data;
 			}
-
-			$scope.getReservedTransport = function(){
-				var fileNo=$scope.student.fileNo;
-				if(!fileNo){
-					return;
-				}
-				console.log('Getting current transport reservation for student : '+fileNo);
-				if(fileNo){				
-				transportService.getReservedTransport(fileNo)
-		              .then(function(response){
-		              console.log('Data received from getReservedTransport controller : ');
-			          console.log(response);
-			 if (response !=null && response.data != null && response.data.responseBody != null) {
-				 $scope.currentReservation = response.data.responseBody;
-			 } else {
-				 console.log(response.data.error);
-			 }
-		 })
+			else
+			{
+				console.log('Error getting transport inventory:'+data.error);
+				alert('Error getting transport inventory:'+data.error);
 			}
-				}
+		})
 
-			$scope.updateReservation = function(){
-				
-				 var fileNo=$scope.student.fileNo;
-            	 
-				 $scope.transportReservation.fileNo=fileNo;
-				 if($scope.transportReservation.routeCode != null)
-				 {            	 
-            	 
-            	 transportService.updateReservation($scope.transportReservation)
-			     .then(function(response){
+	}
+
+	$scope.getReservedTransport = function(){
+		var fileNo=$scope.student.fileNo;
+		if(!fileNo){
+			return;
+		}
+		console.log('Getting current transport reservation for student : '+fileNo);
+		if(fileNo){				
+			transportService.getReservedTransport(fileNo)
+			.then(function(response){
+				console.log('Data received from getReservedTransport controller : ');
+				console.log(response);
+				if (response !=null && response.data != null && response.data.responseBody != null) {
+					$scope.currentReservation = response.data.responseBody;
+				} else {
+					console.log(response.data.error);
+				}
+			})
+		}
+	}
+
+	$scope.saveTransport=function(){
+
+		if($scope.currentReservation.routeCode)
+		{
+			$scope.updateReservation();
+		}
+		else{
+			$scope.reserveTransport();
+		}
+	}
+	$scope.updateReservation = function(){
+
+		var fileNo=$scope.student.fileNo;
+
+		$scope.transportReservation.fileNo=fileNo;
+		if($scope.transportReservation.routeCode != null)
+		{            	 
+
+			transportService.updateReservation($scope.transportReservation)
+			.then(function(response){
 				console.log('update Transport Reservation callback');
 				console.log(response.data.responseBody);
 				$scope.currentReservation=response.data.responseBody;
 				$scope.syncReservationStatus();
 			})
-			}
-			}
-			
-			$scope.syncReservationStatus = function(){
-				
-				if($scope.currentReservation && $scope.currentReservation.fileNo){
-					
-					$scope.student.transportation=true;
-				}
-				else{
-					
-					$scope.student.transportation=false;
-				}
-				
-			}
-			
-			
-                 $scope.reserveTransport = function(){
-				
-                	 var fileNo=$scope.student.fileNo;
-                	 
-                	 $scope.transportReservation.fileNo=fileNo;
-                	 
-                	 transportService.reserveTransport($scope.transportReservation)
-				     .then(function(response){
-					console.log('Transport Reservation callback');
-					console.log(response.data.responseBody);
-					
-					$scope.currentReservation=response.data.responseBody;
-					$scope.syncReservationStatus();
-				})
-			}
+		}
+	}
 
-                 
-                 $scope.cancelReservation = function(){
-     				
-     				var fileNo=$scope.student.fileNo;
+	$scope.syncReservationStatus = function(){
 
-     				if(fileNo){
-     					transportService.cancelReservation(fileNo)
-     				.then(function(response){
-                           
-     					$scope.currentReservation = {};
-     					$scope.syncReservationStatus();
-     				})
-                    }}
+		if($scope.currentReservation && $scope.currentReservation.fileNo){
 
-		} ]);
+			$scope.student.transportation=true;
+		}
+		else{
+
+			$scope.student.transportation=false;
+		}
+
+	}
+
+
+	$scope.reserveTransport = function(){
+
+		var fileNo=$scope.student.fileNo;
+
+		$scope.transportReservation.fileNo=fileNo;
+
+		transportService.reserveTransport($scope.transportReservation)
+		.then(function(response){
+			console.log('Transport Reservation callback');
+			console.log(response.data.responseBody);
+
+			$scope.currentReservation=response.data.responseBody;
+			$scope.syncReservationStatus();
+		})
+	}
+
+
+	$scope.cancelReservation = function(){
+
+		var fileNo=$scope.student.fileNo;
+
+		if(fileNo){
+			transportService.cancelReservation(fileNo)
+			.then(function(response){
+
+				$scope.currentReservation = {};
+				$scope.syncReservationStatus();
+			})
+		}}
+
+} ]);
 
 transportModule.service('transportService', function($http, $q) {
 
@@ -149,52 +159,52 @@ transportModule.service('transportService', function($http, $q) {
 
 	}
 
-	
+
 	function reserveTransport(transportReservation) {
 
-		 console.log('Transport reservation called in service');
-		 var request = $http({
-			 method : "post",
-			 url : "transport/reservation",
-			 params : "",
-			 data : transportReservation
+		console.log('Transport reservation called in service');
+		var request = $http({
+			method : "post",
+			url : "transport/reservation",
+			params : "",
+			data : transportReservation
 
-		 });
+		});
 
-		 return (request.then(handleSuccess, handleError));
+		return (request.then(handleSuccess, handleError));
 
-	 }
-	
-	 function updateReservation(transportReservation) {
+	}
 
-		 console.log('update transport reservation called in service');
-		 var request = $http({
-			 method : "put",
-			 url : "transport/reservation",
-			 params : "",
-			 data : transportReservation
+	function updateReservation(transportReservation) {
 
-		 });
+		console.log('update transport reservation called in service');
+		var request = $http({
+			method : "put",
+			url : "transport/reservation",
+			params : "",
+			data : transportReservation
 
-		 return (request.then(handleSuccess, handleError));
+		});
 
-	 }
+		return (request.then(handleSuccess, handleError));
+
+	}
 
 
 	function cancelReservation(fileNo) {
-				var request = $http({
-					method : "delete",
-				url : "transport/reservation/" + fileNo,
+		var request = $http({
+			method : "delete",
+			url : "transport/reservation/" + fileNo,
 			params : {
-						action : "delete"
-					}
-				});
-		
-				return (request.then(handleSuccess, handleError));
-		
+				action : "delete"
 			}
+		});
 
-	
+		return (request.then(handleSuccess, handleError));
+
+	}
+
+
 
 	function handleError(response) {
 		console.log('handle error');

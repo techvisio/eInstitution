@@ -12,6 +12,7 @@ public class ScholarshipDetail {
 	private Date createdDate;
     private boolean approved; 
     private boolean reoccurring;
+    private boolean conditional;
     private Double parentIncome;
     private List<ScholarshipPaymentDetail> scholarshipPaymentDetail;
 	
@@ -69,6 +70,12 @@ public class ScholarshipDetail {
 	}
 	public void setParentIncome(Double parentIncome) {
 		this.parentIncome = parentIncome;
+	}
+	public boolean isConditional() {
+		return conditional;
+	}
+	public void setConditional(boolean conditional) {
+		this.conditional = conditional;
 	}
 
 

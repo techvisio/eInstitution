@@ -46,6 +46,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 				scholarshipDetail.setRemark(rs.getString("Remark"));
 				scholarshipDetail.setApproved(rs.getBoolean("Approved"));
 			    scholarshipDetail.setReoccurring(rs.getBoolean("Is_Reoccurring"));
+			    scholarshipDetail.setConditional(rs.getBoolean("Is_Conditional"));
 			    scholarshipDetail.setParentIncome(rs.getDouble("Parent_Income"));
 				return scholarshipDetail;			
 				
@@ -76,6 +77,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		.addValue("Remark", scholarshipDetail.getRemark())
 		.addValue("Approved", scholarshipDetail.isApproved())
 		.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring())
+		.addValue("Is_Conditional", scholarshipDetail.isConditional())
 		.addValue("Parent_Income", scholarshipDetail.getParentIncome());
 		
 		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);

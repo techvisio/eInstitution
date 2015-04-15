@@ -20,6 +20,7 @@ import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.ContextProvider;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.ManagementWorkflowManagerImpl;
@@ -99,26 +100,22 @@ public class FeeManagerImpl implements FeeManager{
 		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo,feeHeadId);
 		return feeStaging;
 	}
+	
+	@Override
+	public void moveStaggingandBaseFeetoTransaction(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStagging){
 
-	public void saveStudentFeeStaging(List<StudentFeeStaging> newStagging) {
+		Long fileNo = basicInfo.getFileNo();
 		List<FeeTransaction> creditFeetransaction = new ArrayList<FeeTransaction>();
 		List<FeeTransaction> debitFeetransaction = new ArrayList<FeeTransaction>();
 
-		Long fileNo = null;
 		if (newStagging != null) {
-			for (StudentFeeStaging feeStaging : newStagging) {
-				fileNo = feeStaging.getFileNo();
-			}
-		}
-
-		if (fileNo != null) {
 			List<StudentFeeStaging> oldFeeStagingObj = feeDetailDao.getStudentFeeStaging(fileNo, null);
 			List<StudentFeeStaging> newFeeStagingObj = newStagging;
 
 			Set<StudentFeeStaging> oldFeeStagingSet = new HashSet<StudentFeeStaging>(oldFeeStagingObj);
 			Set<StudentFeeStaging> newFeeStagingSet = new HashSet<StudentFeeStaging>(newStagging);
 
-			// getting new Data of Feestaging
+			//getting new Data of Feestaging
 			newFeeStagingSet.removeAll(oldFeeStagingSet);
 
 			// iterate over new obj and creating fee transaction
@@ -135,13 +132,9 @@ public class FeeManagerImpl implements FeeManager{
 			
 			//creating map of old vs new objects for comparing older and new approved status
 			Map<StudentFeeStaging, StudentFeeStaging> feeStagingMap = new HashMap<StudentFeeStaging, StudentFeeStaging>();
-			
 			for(StudentFeeStaging oldFeeStaging : oldFeeStagingObj){
-				
 				for(StudentFeeStaging newFeeStaging : newFeeStagingObj){
-					
 					if(oldFeeStaging.equals(newFeeStaging)){
-                         
 						feeStagingMap.put(oldFeeStaging, newFeeStaging);
 						break;
 					}
@@ -151,75 +144,63 @@ public class FeeManagerImpl implements FeeManager{
 			for(StudentFeeStaging oldFeeStag:feeStagingMap.keySet())
 			{
 				StudentFeeStaging newFeeStag=feeStagingMap.get(oldFeeStag);
-				
-				if(newFeeStag!=null){
+				if(newFeeStag!=null && "W".equalsIgnoreCase(newFeeStag.getDiscountHead().getTransactionType())){
 					if(newFeeStag.isApproved() && !oldFeeStag.isApproved()){
-						
 						FeeTransaction feeTransaction = new FeeTransaction();
 						feeTransaction.setFeeDiscountHead(newFeeStag.getDiscountHead());
 						feeTransaction.setAmount(newFeeStag.getAmount());
-						
 						creditFeetransaction.add(feeTransaction);
 					}
 					else if(!newFeeStag.isApproved() && oldFeeStag.isApproved()){
-						
 						oldFeeStag.getDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
-
 						FeeTransaction feeTransaction = new FeeTransaction();
 						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
 						feeTransaction.setAmount(oldFeeStag.getAmount());
-						
 						debitFeetransaction.add(feeTransaction);
 					}
 				}
+				//if no new entry found against old record means record is to be deleted
+				//check if it was approved earlier if so create a reversal
 				else{
-					
-					if(oldFeeStag.isApproved()){
-						
+					if(oldFeeStag.isApproved() && "W".equalsIgnoreCase(oldFeeStag.getDiscountHead().getTransactionType())){
 						oldFeeStag.getDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
-
 						FeeTransaction feeTransaction = new FeeTransaction();
 						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
 						feeTransaction.setAmount(oldFeeStag.getAmount());
-						
 						debitFeetransaction.add(feeTransaction);
-						
 					}
 				}
-				
+			}
+		}
+		
+		//creating base applicable fee and other amenties charges
+		Boolean managemetApproval=isManagementApproved(fileNo);
+		if(!managemetApproval){
+			
+			ApplicableFeeCriteria criteria = CommonUtil.getApplicableFeeCriteriaFromStudentBasicInfo(basicInfo);
+			List<ApplicableFeeDetail> applicableFee=getApplicableFeeDetail(criteria);
+			
+			for(ApplicableFeeDetail applicableFeeDetail:applicableFee){
+				FeeTransaction feeTransaction = new FeeTransaction();
+                feeTransaction.setAmount(applicableFeeDetail.getFeeAmount());
+                feeTransaction.setFeeDiscountHead(applicableFeeDetail.getFeeDetail());
+                debitFeetransaction.add(feeTransaction);
 			}
 			
-			Boolean managemetApproval=isManagementApproved(fileNo);
-			if(!managemetApproval){
-				
-				StudentBasicInfo basicInfo = admissionManager.getStudentBsInfo(fileNo);
-				ManagementWorkflowManager managementWorkflowManager = new ManagementWorkflowManagerImpl();
-				List<ApplicableFeeDetail> applicableFee=managementWorkflowManager.getApplicableFee(basicInfo);
-				
-				for(ApplicableFeeDetail applicableFeeDetail:applicableFee){
-				
+			for(StudentFeeStaging feeStaging:newStagging){
+				if("D".equalsIgnoreCase(feeStaging.getDiscountHead().getTransactionType())){
 					FeeTransaction feeTransaction = new FeeTransaction();
-                    feeTransaction.setAmount(applicableFeeDetail.getFeeAmount());
-                    feeTransaction.setFeeDiscountHead(applicableFeeDetail.getFeeDetail());
-                    debitFeetransaction.add(feeTransaction);
-				}
-				
-				for(StudentFeeStaging feeStaging:newStagging){
-					
-					if(feeStaging.getDiscountHead().getTransactionType().equalsIgnoreCase("D")){
-
-						FeeTransaction feeTransaction = new FeeTransaction();
-						feeTransaction.setFeeDiscountHead(feeStaging.getDiscountHead());
-						feeTransaction.setAmount(feeStaging.getAmount());
-						debitFeetransaction.add(feeTransaction);
-					}
+					feeTransaction.setFeeDiscountHead(feeStaging.getDiscountHead());
+					feeTransaction.setAmount(feeStaging.getAmount());
+					debitFeetransaction.add(feeTransaction);
 				}
 			}
-
+		
+			StudentDetail sd=admissionManager.getStudentDtl(fileNo);
+			sd.setManagementApproval(true);
+			admissionManager.updateStudentDtl(sd);
+			
 		}
-
-		feeDetailDao.saveStudentFeeStaging(newStagging);
-
 		for(FeeTransaction feeTransaction : creditFeetransaction){
 			
 			feeTransaction.setFileNo(fileNo);
@@ -229,25 +210,21 @@ public class FeeManagerImpl implements FeeManager{
 		
 		for(FeeTransaction feeTransaction : debitFeetransaction){
 
-			StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
-            Boolean managemetApproval=isManagementApproved(fileNo); 
-            if(managemetApproval==false){
-			for(StudentFeeStaging feeStaging:newStagging){
-				
-				if(feeStaging.getDiscountHead().getTransactionType().equalsIgnoreCase("D")){
-					
-					feeTransaction.setAmount(feeStaging.getAmount());
-					studentDetail.setManagementApproval(true);
-					admissionManager.updateStudentDtl(studentDetail);
-				}
-			}
-            }
 			feeTransaction.setFileNo(fileNo);
 			feeDetailDao.addFeeTransactionDebit(feeTransaction);
 		}
+		
+		feeDetailDao.saveStudentFeeStaging(newStagging);
 	}
 
-	
+	public void saveStudentFeeStaging(List<StudentFeeStaging> newStagging) {
+
+		feeDetailDao.saveStudentFeeStaging(newStagging);
+	}
+
+	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+		feeDetailDao.saveStudentFeeStaging(studentFeeStaging);
+	}	
 	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging){
 
 		feeDetailDao.deleteStudentFeeStagingByFileNo(feeStaging);

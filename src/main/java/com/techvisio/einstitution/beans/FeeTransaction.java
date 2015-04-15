@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 
 public class FeeTransaction {
-	private FeeDiscountHead feeDiscountHead;
+	private FeeDiscountHead feeDiscountHead=new FeeDiscountHead();
 	private String user;
 	private Date createdDate;
 	private String remark;

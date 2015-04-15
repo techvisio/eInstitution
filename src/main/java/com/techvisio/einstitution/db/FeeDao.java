@@ -35,6 +35,7 @@ public interface FeeDao {
 	List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria);
 	void generateDiscountforStudent(Long fileNo);
 	Boolean isManagementApproved(Long fileNo);
+	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	
 		
 }

@@ -53,47 +53,44 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 			ScholarshipDetail newScholarshipDetail) {
 
 		ScholarshipDetail newScholarshipObj = newScholarshipDetail;
-		ScholarshipDetail oldScholarshipObj = scholarshipDao
-				.getScholarshipDetail(newScholarshipObj.getFileNo());
+		ScholarshipDetail oldScholarshipObj = scholarshipDao.getScholarshipDetail(newScholarshipObj.getFileNo());
 
 		if (newScholarshipObj != null && newScholarshipObj.getStateId() != null) {
 			if (oldScholarshipObj != null) {
 
-				if (newScholarshipObj.isApproved()
-						&& !oldScholarshipObj.isApproved()) {
+				if (newScholarshipObj.isApproved() && !oldScholarshipObj.isApproved()) {
 
 					FeeTransaction feeTransaction = new FeeTransaction();
 					feeTransaction.setAmount(newScholarshipObj.getAmount());
-					feeTransaction.getFeeDiscountHead().setHeadId(
-							AppConstants.SCHOLARSHIP_HEAD_ID);
-
+					feeTransaction.setFileNo(newScholarshipDetail.getFileNo());
+					feeTransaction.getFeeDiscountHead().setHeadId(AppConstants.SCHOLARSHIP_HEAD_ID);
 					feeManager.addFeeTransactionCredit(feeTransaction);
 				}
 
-				else if (!newScholarshipObj.isApproved()
-						&& oldScholarshipObj.isApproved()) {
+				else if (!newScholarshipObj.isApproved() && oldScholarshipObj.isApproved()) {
 
 					FeeTransaction feeTransaction = new FeeTransaction();
 					feeTransaction.setAmount(oldScholarshipObj.getAmount());
-					feeTransaction.getFeeDiscountHead().setHeadId(
-							AppConstants.REVERSAL_ID);
+					feeTransaction.setFileNo(newScholarshipDetail.getFileNo());
+					feeTransaction.getFeeDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
 					feeManager.addFeeTransactionDebit(feeTransaction);
 				}
 
-				else {
+			}
+			else {
 
-					if (oldScholarshipObj.isApproved()) {
+				if (newScholarshipObj.isApproved()) {
 
-						FeeTransaction feeTransaction = new FeeTransaction();
-						feeTransaction.setAmount(oldScholarshipObj.getAmount());
-						feeTransaction.getFeeDiscountHead().setHeadId(
-								AppConstants.REVERSAL_ID);
-						feeManager.addFeeTransactionDebit(feeTransaction);
-					}
+					FeeTransaction feeTransaction = new FeeTransaction();
+					feeTransaction.setAmount(newScholarshipObj.getAmount());
+					feeTransaction.setFileNo(newScholarshipDetail.getFileNo());
+					feeTransaction.getFeeDiscountHead().setHeadId(AppConstants.SCHOLARSHIP_HEAD_ID);
+					feeManager.addFeeTransactionCredit(feeTransaction);
 				}
 			}
-
 		}
 
+		addScholarDetail(newScholarshipDetail);
 	}
+	
 }

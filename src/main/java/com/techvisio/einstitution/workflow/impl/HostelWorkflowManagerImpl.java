@@ -114,9 +114,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		stagingFee.setDiscountHead(discountHead);;
 		stagingFee.setAmount(reservedObject.getPrice());
 		
-		List<StudentFeeStaging> feeStagings = new ArrayList<StudentFeeStaging>();
-         feeStagings.add(stagingFee); 		
-		feeManager.saveStudentFeeStaging(feeStagings);
+		feeManager.saveStudentFeeStaging(stagingFee);
 		
 		return fileNo;
 

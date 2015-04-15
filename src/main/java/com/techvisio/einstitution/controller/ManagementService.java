@@ -72,7 +72,7 @@ public class ManagementService {
 	
 
 @RequestMapping(value = "/updateManagementChanges", method = RequestMethod.PUT)
-public  ResponseEntity<Response> getUnapprovedAdmissions(@RequestBody ManagementAdmissionBean admissionBean ){
+public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmissionBean admissionBean ){
 	
 	Response response = new Response();
 	try

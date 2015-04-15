@@ -5,7 +5,8 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 	$scope.hostelAvailability = {};
 
 	$scope.hostelReservation={};
-
+	$scope.isNew=false;
+	
 	$scope.getHostelAvailability = function() {
 
 		hostelService.getHostelAvailability().then(function(response) {
@@ -58,6 +59,17 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 
 	}
 
+	$scope.saveHostel = function(){
+		
+		if($scope.currentReservation.typeCode){
+			 $scope.updateReservation();
+		 }
+		 else
+		 {
+			 $scope.reserveRoom();
+		 }
+
+	}
 
 	$scope.reserveRoom = function(){
 
@@ -69,6 +81,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 			console.log('Hostel Reservation callback');
 			console.log(response.data.responseBody);
 			$scope.currentReservation=response.data.responseBody;
+			$scope.isNew=true;
 			$scope.syncReservationStatus();
 		})
 	}
@@ -86,8 +99,8 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 			.then(function(response){
 				console.log('update hostel Reservation callback');
 				console.log(response.data.responseBody);
-
 				$scope.currentReservation=response.data.responseBody;
+				$scope.isNew=false;
 				$scope.syncReservationStatus();
 			})
 		}

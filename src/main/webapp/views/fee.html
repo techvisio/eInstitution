@@ -136,19 +136,23 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	</tr>
 	<tr>
 	<th>Domicile State</th>
-	<td><select ng-model="admissionDetailManagement.scholarship.stateId" ng-option=""></td>
+	<td><select ng-model="admissionDetailManagement.scholarship.stateId" ng-options= "item.id*1 as item.value for item in serverModelData.dropdownMasterData.STATE" ></td>
 	<th>Scholarship Amount</th>
 	<td><input type="text" ng-model="admissionDetailManagement.scholarship.amount" ng-option=""></td>
 	</tr>
 	<tr>
-<td>Remarks</td>
-	<td><textArea rows="3" cols="33"  ng-model="admissionDetailManagement.scholarship.remark"></textArea></td>
+<td>Family Income</td>
+	<td><input type="number" ng-model="admissionDetailManagement.scholarship.parentIncome"></textArea></td>
 <td colspan=2>
-	<button type="button" class="btn btn-primary" ng-class="{'btn-success':object.approved}" ng-click="object.approved= !object.approved">Approve</button>
-	<button type="button" class="btn btn-primary" ng-class="{'btn-success':object.reoccuring}" ng-click="object.reoccuring= !object.isReoccuring">Reoccuring</button>
-	<button type="button" class="btn btn-primary" ng-class="{'btn-success':object.conditional}" ng-click="object.conditional= !object.isConditional">Conditional</button></td>	
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':admissionDetailManagement.scholarship.approved}" ng-model="admissionDetailManagement.scholarship.approved" ng-click="admissionDetailManagement.scholarship.approved= !admissionDetailManagement.scholarship.approved">Approve</button>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':admissionDetailManagement.scholarship.reoccurring}" ng-model="admissionDetailManagement.scholarship.reoccurring" ng-click="admissionDetailManagement.scholarship.reoccurring= !admissionDetailManagement.scholarship.reoccurring">Reoccuring</button>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':admissionDetailManagement.scholarship.conditional}" ng-model="admissionDetailManagement.scholarship.conditional" ng-click="admissionDetailManagement.scholarship.conditional= !admissionDetailManagement.scholarship.conditional">Conditional</button></td>	
 
 	</tr>
+	<tr>
+<td>Remarks</td>
+	<td><textArea rows="3" cols="33"  ng-model="admissionDetailManagement.scholarship.remark"></textArea></td>
+</tr>
 	<tr>
 	<td><span class="header">Proposed Discounts</span></td>
 	</tr>			
@@ -167,6 +171,26 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 						    </a></td>></</tr>
 	<tr>
 <tr><td><button type="button" class="btn btn-primary"ng-click="addNewDiscount()">Add New Discount</button></td></tr>
+
+  <tr>
+	<td><span class="header" rows="5" cols="33">Instruction By Management</span></td>
+  </tr>
+
+<tr>
+<td>Remark By Enquiry</td>
+	<td><textArea rows="3" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.enquiryRemark"></textArea></td>
+</tr>
+<tr>
+<td>Remark By Fee</td>
+	<td><textArea rows="3" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.feeRemark"></textArea></td>
+</tr>
+<tr>
+<td>Remark By Management</td>
+	<td><textArea rows="3" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.managementRemark"></textArea></td>
+</tr>
+
+
+
 <td><button type="button" class="btn btn-primary btn-lg"
 								ng-click="form.content='dashboard'">Back to DashBoard</button></td>
 						<td><button type="button" class="btn btn-success btn-lg"

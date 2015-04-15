@@ -76,6 +76,11 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		return feeStaging;
 	}
 
+	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+	
+		feeManager.saveStudentFeeStaging(studentFeeStaging);
+	}
+	
 	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings){
 		feeManager.saveStudentFeeStaging(studentFeeStagings);
 		
@@ -135,5 +140,10 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	public Boolean isManagementApproved(Long fileNo){
 		
 		return feeManager.isManagementApproved(fileNo);
+	}
+
+	@Override
+	public void handleManagementChangesforDiscounts(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStaggingDiscounts) {
+		feeManager.moveStaggingandBaseFeetoTransaction(basicInfo, newStaggingDiscounts);
 	}
 	}
