@@ -227,7 +227,7 @@
 			<tr ng-repeat="object in dueEnquiries">
 				<td>{{object.name}}</td>
 				<td>{{object.fatherName}}</td>
-				<td>{{}}</td>
+				<td>{{object.course.course}}</td>
 				<td><button type="button" class="btn btn-success btn-xs"
 						ng-click="showDetail($index)">Detail</button></td>
 			</tr>
