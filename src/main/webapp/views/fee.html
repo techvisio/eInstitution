@@ -50,39 +50,14 @@
 		</tr>
 	</table>
 </div>
-	<div class="searchList">
-<table>
-<tr>
-	<td colspan="2" ng-show="searchResultList.length>0"><span
-		class="header">SEARCH RESULT</span></td>
-</tr>
-<tr><td colspan=2>
-<button type="button" class="btn btn-primary btn-lg"
-					ng-click="">New Search</button>
-</td></tr>
-<tr>
-	<th><span>Name</span></th>
-	<th><span>Father Name</span></th>
-	<th><span>DOB</span></th>
-	<th><span>Course</span></th>
-	<th><span>Branch</span></th>
-</tr>
-<tr ng-repeat="object in filteredSearch">
-	<td><span>{{object.firstName}}</span></td>
-	<td><button ng-click="getFeeTransactionAndBasicInfoDetail(object.fileNo)">Fee</button></td>
-	<td><button ng-click="getAdmissionDetailManagement(object.fileNo)">Management</button></td>
-</tr>
-<tr>
-<td colspan=2>
-<pagination total-items="totalItems" items-per-page="itemsPerPage" 
-ng-model="currentPage" ng-change="pageChanged()"></pagination>
-
-</td>
-</tr>
-
-</table>
-
-</div>
+<div class="searchList" ng-show="!showCriteria && searchResultList.length>0">
+				<span class="header">Double click a record to see Details</span>
+				<p>
+			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+         ng-model="currentPage" ng-change="pageChanged()"></pagination>
+        
+	</div>
 </div>
  </script> 
 	
