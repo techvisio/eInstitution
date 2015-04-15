@@ -44,45 +44,15 @@
 								ng-click="getStudentByCriteria()">Get Details</button></td>
 					</tr>
 				</table>
-				<div class="searchList">
-<table>
-<tr>
-	<td colspan="2" ng-show="searchResultList.length>0"><span
-		class="header">SEARCH RESULT</span></td>
-</tr>
-<tr><td colspan=2>
-<button type="button" class="btn btn-primary btn-lg"
-					ng-click="">New Search</button>
-</td></tr>
-<tr>
-	<th><span>Name</span></th>
-	<th><span>Father Name</span></th>
-	<th><span>DOB</span></th>
-	<th><span>Course</span></th>
-	<th><span>Branch</span></th>
-	<th><span>Registration No</span></th>
-</tr>
-<tr ng-repeat="object in filteredSearch" ng-click="showStudentDetail($index)">
-	<td><span>{{object.firstName}}</span></td>
-	<td><span>{{object.fatherName}}</span></td>
-	<td><span>{{object.dob}}</span></td>
-	<td><span>{{object.course.course}}</span></td>
-	<td><span>{{object.branch.branchName}}</span></td>
-	<td><span>{{object.registrationNo}}</span></td>
-	<td><button ng-click="">Fee</button></td>
-</tr>
-<tr>
-<td colspan=2>
-<pagination total-items="totalItems" items-per-page="itemsPerPage" 
-ng-model="currentPage" ng-change="pageChanged()"></pagination>
-
-</td>
-</tr>
-
-</table>
-
-</div>
 			</div>
+			<div class="searchList" ng-show="!showCriteria && searchResultList.length>0">
+				<span class="header">Double click a record to see Details</span>
+				<p>
+			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+         ng-model="currentPage" ng-change="pageChanged()"></pagination>
+        
+	</div>
 		</div>
 
 		<div class="side-live-bar" ng-init="getLatestAdmission()">

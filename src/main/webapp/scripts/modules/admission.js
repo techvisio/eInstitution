@@ -45,69 +45,22 @@ admissionModule
 			 $scope.searchResultList=[];
 			$scope.filteredSearch=[];
 
-			 $scope.dummyAddress = {
-					 "houseNo" : null,
-					 "locality" : null,
-					 "landmark" : null,
-					 "district" : null,
-					 "city" : null,
-					 "pincode" : null,
-					 "fileNo" : null,
-					 "addressType" : null,
-					 "state" : null
-			 };
-			 $scope.dummyQualification = {
-					 "university" : null,
-					 "collegeName" : null,
-					 "passingYear" : null,
-					 "percentage" : 0.0,
-					 "rollNo" : null,
-					 "fileNo" : null,
-					 "qualificationId" : null,
-					 "qualificationSubDtl" : [ {
-						 "subjectId" : null,
-						 "qualificationId" : null,
-						 "fileNo" : null,
-						 "marksObtained" : 0.0,
-						 "maxMarks" : 0.0
-					 } ]
-			 };
-			 $scope.dummyQualificationSubDtl = {
-					 "subjectId" : null,
-					 "qualificationId" : null,
-					 "fileNo" : null,
-					 "marksObtained" : 0.0,
-					 "maxMarks" : 0.0
-			 };
+			 $scope.dummyAddress = {};
+			 $scope.dummyQualification = {"qualificationSubDtl" : [ {} ] };
+			 $scope.dummyQualificationSubDtl = {};
 
-			 $scope.dummyDiscountDtl = {
-					 "fileNo" : null,
-					 "feeHeadId" : null,
-					 "amount" : 0.0,
-					 "percent" : 0.0,
-					 "discountType" : null   
-			 };
+			 $scope.dummyDiscountDtl = {};
 
-			 $scope.dummyCounsellingDtl = {
-					 "fileNo" : null, 
-					 "counsellingId" : null,
-					 "rollNo" : null,
-					 "rank" : null,
-					 "categoryRank" : null,
-					 "percentile" : 0.0
-			 };
+			 $scope.dummyCounsellingDtl = {};
 
 
-			 $scope.dummyConsultantDetail={
-					 
-					 "consultantId" : null
-			 };
+			 $scope.dummyConsultantDetail={};
 			 
 			 $scope.admissionMode={"C":"Counselling",
 					 "W":"Walk-In",
 					 "R":"Referral",
 					 "A":"Consultant"	 };
-			 $scope.itemsPerPage = 5
+			 $scope.itemsPerPage = 9;
 			  $scope.currentPage = 0;
 			 $scope.totalItems = 0;
 
@@ -123,8 +76,20 @@ admissionModule
 				var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
 				, end = begin + $scope.itemsPerPage;
 
-				$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
+			$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
 			});
+			
+			  $scope.gridOptions = {
+				      multiSelect:false,
+				        data: 'filteredSearch',
+				        rowTemplate: '<div ng-dblclick="getStudent(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+				        columnDefs: [{ field: "firstName", width: 100,displayName :"FirstName"},
+				                     { field: "lastName", width: 100,displayName :"LastName"},
+				                    { field: "fatherName", width: 180,displayName :"Father Name" },
+				                    { field: "course.course", width: 140,displayName :"Course" },
+				                    { field: "branch.branchName", width: 180,displayName :"Branch" },
+				                    {field:"applicationStatus",width:200,displayName :"Status"}]
+				    };
 
 			 $scope.LoadMoreData = function() {
 
@@ -469,6 +434,7 @@ admissionModule
 					 console.log(response);
 					 if (response != null && response.data != null && response.data.responseBody != null) {
 						$scope.searchResultList=response.data.responseBody;
+						$scope.showCriteria=false;
 						$scope.currentPage=1;
 					 } else {
 						 console.log(response.data.error);
