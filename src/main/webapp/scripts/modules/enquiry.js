@@ -76,6 +76,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	 }
 	$scope.getEnquiryBySearchCriteria = function() {
 		 console.log('get enquiry by search criteria in controller');
+		 $scope.currentPage = 0;
 		 enquiryService.getEnquiryBySearchCriteria($scope.searchCriteria)
 		 .then(function(response) {
 			 console.log('Data received from service in controller : ');

@@ -149,6 +149,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 	$scope.getSearchResult=function(){
 		console.log('get student by search criteria in controller');
 		console.log($scope.searchCriteria);
+		 $scope.currentPage = 0;
 		admissionService.getStudentByCriteria($scope.searchCriteria)
 		.then(function(response) {
 			console.log('Data received from service in controller : ');

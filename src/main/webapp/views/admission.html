@@ -422,10 +422,10 @@
 								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
 							<td><span>Marks Obtained</span></td>
 							<td><input type="Text" ng-model="subject.marksObtained"
-								ng-Readonly="!form.isEdit && !form.isNew" required></td>
+								ng-Readonly="!form.isEdit && !form.isNew"></td>
 							<td><span>Maximum Marks</span></td>
 							<td><input type="Text" ng-model="subject.maxMarks"
-								ng-Readonly="!form.isEdit && !form.isNew" required></td>
+								ng-Readonly="!form.isEdit && !form.isNew"></td>
 							<td><img height="35" width="35" ng-src="images/plus.png"
 								ng-click="addSubject(object)" /></td>
 							<td><img height="35" width="35" ng-src="images/minus.png"
@@ -587,7 +587,7 @@
 								<td><span> Semester </span></td>
 								<td><select select ng-model="student.semester"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}" required></select>
+									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}" ></select>
 								</td>
 							</tr>
 						<tr>

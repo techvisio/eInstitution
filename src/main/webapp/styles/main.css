@@ -841,7 +841,7 @@ color:#50A4D0;
 	padding-right: 10px;
 }
 
-.content .enquiry-detail-div input[type="text"],.content .enquiry-detail-div select {
+.content .enquiry-detail-div input[type="text"],.content .enquiry-detail-div select,.content .enquiry-detail-div input[type="number"] {
 	width:250px;
 	height:25px;
 }

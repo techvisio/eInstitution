@@ -215,7 +215,7 @@ SELECT
 	ftd.Mode,
     ftd.Amount
     	
- from feetransactiondebit ftd join studentDetail sd on sd.session_id=ftd.session_id and sd.batch_id=ftd.batch_id where ftd.file_no=:File_No;
+ from feetransactiondebit ftd join studentDetail sd on sd.session_id=ftd.session_id and sd.batch_id=ftd.batch_id and sd.File_No = ftd.File_No where ftd.file_no=:File_No;
 ]]>
 
 	</entry>
@@ -277,7 +277,7 @@ Insert into feetransactionDebit
 	ftc.Mode,
 	ftc.Amount
 	
-from feetransactionCredit ftc join studentDetail sd on sd.session_id=ftc.session_id and sd.batch_id=ftc.batch_id where ftc.file_no=:File_No;
+from feetransactionCredit ftc join studentDetail sd on sd.session_id=ftc.session_id and sd.batch_id=ftc.batch_id and sd.File_No = ftc.File_No where ftc.file_no=:File_No;
 ]]>
 
 	</entry>
