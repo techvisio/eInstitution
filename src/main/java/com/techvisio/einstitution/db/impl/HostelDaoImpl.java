@@ -207,7 +207,7 @@ return hostelAllocation;
 	public HostelReservation getHostelReservation(Long fileNo) {
 		String getQuery = hostelQueryProps.getProperty("getHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-HostelReservation hostelReservation = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<HostelReservation>(){
+        HostelReservation hostelReservation = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<HostelReservation>(){
 
 	public HostelReservation mapRow(ResultSet rs, int rowNum)
 			throws SQLException {

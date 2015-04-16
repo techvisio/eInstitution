@@ -137,7 +137,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 				Long feeId=(CommonUtil.getLongValue(rs.getLong("FEE_HEAD_ID")));
 				FeeDiscountHead feeDiscountHead=cacheManager.getFeeDiscountById(feeId);
 				detail.setFeeDetail(feeDiscountHead);
-				//detail.setSemester(rs.getInt("SEMESTER"));
 				detail.setCentreId(CommonUtil.getLongValue(rs.getLong("Centre_Id")));
 				detail.setShiftId(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
 				detail.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
@@ -168,7 +167,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	private MapSqlParameterSource getParameterMap(ApplicableFeeDetail feeDetail){
 		return new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeDetail().getHeadId())
 		.addValue("COURSE",feeDetail.getCourse())
-		//.addValue("SEMESTER", feeDetail.getSemester())
 		.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
 		.addValue("BRANCH", feeDetail.getBranch())
 		.addValue("Session_Id", feeDetail.getSessionId())

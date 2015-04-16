@@ -230,7 +230,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 		TransportReservation transportReservation = null;
 
-		if (transportReservations != null) {
+		if (transportReservations != null && transportReservations.size()>0) {
 
 			transportReservation = transportReservations.get(0);
 		}

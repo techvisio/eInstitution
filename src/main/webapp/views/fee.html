@@ -130,6 +130,7 @@
 </tr>
 	<tr>
 	<td><span class="header">Proposed Discounts</span></td>
+<td><button type="button" class="btn btn-primary"ng-click="addNewDiscount()">Add New Discount</button></td>
 	</tr>			
 	<tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('W')">
     <td><select ng-model="object.discountHead.headId"
@@ -145,23 +146,13 @@
 							class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
 						    </a></td>></</tr>
 	<tr>
-<tr><td><button type="button" class="btn btn-primary"ng-click="addNewDiscount()">Add New Discount</button></td></tr>
 
   <tr>
-	<td><span class="header" rows="5" cols="33">Instruction By Management</span></td>
+	<td colspan="4"><span class="header">Instruction By Management</span></td>
   </tr>
 
 <tr>
-<td>Remark By Enquiry</td>
-	<td><textArea rows="3" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.enquiryRemark"></textArea></td>
-</tr>
-<tr>
-<td>Remark By Fee</td>
-	<td><textArea rows="3" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.feeRemark"></textArea></td>
-</tr>
-<tr>
-<td>Remark By Management</td>
-	<td><textArea rows="3" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.managementRemark"></textArea></td>
+	<td><textArea rows="4" cols="33" ng-model="admissionDetailManagement.basicInfo.remark.managementRemark"></textArea></td>
 </tr>
 
 
@@ -211,10 +202,10 @@
 		<tr>
 			<td><span> Course </span></td>
 			<td><input type="text"
-				ng-model="feeTransactionAdmissionBean.basicInfo.course"></td>
+				ng-model="feeTransactionAdmissionBean.basicInfo.course.course"></td>
 			<td><span> Branch </span></td>
 			<td><input type="text"
-				ng-model="feeTransactionAdmissionBean.basicInfo.branch"></td>
+				ng-model="feeTransactionAdmissionBean.basicInfo.branch.branchName"></td>
 		</tr>
 		<tr><td><input type="submit"
 				ng-click="getFeeTransactionAndBasicInfoDetail(feeTransactionAdmissionBean.basicInfo.fileNo)"></td></tr>

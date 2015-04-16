@@ -120,14 +120,6 @@ public class AdmissionService {
 				response.setError("No such record found");
 			}
 			}
-		catch(EmptyResultDataAccessException e)
-		{
-			response.setError("No such record found");
-		}
-		catch(IncorrectResultSizeDataAccessException e)
-		{
-			response.setError("multiple record found for this identifier");
-		}
 			catch(Exception e)
 			{
 			e.printStackTrace();
@@ -146,6 +138,7 @@ public class AdmissionService {
 			response.setResponseBody(info); 
 				
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -163,6 +156,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

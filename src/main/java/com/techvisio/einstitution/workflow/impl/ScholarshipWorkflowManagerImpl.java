@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.workflow.impl;
 
 import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.manager.ScholarshipManager;
 import com.techvisio.einstitution.manager.impl.ScholarshipManagerImpl;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
@@ -28,9 +29,9 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 		scholarshipManager.deleteScholarshipDetail(fileNo);
 	}
 
-	public void accomodateManagementChanges(ScholarshipDetail newScholarshipDetail){
+	public void accomodateManagementChanges(StudentBasicInfo basicInfo, ScholarshipDetail newScholarshipDetail){
 		
-		scholarshipManager.accomodateManagementChanges(newScholarshipDetail);
+		scholarshipManager.accomodateManagementChanges(basicInfo, newScholarshipDetail);
 	}
 	
 }

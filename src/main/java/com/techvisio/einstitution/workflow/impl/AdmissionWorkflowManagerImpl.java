@@ -3,6 +3,7 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
@@ -28,7 +29,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
 		Long fileNo = admissionManager.addStudentDtl(studentDetail);
-		
+
 		if(studentDetail.getConsultantDetail() !=null){
 		List<ConsultantDetail> consultantDetails = studentDetail.getConsultantDetail();
 		if(consultantDetails != null){
@@ -137,6 +138,18 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		
 		return fileNo;
 		
+	}
+
+	@Override
+	public Remark getRemarkByFileNo(Long fileNo) {
+		
+		return admissionManager.getRemarkByFileNo(fileNo);
+	}
+
+	@Override
+	public void saveRemark(Remark remark) {
+
+		admissionManager.saveRemark(remark);
 	}
 	
 }

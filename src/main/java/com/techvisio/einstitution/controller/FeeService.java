@@ -142,6 +142,7 @@ public class FeeService {
 			List<FeeTransaction> transactions = manager.getDebitedFeeTransaction(fileNo);
 			response.setResponseBody(transactions);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 
@@ -253,6 +254,7 @@ public class FeeService {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

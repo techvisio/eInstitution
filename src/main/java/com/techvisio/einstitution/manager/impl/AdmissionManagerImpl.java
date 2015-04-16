@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
@@ -135,6 +136,18 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
 		List<StudentBasicInfo> basicInfos = admissionDao.getUnapprovedAdmissions(limit);
 		return basicInfos;
+	}
+
+	@Override
+	public Remark getRemarkByFileNo(Long fileNo) {
+		
+		return admissionDao.getRemarkByFileNo(fileNo);
+	}
+
+	@Override
+	public void saveRemark(Remark remark) {
+
+		admissionDao.saveRemark(remark);
 	}
 
 }

@@ -16,6 +16,7 @@ import com.techvisio.einstitution.beans.ManagementAdmissionBean;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
@@ -78,8 +79,9 @@ public  ResponseEntity<Response> updateManagementChanges(@RequestBody Management
 	try
 	{
 		ManagementWorkflowManager managementWorkflowManager = new ManagementWorkflowManagerImpl();
+        AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
+		admissionBean.getBasicInfo().getRemark().setFileNo(admissionBean.getBasicInfo().getFileNo());
 	    admissionBean = managementWorkflowManager.updateManagementChanges(admissionBean);
-	    
 	    response.setResponseBody(admissionBean);
 	}
 	catch(Exception e)

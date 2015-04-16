@@ -45,11 +45,13 @@ public class ScholarshipService {
 		}
 		catch(EmptyResultDataAccessException e)
 		{
+			e.printStackTrace();
 			response.setError("No such record found");
 		}
 		
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}

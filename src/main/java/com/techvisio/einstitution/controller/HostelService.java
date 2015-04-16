@@ -43,6 +43,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 		

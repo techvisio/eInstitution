@@ -109,6 +109,11 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
 
+		AdmissionWorkflowManager admissionWorkFlow = new AdmissionWorkflowManagerImpl();
+		Long fileNo = feeTransaction.getFileNo();
+		StudentBasicInfo basicInfo = admissionWorkFlow.getStudentBsInfo(fileNo);
+		feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
+		feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
 		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
     @Override
@@ -146,4 +151,5 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	public void handleManagementChangesforDiscounts(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStaggingDiscounts) {
 		feeManager.moveStaggingandBaseFeetoTransaction(basicInfo, newStaggingDiscounts);
 	}
-	}
+
+		}

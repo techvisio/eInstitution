@@ -5,6 +5,8 @@ transportModule.controller('transportController', ['$scope','transportService',f
 	$scope.availableTransport = {};
 
 	$scope.transportReservation = {};
+	
+	$scope.currentReservation={};
 
 	$scope.getAvailableTransport = function() {
 

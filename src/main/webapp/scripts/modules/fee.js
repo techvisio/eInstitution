@@ -214,7 +214,6 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 	$scope.depositeFee = function() {
 
 		$scope.newTransaction.fileNo=$scope.feeTransactionAdmissionBean.basicInfo.fileNo;
-		$scope.newTransaction.semester=$scope.feeTransactionAdmissionBean.basicInfo.semester;
 		console.log('fee deposite called in controller');
 
 		feeService.depositeFee($scope.newTransaction)

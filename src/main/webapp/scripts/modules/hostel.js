@@ -2,8 +2,8 @@ var hostelModule = angular.module('hostelModule', []);
 
 hostelModule.controller('hostelController', ['$scope','hostelService',function($scope,hostelService) {
 
-	$scope.hostelAvailability = {};
-
+	$scope.hostelAvailability={};
+	$scope.currentReservation={};
 	$scope.hostelReservation={};
 	$scope.isNew=false;
 	
@@ -68,7 +68,6 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 		 {
 			 $scope.reserveRoom();
 		 }
-
 	}
 
 	$scope.reserveRoom = function(){

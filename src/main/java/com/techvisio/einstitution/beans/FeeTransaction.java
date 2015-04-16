@@ -12,6 +12,19 @@ public class FeeTransaction {
 	private Double amount;
 	private Long batchId;
 	private Long sessionId;
+
+	public FeeTransaction(){
+		
+	}
+	
+	public FeeTransaction(Long batchId, Long sessionId, Long fileNo, Double amount, FeeDiscountHead discountHead){
+		
+		this.amount=amount;
+		this.batchId=batchId;
+		this.sessionId=sessionId;
+		this.fileNo=fileNo;
+		this.feeDiscountHead=discountHead;
+	}
 	
 	public String getUser() {
 		return user;

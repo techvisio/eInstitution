@@ -88,7 +88,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			List<CounsellingDetail> counsellingDetails = getCounsellingDetail(fileNo);
 			studentDetail.setCounsellingDtl(counsellingDetails);
 
-		return studentDetail;
+			Remark remark = getRemarkByFileNo(fileNo);
+			studentDetail.setRemark(remark);
+
+			return studentDetail;
 	}
 
 	public void addStudentDtl(StudentDetail studentDtl) {
@@ -124,6 +127,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				saveCounsellingDetail(studentDtl.getCounsellingDtl());
 		}
 
+		if(studentDtl.getRemark()!=null){
+			
+			saveRemark(studentDtl.getRemark());
+		}
 
 	}
 	
@@ -210,6 +217,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				saveCounsellingDetail(studentDtl.getCounsellingDtl());
 		}
 
+		if(studentDtl.getRemark()!=null){
+			
+			saveRemark(studentDtl.getRemark());
+		}
 
 	}
 
@@ -927,11 +938,14 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	@Override
 	public Remark getRemarkByFileNo(Long fileNo) {
+		
+		Remark remark = new Remark();
+		remark.setFileNo(fileNo);
 		String getQuery = admissionQueryProps.getProperty("getRemarkByFileNo");
 		
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 		
-		Remark remark = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter,new RowMapper<Remark>(){
+		List<Remark> remarks = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<Remark>(){
 
 			@Override
 			public Remark mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -948,6 +962,11 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 			
 		});
+		
+		if(remarks!=null && remarks.size()>0){
+			
+			return remarks.get(0);
+		}
 		return remark;
 	}
 
@@ -1031,7 +1050,6 @@ public class StudentDetailRowMapper implements RowMapper<StudentDetail>{
 	
 }
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
-		//StudentBasicInfo info = new StudentBasicInfo();
 		
 		String getQuery = admissionQueryProps.getProperty("getAdmissionBasicInfo");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
@@ -1095,6 +1113,9 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 		basicInfo.setShiftId(rs.getLong("Shift_Id"));
 		basicInfo.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
 		basicInfo.setLateral(rs.getBoolean("Lateral"));
+		Remark remark = getRemarkByFileNo(basicInfo.getFileNo());
+		basicInfo.setRemark(remark);
+		
 		return basicInfo;
 	}
 }

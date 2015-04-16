@@ -37,6 +37,7 @@ public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
   		}
 	catch(Exception e)
 	{
+		e.printStackTrace();
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -80,6 +81,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
   		}
 	catch(Exception e)
 	{
+		e.printStackTrace();
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -104,6 +106,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
       		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

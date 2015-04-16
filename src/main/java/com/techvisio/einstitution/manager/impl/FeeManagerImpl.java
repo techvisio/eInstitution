@@ -181,17 +181,13 @@ public class FeeManagerImpl implements FeeManager{
 			List<ApplicableFeeDetail> applicableFee=getApplicableFeeDetail(criteria);
 			
 			for(ApplicableFeeDetail applicableFeeDetail:applicableFee){
-				FeeTransaction feeTransaction = new FeeTransaction();
-                feeTransaction.setAmount(applicableFeeDetail.getFeeAmount());
-                feeTransaction.setFeeDiscountHead(applicableFeeDetail.getFeeDetail());
+				FeeTransaction feeTransaction = new FeeTransaction(null, null, null, applicableFeeDetail.getFeeAmount(), applicableFeeDetail.getFeeDetail());
                 debitFeetransaction.add(feeTransaction);
 			}
 			
 			for(StudentFeeStaging feeStaging:newStagging){
 				if("D".equalsIgnoreCase(feeStaging.getDiscountHead().getTransactionType())){
-					FeeTransaction feeTransaction = new FeeTransaction();
-					feeTransaction.setFeeDiscountHead(feeStaging.getDiscountHead());
-					feeTransaction.setAmount(feeStaging.getAmount());
+					FeeTransaction feeTransaction = new FeeTransaction(null, null, null, feeStaging.getAmount(), feeStaging.getDiscountHead());
 					debitFeetransaction.add(feeTransaction);
 				}
 			}
@@ -204,6 +200,8 @@ public class FeeManagerImpl implements FeeManager{
 		for(FeeTransaction feeTransaction : creditFeetransaction){
 			
 			feeTransaction.setFileNo(fileNo);
+			feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
+			feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
 			feeDetailDao.addFeeTransactionCredit(feeTransaction);
 		}
 
@@ -211,6 +209,8 @@ public class FeeManagerImpl implements FeeManager{
 		for(FeeTransaction feeTransaction : debitFeetransaction){
 
 			feeTransaction.setFileNo(fileNo);
+			feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
+			feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
 			feeDetailDao.addFeeTransactionDebit(feeTransaction);
 		}
 		

@@ -2,6 +2,7 @@ package com.techvisio.einstitution.manager.impl;
 
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -49,12 +50,12 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	@Override
-	public void accomodateManagementChanges(
-			ScholarshipDetail newScholarshipDetail) {
+	public void accomodateManagementChanges(StudentBasicInfo basicInfo, ScholarshipDetail newScholarshipDetail) {
 
 		ScholarshipDetail newScholarshipObj = newScholarshipDetail;
 		ScholarshipDetail oldScholarshipObj = scholarshipDao.getScholarshipDetail(newScholarshipObj.getFileNo());
 
+		
 		if (newScholarshipObj != null && newScholarshipObj.getStateId() != null) {
 			if (oldScholarshipObj != null) {
 
@@ -62,8 +63,10 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 
 					FeeTransaction feeTransaction = new FeeTransaction();
 					feeTransaction.setAmount(newScholarshipObj.getAmount());
-					feeTransaction.setFileNo(newScholarshipDetail.getFileNo());
+					feeTransaction.setFileNo(newScholarshipObj.getFileNo());
 					feeTransaction.getFeeDiscountHead().setHeadId(AppConstants.SCHOLARSHIP_HEAD_ID);
+					feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
+					feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
 					feeManager.addFeeTransactionCredit(feeTransaction);
 				}
 

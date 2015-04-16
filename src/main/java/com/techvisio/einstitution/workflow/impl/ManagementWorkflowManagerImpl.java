@@ -7,8 +7,10 @@ import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.ManagementAdmissionBean;
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.AppConstants;
@@ -69,14 +71,18 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
 		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
+		AdmissionWorkflowManager admissionWorkFlow=new AdmissionWorkflowManagerImpl();
 		
 		StudentBasicInfo basicInfo = admissionBean.getBasicInfo();
 		CommonUtil.propogateFileNoTofeeStaging(basicInfo.getFileNo(), admissionBean.getStagingFee());
+
+		Remark remark = basicInfo.getRemark();
+		admissionWorkFlow.saveRemark(remark);
 		
 		//handling scholarship 
 	    ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
 	    scholarshipDetail.setFileNo(basicInfo.getFileNo());
-	    scholarshipWorkflowManager.accomodateManagementChanges(scholarshipDetail);
+	    scholarshipWorkflowManager.accomodateManagementChanges(basicInfo,scholarshipDetail);
 	    
 	    //handling discounts , base applicable fee and other ameneties charges
 		List<StudentFeeStaging> feeStagings = admissionBean.getStagingFee();

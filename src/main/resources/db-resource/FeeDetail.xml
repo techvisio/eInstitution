@@ -6,11 +6,10 @@
 
 <entry key="getPreviousSemBalance">
     <![CDATA[
-select 
-
-sum(cr.amount)-sum(dr.amount)as difference from feetransactioncredit cr join feetransactiondebit dr on cr.File_No=dr.File_No
-where cr.Semester  != (select GREATEST(max(cr.semester), max(dr.semester)) from feetransactioncredit cr 
-join feetransactiondebit dr on cr.File_No=dr.File_No) and cr.File_No=:File_No group by cr.File_No;
+select
+(select ifnull(sum(amount),0) from feetransactiondebit dr join studentDetail sd on dr.File_No = sd.File_No 
+where (sd.session_id != dr.session_id  or sd.batch_id != dr.batch_id) and  sd.file_no=:File_No)-(select sum(amount) from feetransactioncredit cr join studentDetail sd on cr.File_No = sd.File_No 
+where (sd.session_id != cr.session_id  or sd.batch_id != cr.batch_id) and  sd.file_no=:File_No) as difference;
 ]]>
 </entry>
 
@@ -28,7 +27,7 @@ bm.Branch,
 sd.Semester,
 sd.Academic_Year,
 sd.Updated_On,
-balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on balanceAmount.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id where balanceAmount.session_id!=sd.session_id and balanceAmount.batch_id!=sd.batch group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
+balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on cr.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id where cr.session_id!=sd.session_id and cr.batch_id!=sd.batch group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
 ]]>
 </entry>
 
