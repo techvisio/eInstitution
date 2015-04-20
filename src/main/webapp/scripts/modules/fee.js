@@ -27,7 +27,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
 	                         {"id":"9995","value":"DEMAND DRAFT"},
 	                         {"id":"9994","value":"CHEQUE DEPOSITE"}];
-	 $scope.itemsPerPage = 5
+	 $scope.itemsPerPage = 9
 	  $scope.currentPage = 0;
 	 $scope.totalItems = 0;
 

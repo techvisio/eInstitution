@@ -49,12 +49,14 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				.getProperty("getStudentDtlDynamically");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Registration_No", searchCriteria.getRegistrationNo()==null?null:searchCriteria.getRegistrationNo())
+				"Registration_No",StringUtils.isEmpty(searchCriteria.getRegistrationNo())?null:searchCriteria.getRegistrationNo())
 		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
 		.addValue("Enroll_No", StringUtils.isEmpty(searchCriteria.getEnrollNo())?null:searchCriteria.getEnrollNo())
 		.addValue("Uni_Enroll_No", StringUtils.isEmpty(searchCriteria.getUniEnrollNo())?null:searchCriteria.getUniEnrollNo())
 		.addValue("First_Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getFirstName()+"%")
-		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo());
+		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
+		.addValue("Course_Id", searchCriteria.getCourseId())
+		.addValue("Branch_Id", searchCriteria.getBranchId());
 		
 	List<StudentBasicInfo> studentBasicInfos=getNamedParamJdbcTemplate().query(
 				getQuery, namedParameter, new StudentBasicInfoRowMaper());

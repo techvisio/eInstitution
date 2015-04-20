@@ -31,7 +31,7 @@ s.Shift_Id,
 s.Centre_Id,
 s.Section_Id,
 s.Lateral
-from  studentdetail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
+from  studentdetail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
     ]]>
 
 	</entry>
