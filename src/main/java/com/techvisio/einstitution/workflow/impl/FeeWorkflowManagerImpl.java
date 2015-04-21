@@ -9,6 +9,7 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
@@ -114,6 +115,9 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		StudentBasicInfo basicInfo = admissionWorkFlow.getStudentBsInfo(fileNo);
 		feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
 		feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
+		StudentDetail studentDetail = admissionWorkFlow.getStudentDetails(fileNo);
+		studentDetail.setFeePaid(true);
+		admissionWorkFlow.updateStudentDetails(studentDetail);
 		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
     @Override
