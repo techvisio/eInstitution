@@ -4,7 +4,9 @@ package com.techvisio.einstitution.workflow;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
+import com.techvisio.einstitution.beans.SearchCriteria;
 
 public interface ConsultantWorkflowManager {
 	
@@ -16,5 +18,8 @@ public interface ConsultantWorkflowManager {
 	public List<ConsultantDetail> getConsultantDtl(Long fileNo);
 	public void saveConsultant(List<ConsultantDetail> consultantDetails);
 	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails);
+	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria);
+	public ConsultantAdmissionDetail getConsultantAdmissionDetail(Long fileNo);
+	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail);
     	
 }

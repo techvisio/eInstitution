@@ -17,6 +17,12 @@ public class SearchCriteria {
 	private Long branchId;
 	private String status;
 
+	//Specific to consultant 
+	private String primaryContactNo;
+	private String secondaryNo; 
+    private Long consultantId;
+   
+    
 	@Override
 	public String toString() {
 		return "AdmissionIdentifier [ emailId=" + emailId
@@ -117,5 +123,35 @@ public class SearchCriteria {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+
+	public String getPrimaryContactNo() {
+		return primaryContactNo;
+	}
+
+
+	public void setPrimaryContactNo(String primaryContactNo) {
+		this.primaryContactNo = primaryContactNo;
+	}
+
+
+	public String getSecondaryNo() {
+		return secondaryNo;
+	}
+
+
+	public void setSecondaryNo(String secondaryNo) {
+		this.secondaryNo = secondaryNo;
+	}
+
+
+	public Long getConsultantId() {
+		return consultantId;
+	}
+
+
+	public void setConsultantId(Long consultantId) {
+		this.consultantId = consultantId;
 	}
 }

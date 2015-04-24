@@ -4,11 +4,20 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 
 	// Data variables.
 	$scope.form={};
+	$scope.consultantAdmissionDetail={};
+	$scope.consultantAdmissionDetail.consultantDetails=[];
+	 
+	
+	$scope.consultantAdmissionDetail.consultantDetails.push(angular.copy($scope.dummyConsultantDetails));
+
+	 
+	
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
 	$scope.consultant={};
+	$scope.consultantList=[];
 	$scope.searchRes=[];
-	
+	$scope.form.content='dashboard';
 	// Variables for show and hiding.
 	$scope.processing=false;
 	$scope.showCriteria=false;
@@ -18,7 +27,28 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.addNew=false;
 	$scope.searchResult=false;
 	
-	 
+	
+	$scope.dummyConsultantDetails = {"consultantPaymentCriterias" : [ {} ], "consultantPaymentDetail" : [ {} ]};
+	
+	$scope.dummyConsultantPaymentCriterias = {};
+	
+	$scope.dummyConsultantPaymentDetail = {};
+	
+	
+	 $scope.addConsultantPaymentCriteria = function(object) {
+		 var consultantPaymentCriterias = angular
+		 .copy($scope.dummyConsultantPaymentCriterias);
+		 consultantPaymentCriterias.consultantId = object.consultantId;
+		 object.consultantPaymentCriterias
+		 .push(consultantPaymentCriterias);
+	 };
+
+	 $scope.removeConsultantPaymentCriteria = function(object, index) {
+		 console.log(index);
+		 object.consultantPaymentCriterias.splice(index, 1);
+	 };
+
+	
 	 $scope.search = function(searchCriteria){
 		 consultantService.getConsultantByCriteria(searchCriteria)
 		 .then(function(response) {
@@ -44,6 +74,21 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		 }
 	 }
 	 
+	 $scope.init=function(){
+
+		 console.log('getting masterdata for admission module in init block');
+
+		 masterdataService.getAdmissionMasterData()
+		 .then(function(data) {
+			 console.log(data);
+			 if (data != null) {
+				 $scope.serverModelData = data;
+			 } else {
+				 console.log('error');
+			 }
+		 })
+	 };
+
 	 $scope.addConsultant = function() {
 		 console.log('add consultant called');
 		 consultantService.addConsultant($scope.consultant)
@@ -52,19 +97,53 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 $scope.consultant = response.data.responseBody;
+				 
 				 alert("Your Records Saved Successfully")
 			 } else {
 				 console.log(response.data.error);
 				 alert(response.data.error);
 			 }
 		 })
-	 }
+	 };
 	
-	 
 	 $scope.updateConsultant=function(){
 		 consultantService.updateConsultant($scope.consultant);
 	 }
 	 
+	 $scope.getConsultantAdmissionDetail = function(){
+	
+		 console.log('getConsultantAdmissionDetail called in controller');
+          var fileNo = 102;	 
+		 consultantService.getConsultantAdmissionDetail(fileNo)
+		 .then(function(response) {
+			 console.log('consultantAdmission Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.consultantAdmissionDetail = response.data.responseBody;
+				 
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+	 };
+
+	 $scope.addConsultantAdmissionDetail = function(){
+		 console.log('addConsultantAdmissionDetail called in controller');
+		 consultantService.addConsultantAdmissionDetail($scope.consultantAdmissionDetail)
+		 .then(function(response) {
+			 console.log('addConsultantAdmissionDetail Data received from service : ');
+			 console.log(response);
+			 if (response != null && response.data != null && response.data.responseBody != null) {
+				 $scope.consultantAdmissionDetail = response.data.responseBody;
+				 alert("Your Records Saved Successfully")
+			 } else {
+				 console.log(response.data.error);
+				 alert(response.data.error);
+			 }
+		 })
+	 };
+	
 	 $scope.resetForm = function(){
 		 consultant = {};
 	 }
@@ -95,10 +174,12 @@ consultantModule.service('consultantService', function($http, $q) {
 
 	// Return public API.
 	return ({
-		addConsultant  : addConsultant ,
+		 addConsultant  : addConsultant,
 		 getConsultantByCriteria : getConsultantByCriteria,
 		 updateConsultant : updateConsultant,
-		 getConsultant : getConsultant
+		 getConsultant : getConsultant,
+		 getConsultantAdmissionDetail : getConsultantAdmissionDetail,
+		 addConsultantAdmissionDetail : addConsultantAdmissionDetail
 	 });
 	
 	function addConsultant(consultant){
@@ -112,7 +193,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		 });
 		 
 		 return (request.then(handleSuccess, handleError));
-	}
+	    }
 	
 	function getConsultant(consultantId){
 		 console.log('get due enquiries');
@@ -125,14 +206,13 @@ consultantModule.service('consultantService', function($http, $q) {
 		 });
 
 		 return (request.then(handleSuccess, handleError));
-
-	}
+	     }
 	
 	function getConsultantByCriteria(searchCriteria){
 		 console.log('search enquiries');
 		 var request = $http({
-			 method : "get",
-			 url : "consultant",
+			 method : "post",
+			 url : "consultant/search/",
 			 params : "",
 			 data: searchCriteria
 
@@ -145,7 +225,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
-			 url : "consultant/consultantMaster",
+			 url : "consultant/consultantMaster/",
 			 params : "",
 			 data: consultant
 
@@ -155,19 +235,45 @@ consultantModule.service('consultantService', function($http, $q) {
 	}
 	
 	function updateConsultant(consultant){
-		 console.log('add new enquiry');
+		 console.log('update consultant called in service');
 		 var request = $http({
 			 method : "put",
-			 url : "consultant/consultantMaster",
+			 url : "consultant/consultantMaster/",
 			 params : "",
 			 data: consultant
 
 		 });
 		 
 		 return (request.then(handleSuccess, handleError));
+	    }
+	
+	function getConsultantAdmissionDetail(fileNo){
+		console.log('getConsultantAdmissionDetail called in service')
+		var request = $http({
+			 method : "get",
+			 url : "consultant/consultantAdmission/"+fileNo,
+			 params : {
+				 action : "get"
+			 }
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+	}
+
+	function addConsultantAdmissionDetail(consultantAdmissionDetail){
+		console.log('addConsultantAdmissionDetail called in service');
+		 var request = $http({
+			 method : "post",
+			 url : "consultant/consultantAdmission/",
+			 params : "",
+			 data: consultantAdmissionDetail
+
+		 });
+		 
+		 return (request.then(handleSuccess, handleError));
+		
 	}
 	
-
 	 function handleError(response) {
 		 console.log('Error occured while calling service');
 		 console.log(response);

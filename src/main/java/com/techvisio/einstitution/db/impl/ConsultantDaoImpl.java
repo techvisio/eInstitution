@@ -6,18 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.CacheManager;
-import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 
@@ -42,21 +44,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Id", consultantId);
 
-		List<Consultant> consultants = getNamedParamJdbcTemplate().query(getQuery,namedParameter, new RowMapper<Consultant>() {
-
-			public Consultant mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				Consultant consultant = new Consultant();
-				consultant.setConsultantId(CommonUtil.getLongValue(rs.getLong("Id")));
-				consultant.setName(rs.getString("Name"));
-				consultant.setPrimaryContactNo(rs.getString("Primary_Contact_No"));
-				consultant.setSecondaryContactNo(rs.getString("Secondary_contact_No"));
-				consultant.setAddress(rs.getString("Address"));
-				consultant.setEmailId(rs.getString("Email_Id"));
-
-				return consultant;			}
-		});
-
+		List<Consultant> consultants = getNamedParamJdbcTemplate().query(getQuery,namedParameter, new ConsultantRowMapper());
 		Consultant consultant =  null;
 
 		if(consultants != null && consultants.size()>0){
@@ -128,7 +116,9 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 					throws SQLException {
 				ConsultantDetail consultantDetail = new ConsultantDetail();
 
-				consultantDetail.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
+				Long consultantId=(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
+				Consultant consultant= cacheManager.getConsultantId(consultantId);
+                consultantDetail.setConsultant(consultant);
 				consultantDetail.setFileNo(rs.getLong("File_No"));
 				consultantDetail.setAmountToPay(rs.getDouble("Amount_To_Pay"));
 				consultantDetail.setConsultancyAgreed(rs.getBoolean("Consultancy_Agreed"));
@@ -136,7 +126,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				consultantDetail.setDueDate(rs.getDate("Due_Date"));
 				consultantDetail.setRemarks(rs.getString("Remarks"));
 				
-                Long consultantId = consultantDetail.getConsultantId();
+                consultantId = consultantDetail.getConsultant().getConsultantId();
 				List<ConsultantPaymentDtl> consultantPaymentDtls = getConsultantPaymentDtl(fileNo,consultantId);
 				consultantDetail.setConsultantPaymentDetail(consultantPaymentDtls);
             
@@ -148,7 +138,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		return consultantDetails;
 	}
 
-	public void saveConsultant(List<ConsultantDetail> consultantDetails){
+	public void saveConsultantDetail(List<ConsultantDetail> consultantDetails){
 		
 		if(consultantDetails != null){
 		for(ConsultantDetail consultantDetail:consultantDetails){
@@ -163,8 +153,8 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	private void addConsultantDtl(ConsultantDetail consultantDetail) {
 		
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
-		if(consultantDetail.getConsultantId()!=null){
-			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultantId())
+		if(consultantDetail.getConsultant().getConsultantId()!=null){
+			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultant().getConsultantId())
 			.addValue("File_No", consultantDetail.getFileNo())
 			.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
 			.addValue("Payment_Mode", consultantDetail.getPaymentMode())
@@ -206,7 +196,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		{
 		if(consultantDetails != null){
 			for(ConsultantDetail consultantDetail:consultantDetails){
-				consultantIds.add(consultantDetail.getConsultantId());
+				consultantIds.add(consultantDetail.getConsultant().getConsultantId());
                 fileNo= consultantDetail.getFileNo();
         		
 				deleteConsultantPaymentDtl(fileNo, consultantDetail.getConsultantPaymentDetail());
@@ -268,14 +258,18 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	public void updateConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl) {
 
-		String updateQuery = consultantQueryProps.getProperty("updateConsultantPaymentDtl");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FileNo", consultantPaymentDtl.getFileNo())
-		.addValue("Amount", consultantPaymentDtl.getAmount())
-		.addValue("Pay_Date", consultantPaymentDtl.getPayDate());
-
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-
+		    List<ConsultantPaymentDtl> consultantPaymentDtls = getConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtl.getConsultantId());
+		
+			deleteConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtls);
+			addConsultantPaymentDtl(consultantPaymentDtl);
+//		String updateQuery = consultantQueryProps.getProperty("updateConsultantPaymentDtl");
+//
+//		SqlParameterSource namedParameter = new MapSqlParameterSource("FileNo", consultantPaymentDtl.getFileNo())
+//		.addValue("Amount", consultantPaymentDtl.getAmount())
+//		.addValue("Pay_Date", consultantPaymentDtl.getPayDate());
+//
+//		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
+//
 
 	}
 
@@ -395,4 +389,46 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
+	@Override
+	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria){
+
+		String getQuery = consultantQueryProps
+				.getProperty("getCosultantBySearchCriteria");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Id",searchCriteria.getConsultantId())
+		.addValue("Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getName()+"%")
+		.addValue("Primary_Contact_No", StringUtils.isEmpty(searchCriteria.getPrimaryContactNo())?null:searchCriteria.getPrimaryContactNo())
+		.addValue("Primary_Contact_No", StringUtils.isEmpty(searchCriteria.getSecondaryNo())?null:searchCriteria.getSecondaryNo());
+		
+	    List<Consultant> consultants=getNamedParamJdbcTemplate().query(
+				getQuery, namedParameter, new ConsultantRowMapper());
+		
+		    return consultants;
+	}
+
+	class ConsultantRowMapper implements RowMapper<Consultant>{
+
+		public Consultant mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			Consultant consultant = new Consultant();
+			consultant.setConsultantId(CommonUtil.getLongValue(rs.getLong("Id")));
+			consultant.setName(rs.getString("Name"));
+			consultant.setPrimaryContactNo(rs.getString("Primary_Contact_No"));
+			consultant.setSecondaryContactNo(rs.getString("Secondary_contact_No"));
+			consultant.setAddress(rs.getString("Address"));
+			consultant.setEmailId(rs.getString("Email_Id"));
+
+			return consultant;			
+		}
+	}
+
+	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail){
+		
+		List<ConsultantDetail> consultantDetails = consultantAdmissionDetail.getConsultantDetails();
+		for(ConsultantDetail consultantDetail : consultantDetails){
+			addConsultantDtl(consultantDetail);
+		}
+	}
+	
 }

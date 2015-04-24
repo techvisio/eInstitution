@@ -148,7 +148,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         if(enquiry.getConsultantId()!=null){
         	
            	ConsultantDetail consultantDetail  =new ConsultantDetail();
-              consultantDetail.setConsultantId(enquiry.getConsultantId());         		
+              consultantDetail.getConsultant().setConsultantId(enquiry.getCategoryId());         		
        
               if(studentDetail.getConsultantDetail()==null){
               

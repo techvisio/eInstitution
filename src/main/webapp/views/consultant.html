@@ -1,6 +1,15 @@
 <div ng-controller="consultantController" ng-init="init()">
 	<div ng-show="dashboard" class="module-dashboard-container">
 		<div class="module-dashboard-content">
+
+			<div ng-include src="'consultantDashboard.html'"
+				ng-if="form.content==='dashboard'"></div>
+			<div ng-include src="'consultant.html'"
+				ng-if="form.content==='consultant'"></div>
+			<div ng-include src="'consultantDetail.html'"
+				ng-if="form.content==='consultantAdmission'"></div>
+			
+			<script type="text/ng-template" id="consultantDashboard.html">
 			<div>
 				<table>
 					<tr>
@@ -8,6 +17,8 @@
 								ng-click="showCriteria=!showCriteria">Search Existing</button></td>
 						<td><button type="button" class="btn btn-success btn-lg"
 								ng-click="addNew=!addNew">New Consultant</button></td>
+                        <td><button type="button" class="btn btn-success btn-lg"
+								ng-click="form.content=consultantAdmission">Consultant Detail</button></td>
 					</tr>
 				</table>
 			</div>
@@ -29,12 +40,13 @@
 						<td><span>Secondary Contact No</span></td>
 						<td><input type="text" ng-model="enqCriteria.mobileNo"></td>
 					</tr>
-					<tr>
+					<tr>l,p.;
 						<td><button type="button" class="btn btn-success"
 								ng-click="getEnquiryByCriteria()">Get Details</button></td>
 					</tr>
 				</table>
 			</div>
+
 
 			<div ng-show=searchResult>
 				<table ng-repeat="obj in searchRes">
@@ -48,6 +60,7 @@
 					</tr>
 				</table>
 			</div>
+</script>
 			<!-- Consultants approval peding -->
 			<!-- <div class="latest-admission" ng-init="getDueEnquiry()">
 			<span class="title-span">Due Enquiries</span>
@@ -75,6 +88,7 @@
 			</table>
 		</div> -->
 
+			<script type="text/javascript" id="consultant.html">
 			<form ng-show=addNew name="enquiryFrom" id="enquiryFrom">
 				<div class="ajax-busy-indicator" ng-show="processing"></div>
 				<div class="panel-div">
@@ -117,6 +131,112 @@
 					</table>
 				</div>
 			</form>
+			</script>
+
+			<script type="text/ng-template" id="consultantDashboard.html">
+
+<form>
+				<div class="enquiry-detail-div">
+					<table>
+                <tr><td colspan=2><span class="header">Student Info.</span></td></tr>
+		<tr>
+			<td><span> Registration No </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.registrationNo"></td>
+			<td><span> Enrollment No </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.enrollmentNo"></td>
+		</tr>
+		<tr>
+			<td><span> First Name </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.firstName"></td>
+			<td><span> Last Name </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.lastName"></td>
+
+		</tr>
+		<tr>
+			<td><span> Father Name </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.fatherName"></td>
+			<td><span> Date Of Birth </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.dob"></td>
+		</tr>
+		<tr>
+			<td><span> Course </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.course.course"></td>
+			<td><span> Branch </span></td>
+			<td><input type="text"
+				ng-model="consultantAdmissionDetail.basicInfo.branch.branchName"></td>
+		</tr>
+		
+         <tr><td colspan=2><span class="header">Consultant Detail</span></td></tr>      
+        <tr ng-repeat = "object in consultantAdmissionDetail.consultantDetails">
+			<td><span>Consultant Name </span></td>
+			<td><input type="text"
+				ng-model="object.consultant.name"></td>
+			<td><span> Consultancy Agreed </span></td>
+			<td><input type="checkbox" ng-model="object.consultancyAgreed" /></td>
+		</tr>
+          <tr ng-repeat = "object in consultantAdmissionDetail.consultantDetails">
+            <td><span> Payment Mode </span></td>
+			<td><input type="text"
+				ng-model="object.paymentMode"></td>
+			<td><span> Amount To Pay </span></td>
+			<td><input type="number"
+				ng-model="object.amountToPay"></td>
+		</tr>
+        <tr ng-repeat = "object in consultantAdmissionDetail.consultantDetails">
+			<td><span>Remarks</span></td>
+            <td><textArea rows="3" cols="33"  ng-model="object.remarks"></textArea></td>
+        </tr>
+	
+<tr><td colspan=2><span class="header">Consultant Payment Criteria Detail</span></td></tr>
+
+        <tr ng-repeat="consultantPay in object.consultantPaymentCriterias">
+			<td><span> Fee Amount Received </span></td>
+			<td><input type="number"
+				ng-model="consultantPay.feeReceived"></td>
+			<td><span>Amount To Be Paid</span></td>
+			<td><input type="number"
+				ng-model="consultantPay.amountToBePaid"></td>
+		</tr>
+		<tr>
+<td colspan=3>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':admissionDetailManagement.scholarship.approved}" ng-model="admissionDetailManagement.scholarship.approved" ng-click="admissionDetailManagement.scholarship.approved= !admissionDetailManagement.scholarship.approved">Approved</button>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':admissionDetailManagement.scholarship.reoccurring}" ng-model="admissionDetailManagement.scholarship.reoccurring" ng-click="admissionDetailManagement.scholarship.reoccurring= !admissionDetailManagement.scholarship.reoccurring">Paid</button>
+	<button type="button" class="btn btn-primary" ng-class="{'btn-success':admissionDetailManagement.scholarship.conditional}" ng-model="admissionDetailManagement.scholarship.conditional" ng-click="admissionDetailManagement.scholarship.conditional= !admissionDetailManagement.scholarship.conditional">Triggered</button></td>	
+
+</tr>
+
+<tr><td colspan=2><span class="header">Consultant Payment Detail</span></td></tr>
+<tr ng-repeat="object in consultantAdmissionDetail.consultantDetails[].consultantPaymentDetail">
+			<td><span>Amount</span></td>
+			<td><input type="number"
+				ng-model="object.amount"></td>
+			<td><span>Pay Date</span></td>
+			<td><input type="Date"
+				ng-model="object.payDate"></td>
+<td><img height="35" width="35" ng-src="images/plus.png"
+								ng-click="addSubject(object)" /></td>
+							<td><img height="35" width="35" ng-src="images/minus.png"
+								ng-click="removeSubject(object,$index)" ng-show="$index>0" /></td>
+		</tr>
+
+<tr><td><button type="button" class="btn btn-success"
+							ng-click="addConsultantAdmissionDetail()">Add</button></td>
+<td><button type="button" class="btn btn-success"
+							ng-click="getConsultantAdmissionDetail()">Get</button></td>
+</tr>
+				</table>
+				</div>
+			</form>
+
+
+            </script>
 		</div>
 	</div>
 </div>

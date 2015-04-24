@@ -222,7 +222,24 @@ Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id n
    ]]>
 
 	</entry>
+<entry key="getCosultantBySearchCriteria">
 
+<![CDATA[
+SELECT
+
+Id
+Name, 
+Primary_Contact_No, 
+Secondary_contact_No, 
+Address, 
+Email_Id 
+
+from  consultantMaster WHERE Id=IFNULL(:Id,cm.Id) and ifnull(Primary_Contact_No,'-1')=ifnull(:Primary_Contact_No,ifnull(Primary_Contact_No,'-1')) and ifnull(Secondary_contact_No,'-1')=ifnull(:Secondary_contact_No,ifnull(Secondary_contact_No,'-1')) and cm.Name like :Name;    
+
+
+]]>
+
+</entry>
 
 
 </properties>

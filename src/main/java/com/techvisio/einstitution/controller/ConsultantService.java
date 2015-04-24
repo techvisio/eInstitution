@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.ConsultantWorkflowManagerImpl;
 
 
@@ -133,11 +138,83 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value ="/search/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		Response response=new Response();
+		try
+		{
+			ConsultantWorkflowManager workflowManager = new ConsultantWorkflowManagerImpl();
+			List<Consultant> consultants = workflowManager.getConsultantBySearchCriteria(searchCriteria);
+			response.setResponseBody(consultants);
+			
+			if(consultants == null){
+				
+				response.setError("No such record found");
+			}
+			}
+			catch(Exception e)
+			{
+			e.printStackTrace();
+			response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
+
+	
+	
+	@RequestMapping(value="consultantAdmission",method = RequestMethod.POST)
+	public ResponseEntity<Response> addConsultantAdmissionDetail(@RequestBody ConsultantAdmissionDetail consultantAdmissionDetail) {
+		
+		Response response = new Response();
+		try{
+			
+			ConsultantWorkflowManager consultantWorkflowManager=new ConsultantWorkflowManagerImpl();
+            consultantWorkflowManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
+
+            Long fileNo = consultantAdmissionDetail.getBasicInfo().getFileNo();
+            consultantAdmissionDetail = consultantWorkflowManager.getConsultantAdmissionDetail(fileNo);
+            
+            response.setResponseBody(consultantAdmissionDetail);
+            
+           
+ 		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+			
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+    	}
+	
+	
+	@RequestMapping(value="consultantAdmission/{fileNo}",method = RequestMethod.GET)
+	public ResponseEntity<Response> getConsultantAdmissionDetail(@PathVariable Long fileNo){
+
+		Response response = new Response();
+		try{
+		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
+		ConsultantAdmissionDetail consultantAdmissionDetail = consultantWorkflowManager.getConsultantAdmissionDetail(fileNo);
+
+		response.setResponseBody(consultantAdmissionDetail);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+     	}
+	
+	
+	
 //	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 //	public void deleteConsultantDtl(@PathVariable List fileNo) {  
 //		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
 //		
 //	}
 
+	
 	
 }

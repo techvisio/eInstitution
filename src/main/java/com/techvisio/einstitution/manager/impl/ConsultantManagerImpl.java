@@ -3,7 +3,10 @@ package com.techvisio.einstitution.manager.impl;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
@@ -64,9 +67,9 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		return consultantDetails;
 	}
 
-	public void saveConsultant(List<ConsultantDetail> consultantDetails){
+	public void saveConsultantDetail(List<ConsultantDetail> consultantDetails){
 
-		consultantDao.saveConsultant(consultantDetails);
+		consultantDao.saveConsultantDetail(consultantDetails);
 	}
 
 	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
@@ -74,5 +77,20 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		consultantDao.deleteConsultantDtl(fileNo, consultantDetails);
 	}
 
+	@Override
+	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria) {
+
+		List<Consultant> consultants = null;
+		consultants=consultantDao.getConsultantBySearchCriteria(searchCriteria);
+		
+		return consultants;
+	}
+
+	@Override
+	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail ){
+		
+		List<ConsultantDetail> consultantDetails = consultantAdmissionDetail.getConsultantDetails();
+	    saveConsultantDetail(consultantDetails);  
+	}
 	
 }

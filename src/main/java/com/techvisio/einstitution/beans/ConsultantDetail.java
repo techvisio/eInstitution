@@ -6,7 +6,7 @@ import java.util.List;
 public class ConsultantDetail {
 
 	private Long fileNo;
-	private Long consultantId;
+	private Consultant consultant;
 	private boolean consultancyAgreed; 
 	private String paymentMode;
 	private Double amountToPay; 
@@ -14,7 +14,7 @@ public class ConsultantDetail {
     private String remarks;
 	private List<ConsultantPaymentDtl> consultantPaymentDetail;
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias;
-
+    
 	public String getPaymentMode() {
 		return paymentMode;
 	}
@@ -54,14 +54,6 @@ public class ConsultantDetail {
 		this.consultancyAgreed = consultancyAgreed;
 	}
 
-	public Long getConsultantId() {
-		return consultantId;
-	}
-
-	public void setConsultantId(Long consultantId) {
-		this.consultantId = consultantId;
-	}
-
 	public List<ConsultantPaymentDtl> getConsultantPaymentDetail() {
 		return consultantPaymentDetail;
 	}
@@ -80,17 +72,7 @@ public class ConsultantDetail {
 		this.consultantPaymentCriterias = consultantPaymentCriterias;
 	}
 
-	@Override
-	public String toString() {
-		return "ConsultantDetail [fileNo=" + fileNo + ", consultantId="
-				+ consultantId + ", consultancyAgreed=" + consultancyAgreed
-				+ ", paymentMode=" + paymentMode + ", amountToPay="
-				+ amountToPay + ", dueDate=" + dueDate
-				+ ", consultantPaymentDetail=" + consultantPaymentDetail
-				+ ", consultantPaymentCriterias=" + consultantPaymentCriterias
-				+ "]";
-	}
-
+	
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -107,6 +89,16 @@ public class ConsultantDetail {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+
+	public Consultant getConsultant() {
+		return consultant;
+	}
+
+
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
 	}
 
 }
