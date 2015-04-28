@@ -144,7 +144,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		for(ConsultantDetail consultantDetail:consultantDetails){
 	
 			Long fileNo = consultantDetail.getFileNo();
-			deleteConsultantDtl(fileNo, consultantDetails);
+			deleteConsultantDtlExclusion(fileNo, consultantDetails);
 		
 			addConsultantDtl(consultantDetail);
 		}
@@ -153,7 +153,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	private void addConsultantDtl(ConsultantDetail consultantDetail) {
 		
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
-		if(consultantDetail.getConsultant().getConsultantId()!=null){
+		if(consultantDetail.getConsultant()!=null && consultantDetail.getConsultant().getConsultantId()!=null){
 			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultant().getConsultantId())
 			.addValue("File_No", consultantDetail.getFileNo())
 			.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
@@ -165,10 +165,11 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 
 			if (consultantDetail.getConsultantPaymentDetail() != null) {
-				for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail
-						.getConsultantPaymentDetail()) {
-			
-					addConsultantPaymentDtl(consultantPaymentDtl);
+				for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail.getConsultantPaymentDetail()) {
+			         consultantPaymentDtl.setFileNo(consultantDetail.getFileNo());
+			         consultantPaymentDtl.setConsultantId(consultantDetail.getConsultant().getConsultantId());
+					 deleteConsultantPaymentCriteria(consultantDetail.getFileNo(), consultantDetail.getConsultant().getConsultantId());
+			         addConsultantPaymentDtl(consultantPaymentDtl);
 				}
 			}
 			
@@ -176,6 +177,9 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				
 				for(ConsultantPaymentCriteria consultantPaymentCriteria : consultantDetail.getConsultantPaymentCriterias()){
 					
+					consultantPaymentCriteria.setConsultantId(consultantDetail.getConsultant().getConsultantId());
+					consultantPaymentCriteria.setFileNo(consultantDetail.getFileNo());
+					deleteConsultantPaymentCriteria(consultantDetail.getFileNo(), consultantDetail.getConsultant().getConsultantId());
 					addConsultantPaymentCriteria(consultantPaymentCriteria);
 				}
 			}
@@ -183,33 +187,29 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 
-	//TODO: WE NEED TO CONSULTANT PAYMENT WORK   		
-
-
-	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
+	public void deleteConsultantDtlExclusion(Long fileNo, List<ConsultantDetail> consultantDetails) {
 	
 		List<Long> consultantIds=new ArrayList<Long>();
-		if(consultantDetails==null || consultantDetails.size()==0){
-			consultantIds.add(-1L);
-		}
-		else
-		{
+		
 		if(consultantDetails != null){
 			for(ConsultantDetail consultantDetail:consultantDetails){
+				if(consultantDetail.getConsultant() !=null && consultantDetail.getConsultant().getConsultantId()!=null){
 				consultantIds.add(consultantDetail.getConsultant().getConsultantId());
-                fileNo= consultantDetail.getFileNo();
-        		
-				deleteConsultantPaymentDtl(fileNo, consultantDetail.getConsultantPaymentDetail());
+		
+				deleteConsultantPaymentDtl(fileNo, consultantDetail.getConsultant().getConsultantId());
 
-				deleteConsultantPaymentCriteria(fileNo, consultantDetail.getConsultantPaymentCriterias());
+				deleteConsultantPaymentCriteria(fileNo, consultantDetail.getConsultant().getConsultantId());
 
+				}
 			}
 		
 		}
-
+			
+		if(consultantIds == null || consultantIds.size()==0){
+				consultantIds.add(-1L);
 		}
-				
 		
+				
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtl");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo)
@@ -247,7 +247,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		String addQuery = consultantQueryProps.getProperty("addConsultantPaymentDtl");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("FileNo", consultantPaymentDtl.getFileNo())
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", consultantPaymentDtl.getFileNo())
 		.addValue("Amount", consultantPaymentDtl.getAmount())
 		.addValue("Pay_Date", consultantPaymentDtl.getPayDate())
 		.addValue("Consultant_Id", consultantPaymentDtl.getConsultantId());
@@ -258,9 +258,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	public void updateConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl) {
 
-		    List<ConsultantPaymentDtl> consultantPaymentDtls = getConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtl.getConsultantId());
-		
-			deleteConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtls);
+			deleteConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtl.getConsultantId());
 			addConsultantPaymentDtl(consultantPaymentDtl);
 //		String updateQuery = consultantQueryProps.getProperty("updateConsultantPaymentDtl");
 //
@@ -273,24 +271,20 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public void deleteConsultantPaymentDtl(Long fileNo, List<ConsultantPaymentDtl> consultantPaymentDtls) {
 
-		List<Long> consultantIds=new ArrayList<Long>();
-		if(consultantPaymentDtls==null || consultantPaymentDtls.size()==0){
-			consultantIds.add(-1L);
-		}
-		else
-		{
-		if(consultantPaymentDtls != null){
-			for(ConsultantPaymentDtl consultantPaymentDtl:consultantPaymentDtls){
-				consultantIds.add(consultantPaymentDtl.getConsultantId());
-			    fileNo= consultantPaymentDtl.getFileNo();
-			}
-		
-		}
+	public void deleteConsultantPaymentDtl(Long fileNo, Long consultantId) {
 
-		}
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtl");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
+		.addValue("Consultant_Id", consultantId);
+
+		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+	}
+
+	public void deleteConsultantPaymentDtlExclusion(Long fileNo, List<Long> consultantIds) {
+
+		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
 		.addValue("Consultant_Id", consultantIds);
@@ -354,33 +348,16 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	public void updateConsultantPaymentCriteria(
 			ConsultantPaymentCriteria consultantPaymentCriteria) {
 
-		List<ConsultantPaymentCriteria> consultantPaymentCriterias = getConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
-		deleteConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriterias);
+		deleteConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
 		addConsultantPaymentCriteria(consultantPaymentCriteria);
 	}
 
 
 	@Override
-	public void deleteConsultantPaymentCriteria(Long fileNo, List<ConsultantPaymentCriteria> consultantPaymentCriterias) {
-
-		List<Long> consultantIds=new ArrayList<Long>();
-		if(consultantPaymentCriterias==null || consultantPaymentCriterias.size()==0){
-			consultantIds.add(-1L);
-		}
-		else
-		{
-		if(consultantPaymentCriterias != null){
-			for(ConsultantPaymentCriteria consultantPaymentCriteria:consultantPaymentCriterias){
-				consultantIds.add(consultantPaymentCriteria.getConsultantId());
-				fileNo=consultantPaymentCriteria.getFileNo();
-			}
-		
-		}
-
-		}
+	public void deleteConsultantPaymentCriteriaExclusion(Long fileNo, List<Long> consultantIds) {
 
 		
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteria");
+		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo)
 		.addValue("Consultant_Id",consultantIds);
@@ -389,6 +366,20 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
+	
+   public void deleteConsultantPaymentCriteria(Long fileNo, Long consultantId) {
+
+		
+		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteria");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo)
+		.addValue("Consultant_Id",consultantId);
+
+		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+
+	}
+
+	
 	@Override
 	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria){
 

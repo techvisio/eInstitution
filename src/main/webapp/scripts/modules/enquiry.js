@@ -22,7 +22,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	$scope.form.isEdit=true;
 	$scope.dashboard=true;
 
-	 $scope.itemsPerPage = 8
+	 $scope.itemsPerPage = 3
 	  $scope.currentPage = 0;
 	 $scope.totalItems = 0;
 
@@ -200,7 +200,6 @@ $scope.saveEnquiry = function(){
 
 	 $scope.getDueEnquiry();
 }
-	 
 
 	 $scope.addEnquiry = function() {
 		 console.log('add enquiry called');
@@ -237,9 +236,6 @@ $scope.saveEnquiry = function(){
 			 }
 		 })
 	 }
-
-	 
-	 
 	 
 	 $scope.proceedToAdmission=function(){
 		 enquiryService.proceedToAdmission($scope.data)

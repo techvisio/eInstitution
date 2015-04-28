@@ -3,11 +3,11 @@ var transportModule = angular.module('transportModule', []);
 transportModule.controller('transportController', ['$scope','transportService',function($scope,transportService) {
 
 	$scope.availableTransport = {};
-
 	$scope.transportReservation = {};
-	
 	$scope.currentReservation={};
-
+	$scope.form={};
+	$scope.form.content='dashboard';
+	
 	$scope.getAvailableTransport = function() {
 
 		transportService.getAvailableTransport().then(function(response) {

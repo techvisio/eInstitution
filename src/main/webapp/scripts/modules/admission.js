@@ -10,7 +10,6 @@ admissionModule
 		 '$modal',
 		 function($scope, admissionService,masterdataService,$modal) {
 
-
 			 $scope.form = {};
 			 $scope.form.sameAsAbove=false;
 			 $scope.form.processing=false;
@@ -34,7 +33,6 @@ admissionModule
 			 $scope.student.academicDtl = [];
 			 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
 
-
 			 $scope.student.discountDtl = [];
 			 $scope.student.discountDtl.push(angular.copy($scope.dummyDiscountDtl));
 
@@ -43,7 +41,7 @@ admissionModule
 
 			 $scope.form.showSub = false;
 			 $scope.searchResultList=[];
-			$scope.filteredSearch=[];
+		   	 $scope.filteredSearch=[];
 
 			 $scope.dummyAddress = {};
 			 $scope.dummyQualification = {"qualificationSubDtl" : [ {} ] };
@@ -60,8 +58,8 @@ admissionModule
 					 "W":"Walk-In",
 					 "R":"Referral",
 					 "A":"Consultant"	 };
-			 $scope.itemsPerPage = 9;
-			  $scope.currentPage = 0;
+			 $scope.itemsPerPage = 3;
+			 $scope.currentPage = 0;
 			 $scope.totalItems = 0;
 
 			  $scope.pageCount = function () {
@@ -437,6 +435,7 @@ admissionModule
 						$scope.searchResultList=response.data.responseBody;
 						$scope.showCriteria=false;
 						$scope.currentPage=1;
+						$scope.totalItems = $scope.searchResultList.length;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);

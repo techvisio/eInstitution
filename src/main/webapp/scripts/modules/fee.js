@@ -27,7 +27,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
 	                         {"id":"9995","value":"DEMAND DRAFT"},
 	                         {"id":"9994","value":"CHEQUE DEPOSITE"}];
-	 $scope.itemsPerPage = 9
+	 $scope.itemsPerPage = 3
 	  $scope.currentPage = 0;
 	 $scope.totalItems = 0;
 
@@ -157,6 +157,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.searchResultList = response.data.responseBody;
 				$scope.currentPage=1;
+				$scope.totalItems = $scope.searchResultList.length;
 			} else {
 				console.log(response.data.error);
 				alert(response.data.error);

@@ -2,6 +2,8 @@ var hostelModule = angular.module('hostelModule', []);
 
 hostelModule.controller('hostelController', ['$scope','hostelService',function($scope,hostelService) {
 
+    $scope.form={};
+    $scope.form.content='dashboard';
 	$scope.hostelAvailability={};
 	$scope.currentReservation={};
 	$scope.hostelReservation={};

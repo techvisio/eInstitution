@@ -74,7 +74,7 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
 
-		consultantDao.deleteConsultantDtl(fileNo, consultantDetails);
+		consultantDao.deleteConsultantDtlExclusion(fileNo, consultantDetails);
 	}
 
 	@Override

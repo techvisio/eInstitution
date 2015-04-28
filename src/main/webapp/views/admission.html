@@ -198,7 +198,7 @@
 							</td>
 							<td><span ng-class="{active:isSelected(6)}"><a href
 									ng-click="selectTab(6)">Consultant</a></span></td>
-							<td popover="Please Save record before accessing Other Services!" popover-trigger="mouseenter"><span ng-class="{active:isSelected(7)}"><a href
+							<td><span ng-class="{active:isSelected(7)}"><a href
 									ng-click="selectTab(7)">For Office Use</a></span></td>
 						</tr>
 					</table>
@@ -565,7 +565,7 @@
 						<table>
                                <tr ng-repeat="consultant in student.consultantDetail">
 
-                                 <td><select ng-model="consultant.consultantId"
+                                 <td><select ng-model="consultant.consultant.consultantId"
 									ng-disabled="!form.isEdit && !form.isNew"
 									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
 								<td><img height="35" width="35" ng-src="images/plus.png"
@@ -611,7 +611,7 @@
 						 <td><span>Session</span></td>
 								<td><select select ng-model="student.sessionId"
 									ng-disabled="!form.isEdit && !form.isNew"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SESSION"></select>
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SESSION|filter: {parentId: student.courseId}"></select>
 								</td>
 								
 						</tr>

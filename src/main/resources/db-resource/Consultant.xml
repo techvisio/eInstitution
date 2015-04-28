@@ -167,7 +167,7 @@ where File_No=:File_No;
 
 	</entry>
 
-	<entry key="deleteConsultantPaymentDtl">
+	<entry key="deleteConsultantPaymentDtlExclusion">
     <![CDATA[
       
 Delete from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id not in (:Consultant_Id);  
@@ -175,6 +175,13 @@ Delete from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id not
 
 	</entry>
 
+<entry key="deleteConsultantPaymentDtl">
+    <![CDATA[
+      
+Delete from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id=:Consultant_Id;  
+    ]]>
+
+	</entry>
 
 	<entry key="getConsultantPaymentCriteria">
     <![CDATA[
@@ -207,14 +214,15 @@ Triggered) values
 :Fee_Received, 
 :Amount_To_Be_Paid, 
 :Fee_Due_Date, 
-:Approved, Paid, 
+:Approved, 
+:Paid, 
 :Triggered);
 
    ]]>
 
 	</entry>
 
-	<entry key="deleteConsultantPaymentCriteria">
+	<entry key="deleteConsultantPaymentCriteriaExclusion">
     <![CDATA[
       
 Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id not in (:Consultant_Id);
@@ -222,6 +230,16 @@ Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id n
    ]]>
 
 	</entry>
+	
+	<entry key="deleteConsultantPaymentCriteria">
+    <![CDATA[
+      
+Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id=:Consultant_Id;
+
+   ]]>
+
+	</entry>
+	
 <entry key="getCosultantBySearchCriteria">
 
 <![CDATA[

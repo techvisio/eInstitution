@@ -175,35 +175,35 @@
 	<tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 		<tr>
 			<td><span> File No </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.fileNo"></td>
 			<td><span> Enrollment No </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.enrollmentNo"></td>
 		</tr>
 		<tr>
 			<td> First Name</td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.firstName"></td>
 			<td><span> Last Name </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.lastName"></td>
 
 		</tr>
 		<tr>
 			<td><span> Father Name </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.fatherName"></td>
 			<td><span> Date Of Birth </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.dob"></td>
 		</tr>
 		<tr>
 			<td><span> Course </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.course.course"></td>
 			<td><span> Branch </span></td>
-			<td><input type="text"
+			<td><input type="text" readonly="true"
 				ng-model="feeTransactionAdmissionBean.basicInfo.branch.branchName"></td>
 		</tr>
 		
@@ -243,7 +243,12 @@
 		</tr>
 		
 		<tr><td colspan=2>Remark<p><textarea rows="2" cols="40" ng-model="newTransaction.remark"></textarea></td>
-		<td colspan=2><button type="button" class="btn btn-success btn-lg"  ng-click="depositeFee()">Deposite</button></td></tr>
+	<td colspan=2><button type="button" class="btn btn-success btn-lg"  ng-click="depositeFee()">Deposite</button></td></tr>
+<tr>
+<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="form.content='dashboard'">Back to DashBoard</button></td>
+						
+</tr>
 </tr>
 	</table>
 </div>
@@ -255,7 +260,7 @@
 <tr><td><span class="header">Base Fee</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.applicableFeeDetails">
 <td><span ng-bind="object.feeDetail.head"></span></td>
-<td><input type="text" ng-model="object.feeAmount"></td>
+<td><input type="text" ng-model="object.feeAmount" readonly="true"></td>
 </tr>
 <tr>
 <th>Total Fee</th>
@@ -264,7 +269,7 @@
 <tr><td><span class="header">Amenities Charges</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('D')">
 <td><span ng-bind="object.discountHead.head"></span></td>
-<td><input type="text" ng-model="object.amount"></td>
+<td><input type="text" ng-model="object.amount" readonly="true"></td>
 </tr>
 <tr>
 <th>Total Charges</th>

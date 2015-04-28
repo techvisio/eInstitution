@@ -6,11 +6,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.form={};
 	$scope.consultantAdmissionDetail={};
 	$scope.consultantAdmissionDetail.consultantDetails=[];
-	 
-	
 	$scope.consultantAdmissionDetail.consultantDetails.push(angular.copy($scope.dummyConsultantDetails));
-
-	 
 	
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
@@ -28,7 +24,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.searchResult=false;
 	
 	
-	$scope.dummyConsultantDetails = {"consultantPaymentCriterias" : [ {} ], "consultantPaymentDetail" : [ {} ]};
+	$scope.dummyConsultantDetails = {"consultant":{},"consultantPaymentCriterias" : [ {} ], "consultantPaymentDetail" : [ {} ]};
 	
 	$scope.dummyConsultantPaymentCriterias = {};
 	
@@ -36,11 +32,11 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	
 	
 	 $scope.addConsultantPaymentCriteria = function(object) {
-		 var consultantPaymentCriterias = angular
+		 var consultantPaymentCriteria = angular
 		 .copy($scope.dummyConsultantPaymentCriterias);
-		 consultantPaymentCriterias.consultantId = object.consultantId;
+		 consultantPaymentCriteria.consultantId = object.consultant.consultantId;
 		 object.consultantPaymentCriterias
-		 .push(consultantPaymentCriterias);
+		 .push(consultantPaymentCriteria);
 	 };
 
 	 $scope.removeConsultantPaymentCriteria = function(object, index) {
@@ -48,6 +44,18 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		 object.consultantPaymentCriterias.splice(index, 1);
 	 };
 
+	 $scope.addConsultantPaymentDtl = function(object) {
+		 var consultantPaymentDtl = angular
+		 .copy($scope.dummyConsultantPaymentDetail);
+		 consultantPaymentDtl.consultantId = object.consultant.consultantId;
+		 object.consultantPaymentDetail
+		 .push(consultantPaymentDtl);
+	 };
+
+	 $scope.removeConsultantPaymentDtl = function(object, index) {
+		 console.log(index);
+		 object.consultantPaymentDetail.splice(index, 1);
+	 };
 	
 	 $scope.search = function(searchCriteria){
 		 consultantService.getConsultantByCriteria(searchCriteria)
@@ -113,7 +121,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	 $scope.getConsultantAdmissionDetail = function(){
 	
 		 console.log('getConsultantAdmissionDetail called in controller');
-          var fileNo = 102;	 
+          var fileNo = 106;	 
 		 consultantService.getConsultantAdmissionDetail(fileNo)
 		 .then(function(response) {
 			 console.log('consultantAdmission Data received from service : ');

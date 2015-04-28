@@ -1,5 +1,10 @@
 <div ng-controller="transportController" ng-init="getAvailableTransport()">
 
+      <div ng-include src="'transportReservation.html'" ng-if="form.content==='dashboard'">
+</div>
+
+<script type="text/ng-template" id="transportReservation.html">
+
    <div class="modal-content" ng-init="getReservedTransport()">  
       <div class="inventory-view">
       
@@ -71,9 +76,9 @@
 </tr>
 </table>
 </div>
-
-
    </div>
+
+</script>
 
 </div>
 
