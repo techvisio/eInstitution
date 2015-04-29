@@ -15,7 +15,7 @@ public class EnquiryManagerImpl implements EnquiryManager {
 
 	
 	EnquiryDao inquiryDao=ContextProvider.getContext().getBean(EnquiryDao.class);
-	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
+	UniqueIdentifierGenerator identifierGenerator;
 
 
 	private static EnquiryManagerImpl instance=null;

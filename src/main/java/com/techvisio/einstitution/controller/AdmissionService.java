@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -26,16 +27,16 @@ import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 @RequestMapping("/admission")
 public class AdmissionService {
 
-	private static final Logger logger = Logger
-			.getLogger(AdmissionService.class);
+	private static final Logger logger = Logger.getLogger(AdmissionService.class);
 
+	@Autowired
+	AdmissionWorkflowManager workflowManager;
+	
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentDetail(@PathVariable Long fileNo) {
 		Response response=new Response();
 		try
 		{
-		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
-		
 		StudentDetail studentDetail = workflowManager.getStudentDetails(fileNo);
 		response.setResponseBody(studentDetail);
 		
@@ -150,8 +151,7 @@ public class AdmissionService {
 		Response response = new Response();
 		try
 		{
-			AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
-		    List<StudentBasicInfo> basicInfo = manager.getLatestAdmissionInfo(limit);
+		    List<StudentBasicInfo> basicInfo = workflowManager.getLatestAdmissionInfo(limit);
 		    response.setResponseBody(basicInfo);
 		}
 		catch(Exception e)

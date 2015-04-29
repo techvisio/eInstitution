@@ -1,13 +1,15 @@
 package com.techvisio.einstitution.workflow;
 
-import com.techvisio.einstitution.beans.SearchCriteria;
-
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Remark;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 
+@Component
 public interface AdmissionWorkflowManager {
 
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);

@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
@@ -29,10 +32,11 @@ import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.util.CommonUtil;
 
-
+@Repository
 public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 
+	@Autowired @Qualifier(value="masterQueryProps")
 	private Properties masterQueryProps;
 
 	public void setmasterQueryProps(Properties masterQueryProps) {

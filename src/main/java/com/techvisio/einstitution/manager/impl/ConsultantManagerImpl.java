@@ -15,9 +15,8 @@ import com.techvisio.einstitution.util.ContextProvider;
 
 public class ConsultantManagerImpl implements ConsultantManager {
 
-	ConsultantDao consultantDao = ContextProvider.getContext().getBean(
-			ConsultantDao.class);
-	UniqueIdentifierGenerator identifierGenerator = new UniqueIdentifierFactory().getGenerator();
+	ConsultantDao consultantDao = ContextProvider.getContext().getBean(ConsultantDao.class);
+	UniqueIdentifierGenerator identifierGenerator;
 
 	private static ConsultantManagerImpl instance=null;
 	public static synchronized ConsultantManagerImpl getInstance()

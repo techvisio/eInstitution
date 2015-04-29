@@ -2,12 +2,15 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.HostelAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelInventory;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 
+@Component
 public interface HostelDao {
 
 	public List<HostelAvailability> getHostelAvailability();

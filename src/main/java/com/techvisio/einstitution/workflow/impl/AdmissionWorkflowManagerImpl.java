@@ -2,6 +2,9 @@ package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
@@ -10,18 +13,18 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
-import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
-import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
-import com.techvisio.einstitution.util.AppConstants.AdmissionWorkFlowStatus;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 
+@Component
 public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
-	AdmissionManager admissionManager=AdmissionManagerImpl.getInstance();
-	FeeManager feeManager=FeeManagerImpl.getInstance();
+	@Autowired
+	AdmissionManager admissionManager;
+	
+	FeeManager feeManager;
 	
 	public Long addStudentDetails(StudentDetail studentDetail) {
 		

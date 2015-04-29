@@ -2,6 +2,8 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
@@ -19,6 +21,7 @@ import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 
+@Component
 public interface CacheManager {
 
 	public List<MasterDataBean> getBranchAsMasterdata();

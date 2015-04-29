@@ -12,7 +12,7 @@ import com.techvisio.einstitution.util.ContextProvider;
 public class TaskFollowManagerImpl implements TaskFollowManager {
 	
 	TaskFollowDao  taskFollowDao = ContextProvider.getContext().getBean(TaskFollowDao.class);
-	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
+	UniqueIdentifierGenerator identifierGenerator;
 	
 
 	private static TaskFollowManagerImpl instance=null;

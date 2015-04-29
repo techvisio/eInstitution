@@ -1,7 +1,10 @@
 package com.techvisio.einstitution.db;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.WorkFlowFieldMapping;
 
+@Component
 public interface WorkFlowDao   {
 	
 	public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowStepId(String workFlowStepId);

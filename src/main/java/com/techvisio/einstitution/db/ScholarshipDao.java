@@ -2,9 +2,12 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.ScholarshipPaymentDetail;
 
+@Component
 public interface ScholarshipDao {
 
 	public ScholarshipDetail getScholarshipDetail(Long fileNo);

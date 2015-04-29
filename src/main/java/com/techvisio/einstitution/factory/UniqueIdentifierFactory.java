@@ -3,6 +3,7 @@ package com.techvisio.einstitution.factory;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.Course;
@@ -13,12 +14,12 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.ContextProvider;
 
-public class UniqueIdentifierFactory {
+@Service
+public class UniqueIdentifierFactory implements UniqueIdentifierGenerator {
 
-	public static UniqueIdentifierGenerator getGenerator(){
-		return new UniqueIdentifierGenerator() {
 		
-			CacheManager cacheManager = ContextProvider.getContext().getBean(CacheManager.class);
+			@Autowired
+			CacheManager cacheManager ;
 			
 			public Long getUniqueIdentifierForAdmission() {
 
@@ -91,7 +92,4 @@ public class UniqueIdentifierFactory {
 				
 				return registrationNo;
 			}
-
-		};
 	}
-}

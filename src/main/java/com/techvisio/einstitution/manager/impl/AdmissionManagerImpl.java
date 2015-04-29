@@ -5,6 +5,9 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
@@ -18,12 +21,15 @@ import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.ContextProvider;
 
+@Component
 public class AdmissionManagerImpl implements AdmissionManager {
 
 
-	AdmissionDao admissionDao=ContextProvider.getContext().getBean(AdmissionDao.class);
+	@Autowired
+	AdmissionDao admissionDao;
 	
-	UniqueIdentifierGenerator identifierGenerator=UniqueIdentifierFactory.getGenerator();
+	@Autowired
+	UniqueIdentifierGenerator identifierGenerator;
 	
 	private static AdmissionManagerImpl instance=null;
 	public static synchronized AdmissionManagerImpl getInstance()

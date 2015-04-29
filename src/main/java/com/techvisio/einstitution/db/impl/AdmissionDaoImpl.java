@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AddressDetail;
 import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
@@ -28,13 +31,16 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.manager.CacheManager;
-import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 
+@Component
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
+	@Autowired
 	private Properties admissionQueryProps;
-	CacheManager cacheManager =  new CacheManagerImpl();
+	
+	@Autowired
+	CacheManager cacheManager;
 
 	public void setAdmissionQueryProps(Properties admissionQueryProps) {
 

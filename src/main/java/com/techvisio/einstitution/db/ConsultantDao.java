@@ -2,13 +2,15 @@ package com.techvisio.einstitution.db;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 import com.techvisio.einstitution.beans.SearchCriteria;
 
-
+@Component
 public interface ConsultantDao {
 
 	public Consultant getConsultant(Long consultantId);
