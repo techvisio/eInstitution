@@ -24,6 +24,7 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 @Component
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
+
 	@Autowired
 	private Properties enquiryQueryProps;
 
@@ -32,7 +33,8 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 	
 	@Autowired
-	CacheManager cacheManager ;
+	CacheManager cacheManager;
+	
 	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 
 		String getQuery = enquiryQueryProps

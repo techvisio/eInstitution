@@ -35,8 +35,6 @@ public class HostelService {
 	@Autowired
 	HostelWorkflowManager workflowManager;
 	
-	@Autowired
-	HostelWorkflowManager workflowManager;
 	
 //RoomTypeDetail 
 	
