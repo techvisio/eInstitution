@@ -3,11 +3,13 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.SearchCriteria;
-
+@Component
 public interface ConsultantWorkflowManager {
 	
 	public Consultant getConsultant(Long consultantId);

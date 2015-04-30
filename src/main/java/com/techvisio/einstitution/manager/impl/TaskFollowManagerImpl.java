@@ -2,16 +2,22 @@ package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.db.TaskFollowDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.TaskFollowManager;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class TaskFollowManagerImpl implements TaskFollowManager {
 	
-	TaskFollowDao  taskFollowDao = ContextProvider.getContext().getBean(TaskFollowDao.class);
+	@Autowired
+	TaskFollowDao  taskFollowDao;
+	
+	@Autowired
 	UniqueIdentifierGenerator identifierGenerator;
 	
 

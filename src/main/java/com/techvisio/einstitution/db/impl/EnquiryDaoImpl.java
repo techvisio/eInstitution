@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 //github.com/techvisio/eInstitution
@@ -20,16 +22,17 @@ import com.techvisio.einstitution.db.EnquiryDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
-
+@Component
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
-
+	@Autowired
 	private Properties enquiryQueryProps;
 
 	public void setEnquiryQueryProps(Properties inquiryQueryProps) {
 		this.enquiryQueryProps = inquiryQueryProps;
 	}
-
-	CacheManager cacheManager =  new CacheManagerImpl();
+	
+	@Autowired
+	CacheManager cacheManager ;
 	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 
 		String getQuery = enquiryQueryProps

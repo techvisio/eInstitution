@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.ConsultantDetail;
@@ -22,21 +24,27 @@ import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.TaskFollowWorkflowManager;
-
+@Component
 public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
-
-	EnquiryManager enquiryManager = EnquiryManagerImpl.getInstance();
 	
+	@Autowired
+	EnquiryManager enquiryManager;
+	
+	@Autowired
+	DefaultManager defaultManager;
+
+	@Autowired
+	AdmissionWorkflowManager admissionWorkflowManager;
+	
+	@Autowired
+	TaskFollowWorkflowManager taskFollowWorkflowManager;
 	
 	@Override
 	public EnquiryAndTaskBean getEnquiryandTask(Long inquiryId) {
-		TaskFollowWorkflowManager taskFollowWorkflowManager=new TaskFollowWorkflowManagerImpl();
-		
 		EnquiryAndTaskBean enquiryAndTask=new EnquiryAndTaskBean();
 		
 		AdmissionEnquiry admissionEnquiry=enquiryManager.getInquiry(inquiryId);
 		enquiryAndTask.setAdmissionEnquiry(admissionEnquiry);
-		
 		
 		List<TaskAndFollowUp> tasks=taskFollowWorkflowManager.getTaskAndFollowUpByByModuleAndEntityId(inquiryId, AppConstants.ENQUIRY);
 		enquiryAndTask.setTasks(tasks);
@@ -47,13 +55,9 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	@Override
 	public Long addEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
 	
-		
-		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
         enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  
 	
-        
 		Long enquiryId=enquiryManager.addInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
-		
 		
 		List<TaskAndFollowUp> followUps = enquiryAndTaskBean.getTasks();
 		CommonUtil.propogateEntityIdToTaskAndFollowup(followUps, enquiryId, AppConstants.ENQUIRY);
@@ -68,8 +72,6 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		
 		
 		Long enquiryId=enquiryManager.updateInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
-	
-		TaskFollowWorkflowManager taskFollowWorkflowManager =  new  TaskFollowWorkflowManagerImpl();
 		
 		List<TaskAndFollowUp> followUps = enquiryAndTaskBean.getTasks();
 		CommonUtil.propogateEntityIdToTaskAndFollowup(followUps, enquiryId, AppConstants.ENQUIRY);
@@ -96,15 +98,13 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 	public Long proceedToAdmission(EnquiryAndTaskBean enquiryAndTaskBean){
 		
-		AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
+		
         AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
         StudentDetail studentDetail = getStudentFromEquiry(enquiry);
         
         Long fileNo=admissionWorkflowManager.addStudentDetails(studentDetail);
         
         enquiry.setFileNo(fileNo);
-        
-        
         
         enquiry.setApplicationStatus(EnquiryStatus.MOVED_TO_ADMISSION.name());
         
@@ -130,7 +130,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 	private StudentDetail getStudentFromEquiry(AdmissionEnquiry enquiry) {
 		StudentDetail studentDetail = new StudentDetail();
-		DefaultManager defaultManager =  new DefaultManagerImpl();
+		
 		studentDetail.setFirstName(enquiry.getName());
 		studentDetail.setFatherName(enquiry.getFatherName());
 		studentDetail.setDob(enquiry.getDob());

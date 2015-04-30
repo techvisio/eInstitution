@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -29,19 +30,17 @@ public class EnquiryService {
 	
 	private static final Logger logger = Logger.getLogger(EnquiryService.class);
 	
+	@Autowired
+	EnquiryWorkflowManager enquiryWorkflowManager;
 	
 	@RequestMapping(value="/enquiryByTaskDate/",method = RequestMethod.GET)
 	public ResponseEntity<Response> getInquiryByTaskDate(Date taskDate){
 		Response response=new Response();
 		try{
-		
-		EnquiryWorkflowManager enquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		
 		Date date = new Date();
 		taskDate=CommonUtil.removeTimeFromDate(date);
 		List<AdmissionEnquiry> admissionEnquiry= enquiryWorkflowManager.getInquiryByTaskDate(taskDate);
 		response.setResponseBody(admissionEnquiry);
-  		
 		}
 		
 		catch(Exception e)
@@ -60,12 +59,8 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 		
-		EnquiryWorkflowManager enquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		
 		EnquiryAndTaskBean admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
-		
 		response.setResponseBody(admissionInquiAndTask);
-                  		
 		}
 		
 		catch(Exception e)
@@ -80,9 +75,8 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 			
-		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.addEnquiryandTask(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		Long enquiryId=enquiryWorkflowManager.addEnquiryandTask(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 			response.setResponseBody(admissionInquiryDB);
 		}
@@ -99,9 +93,8 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 			
-		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.updateEnquiryandTask(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		Long enquiryId=enquiryWorkflowManager.updateEnquiryandTask(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 		}
 		response.setResponseBody(admissionInquiryDB);
@@ -116,8 +109,7 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.DELETE)
 	public void deleteInquiry(@PathVariable Long inquiryId) {  
-		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		inquiryWorkflowManager.deleteInquiry(inquiryId);
+		enquiryWorkflowManager.deleteInquiry(inquiryId);
 	}
 	
 	@RequestMapping(value ="/search/", method = RequestMethod.POST)
@@ -125,8 +117,7 @@ public class EnquiryService {
 		Response response=new Response();
 		try
 		{
-			EnquiryWorkflowManager workflowManager = new EnquiryWorkflowManagerImpl();
-			List<AdmissionEnquiry> admissionInquiry = workflowManager.searchInqByCriteria(searchCriteria);
+			List<AdmissionEnquiry> admissionInquiry = enquiryWorkflowManager.searchInqByCriteria(searchCriteria);
 			response.setResponseBody(admissionInquiry);
 			
 			if(admissionInquiry == null){
@@ -155,9 +146,8 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 			
-		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.proceedToAdmission(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		Long enquiryId=enquiryWorkflowManager.proceedToAdmission(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 			response.setResponseBody(admissionInquiryDB);
 		}
@@ -175,9 +165,8 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 			
-		EnquiryWorkflowManager inquiryWorkflowManager= new EnquiryWorkflowManagerImpl();
-		Long enquiryId=inquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=inquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		Long enquiryId=enquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
+		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 		}
 		response.setResponseBody(admissionInquiryDB);

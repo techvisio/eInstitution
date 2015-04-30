@@ -2,6 +2,7 @@ package com.techvisio.einstitution.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,12 @@ import com.techvisio.einstitution.workflow.impl.ScholarshipWorkflowManagerImpl;
 @RestController
 @RequestMapping("/management")
 public class ManagementService {
+	
+	@Autowired
+	ManagementWorkflowManager managementWorkflowManager ;
 
+	@Autowired
+	 AdmissionWorkflowManager admissionWorkflowManager;
 	@RequestMapping(value ="/admission/approval/{fileNo}", method = RequestMethod.GET )
 	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable Long fileNo){
 
@@ -39,8 +45,7 @@ public class ManagementService {
 		ResponseEntity<Response> result = new ResponseEntity<Response>(response, HttpStatus.OK);
 
 		try{
-
-			ManagementWorkflowManager managementWorkflowManager = new ManagementWorkflowManagerImpl();
+			
 			ManagementAdmissionBean admissionBean = managementWorkflowManager.getAdmissionManagementView(fileNo);
 
 			response.setResponseBody(admissionBean);
@@ -59,7 +64,6 @@ public class ManagementService {
 		Response response = new Response();
 		try
 		{
-			ManagementWorkflowManager managementWorkflowManager = new ManagementWorkflowManagerImpl();
 		    List<StudentBasicInfo> basicInfo = managementWorkflowManager.getUnapprovedAdmissions(limit);
 		    response.setResponseBody(basicInfo);
 		}
@@ -78,8 +82,7 @@ public  ResponseEntity<Response> updateManagementChanges(@RequestBody Management
 	Response response = new Response();
 	try
 	{
-		ManagementWorkflowManager managementWorkflowManager = new ManagementWorkflowManagerImpl();
-        AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
+       
 		admissionBean.getBasicInfo().getRemark().setFileNo(admissionBean.getBasicInfo().getFileNo());
 	    admissionBean = managementWorkflowManager.updateManagementChanges(admissionBean);
 	    response.setResponseBody(admissionBean);

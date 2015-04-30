@@ -35,6 +35,9 @@ public class HostelService {
 	@Autowired
 	HostelWorkflowManager workflowManager;
 	
+	@Autowired
+	HostelWorkflowManager workflowManager;
+	
 //RoomTypeDetail 
 	
 	@RequestMapping(value ="/roomTypeDetail/{typeCode}", method = RequestMethod.GET )

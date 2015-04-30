@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.manager;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface DefaultManager {
 
 	Long getDefaultCentre();

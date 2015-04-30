@@ -40,6 +40,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	@Autowired
 	TransportManager transportManager ;
 
+	
 	@Autowired
 	CacheManager cacheManager;
 
@@ -150,7 +151,6 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		stagingFee.setDiscountHead(discountHead);
 
 		feeManager.deleteStudentFeeStagingbyfileNo(stagingFee);
-
 		transportManager.deleteTransportReservationDtl(fileNo);
 	}
 

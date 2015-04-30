@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.Transport;
@@ -16,9 +18,10 @@ import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
 import com.techvisio.einstitution.util.CommonUtil;
-
+@Component
 public class TransportDaoImpl extends BaseDao implements TransportDao {
-
+	
+	@Autowired
 	private Properties transportQueryProps;
 
 	public void setTransportQueryProps(Properties transportQueryProps) {

@@ -24,6 +24,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	@Autowired
 	AdmissionManager admissionManager;
 	
+	@Autowired
 	FeeManager feeManager;
 	
 	public Long addStudentDetails(StudentDetail studentDetail) {

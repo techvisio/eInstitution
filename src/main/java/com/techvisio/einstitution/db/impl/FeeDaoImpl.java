@@ -8,12 +8,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.object.StoredProcedure;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
@@ -28,17 +30,19 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.DefaultManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomStoredProcedure;
-
+@Component
 public class FeeDaoImpl extends BaseDao implements FeeDao{
-
+	
+	@Autowired
 	private Properties feeQueryProps;
 
 
 	public void setFeeQueryProps(Properties feeQueryProps) {
 		this.feeQueryProps = feeQueryProps;
 	}
-
-	CacheManager cacheManager =  new CacheManagerImpl(); 
+	
+	@Autowired
+	CacheManager cacheManager ; 
 
 	@Override
 	public List<FeeAdmissionBean> getPendingfeeInfo(int limit) {

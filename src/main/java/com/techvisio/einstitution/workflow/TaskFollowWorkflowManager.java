@@ -2,8 +2,10 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
-import com.techvisio.einstitution.beans.TaskAndFollowUp;
+import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.TaskAndFollowUp;
+@Component
 public interface TaskFollowWorkflowManager {
 
 	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module);

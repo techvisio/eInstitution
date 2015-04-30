@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
@@ -24,12 +27,14 @@ import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.ContextProvider;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.ManagementWorkflowManagerImpl;
-
+@Component
 public class FeeManagerImpl implements FeeManager{
-
-	FeeDao feeDetailDao = ContextProvider.getContext().getBean(
-			FeeDao.class);
-	AdmissionManager admissionManager=AdmissionManagerImpl.getInstance();
+	
+	@Autowired
+	FeeDao feeDetailDao ;
+	
+	@Autowired
+	AdmissionManager admissionManager;
 	
 	private static FeeManagerImpl instance=null;
 	public static synchronized FeeManagerImpl getInstance()

@@ -1,8 +1,10 @@
 package com.techvisio.einstitution.workflow;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-
+@Component
 public interface ScholarshipWorkflowManager {
 
 	public ScholarshipDetail getScholarshipDetail(Long fileNo);

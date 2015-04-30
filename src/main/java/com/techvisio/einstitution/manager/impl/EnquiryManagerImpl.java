@@ -3,6 +3,9 @@ package com.techvisio.einstitution.manager.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.EnquiryDao;
@@ -10,11 +13,13 @@ import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.EnquiryManager;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class EnquiryManagerImpl implements EnquiryManager {
 
+	@Autowired
+	EnquiryDao inquiryDao;
 	
-	EnquiryDao inquiryDao=ContextProvider.getContext().getBean(EnquiryDao.class);
+	@Autowired
 	UniqueIdentifierGenerator identifierGenerator;
 
 

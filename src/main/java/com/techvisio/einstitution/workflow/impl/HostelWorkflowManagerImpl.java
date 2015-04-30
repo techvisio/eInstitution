@@ -48,7 +48,6 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	public HostelAllocation getHostelAllocation(Long fileNo) {
-
 		return hostelManager.getHostelAllocation(fileNo);
 	}
 

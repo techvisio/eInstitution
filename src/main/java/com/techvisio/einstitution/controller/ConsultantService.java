@@ -3,6 +3,7 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +30,16 @@ public class ConsultantService {
 
 private static final Logger logger = Logger.getLogger(ConsultantService.class);
 
+@Autowired
+ConsultantWorkflowManager workflowManager;
+
 @RequestMapping(value="/consultantMaster/{consultantId}",method = RequestMethod.GET)
 public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
 	Response response = new Response();
 	
 	try
 	{
-		ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
+		
   		Consultant consultant = workflowManager.getConsultant(consultantId);
            
   			response.setResponseBody(consultant);
@@ -57,7 +61,6 @@ public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultan
 	
 	try
 	{
-	ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
 	//workflowManager.saveConsultant(consultant);
 	Long consultantId = workflowManager.saveConsultant(consultant);
 	Consultant consultantFromDb = workflowManager.getConsultant(consultantId);
@@ -77,7 +80,6 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 	
 	try
 	{
-		ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
   		 workflowManager.deleteConsultant(consultantId);
            
   		
@@ -102,7 +104,6 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		
 		try
 		{
-			ConsultantWorkflowManager workflowManager =  new ConsultantWorkflowManagerImpl();
       		List<ConsultantDetail> consultantDetails = workflowManager.getConsultantDtl(fileNo);
                
       		for(ConsultantDetail consultantDetail : consultantDetails){
@@ -125,7 +126,6 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		
 		try
 		{
-		ConsultantWorkflowManager workflowManager=new ConsultantWorkflowManagerImpl();
 		workflowManager.saveConsultant(consultantDetails);
      
 		response.setResponseBody(consultantDetails);
@@ -144,7 +144,6 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		Response response=new Response();
 		try
 		{
-			ConsultantWorkflowManager workflowManager = new ConsultantWorkflowManagerImpl();
 			List<Consultant> consultants = workflowManager.getConsultantBySearchCriteria(searchCriteria);
 			response.setResponseBody(consultants);
 			
@@ -169,11 +168,10 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		Response response = new Response();
 		try{
 			
-			ConsultantWorkflowManager consultantWorkflowManager=new ConsultantWorkflowManagerImpl();
-            consultantWorkflowManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
+			workflowManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
 
             Long fileNo = consultantAdmissionDetail.getBasicInfo().getFileNo();
-            consultantAdmissionDetail = consultantWorkflowManager.getConsultantAdmissionDetail(fileNo);
+            consultantAdmissionDetail = workflowManager.getConsultantAdmissionDetail(fileNo);
             
             response.setResponseBody(consultantAdmissionDetail);
             
@@ -194,8 +192,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 
 		Response response = new Response();
 		try{
-		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
-		ConsultantAdmissionDetail consultantAdmissionDetail = consultantWorkflowManager.getConsultantAdmissionDetail(fileNo);
+		ConsultantAdmissionDetail consultantAdmissionDetail = workflowManager.getConsultantAdmissionDetail(fileNo);
 
 		response.setResponseBody(consultantAdmissionDetail);
 		}

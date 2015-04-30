@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
@@ -15,9 +17,10 @@ import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.ScholarshipPaymentDetail;
 import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.util.CommonUtil;
-
+@Component
 public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
-
+	
+	@Autowired
 	private Properties scholarshipQueryProps;
 
 	public void setScholarshipQueryProps(Properties scholarshipQueryProps) {

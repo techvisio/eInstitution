@@ -2,6 +2,10 @@ package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
@@ -19,15 +23,20 @@ import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
-
+@Component
 public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
+	@Autowired
+	AdmissionWorkflowManager admissionWorkFlow;
+	
+	@Autowired
+	FeeWorkflowManager feeworkFlow;
+	
+	@Autowired
+	ScholarshipWorkflowManager schlarshipWorkFlow;
+	
 	@Override
 	public ManagementAdmissionBean getAdmissionManagementView(Long fileNo) {
-
-		AdmissionWorkflowManager admissionWorkFlow=new AdmissionWorkflowManagerImpl();
-		FeeWorkflowManager feeworkFlow= new FeeWorkflowManagerImpl();
-		ScholarshipWorkflowManager schlarshipWorkFlow=new ScholarshipWorkflowManagerImpl();
 
 		ManagementAdmissionBean admissionBean=new ManagementAdmissionBean();
 		StudentBasicInfo basicInfo=admissionWorkFlow.getStudentBsInfo(fileNo);
@@ -39,18 +48,15 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 			List<ApplicableFeeDetail> applicableFee = getApplicableFee(basicInfo);
 			
 			admissionBean.setApplicableFeeDetails(applicableFee);
-			
 			ScholarshipDetail scholarshipDetail=schlarshipWorkFlow.getScholarshipDetail(fileNo);
 			admissionBean.setScholarship(scholarshipDetail);
-
-		}
-		return admissionBean;
+				}
+			return admissionBean;
 
 	}
 
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFee(StudentBasicInfo basicInfo) {
-		FeeWorkflowManager feeworkFlow=new FeeWorkflowManagerImpl();
 		ApplicableFeeCriteria criteria = CommonUtil.getApplicableFeeCriteriaFromStudentBasicInfo(basicInfo);
 		List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);
 		return applicableFee;
@@ -59,8 +65,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit){
 		
-		AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
-	    List<StudentBasicInfo> basicInfo = manager.getUnapprovedAdmissions(limit);
+	    List<StudentBasicInfo> basicInfo = admissionWorkFlow.getUnapprovedAdmissions(limit);
 		
 		return basicInfo;
 		
@@ -69,10 +74,6 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	@Override
 	public ManagementAdmissionBean updateManagementChanges(ManagementAdmissionBean admissionBean) {
 
-		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
-		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
-		AdmissionWorkflowManager admissionWorkFlow=new AdmissionWorkflowManagerImpl();
-		
 		StudentBasicInfo basicInfo = admissionBean.getBasicInfo();
 		CommonUtil.propogateFileNoTofeeStaging(basicInfo.getFileNo(), admissionBean.getStagingFee());
 
@@ -80,13 +81,16 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 		admissionWorkFlow.saveRemark(remark);
 		
 		//handling scholarship 
-	    ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
-	    scholarshipDetail.setFileNo(basicInfo.getFileNo());
-	    scholarshipWorkflowManager.accomodateManagementChanges(basicInfo,scholarshipDetail);
+	    
+		ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
+	    
+		
+		scholarshipDetail.setFileNo(basicInfo.getFileNo());
+		schlarshipWorkFlow.accomodateManagementChanges(basicInfo,scholarshipDetail);
 	    
 	    //handling discounts , base applicable fee and other ameneties charges
 		List<StudentFeeStaging> feeStagings = admissionBean.getStagingFee();
-		feeWorkflowManager.handleManagementChangesforDiscounts(basicInfo, feeStagings);
+		feeworkFlow.handleManagementChangesforDiscounts(basicInfo, feeStagings);
 		
 		return getAdmissionManagementView(basicInfo.getFileNo());
 	}

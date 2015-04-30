@@ -1,8 +1,10 @@
 package com.techvisio.einstitution.manager;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-
+@Component
 public interface ScholarshipManager {
 
 	public ScholarshipDetail getScholarshipDetail(Long fileNo);

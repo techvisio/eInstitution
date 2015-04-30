@@ -2,6 +2,9 @@ package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
@@ -11,12 +14,16 @@ import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.manager.impl.ConsultantManagerImpl;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
-
+@Component
 public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 
 	private static final int ConsultantDetail = 0;
-	ConsultantManager manager=ConsultantManagerImpl.getInstance();
 	
+	@Autowired
+	ConsultantManager manager;
+	
+	@Autowired
+	AdmissionWorkflowManager admissionWorkflowManager ;
 	
 	@Override
 	public Consultant getConsultant(Long consultantId) {
@@ -67,7 +74,6 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	@Override
 	public ConsultantAdmissionDetail getConsultantAdmissionDetail(Long fileNo){
 		
-		AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
         ConsultantAdmissionDetail consultantAdmissionDetail=new ConsultantAdmissionDetail();
         
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);

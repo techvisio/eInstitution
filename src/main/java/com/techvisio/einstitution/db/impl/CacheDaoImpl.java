@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.techvisio.einstitution.beans.Batch;
@@ -32,7 +33,7 @@ import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.util.CommonUtil;
 
-@Repository
+@Component
 public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 

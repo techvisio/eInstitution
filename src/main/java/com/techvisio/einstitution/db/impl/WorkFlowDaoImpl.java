@@ -7,15 +7,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.WorkFlowFieldMapping;
 import com.techvisio.einstitution.db.WorkFlowDao;
 
+@Component
 public class WorkFlowDaoImpl extends BaseDao implements WorkFlowDao{
+	
+	@Autowired
 	private Properties workFlowQueryProps;
 	
 	

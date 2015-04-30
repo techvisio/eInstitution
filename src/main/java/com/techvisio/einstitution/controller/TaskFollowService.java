@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,13 @@ import com.techvisio.einstitution.manager.impl.TaskFollowManagerImpl;
 @RequestMapping("/TaskFollow")
 public class TaskFollowService {
 	//private static final Logger logger = Logger.getLogger(TaskFollowService.class);
+	
+	@Autowired
+	TaskFollowManager tManager;
+	
 	@RequestMapping(value="/GetByTaskId/{taskId}",method= RequestMethod.GET )
 	public TaskAndFollowUp getTaskAndFollowUpByTaskId(@PathVariable int taskId){
-		TaskFollowManager tManager = TaskFollowManagerImpl.getInstance();
+		
 //		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByTaskId(taskId);
 		
 		
@@ -24,7 +29,6 @@ public class TaskFollowService {
 		}
 	@RequestMapping(value="/GetByParentTaskId/{parentTaskId}",method = RequestMethod.GET)
 	public TaskAndFollowUp getTaskAndFollowUpByParentTaskId(@PathVariable int parentTaskId){
-		TaskFollowManager tManager = TaskFollowManagerImpl.getInstance();
 //		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByParentTaskId(parentTaskId);
 		
 		return null;
@@ -33,20 +37,17 @@ public class TaskFollowService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public void addTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-		TaskFollowManager tManager = TaskFollowManagerImpl.getInstance();
 //		tManager.addTaskAndFollowUp(taskAndFollowUp);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public void updateTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-		TaskFollowManager followManager = TaskFollowManagerImpl.getInstance();
 //		followManager.updateTaskAndFollowUp(taskAndFollowUp);
 		
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-		TaskFollowManager followManager = TaskFollowManagerImpl.getInstance();
 //		followManager.deleteTaskAndFollowUp(taskAndFollowUp);
 	}
 	
