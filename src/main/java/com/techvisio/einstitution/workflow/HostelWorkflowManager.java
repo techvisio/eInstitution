@@ -2,11 +2,14 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-
+@Component
 public interface HostelWorkflowManager {
 
     
@@ -28,6 +31,12 @@ public interface HostelWorkflowManager {
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void deleteRoomTypeDetail(String typeCode);
+
+	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo);
+
+	public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
+
+	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 
 	
 }

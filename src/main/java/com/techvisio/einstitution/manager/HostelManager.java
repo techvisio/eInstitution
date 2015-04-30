@@ -2,11 +2,14 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-
+@Component
 public interface HostelManager {
 	
 	public List<HostelAvailability> getHostelAvailability();
@@ -27,5 +30,9 @@ public interface HostelManager {
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail);
 	public void deleteRoomTypeDetail(String typeCode);
+
+	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
+
+	public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 
 }

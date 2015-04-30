@@ -2,17 +2,24 @@ package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.AvailableTransport;
+import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportAllocation;
+import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
 import com.techvisio.einstitution.manager.TransportManager;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class TransportManagerImpl implements TransportManager {
 
-	TransportDao transportDao=ContextProvider.getContext().getBean(TransportDao.class);
+	@Autowired
+	TransportDao transportDao;
 	
 	private static TransportManagerImpl instance=null;
 	public static synchronized TransportManagerImpl getInstance()
@@ -112,5 +119,20 @@ public class TransportManagerImpl implements TransportManager {
 
 		transportDao.deleteVehicleDetail(vehicleId);
 	}
+	
+	@Override
+	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+		
+		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
+		updateTransportAllocationDtl(transportAllocation);
+	}
+
+	@Override
+	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+		
+		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
+		updateTransportAllocationDtl(transportAllocation);
+	}
+
 
 }

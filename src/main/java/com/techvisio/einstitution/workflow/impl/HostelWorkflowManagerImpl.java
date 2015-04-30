@@ -3,11 +3,18 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
+import com.techvisio.einstitution.beans.ConsultantDetail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -19,14 +26,22 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
-
+@Component
 public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
-	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	HostelManager hostelManager=HostelManagerImpl.getInstance();
-	FeeManager feeManager=FeeManagerImpl.getInstance();
-	CacheManager cacheManager=new CacheManagerImpl();
+	@Autowired
+	AdmissionManager admissionManager;
+	
+	@Autowired
+	HostelManager hostelManager;
+	
+	@Autowired
+	FeeManager feeManager;
+	
+	@Autowired
+	CacheManager cacheManager;
 	
 	public List<HostelAvailability> getHostelAvailability() {
 		return hostelManager.getHostelAvailability();
@@ -144,4 +159,30 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		hostelManager.deleteRoomTypeDetail(typeCode);
 	}
 
+	@Override
+	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo){
+	
+		AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
+        HostelAllocationAdmissionBean hostelAllocationAdmissionBean =  new HostelAllocationAdmissionBean();
+        
+		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
+		hostelAllocationAdmissionBean.setBasicInfo(basicInfo);
+		
+		HostelAllocation hostelAllocation = getHostelAllocation(fileNo);
+		hostelAllocationAdmissionBean.setHostelAllocation(hostelAllocation);
+		
+		return hostelAllocationAdmissionBean;
+	}
+	
+	@Override
+	public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
+		
+		hostelManager.addHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+	} 
+	
+	@Override
+	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
+		
+		hostelManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+	}
 }

@@ -3,11 +3,18 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
+import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TransportAllocation;
+import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -19,14 +26,22 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
-
+@Component
 public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 
-	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	FeeManager feeManager = FeeManagerImpl.getInstance();
-	TransportManager transportManager = TransportManagerImpl.getInstance();
-	CacheManager cacheManager = new CacheManagerImpl();
+	@Autowired
+	AdmissionManager admissionManager;
+	
+	@Autowired
+	FeeManager feeManager;
+	
+	@Autowired
+	TransportManager transportManager ;
+
+	@Autowired
+	CacheManager cacheManager;
 
 	public List<AvailableTransport> getAvailableTransport() {
 
@@ -159,4 +174,30 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		transportManager.deleteVehicleDetail(vehicleId);
 	}
 
+	@Override
+	public TransportAllocationAdmissionBean getTransportAllocationAdmissiondtl(Long fileNo){
+	
+		AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
+        TransportAllocationAdmissionBean transportAllocationAdmissionBean = new TransportAllocationAdmissionBean();
+        
+		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
+		transportAllocationAdmissionBean.setBasicInfo(basicInfo);
+		
+		TransportAllocation transportAllocation = getTransportAllocationDtl(fileNo);
+		transportAllocationAdmissionBean.setTransportAllocation(transportAllocation);
+		
+		return transportAllocationAdmissionBean;
+	}
+	
+	@Override
+	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+		
+		transportManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+	} 
+	
+	@Override
+	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+		
+		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+	}
 }

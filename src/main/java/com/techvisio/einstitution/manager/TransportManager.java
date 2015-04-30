@@ -2,11 +2,14 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
+import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
-
+@Component
 public interface TransportManager {
 
 	public List<AvailableTransport> getAvailableTransport();
@@ -25,6 +28,10 @@ public interface TransportManager {
 	public void addVehicleDetail(VehicleDetail vehicleDetail);
 	public void updateVehicleDetail(VehicleDetail vehicleDetail);
 	public void deleteVehicleDetail(Long vehicleId);
+
+	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
+
+	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
 
 	
 

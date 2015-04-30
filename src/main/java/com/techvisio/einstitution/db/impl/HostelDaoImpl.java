@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.HostelAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
@@ -15,9 +17,10 @@ import com.techvisio.einstitution.beans.HostelInventory;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.db.HostelDao;
-
+@Component
 public class HostelDaoImpl extends BaseDao implements HostelDao {
 	
+	@Autowired
 	private Properties hostelQueryProps;
 	
 	
@@ -128,10 +131,8 @@ HostelAllocation hostelAllocation =  getNamedParamJdbcTemplate().queryForObject(
 		hostel.setName(rs.getString("Name"));
 		hostel.setRoomNo(rs.getString("Room_No"));
 		hostel.setWing(rs.getString("Wing"));
-			
-			
-			
-			return hostel;
+
+		return hostel;
 														
 		}
 														
@@ -148,9 +149,6 @@ return hostelAllocation;
 	
 
 // INSERT DATA IN HostelAllocation TABLE
-	
-	
-	
 	public void addHostelAllocation(HostelAllocation hostelAllocation) {
 		String addQuery = hostelQueryProps.getProperty("addHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomNo())
@@ -160,18 +158,11 @@ return hostelAllocation;
 												.addValue("Name", hostelAllocation.getName())
 												.addValue("File_No", hostelAllocation.getFileNo());
 		
-		
 		getNamedParamJdbcTemplate().update(addQuery,namedParameter);
-		
-		
 	}
-	
 	
 
 // UPDATE DATA IN HostelAllocation TABLE
-	
-	
-
 	public void updateHostelAllocation(HostelAllocation hostelAllocation) {
 
 		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
@@ -181,7 +172,6 @@ return hostelAllocation;
 											.addValue("Block", hostelAllocation.getBlock())
 											.addValue("Name", hostelAllocation.getName())
 											.addValue("File_No", hostelAllocation.getFileNo());
-
 		
 		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
 		
@@ -190,8 +180,6 @@ return hostelAllocation;
 	
 
 //DELETE DATA FROM HostelAllocation TABLE	
-
-	
 	public void deleteHostelAllocation(Long fileNo) {
 
 		String addQuery = hostelQueryProps.getProperty("deleteHostelAllocation");
@@ -202,8 +190,6 @@ return hostelAllocation;
 
 
 // GET DATA FROM HostelReservation TABLE
-	
-	
 	public HostelReservation getHostelReservation(Long fileNo) {
 		String getQuery = hostelQueryProps.getProperty("getHostelReservation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
@@ -236,9 +222,6 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	
 	
 // INSERT DATA IN HostelReservation TABLE
-	
-	
-
 	public void addHostelReservation(HostelReservation hostelReservation) {
 
 		String addQuery = hostelQueryProps.getProperty("addHostelReservation");
@@ -254,7 +237,6 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	
 	
 // UPDATE DATA IN HostelReservation TABLE	
-
 	public void updateHostelReservation(HostelReservation hostelReservation) {
 		
 		String addQuery = hostelQueryProps.getProperty("updateHostelReservation");
@@ -271,7 +253,6 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	
 	
 // DELETE DATA FROM HostelReservation TABLE	
-
 	public void deleteHostelReservation(Long fileNo) {
 
 		String addQuery = hostelQueryProps.getProperty("deleteHostelReservation");
@@ -282,8 +263,6 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	
 	
 // GET DATA FROM RoomTypeDetail TABLE
-	
-	
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
 		String getQuery = hostelQueryProps.getProperty("getRoomTypeDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
@@ -309,8 +288,6 @@ RoomTypeDetail roomTypeDetail = getNamedParamJdbcTemplate().queryForObject(getQu
 	
 	
 // INSERT DATA IN RoomTypeDetail TABLE
-	
-	
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 		String addQuery = hostelQueryProps.getProperty("addRoomTypeDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomTypeDetail.getRoomNo())
@@ -321,8 +298,6 @@ RoomTypeDetail roomTypeDetail = getNamedParamJdbcTemplate().queryForObject(getQu
 	
 	
 //UPDATE DATA IN RoomTypeDetail TABLE
-	
-	
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 		
 		String addQuery = hostelQueryProps.getProperty("updateRoomTypeDetail");
@@ -334,7 +309,6 @@ RoomTypeDetail roomTypeDetail = getNamedParamJdbcTemplate().queryForObject(getQu
 	}
 	
 //DELETE DATA IN RoomTypeDetail TABLE	
-
 	public void deleteRoomTypeDetail(String typeCode) {
 		
 		String addQuery = hostelQueryProps.getProperty("deleteRoomTypeDetail");

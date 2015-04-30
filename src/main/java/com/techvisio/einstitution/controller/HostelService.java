@@ -3,6 +3,7 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
+import com.techvisio.einstitution.workflow.impl.ConsultantWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 
 @RestController
@@ -26,6 +31,9 @@ import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 
 public class HostelService {
 	private static final Logger logger = Logger.getLogger(HostelService.class);
+	
+	@Autowired
+	HostelWorkflowManager workflowManager;
 	
 //RoomTypeDetail 
 	
@@ -36,7 +44,6 @@ public class HostelService {
 		
 		try
 		{
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		RoomTypeDetail roomTypeDetail = workflowManager.getRoomTypeDetail(typeCode);
 		
 		response.setResponseBody(roomTypeDetail);
@@ -57,7 +64,6 @@ public class HostelService {
 		Response response =  new Response();
 		try
 		{
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		workflowManager.addRoomTypeDetail(roomTypeDetail);
 		
 		response.setResponseBody(roomTypeDetail);
@@ -76,7 +82,6 @@ public class HostelService {
 	
 		Response response = new Response();
 		try{
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		workflowManager.updateRoomTypeDetail(roomTypeDetail);
 		
 		response.setResponseBody(roomTypeDetail);
@@ -91,7 +96,6 @@ public class HostelService {
 	}
 	@RequestMapping(value ="/roomTypeDetail/{typeCode}", method =RequestMethod.DELETE)
 	public void deleteRoomTypeDetail(@PathVariable String typeCode){
-		HostelWorkflowManager workflowManager= new HostelWorkflowManagerImpl();
 		workflowManager.deleteRoomTypeDetail(typeCode);
 	}
 
@@ -99,33 +103,24 @@ public class HostelService {
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.GET )
 	public HostelAllocation getHostelAllocation(@PathVariable Long fileNo){
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl(); 
 		HostelAllocation hostelAllocation = workflowManager.getHostelAllocation(fileNo);
-		
-		
 		return hostelAllocation;
-		
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.POST)
 	public void addHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		workflowManager.addHostelAllocation(hostelAllocation);
 		
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.PUT)
 	public void updateHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		workflowManager.updateHostelAllocation(hostelAllocation);
 	}
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelAllocation(@PathVariable Long fileNo){
-		
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		workflowManager.deleteHostelAllocation(fileNo);
-		
 	}	
 
 	
@@ -139,7 +134,6 @@ public class HostelService {
 		try
 		{
 		
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		HostelReservation hostelReservation = workflowManager.getHostelReservation(fileNo);
 		response.setResponseBody(hostelReservation);
 		
@@ -167,7 +161,6 @@ public class HostelService {
 		Response response = new Response();
 		try
 		{
-		   HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		   Long fileNo=workflowManager.addHostelReservation(hostelReservation);
 		   HostelReservation updatedReservation=workflowManager.getHostelReservation(fileNo);
 		   response.setResponseBody(updatedReservation);
@@ -186,7 +179,6 @@ public class HostelService {
 		Response response = new Response();
 		try
 		{
-		       HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 			   Long fileNo=workflowManager.updateHostelReservation(hostelReservation);
 			   HostelReservation updatedReservation=workflowManager.getHostelReservation(fileNo);
 			   response.setResponseBody(updatedReservation);
@@ -201,7 +193,6 @@ public class HostelService {
 	
 	@RequestMapping(value ="/hostelReservation/{fileNo}",method = RequestMethod.DELETE)
 	public ResponseEntity deleteHostelReservation(@PathVariable Long fileNo){
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		workflowManager.deleteHostelReservation(fileNo);
 	
 		return new ResponseEntity(HttpStatus.OK);
@@ -210,10 +201,74 @@ public class HostelService {
 //HostelAvailability
 	@RequestMapping(value ="/hostelAvailability", method = RequestMethod.GET)
 	public List<HostelAvailability> getHostelAvailability(){
-		HostelWorkflowManager workflowManager = new HostelWorkflowManagerImpl();
 		List<HostelAvailability> hostelAvailability = workflowManager.getHostelAvailability();
 		return hostelAvailability;
 		
 	}
 	
+	
+	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.POST)
+	public ResponseEntity<Response> addHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
+		
+		Response response = new Response();
+		try{
+			
+			HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
+            hostelWorkflowManager.addHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+
+            Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
+            hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+            
+            response.setResponseBody(hostelAllocationAdmissionBean);
+ 		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+			
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+    	}
+	
+	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.PUT)
+	public ResponseEntity<Response> updateHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
+		
+		Response response = new Response();
+		try{
+			
+			HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
+            hostelWorkflowManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+
+            Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
+            hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+            
+            response.setResponseBody(hostelAllocationAdmissionBean);
+ 		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+			
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+    	}
+	
+	@RequestMapping(value="hostelAllocationAdmission/{fileNo}",method = RequestMethod.GET)
+	public ResponseEntity<Response> getConsultantAdmissionDetail(@PathVariable Long fileNo){
+
+		Response response = new Response();
+		try{
+		HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
+		HostelAllocationAdmissionBean hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+
+		response.setResponseBody(hostelAllocationAdmissionBean);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+     	}
+
 }
