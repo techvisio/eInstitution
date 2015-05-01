@@ -2,11 +2,13 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.SearchCriteria;
-
+@Component
 public interface ConsultantManager {
 	public Consultant getConsultant(Long consultantId);
 	public Long saveConsultant(Consultant consultant);

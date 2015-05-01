@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.manager.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
@@ -9,13 +12,17 @@ import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.ScholarshipManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class ScholarshipManagerImpl implements ScholarshipManager {
-
-	ScholarshipDao scholarshipDao = ContextProvider.getContext().getBean(
-			ScholarshipDao.class);
-	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	FeeManager feeManager = FeeManagerImpl.getInstance();
+	
+	@Autowired
+	ScholarshipDao scholarshipDao ;
+	
+	@Autowired
+	AdmissionManager admissionManager;
+	
+	@Autowired
+	FeeManager feeManager;
 	private static ScholarshipManagerImpl instance = null;
 
 	public static synchronized ScholarshipManagerImpl getInstance() {

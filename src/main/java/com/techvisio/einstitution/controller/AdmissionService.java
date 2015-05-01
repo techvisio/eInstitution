@@ -57,7 +57,6 @@ public class AdmissionService {
 		Response response=new Response();
 		try
 		{
-			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 		    Long fileNo=workflowManager.addStudentDetails(studentDetail); 
 		    StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
@@ -77,7 +76,6 @@ public class AdmissionService {
 		Response response = new Response();
 		try
 		{
-			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 			Long fileNo=workflowManager.updateStudentDetails(studentDetail);
 			StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
@@ -95,7 +93,6 @@ public class AdmissionService {
 	@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteStudentDtl(@PathVariable Long fileNo) {
 		
-		AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 		workflowManager.deleteStudentDetails(fileNo);
 	}
 	
@@ -112,7 +109,6 @@ public class AdmissionService {
 		Response response=new Response();
 		try
 		{
-			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 			List<StudentBasicInfo> studentBasicInfo = workflowManager.getStudentDtlBySearchCriteria(searchCriteria);
 			response.setResponseBody(studentBasicInfo);
 			
@@ -133,8 +129,7 @@ public class AdmissionService {
 	public ResponseEntity<Response> getStudentBsInfo(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
-			AdmissionWorkflowManager manager = new AdmissionWorkflowManagerImpl();
-			StudentBasicInfo info = manager.getStudentBsInfo(fileNo);
+			StudentBasicInfo info = workflowManager.getStudentBsInfo(fileNo);
 			
 			response.setResponseBody(info); 
 				
@@ -167,7 +162,6 @@ public class AdmissionService {
 		Response response=new Response();
 		try
 		{
-			AdmissionWorkflowManager workflowManager = new AdmissionWorkflowManagerImpl();
 			Long fileNo=workflowManager.moveAdmissiontoNextStep(studentDetail,"PENDING_MANAGEMENT");
 		    StudentDetail student=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(student);

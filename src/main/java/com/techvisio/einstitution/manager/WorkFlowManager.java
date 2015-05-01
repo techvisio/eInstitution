@@ -1,7 +1,9 @@
 package com.techvisio.einstitution.manager;
 
-import com.techvisio.einstitution.beans.WorkFlowFieldMapping;
+import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.WorkFlowFieldMapping;
+@Component
 public interface WorkFlowManager {
 	
 	public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowStepId(String workFlowStepId);

@@ -2,6 +2,8 @@ package com.techvisio.einstitution.workflow;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
@@ -10,7 +12,7 @@ import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
-
+@Component
 public interface FeeWorkflowManager {
 	
 	public void addFeeDetail(ApplicableFeeDetail feeDetail);

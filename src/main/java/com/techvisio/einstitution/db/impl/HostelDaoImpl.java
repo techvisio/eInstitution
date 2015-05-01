@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.HostelAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
@@ -15,9 +17,10 @@ import com.techvisio.einstitution.beans.HostelInventory;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.db.HostelDao;
-
+@Component
 public class HostelDaoImpl extends BaseDao implements HostelDao {
 	
+	@Autowired
 	private Properties hostelQueryProps;
 	
 	

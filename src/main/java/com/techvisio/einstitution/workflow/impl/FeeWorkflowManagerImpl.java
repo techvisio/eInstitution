@@ -2,6 +2,9 @@ package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.FeeAdmissionBean;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
@@ -15,12 +18,15 @@ import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
-
+@Component
 public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	
-	
-	FeeManager feeManager=FeeManagerImpl.getInstance();
+	@Autowired
+	FeeManager feeManager;
 
+	@Autowired
+	AdmissionWorkflowManager admissionWorkFlow;
+	
 	@Override
 	public List<FeeAdmissionBean> getPendingfeeInfo(int limit){
 		
@@ -61,7 +67,6 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 
 	public void addFeeDetail(ApplicableFeeDetail feeDetail) {
 		feeManager.addFeeDetail(feeDetail);
-		
 	}
 
 	public void updateFeeDetail(ApplicableFeeDetail feeDetail) {
@@ -109,8 +114,6 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	}
 
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
-
-		AdmissionWorkflowManager admissionWorkFlow = new AdmissionWorkflowManagerImpl();
 		Long fileNo = feeTransaction.getFileNo();
 		StudentBasicInfo basicInfo = admissionWorkFlow.getStudentBsInfo(fileNo);
 		feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
@@ -120,10 +123,10 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		admissionWorkFlow.updateStudentDetails(studentDetail);
 		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
-    @Override
+
+	@Override
 	public FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo){
 		
-		AdmissionWorkflowManager admissionWorkFlow = new AdmissionWorkflowManagerImpl();
 		FeeTransactionAdmissionBean admissionBean = new FeeTransactionAdmissionBean();
 		
 		StudentBasicInfo basicInfo=admissionWorkFlow.getStudentBsInfo(fileNo);

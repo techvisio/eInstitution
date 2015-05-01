@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.techvisio.einstitution.beans.Batch;
@@ -31,7 +32,7 @@ import com.techvisio.einstitution.db.impl.CacheDaoImpl;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 
-@Service
+@Component
 public class CacheManagerImpl implements CacheManager {
 
 	@Autowired

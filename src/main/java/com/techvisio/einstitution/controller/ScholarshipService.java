@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class ScholarshipService {
 
 	private static final Logger logger = Logger.getLogger(ScholarshipService.class);
 	
+	@Autowired
+	ScholarshipWorkflowManager workflowManager;
+	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getScholarshipDetail(@PathVariable Long fileNo) {  
 	  
@@ -33,7 +37,7 @@ public class ScholarshipService {
 		
 		try
 		{
-			ScholarshipWorkflowManager workflowManager =  new ScholarshipWorkflowManagerImpl();
+			
     		ScholarshipDetail scholarshipDetail = workflowManager.getScholarshipDetail(fileNo);
 		    
     		response.setResponseBody(scholarshipDetail);
@@ -66,7 +70,6 @@ public class ScholarshipService {
 		
 		try
 		{
-		ScholarshipWorkflowManager workflowManager=new ScholarshipWorkflowManagerImpl();
 		workflowManager.addScholarDetail(scholarshipDetail);
    
 		response.setResponseBody(scholarshipDetail);
@@ -81,7 +84,6 @@ public class ScholarshipService {
 		
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable Long fileNo) {  
-		ScholarshipWorkflowManager workflowManager=new ScholarshipWorkflowManagerImpl();
 		workflowManager.deleteScholarshipDetail(fileNo);
 	}
 

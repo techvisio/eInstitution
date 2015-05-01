@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
@@ -22,22 +23,19 @@ import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
-
+@Component
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
-
+	@Autowired
 	private Properties consultantQueryProps;
 
 	public void setConsultantQueryProps(Properties consultantQueryProps) {
 		this.consultantQueryProps = consultantQueryProps;
 	}
 
-	
+	@Autowired
 	CacheManager cacheManager;
 		
-	@Autowired
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-	}
+	
 	public Consultant getConsultant(Long consultantId) {
 
 		String getQuery = consultantQueryProps.getProperty("getConsultantById");

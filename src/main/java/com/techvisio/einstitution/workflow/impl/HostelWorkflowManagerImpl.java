@@ -3,6 +3,9 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.HostelAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
@@ -20,20 +23,25 @@ import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
-
+@Component
 public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
-
-	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	HostelManager hostelManager=HostelManagerImpl.getInstance();
-	FeeManager feeManager=FeeManagerImpl.getInstance();
-	CacheManager cacheManager=new CacheManagerImpl();
+	@Autowired
+	AdmissionManager admissionManager;
+	
+	@Autowired
+	HostelManager hostelManager;
+	
+	@Autowired
+	FeeManager feeManager;
+	
+	@Autowired
+	CacheManager cacheManager;
 	
 	public List<HostelAvailability> getHostelAvailability() {
 		return hostelManager.getHostelAvailability();
 	}
 
 	public HostelAllocation getHostelAllocation(Long fileNo) {
-
 		return hostelManager.getHostelAllocation(fileNo);
 	}
 

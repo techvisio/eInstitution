@@ -3,6 +3,9 @@ package com.techvisio.einstitution.manager.impl;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Session;
@@ -11,12 +14,13 @@ import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class DefaultManagerImpl implements DefaultManager {
-
+	@Autowired
+	CacheManager cacheManager;
 	@Override
 	public Long getDefaultCentre(){
-		CacheManager cacheManager=ContextProvider.getContext().getBean(CacheManager.class);
+		
 		List<Centre> centres=cacheManager.getEntityList(AppConstants.CENTRE);
 		if(centres != null && centres.size()>0){
 		return centres.get(0).getCentreId();
@@ -26,7 +30,7 @@ public class DefaultManagerImpl implements DefaultManager {
 	
 	@Override
 	public Long getDefaultShift(){
-		CacheManager cacheManager=ContextProvider.getContext().getBean(CacheManager.class);
+		
 		List<Shift> shifts = cacheManager.getEntityList(AppConstants.SHIFT);
 		if(shifts !=null && shifts.size()>0){
 			return shifts.get(0).getShiftId();
@@ -37,8 +41,6 @@ public class DefaultManagerImpl implements DefaultManager {
 	
 	@Override
 	public Long getDefaultBatch(Long courseId){
-		
-		CacheManager cacheManager=ContextProvider.getContext().getBean(CacheManager.class);
 		
 		List<Batch> batchs = cacheManager.getEntityList(AppConstants.BATCH);
 		
@@ -61,8 +63,6 @@ public class DefaultManagerImpl implements DefaultManager {
 	@Override
 	public Long getDefaultSession(Long courseId){
 	
-        CacheManager cacheManager=ContextProvider.getContext().getBean(CacheManager.class);
-		
 		List<Session> sessions = cacheManager.getEntityList(AppConstants.SESSION);
 		
 		for(Session session : sessions){

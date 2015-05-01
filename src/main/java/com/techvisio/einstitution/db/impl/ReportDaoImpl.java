@@ -5,15 +5,18 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.css.CSSRuleList;
 
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.db.ReportDao;
 import com.techvisio.einstitution.util.CommonUtil;
-
+@Component
 public class ReportDaoImpl extends BaseDao implements ReportDao {
-
+	
+	@Autowired
 	private Properties reportProperties;
 
 	public void setReportProperties(Properties reportProperties) {

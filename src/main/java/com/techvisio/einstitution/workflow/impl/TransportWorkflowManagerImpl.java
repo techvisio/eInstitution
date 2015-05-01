@@ -3,6 +3,9 @@ package com.techvisio.einstitution.workflow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -20,13 +23,20 @@ import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
-
+@Component
 public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 
-	AdmissionManager admissionManager = AdmissionManagerImpl.getInstance();
-	FeeManager feeManager = FeeManagerImpl.getInstance();
-	TransportManager transportManager = TransportManagerImpl.getInstance();
-	CacheManager cacheManager = new CacheManagerImpl();
+	@Autowired
+	AdmissionManager admissionManager;
+	
+	@Autowired
+	FeeManager feeManager;
+	
+	@Autowired
+	TransportManager transportManager ;
+	
+	@Autowired
+	CacheManager cacheManager;
 
 	public List<AvailableTransport> getAvailableTransport() {
 
@@ -135,7 +145,6 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		stagingFee.setDiscountHead(discountHead);
 
 		feeManager.deleteStudentFeeStagingbyfileNo(stagingFee);
-
 		transportManager.deleteTransportReservationDtl(fileNo);
 	}
 

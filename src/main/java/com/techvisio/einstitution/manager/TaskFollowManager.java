@@ -2,8 +2,10 @@ package com.techvisio.einstitution.manager;
 
 import java.util.List;
 
-import com.techvisio.einstitution.beans.TaskAndFollowUp;
+import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.TaskAndFollowUp;
+@Component
 public interface TaskFollowManager {
 	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module);
 	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps);

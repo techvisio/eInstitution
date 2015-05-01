@@ -2,6 +2,9 @@ package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
@@ -12,12 +15,15 @@ import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class ConsultantManagerImpl implements ConsultantManager {
-
-	ConsultantDao consultantDao = ContextProvider.getContext().getBean(ConsultantDao.class);
+	
+	@Autowired
+	ConsultantDao consultantDao ;
+	
+	@Autowired
 	UniqueIdentifierGenerator identifierGenerator;
-
+	
 	private static ConsultantManagerImpl instance=null;
 	public static synchronized ConsultantManagerImpl getInstance()
 	{

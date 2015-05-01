@@ -1,14 +1,18 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.manager.ScholarshipManager;
 import com.techvisio.einstitution.manager.impl.ScholarshipManagerImpl;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
-
+@Component
 public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManager {
 
-	ScholarshipManager scholarshipManager=ScholarshipManagerImpl.getInstance();
+	@Autowired
+	ScholarshipManager scholarshipManager;
 	
 	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
 

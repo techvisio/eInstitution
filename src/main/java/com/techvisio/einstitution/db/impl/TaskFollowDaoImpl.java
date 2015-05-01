@@ -5,17 +5,20 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.db.TaskFollowDao;
 import com.techvisio.einstitution.util.CommonUtil;
-
+@Component
 public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
-		
+	
+	@Autowired
 	private Properties  taskFollowQueryProps;
 
 

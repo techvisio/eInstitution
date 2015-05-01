@@ -3,6 +3,7 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +29,12 @@ public class FeeService {
 
 	private static final Logger logger = Logger.getLogger(FeeService.class);
 
+	@Autowired
+	FeeWorkflowManager detailWorkflowManager;
+	
 	//FeeDetail	
 	@RequestMapping(value="/applicablefeeDetail/", method = RequestMethod.POST)
 	public List<ApplicableFeeDetail> getFeeDetail(@RequestBody ApplicableFeeCriteria feeCriteria){
-
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 
 		List<ApplicableFeeDetail> details = detailWorkflowManager.getApplicableFeeDetail(feeCriteria);
 		return details;
@@ -41,20 +43,17 @@ public class FeeService {
 
 	@RequestMapping(value="/feeDetail",method = RequestMethod.POST)
 	public void addFeeDetail(@RequestBody ApplicableFeeDetail feeDetail){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.addFeeDetail(feeDetail);
 	}
 
 	@RequestMapping(value="/feeDetail", method = RequestMethod.PUT)
 	public void updateFeeDetail(@RequestBody ApplicableFeeDetail feeDetail){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.updateFeeDetail(feeDetail);
 
 	}
 
 	@RequestMapping(value="/feeDetail/course/{course}/branch/{branch}/feeHeadId/{feeHeadId}", method = RequestMethod.DELETE)
 	public void deleteFeeDetail(@PathVariable Long course,@PathVariable Long branch, @PathVariable Long feeHeadId ){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.deleteFeeDetail(course, branch, feeHeadId);
 	}
 
@@ -68,7 +67,6 @@ public class FeeService {
 		try
 		{
 		 
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		List<StudentFeeStaging> feeStaging = detailWorkflowManager.getStudentFeeStaging(fileNo,null);
 		
 		response.setResponseBody(feeStaging);
@@ -88,8 +86,7 @@ public class FeeService {
 		Response response = new Response();
 		try
 		{
-			FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
-			feeWorkflowManager.saveStudentFeeStaging(studentFeeStagings); 
+			detailWorkflowManager.saveStudentFeeStaging(studentFeeStagings); 
 
 			response.setResponseBody(studentFeeStagings);
 		}
@@ -113,8 +110,7 @@ public class FeeService {
 		Response response = new Response();
 		try
 		{
-			FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
-			feeWorkflowManager.saveStudentFeeStaging(studentFeeStagings); 
+			detailWorkflowManager.saveStudentFeeStaging(studentFeeStagings); 
 
 			response.setResponseBody(studentFeeStagings);
 		}
@@ -138,8 +134,7 @@ public class FeeService {
 	public ResponseEntity<Response> getDebitedFeeTransaction(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
-			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			List<FeeTransaction> transactions = manager.getDebitedFeeTransaction(fileNo);
+			List<FeeTransaction> transactions = detailWorkflowManager.getDebitedFeeTransaction(fileNo);
 			response.setResponseBody(transactions);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,8 +150,7 @@ public class FeeService {
 	public ResponseEntity<Response> addFeeTransactionDebit(@RequestBody FeeTransaction feeTransaction){
 		Response response = new Response();
 		try {
-			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			manager.addFeeTransactionDebit(feeTransaction);
+			detailWorkflowManager.addFeeTransactionDebit(feeTransaction);
 			response.setResponseBody(feeTransaction);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,8 +163,7 @@ public class FeeService {
 	public ResponseEntity<Response> getCreditedFeeTransaction(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
-			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			List<FeeTransaction> transactions = manager.getCreditedFeeTransaction(fileNo);
+			List<FeeTransaction> transactions = detailWorkflowManager.getCreditedFeeTransaction(fileNo);
 			response.setResponseBody(transactions);
 		} catch (Exception e) {
 
@@ -187,8 +180,7 @@ public class FeeService {
 	public ResponseEntity<Response> addFeeTransactionCredit(@RequestBody FeeTransaction feeTransaction){
 		Response response = new Response();
 		try {
-			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			manager.addFeeTransactionCredit(feeTransaction);
+			detailWorkflowManager.addFeeTransactionCredit(feeTransaction);
 			response.setResponseBody(feeTransaction);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -200,27 +192,23 @@ public class FeeService {
 	//FeeDiscountHead
 	@RequestMapping(value="/FeeDiscountHead/{headId}", method = RequestMethod.GET)
 	public FeeDiscountHead getfeeDiscountHead(@PathVariable Long headId){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		FeeDiscountHead discountHead = detailWorkflowManager.getfeeDiscountHead(headId);
 		return discountHead;
 	}
 
 	@RequestMapping(value="/FeeDiscountHead", method = RequestMethod.POST)
 	public void addFeeDiscountHead(@RequestBody FeeDiscountHead feeDiscountHead){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.addFeeDiscountHead(feeDiscountHead);
 	}
 
 	@RequestMapping(value="/FeeDiscountHead" , method = RequestMethod.PUT)
 	public void updateFeeDiscountHead(@RequestBody FeeDiscountHead feeDiscountHead){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();	
 		detailWorkflowManager.updateFeeDiscountHead(feeDiscountHead);
 
 	}
 
 	@RequestMapping(value="/FeeDiscountHead/{headId}", method = RequestMethod.DELETE)
 	public void deleteFeeDiscountHead(@PathVariable Long headId){
-		FeeWorkflowManager detailWorkflowManager = new FeeWorkflowManagerImpl();
 		detailWorkflowManager.deleteFeeDiscountHead(headId);
 	}
 
@@ -230,8 +218,7 @@ public class FeeService {
 		Response response = new Response();
 
 		try {
-			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-			FeeTransactionAdmissionBean admissionBean = manager.getFeeTransactionDetail(fileNo);
+			FeeTransactionAdmissionBean admissionBean = detailWorkflowManager.getFeeTransactionDetail(fileNo);
 			response.setResponseBody(admissionBean);
 		} catch (Exception e) {
 
@@ -248,8 +235,7 @@ public class FeeService {
 		Response response = new Response();
 		try
 		{
-			FeeWorkflowManager manager = new FeeWorkflowManagerImpl();
-		    List<FeeAdmissionBean> feeAdmissionBeans = manager.getPendingfeeInfo(limit);
+		    List<FeeAdmissionBean> feeAdmissionBeans = detailWorkflowManager.getPendingfeeInfo(limit);
 		    response.setResponseBody(feeAdmissionBeans);
 		}
 		catch(Exception e)

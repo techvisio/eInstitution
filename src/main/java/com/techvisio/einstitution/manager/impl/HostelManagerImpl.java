@@ -2,6 +2,9 @@ package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.techvisio.einstitution.beans.HostelAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
@@ -9,10 +12,11 @@ import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.HostelManager;
 import com.techvisio.einstitution.util.ContextProvider;
-
+@Component
 public class HostelManagerImpl implements HostelManager {
 	
-	HostelDao hostelDao = ContextProvider.getContext().getBean(HostelDao.class);
+	@Autowired
+	HostelDao hostelDao ;
 //HostelAllocation
 	
 	
