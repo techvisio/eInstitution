@@ -7,7 +7,10 @@ import org.slf4j.Marker;
 public class CustomLogger {
 
 	Logger log=null;
-	public CustomLogger(Class clz) {
+	public synchronized  static CustomLogger  getLogger(Class clz){
+		return new CustomLogger(clz);
+	}
+	private CustomLogger(Class clz) {
 		log=LoggerFactory.getLogger(clz);
 	}
 
@@ -241,8 +244,7 @@ public class CustomLogger {
 	}
 
 	public void error(String msg) {
-		// TODO Auto-generated method stub
-
+		log.error(msg);
 	}
 
 	public void error(String format, Object arg) {
