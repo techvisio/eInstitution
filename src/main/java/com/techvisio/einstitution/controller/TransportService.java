@@ -34,33 +34,33 @@ public class TransportService {
 		private static final Logger logger = Logger.getLogger(EnquiryService.class);
 		
 		@Autowired
-		TransportWorkflowManager workflowManager;
+		TransportWorkflowManager transportWorkflowManager;
 		
 		@RequestMapping(value="/availableTransport",method = RequestMethod.GET)
 		  public List<AvailableTransport> getTransportAllocation() {
-			List<AvailableTransport> availableTransports=workflowManager.getAvailableTransport();
+			List<AvailableTransport> availableTransports=transportWorkflowManager.getAvailableTransport();
 			return availableTransports;  
 			
 		  }
 		
 		@RequestMapping(value="/allocation/{fileNo}",method = RequestMethod.GET)
 		  public TransportAllocation getTransportAllocation(@PathVariable Long fileNo) {
-			TransportAllocation transportAllocation=workflowManager.getTransportAllocationDtl(fileNo);
+			TransportAllocation transportAllocation=transportWorkflowManager.getTransportAllocationDtl(fileNo);
 			return transportAllocation;  
 			
 		  }
 		@RequestMapping(value="/allocation",method = RequestMethod.POST)
 		public void addTransportAllocation(@RequestBody TransportAllocation transportAllocation) {  
-			workflowManager.addTransportAllocationDtl(transportAllocation);
+			transportWorkflowManager.addTransportAllocationDtl(transportAllocation);
 		}
 		
 		@RequestMapping(value="/allocation",method = RequestMethod.PUT)
 		public void updateTransportAllocation(@RequestBody TransportAllocation transportAllocation) {  
-			workflowManager.updateTransportAllocationDtl(transportAllocation);
+			transportWorkflowManager.updateTransportAllocationDtl(transportAllocation);
 		}
 		@RequestMapping(value="/allocation/{fileNo}",method = RequestMethod.DELETE)
 		public void deleteTransportAllocationDtl(@PathVariable Long fileNo ) {  
-			workflowManager.deleteTransportAllocationDtl(fileNo);
+			transportWorkflowManager.deleteTransportAllocationDtl(fileNo);
 		}
 
 
@@ -71,7 +71,7 @@ public class TransportService {
 			Response response=new Response();
 			try
 			{
-			       TransportReservation transportReservation=workflowManager.getTransportReservationDtl(fileNo);
+			       TransportReservation transportReservation=transportWorkflowManager.getTransportReservationDtl(fileNo);
 				   response.setResponseBody(transportReservation);
 				   if(transportReservation==null){
 					   response.setError("No record available");
@@ -97,8 +97,8 @@ public class TransportService {
 			Response response = new Response();
 			try
 			{
-			   Long fileNo=workflowManager.addTransportReservationDtl(transportReservation);
-			   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
+			   Long fileNo=transportWorkflowManager.addTransportReservationDtl(transportReservation);
+			   TransportReservation updatedReservation=transportWorkflowManager.getTransportReservationDtl(fileNo);
 			   response.setResponseBody(updatedReservation);
 			}
 			catch(Exception e)
@@ -116,8 +116,8 @@ public class TransportService {
 			Response response = new Response();
 			try
 			{
-				   Long fileNo=workflowManager.updateTransportReservationDtl(transportReservation);
-				   TransportReservation updatedReservation=workflowManager.getTransportReservationDtl(fileNo);
+				   Long fileNo=transportWorkflowManager.updateTransportReservationDtl(transportReservation);
+				   TransportReservation updatedReservation=transportWorkflowManager.getTransportReservationDtl(fileNo);
 				   response.setResponseBody(updatedReservation);
 			}
 			catch(Exception e)
@@ -130,31 +130,31 @@ public class TransportService {
 			
 		@RequestMapping(value="/reservation/{fileNo}",method = RequestMethod.DELETE)
 		public ResponseEntity deleteTransportReservation(@PathVariable Long fileNo ) {  
-			workflowManager.deleteTransportReservationDtl(fileNo);
+			transportWorkflowManager.deleteTransportReservationDtl(fileNo);
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
 		@RequestMapping(value="/vehicleDetail/{vehicleId}",method = RequestMethod.GET)
 		  public VehicleDetail getVehicleDetail(@PathVariable Long vehicleId) {  
 			
-			VehicleDetail vehicleDetail = workflowManager.getVehicleDetail(vehicleId);
+			VehicleDetail vehicleDetail = transportWorkflowManager.getVehicleDetail(vehicleId);
 
 			return vehicleDetail;
 		  }
 		@RequestMapping(value="/vehicleDetail",method = RequestMethod.POST)
 		public void addVehicleDetail(@RequestBody VehicleDetail vehicleDetail) {  
 			
-			workflowManager.addVehicleDetail(vehicleDetail);
+			transportWorkflowManager.addVehicleDetail(vehicleDetail);
 		}
 		
 		@RequestMapping(value="/vehicleDetail",method = RequestMethod.PUT)
 		public void updateVehicleDetail(@RequestBody VehicleDetail vehicleDetail) {  
-			workflowManager.updateVehicleDetail(vehicleDetail);
+			transportWorkflowManager.updateVehicleDetail(vehicleDetail);
 		}
 		
 		@RequestMapping(value="/vehicleDetail/{vehicleId}",method = RequestMethod.DELETE)
 		public void deleteVehicleDetail(@PathVariable Long vehicleId ) {  
-			workflowManager.deleteVehicleDetail(vehicleId);
+			transportWorkflowManager.deleteVehicleDetail(vehicleId);
 		}
 		
 		@RequestMapping(value="TransportAllocationAdmission",method = RequestMethod.POST)
@@ -163,7 +163,6 @@ public class TransportService {
 			Response response = new Response();
 			try{
 				
-				TransportWorkflowManager transportWorkflowManager = new TransportWorkflowManagerImpl();
 	            transportWorkflowManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
 
 	            Long fileNo = transportAllocationAdmissionBean.getBasicInfo().getFileNo();
@@ -208,7 +207,6 @@ public class TransportService {
 
 			Response response = new Response();
 			try{
-            TransportWorkflowManager transportWorkflowManager = new TransportWorkflowManagerImpl(); 
 			TransportAllocationAdmissionBean transportAllocationAdmissionBean = transportWorkflowManager.getTransportAllocationAdmissiondtl(fileNo);
 
 			response.setResponseBody(transportAllocationAdmissionBean);

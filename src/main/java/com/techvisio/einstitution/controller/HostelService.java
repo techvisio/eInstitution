@@ -33,7 +33,7 @@ public class HostelService {
 	private static final Logger logger = Logger.getLogger(HostelService.class);
 	
 	@Autowired
-	HostelWorkflowManager workflowManager;
+	HostelWorkflowManager hostelWorkflowManager;
 	
 	
 //RoomTypeDetail 
@@ -45,7 +45,7 @@ public class HostelService {
 		
 		try
 		{
-		RoomTypeDetail roomTypeDetail = workflowManager.getRoomTypeDetail(typeCode);
+		RoomTypeDetail roomTypeDetail = hostelWorkflowManager.getRoomTypeDetail(typeCode);
 		
 		response.setResponseBody(roomTypeDetail);
 		}
@@ -65,7 +65,7 @@ public class HostelService {
 		Response response =  new Response();
 		try
 		{
-		workflowManager.addRoomTypeDetail(roomTypeDetail);
+		hostelWorkflowManager.addRoomTypeDetail(roomTypeDetail);
 		
 		response.setResponseBody(roomTypeDetail);
 		}
@@ -83,7 +83,7 @@ public class HostelService {
 	
 		Response response = new Response();
 		try{
-		workflowManager.updateRoomTypeDetail(roomTypeDetail);
+		hostelWorkflowManager.updateRoomTypeDetail(roomTypeDetail);
 		
 		response.setResponseBody(roomTypeDetail);
 		}
@@ -97,31 +97,31 @@ public class HostelService {
 	}
 	@RequestMapping(value ="/roomTypeDetail/{typeCode}", method =RequestMethod.DELETE)
 	public void deleteRoomTypeDetail(@PathVariable String typeCode){
-		workflowManager.deleteRoomTypeDetail(typeCode);
+		hostelWorkflowManager.deleteRoomTypeDetail(typeCode);
 	}
 
 //HostelAllocation
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.GET )
 	public HostelAllocation getHostelAllocation(@PathVariable Long fileNo){
-		HostelAllocation hostelAllocation = workflowManager.getHostelAllocation(fileNo);
+		HostelAllocation hostelAllocation = hostelWorkflowManager.getHostelAllocation(fileNo);
 		return hostelAllocation;
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.POST)
 	public void addHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		workflowManager.addHostelAllocation(hostelAllocation);
+		hostelWorkflowManager.addHostelAllocation(hostelAllocation);
 		
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.PUT)
 	public void updateHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		workflowManager.updateHostelAllocation(hostelAllocation);
+		hostelWorkflowManager.updateHostelAllocation(hostelAllocation);
 	}
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelAllocation(@PathVariable Long fileNo){
-		workflowManager.deleteHostelAllocation(fileNo);
+		hostelWorkflowManager.deleteHostelAllocation(fileNo);
 	}	
 
 	
@@ -135,7 +135,7 @@ public class HostelService {
 		try
 		{
 		
-		HostelReservation hostelReservation = workflowManager.getHostelReservation(fileNo);
+		HostelReservation hostelReservation = hostelWorkflowManager.getHostelReservation(fileNo);
 		response.setResponseBody(hostelReservation);
 		
 		if(hostelReservation==null){
@@ -162,8 +162,8 @@ public class HostelService {
 		Response response = new Response();
 		try
 		{
-		   Long fileNo=workflowManager.addHostelReservation(hostelReservation);
-		   HostelReservation updatedReservation=workflowManager.getHostelReservation(fileNo);
+		   Long fileNo=hostelWorkflowManager.addHostelReservation(hostelReservation);
+		   HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(fileNo);
 		   response.setResponseBody(updatedReservation);
 		}
 		catch(Exception e)
@@ -180,8 +180,8 @@ public class HostelService {
 		Response response = new Response();
 		try
 		{
-			   Long fileNo=workflowManager.updateHostelReservation(hostelReservation);
-			   HostelReservation updatedReservation=workflowManager.getHostelReservation(fileNo);
+			   Long fileNo=hostelWorkflowManager.updateHostelReservation(hostelReservation);
+			   HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(fileNo);
 			   response.setResponseBody(updatedReservation);
 		}
 		catch(Exception e)
@@ -194,7 +194,7 @@ public class HostelService {
 	
 	@RequestMapping(value ="/hostelReservation/{fileNo}",method = RequestMethod.DELETE)
 	public ResponseEntity deleteHostelReservation(@PathVariable Long fileNo){
-		workflowManager.deleteHostelReservation(fileNo);
+		hostelWorkflowManager.deleteHostelReservation(fileNo);
 	
 		return new ResponseEntity(HttpStatus.OK);
 	}
@@ -202,7 +202,7 @@ public class HostelService {
 //HostelAvailability
 	@RequestMapping(value ="/hostelAvailability", method = RequestMethod.GET)
 	public List<HostelAvailability> getHostelAvailability(){
-		List<HostelAvailability> hostelAvailability = workflowManager.getHostelAvailability();
+		List<HostelAvailability> hostelAvailability = hostelWorkflowManager.getHostelAvailability();
 		return hostelAvailability;
 		
 	}
@@ -259,7 +259,6 @@ public class HostelService {
 
 		Response response = new Response();
 		try{
-		HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
 		HostelAllocationAdmissionBean hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
 
 		response.setResponseBody(hostelAllocationAdmissionBean);

@@ -32,7 +32,10 @@ import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 	@Autowired
-	AdmissionManager admissionManager;
+	AdmissionWorkflowManager admissionWorkflowManager ;
+	
+	@Autowired
+	AdmissionManager admissionManager ;
 	
 	@Autowired
 	HostelManager hostelManager;
@@ -161,7 +164,6 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	@Override
 	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo){
 	
-		AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
         HostelAllocationAdmissionBean hostelAllocationAdmissionBean =  new HostelAllocationAdmissionBean();
         
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);

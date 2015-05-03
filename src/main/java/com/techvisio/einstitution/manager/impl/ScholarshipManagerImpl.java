@@ -39,9 +39,8 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 
 	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
 
-		ScholarshipDetail scholarshipDetail = null;
-		scholarshipDetail = scholarshipDao.getScholarshipDetail(fileNo);
-
+		ScholarshipDetail scholarshipDetail = scholarshipDao.getScholarshipDetail(fileNo);
+		
 		return scholarshipDetail;
 
 	}

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -20,7 +21,7 @@ import com.techvisio.einstitution.db.WorkFlowDao;
 @Component
 public class WorkFlowDaoImpl extends BaseDao implements WorkFlowDao{
 	
-	@Autowired
+	@Autowired @Qualifier(value="workFlowQueryProps")
 	private Properties workFlowQueryProps;
 	
 	

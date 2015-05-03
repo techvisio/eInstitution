@@ -9,6 +9,7 @@ import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.manager.ReportManager;
 import com.techvisio.einstitution.manager.impl.ReportManagerImpl;
 import com.techvisio.einstitution.workflow.ReportWorkflowManager;
+
 @Component
 public class ReportWorkflowManagerImpl implements ReportWorkflowManager {
 	

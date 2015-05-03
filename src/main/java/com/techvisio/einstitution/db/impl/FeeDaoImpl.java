@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SqlParameter;
@@ -33,7 +34,7 @@ import com.techvisio.einstitution.util.CustomStoredProcedure;
 @Component
 public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
-	@Autowired
+	@Autowired @Qualifier(value="feeQueryProps")
 	private Properties feeQueryProps;
 
 

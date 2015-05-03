@@ -47,7 +47,8 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-		response.setError(e.getMessage());
+            e.printStackTrace();
+			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -63,6 +64,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
+			logger.error("Error while {}",e);
 			e.printStackTrace();
 			response.setError(e.getLocalizedMessage());
 		}

@@ -13,6 +13,7 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
@@ -21,14 +22,24 @@ import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 @Component
 public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
+	private static CustomLogger logger=CustomLogger.getLogger(AdmissionWorkflowManagerImpl.class);
 	@Autowired
 	AdmissionManager admissionManager;
 	
 	@Autowired
 	FeeManager feeManager;
 	
+	@Autowired
+	ScholarshipWorkflowManager scholarshipWorkflowManager;
+	
+	@Autowired
+	ConsultantWorkflowManager consultantWorkflowManager;
+
+	@Autowired
+	FeeWorkflowManager feeWorkflowManager;
+	
 	public Long addStudentDetails(StudentDetail studentDetail) {
-		
+		logger.info("{} : New Student record being created: Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());
 		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
 		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
@@ -40,7 +51,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 			
 			consultantWorkflowManager.saveConsultant(consultantDetails);
 		}
-	    
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null && studentDetail.getScholarshipDetail().getStateId() != null){
@@ -53,9 +63,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	public Long updateStudentDetails(StudentDetail studentDetail) {
-	
-		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
-		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
 		Long fileNo = admissionManager.updateStudentDtl(studentDetail);
 		
@@ -85,10 +92,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	public StudentDetail getStudentDetails(Long fileNo) {
 
-	ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();	
-	ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();	
 	StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
-
 	
 	ScholarshipDetail scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
 	studentDetail.setScholarshipDetail(scholarshipDetail);
@@ -97,8 +101,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	studentDetail.setConsultantDetail(consultantDetails);
 	
 	return studentDetail;
-	
-	
+
 	}
 
 	public void deleteStudentDetails(Long fileNo){
@@ -131,8 +134,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	@Override
 	public Long moveAdmissiontoNextStep(StudentDetail studentDetail,String status){
-		
-		FeeWorkflowManager feeWorkflowManager = new FeeWorkflowManagerImpl();
 		
 		studentDetail.setApplicationStatus(status);
 		

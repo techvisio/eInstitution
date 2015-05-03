@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.manager.ScholarshipManager;
-import com.techvisio.einstitution.manager.impl.ScholarshipManagerImpl;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 @Component
 public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManager {
@@ -15,8 +14,7 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 	ScholarshipManager scholarshipManager;
 	
 	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
-
-		
+	
 		ScholarshipDetail scholarshipDetail = scholarshipManager.getScholarshipDetail(fileNo);
 	
 		return scholarshipDetail;

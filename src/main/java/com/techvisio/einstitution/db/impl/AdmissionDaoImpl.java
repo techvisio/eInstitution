@@ -36,12 +36,13 @@ import com.techvisio.einstitution.util.CommonUtil;
 @Component
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
-	@Autowired
-	private Properties admissionQueryProps;
 	
 	@Autowired
 	CacheManager cacheManager;
 
+	@Autowired @Qualifier(value="admissionQueryProps")
+	private Properties admissionQueryProps;
+	
 	public void setAdmissionQueryProps(Properties admissionQueryProps) {
 
 		this.admissionQueryProps = admissionQueryProps;

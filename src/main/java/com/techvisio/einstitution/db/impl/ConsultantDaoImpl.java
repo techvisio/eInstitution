@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -25,7 +26,8 @@ import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 @Component
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
-	@Autowired
+	
+	@Autowired @Qualifier(value="consultantQueryProps")
 	private Properties consultantQueryProps;
 
 	public void setConsultantQueryProps(Properties consultantQueryProps) {

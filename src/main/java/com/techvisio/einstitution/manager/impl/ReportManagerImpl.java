@@ -9,6 +9,7 @@ import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.db.ReportDao;
 import com.techvisio.einstitution.manager.ReportManager;
 import com.techvisio.einstitution.util.ContextProvider;
+
 @Component
 public class ReportManagerImpl implements ReportManager {
 	

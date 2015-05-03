@@ -1,4 +1,159 @@
 <div ng-controller="admissionController" ng-init="init()">
+	
+	<script type="text/ng-template" id="hostelReservation.html">
+
+    <div class="modal-content" ng-init="getReservedHostel(); getHostelAvailability()">  
+    <div class="inventory-view">
+      <div id="hostel" class="panel-div-modal">Available Hostel Detail</div>
+      <table>
+      
+      <tr> 
+           <td><span>Type Code</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.typeCode}}</td>     
+       </tr>
+
+        <tr> 
+           <td><span>Description</span></td>      
+           <td ng-repeat="object in hostelAvailability">{{object.description}}</td>     
+       </tr>
+       
+       <tr> 
+           <td><span>Threshold</span></td>      
+           <td ng-repeat="object in hostelAvailability">{{object.threshold}}</td>     
+       </tr>
+       
+       <tr> 
+           <td><span>Reserved</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.reservedRoom}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Available</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.available}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Price</span></td>      
+           <td ng-repeat="object in hostelAvailability" >{{object.price }}</td>     
+       </tr>
+       <tr>
+       <td>
+       </td>
+       </tr>
+       <tr>
+       <td>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="object.typeCode as object.description for object in hostelAvailability"></select>
+       </td>
+        <td>
+       <input type="button"  class="button" value="Reserve" ng-click="saveHostel()"/>
+       </td>
+       <td>
+       <input type="button"  class="button" value="Release" ng-click="cancelReservation()"/>
+       </td>
+      
+       </tr>
+             
+      </table> 
+    </div>
+
+<div ng-show="currentReservation.fileNo" class="six-column-view">
+<table>
+<tr>
+	<div class="panel-div-modal">Current Reservation Status</div>
+</tr>
+<tr>
+<td><strong>Type Code</strong></td>
+<td><span>{{currentReservation.typeCode}}</span></td>
+
+<td><strong>Description</strong></td>
+<td><span>{{currentReservation.description}}</span></td>
+
+<td><strong>Price</strong></td>
+<td><span>{{currentReservation.price}}</span></td>
+</tr>
+</table>
+</div>
+</div>
+
+</script>
+
+<script type="text/ng-template" id="transportReservation.html">
+
+   <div class="modal-content" ng-init="getReservedTransport(); getAvailableTransport()">  
+      <div class="inventory-view">
+      
+     <div id="transport" class="panel-div-modal">Available Transports Detail</div>
+      <table>
+      <tr> 
+           <td><span>Route Code</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.routeCode}}</td>     
+       </tr>
+
+      <tr> 
+           <td><span>Description</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.description}}</td>     
+       </tr>
+
+
+        <tr> 
+           <td><span>Threshold</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.threshold}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Reserved</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.reserved}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Available</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.available}}</td>     
+       </tr>
+       <tr> 
+           <td><span>Price</span></td>      
+           <td ng-repeat="object in availableTransport" >{{object.price}}</td>     
+       </tr>
+       
+        <tr>
+       <td>
+       </td>
+       </tr>
+       <tr>
+       <td>
+       <select ng-model="transportReservation.routeCode"
+		ng-options="object.routeCode as object.description for object in availableTransport"></select>
+       </td>
+        <td>
+       <input type="button" class="button" value="Reserve" ng-click="saveTransport()"/>
+       </td>
+        <td>
+       <input type="button" class="button" value="Release" ng-click="cancelReservation()"/>
+       </td>
+       </tr>
+             
+      </table> 
+   
+    </div>
+
+<div ng-show="currentReservation.fileNo" class="six-column-view">
+<table>
+<tr>
+<div class="panel-div-modal">Current Reservation Status</div>
+</tr>
+<tr>
+<td><strong>Route Code</strong></td>
+<td><span>{{currentReservation.routeCode}}</span></td>
+
+<td><strong>Description</strong></td>
+<td><span>{{currentReservation.description}}</span></td>
+
+<td><strong>Price</strong></td>
+<td><span>{{currentReservation.price}}</span></td>
+</tr>
+</table>
+</div>
+   </div>
+
+</script>
+	
+	
 	<div ng-show="dashboard" class="module-dashboard-container">
 
 		<div class="module-dashboard-content">

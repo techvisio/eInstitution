@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -20,10 +21,10 @@ import com.techvisio.einstitution.util.CommonUtil;
 @Component
 public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	
-	@Autowired
+	@Autowired @Qualifier(value="scholarshipQueryProps")
 	private Properties scholarshipQueryProps;
 
-	public void setScholarshipQueryProps(Properties scholarshipQueryProps) {
+	public void setScholarshipQueryProps(Properties schsolarshipQueryProps) {
 		this.scholarshipQueryProps = scholarshipQueryProps;
 	}
 
@@ -33,6 +34,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		ScholarshipDetail scholarshipDetail = null;
 		
 		try{
+			
 		String getQuery = scholarshipQueryProps.getProperty("getScholarshipDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
@@ -52,10 +54,11 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 			    scholarshipDetail.setConditional(rs.getBoolean("Is_Conditional"));
 			    scholarshipDetail.setParentIncome(rs.getDouble("Parent_Income"));
 				return scholarshipDetail;			
-				
+			
 			}
+		
 		});
-
+			
 			List<ScholarshipPaymentDetail> scholarshipDetails = getScholarshipPaymentDetail(fileNo);
 			scholarshipDetail.setScholarshipPaymentDetail(scholarshipDetails);
 		}
@@ -63,7 +66,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		{
 			e.printStackTrace();
 		}
-
+		
 		return scholarshipDetail;
 
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -21,7 +22,7 @@ import com.techvisio.einstitution.util.CommonUtil;
 @Component
 public class TransportDaoImpl extends BaseDao implements TransportDao {
 	
-	@Autowired
+	@Autowired @Qualifier(value="transportQueryProps")
 	private Properties transportQueryProps;
 
 	public void setTransportQueryProps(Properties transportQueryProps) {

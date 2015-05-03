@@ -121,7 +121,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	 $scope.getConsultantAdmissionDetail = function(){
 	
 		 console.log('getConsultantAdmissionDetail called in controller');
-          var fileNo = 106;	 
+          var fileNo = prompt("Enter File No"+" ")	 
 		 consultantService.getConsultantAdmissionDetail(fileNo)
 		 .then(function(response) {
 			 console.log('consultantAdmission Data received from service : ');

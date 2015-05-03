@@ -35,6 +35,9 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	AdmissionManager admissionManager;
 	
 	@Autowired
+	AdmissionWorkflowManager admissionWorkflowManager;
+	
+	@Autowired
 	FeeManager feeManager;
 	
 	@Autowired
@@ -177,7 +180,6 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	@Override
 	public TransportAllocationAdmissionBean getTransportAllocationAdmissiondtl(Long fileNo){
 	
-		AdmissionWorkflowManager admissionWorkflowManager = new AdmissionWorkflowManagerImpl();
         TransportAllocationAdmissionBean transportAllocationAdmissionBean = new TransportAllocationAdmissionBean();
         
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
