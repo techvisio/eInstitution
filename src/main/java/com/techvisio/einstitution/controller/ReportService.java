@@ -9,19 +9,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.ConsultantReport;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ReportWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.ReportWorkflowManagerImpl;
 
 @RestController
 @RequestMapping("/report")
 public class ReportService {
-	private static final Logger logger = Logger.getLogger(ReportService.class);
+	private static CustomLogger logger = CustomLogger.getLogger(ReportService.class);
 	
 	@Autowired
 	ReportWorkflowManager manager;
 	
 	@RequestMapping( method = RequestMethod.GET)
 	public List<ConsultantReport> getConsultantReport(){
+		logger.info("{} ReportService Calling getConsultantReport method by : fileno : {}",this.getClass().getName());
 		
 		List<ConsultantReport> reports = manager.getConsultantReport();
 		return reports;

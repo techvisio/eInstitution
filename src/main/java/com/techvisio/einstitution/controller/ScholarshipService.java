@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.ConsultantWorkflowManagerImpl;
@@ -25,14 +26,14 @@ import com.techvisio.einstitution.workflow.impl.ScholarshipWorkflowManagerImpl;
 @RequestMapping("/scholarship")
 public class ScholarshipService {
 
-	private static final Logger logger = Logger.getLogger(ScholarshipService.class);
+	private static CustomLogger logger = CustomLogger.getLogger(ScholarshipService.class);
 	
 	@Autowired
 	ScholarshipWorkflowManager workflowManager;
 	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getScholarshipDetail(@PathVariable Long fileNo) {  
-	  
+		logger.info("{} ScholarshipService Calling getScholarshipDetail method by : fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		
 		try
@@ -49,15 +50,15 @@ public class ScholarshipService {
 		}
 		catch(EmptyResultDataAccessException e)
 		{
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError("No such record found");
 		}
 		
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -65,7 +66,7 @@ public class ScholarshipService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Response> addScholarshipDetail(@RequestBody ScholarshipDetail scholarshipDetail) {  
-      
+		logger.info("{} ScholarshipService Calling addScholarDetail method for : fileno : {}",this.getClass().getName(), scholarshipDetail.getFileNo());
 		Response response = new Response();
 		
 		try
@@ -76,7 +77,7 @@ public class ScholarshipService {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -84,6 +85,7 @@ public class ScholarshipService {
 		
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable Long fileNo) {  
+		logger.info("{} ScholarshipService Calling deleteScholarshipDetail method by : fileno : {}",this.getClass().getName(), fileNo);
 		workflowManager.deleteScholarshipDetail(fileNo);
 	}
 

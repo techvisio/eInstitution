@@ -20,6 +20,7 @@ import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 
@@ -27,13 +28,14 @@ import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
 @RequestMapping("/admission")
 public class AdmissionService {
 
-	private static final Logger logger = Logger.getLogger(AdmissionService.class);
+	private static CustomLogger logger = CustomLogger.getLogger(AdmissionService.class);
 
 	@Autowired
 	AdmissionWorkflowManager workflowManager;
 	
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentDetail(@PathVariable Long fileNo) {
+		logger.info("{} AdmissionService Calling getStudentDetails method for : file no : {}",this.getClass().getName(), fileNo);
 		Response response=new Response();
 		try
 		{
@@ -47,6 +49,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
+			logger.error("Error while {}",e);
 		response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -57,13 +60,14 @@ public class AdmissionService {
 		Response response=new Response();
 		try
 		{
-		    Long fileNo=workflowManager.addStudentDetails(studentDetail); 
+		    Long fileNo=workflowManager.addStudentDetails(studentDetail);
+		    logger.info("{} AdmissionService Calling addStudentDetails method : Student Name : {}",this.getClass().getName(), fileNo + studentDetail.getFirstName()+studentDetail.getLastName());
 		    StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error while {}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		
@@ -77,12 +81,13 @@ public class AdmissionService {
 		try
 		{
 			Long fileNo=workflowManager.updateStudentDetails(studentDetail);
+			 logger.info("{} AdmissionService Calling getStudentDetails method  : Student Name: {}",this.getClass().getName(), fileNo + studentDetail.getFirstName()+studentDetail.getLastName());
 			StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error while {}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -92,7 +97,7 @@ public class AdmissionService {
 	
 	@RequestMapping(value = "/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteStudentDtl(@PathVariable Long fileNo) {
-		
+		logger.info("{} AdmissionService Calling deleteStudentDetails method for  :file no : {}",this.getClass().getName(), fileNo );
 		workflowManager.deleteStudentDetails(fileNo);
 	}
 	
@@ -119,7 +124,7 @@ public class AdmissionService {
 			}
 			catch(Exception e)
 			{
-			e.printStackTrace();
+			logger.error("Error while {}",e);
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -127,6 +132,7 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/StudentBsInfo/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentBsInfo(@PathVariable Long fileNo){
+		logger.info("{} AdmissionService Calling getStudentBsInfo method for  :file no : {}",this.getClass().getName(), fileNo );
 		Response response = new Response();
 		try {
 			StudentBasicInfo info = workflowManager.getStudentBsInfo(fileNo);
@@ -134,7 +140,7 @@ public class AdmissionService {
 			response.setResponseBody(info); 
 				
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error while {}",e);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -142,7 +148,7 @@ public class AdmissionService {
 	
 	@RequestMapping(value = "/LatestAdmissionInfo/{limit}", method = RequestMethod.GET)
 	public  ResponseEntity<Response> getLatestAdmissionInfo(@PathVariable int limit){
-		
+		logger.info("{} AdmissionService Calling getLatestAdmissionInfo method on the basis of : Limit : {}",this.getClass().getName(), limit);
 		Response response = new Response();
 		try
 		{
@@ -151,7 +157,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error while {}",e);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -159,6 +165,7 @@ public class AdmissionService {
 
 	@RequestMapping(value ="/submitToManagement/", method = RequestMethod.POST)
 	public ResponseEntity<Response> submitToManagement(@RequestBody StudentDetail studentDetail) {
+		logger.info("{} AdmissionService Calling moveAdmissiontoNextStep method  :Student Name : {}",this.getClass().getName(), studentDetail.getFirstName()+ studentDetail.getLastName() );	
 		Response response=new Response();
 		try
 		{
@@ -169,7 +176,7 @@ public class AdmissionService {
 			}
 			catch(Exception e)
 			{
-			e.printStackTrace();
+			logger.error("Error while {}",e);
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);

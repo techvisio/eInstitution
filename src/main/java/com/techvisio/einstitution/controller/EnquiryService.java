@@ -20,6 +20,7 @@ import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 
@@ -28,13 +29,14 @@ import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 @RequestMapping("/enquiry")
 public class EnquiryService {
 	
-	private static final Logger logger = Logger.getLogger(EnquiryService.class);
+	private static CustomLogger logger = CustomLogger.getLogger(EnquiryService.class);
 	
 	@Autowired
 	EnquiryWorkflowManager enquiryWorkflowManager;
 	
 	@RequestMapping(value="/enquiryByTaskDate/",method = RequestMethod.GET)
 	public ResponseEntity<Response> getInquiryByTaskDate(Date taskDate){
+		logger.info("{} EnquiryService Calling getInquiryByTaskDate method by : Consultant Id : {}",this.getClass().getName());
 		Response response=new Response();
 		try{
 		Date date = new Date();
@@ -45,7 +47,7 @@ public class EnquiryService {
 		
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			e.getLocalizedMessage();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -55,7 +57,7 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getEnquiryandTask(@PathVariable Long enquiryId) {  
-	 
+		logger.info("{} EnquiryService Calling getEnquiryandTask method by : enquiry Id : {}",this.getClass().getName(),enquiryId);
 		Response response=new Response();
 		try{
 		
@@ -65,13 +67,14 @@ public class EnquiryService {
 		
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		logger.info("{} EnquiryService Calling addEnquiryandTask method by : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -82,7 +85,7 @@ public class EnquiryService {
 		}
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -90,6 +93,7 @@ public class EnquiryService {
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Response> updateEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		logger.info("{} EnquiryService Calling updateEnquiryandTask method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -100,7 +104,7 @@ public class EnquiryService {
 		response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -108,7 +112,8 @@ public class EnquiryService {
 	
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.DELETE)
-	public void deleteInquiry(@PathVariable Long inquiryId) {  
+	public void deleteInquiry(@PathVariable Long inquiryId) {
+		logger.info("{} EnquiryService Calling deleteInquiry method by : enquiry Id : {}",this.getClass().getName(), inquiryId);
 		enquiryWorkflowManager.deleteInquiry(inquiryId);
 	}
 	
@@ -135,7 +140,7 @@ public class EnquiryService {
 		}
 			catch(Exception e)
 			{
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -143,6 +148,7 @@ public class EnquiryService {
 
 	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
 	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		logger.info("{} EnquiryService Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -153,7 +159,7 @@ public class EnquiryService {
 		}
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -162,6 +168,7 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/toggleEnquiryStatus",method = RequestMethod.PUT)
 	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+		logger.info("{} EnquiryService Calling toggleEnquiryStatus method by : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -172,7 +179,7 @@ public class EnquiryService {
 		response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
