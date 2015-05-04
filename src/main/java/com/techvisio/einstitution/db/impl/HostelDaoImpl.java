@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -20,11 +21,8 @@ import com.techvisio.einstitution.db.HostelDao;
 @Component
 public class HostelDaoImpl extends BaseDao implements HostelDao {
 	
-	@Autowired
+ 	@Autowired @Qualifier(value="hostelQueryProps")
 	private Properties hostelQueryProps;
-	
-	
-
 	
 	public void setHostelQueryProps(Properties hostelQueryProps) {
 		this.hostelQueryProps = hostelQueryProps;

@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -27,15 +28,15 @@ import com.techvisio.einstitution.util.CustomLogger;
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	private static CustomLogger logger = CustomLogger.getLogger(EnquiryDaoImpl.class);
 	@Autowired
-	private Properties enquiryQueryProps;
+	CacheManager cacheManager;
 
+	@Autowired @Qualifier(value="enquiryQueryProps")
+	private Properties enquiryQueryProps;
+	
 	public void setEnquiryQueryProps(Properties inquiryQueryProps) {
 		this.enquiryQueryProps = inquiryQueryProps;
-	}
-	
-	@Autowired
-	CacheManager cacheManager;
-	
+	} 
+
 	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
 		 logger.info("{} : Getting enquiry by task date date:{}",this.getClass().getName(), taskDate);
 		String getQuery = enquiryQueryProps

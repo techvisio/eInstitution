@@ -36,15 +36,14 @@ import com.techvisio.einstitution.util.CustomLogger;
 
 @Component
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
-	
 	private static CustomLogger logger = CustomLogger.getLogger(AdmissionDaoImpl.class);
-	
-	@Autowired
-	private Properties admissionQueryProps;
 	
 	@Autowired
 	CacheManager cacheManager;
 
+	@Autowired @Qualifier(value="admissionQueryProps")
+	private Properties admissionQueryProps;
+	
 	public void setAdmissionQueryProps(Properties admissionQueryProps) {
 
 		this.admissionQueryProps = admissionQueryProps;

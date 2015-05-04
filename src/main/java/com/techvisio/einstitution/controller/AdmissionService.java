@@ -49,7 +49,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error while {}",e);
+		logger.error("Error while {}",e);
 		response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

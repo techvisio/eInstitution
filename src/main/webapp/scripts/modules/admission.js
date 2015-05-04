@@ -547,7 +547,7 @@ admissionModule
 				 }
 
 				 var modalInstance = $modal.open({
-					 templateUrl: 'views/transport.html',
+					 templateUrl: 'transportReservation.html',
 					 controller: 'transportController',
 					 scope:$scope,
 					 size: size,
@@ -577,7 +577,7 @@ admissionModule
 				 }
 
 				 var modalInstance = $modal.open({
-					 templateUrl: 'views/hostel.html',
+					 templateUrl: 'hostelReservation.html',
 					 controller: 'hostelController',
 					 scope:$scope,
 					 size: size,

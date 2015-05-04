@@ -2,6 +2,7 @@ var transportModule = angular.module('transportModule', []);
 
 transportModule.controller('transportController', ['$scope','transportService',function($scope,transportService) {
 
+	$scope.transportAllocationAdmissionDtl={};
 	$scope.availableTransport = {};
 	$scope.transportReservation = {};
 	$scope.currentReservation={};
@@ -116,7 +117,57 @@ transportModule.controller('transportController', ['$scope','transportService',f
 				$scope.currentReservation = {};
 				$scope.syncReservationStatus();
 			})
-		}}
+		}};
+		
+		$scope.getTransportlAllocationAdmissionDetail = function(){
+			
+			 console.log('getTransportlAllocationAdmissionDetail called in controller');
+			 transportService.getTransportlAllocationAdmissionDetail(fileNo)
+			 .then(function(response) {
+				 console.log('getTransportlAllocationAdmissionDetail Data received from service : ');
+				 console.log(response);
+				 if (response != null && response.data != null && response.data.responseBody != null) {
+					 $scope.transportAllocationAdmissionDtl = response.data.responseBody;
+					 
+				 } else {
+					 console.log(response.data.error);
+					 alert(response.data.error);
+				 }
+			 })
+		 };
+
+		 $scope.addTransportAllocationAdmissionDetail = function(){
+			 console.log('addTransportAllocationAdmissionDetail called in controller');
+			 transportService.addTransportAllocationAdmissionDetail($scope.transportAllocationAdmissionDtl)
+			 .then(function(response) {
+				 console.log('addTransportAllocationAdmissionDetail Data received from service : ');
+				 console.log(response);
+				 if (response != null && response.data != null && response.data.responseBody != null) {
+					 $scope.transportAllocationAdmissionDtl = response.data.responseBody;
+					 alert("Your Records Saved Successfully")
+				 } else {
+					 console.log(response.data.error);
+					 alert(response.data.error);
+				 }
+			 })
+		 };
+		
+		 $scope.updateTransportAllocationAdmissionDetail = function(){
+			 console.log('updateTransportAllocationAdmissionDetail called in controller');
+			 transportService.updateTransportAllocationAdmissionDetail($scope.transportAllocationAdmissionDtl)
+			 .then(function(response) {
+				 console.log('updateTransportAllocationAdmissionDetail Data received from service : ');
+				 console.log(response);
+				 if (response != null && response.data != null && response.data.responseBody != null) {
+					 $scope.transportAllocationAdmissionDtl = response.data.responseBody;
+					 alert("Your Records Saved Successfully")
+				 } else {
+					 console.log(response.data.error);
+					 alert(response.data.error);
+				 }
+			 })
+		 };
+
 
 } ]);
 
@@ -128,7 +179,10 @@ transportModule.service('transportService', function($http, $q) {
 		reserveTransport : reserveTransport,
 		cancelReservation : cancelReservation,
 		getReservedTransport : getReservedTransport,
-		updateReservation : updateReservation
+		updateReservation : updateReservation,
+		getTransportlAllocationAdmissionDetail : getTransportlAllocationAdmissionDetail,
+		addTransportAllocationAdmissionDetail : addTransportAllocationAdmissionDetail,
+		updateTransportAllocationAdmissionDetail : updateTransportAllocationAdmissionDetail
 	});
 
 	function getAvailableTransport() {
@@ -204,6 +258,47 @@ transportModule.service('transportService', function($http, $q) {
 
 		return (request.then(handleSuccess, handleError));
 
+	}
+
+	function getTransportlAllocationAdmissionDetail(fileNo){
+		console.log('getTransportlAllocationAdmissionDetail called in service')
+		var request = $http({
+			 method : "get",
+			 url : "transport/transportAllocationAdmission/"+fileNo,
+			 params : {
+				 action : "get"
+			 }
+		 });
+
+		 return (request.then(handleSuccess, handleError));
+	}
+
+	function addTransportAllocationAdmissionDetail(transportAllocationAdmissionDtl){
+		console.log('addTransportlAllocationAdmissionDetail called in service');
+		 var request = $http({
+			 method : "post",
+			 url : "transport/transportAllocationAdmission/",
+			 params : "",
+			 data: transportAllocationAdmissionDtl
+
+		 });
+		 
+		 return (request.then(handleSuccess, handleError));
+		
+	}
+
+	function updateTransportAllocationAdmissionDetail(transportAllocationAdmissionDtl) {
+
+		console.log('updateTransportlAllocationAdmissionDetail reservation called in service');
+		var request = $http({
+			method : "put",
+			url : "transport/transportAllocationAdmission",
+			params : "",
+			data : transportAllocationAdmissionDtl
+
+		});
+
+		return (request.then(handleSuccess, handleError));
 	}
 
 

@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -28,7 +29,7 @@ import com.techvisio.einstitution.util.CustomLogger;
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	private static CustomLogger logger = CustomLogger.getLogger(ConsultantDaoImpl.class);
 	
-	@Autowired
+	@Autowired @Qualifier(value="consultantQueryProps")
 	private Properties consultantQueryProps;
 
 	public void setConsultantQueryProps(Properties consultantQueryProps) {
