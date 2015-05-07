@@ -33,7 +33,5 @@ public class TransportAllocation {
 		this.vehicleId = vehicleId;
 	}
 
-
-
 	}
 

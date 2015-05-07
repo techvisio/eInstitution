@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
-import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;

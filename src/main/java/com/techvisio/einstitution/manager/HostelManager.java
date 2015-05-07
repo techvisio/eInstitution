@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
@@ -14,9 +14,9 @@ public interface HostelManager {
 	
 	public List<HostelAvailability> getHostelAvailability();
 	
-	public HostelAllocation getHostelAllocation(Long fileNo);
-	public void addHostelAllocation(HostelAllocation hostelAllocation);
-	public void updateHostelAllocation(HostelAllocation hostelAllocation);
+	public RoomAllocationDetail getHostelAllocation(Long fileNo);
+	public void addHostelAllocation(RoomAllocationDetail hostelAllocation);
+	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation( Long fileNo);
 
 	

@@ -13,7 +13,7 @@ SELECT
 	COUNT(HR.TYPE_CODE) AS RESERVED_ROOM,
 	HI.THRESHOLD-COUNT(HR.TYPE_CODE) AS AVAILABLE
 	 
-FROM hostelinventory HI left JOIN  hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HI.Type_Code;        
+FROM Roomtypemaster HI left JOIN  hostelreservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HI.Type_Code;        
     ]]>
 
 	</entry>
@@ -25,14 +25,15 @@ FROM hostelinventory HI left JOIN  hostelreservation HR ON HI.Type_Code = HR.Typ
       
 Select 
 
-	Wing,
-	Floor,
-	Block,
-	Name,
 	File_No,
-	Room_No
+	Room_No,
+	Allocated_On,
+	Allocated_By,
+	Updated_By,
+	Checkout_On,
+	IsAllocated
 	
-from HostelAllocation where File_No=:File_No;
+from RoomAllocationDetail where File_No=:File_No;
     ]]>
 
 	</entry>
@@ -40,21 +41,25 @@ from HostelAllocation where File_No=:File_No;
 	<entry key="addHostelAllocation">
     <![CDATA[
       
-Insert into HostelAllocation
+Insert into RoomAllocationDetail
 
-	(Wing,
-	Floor,
-	Block,
-	Name,
-	File_No,
-	Room_No) values
+	(File_No,
+	Room_No,
+	Allocated_On,
+	Allocated_By,
+	Updated_By,
+	Checkout_On,
+	IsAllocated
+	) values
 	       
-   (:Wing,
-	:Floor,
-	:Block,
-	:Name,
-	:File_No,
-	:Room_No)
+   (:File_No,
+	:Room_No,
+	:Allocated_On,
+	:Allocated_By,
+	:Updated_By,
+	:Checkout_On,
+	:IsAllocated
+	)
     ]]>
 
 	</entry>
@@ -62,14 +67,16 @@ Insert into HostelAllocation
 	<entry key="updateHostelAllocation">
     <![CDATA[
       
-Update HostelAllocation set
+Update RoomAllocationDetail set
  
-	Wing=:Wing,
-	Floor=:Floor,
-	Block=:Block,
-	Name=:Name,
-	File_No=:File_No,
-	Room_No=:Room_No       
+	File_No=File_No:,
+	Room_No=:Room_No,
+	Allocated_On=:Allocated_On,
+	Allocated_By=:Allocated_By,
+	Updated_By=:Updated_By,
+	Checkout_On=:Checkout_On,
+	IsAllocated=:IsAllocated
+	       
    
 where File_No=:File_No;
     ]]>
@@ -79,7 +86,7 @@ where File_No=:File_No;
 	<entry key="deleteHostelAllocation">
     <![CDATA[
       
-Delete from HostelAllocation where File_No=:File_No;
+Delete from RoomAllocationDetail where File_No=:File_No;
     ]]>
 
 	</entry>
@@ -95,9 +102,7 @@ Select
 	Price,
 	Room_Capacity
 	
-
-
-from HostelInventory where Type_Code=:Type_Code;
+from Roomtypemaster where Type_Code=:Type_Code;
     ]]>
 
 	</entry>
@@ -105,7 +110,7 @@ from HostelInventory where Type_Code=:Type_Code;
 	<entry key="addHostelInventory">
     <![CDATA[
       
-Insert into HostelInventory
+Insert into Roomtypemaster
 
    (Type_Code,
 	Description,
@@ -114,7 +119,7 @@ Insert into HostelInventory
 	Room_Capacity
 ) values
    
- (:Type_Code,
+   (:Type_Code,
 	:Description,
 	:Threshold,
 	:Price,
@@ -127,7 +132,7 @@ Insert into HostelInventory
 	<entry key="updateHostelInventory">
     <![CDATA[
       
- Update HostelInventory set
+ Update Roomtypemaster set
 
     Type_Code=:Type_Code,
 	Description=:Description,
@@ -143,7 +148,7 @@ Insert into HostelInventory
 	<entry key="deleteHostelInventory">
     <![CDATA[
       
-Delete from HostelInventory where Type_Code=:Type_Code;
+Delete from Roomtypemaster where Type_Code=:Type_Code;
 
     ]]>
 
@@ -162,7 +167,7 @@ Select
     hi.Description,
     hi.Price
 
-from HostelReservation hr join hostelinventory hi on hi.Type_Code = hr.Type_Code where File_No=:File_No;
+from HostelReservation hr join RoomTypeMaster hi on hi.Type_Code = hr.Type_Code where File_No=:File_No;
     ]]>
 
 	</entry>
@@ -219,7 +224,10 @@ Delete from HostelReservation where File_No=:File_No;
 Select  
 
 	Room_No,
-	Type_Code
+	Type_Code,
+	Wing_Id,
+	Floor_Id,
+	Block_Id
 	
 from RoomTypeDetail where Type_Code=:Type_Code;
     ]]>
@@ -232,10 +240,18 @@ from RoomTypeDetail where Type_Code=:Type_Code;
 Insert into RoomTypeDetail
 
       (Room_No,
-	Type_Code) values 
+	   Type_Code,
+	   Wing_Id,
+	   Floor_Id,
+	   Block_Id
+	) values 
       
      (:Room_No,
-	:Type_Code);
+	  :Type_Code,
+	  :Wing_Id,
+	  :Floor_Id,
+	  :Block_Id
+	);
     ]]>
 
 	</entry>
@@ -245,8 +261,12 @@ Insert into RoomTypeDetail
       
 Update RoomTypeDetail set
 
-      Room_No=:Room_No,
-	Type_Code=:Type_Code
+    Room_No=:Room_No,
+	Type_Code=:Type_Code,
+	Wing_Id=:Wing_Id,
+	Floor_Id=:Floor_Id,
+	Block_Id=:Block_Id
+	
       
    
 where Type_Code=:Type_Code;  

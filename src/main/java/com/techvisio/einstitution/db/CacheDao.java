@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.Batch;
+import com.techvisio.einstitution.beans.Block;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
@@ -14,14 +15,17 @@ import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
+import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.Wing;
 
 @Component
 public interface CacheDao {
@@ -48,9 +52,9 @@ public interface CacheDao {
 	
 	public List<Semester> getSemester();
 
-	List<CodeMapping> getCodeMapping();
+	public List<CodeMapping> getCodeMapping();
 
-	List<Batch> getBatch();
+	public List<Batch> getBatch();
 	
 	public List<Session> getSession();
 		
@@ -59,4 +63,12 @@ public interface CacheDao {
 	public List<Shift> getShift();
 	
 	public List<Section> getSection();
+	
+	public List<Wing> getWing();
+	
+	public List<Floor> getFloor();
+	
+	public List<Block> getBlock();
+	
+	public List<RoomTypeDetail> getRoomTypeDetail();
 }

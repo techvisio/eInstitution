@@ -124,6 +124,18 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> section = cacheManager.getSectionAsMasterdata();
 	serverData.put(AppConstants.SECTION, section);
 	
+	List<MasterDataBean> wing = cacheManager.getWingAsMasterdata();
+	serverData.put(AppConstants.WING, wing);
+	
+	List<MasterDataBean> floor = cacheManager.getFloorAsMasterdata();
+	serverData.put(AppConstants.FLOOR, floor);
+	
+	List<MasterDataBean> block = cacheManager.getBlockAsMasterdata();
+	serverData.put(AppConstants.BLOCK, block);
+	
+	List<MasterDataBean> rooms = cacheManager.getRoomNoAsMasterdata();
+	serverData.put(AppConstants.ROOMNO, rooms);
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

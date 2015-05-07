@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
-import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
@@ -103,19 +103,19 @@ public class HostelService {
 //HostelAllocation
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.GET )
-	public HostelAllocation getHostelAllocation(@PathVariable Long fileNo){
-		HostelAllocation hostelAllocation = hostelWorkflowManager.getHostelAllocation(fileNo);
+	public RoomAllocationDetail getHostelAllocation(@PathVariable Long fileNo){
+		RoomAllocationDetail hostelAllocation = hostelWorkflowManager.getHostelAllocation(fileNo);
 		return hostelAllocation;
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.POST)
-	public void addHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
+	public void addHostelAllocation(@RequestBody RoomAllocationDetail hostelAllocation){
 		hostelWorkflowManager.addHostelAllocation(hostelAllocation);
 		
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.PUT)
-	public void updateHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
+	public void updateHostelAllocation(@RequestBody RoomAllocationDetail hostelAllocation){
 		hostelWorkflowManager.updateHostelAllocation(hostelAllocation);
 	}
 	
@@ -262,6 +262,11 @@ public class HostelService {
 		HostelAllocationAdmissionBean hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
 
 		response.setResponseBody(hostelAllocationAdmissionBean);
+		}
+		
+		catch(EmptyResultDataAccessException e)
+		{
+			response.setError("No such record found");
 		}
 		catch(Exception e)
 		{

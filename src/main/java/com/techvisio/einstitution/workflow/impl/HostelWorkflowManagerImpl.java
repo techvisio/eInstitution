@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.FeeDiscountHead;
-import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
@@ -50,16 +50,16 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		return hostelManager.getHostelAvailability();
 	}
 
-	public HostelAllocation getHostelAllocation(Long fileNo) {
+	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
 		return hostelManager.getHostelAllocation(fileNo);
 	}
 
-	public void addHostelAllocation(HostelAllocation hostelAllocation) {
+	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
 
 		hostelManager.addHostelAllocation(hostelAllocation);
 	}
 
-	public void updateHostelAllocation(HostelAllocation hostelAllocation) {
+	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
 
 		hostelManager.updateHostelAllocation(hostelAllocation);
 	}
@@ -101,7 +101,6 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 		feeManager.saveStudentFeeStaging(stagingFee);
 		
-		
 		return fileNo;
 	
 	}
@@ -132,7 +131,6 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		feeManager.saveStudentFeeStaging(stagingFee);
 		
 		return fileNo;
-
 		
 	}
 
@@ -169,7 +167,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
 		hostelAllocationAdmissionBean.setBasicInfo(basicInfo);
 		
-		HostelAllocation hostelAllocation = getHostelAllocation(fileNo);
+		RoomAllocationDetail hostelAllocation = getHostelAllocation(fileNo);
 		hostelAllocationAdmissionBean.setHostelAllocation(hostelAllocation);
 		
 		return hostelAllocationAdmissionBean;

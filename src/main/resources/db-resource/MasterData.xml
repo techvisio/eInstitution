@@ -499,6 +499,61 @@ from sectionmaster;
 ]]>	
 	</entry>
 
+<entry key="getFloor">
+    <![CDATA[
+      
+
+ Select 
+    Floor_Id,
+    Floor
+    
+ from FloorMaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getWing">
+    <![CDATA[
+      
+
+ Select 
+    Wing_Id,
+    wing
+    
+ from WingMaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getBlock">
+    <![CDATA[
+      
+
+ Select 
+    Block_Id,
+    Block
+    
+ from BlockMaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getRoomTypeDetail">
+    <![CDATA[
+      
+
+ Select 
+ 
+    Room_No,
+    Type_Code,
+    Wing_Id,
+    Floor_Id,
+    Block_Id
+    
+ from RoomtypeDetail;    
+    ]]>
+
+	</entry>
 
 	
 </properties>

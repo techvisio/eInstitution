@@ -11,13 +11,13 @@ public interface ScholarshipWorkflowManager {
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail);
 	public void deleteScholarshipDetail(Long fileNo);
 	public void accomodateManagementChanges(StudentBasicInfo basicInfo, ScholarshipDetail newScholarshipDetail);
-	
-	
-//	List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(String fileNo);
-//	public void addScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail);
-//	public void updateScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail);
-//	public void deleteScholarshipPaymentDetail(String fileNo);
 
-	
-	
+
+	//	List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(String fileNo);
+	//	public void addScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail);
+	//	public void updateScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail);
+	//	public void deleteScholarshipPaymentDetail(String fileNo);
+
+
+
 }

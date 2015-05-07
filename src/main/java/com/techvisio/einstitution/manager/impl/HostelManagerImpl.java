@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
@@ -36,16 +36,16 @@ public class HostelManagerImpl implements HostelManager {
 	}
 	
 	
-	public HostelAllocation getHostelAllocation(Long fileNo) {
-		HostelAllocation h = hostelDao.getHostelAllocation(fileNo);
+	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
+		RoomAllocationDetail h = hostelDao.getHostelAllocation(fileNo);
 		return h;
 	}
 
-	public void addHostelAllocation(HostelAllocation hostelAllocation) {
+	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		hostelDao.addHostelAllocation(hostelAllocation);
 	}
 
-	public void updateHostelAllocation(HostelAllocation hostelAllocation) {
+	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		hostelDao.updateHostelAllocation(hostelAllocation);
 	}
 
@@ -109,14 +109,14 @@ public class HostelManagerImpl implements HostelManager {
 @Override
 public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
 	
-	HostelAllocation hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
+	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
 	addHostelAllocation(hostelAllocation);
 }
 
 @Override
 public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
 	
-	HostelAllocation hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
+	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
 	updateHostelAllocation(hostelAllocation);
 }
 

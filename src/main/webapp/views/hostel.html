@@ -1,7 +1,6 @@
-<div ng-controller="hostelController" ng-init="getHostelAvailability()">
+<div ng-controller="hostelController" ng-init="getHostelAvailability(); init()">
 
-      
-      <div ng-include src="'hostelAllocation.html'" ng-if="form.content==='dashboard'">
+ <div ng-include src="'hostelAllocation.html'" ng-if="form.content==='dashboard'">
 </div>
 
       <script type="text/ng-template" id="hostelReservation.html">
@@ -118,35 +117,71 @@
 				ng-model="hostelAllocationAdmissionDtl.basicInfo.branch.branchName"></td>
 		</tr>
 		
-         <tr><td colspan=2><span class="header">Hostel Allocation Detail</span></td></tr>      
+         <tr><td colspan=2><span class="header">Room Detail</span></td></tr>      
         
          <tr>
 		
          	<td><span>Wing</span></td>
-            <td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.wing" /></td>
+            <td><select ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.wingId"
+							ng-options="item.id*1 as item.value for item in serverModelData.dropdownMasterData.WING"></select>
+						</td>
+
 			<td><span> Block </span></td>
-			<td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.block"/></td>
-		</tr>
-           <tr>
+			<td><select ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.blockId"
+							ng-options="item.id*1 as item.value for item in serverModelData.dropdownMasterData.BLOCK"></select>
+						</td>
+		 </tr>
+         <tr>
 		
          	<td><span>Floor</span></td>
-            <td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.floor" /></td>
+            <td><select ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.floorId"
+							ng-options="item.id*1 as item.value for item in serverModelData.dropdownMasterData.FLOOR"></select>
+						</td>
 			<td><span> Room No </span></td>
-			<td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomNo"/></td>
+			<td><select ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.roomNo"
+							ng-options="item.id as item.value for item in serverModelData.dropdownMasterData.ROOMNO"|filter: {hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.wingId,hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.floorId,hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.blockId}></select>
+						</td>
 		</tr>
 		
+<tr><td colspan=2><span class="header">Room Allocation Detail</span></td></tr>
+
+<tr>
+<td><span>Allocated By</span></td>
+<td><input type="text"
+				ng-model="hostelAllocationAdmissionDtl.hostelAllocation.allocatedBy"></td>
+
+<td><span>Allocated On</span></td>
+<td><input type="Date"
+				ng-model="hostelAllocationAdmissionDtl.hostelAllocation.allocatedOn"></td>
+
+</tr>
+
+<tr>
+<td><span>Updated By</span></td>
+<td><input type="text"
+				ng-model="hostelAllocationAdmissionDtl.hostelAllocation.updatedBy"></td>
+
+<td><span>Checkout On</span></td>
+<td><input type="Date"
+				ng-model="hostelAllocationAdmissionDtl.hostelAllocation.checkoutOn"> </td>
+
+</tr>
+
+<tr>
+<td><span>Allocated</span></td>
+<td><input type="checkbox"ng-model="hostelAllocationAdmissionDtl.hostelAllocation.allocated"</td>
+
+
+</tr>
 		<tr><td><button type="button" class="btn btn-success"
 							ng-click="addConsultantAdmissionDetail()">Add</button></td>
 <td><button type="button" class="btn btn-success"
 							ng-click="getHostelAllocationAdmissionDetail()">Get</button></td>
-</tr>
+          </tr>
 
 				</table>
 				</div>
 			</form>
 
-
-            </script>   
-
-
+  </script>   
 </div>

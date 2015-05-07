@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.techvisio.einstitution.beans.Batch;
+import com.techvisio.einstitution.beans.Block;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
@@ -22,14 +23,17 @@ import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
+import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
+import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.Wing;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.util.CommonUtil;
 
@@ -417,6 +421,91 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			
 		});
 		return sections;
+	}
+
+	public List<Wing> getWing(){
+
+		String getWingQuery=masterQueryProps.getProperty("getWing");
+
+		List<Wing> wings =new ArrayList<Wing>(); 
+
+		wings = getNamedParamJdbcTemplate().query(getWingQuery, new RowMapper<Wing>() {
+
+			public Wing mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Wing wing = new Wing();
+				wing.setWingId(CommonUtil.getLongValue(rs.getLong("Wing_Id")));
+				wing.setWing(rs.getString("Wing"));
+				return wing;
+			}
+		});
+
+		return wings;
+	}
+	
+	public List<Block> getBlock(){
+
+		String getBlockQuery=masterQueryProps.getProperty("getBlock");
+
+		List<Block> blocks =new ArrayList<Block>(); 
+
+		blocks = getNamedParamJdbcTemplate().query(getBlockQuery, new RowMapper<Block>() {
+
+			public Block mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Block block = new Block();
+				block.setBlockId(CommonUtil.getLongValue(rs.getLong("Block_Id")));
+				block.setBlock(rs.getString("Block"));
+				return block;
+			}
+		});
+
+		return blocks;
+	}
+
+	public List<Floor> getFloor(){
+
+		String getFloorQuery=masterQueryProps.getProperty("getFloor");
+
+		List<Floor> floors =new ArrayList<Floor>(); 
+
+		floors = getNamedParamJdbcTemplate().query(getFloorQuery, new RowMapper<Floor>() {
+
+			public Floor mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Floor floor = new Floor();
+				floor.setFloorId(CommonUtil.getLongValue(rs.getLong("Floor_Id")));
+                floor.setFloor(rs.getString("Floor"));  
+				return floor;
+			}
+		});
+
+		return floors;
+	}
+
+
+	public List<RoomTypeDetail> getRoomTypeDetail(){
+
+		String getQuery=masterQueryProps.getProperty("getRoomTypeDetail");
+
+		List<RoomTypeDetail> roomTypeDetails =new ArrayList<RoomTypeDetail>(); 
+
+		roomTypeDetails = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<RoomTypeDetail>() {
+
+			public RoomTypeDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				RoomTypeDetail roomTypeDetail = new RoomTypeDetail();
+				roomTypeDetail.setBlockId(CommonUtil.getLongValue(rs.getLong("Block_Id")));
+				roomTypeDetail.setFloorId(CommonUtil.getLongValue(rs.getLong("Floor_Id")));
+				roomTypeDetail.setWingId(CommonUtil.getLongValue(rs.getLong("Wing_Id")));
+				roomTypeDetail.setTypeCode(rs.getString("Type_Code"));
+				roomTypeDetail.setRoomNo(rs.getString("Room_No"));
+				
+				return roomTypeDetail;
+			}
+		});
+
+		return roomTypeDetails;
 	}
 
 }

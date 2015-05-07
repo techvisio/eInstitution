@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.HostelAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAvailability;
-import com.techvisio.einstitution.beans.HostelInventory;
+import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 
@@ -17,16 +17,16 @@ public interface HostelDao {
 	
 	
 	
-	public HostelInventory getHostelInventory(String typeCode);
-	public void addHostelInventory(HostelInventory hostelInventory);
-	public void updateHostelInventory(HostelInventory hostelInventory);
+	public RoomTypeMaster getHostelInventory(String typeCode);
+	public void addHostelInventory(RoomTypeMaster hostelInventory);
+	public void updateHostelInventory(RoomTypeMaster hostelInventory);
 	public void deleteHostelInventory(String typeCode);
 	
 	
 	
-	public HostelAllocation getHostelAllocation(Long fileNo);
-	public void addHostelAllocation(HostelAllocation hostelAllocation);
-	public void updateHostelAllocation(HostelAllocation hostelAllocation);
+	public RoomAllocationDetail getHostelAllocation(Long fileNo);
+	public void addHostelAllocation(RoomAllocationDetail hostelAllocation);
+	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation(Long fileNo);
 	
 	

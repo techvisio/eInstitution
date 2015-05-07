@@ -1,6 +1,6 @@
 var hostelModule = angular.module('hostelModule', []);
 
-hostelModule.controller('hostelController', ['$scope','hostelService',function($scope,hostelService) {
+hostelModule.controller('hostelController', ['$scope','hostelService','masterdataService',function($scope,hostelService,masterdataService) {
 
     $scope.form={};
     $scope.form.content='dashboard';
@@ -11,6 +11,23 @@ hostelModule.controller('hostelController', ['$scope','hostelService',function($
 	$scope.hostelAllocationAdmissionDtl={};
 	$scope.getHostelAvailability = function() {
 
+		$scope.init=function(){
+
+			 console.log('getting masterdata for admission module in init block');
+
+			 masterdataService.getAdmissionMasterData()
+			 .then(function(data) {
+				 console.log(data);
+				 if (data != null) {
+					 $scope.serverModelData = data;
+				 } else {
+					 console.log('error');
+				 }
+			 })
+
+		 }
+
+		
 		hostelService.getHostelAvailability().then(function(response) {
 			console.log('getHostelAvailability call back : ');
 			console.log(response);

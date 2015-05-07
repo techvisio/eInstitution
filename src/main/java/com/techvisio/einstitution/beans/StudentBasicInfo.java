@@ -156,6 +156,4 @@ public class StudentBasicInfo {
 		this.sectionId = sectionId;
 	}
 	
-	
-	
 }
