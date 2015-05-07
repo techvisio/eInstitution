@@ -14,9 +14,10 @@ import org.w3c.dom.css.CSSRuleList;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.db.ReportDao;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ReportDaoImpl extends BaseDao implements ReportDao {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(ReportDaoImpl.class);
 	@Autowired @Qualifier(value="reportQueryProp")
 	private Properties reportProperties;
 
@@ -26,16 +27,17 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 
 	@Override
 	public List<ConsultantReport> getConsultantReport() {
-		
+		logger.info("{} : Get consultant report ",this.getClass().getName());		
 		String getQuery = reportProperties.getProperty("getConsultantReport");
 		return getJdbcTemplate().query(getQuery,new ConsultantRowMapper());
 	}
 
 	private class ConsultantRowMapper implements RowMapper<ConsultantReport> {
-
+		
 		@Override
 		public ConsultantReport mapRow(ResultSet rs, int arg1)
 				throws SQLException {
+			logger.info("{} : Putting values in the setter of ConsultantReport bean through rowmapper",this.getClass().getName());	
 			ConsultantReport cstntRpt = new ConsultantReport();
 			if(rs!=null){
 				cstntRpt.setBranchName(rs.getString("Branch"));

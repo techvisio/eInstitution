@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ModuleLog;
 import com.techvisio.einstitution.db.ModuleLogDao;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ModuleLogDaoImpl extends BaseDao implements ModuleLogDao {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(ModuleLogDaoImpl.class);	
 	@Autowired @Qualifier(value="moduleLogQueryProps")
 	private Properties  moduleLogQueryProps;
 	
@@ -29,6 +30,7 @@ public class ModuleLogDaoImpl extends BaseDao implements ModuleLogDao {
 // GET DATA FROM ModuleLog TABLE	
 	
 	public ModuleLog getModuleLog(int entityId) {
+		logger.info("{} : Get module log by entity id:{}",this.getClass().getName(), entityId);
 		String getQuery = moduleLogQueryProps.getProperty("getModuleLog");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("ENTITY_ID", entityId);
 		
@@ -63,6 +65,7 @@ public class ModuleLogDaoImpl extends BaseDao implements ModuleLogDao {
 // INSERT DATA IN ModuleLog TABLE	
 
 	public void addModuleLog(ModuleLog moduleLog) {
+		logger.info("{} : add module log for entity id:{}",this.getClass().getName(), moduleLog.getEntityId());
 		String addQuery = moduleLogQueryProps.getProperty("addModuleLog");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("ENTITY_ID", moduleLog.getEntityId())
 											.addValue("WORK_FLOW_OPERATION", moduleLog.getWorkFlowOperation())
@@ -77,6 +80,7 @@ public class ModuleLogDaoImpl extends BaseDao implements ModuleLogDao {
 // UPDATE DATA IN ModuleLog TABLE	
 
 	public void updateModuleLog(ModuleLog moduleLog) {
+		logger.info("{} : update module log for entity id:{}",this.getClass().getName(), moduleLog.getEntityId());
 		String updateQuery = moduleLogQueryProps.getProperty("updateModuleLog");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("ENTITY_ID", moduleLog.getEntityId())
 											.addValue("WORK_FLOW_OPERATION", moduleLog.getWorkFlowOperation())
@@ -91,6 +95,7 @@ public class ModuleLogDaoImpl extends BaseDao implements ModuleLogDao {
 // DELETE DATA FROM ModuleLog TABLE
 
 	public void deleteModuleLog(int entityId) {
+		logger.info("{} : delete module log by entity id:{}",this.getClass().getName(), entityId);
 		String deleteQuery = moduleLogQueryProps.getProperty("deleteModuleLog");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("ENTITY_ID", entityId);
 											

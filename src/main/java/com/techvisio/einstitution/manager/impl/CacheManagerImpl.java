@@ -497,13 +497,12 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	public void builtEntityListCache(){
-
 		List<Branch> branchs =new ArrayList<Branch>();
 		logger.info("{} : built entity list cache work for get branch ",this.getClass().getName());
 		branchs=cacheDao.getBranch();
 		entityListMap.put(AppConstants.BRANCH, branchs);
 
-
+		
 		List<Course> courses=new ArrayList<Course>();
 		logger.info("{} : built entity list cache work for get course ",this.getClass().getName());
 		courses=cacheDao.getCourse();

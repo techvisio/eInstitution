@@ -17,10 +17,11 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.WorkFlowFieldMapping;
 import com.techvisio.einstitution.db.WorkFlowDao;
+import com.techvisio.einstitution.util.CustomLogger;
 
 @Component
 public class WorkFlowDaoImpl extends BaseDao implements WorkFlowDao{
-	
+	private static CustomLogger logger = CustomLogger.getLogger(WorkFlowDaoImpl.class);	
 	@Autowired @Qualifier(value="workFlowQueryProps")
 	private Properties workFlowQueryProps;
 	
@@ -34,6 +35,7 @@ public class WorkFlowDaoImpl extends BaseDao implements WorkFlowDao{
 	
 	
 public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowId(String workFlowId) {
+	logger.info("{} : Get WorkFlow Field Mapping By WorkFlowId:{}",this.getClass().getName(), workFlowId);
 	String getQuery = workFlowQueryProps.getProperty("getWorkFlowFieldMappingByWorkFlowId");
 	SqlParameterSource namedParameter = new MapSqlParameterSource("Work_Flow_Id", workFlowId);
 										
@@ -85,6 +87,7 @@ public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowId(String workFlowI
 	
 
 public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowStepId(String workFlowStepId) {
+	logger.info("{} : Get WorkFlow Field Mapping By WorkFlowStepId:{}",this.getClass().getName(), workFlowStepId);
 	String getQuery = workFlowQueryProps.getProperty("getWorkFlowFieldMappingByWorkFlowStepId");
 	SqlParameterSource namedParameter = new MapSqlParameterSource("Work_Flow_Step_Id",workFlowStepId);
 										//.addValue("Work_Flow_Id", workFlowId);
@@ -141,6 +144,7 @@ public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowStepId(String workF
 	
 
 	public void addWorkFlowFieldMapping(WorkFlowFieldMapping workFlowFieldMapping) {
+		logger.info("{} : Add WorkFlow Field Mapping for WorkFlowId:{}",this.getClass().getName(), workFlowFieldMapping.getWorkFlowId());
 		String addQuery = workFlowQueryProps.getProperty("addWorkFlowFieldMapping");
 		if(workFlowFieldMapping.getFieldDesc() !=null){
 		for(FieldDesc fieldDesc:workFlowFieldMapping.getFieldDesc()){
@@ -167,7 +171,8 @@ public WorkFlowFieldMapping getWorkFlowFieldMappingByWorkFlowStepId(String workF
 // Update data in WorkFlowFieldMapping table	
 	
 public void updateWorkFlowFieldMapping(WorkFlowFieldMapping workFlowFieldMapping) {
-		String updateQuery = workFlowQueryProps.getProperty("updateWorkFlowFieldMapping");
+	logger.info("{} : Update WorkFlow Field Mapping for WorkFlowId:{}",this.getClass().getName(), workFlowFieldMapping.getWorkFlowId());	
+	String updateQuery = workFlowQueryProps.getProperty("updateWorkFlowFieldMapping");
 		
 		if(workFlowFieldMapping.getFieldDesc() != null ){
 			for(FieldDesc fieldDesc:workFlowFieldMapping.getFieldDesc()){
@@ -195,7 +200,8 @@ public void updateWorkFlowFieldMapping(WorkFlowFieldMapping workFlowFieldMapping
 
 
 public void deleteWorkFlowFieldMapping(String workFlowStepId) {
-		String delQuery = workFlowQueryProps.getProperty("deleteWorkFlowFieldMapping");
+	logger.info("{} : Delete WorkFlow Field Mapping for WorkFlowStepId:{}",this.getClass().getName(), workFlowStepId);	
+	String delQuery = workFlowQueryProps.getProperty("deleteWorkFlowFieldMapping");
 		
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Work_Flow_Step_Id",workFlowStepId);
 											

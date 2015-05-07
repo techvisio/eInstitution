@@ -416,6 +416,144 @@ Select
 
 	</entry>
 	
+<entry key="getCodeMap">
+    <![CDATA[
+      
+Select 
+  
+   Name
+  ,Code
+  ,Description
 	
+ from codemappingmaster;
+    ]]>
+
+	</entry>
+	
+	<entry key="getBatch">
+    <![CDATA[
+ 
+ Select 
+  
+  Batch_Id,
+  Batch,
+  Course_Id,
+  Prev_Batch_Id,
+  Next_Batch_Id
+  
+from batchmaster;
+]]>	
+	</entry>
+	
+	<entry key="getSession">
+    <![CDATA[
+ 
+ Select 
+  
+   Session_Id,
+   Session,
+   Course_Id,
+   Prev_Session_Id,
+   Next_Session_Id 
+  
+from sessionmaster;
+]]>	
+	</entry>
+	
+	
+	<entry key="getCentre">
+    <![CDATA[
+ 
+ Select 
+  
+   Centre_Id,
+   Centre_Name
+  
+from centremaster;
+]]>	
+	</entry>
+
+	<entry key="getShift">
+    <![CDATA[
+ 
+ Select 
+  
+   Shift_Id,
+   Shift_Name
+  
+from shiftmaster;
+]]>	
+	</entry>
+
+	<entry key="getSection">
+    <![CDATA[
+ 
+ Select
+  
+  Section_Id,
+  Section,
+  Course_Id,
+  Branch_Id
+    
+from sectionmaster;
+]]>	
+	</entry>
+
+<entry key="getFloor">
+    <![CDATA[
+      
+
+ Select 
+    Floor_Id,
+    Floor
+    
+ from FloorMaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getWing">
+    <![CDATA[
+      
+
+ Select 
+    Wing_Id,
+    wing
+    
+ from WingMaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getBlock">
+    <![CDATA[
+      
+
+ Select 
+    Block_Id,
+    Block
+    
+ from BlockMaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getRoomTypeDetail">
+    <![CDATA[
+      
+
+ Select 
+ 
+    Room_No,
+    Type_Code,
+    Wing_Id,
+    Floor_Id,
+    Block_Id
+    
+ from RoomtypeDetail;    
+    ]]>
+
+	</entry>
+
 	
 </properties>

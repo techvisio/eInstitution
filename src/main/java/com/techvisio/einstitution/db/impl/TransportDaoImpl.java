@@ -19,9 +19,10 @@ import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class TransportDaoImpl extends BaseDao implements TransportDao {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(TransportDaoImpl.class);	
 	@Autowired @Qualifier(value="transportQueryProps")
 	private Properties transportQueryProps;
 
@@ -31,7 +32,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	
 	public List<AvailableTransport> getAvailableTransports(){
-		
+		logger.info("{} : get available transport",this.getClass().getName());		
 		String getQuery = transportQueryProps.getProperty("getAvailableTransport");
 		
 		List<AvailableTransport> availableTransports = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<AvailableTransport>() {
@@ -55,7 +56,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	
 	
 	public Transport getTransport(String routeCode) {
-
+		logger.info("{} : get transport for routecode:{}",this.getClass().getName(), routeCode);
 		String getQuery = transportQueryProps
 				.getProperty("getTransportByRouteCode");
 
@@ -90,7 +91,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void addTransport(Transport transport) {
-
+		logger.info("{} : add transport for route code:{}",this.getClass().getName(), transport.getRouteCode());
 		String addQuery = transportQueryProps.getProperty("addTransport");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -103,7 +104,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void updateTransport(Transport transport) {
-
+		logger.info("{} : update transport for route code:{}",this.getClass().getName(), transport.getRouteCode());
 		String updateQuery = transportQueryProps.getProperty("updateTransport");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -117,7 +118,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void deleteTransport(String routeCode) {
-
+		logger.info("{} : delete transport for route code:{}",this.getClass().getName(), routeCode);
 		String deleteQuery = transportQueryProps.getProperty("deletetransport");
 
 		SqlParameterSource namedparameter = new MapSqlParameterSource(
@@ -128,7 +129,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public TransportAllocation getTransportAllocationDtl(Long fileNo) {
-
+		logger.info("{} : get transport allocation for file no :{}",this.getClass().getName(), fileNo);
 		String getQuery = transportQueryProps
 				.getProperty("getTransportAllocationByFileNo");
 
@@ -163,7 +164,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	public void addTransportAllocationDtl(
 			TransportAllocation transportAllocation) {
-
+		logger.info("{} : add transport allocation detail for file no :{}",this.getClass().getName(), transportAllocation.getFileNo());
 		String addQuery = transportQueryProps
 				.getProperty("addTransportAllocation");
 
@@ -176,7 +177,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	public void updateTransportAllocationDtl(
 			TransportAllocation transportAllocation) {
-
+		logger.info("{} : update transport allocation detail for file no :{}",this.getClass().getName(), transportAllocation.getFileNo());
 		String updateQuery = transportQueryProps
 				.getProperty("updateTransportAllocation");
 
@@ -189,7 +190,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void deleteTransportAllocationDtl(Long fileNo) {
-
+		logger.info("{} : delete transport allocation detail for file no :{}",this.getClass().getName(), fileNo);
 		String deleteQuery = transportQueryProps
 				.getProperty("deleteTransportAllocation");
 
@@ -201,7 +202,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public TransportReservation getTransportReservationDtl(Long fileNo) {
-
+		logger.info("{} : get transport reservation detail for file no :{}",this.getClass().getName(), fileNo);
 		String getQuery = transportQueryProps
 				.getProperty("getTransportReservationByFileNo");
 
@@ -243,7 +244,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	public void addTransportReservationDtl(
 			TransportReservation transportReservation) {
-
+		logger.info("{} : add transport reservation detail for file no :{}",this.getClass().getName(), transportReservation.getFileNo());
 		String addQuery = transportQueryProps
 				.getProperty("addTransportReservation");
 
@@ -259,7 +260,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	public void updateTransportReservationDtl(
 			TransportReservation transportReservation) {
-
+		logger.info("{} : update transport reservation detail for file no :{}",this.getClass().getName(),transportReservation.getFileNo());
 		String updateQuery = transportQueryProps
 				.getProperty("updateTransportReservation");
 
@@ -275,7 +276,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void deleteTransportReservationDtl(Long fileNo) {
-
+		logger.info("{} : delete transport reservation detail for file no :{}",this.getClass().getName(), fileNo);
 		String deleteQuery = transportQueryProps
 				.getProperty("deleteTransportReservation");
 
@@ -287,7 +288,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public VehicleDetail getVehicleDetail(Long vehicleId) {
-
+		logger.info("{} : get vehicle detail for vehicle id :{}",this.getClass().getName(), vehicleId);
 		String getQuery = transportQueryProps
 				.getProperty("getVehicleDetailByVehicleId");
 
@@ -322,7 +323,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void addVehicleDetail(VehicleDetail vehicleDetail) {
-
+		logger.info("{} : add vehicle detail for vehicle id :{}",this.getClass().getName(), vehicleDetail.getVehicleId());
 		String addQuery = transportQueryProps.getProperty("addtVehicleDetail");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -336,7 +337,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void updateVehicleDetail(VehicleDetail vehicleDetail) {
-
+		logger.info("{} : update vehicle detail for vehicle id :{}",this.getClass().getName(), vehicleDetail.getVehicleId());
 		String updateQuery = transportQueryProps
 				.getProperty("updateVehicleDetail");
 
@@ -352,7 +353,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void deleteVehicleDetail(Long vehicleId) {
-
+		logger.info("{} : delete vehicle detail for vehicle id :{}",this.getClass().getName(), vehicleId);
 		String deleteQuery = transportQueryProps
 				.getProperty("deleteVehicleDetail");
 

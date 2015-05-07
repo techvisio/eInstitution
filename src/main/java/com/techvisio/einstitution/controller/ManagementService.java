@@ -19,6 +19,7 @@ import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
@@ -38,9 +39,12 @@ public class ManagementService {
 
 	@Autowired
 	 AdmissionWorkflowManager admissionWorkflowManager;
+	
+	private static CustomLogger logger = CustomLogger.getLogger(ManagementService.class);
+	
 	@RequestMapping(value ="/admission/approval/{fileNo}", method = RequestMethod.GET )
 	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable Long fileNo){
-
+		logger.info("{}:  Calling getAdmissionManagementView method by passing fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		ResponseEntity<Response> result = new ResponseEntity<Response>(response, HttpStatus.OK);
 
@@ -52,7 +56,7 @@ public class ManagementService {
 
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error("{}: Error While Calling getAdmissionManagementView method by passing fileno :{}",this.getClass().getName(),fileNo);
 			response.setError(e.getLocalizedMessage());
 		}
 		return result ;
@@ -60,7 +64,7 @@ public class ManagementService {
 
 	@RequestMapping(value = "/uapprovedList/{limit}", method = RequestMethod.GET)
 	public  ResponseEntity<Response> getUnapprovedAdmissions(@PathVariable int limit){
-		
+		logger.info("{}  Calling getUnapprovedAdmissions method by passing limit :{}",this.getClass().getName(), limit);
 		Response response = new Response();
 		try
 		{
@@ -69,7 +73,7 @@ public class ManagementService {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("{}: Error While Calling getUnapprovedAdmissions method by passing limit: {}",this.getClass().getName(),limit);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -78,7 +82,7 @@ public class ManagementService {
 
 @RequestMapping(value = "/updateManagementChanges", method = RequestMethod.PUT)
 public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmissionBean admissionBean ){
-	
+	logger.info("{}  Calling updateManagementChanges method for Student : {}",this.getClass().getName(), admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
 	Response response = new Response();
 	try
 	{
@@ -89,7 +93,7 @@ public  ResponseEntity<Response> updateManagementChanges(@RequestBody Management
 	}
 	catch(Exception e)
 	{
-		e.printStackTrace();
+		logger.error("{}: Error While Calling updateManagementChanges method for : Student : {}",this.getClass().getName(),admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);

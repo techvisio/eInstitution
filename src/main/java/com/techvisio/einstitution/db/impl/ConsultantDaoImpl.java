@@ -24,8 +24,10 @@ import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
+	private static CustomLogger logger = CustomLogger.getLogger(ConsultantDaoImpl.class);
 	
 	@Autowired @Qualifier(value="consultantQueryProps")
 	private Properties consultantQueryProps;
@@ -39,7 +41,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		
 	
 	public Consultant getConsultant(Long consultantId) {
-
+		 logger.info("{} : Getting detail for particular consultant : id :{}",this.getClass().getName(), consultantId);
 		String getQuery = consultantQueryProps.getProperty("getConsultantById");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Id", consultantId);
@@ -58,7 +60,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 
 	public void saveConsultant(Consultant consultant) {
-
+		 logger.info("{} : adding values in particlar field for a particular consulatant : Name:{}",this.getClass().getName(), consultant.getName());
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultant");
 		
 		if(consultant.getConsultantId() != null){
@@ -94,7 +96,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 */
 	public void deleteConsultant(
 			Long consultantId) {
-
+		 logger.info("{} :Deleting record for a particular consultant: id:{}",this.getClass().getName(), consultantId);
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultant");
 
 		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", consultantId);
@@ -105,7 +107,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public List<ConsultantDetail> getConsultantDtl(final Long fileNo) {
-
+		 logger.info("{} : Getting list of consultants for a particular : file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = consultantQueryProps.getProperty("getConsultantDtlByFileNo");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
@@ -139,7 +141,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public void saveConsultantDetail(List<ConsultantDetail> consultantDetails){
-		
+		 logger.info("{} : First, deleting records of consultant for a particular file no and then calling addConsltantDtl method for adding new consultant for a particular file no",this.getClass().getName());		
 		if(consultantDetails != null){
 		for(ConsultantDetail consultantDetail:consultantDetails){
 	
@@ -151,7 +153,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 	}
 	private void addConsultantDtl(ConsultantDetail consultantDetail) {
-		
+		 logger.info("{} : adding counsultant detail for a particular : consultant id:{} and file no:{}",this.getClass().getName(), consultantDetail.getConsultant().getConsultantId(), consultantDetail.getFileNo());
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
 		if(consultantDetail.getConsultant()!=null && consultantDetail.getConsultant().getConsultantId()!=null){
 			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultant().getConsultantId())
@@ -188,7 +190,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 
 	public void deleteConsultantDtlExclusion(Long fileNo, List<ConsultantDetail> consultantDetails) {
-	
+		 logger.info("{} : calling delete methods of payment detail and payment criteria for a particular : file no :{}",this.getClass().getName(), fileNo);	
 		List<Long> consultantIds=new ArrayList<Long>();
 		
 		if(consultantDetails != null){
@@ -219,7 +221,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public List<ConsultantPaymentDtl> getConsultantPaymentDtl(Long fileNo, Long consultantId) {
-
+		 logger.info("{} : Getting list of payment details for a particular  file no:{} and consulatnt id:{} ",this.getClass().getName(), fileNo, consultantId);
 		String getQuery= consultantQueryProps.getProperty("getConsultantPaymentDtlByFileNo");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo)
@@ -244,7 +246,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public void addConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl) {
-
+		 logger.info("{} : Adding consultant's payment details for particular file no:{}",this.getClass().getName(), consultantPaymentDtl.getFileNo());
 		String addQuery = consultantQueryProps.getProperty("addConsultantPaymentDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", consultantPaymentDtl.getFileNo())
@@ -273,7 +275,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 
 	public void deleteConsultantPaymentDtl(Long fileNo, Long consultantId) {
-
+		 logger.info("{} : Deleting consultant's payment detail for particular file no:{} and consultant id:{}",this.getClass().getName(), fileNo, consultantId);
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtl");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
@@ -283,7 +285,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public void deleteConsultantPaymentDtlExclusion(Long fileNo, List<Long> consultantIds) {
-
+		 logger.info("{} : Deal with deleteConsultantPaymentDtlExclusion : file no:{}",this.getClass().getName(), fileNo);
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
@@ -295,7 +297,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	@Override
 	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo, Long consultantId) {
-
+		 logger.info("{} : Getting consulant payment criteria for a particular  file no:{} and consultant id:{}",this.getClass().getName(), fileNo, consultantId);
 		String getQuery = consultantQueryProps.getProperty("getConsultantPaymentCriteria");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
@@ -329,7 +331,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	@Override
 	public void addConsultantPaymentCriteria(
 			ConsultantPaymentCriteria consultantPaymentCriteria) {
-
+		 logger.info("{} : Add consultant payment criteria for particular  file no:{} and consultant id:{}",this.getClass().getName(), consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
 		String addQuery = consultantQueryProps.getProperty("addConsultantPaymentCriteria");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", consultantPaymentCriteria.getFileNo())
@@ -347,7 +349,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	@Override
 	public void updateConsultantPaymentCriteria(
 			ConsultantPaymentCriteria consultantPaymentCriteria) {
-
+		 logger.info("{} : updating consultant payment criteria for particular  file no:{} and consultant id :{}",this.getClass().getName(), consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
 		deleteConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
 		addConsultantPaymentCriteria(consultantPaymentCriteria);
 	}
@@ -355,7 +357,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	@Override
 	public void deleteConsultantPaymentCriteriaExclusion(Long fileNo, List<Long> consultantIds) {
-
+		 logger.info("{} : Deal with deleteConsultantPaymentCriteriaExclusion : file no:{}",this.getClass().getName(), fileNo);
 		
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
 
@@ -368,7 +370,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	
    public void deleteConsultantPaymentCriteria(Long fileNo, Long consultantId) {
-
+	   logger.info("{} : Deleting consultant payment criteria for particular file no:{} and consultant id:{}",this.getClass().getName(), fileNo, consultantId);	   
 		
 		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteria");
 
@@ -382,7 +384,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	
 	@Override
 	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria){
-
+		 logger.info("{} : getting consultant by searching criteria : Consultant name:{}",this.getClass().getName(), searchCriteria.getName());
 		String getQuery = consultantQueryProps
 				.getProperty("getCosultantBySearchCriteria");
 
@@ -402,6 +404,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 		public Consultant mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
+			 logger.info("{}Putting values in particular field by getting from user through rowmapper : ",this.getClass().getName());
 			Consultant consultant = new Consultant();
 			consultant.setConsultantId(CommonUtil.getLongValue(rs.getLong("Id")));
 			consultant.setName(rs.getString("Name"));
@@ -415,7 +418,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail){
-		
+		 logger.info("{} : Adding Student{}'s consultant detail",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+ consultantAdmissionDetail.getBasicInfo().getLastName());		
 		List<ConsultantDetail> consultantDetails = consultantAdmissionDetail.getConsultantDetails();
 		for(ConsultantDetail consultantDetail : consultantDetails){
 			addConsultantDtl(consultantDetail);

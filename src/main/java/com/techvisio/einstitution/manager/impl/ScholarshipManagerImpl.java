@@ -12,9 +12,10 @@ import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.ScholarshipManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ScholarshipManagerImpl implements ScholarshipManager {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(ScholarshipManagerImpl.class);	
 	@Autowired
 	ScholarshipDao scholarshipDao ;
 	
@@ -38,6 +39,7 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
+		logger.info("{} : calling getScholarshipDetail method by passing file no:{}  ",this.getClass().getName(), fileNo);
 
 		ScholarshipDetail scholarshipDetail = scholarshipDao.getScholarshipDetail(fileNo);
 		
@@ -46,18 +48,18 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
-
+		logger.info("{} : calling addScholarDetail method for file no:{}  ",this.getClass().getName(), scholarshipDetail.getFileNo());
 		scholarshipDao.addScholarDetail(scholarshipDetail);
 	}
 
 	public void deleteScholarshipDetail(Long fileNo) {
-
+		logger.info("{} : calling deleteScholarshipDetail method by passing file no:{}  ",this.getClass().getName(), fileNo);
 		scholarshipDao.deleteScholarshipDetail(fileNo);
 	}
 
 	@Override
 	public void accomodateManagementChanges(StudentBasicInfo basicInfo, ScholarshipDetail newScholarshipDetail) {
-
+		logger.info("{} : Accomodate Management Changes  for Student:{}  ",this.getClass().getName(), basicInfo.getFirstName()+basicInfo.getLastName());
 		ScholarshipDetail newScholarshipObj = newScholarshipDetail;
 		ScholarshipDetail oldScholarshipObj = scholarshipDao.getScholarshipDetail(newScholarshipObj.getFileNo());
 

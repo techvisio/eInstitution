@@ -23,9 +23,10 @@ import com.techvisio.einstitution.db.EnquiryDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
-
+	private static CustomLogger logger = CustomLogger.getLogger(EnquiryDaoImpl.class);
 	@Autowired
 	CacheManager cacheManager;
 
@@ -37,7 +38,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	} 
 
 	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
-
+		 logger.info("{} : Getting enquiry by task date date:{}",this.getClass().getName(), taskDate);
 		String getQuery = enquiryQueryProps
 				.getProperty("getAdmissionInquiryByTask_date");
 		
@@ -53,7 +54,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	
 	
 	public AdmissionEnquiry getInquiry(Long inquiryId) {
-
+		 logger.info("{} : Getting particular enquiry by enquiry id:{}",this.getClass().getName(), inquiryId);
 		String getQuery = enquiryQueryProps
 				.getProperty("getAdmissionInquiryByInquiryId");
 
@@ -75,7 +76,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 
 	public void addInquiry(AdmissionEnquiry admissionInquiry) {
-
+		 logger.info("{} : Adding enquiry for particular Student:{}",this.getClass().getName(), admissionInquiry.getName());
 		String addQuery = enquiryQueryProps.getProperty("addAdmissionInquiry");
 		SqlParameterSource namedParameters = getParameterMap(admissionInquiry);
 		getNamedParamJdbcTemplate().update(addQuery, namedParameters);
@@ -85,6 +86,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 
 	private MapSqlParameterSource getParameterMap(
 			AdmissionEnquiry admissionInquiry) {
+		 logger.info("{} : Adding values in particular field for Student:{} by MapSqlParameterSource ",this.getClass().getName(), admissionInquiry.getName());
 		return new MapSqlParameterSource(
 				"Inquiry_Id", admissionInquiry.getEnquiryId())
 		.addValue("Name", admissionInquiry.getName())
@@ -116,7 +118,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 
 	public void updateInquiry(AdmissionEnquiry admissionInquiry) {
-
+		 logger.info("{} : Updating values in particular field for Student:{} by MapSqlParameterSource ",this.getClass().getName(), admissionInquiry.getName());
 		String updateQuery = enquiryQueryProps
 				.getProperty("updateAdmissionInquiry");
 		SqlParameterSource namedParameters = getParameterMap(admissionInquiry);
@@ -124,7 +126,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 
 	public void deleteInquiry(Long inquiryId) {
-
+		 logger.info("{} : Deleting enquiry by enquiry id:{} ",this.getClass().getName(), inquiryId);
 		String deleteQuery = enquiryQueryProps
 				.getProperty("deleteAdmissionInquiry");
 
@@ -137,6 +139,8 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	@Override
 	public List<AdmissionEnquiry> searchInqByCriteria(
 			SearchCriteria searchCriteria) {
+		 logger.info("{} : Searching enquiry by searching criteria for Student{}, who has enquiry id{}  ",this.getClass().getName(), searchCriteria.getName(), searchCriteria.getInquryId());
+		
 		String getQuery = enquiryQueryProps
 				.getProperty("searchInquiry");
 
@@ -161,7 +165,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		@Override
 				public AdmissionEnquiry mapRow(ResultSet rs,
 						int rowNum) throws SQLException {
-
+			 logger.info("{} : Setting values in setter of AdmissionEnquiry bean through rowmapper  ",this.getClass().getName());
 					AdmissionEnquiry admissionInquiry = new AdmissionEnquiry();
 					admissionInquiry.setEnquiryId(CommonUtil.getLongValue(rs
 							.getLong("Inquiry_Id")));

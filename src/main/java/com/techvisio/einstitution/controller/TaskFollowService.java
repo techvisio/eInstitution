@@ -10,18 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.manager.TaskFollowManager;
 import com.techvisio.einstitution.manager.impl.TaskFollowManagerImpl;
+import com.techvisio.einstitution.util.CustomLogger;
 
 @RestController
 @RequestMapping("/TaskFollow")
 public class TaskFollowService {
-	//private static final Logger logger = Logger.getLogger(TaskFollowService.class);
+	private static CustomLogger logger = CustomLogger.getLogger(TaskFollowService.class);
 	
 	@Autowired
 	TaskFollowManager tManager;
 	
 	@RequestMapping(value="/GetByTaskId/{taskId}",method= RequestMethod.GET )
 	public TaskAndFollowUp getTaskAndFollowUpByTaskId(@PathVariable int taskId){
-		
+		logger.info("{}: Calling getTaskAndFollowUpByTaskId method by passing taskId : {}",this.getClass().getName(), taskId);
 //		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByTaskId(taskId);
 		
 		
@@ -29,7 +30,8 @@ public class TaskFollowService {
 		}
 	@RequestMapping(value="/GetByParentTaskId/{parentTaskId}",method = RequestMethod.GET)
 	public TaskAndFollowUp getTaskAndFollowUpByParentTaskId(@PathVariable int parentTaskId){
-//		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByParentTaskId(parentTaskId);
+		logger.info("{}  Calling getTaskAndFollowUpByParentTaskId method by passing parentTaskId : {}",this.getClass().getName(), parentTaskId);
+		//		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByParentTaskId(parentTaskId);
 		
 		return null;
 		
@@ -37,18 +39,21 @@ public class TaskFollowService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public void addTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-//		tManager.addTaskAndFollowUp(taskAndFollowUp);
+		logger.info("{}  Calling addTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
+		//		tManager.addTaskAndFollowUp(taskAndFollowUp);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public void updateTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-//		followManager.updateTaskAndFollowUp(taskAndFollowUp);
+		logger.info("{}  Calling updateTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
+		//		followManager.updateTaskAndFollowUp(taskAndFollowUp);
 		
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-//		followManager.deleteTaskAndFollowUp(taskAndFollowUp);
+		logger.info("{}  Calling deleteTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
+		//		followManager.deleteTaskAndFollowUp(taskAndFollowUp);
 	}
 	
 	

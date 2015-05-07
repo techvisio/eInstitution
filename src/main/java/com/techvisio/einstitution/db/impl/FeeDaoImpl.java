@@ -30,10 +30,12 @@ import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.DefaultManagerImpl;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.util.CustomStoredProcedure;
 @Component
 public class FeeDaoImpl extends BaseDao implements FeeDao{
-	
+	private static CustomLogger logger = CustomLogger.getLogger(FeeDaoImpl.class);
+
 	@Autowired @Qualifier(value="feeQueryProps")
 	private Properties feeQueryProps;
 
@@ -48,7 +50,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	@Override
 	public List<FeeAdmissionBean> getPendingfeeInfo(int limit) {
 		//StudentfeeAdmissionBean info = new StudentfeeAdmissionBean();
-		
+		 logger.info("{} : Get pending fee information : Limit:{}",this.getClass().getName(), limit);		
 		String getQuery = feeQueryProps.getProperty("getPendingFee");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
 		
@@ -57,7 +59,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 			@Override
 			public FeeAdmissionBean mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
-
+		logger.info("{} : Putting values in setter of FeeAdmission bean through rowmaaper ",this.getClass().getName());
 				FeeAdmissionBean feeAdmissionBean = new FeeAdmissionBean();
 				feeAdmissionBean.setFirstName(rs.getString("First_Name"));
 				feeAdmissionBean.setLastName(rs.getString("Last_Name"));
@@ -79,7 +81,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
     
 	@Override
 	public Boolean isManagementApproved(Long fileNo){
-	
+	logger.info("{} : Is management approved for fileno:{}",this.getClass().getName(), fileNo);	
 		String getQuery = feeQueryProps.getProperty("getPreviousManagementStatus");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
 		
@@ -99,7 +101,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 	@Override
 	public Double getPreviousSemBalance(Long fileNo){
-		
+		 logger.info("{} : Get previous sem balance for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = feeQueryProps.getProperty("getPreviousSemBalance");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
 		Double previousBalance=0.0;
@@ -115,7 +117,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		}
 		catch(EmptyResultDataAccessException e){
 			System.out.println("No previous balance");
-			e.printStackTrace();
+			logger.error("Error While{}",e);
 		}
 		return previousBalance;
 		
@@ -124,6 +126,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria) {
+		 logger.info("{} : Get applicable fee details of Course:{} , Session:{}",this.getClass().getName(), criteria.getCourseId(), criteria.getSessionId());
 		DefaultManager defaultManager=new DefaultManagerImpl();
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE",criteria.getCourseId())
@@ -135,6 +138,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 			public ApplicableFeeDetail mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
+				logger.info("{} : Putting values in setter of ApplicableFeeDetail bean through rowmaaper ",this.getClass().getName());		
 				ApplicableFeeDetail detail = new ApplicableFeeDetail();
 				detail.setBranch(CommonUtil.getLongValue(rs.getLong("BRANCH")));
 				detail.setCourse(CommonUtil.getLongValue(rs.getLong("COURSE")));
@@ -164,12 +168,14 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	public void addFeeDetail(ApplicableFeeDetail feeDetail) {
+		 logger.info("{} : Add fee deatils of Course:{} , Session:{}",this.getClass().getName(), feeDetail.getCourse(), feeDetail.getSessionId());	
 		String addFeeDetailQuery=feeQueryProps.getProperty("addFeeDetailMaster");
 		SqlParameterSource namedParameter = getParameterMap(feeDetail);
 		getNamedParamJdbcTemplate().update(addFeeDetailQuery, namedParameter);
 	}
 
 	private MapSqlParameterSource getParameterMap(ApplicableFeeDetail feeDetail){
+	logger.info("{} : Add values in particular fields of ApplicableFeeDetail through MapSqlParameterSource ",this.getClass().getName());	
 		return new MapSqlParameterSource("FEE_HEAD_ID",feeDetail.getFeeDetail().getHeadId())
 		.addValue("COURSE",feeDetail.getCourse())
 		.addValue("FEE_AMOUNT", feeDetail.getFeeAmount())
@@ -180,6 +186,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 		
 	}
 	public void updateFeeDetail(ApplicableFeeDetail feeDetail) {
+		logger.info("{} : Update values in particular fields of ApplicableFeeDetail through MapSqlParameterSource ",this.getClass().getName());		
 		String updateFeeDetailQuery=feeQueryProps.getProperty("updateFeeDetailMaster");
 		SqlParameterSource namedParameter = getParameterMap(feeDetail);
 		getNamedParamJdbcTemplate().update(updateFeeDetailQuery, namedParameter);
@@ -187,6 +194,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 
 	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId) {
+		logger.info("{} : Delete fee detail : Course:{} Branch:{} FeeHeadId:{} ",this.getClass().getName(), course,branch,feeHeadId);
 		String deleteFeeDetailQuery=feeQueryProps.getProperty("deleteFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE", course)
 		.addValue("BRANCH", branch).addValue("FEE_HEAD_ID", feeHeadId);
@@ -198,7 +206,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	//	StudentFeeStaging
 
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {
-
+		logger.info("{} : Get student fee staging of file no:{} and FeeHeadId:{} ",this.getClass().getName(), fileNo, feeHeadId);
 		String getQuery = feeQueryProps.getProperty("getStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo).addValue("FeeHead_Id", feeHeadId);
 
@@ -227,7 +235,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	public void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging) {
-		
+		logger.info("{} : Generate student fee staging for file no :{} ",this.getClass().getName(), studentFeeStaging.getFileNo());
 		
 		String addQuery = feeQueryProps.getProperty("generateStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
@@ -236,7 +244,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
     @Override
 	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
-		
+    	logger.info("{} : Adding values in particular fields of StudentFeeStaging for a particular fle no:{}",this.getClass().getName(), studentFeeStaging.getFileNo());		
 		
 		String addQuery = feeQueryProps.getProperty("upsertStudentFeeStaging");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", studentFeeStaging.getFileNo())
@@ -255,7 +263,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	public void saveStudentFeeStaging(List<StudentFeeStaging> studentFeeStagings) {
-		
+		logger.info("{} : Calling deleteNonExsisting and saveStudentFeeStaging methods",this.getClass().getName());		
 		if(studentFeeStagings != null){
 		
 		for(StudentFeeStaging feeStaging : studentFeeStagings){
@@ -267,7 +275,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
     public void deleteStudentFeeStagingByFileNo(StudentFeeStaging feeStaging) {
 		
-		
+    	logger.info("{} : Deleting student fee staging by file no:{}",this.getClass().getName(), feeStaging.getFileNo());		
 		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStagingByFileNo");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", feeStaging.getFileNo())
@@ -278,7 +286,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 
 	
 	private void deleteNonExsisting(Long fileNo, List<StudentFeeStaging> feeStagings) {
-		
+		logger.info("{} : Deal with deleteNonExsisting method ",this.getClass().getName());		
 		
 		String deleteQuery = feeQueryProps.getProperty("deleteStudentFeeStaging");
 
@@ -306,6 +314,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 	//FeeTransaction
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
+		logger.info("{} : Get debited fee transaction for file no:{} ",this.getClass().getName(),fileNo);		
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionDebit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -317,6 +326,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
+		logger.info("{} : Add fee transaction debit for file no :{} ",this.getClass().getName(),feeTransaction.getFileNo());
 		String addQuery = feeQueryProps.getProperty("addFeeTransactionDebit");
 
 		SqlParameterSource namedParameter = getParameterMap(feeTransaction);
@@ -326,6 +336,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	}
 
 private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
+	logger.info("{} : Adding values in particular field of FeeTransaction for particular file no:{} by MapSqlParameterSource ",this.getClass().getName(), feeTransaction.getFileNo());
 	return new MapSqlParameterSource("File_No", feeTransaction.getFileNo())
 		.addValue("User", feeTransaction.getUser())
 		.addValue("Batch_Id", feeTransaction.getBatchId())
@@ -338,6 +349,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 }
 	
 	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo) {
+		logger.info("{} : Get credited fee transaction for file no:{} ",this.getClass().getName(),fileNo);
 		String getQuery = feeQueryProps.getProperty("getFeeTransactionCredit");
 		SqlParameterSource namedSqlParameter = new MapSqlParameterSource("File_No", fileNo);
 
@@ -348,6 +360,8 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 
 
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
+		logger.info("{} : Add credit fee transaction for file no:{} ",this.getClass().getName(),feeTransaction.getFileNo());		
+		
 		String addQuery = feeQueryProps.getProperty("addFeeTransactionCredit");
 
 		SqlParameterSource namedParameter = getParameterMap(feeTransaction);
@@ -363,6 +377,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 		@Override
 		public FeeTransaction mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
+			logger.info("{} : Get credited fee transaction for file no:{} ",this.getClass().getName());
 			FeeTransaction feeTransaction = new FeeTransaction();
 			feeTransaction.setFileNo(rs.getLong("File_No"));
 			feeTransaction.setUser(rs.getString("User"));
@@ -384,7 +399,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	//FeeDiscountHead
 
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
-
+		logger.info("{} : Get fee discount head by head id:{} ",this.getClass().getName(),headId);
 		String getQuery = feeQueryProps.getProperty("getFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", headId);
@@ -410,7 +425,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	}
 
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
-
+		logger.info("{} : Add fee discount head for head id:{} ",this.getClass().getName(), feeDiscountHead.getHeadId());
 		String addQuery = feeQueryProps.getProperty("addFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", feeDiscountHead.getHeadId())
@@ -425,7 +440,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	}
 
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
-
+		logger.info("{} : Update fee discount head for head id:{} ",this.getClass().getName(), feeDiscountHead.getHeadId());
 		String updateQuery = feeQueryProps.getProperty("updateFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", feeDiscountHead.getHeadId())
@@ -439,7 +454,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	}
 
 	public void deleteFeeDiscountHead(Long headId) {
-
+		logger.info("{} : Delete fee discountHead by headId ",this.getClass().getName(),headId);
 		String deleteQuery = feeQueryProps.getProperty("deleteFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id",headId);
@@ -449,6 +464,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	
 	@Override
 	public void generateDiscountforStudent(Long fileNo){
+		logger.info("{} : Generate discount for student  file no:{} ",this.getClass().getName(), fileNo);
 		StoredProcedure sp=new CustomStoredProcedure(getJdbcTemplate(),"generateDiscountStagging") {
 		};
 		SqlParameter paramFileNo = new SqlParameter("v_file_no", Types.VARCHAR);

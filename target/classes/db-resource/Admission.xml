@@ -6,51 +6,32 @@
 <entry key="getStudentDtlDynamically">
     <![CDATA[
 SELECT
+s.Registration_No,
 s.File_No,
 s.Enroll_No,
 s.Uni_Enroll_No,
-s.Photo,
 s.First_Name,
 s.Last_Name,
 s.Father_Name,
-s.Mother_Name,
 s.Gender,
 s.DOB,
-s.Blood_Group,
-s.Father_Occupation,
-s.FixedLine_No,
-s.Self_Mobile_No,
-s.Parent_Mobile_No,
-s.Gaurdian_Mobile_No,
 s.Email_Id,
-s.Gaurdian_Email_Id,
-case WHEN h.Type_Code is null 
-  THEN 0 
-  ELSE 1
-END
- AS Hostel,
-case  
-WHEN t.Route_Code is null 
-THEN 0 
-ELSE 1
-end 
- AS Transportation,
-s.Academic_Year,
-s.Semester,
-s.Management_Approval,
-s.Fee_Paid,
 s.Category_Id,
 s.Course_Id,
 s.Branch_Id,
-s.Created_By,
 s.Created_On,
-s.Updated_By,
 s.Updated_On,   
-s.Admission_Mode,
-s.Referred_By,
-s.Quota_Code
-
-from  studentdetail s left join transportreservation t on (s.File_No = t.File_No) left join hostelreservation h on (s.File_No = h.File_No) WHERE s.File_No=IFNULL(:File_No,s.File_No) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1'));    
+s.Quota_Code,
+s.Academic_Year,
+s.Semester,
+s.Lateral,
+s.Batch_Id,
+s.Session_Id,
+s.Shift_Id,
+s.Centre_Id,
+s.Section_Id,
+s.Lateral
+from  studentdetail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
     ]]>
 
 	</entry>
@@ -58,6 +39,7 @@ from  studentdetail s left join transportreservation t on (s.File_No = t.File_No
 <entry key="getStudentBasicInfoByFileNo">
     <![CDATA[
 Select
+sd.registration_No,
 sd.File_No,
 sd.First_Name,
 sd.Last_Name,
@@ -65,50 +47,66 @@ sd.Enroll_No,
 sd.Father_Name,
 sd.Gender,
 sd.DOB,
-cm.Course,
-bm.Branch,
+sd.Course_id,
+sd.Branch_id,
 sd.Semester,
 sd.Academic_Year,
-sd.Updated_On
-from StudentDetail sd join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id where File_No=:File_No;
+sd.Updated_On,
+sd.Category_Id,
+sd.Batch_Id,
+sd.Session_Id,
+sd.Shift_Id,
+sd.Centre_Id,
+sd.Section_Id,
+sd.Lateral
+from StudentDetail sd  where File_No=:File_No;
  ]]>
 </entry>
 
 <entry key="getAdmissionBasicInfo">
     <![CDATA[
-select * from (select File_No,
+select * from (select registration_No, File_No,
 First_Name,
 Last_Name,
 Enroll_No,
 Father_Name,
 Gender,
 DOB,
-Course,
-Branch,
+Course_Id,
+Branch_Id,
 Semester,
 Academic_Year,
-Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
+Category_Id,
+Batch_Id,
+Session_Id,
+Shift_Id,
+Centre_Id,
+Section_Id,
+Lateral,
+Updated_On from StudentDetail order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
 <entry key="getUnapprovedAdmissions">
     <![CDATA[
-select * from (select File_No,
+select * from (select registration_No, File_No,
 First_Name,
 Last_Name,
 Enroll_No,
 Father_Name,
 Gender,
 DOB,
-Course,
-Branch,
+Course_Id,
+Branch_Id,
 Semester,
 Academic_Year,
-Updated_On from StudentDetail join coursemaster ON coursemaster.Id = studentdetail.Course_Id join coursebranchmaster ON coursebranchmaster.Id = studentdetail.Branch_Id where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
+Updated_On,
+Category_Id from StudentDetail where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
 <entry key="getStudentDtlByFileNo">
     <![CDATA[
 SELECT
+s.registration_No,
 s.File_No,
 s.Enroll_No,
 s.Uni_Enroll_No,
@@ -151,7 +149,15 @@ s.Updated_By,
 s.Updated_On,   
 s.Admission_Mode,
 s.Referred_By,
-s.Quota_Code
+s.Quota_Code,
+s.Lateral,
+s.Remarks,
+s.Application_Status,
+s.Section_Id,
+s.Shift_Id,
+s.Centre_Id,
+s.Batch_Id,
+s.Session_Id
 
 from  studentdetail s left join transportreservation t on (s.File_No = t.File_No) left join hostelreservation h on (s.File_No = h.File_No)  where s.File_No=:File_No;    
   ]]>
@@ -162,7 +168,8 @@ from  studentdetail s left join transportreservation t on (s.File_No = t.File_No
     <![CDATA[
       
 Insert into StudentDetail
-(File_No,
+(Registration_No,
+File_No,
 Enroll_No,
 Uni_Enroll_No,
 Photo,
@@ -195,10 +202,20 @@ Updated_By,
 Updated_On,
 Admission_Mode,
 Referred_By,
-Quota_Code
+Quota_Code,
+Lateral,
+Remarks,
+Application_Status,
+Shift_Id,
+Centre_Id,
+Batch_Id,
+Session_Id,
+Section_Id
+
 ) values
     
- (:File_No,
+ (:Registration_No,
+ :File_No,
  :Enroll_No,
 :Uni_Enroll_No,
 :Photo,
@@ -231,7 +248,15 @@ now(),
 now(),
 :Admission_Mode,
 :Referred_By,
-:Quota_Code
+:Quota_Code,
+:Lateral,
+:Remarks,
+:Application_Status,
+:Shift_Id,
+:Centre_Id,
+:Batch_Id,
+:Session_Id,
+:Section_Id
 );
        
     ]]>
@@ -274,7 +299,15 @@ Updated_By = :Updated_By,
 Updated_On = now(),
 Admission_Mode = :Admission_Mode,
 Referred_By = :Referred_By,
-Quota_Code = :Quota_Code
+Quota_Code = :Quota_Code,
+Lateral = :Lateral,
+Remarks = :Remarks,
+Application_Status = :Application_Status,
+Shift_Id=:Shift_Id,
+Centre_Id=:Centre_Id,
+Batch_Id=:Batch_Id,
+Session_Id=:Session_Id,
+Section_Id=:Section_Id
   
  where File_No=:File_No;  
     ]]>
@@ -608,5 +641,103 @@ delete from counsellingDetail where File_No=:File_No and Counselling_Id not in (
     ]]>
 
 </entry>
+
+<entry key="getRemark">
+    <![CDATA[
+select 
+
+Enquiry_Remark, 
+Enquiry_Remark_Date,
+Fee_Remark,
+Fee_Remark_Date, 
+Management_Remark,
+Management_Remark_Date
+
+from Remark;
+    ]]>
+
+</entry>	
+
+<entry key="upsertRemark">
+    <![CDATA[
+insert into Remark
+      
+      (Enquiry_Remark, 
+       Enquiry_Remark_Date,
+       Fee_Remark,
+       Fee_Remark_Date, 
+       Management_Remark,
+       Management_Remark_Date) values
+      
+      (:Enquiry_Remark, 
+       :Enquiry_Remark_Date,
+       :Fee_Remark,
+       :Fee_Remark_Date, 
+       :Management_Remark,
+       :Management_Remark_Date)
+       
+       on duplicate key update
+       
+       Enquiry_Remark=:Enquiry_Remark,
+       Enquiry_Remark_Date=:Enquiry_Remark_Date,
+       Fee_Remark=:Fee_Remark,
+       Fee_Remark_Date=:Fee_Remark_Date, 
+       Management_Remark=:Management_Remark,
+       Management_Remark_Date=:Management_Remark_Date
+
+    ]]>
+
+</entry>
+
+<entry key="getRemarkByFileNo">
+    <![CDATA[
+select 
+	Enquiry_Remark,
+  	Enquiry_Remark_Date,
+  	Fee_Remark,
+  	Fee_Remark_Date,
+  	Management_Remark,
+  	Management_Remark_Date,
+  	File_No
+
+from remark where File_No=:File_No ;     ]]>
+
+</entry>
+
+	<entry key="upsertRemark">
+    <![CDATA[
+      
+Insert into remark
+
+(	Enquiry_Remark,
+  	Enquiry_Remark_Date,
+  	Fee_Remark,
+  	Fee_Remark_Date,
+  	Management_Remark,
+  	Management_Remark_Date,
+  	File_No
+) values
+    
+ (	:Enquiry_Remark,
+  	:Enquiry_Remark_Date,
+  	:Fee_Remark,
+  	:Fee_Remark_Date,
+  	:Management_Remark,
+  	:Management_Remark_Date,
+  	:File_No
+)
+
+on duplicate key update
+       
+    Enquiry_Remark=:Enquiry_Remark,
+  	Enquiry_Remark_Date=:Enquiry_Remark_Date,
+  	Fee_Remark=:Fee_Remark,
+  	Fee_Remark_Date=:Fee_Remark_Date,
+  	Management_Remark=:Management_Remark,
+  	Management_Remark_Date=:Management_Remark_Date,
+  	File_No = IFNULL(:File_No, -1)
+    ]]>
+
+	</entry>
 	
 </properties>

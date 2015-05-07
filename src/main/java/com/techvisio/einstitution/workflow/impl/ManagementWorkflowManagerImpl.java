@@ -19,13 +19,14 @@ import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 @Component
 public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
-
+	private static CustomLogger logger=CustomLogger.getLogger(ManagementWorkflowManagerImpl.class);
 	@Autowired
 	AdmissionWorkflowManager admissionWorkFlow;
 	
@@ -37,7 +38,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	
 	@Override
 	public ManagementAdmissionBean getAdmissionManagementView(Long fileNo) {
-
+		logger.info("{} : getAdmissionManagementView for fileno:{} ",this.getClass().getName(),fileNo);
 		ManagementAdmissionBean admissionBean=new ManagementAdmissionBean();
 		StudentBasicInfo basicInfo=admissionWorkFlow.getStudentBsInfo(fileNo);
 		admissionBean.setBasicInfo(basicInfo);
@@ -57,6 +58,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFee(StudentBasicInfo basicInfo) {
+		logger.info("{} : getApplicableFeeDetail for Student:{} ",this.getClass().getName(),basicInfo.getFirstName()+basicInfo.getLastName());
 		ApplicableFeeCriteria criteria = CommonUtil.getApplicableFeeCriteriaFromStudentBasicInfo(basicInfo);
 		List<ApplicableFeeDetail> applicableFee=feeworkFlow.getApplicableFeeDetail(criteria);
 		return applicableFee;
@@ -64,7 +66,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit){
-		
+		logger.info("{} :calling getUnapprovedAdmissions by passing limit:{} ",this.getClass().getName(),limit);		
 	    List<StudentBasicInfo> basicInfo = admissionWorkFlow.getUnapprovedAdmissions(limit);
 		
 		return basicInfo;
@@ -73,7 +75,7 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 
 	@Override
 	public ManagementAdmissionBean updateManagementChanges(ManagementAdmissionBean admissionBean) {
-
+		logger.info("{} :updateManagementChanges for Student:{} ",this.getClass().getName(),admissionBean.getBasicInfo().getFirstName()+admissionBean.getBasicInfo().getLastName());
 		StudentBasicInfo basicInfo = admissionBean.getBasicInfo();
 		CommonUtil.propogateFileNoTofeeStaging(basicInfo.getFileNo(), admissionBean.getStagingFee());
 

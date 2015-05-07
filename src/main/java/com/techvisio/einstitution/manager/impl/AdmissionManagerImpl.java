@@ -20,11 +20,12 @@ import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.util.CustomLogger;
 
 @Component
 public class AdmissionManagerImpl implements AdmissionManager {
 
-
+	private static CustomLogger logger = CustomLogger.getLogger(AdmissionManagerImpl.class);
 	@Autowired
 	AdmissionDao admissionDao;
 	
@@ -45,7 +46,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		// TODO Auto-generated constructor stub
 	}
 	public StudentDetail getStudentDtl(Long fileNo) {
-
+		logger.info("{} : calling getStudentDtl method by passing file no:{}",this.getClass().getName(), fileNo);
 		StudentDetail studentDetail=null;
 		
 		studentDetail= admissionDao.getStudentDtl(fileNo);
@@ -55,7 +56,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	public Long addStudentDtl(StudentDetail studentDetail) {
-
+		logger.info("{} : calling addStudentDtl method for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());
 		Long fileNo=studentDetail.getFileNo();
 		updateMissingInfowithDefaultValue(studentDetail);
 		
@@ -80,7 +81,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	private void updateMissingInfowithDefaultValue(StudentDetail studentDetail) {
 		DefaultManager defaultManager=new DefaultManagerImpl();
-		
+		logger.info("{} : Updating Missing Information with Default Value for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
 		
 		if(CommonUtil.isNullLongValue(studentDetail.getBatchId())){
 			Long defaultBatchId=defaultManager.getDefaultBatch(studentDetail.getCourseId());
@@ -105,7 +106,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	public Long updateStudentDtl(StudentDetail studentDetail) {
-
+		logger.info("{} : calling updateStudentDtl method for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
 		Long fileNo=studentDetail.getFileNo();
 		
 		CommonUtil.propogateIdentifiertoAdmission(studentDetail);
@@ -116,43 +117,46 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	public void deleteSudentDtl(Long fileNo) {
-
+		logger.info("{} : calling deleteSudentDtl method by passing file no:{}",this.getClass().getName(), fileNo);
 		admissionDao.deleteSudentDtl(fileNo);
 	}
 
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
-
+		logger.info("{} : calling getStudentDtlBySearchCriteria method for student:{}",this.getClass().getName(), searchCriteria.getFirstName());	
 		List<StudentBasicInfo> studentBasicInfos = null;
 		studentBasicInfos=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
 		
 		return studentBasicInfos;
 	}
 	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		logger.info("{} : calling getStudentBsInfo method by passing file no:{}",this.getClass().getName(), fileNo);		
 		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);
 		
 		return info;
 	}
 
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		logger.info("{} : calling getLatestAdmissionInfo method by passing limit:{}",this.getClass().getName(), limit);
 		List<StudentBasicInfo> basicInfos = admissionDao.getLatestAdmissionInfo(limit);
 		return basicInfos;
 	}
 	
 	
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
+		logger.info("{} : calling getUnapprovedAdmissions method by passing limit:{}",this.getClass().getName(), limit);
 		List<StudentBasicInfo> basicInfos = admissionDao.getUnapprovedAdmissions(limit);
 		return basicInfos;
 	}
 
 	@Override
 	public Remark getRemarkByFileNo(Long fileNo) {
-		
+		logger.info("{} : calling getRemarkByFileNo method by passing file no:{}",this.getClass().getName(), fileNo);		
 		return admissionDao.getRemarkByFileNo(fileNo);
 	}
 
 	@Override
 	public void saveRemark(Remark remark) {
-
+		logger.info("{} : calling saveRemark method for file no:{}",this.getClass().getName(), remark.getFileNo());
 		admissionDao.saveRemark(remark);
 	}
 
