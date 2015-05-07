@@ -399,7 +399,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	//FeeDiscountHead
 
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
-
+		logger.info("{} : Get fee discount head by head id:{} ",this.getClass().getName(),headId);
 		String getQuery = feeQueryProps.getProperty("getFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", headId);
@@ -425,7 +425,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	}
 
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
-
+		logger.info("{} : Add fee discount head for head id:{} ",this.getClass().getName(), feeDiscountHead.getHeadId());
 		String addQuery = feeQueryProps.getProperty("addFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", feeDiscountHead.getHeadId())
@@ -440,7 +440,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	}
 
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
-
+		logger.info("{} : Update fee discount head for head id:{} ",this.getClass().getName(), feeDiscountHead.getHeadId());
 		String updateQuery = feeQueryProps.getProperty("updateFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id", feeDiscountHead.getHeadId())
@@ -454,7 +454,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	}
 
 	public void deleteFeeDiscountHead(Long headId) {
-
+		logger.info("{} : Delete fee discountHead by headId ",this.getClass().getName(),headId);
 		String deleteQuery = feeQueryProps.getProperty("deleteFeeDiscountHead");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Head_Id",headId);
@@ -464,6 +464,7 @@ private MapSqlParameterSource getParameterMap(FeeTransaction feeTransaction){
 	
 	@Override
 	public void generateDiscountforStudent(Long fileNo){
+		logger.info("{} : Generate discount for student  file no:{} ",this.getClass().getName(), fileNo);
 		StoredProcedure sp=new CustomStoredProcedure(getJdbcTemplate(),"generateDiscountStagging") {
 		};
 		SqlParameter paramFileNo = new SqlParameter("v_file_no", Types.VARCHAR);

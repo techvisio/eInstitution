@@ -26,7 +26,7 @@ public class ReportService {
 	
 	@RequestMapping( method = RequestMethod.GET)
 	public List<ConsultantReport> getConsultantReport(){
-		logger.info("{} ReportService Calling getConsultantReport method by : fileno : {}",this.getClass().getName());
+		logger.info("{}:  Calling getConsultantReport method",this.getClass().getName());
 		
 		List<ConsultantReport> reports = manager.getConsultantReport();
 		return reports;

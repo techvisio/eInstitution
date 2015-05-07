@@ -36,7 +36,7 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/enquiryByTaskDate/",method = RequestMethod.GET)
 	public ResponseEntity<Response> getInquiryByTaskDate(Date taskDate){
-		logger.info("{} EnquiryService Calling getInquiryByTaskDate method by : Consultant Id : {}",this.getClass().getName());
+		logger.info("{}  Calling getInquiryByTaskDate method by passing taskdate:{}",this.getClass().getName(),taskDate);
 		Response response=new Response();
 		try{
 		Date date = new Date();
@@ -47,7 +47,7 @@ public class EnquiryService {
 		
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While  Calling getInquiryByTaskDate method by taskdate:{}",this.getClass().getName(),taskDate);
 			e.getLocalizedMessage();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -57,7 +57,7 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getEnquiryandTask(@PathVariable Long enquiryId) {  
-		logger.info("{} EnquiryService Calling getEnquiryandTask method by : enquiry Id : {}",this.getClass().getName(),enquiryId);
+		logger.info("{}  Calling getEnquiryandTask method by passing enquiry Id : {}",this.getClass().getName(),enquiryId);
 		Response response=new Response();
 		try{
 		
@@ -67,14 +67,14 @@ public class EnquiryService {
 		
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While Calling getEnquiryandTask method by passing enquiry Id : {}",this.getClass().getName(),enquiryId);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
-		logger.info("{} EnquiryService Calling addEnquiryandTask method by : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		logger.info("{}  Calling addEnquiryandTask method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -85,7 +85,7 @@ public class EnquiryService {
 		}
 		}
 		catch(Exception e){
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While Calling addEnquiryandTask method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -93,7 +93,7 @@ public class EnquiryService {
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Response> updateEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
-		logger.info("{} EnquiryService Calling updateEnquiryandTask method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		logger.info("{}  Calling updateEnquiryandTask method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -104,7 +104,7 @@ public class EnquiryService {
 		response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While EnquiryService Calling updateEnquiryandTask method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -113,12 +113,13 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.DELETE)
 	public void deleteInquiry(@PathVariable Long inquiryId) {
-		logger.info("{} EnquiryService Calling deleteInquiry method by : enquiry Id : {}",this.getClass().getName(), inquiryId);
+		logger.info("{}  Calling deleteInquiry method by passing enquiry Id : {}",this.getClass().getName(), inquiryId);
 		enquiryWorkflowManager.deleteInquiry(inquiryId);
 	}
 	
 	@RequestMapping(value ="/search/", method = RequestMethod.POST)
 	public ResponseEntity<Response> getInquiryByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		logger.info("{}  Calling searchInqByCriteria method by for enquiry Id : {}",this.getClass().getName(), searchCriteria.getInquryId());
 		Response response=new Response();
 		try
 		{
@@ -140,7 +141,7 @@ public class EnquiryService {
 		}
 			catch(Exception e)
 			{
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While Calling getInquiryByCriteria method for enquiry Id : {}",this.getClass().getName(),searchCriteria.getInquryId());
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -148,7 +149,7 @@ public class EnquiryService {
 
 	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
 	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTaskBean enquirynTask) {  
-		logger.info("{} EnquiryService Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		logger.info("{}  Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -159,7 +160,7 @@ public class EnquiryService {
 		}
 		}
 		catch(Exception e){
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -168,7 +169,7 @@ public class EnquiryService {
 	
 	@RequestMapping(value="/toggleEnquiryStatus",method = RequestMethod.PUT)
 	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTaskBean enquirynTask) {  
-		logger.info("{} EnquiryService Calling toggleEnquiryStatus method by : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		logger.info("{}  Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
@@ -179,7 +180,7 @@ public class EnquiryService {
 		response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
-			logger.error("Error While{}",e);
+			logger.error("{} :Error While Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

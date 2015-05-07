@@ -44,7 +44,7 @@ public class ManagementService {
 	
 	@RequestMapping(value ="/admission/approval/{fileNo}", method = RequestMethod.GET )
 	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable Long fileNo){
-		logger.info("{} ManagementService Calling getAdmissionManagementView method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling getAdmissionManagementView method by passing fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		ResponseEntity<Response> result = new ResponseEntity<Response>(response, HttpStatus.OK);
 
@@ -56,7 +56,7 @@ public class ManagementService {
 
 		}
 		catch(Exception e){
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling getAdmissionManagementView method by passing fileno :{}",this.getClass().getName(),fileNo);
 			response.setError(e.getLocalizedMessage());
 		}
 		return result ;
@@ -64,7 +64,7 @@ public class ManagementService {
 
 	@RequestMapping(value = "/uapprovedList/{limit}", method = RequestMethod.GET)
 	public  ResponseEntity<Response> getUnapprovedAdmissions(@PathVariable int limit){
-		logger.info("{} ManagementService Calling getUnapprovedAdmissions method  : limit : {}",this.getClass().getName(), limit);
+		logger.info("{}  Calling getUnapprovedAdmissions method by passing limit :{}",this.getClass().getName(), limit);
 		Response response = new Response();
 		try
 		{
@@ -73,7 +73,7 @@ public class ManagementService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling getUnapprovedAdmissions method by passing limit: {}",this.getClass().getName(),limit);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -82,7 +82,7 @@ public class ManagementService {
 
 @RequestMapping(value = "/updateManagementChanges", method = RequestMethod.PUT)
 public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmissionBean admissionBean ){
-	logger.info("{} ManagementService Calling updateManagementChanges method for : Student : {}",this.getClass().getName(), admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
+	logger.info("{}  Calling updateManagementChanges method for Student : {}",this.getClass().getName(), admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
 	Response response = new Response();
 	try
 	{
@@ -93,7 +93,7 @@ public  ResponseEntity<Response> updateManagementChanges(@RequestBody Management
 	}
 	catch(Exception e)
 	{
-		logger.error("Error While{}",e);
+		logger.error("{}: Error While Calling updateManagementChanges method for : Student : {}",this.getClass().getName(),admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);

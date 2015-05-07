@@ -22,7 +22,7 @@ public class TaskFollowService {
 	
 	@RequestMapping(value="/GetByTaskId/{taskId}",method= RequestMethod.GET )
 	public TaskAndFollowUp getTaskAndFollowUpByTaskId(@PathVariable int taskId){
-		logger.info("{} TaskFollowService Calling getTaskAndFollowUpByTaskId method by : taskId : {}",this.getClass().getName(), taskId);
+		logger.info("{}: Calling getTaskAndFollowUpByTaskId method by passing taskId : {}",this.getClass().getName(), taskId);
 //		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByTaskId(taskId);
 		
 		
@@ -30,7 +30,7 @@ public class TaskFollowService {
 		}
 	@RequestMapping(value="/GetByParentTaskId/{parentTaskId}",method = RequestMethod.GET)
 	public TaskAndFollowUp getTaskAndFollowUpByParentTaskId(@PathVariable int parentTaskId){
-		logger.info("{} TaskFollowService Calling getTaskAndFollowUpByParentTaskId method by : parentTaskId : {}",this.getClass().getName(), parentTaskId);
+		logger.info("{}  Calling getTaskAndFollowUpByParentTaskId method by passing parentTaskId : {}",this.getClass().getName(), parentTaskId);
 		//		TaskAndFollowUp followUp = tManager.getTaskAndFollowUpByParentTaskId(parentTaskId);
 		
 		return null;
@@ -39,20 +39,20 @@ public class TaskFollowService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public void addTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-		logger.info("{} TaskFollowService Calling addTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
+		logger.info("{}  Calling addTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
 		//		tManager.addTaskAndFollowUp(taskAndFollowUp);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public void updateTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-		logger.info("{} TaskFollowService Calling updateTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
+		logger.info("{}  Calling updateTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
 		//		followManager.updateTaskAndFollowUp(taskAndFollowUp);
 		
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteTaskAndFollowUp(@RequestBody TaskAndFollowUp taskAndFollowUp){
-		logger.info("{} TaskFollowService Calling deleteTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
+		logger.info("{}  Calling deleteTaskAndFollowUp method for : taskId : {}",this.getClass().getName(), taskAndFollowUp.getTaskId());
 		//		followManager.deleteTaskAndFollowUp(taskAndFollowUp);
 	}
 	

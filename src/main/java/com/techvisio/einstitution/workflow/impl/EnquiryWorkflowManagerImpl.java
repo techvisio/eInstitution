@@ -19,6 +19,7 @@ import com.techvisio.einstitution.manager.EnquiryManager;
 import com.techvisio.einstitution.manager.impl.DefaultManagerImpl;
 import com.techvisio.einstitution.manager.impl.EnquiryManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.util.AppConstants.EnquiryStatus;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -26,7 +27,7 @@ import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 import com.techvisio.einstitution.workflow.TaskFollowWorkflowManager;
 @Component
 public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
-	
+	private static CustomLogger logger=CustomLogger.getLogger(EnquiryWorkflowManagerImpl.class);	
 	@Autowired
 	EnquiryManager enquiryManager;
 	
@@ -41,6 +42,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	
 	@Override
 	public EnquiryAndTaskBean getEnquiryandTask(Long inquiryId) {
+		logger.info("{} : calling getInquiry, getTaskAndFollowUpByByModuleAndEntityId by passing enquiryId:{}",this.getClass().getName(), inquiryId);
 		EnquiryAndTaskBean enquiryAndTask=new EnquiryAndTaskBean();
 		
 		AdmissionEnquiry admissionEnquiry=enquiryManager.getInquiry(inquiryId);
@@ -54,7 +56,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 	@Override
 	public Long addEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
-	
+		logger.info("{} : add Enquiry and Task for enquiryId:{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());	
         enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  
 	
 		Long enquiryId=enquiryManager.addInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
@@ -69,7 +71,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 	@Override
 	public Long updateEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
-		
+		logger.info("{} : update Enquiry and Task for enquiryId:{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());	
 		
 		Long enquiryId=enquiryManager.updateInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
 		
@@ -82,22 +84,24 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 	@Override
 	public void deleteInquiry(Long inquiryId) {
-
+		logger.info("{} : calling deleteInquiry by passing enquiryId:{}",this.getClass().getName(), inquiryId);
 		enquiryManager.deleteInquiry(inquiryId);
 	}
 
 	@Override
 	public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling searchInqByCriteria for name:{}",this.getClass().getName(), searchCriteria.getFirstName());
 		return enquiryManager.searchInqByCriteria(searchCriteria);
 	}
 
 	@Override
 	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate) {
+		logger.info("{} : calling getInquiryByTaskDate by passing taskDate:{}",this.getClass().getName(), taskDate);
 		return enquiryManager.getInquiryByTaskDate(taskDate);
 	}
 
 	public Long proceedToAdmission(EnquiryAndTaskBean enquiryAndTaskBean){
-		
+		logger.info("{} : proceedToAdmission   enquiryId:{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());		
 		
         AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
         StudentDetail studentDetail = getStudentFromEquiry(enquiry);
@@ -117,6 +121,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 
 	private void closeAllTasks(EnquiryAndTaskBean enquiryAndTaskBean) {
+		logger.info("{} : closeAllTasks     enquiryId{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());
 		if(enquiryAndTaskBean.getTasks() != null){
         for(TaskAndFollowUp taskAndFollowUp : enquiryAndTaskBean.getTasks()){
         	if(StringUtils.isEmpty(taskAndFollowUp.getRemark())){
@@ -129,6 +134,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 
 	private StudentDetail getStudentFromEquiry(AdmissionEnquiry enquiry) {
+		logger.info("{} : getStudentFromEquiry      enquiryId{}",this.getClass().getName(), enquiry.getEnquiryId());
 		StudentDetail studentDetail = new StudentDetail();
 		
 		studentDetail.setFirstName(enquiry.getName());
@@ -164,7 +170,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 	@Override
 	public Long toggleEnquiryStatus(EnquiryAndTaskBean enquiryAndTaskBean){
-		
+		logger.info("{} : toggleEnquiryStatus      enquiryId{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());		
 		 AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
 		 if(EnquiryStatus.OPEN.name().equals(enquiry.getApplicationStatus())){
          enquiry.setApplicationStatus(EnquiryStatus.CLOSED.name());

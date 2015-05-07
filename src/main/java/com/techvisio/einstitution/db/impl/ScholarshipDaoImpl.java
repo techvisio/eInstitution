@@ -18,9 +18,10 @@ import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.ScholarshipPaymentDetail;
 import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
-	
+	private static CustomLogger logger = CustomLogger.getLogger(ScholarshipDaoImpl.class);	
 	@Autowired @Qualifier(value="scholarshipQueryProps")
 	private Properties scholarshipQueryProps;
 
@@ -30,6 +31,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	
 	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
+		logger.info("{} : Get scholarship detail for file no:{}",this.getClass().getName(), fileNo);
 
 		ScholarshipDetail scholarshipDetail = null;
 		
@@ -72,7 +74,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
-
+		logger.info("{} : Add scholarship detail for file no:{}",this.getClass().getName(), scholarshipDetail.getFileNo());
 		if(scholarshipDetail != null && scholarshipDetail.getStateId() != null){
 		String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
 
@@ -99,7 +101,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	
 	public void deleteScholarshipDetail(Long fileNo) {
-		
+		logger.info("{} : Delete scholarship detail for file no:{}",this.getClass().getName(), fileNo);		
          deleteScholarshipPaymentDetail(fileNo);
 		
 		String deleteQuery = scholarshipQueryProps.getProperty("deleteScholarshipDetail");
@@ -111,7 +113,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	public List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(Long fileNo) {
-
+		logger.info("{} : Get scholarship payment detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery= scholarshipQueryProps.getProperty("getScholarshipPaymentDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
@@ -136,7 +138,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	public void addScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail) {
-		
+		logger.info("{} : Add scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());		
 		String addQuery = scholarshipQueryProps.getProperty("addScholarshipPaymentDetail");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", scholarshipPaymentDetail.getFileNo())
@@ -149,7 +151,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	public void updateScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail) {
-
+		logger.info("{} : Update scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());
 		
 		String updateQuery = scholarshipQueryProps.getProperty("updateScholarshipPaymentDetail");
 
@@ -164,7 +166,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	public void deleteScholarshipPaymentDetail(Long fileNo) {
-		
+		logger.info("{} : Delete scholarship payment detail for file no:{}",this.getClass().getName(), fileNo);		
 		String deleteQuery = scholarshipQueryProps.getProperty("deleteScholarshipPaymentDetail");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);

@@ -52,7 +52,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
-		
+		 logger.info("{} : Getting Student detail bby searching criteria for enquiryId:{}",this.getClass().getName(), searchCriteria.getInquryId());		
 		String getQuery = admissionQueryProps
 				.getProperty("getStudentDtlDynamically");
 
@@ -302,7 +302,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	private void saveAcademicDtl(List<StudentAcademicDetail> academicDetails){
-		
+		logger.info("{} :we are dealing with saveAcademicDtl by passing  AcademicDetails: {}",this.getClass().getName(), academicDetails);
 		if(academicDetails != null){
 			for(StudentAcademicDetail academicDetail:academicDetails){
 			Long fileNo=academicDetail.getFileNo();
@@ -436,7 +436,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 	
 	private void saveAddressDetails(List<AddressDetail> addresses){
-	
+		logger.info("{} :saveAddressDtl by passing address",this.getClass().getName());	
 		if(addresses != null){
 			for(AddressDetail address:addresses){
 			Long fileNo=address.getFileNo();
@@ -557,7 +557,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	private void saveAdmissionDisDtl(List<AdmissionDiscountDtl> admissionDiscountDtls){
-		
+		logger.info("{} : calling saveAdmissionDisDtl by passing admissionDiscountDtl",this.getClass().getName());	
 
 		if(admissionDiscountDtls != null){
 			for(AdmissionDiscountDtl admissionDiscountDtl:admissionDiscountDtls){
@@ -671,7 +671,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	private void saveQualificationDtl(List<QualificationSubjectDtl> qualificationSubjectDtls){
-	
+		logger.info("{} : Calling saveQualificationDtl by passing qualificationSubjectDtl",this.getClass().getName());
 		if(qualificationSubjectDtls != null){
 			for(QualificationSubjectDtl qualificationSubjectDtl:qualificationSubjectDtls){
 				
@@ -783,7 +783,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	private void saveBranchPreference(List<BranchPreference> branchPreferences){
-		
+		logger.info("{} : calling saveBranchPreference by passing branchPreference",this.getClass().getName());		
 		if(branchPreferences != null){
 			for(BranchPreference branchPreference:branchPreferences){
 				Long fileNo=branchPreference.getFileNo();
@@ -879,7 +879,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	private void saveCounsellingDetail(List<CounsellingDetail> counsellingDetails){
-		
+		logger.info("{} :calling saveCounsellingDetail by passing counsellingDetail ",this.getClass().getName());		
 		if(counsellingDetails != null){
 			for(CounsellingDetail counsellingDetail:counsellingDetails){
 			

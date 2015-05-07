@@ -25,11 +25,12 @@ import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ManagementWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.ManagementWorkflowManagerImpl;
 @Component
 public class FeeManagerImpl implements FeeManager{
-	
+	private static CustomLogger logger = CustomLogger.getLogger(FeeManagerImpl.class);
 	@Autowired
 	FeeDao feeDetailDao ;
 	
@@ -51,14 +52,14 @@ public class FeeManagerImpl implements FeeManager{
 	}
 @Override
 	public List<FeeAdmissionBean> getPendingfeeInfo(int limit){
-		
+	logger.info("{} : calling getPendingfeeInfo method by passing limit:{} ",this.getClass().getName(), limit);	
 	List<FeeAdmissionBean> feeAdmissionBeans = feeDetailDao.getPendingfeeInfo(limit);
 	
 	return feeAdmissionBeans;
 		
 	}
 	public FeeDiscountHead getfeeDiscountHead(Long headId) {
-
+		logger.info("{} : calling getfeeDiscountHead method by passing headId:{} ",this.getClass().getName(), headId);
 		FeeDiscountHead feeDiscountHead =  null;
 		feeDiscountHead = feeDetailDao.getfeeDiscountHead(headId);
 		
@@ -66,41 +67,46 @@ public class FeeManagerImpl implements FeeManager{
 	}
 
 	public void addFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
-
+		logger.info("{} : calling addFeeDiscountHead method for headId:{} ",this.getClass().getName(), feeDiscountHead.getHeadId());
 		feeDetailDao.addFeeDiscountHead(feeDiscountHead);
 	}
 
 	public void updateFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
-
+		logger.info("{} : calling updateFeeDiscountHead method for headId:{} ",this.getClass().getName(), feeDiscountHead.getHeadId());
 		feeDetailDao.updateFeeDiscountHead(feeDiscountHead);
 	}
 
 	public void deleteFeeDiscountHead(Long headId) {
-
+		logger.info("{} : calling deleteFeeDiscountHead method for headId:{} ",this.getClass().getName(), headId);
 		feeDetailDao.deleteFeeDiscountHead(headId);
 	}
 
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria) {
 		// details = null;
-		 List<ApplicableFeeDetail> details =  feeDetailDao.getApplicableFeeDetails(criteria);
+		logger.info("{} : calling getApplicableFeeDetails method for courseId:{} and branchId:{} ",this.getClass().getName(), criteria.getCourseId(),criteria.getBranchId());
+		List<ApplicableFeeDetail> details =  feeDetailDao.getApplicableFeeDetails(criteria);
 		return details;
 	}
 
 	public void addFeeDetail(ApplicableFeeDetail feeDetail) {
+		logger.info("{} : calling addFeeDetail method for course:{} ",this.getClass().getName(), feeDetail.getCourse());
 		feeDetailDao.addFeeDetail(feeDetail);
 		
 	}
 
 	public void updateFeeDetail(ApplicableFeeDetail feeDetail) {
+		logger.info("{} : calling updateFeeDetail method for course:{} ",this.getClass().getName(), feeDetail.getCourse());
 		feeDetailDao.updateFeeDetail(feeDetail);
 	}
 
 	public void deleteFeeDetail(Long course, Long branch, Long feeHeadId) {
+		logger.info("{} : calling deleteFeeDetail method by passing courseId:{} and branchId:{} and feeHeadId:{} ",this.getClass().getName(), course,branch,feeHeadId);
 		feeDetailDao.deleteFeeDetail(course, branch, feeHeadId);
 	}
 
 	public List<StudentFeeStaging> getStudentFeeStaging(Long fileNo, Long feeHeadId) {
+		logger.info("{} : calling getStudentFeeStaging method by passing fileNo:{} and feeHeadId:{} ",this.getClass().getName(), fileNo,feeHeadId);
 		List<StudentFeeStaging> feeStaging = new ArrayList<StudentFeeStaging>();
 		feeStaging = feeDetailDao.getStudentFeeStaging(fileNo,feeHeadId);
 		return feeStaging;
@@ -108,7 +114,7 @@ public class FeeManagerImpl implements FeeManager{
 	
 	@Override
 	public void moveStaggingandBaseFeetoTransaction(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStagging){
-
+		logger.info("{} :  Move Stagging and Base Fee to Transaction  for Student:{} ",this.getClass().getName(), basicInfo.getFirstName()+basicInfo.getLastName());
 		Long fileNo = basicInfo.getFileNo();
 		List<FeeTransaction> creditFeetransaction = new ArrayList<FeeTransaction>();
 		List<FeeTransaction> debitFeetransaction = new ArrayList<FeeTransaction>();
@@ -223,15 +229,16 @@ public class FeeManagerImpl implements FeeManager{
 	}
 
 	public void saveStudentFeeStaging(List<StudentFeeStaging> newStagging) {
-
+		logger.info("{} : calling saveStudentFeeStaging method by passing newStagging:{} ",this.getClass().getName(), newStagging);
 		feeDetailDao.saveStudentFeeStaging(newStagging);
 	}
 
 	public void saveStudentFeeStaging(StudentFeeStaging studentFeeStaging){
+		logger.info("{} : calling saveStudentFeeStaging method for file no:{} ",this.getClass().getName(), studentFeeStaging.getFileNo());
 		feeDetailDao.saveStudentFeeStaging(studentFeeStaging);
 	}	
 	public void deleteStudentFeeStagingbyfileNo(StudentFeeStaging feeStaging){
-
+		logger.info("{} : calling deleteStudentFeeStagingByFileNo method for file no:{} ",this.getClass().getName(), feeStaging.getFileNo());
 		feeDetailDao.deleteStudentFeeStagingByFileNo(feeStaging);
 	}
 
@@ -247,38 +254,39 @@ public class FeeManagerImpl implements FeeManager{
 
 	@Override
 	public void generateDiscountinStagging(Long fileNo) {
+		logger.info("{} : calling generateDiscountforStudent method by passing file no:{} ",this.getClass().getName(), fileNo);
 		feeDetailDao.generateDiscountforStudent(fileNo);
 	}
 
 	public List<FeeTransaction> getDebitedFeeTransaction(Long fileNo) {
-
+		logger.info("{} : calling getDebitedFeeTransaction method by passing file no:{} ",this.getClass().getName(), fileNo);
 		List<FeeTransaction> feeTransactions = null;
 		feeTransactions = feeDetailDao.getDebitedFeeTransaction(fileNo);
 		return feeTransactions;
 	}
 
 	public void addFeeTransactionDebit(FeeTransaction feeTransaction) {
-		
+		logger.info("{} : calling addFeeTransactionDebit method for file no:{} ",this.getClass().getName(),feeTransaction.getFileNo());	
 		feeDetailDao.addFeeTransactionDebit(feeTransaction);
 		
 	}
 
 	public List<FeeTransaction> getCreditedFeeTransaction(Long fileNo) {
-
+		logger.info("{} : calling getCreditedFeeTransaction method for file no:{} ",this.getClass().getName(),fileNo);
 		List<FeeTransaction> feeTransactions = null;
 		feeTransactions = feeDetailDao.getCreditedFeeTransaction(fileNo);
 		return feeTransactions;
 	}
 
 	public void addFeeTransactionCredit(FeeTransaction feeTransaction) {
-		
+		logger.info("{} : calling addFeeTransactionCredit method for file no:{} ",this.getClass().getName(),feeTransaction.getFileNo());	
 		feeDetailDao.addFeeTransactionCredit(feeTransaction);
 		
 	}
 
 	@Override
 	public FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo){
-		
+		logger.info("{} : calling getCreditedFeeTransaction, getDebitedFeeTransaction and getPreviousSemBalance  method by passing file no:{} ",this.getClass().getName(),fileNo);		
 		FeeTransactionAdmissionBean transactionAdmissionBean = new FeeTransactionAdmissionBean();
 			
 		List<FeeTransaction> TransactionCredit = feeDetailDao.getCreditedFeeTransaction(fileNo);
@@ -294,6 +302,7 @@ public class FeeManagerImpl implements FeeManager{
 	}
 
 	public Boolean isManagementApproved(Long fileNo){
+		logger.info("{} : calling isManagementApproved method by passing file no:{} ",this.getClass().getName(),fileNo);
 		return feeDetailDao.isManagementApproved(fileNo);
 		
 		

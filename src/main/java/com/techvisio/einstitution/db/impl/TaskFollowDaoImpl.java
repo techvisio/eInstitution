@@ -16,9 +16,10 @@ import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.db.TaskFollowDao;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(TaskFollowDaoImpl.class);
 	@Autowired @Qualifier(value="taskFollowQueryProps")
 	private Properties  taskFollowQueryProps;
 
@@ -28,6 +29,7 @@ public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 	}
 
 	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module) {
+		logger.info("{} : Get task and followup by module and entity id: module:{} , entity id:{}",this.getClass().getName(), module,entityId);
 		String getQuery = taskFollowQueryProps.getProperty("getTaskAndFollowUpByModuleAndEntityId");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Entity_Id", entityId)
 											.addValue("Module", module);
@@ -56,7 +58,7 @@ public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 	}
 
 	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps){
-		
+		logger.info("{} :Calling saveTaskAndFollowUp method",this.getClass().getName());		
 		if(taskAndFollowUps != null){
 			
 			for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
@@ -67,6 +69,7 @@ public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 	}
 	
 	private void saveTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {
+		logger.info("{} : Save task and followup for entity id:{}",this.getClass().getName(), taskAndFollowUp.getEntityId());
 		String addQuery = taskFollowQueryProps.getProperty("upsertTaskAndFollowUp");
 		if(taskAndFollowUp.getTaskId() != null)
 		{

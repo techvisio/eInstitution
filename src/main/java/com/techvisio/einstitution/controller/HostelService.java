@@ -36,7 +36,7 @@ public class HostelService {
 	
 	@RequestMapping(value ="/roomTypeDetail/{typeCode}", method = RequestMethod.GET )
 	public ResponseEntity<Response> getRoomTypeDetail(@PathVariable String typeCode){
-		logger.info("{} HostelService Calling getRoomTypeDetail method by : typecode : {}",this.getClass().getName(), typeCode);
+		logger.info("{}:  Calling getRoomTypeDetail method by passing typecode : {}",this.getClass().getName(), typeCode);
 		Response response = new Response();
 		
 		try
@@ -47,7 +47,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}:Error While Calling getRoomTypeDetail method by passing typecode : {}",this.getClass().getName(),typeCode);
 			response.setError(e.getMessage());
 		}
 		
@@ -57,7 +57,7 @@ public class HostelService {
 	
 	@RequestMapping(value = "/roomTypeDetail",method =RequestMethod.POST)
 	public ResponseEntity<Response> addRoomTypeDetail(@RequestBody RoomTypeDetail roomTypeDetail){
-		logger.info("{} HostelService Calling addRoomTypeDetail method for : typecode : {}",this.getClass().getName(), roomTypeDetail.getTypeCode());
+		logger.info("{}:  Calling addRoomTypeDetail method for typecode : {}",this.getClass().getName(), roomTypeDetail.getTypeCode());
 		Response response =  new Response();
 		try
 		{
@@ -67,7 +67,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling addRoomTypeDetail method for  typecode : {}",this.getClass().getName(),roomTypeDetail.getTypeCode());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -76,7 +76,7 @@ public class HostelService {
 	
 	@RequestMapping(value = "/roomTypeDetail",method =RequestMethod.PUT)
 	public ResponseEntity<Response> updateRoomTypeDetail(@RequestBody RoomTypeDetail roomTypeDetail){
-		logger.info("{} HostelService Calling updateRoomTypeDetail method for : typecode : {}",this.getClass().getName(), roomTypeDetail.getTypeCode());
+		logger.info("{}  Calling updateRoomTypeDetail method for typecode : {}",this.getClass().getName(), roomTypeDetail.getTypeCode());
 		Response response = new Response();
 		try{
 		hostelWorkflowManager.updateRoomTypeDetail(roomTypeDetail);
@@ -85,7 +85,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling updateRoomTypeDetail method for typecode :{}",this.getClass().getName(),roomTypeDetail.getTypeCode());
 			response.setError(e.getLocalizedMessage());
 		}
 		
@@ -93,7 +93,7 @@ public class HostelService {
 	}
 	@RequestMapping(value ="/roomTypeDetail/{typeCode}", method =RequestMethod.DELETE)
 	public void deleteRoomTypeDetail(@PathVariable String typeCode){
-		logger.info("{} HostelService Calling deleteRoomTypeDetail method by : typecode : {}",this.getClass().getName(), typeCode);
+		logger.info("{}:  Calling deleteRoomTypeDetail method by passing typecode:{}",this.getClass().getName(), typeCode);
 		hostelWorkflowManager.deleteRoomTypeDetail(typeCode);
 	}
 
@@ -101,27 +101,27 @@ public class HostelService {
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.GET )
 	public HostelAllocation getHostelAllocation(@PathVariable Long fileNo){
-		logger.info("{} HostelService Calling getHostelAllocation method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling getHostelAllocation method by passing fileno :{}",this.getClass().getName(), fileNo);
 		HostelAllocation hostelAllocation = hostelWorkflowManager.getHostelAllocation(fileNo);
 		return hostelAllocation;
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.POST)
 	public void addHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		logger.info("{} HostelService Calling addHostelAllocation method for : fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
+		logger.info("{}:  Calling addHostelAllocation method for fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelWorkflowManager.addHostelAllocation(hostelAllocation);
 		
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.PUT)
 	public void updateHostelAllocation(@RequestBody HostelAllocation hostelAllocation){
-		logger.info("{} HostelService Calling updateHostelAllocation method for : fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
+		logger.info("{}:  Calling updateHostelAllocation method for fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelWorkflowManager.updateHostelAllocation(hostelAllocation);
 	}
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelAllocation(@PathVariable Long fileNo){
-		logger.info("{} HostelService Calling deleteHostelAllocation method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling deleteHostelAllocation method by passing fileno : {}",this.getClass().getName(), fileNo);
 		hostelWorkflowManager.deleteHostelAllocation(fileNo);
 	}	
 
@@ -131,7 +131,7 @@ public class HostelService {
 	
 	@RequestMapping(value ="/hostelReservation/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getHostelReservation(@PathVariable Long fileNo){
-		logger.info("{} HostelService Calling getHostelReservation method by : fileno : {}",this.getClass().getName(), fileNo);	
+		logger.info("{}:  Calling getHostelReservation method by passing fileno : {}",this.getClass().getName(), fileNo);	
 		Response response=new Response();
 		try
 		{
@@ -150,7 +150,7 @@ public class HostelService {
 		catch(Exception e)
 		{
 			response.setError(e.getMessage());
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling getHostelReservation method by passing fileno :{}",this.getClass().getName(),fileNo);
 		}
 		
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -159,7 +159,7 @@ public class HostelService {
 
 	@RequestMapping(value ="/hostelReservation",method = RequestMethod.POST)
 	public ResponseEntity<Response> addHostelReservation(@RequestBody HostelReservation hostelReservation){
-		logger.info("{} HostelService Calling addHostelReservation method for : fileno : {}",this.getClass().getName(), hostelReservation.getFileNo());
+		logger.info("{}:  Calling addHostelReservation method for  fileno : {}",this.getClass().getName(), hostelReservation.getFileNo());
 		Response response = new Response();
 		try
 		{
@@ -169,7 +169,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling addHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo());
 			response.setError(e.getLocalizedMessage());
 		}
 		
@@ -177,7 +177,7 @@ public class HostelService {
 	}
 	@RequestMapping(value ="/hostelReservation",method = RequestMethod.PUT)
 	public ResponseEntity<Response> updateHostelReservation(@RequestBody HostelReservation hostelReservation){
-		logger.info("{} HostelService Calling updateHostelReservation method for : fileno : {}",this.getClass().getName(), hostelReservation.getFileNo());
+		logger.info("{}:  Calling updateHostelReservation method for fileno : {}",this.getClass().getName(), hostelReservation.getFileNo());
 		Response response = new Response();
 		try
 		{
@@ -187,7 +187,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling updateHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);	
@@ -195,7 +195,7 @@ public class HostelService {
 	
 	@RequestMapping(value ="/hostelReservation/{fileNo}",method = RequestMethod.DELETE)
 	public ResponseEntity deleteHostelReservation(@PathVariable Long fileNo){
-		logger.info("{} HostelService Calling deleteHostelReservation method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling deleteHostelReservation method by passing fileno : {}",this.getClass().getName(), fileNo);
 		hostelWorkflowManager.deleteHostelReservation(fileNo);
 	
 		return new ResponseEntity(HttpStatus.OK);
@@ -204,7 +204,7 @@ public class HostelService {
 //HostelAvailability
 	@RequestMapping(value ="/hostelAvailability", method = RequestMethod.GET)
 	public List<HostelAvailability> getHostelAvailability(){
-		logger.info("{} HostelService Calling getHostelAvailability method for : fileno : {}",this.getClass().getName());
+		logger.info("{}: Calling getHostelAvailability method for : fileno : {}",this.getClass().getName());
 		List<HostelAvailability> hostelAvailability = hostelWorkflowManager.getHostelAvailability();
 		return hostelAvailability;
 		
@@ -213,7 +213,7 @@ public class HostelService {
 	
 	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.POST)
 	public ResponseEntity<Response> addHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
-		logger.info("{} HostelService Calling getHostelAllocationAdmissiondtl method by : fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
+		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
 		Response response = new Response();
 		try{
 			
@@ -227,7 +227,7 @@ public class HostelService {
  		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
 			response.setError(e.getLocalizedMessage());
 			
 		}
@@ -236,7 +236,7 @@ public class HostelService {
 	
 	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.PUT)
 	public ResponseEntity<Response> updateHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
-		logger.info("{} HostelService Calling updateHostelAllocationAdmissiondtl method by : fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
+		logger.info("{}:  Calling updateHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
 		Response response = new Response();
 		try{
 			
@@ -250,7 +250,7 @@ public class HostelService {
  		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling updateHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
 			response.setError(e.getLocalizedMessage());
 			
 		}
@@ -259,7 +259,7 @@ public class HostelService {
 	
 	@RequestMapping(value="hostelAllocationAdmission/{fileNo}",method = RequestMethod.GET)
 	public ResponseEntity<Response> getConsultantAdmissionDetail(@PathVariable Long fileNo){
-		logger.info("{} HostelService Calling getHostelAllocationAdmissiondtl method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method by passing fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try{
 		HostelAllocationAdmissionBean hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
@@ -268,7 +268,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			logger.error("{}: Error while Calling getHostelAllocationAdmissiondtl method by passing fileno : {}",this.getClass().getName(),fileNo);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

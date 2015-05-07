@@ -39,7 +39,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	FeeWorkflowManager feeWorkflowManager;
 	
 	public Long addStudentDetails(StudentDetail studentDetail) {
-		logger.info("{} : New Student record being created: Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());
+		logger.info("{} : calling addStudentDtl for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());
 		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
 		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
@@ -63,7 +63,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	public Long updateStudentDetails(StudentDetail studentDetail) {
-	
+		logger.info("{} : calling updateStudentDtl for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());	
 		Long fileNo = admissionManager.updateStudentDtl(studentDetail);
 		
 		if(studentDetail.getConsultantDetail() !=null){
@@ -91,7 +91,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	public StudentDetail getStudentDetails(Long fileNo) {
-
+		logger.info("{} : calling getScholarshipDetail, getConsultantDtl by passing file no:{}",this.getClass().getName(), fileNo);
 	StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
 	
 	ScholarshipDetail scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
@@ -105,36 +105,39 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	public void deleteStudentDetails(Long fileNo){
-		
+		logger.info("{} : calling deleteSudentDtl by passing file no:{}",this.getClass().getName(), fileNo);		
 	 admissionManager.deleteSudentDtl(fileNo);
 	
 	}
 
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(
 			SearchCriteria searchCriteria) {
-		
+		logger.info("{} : calling getStudentDtlBySearchCriteria for Student:{}",this.getClass().getName(), searchCriteria.getFirstName());		
 		List<StudentBasicInfo> studentBasicInfos = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
 		return studentBasicInfos;
 	}
 
 	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		logger.info("{} : calling getStudentBsInfo by passing file no:{}",this.getClass().getName(), fileNo);
 		StudentBasicInfo info = admissionManager.getStudentBsInfo(fileNo); 
 		return info;
 	}
 
 	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
+		logger.info("{} : calling getLatestAdmissionInfo by passing limit:{}",this.getClass().getName(), limit);
 		List<StudentBasicInfo> basicInfos = admissionManager.getLatestAdmissionInfo(limit);
 		return basicInfos;
 	}
 	
 	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
+		logger.info("{} : calling getUnapprovedAdmissions by passing limit:{}",this.getClass().getName(), limit);
 		List<StudentBasicInfo> basicInfos = admissionManager.getUnapprovedAdmissions(limit);
 		return basicInfos;
 	}
 
 	@Override
 	public Long moveAdmissiontoNextStep(StudentDetail studentDetail,String status){
-		
+		logger.info("{} : move Admission to Next Step for Student:{} by passing status:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName(), status);		
 		studentDetail.setApplicationStatus(status);
 		
 		Long fileNo = admissionManager.updateStudentDtl(studentDetail);
@@ -147,13 +150,13 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	@Override
 	public Remark getRemarkByFileNo(Long fileNo) {
-		
+		logger.info("{} : calling getRemarkByFileNo method by passing file no:{} by passing status:{}",this.getClass().getName(),fileNo );		
 		return admissionManager.getRemarkByFileNo(fileNo);
 	}
 
 	@Override
 	public void saveRemark(Remark remark) {
-
+		logger.info("{} : calling saveRemark method for file no:{} by passing status:{}",this.getClass().getName(),remark.getFileNo() );
 		admissionManager.saveRemark(remark);
 	}
 	

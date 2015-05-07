@@ -11,9 +11,10 @@ import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.TaskFollowManager;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class TaskFollowManagerImpl implements TaskFollowManager {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(TaskFollowManagerImpl.class);
 	@Autowired
 	TaskFollowDao  taskFollowDao;
 	
@@ -36,7 +37,7 @@ public class TaskFollowManagerImpl implements TaskFollowManager {
 	}	 
 
 	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module) {
-		
+		logger.info("{} : calling getTaskAndFollowUpByByModuleAndEntityId method by passing entityId:{} and module:{} ",this.getClass().getName(), entityId,module);		
 		List<TaskAndFollowUp> followUp = taskFollowDao.getTaskAndFollowUpByByModuleAndEntityId(entityId, module);
 		return followUp;
 	}
@@ -44,6 +45,7 @@ public class TaskFollowManagerImpl implements TaskFollowManager {
 	
 
 	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps){
+		logger.info("{} : calling saveTaskAndFollowUp method by passing taskAndFollowUps:{}  ",this.getClass().getName(),taskAndFollowUps);
 if(taskAndFollowUps !=null){
 		for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
 			

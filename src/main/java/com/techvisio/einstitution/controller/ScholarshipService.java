@@ -33,7 +33,7 @@ public class ScholarshipService {
 	
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.GET)
 	  public ResponseEntity<Response> getScholarshipDetail(@PathVariable Long fileNo) {  
-		logger.info("{} ScholarshipService Calling getScholarshipDetail method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling getScholarshipDetail method by passing fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		
 		try
@@ -50,13 +50,13 @@ public class ScholarshipService {
 		}
 		catch(EmptyResultDataAccessException e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling getScholarshipDetail method by passing fileno : {}",this.getClass().getName(),fileNo);
 			response.setError("No such record found");
 		}
 		
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling getScholarshipDetail method by passing fileno : {}",this.getClass().getName(),fileNo);
 			response.setError(e.getMessage());
 			//e.printStackTrace();
 		}
@@ -66,7 +66,7 @@ public class ScholarshipService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Response> addScholarshipDetail(@RequestBody ScholarshipDetail scholarshipDetail) {  
-		logger.info("{} ScholarshipService Calling addScholarDetail method for : fileno : {}",this.getClass().getName(), scholarshipDetail.getFileNo());
+		logger.info("{} : Calling addScholarDetail method for fileno : {}",this.getClass().getName(), scholarshipDetail.getFileNo());
 		Response response = new Response();
 		
 		try
@@ -77,7 +77,7 @@ public class ScholarshipService {
 		}
 		catch(Exception e)
 		{
-			logger.error("Error While{}",e);
+			logger.error("{}: Error While Calling addScholarDetail method for fileno : {}",this.getClass().getName(),scholarshipDetail.getFileNo());
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -85,7 +85,7 @@ public class ScholarshipService {
 		
 	@RequestMapping(value="/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteConsultantDtl(@PathVariable Long fileNo) {  
-		logger.info("{} ScholarshipService Calling deleteScholarshipDetail method by : fileno : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling deleteScholarshipDetail method by fileno : {}",this.getClass().getName(), fileNo);
 		workflowManager.deleteScholarshipDetail(fileNo);
 	}
 
