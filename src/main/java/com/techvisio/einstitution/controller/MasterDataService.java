@@ -18,12 +18,13 @@ import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
+import com.techvisio.einstitution.util.CustomLogger;
 
 @Component 
 @RestController
 @RequestMapping("/masterdata")
 public class MasterDataService {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(MasterDataService.class);
 @Autowired
 CacheManager cacheManager;
 	
@@ -35,7 +36,7 @@ public void setCacheManager(CacheManager cacheManager) {
 
 @RequestMapping(value = "/admission", method = RequestMethod.GET)	
 public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoSuchFieldException, SecurityException{
-	
+	logger.info("{}  ResponseEntity method",this.getClass().getName());
 	//cacheManager=ContextProvider.getContext().getBean(CacheFactoryImpl.class);
 	Map<String,Object> admissionMasterData=new HashMap<String, Object>();
 	Map<String,Object> serverData=new HashMap<String, Object>();

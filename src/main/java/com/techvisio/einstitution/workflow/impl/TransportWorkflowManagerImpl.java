@@ -26,11 +26,12 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
 @Component
 public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
-
+	private static CustomLogger logger=CustomLogger.getLogger(TransportWorkflowManagerImpl.class);
 	@Autowired
 	AdmissionManager admissionManager;
 	
@@ -48,40 +49,40 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	CacheManager cacheManager;
 
 	public List<AvailableTransport> getAvailableTransport() {
-
+		logger.info("{} : calling getAvailableTransport ",this.getClass().getName());
 		return transportManager.getAvailableTransport();
 	}
 
 	public TransportAllocation getTransportAllocationDtl(Long fileNo) {
-
+		logger.info("{} : calling getTransportAllocationDtl by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		return transportManager.getTransportAllocationDtl(fileNo);
 	}
 
 	public void addTransportAllocationDtl(
 			TransportAllocation transportAllocation) {
-
+		logger.info("{} : calling addTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
 		transportManager.addTransportAllocationDtl(transportAllocation);
 	}
 
 	public void updateTransportAllocationDtl(
 			TransportAllocation transportAllocation) {
-
+		logger.info("{} : calling updateTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
 		transportManager.updateTransportAllocationDtl(transportAllocation);
 	}
 
 	public void deleteTransportAllocationDtl(Long fileNo) {
-
+		logger.info("{} : calling deleteTransportAllocationDtl by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		transportManager.deleteTransportAllocationDtl(fileNo);
 	}
 
 	public TransportReservation getTransportReservationDtl(Long fileNo) {
-
+		logger.info("{} : calling getTransportReservationDtl by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		return transportManager.getTransportReservationDtl(fileNo);
 	}
 
 	public Long addTransportReservationDtl(
 			TransportReservation transportReservation) {
-
+		logger.info("{} : addTransportReservationDtl for fileNo:{} ",this.getClass().getName(), transportReservation.getFileNo());
 		Long fileNo = transportReservation.getFileNo();
 
 		// if file No is missing create student
@@ -113,7 +114,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 
 	public Long updateTransportReservationDtl(
 			TransportReservation transportReservation) {
-
+		logger.info("{} : updateTransportReservationDtl for fileNo:{} ",this.getClass().getName(), transportReservation.getFileNo());
 		Long fileNo = transportReservation.getFileNo();
 
 		if (fileNo == null) {
@@ -143,7 +144,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	}
 
 	public void deleteTransportReservationDtl(Long fileNo) {
-
+		logger.info("{} : deleteTransportReservationDtl by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		TransportReservation reservedObject = transportManager
 				.getTransportReservationDtl(fileNo);
 		FeeDiscountHead discountHead = cacheManager
@@ -158,28 +159,28 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	}
 
 	public VehicleDetail getVehicleDetail(Long vehicleId) {
-
+		logger.info("{} : calling getVehicleDetail by passing vehicleId:{} ",this.getClass().getName(), vehicleId);
 		return transportManager.getVehicleDetail(vehicleId);
 	}
 
 	public void addVehicleDetail(VehicleDetail vehicleDetail) {
-
+		logger.info("{} : calling addVehicleDetail for vehicleId:{} ",this.getClass().getName(), vehicleDetail.getVehicleId());
 		transportManager.addVehicleDetail(vehicleDetail);
 	}
 
 	public void updateVehicleDetail(VehicleDetail vehicleDetail) {
-
+		logger.info("{} : calling updateVehicleDetail for vehicleId:{} ",this.getClass().getName(), vehicleDetail.getVehicleId());
 		transportManager.updateVehicleDetail(vehicleDetail);
 	}
 
 	public void deleteVehicleDetail(Long vehicleId) {
-
+		logger.info("{} : calling deleteVehicleDetail by passing vehicleId:{} ",this.getClass().getName(), vehicleId);
 		transportManager.deleteVehicleDetail(vehicleId);
 	}
 
 	@Override
 	public TransportAllocationAdmissionBean getTransportAllocationAdmissiondtl(Long fileNo){
-	
+		logger.info("{} : getTransportAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
         TransportAllocationAdmissionBean transportAllocationAdmissionBean = new TransportAllocationAdmissionBean();
         
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
@@ -193,13 +194,13 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	
 	@Override
 	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-		
+		logger.info("{} : calling addTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
 		transportManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
 	} 
 	
 	@Override
 	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-		
+		logger.info("{} : calling updateTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
 		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
 	}
 }

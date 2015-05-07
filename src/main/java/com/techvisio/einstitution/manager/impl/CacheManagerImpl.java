@@ -34,10 +34,11 @@ import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.util.CustomLogger;
 
 @Component
 public class CacheManagerImpl implements CacheManager {
-
+	private static CustomLogger logger = CustomLogger.getLogger(CacheManagerImpl.class);
 	@Autowired
 	CacheDao cacheDao;
 
@@ -79,6 +80,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
+		logger.info("{} : Mapping work for get branches ",this.getClass().getName());
 
 		if(entityListMap.get(AppConstants.BRANCH) == null||entityListMap.get(AppConstants.BRANCH).size()==0){
 			refreshCacheList(AppConstants.BRANCH);
@@ -88,6 +90,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	public List<MasterDataBean> getBranchAsMasterdata(){
+		logger.info("{} : Get branch as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Branch branch:getBranchs()){
 			MasterDataBean bean=new MasterDataBean(branch.getId().toString(), branch.getBranchName(), branch.getCourseId().toString());
@@ -99,6 +102,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Course> getCourses() {
+		logger.info("{} : Mapping work for get courses ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.COURSE) == null||entityListMap.get(AppConstants.COURSE).size()==0){
 			refreshCacheList(AppConstants.COURSE);
 		}
@@ -107,6 +111,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	public List<MasterDataBean> getCourseAsMasterdata(){
+		logger.info("{} : Get course as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Course course:getCourses()){
 			MasterDataBean bean=new MasterDataBean(course.getId().toString(), course.getCourse());
@@ -117,6 +122,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CasteCategory> getCategories() {
+		logger.info("{} : Mapping work for get categories ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.CATEGORY) == null||entityListMap.get(AppConstants.CATEGORY).size()==0){
 			refreshCacheList(AppConstants.CATEGORY);
 		}
@@ -125,6 +131,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	public List<MasterDataBean> getCategoryAsMasterdata(){
+		logger.info("{} : Get category as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(CasteCategory category:getCategories()){
 			MasterDataBean bean=new MasterDataBean(category.getId().toString(), category.getCategoryName());
@@ -135,6 +142,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CounsellingBody> getCounsellingBodies() {
+		logger.info("{} : Mapping work for get counsellingBodies ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.COUNSELLING) == null||entityListMap.get(AppConstants.COUNSELLING).size()==0){
 			refreshCacheList(AppConstants.COUNSELLING);
 		}
@@ -142,6 +150,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	public List<MasterDataBean> getCounsellingBodyAsMasterdata(){
+		logger.info("{} : Get counsellingBody as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(CounsellingBody body:getCounsellingBodies()){
 			MasterDataBean bean=new MasterDataBean(body.getId().toString(), body.getCousellingBody());
@@ -153,6 +162,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Qualification> getQualifications() {
+		logger.info("{} : Mapping work for get qualifications ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.QUALIFICATION) == null||entityListMap.get(AppConstants.QUALIFICATION).size()==0){
 			refreshCacheList(AppConstants.QUALIFICATION);
 		}
@@ -160,6 +170,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	public List<MasterDataBean> getQualificationAsMasterdata(){
+		logger.info("{} : Get qualification as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Qualification qualification:getQualifications()){
 			MasterDataBean bean=new MasterDataBean(qualification.getId().toString(), qualification.getQulaifyingExam());
@@ -170,6 +181,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<QuotaCode> getQuotaCodes() {
+		logger.info("{} : Mapping work for get quota codes ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.QUOTACODE) == null||entityListMap.get(AppConstants.QUOTACODE).size()==0){
 			refreshCacheList(AppConstants.QUOTACODE);
 		}
@@ -177,6 +189,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	public List<MasterDataBean> getQuotaCodeAsMasterdata(){
+		logger.info("{} : Get quota code as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(QuotaCode quotaCode : getQuotaCodes()){
 			MasterDataBean bean=new MasterDataBean(quotaCode.getId().toString(), quotaCode.getCode());
@@ -187,6 +200,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<State> getStates() {
+		logger.info("{} : Mapping work for get states ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.STATE) == null||entityListMap.get(AppConstants.STATE).size()==0){
 			refreshCacheList(AppConstants.STATE);
 		}
@@ -194,6 +208,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	public List<MasterDataBean> getStateAsMasterdata(){
+		logger.info("{} : Get state code as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(State state : getStates()){
 			MasterDataBean bean=new MasterDataBean(state.getId().toString(), state.getStateName());
@@ -204,6 +219,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Consultant> getConsultant() {
+		logger.info("{} : Mapping work for get consultant ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.CONSULTANT) == null||entityListMap.get(AppConstants.CONSULTANT).size()==0){
 			refreshCacheList(AppConstants.CONSULTANT);
 		}
@@ -212,7 +228,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	public List<MasterDataBean> getConsultantAsMasterdata(){
-
+		logger.info("{} : Get consultant as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Consultant consultant : getConsultant()){
 			MasterDataBean bean=new MasterDataBean(consultant.getConsultantId().toString(), consultant.getName());
@@ -225,6 +241,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Subject> getSubjects() {
+		logger.info("{} : Mapping work for get subjects ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.SUBJECT) == null||entityListMap.get(AppConstants.SUBJECT).size()==0){
 			refreshCacheList(AppConstants.SUBJECT);
 		}
@@ -233,6 +250,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	public List<MasterDataBean> getSubjectAsMasterdata(){
+		logger.info("{} : Get subject as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Subject subject : getSubjects()){
 			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
@@ -244,6 +262,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<FeeDiscountHead> getFeeDiscountHeads() {
+		logger.info("{} : Mapping work for get fee discount heads ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.FEEHEAD) == null||entityListMap.get(AppConstants.FEEHEAD).size()==0){
 			refreshCacheList(AppConstants.FEEHEAD);
 		}
@@ -252,6 +271,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
+		logger.info("{} : Get fee discount as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(FeeDiscountHead feeDiscountHead : getFeeDiscountHeads()){
 			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead(), feeDiscountHead.getTransactionType());
@@ -263,6 +283,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Semester> getSemester() {
+		logger.info("{} : Mapping work for get semesters ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.SEMESTER) == null||entityListMap.get(AppConstants.SEMESTER).size()==0){
 			refreshCacheList(AppConstants.SEMESTER);
 		}
@@ -271,6 +292,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	public List<MasterDataBean> getSemesterAsMasterdata(){
+		logger.info("{} : Get semester as master data",this.getClass().getName());	
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(Semester semester : getSemester()){
 			MasterDataBean bean=new MasterDataBean(semester.getId().toString(), semester.getSemester(),semester.getCourseId().toString());
@@ -281,6 +303,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CodeMapping> getCodeMapping() {
+		logger.info("{} : Mapping work for get code mapping ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.CODE_MAP) == null||entityListMap.get(AppConstants.CODE_MAP).size()==0){
 			refreshCacheList(AppConstants.CODE_MAP);
 		}
@@ -289,6 +312,7 @@ public class CacheManagerImpl implements CacheManager {
 
 
 	public List<MasterDataBean> getCodeMappingAsMasterdata(){
+		logger.info("{} : Get code mapping as master data",this.getClass().getName());
 		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
 		for(CodeMapping codeMapping : getCodeMapping()){
 			MasterDataBean bean=new MasterDataBean(codeMapping.getName(), codeMapping.getName());
@@ -299,6 +323,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Batch> getBatch(){
+		logger.info("{} : Mapping work for get batches ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.BATCH) == null || entityListMap.get(AppConstants.BATCH).size() == 0){
 			refreshCacheList(AppConstants.BATCH);
 		}
@@ -308,6 +333,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getBatchAsMasterdata() {
+		logger.info("{} : Get batch as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Batch batch : getBatch()){
 			MasterDataBean bean = new MasterDataBean(batch.getBatchId().toString(), batch.getBatch(), batch.getCourseId().toString());
@@ -319,6 +345,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<Session> getSession(){
+		logger.info("{} : Mapping work for get sessions ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.SESSION) == null || entityListMap.get(AppConstants.SESSION).size() == 0){
 			refreshCacheList(AppConstants.SESSION);
 		}
@@ -327,6 +354,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getSessionAsMasterdata() {
+		logger.info("{} : Get session as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Session session : getSession()){
 			MasterDataBean bean = new MasterDataBean(session.getSessionId().toString(), session.getSession(), session.getCourseId().toString());
@@ -337,6 +365,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Centre> getCentre(){
+		logger.info("{} : Mapping work for get centres ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.CENTRE) == null || entityListMap.get(AppConstants.CENTRE).size() == 0){
 			refreshCacheList(AppConstants.CENTRE);
 		}
@@ -345,6 +374,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getCentreAsMasterdata() {
+		logger.info("{} : Get centre as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Centre centre : getCentre()){
 			MasterDataBean bean = new MasterDataBean(centre.getCentreId().toString(), centre.getCentreName());
@@ -355,6 +385,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<Shift> getShift(){
+		logger.info("{} : Mapping work for get shifts ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.SHIFT) == null || entityListMap.get(AppConstants.SHIFT).size() == 0){
 			refreshCacheList(AppConstants.SHIFT);
 		}
@@ -363,6 +394,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getShiftAsMasterdata() {
+		logger.info("{} : Get shift as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Shift shift : getShift()){
 			MasterDataBean bean = new MasterDataBean(shift.getShiftId().toString(), shift.getShiftName());
@@ -373,6 +405,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Section> getSection(){
+		logger.info("{} : Mapping work for get sections ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.SECTION) == null || entityListMap.get(AppConstants.SECTION).size() == 0){
 			refreshCacheList(AppConstants.SECTION);
 		}
@@ -381,6 +414,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getSectionAsMasterdata() {
+		logger.info("{} : Get section as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Section section : getSection()){
 			MasterDataBean bean = new MasterDataBean(section.getSectionId().toString(), section.getSection(), section.getBranchId().toString());
@@ -465,71 +499,88 @@ public class CacheManagerImpl implements CacheManager {
 	public void builtEntityListCache(){
 
 		List<Branch> branchs =new ArrayList<Branch>();
+		logger.info("{} : built entity list cache work for get branch ",this.getClass().getName());
 		branchs=cacheDao.getBranch();
 		entityListMap.put(AppConstants.BRANCH, branchs);
 
 
 		List<Course> courses=new ArrayList<Course>();
+		logger.info("{} : built entity list cache work for get course ",this.getClass().getName());
 		courses=cacheDao.getCourse();
 		entityListMap.put(AppConstants.COURSE, courses);
 
 		List<CasteCategory> categories=new ArrayList<CasteCategory>();
+		logger.info("{} : built entity list cache work for get catagory ",this.getClass().getName());
 		categories=cacheDao.getCatagory();
 		entityListMap.put(AppConstants.CATEGORY, categories);
 
 		List<CounsellingBody> counsellingBodies=new ArrayList<CounsellingBody>();
+		logger.info("{} : built entity list cache work for get CunsellingBody ",this.getClass().getName());
 		counsellingBodies=cacheDao.getCounsellingBody();
 		entityListMap.put(AppConstants.COUNSELLING, counsellingBodies);
 
 		List<Qualification> qualifications=new ArrayList<Qualification>();
+		logger.info("{} : built entity list cache work for get qualfication ",this.getClass().getName());
 		qualifications=cacheDao.getQualification();
 		entityListMap.put(AppConstants.QUALIFICATION, qualifications);
 
 		List<QuotaCode> quotaCodes=new ArrayList<QuotaCode>();
+		logger.info("{} : built entity list cache work for get QuotaCode ",this.getClass().getName());
 		quotaCodes=cacheDao.getQuotaCode();
 		entityListMap.put(AppConstants.QUOTACODE, quotaCodes);
 
 		List<State> states=new ArrayList<State>();
+		logger.info("{} : built entity list cache work for get state ",this.getClass().getName());
 		states=cacheDao.getState();
 		entityListMap.put(AppConstants.STATE, states);
 
 		List<Consultant> consultants=new ArrayList<Consultant>();
+		logger.info("{} : built entity list cache work for get consultant ",this.getClass().getName());
 		consultants=cacheDao.getConsultant();
 		entityListMap.put(AppConstants.CONSULTANT, consultants);
 
 		List<Subject> subjectes=new ArrayList<Subject>();
+		logger.info("{} : built entity list cache work for get subject ",this.getClass().getName());
 		subjectes=cacheDao.getSubject();
 		entityListMap.put(AppConstants.SUBJECT, subjectes);
 
 		List<FeeDiscountHead> feeDiscountHeads=new ArrayList<FeeDiscountHead>();
+		logger.info("{} : built entity list cache work for get fee discount head master ",this.getClass().getName());
 		feeDiscountHeads=cacheDao.getFeeDiscountHeadMaster();
 		entityListMap.put(AppConstants.FEEHEAD, feeDiscountHeads);
 
 		List<Semester> semesters=new ArrayList<Semester>();
+		logger.info("{} : built entity list cache work for get semester ",this.getClass().getName());
 		semesters=cacheDao.getSemester();
 		entityListMap.put(AppConstants.SEMESTER, semesters);
 		
 		List<CodeMapping> codeMappings=new ArrayList<CodeMapping>();
+		logger.info("{} : built entity list cache work for get code mapping ",this.getClass().getName());
 		codeMappings=cacheDao.getCodeMapping();
 		entityListMap.put(AppConstants.CODE_MAP, codeMappings);
 
 		List<Batch> batchs = new ArrayList<Batch>();
+		logger.info("{} : built entity list cache work for get batch ",this.getClass().getName());
 		batchs = cacheDao.getBatch();
 		entityListMap.put(AppConstants.BATCH, batchs);
 		
 		List<Session> sessions = new ArrayList<Session>();
+		logger.info("{} : built entity list cache work for get session ",this.getClass().getName());
 		sessions = cacheDao.getSession();
 		entityListMap.put(AppConstants.SESSION, sessions);
 		
 		List<Centre> centres = new ArrayList<Centre>();
+		logger.info("{} : built entity list cache work for get centre ",this.getClass().getName());
 		centres = cacheDao.getCentre();
 		entityListMap.put(AppConstants.CENTRE, centres);
 		
 		List<Shift> shifts= new ArrayList<Shift>();
+		logger.info("{} : built entity list cache work for get shift ",this.getClass().getName());
 		shifts = cacheDao.getShift();
 		entityListMap.put(AppConstants.SHIFT, shifts);
 		
 		List<Section> sections = new ArrayList<Section>();
+		logger.info("{} : built entity list cache work for get section ",this.getClass().getName());
 		sections = cacheDao.getSection();
 		entityListMap.put(AppConstants.SECTION, sections);
 		
@@ -557,95 +608,111 @@ public class CacheManagerImpl implements CacheManager {
 	public void refreshCacheList(final String entity){
 		switch (entity) {
 		case AppConstants.BRANCH:
+			logger.info("{} : refresh cache list work for get branch ",this.getClass().getName());
 			List<Branch> branchs =new ArrayList<Branch>();
 			branchs=cacheDao.getBranch();
 			entityListMap.put(AppConstants.BRANCH, branchs);
 			break;
 
 		case AppConstants.COURSE:	
+			logger.info("{} : refresh cache list work for get course ",this.getClass().getName());
 			List<Course> courses=new ArrayList<Course>();
 			courses=cacheDao.getCourse();
 			entityListMap.put(AppConstants.COURSE, courses);
 			break;
 
 		case AppConstants.CATEGORY:
+			logger.info("{} :  refresh cache list work for get catagory ",this.getClass().getName());
 			List<CasteCategory> categories=new ArrayList<CasteCategory>();
 			categories=cacheDao.getCatagory();
 			entityListMap.put(AppConstants.CATEGORY, categories);
 			break;
 
 		case AppConstants.COUNSELLING:
+			logger.info("{} :  refresh cache list work for get CunsellingBody ",this.getClass().getName());
 			List<CounsellingBody> counsellingBodies=new ArrayList<CounsellingBody>();
 			counsellingBodies=cacheDao.getCounsellingBody();
 			entityListMap.put(AppConstants.COUNSELLING, counsellingBodies);
 			break;
 
 		case AppConstants.QUALIFICATION:
+			logger.info("{} :refresh cache list work for get qualfication ",this.getClass().getName());
 			List<Qualification> qualifications=new ArrayList<Qualification>();
 			qualifications=cacheDao.getQualification();
 			entityListMap.put(AppConstants.QUALIFICATION, qualifications);
 
 		case AppConstants.QUOTACODE:
+			logger.info("{} : refresh cache list work for get QuotaCode ",this.getClass().getName());
 			List<QuotaCode> quotaCodes=new ArrayList<QuotaCode>();
 			quotaCodes=cacheDao.getQuotaCode();
 			entityListMap.put(AppConstants.QUOTACODE, quotaCodes);
 			break;
 
 		case AppConstants.STATE:
+			logger.info("{} : refresh cache list work for get state ",this.getClass().getName());
 			List<State> states=new ArrayList<State>();
 			states=cacheDao.getState();
 			entityListMap.put(AppConstants.STATE, states);
 			break;
 
 		case AppConstants.CONSULTANT:
+			logger.info("{} : refresh cache list work for get consultant ",this.getClass().getName());
 			List<Consultant> consultants=new ArrayList<Consultant>();
 			consultants=cacheDao.getConsultant();
 			entityListMap.put(AppConstants.CONSULTANT, consultants);
 			break;
 
 		case AppConstants.SUBJECT:
+			logger.info("{} : refresh cache list work for get subject ",this.getClass().getName());
 			List<Subject> subjectes=new ArrayList<Subject>();
 			subjectes=cacheDao.getSubject();
 			entityListMap.put(AppConstants.SUBJECT, subjectes);
 			break;
 
 		case AppConstants.FEEHEAD:
+			logger.info("{} : refresh cache list work for get fee discount head master ",this.getClass().getName());
 			List<FeeDiscountHead> feeDiscountHeads=new ArrayList<FeeDiscountHead>();
 			feeDiscountHeads=cacheDao.getFeeDiscountHeadMaster();
 			entityListMap.put(AppConstants.FEEHEAD, feeDiscountHeads);
 			break;
 
 		case AppConstants.SEMESTER:
+			logger.info("{} :refresh cache list work for get semester ",this.getClass().getName());
 			List<Semester> semesters=new ArrayList<Semester>();
 			semesters=cacheDao.getSemester();
 			entityListMap.put(AppConstants.SEMESTER, semesters);
 			break;
 			
 		case AppConstants.BATCH:
+			logger.info("{} : refresh cache list work for get batch ",this.getClass().getName());
 			List<Batch> batchs = new ArrayList<Batch>();
 			batchs = cacheDao.getBatch();
 			entityListMap.put(AppConstants.BATCH, batchs);
 			break;
 			
 		case AppConstants.SESSION:
+			logger.info("{} :refresh cache list work for get session ",this.getClass().getName());
 			List<Session> sessions = new ArrayList<Session>();
 			sessions = cacheDao.getSession();
 			entityListMap.put(AppConstants.SESSION, sessions);
 			break;
 		
 		case AppConstants.CENTRE:
+			logger.info("{} :refresh cache list work for get centre ",this.getClass().getName());
 			List<Centre> centres = new ArrayList<Centre>();
 			centres = cacheDao.getCentre();
 			entityListMap.put(AppConstants.CENTRE, centres);
 			break;
 		
 		case AppConstants.SHIFT:
+			logger.info("{} : refresh cache list work for get shift ",this.getClass().getName());
 			List<Shift> shifts = new ArrayList<Shift>();
 			shifts = cacheDao.getShift();
 			entityListMap.put(AppConstants.SHIFT, shifts);
 			break;
 			
 		case AppConstants.SECTION:
+			logger.info("{} : refresh cache list work for get section ",this.getClass().getName());
 			List<Section> sections = new ArrayList<Section>();
 			sections = cacheDao.getSection();
 			entityListMap.put(AppConstants.SECTION, sections);
@@ -679,11 +746,12 @@ public class CacheManagerImpl implements CacheManager {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> getEntityList(String entity){
+		logger.info("{} : Get entity list by entity:{} ",this.getClass().getName(), entity);
 		return (List<T>)entityListMap.get(entity);
 	}
 
 	private void buildEntityMap(){
-
+		logger.info("{} : Build Entity Map ",this.getClass().getName());
 		for(FeeDiscountHead feeDiscountHead:getFeeDiscountHeads()){
 			feeDetailMap.put(feeDiscountHead.getHeadId(), feeDiscountHead);
 		}
@@ -767,89 +835,101 @@ public class CacheManagerImpl implements CacheManager {
     
 	@Override
 	public FeeDiscountHead getFeeDiscountById(Long headId){
-
+		logger.info("{} : Get fee discount by head id:{} ",this.getClass().getName(), headId);
 		return feeDetailMap.get(headId);
 
 	}
 
 	@Override
 	public Course getCourseById(Long courseId){
-	
+		logger.info("{} : Get course by course id:{} ",this.getClass().getName(), courseId);	
 		return courseMap.get(courseId);
 	}
 	
 	@Override
 	public Branch getBranchById(Long branchId){
-
+		logger.info("{} : Get branch by branch id:{} ",this.getClass().getName(), branchId);
 		return branchMap.get(branchId);
 		
 	}
 	
 	@Override
 	public String getCodeMappingByName(String name){
-		
+		logger.info("{} : Get code mapping by name:{} ",this.getClass().getName(), name);
 		return codeMap.get(name);
 	}
 
 	
 	@Override
 	public Batch getBatchByBatchId(Long batchId){
+		logger.info("{} : Get batch by id:{} ",this.getClass().getName(), batchId);
 		return batchMap.get(batchId);
 	}
 	
 	@Override
 	public Centre getCentreByCentreId(Long centreId){
+		logger.info("{} : Get centre by centre id:{} ",this.getClass().getName(), centreId);
 		return centreMap.get(centreId);
 	}
 	
 	@Override
 	public Section getSectionBySectionId(Long sectionId){
+		logger.info("{} : Get section by section id:{} ",this.getClass().getName(), sectionId);
 		return sectionMap.get(sectionId);
 	}
 	
 	@Override
 	public Session getSessionBySessionId(Long sessionId){
+		logger.info("{} : Get session by session id:{} ",this.getClass().getName(), sessionId);
 		return sessionMap.get(sessionId);
 	}
 	
 	@Override
 	public Shift getShiftByShiftId(Long shiftId){
+		logger.info("{} : Get shift by shift id:{} ",this.getClass().getName(), shiftId);
 		return shiftMap.get(shiftId);
 	}
 	
 	@Override
 	public CasteCategory getCategoryId(Long categoryId){
+		logger.info("{} : Get category by category id:{} ",this.getClass().getName(), categoryId);
 		return categoryMap.get(categoryId);
 	}
 	
 	@Override
 	public Consultant getConsultantId(Long consultantId){
+		logger.info("{} : Get consultant by consultant id:{} ",this.getClass().getName(), consultantId);
 		return consultantMap.get(consultantId);
 	}
 	
 	@Override
 	public CounsellingBody getCounsellingBodiesId(Long id){
+		logger.info("{} : Get counsellingBody by counselling id:{} ",this.getClass().getName(), id);
 		return counsellingMap.get(id);
 	}
 	
 	@Override
 	public Qualification getQualificationId(Long id){
+		logger.info("{} : Get qualification  by qualification id:{} ",this.getClass().getName(), id);
 		return qualificationMap.get(id);
 	}
 	
 	@Override
 	public QuotaCode getQuotaCodeId(Long id){
+		logger.info("{} : Get quota code  by quota code id:{} ",this.getClass().getName(), id);
 		return quotaCodeMap.get(id);
 		
 	}
 	
 	@Override
 	public State getStateId(Long id){
+		logger.info("{} : Get state by state id:{} ",this.getClass().getName(), id);
 		return stateMap.get(id);
 	}
 	
 	@Override
 	public Subject getSubjectId(Long id){
+		logger.info("{} : Get subject by subject id:{} ",this.getClass().getName(), id);
 		return subjectMap.get(id);
 	}
 	

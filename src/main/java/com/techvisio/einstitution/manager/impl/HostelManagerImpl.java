@@ -13,9 +13,10 @@ import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.HostelManager;
 import com.techvisio.einstitution.util.ContextProvider;
+import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class HostelManagerImpl implements HostelManager {
-	
+	private static CustomLogger logger = CustomLogger.getLogger(HostelManagerImpl.class);	
 	@Autowired
 	HostelDao hostelDao ;
 //HostelAllocation
@@ -37,19 +38,23 @@ public class HostelManagerImpl implements HostelManager {
 	
 	
 	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
+		logger.info("{} : calling getHostelAllocation method by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		RoomAllocationDetail h = hostelDao.getHostelAllocation(fileNo);
 		return h;
 	}
 
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
+		logger.info("{} : calling addHostelAllocation method for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelDao.addHostelAllocation(hostelAllocation);
 	}
 
 	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
+		logger.info("{} : calling updateHostelAllocation method for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelDao.updateHostelAllocation(hostelAllocation);
 	}
 
 	public void deleteHostelAllocation(Long fileNo) {
+		logger.info("{} : calling deleteHostelAllocation method by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		hostelDao.deleteHostelAllocation(fileNo);
 	}
 
@@ -58,18 +63,22 @@ public class HostelManagerImpl implements HostelManager {
 	
 	
 	public HostelReservation getHostelReservation(Long fileNo) {
+		logger.info("{} : calling getHostelReservation method by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		HostelReservation hostelReservation = hostelDao.getHostelReservation(fileNo);
 		return hostelReservation;	}
 
 	public void addHostelReservation(HostelReservation hostelReservation) {
+		logger.info("{} : calling addHostelReservation method for fileNo:{} ",this.getClass().getName(),hostelReservation.getFileNo());
 		hostelDao.addHostelReservation(hostelReservation);
 	}
 
 	public void updateHostelReservation(HostelReservation hostelReservation) {
+		logger.info("{} : calling updateHostelReservation method for fileNo:{} ",this.getClass().getName(),hostelReservation.getFileNo());
 		hostelDao.updateHostelReservation(hostelReservation);
 	}
 
 	public void deleteHostelReservation(Long fileNo) {
+		logger.info("{} : calling deleteHostelReservation method by passing fileNo:{} ",this.getClass().getName(),fileNo);
 		hostelDao.deleteHostelReservation(fileNo);
 	}
 
@@ -79,19 +88,23 @@ public class HostelManagerImpl implements HostelManager {
 	
 
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
+		logger.info("{} : calling getRoomTypeDetail method by passing typeCode:{} ",this.getClass().getName(),typeCode);
 		RoomTypeDetail roomTypeDetail = hostelDao.getRoomTypeDetail(typeCode);
 		return roomTypeDetail;
 	}
 
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
+		logger.info("{} : calling addRoomTypeDetail method for typeCode:{} ",this.getClass().getName(), roomTypeDetail.getTypeCode());
 		hostelDao.addRoomTypeDetail(roomTypeDetail);
 	}
 
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
+		logger.info("{} : calling updateRoomTypeDetail method for typeCode:{} ",this.getClass().getName(), roomTypeDetail.getTypeCode());
 		hostelDao.updateRoomTypeDetail(roomTypeDetail);
 	}
 
 	public void deleteRoomTypeDetail(String typeCode) {
+		logger.info("{} : calling deleteRoomTypeDetail method by passing typeCode:{} ",this.getClass().getName(),typeCode);
 		hostelDao.deleteRoomTypeDetail(typeCode);
 	}
 
@@ -100,6 +113,7 @@ public class HostelManagerImpl implements HostelManager {
 	
 	
 	public List<HostelAvailability> getHostelAvailability() {
+		logger.info("{} : calling getHostelAvailability method } ",this.getClass().getName());
 		List<HostelAvailability>  h=null;
 		h= hostelDao.getHostelAvailability();
 		
@@ -108,14 +122,14 @@ public class HostelManagerImpl implements HostelManager {
 
 @Override
 public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-	
+	logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
 	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
 	addHostelAllocation(hostelAllocation);
 }
 
 @Override
 public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-	
+	logger.info("{} : calling updateHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
 	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
 	updateHostelAllocation(hostelAllocation);
 }

@@ -26,11 +26,12 @@ import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
 import com.techvisio.einstitution.manager.impl.HostelManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
+import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 @Component
 public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
-
+	private static CustomLogger logger=CustomLogger.getLogger(HostelWorkflowManagerImpl.class);
 	@Autowired
 	AdmissionWorkflowManager admissionWorkflowManager ;
 	
@@ -47,35 +48,37 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	CacheManager cacheManager;
 	
 	public List<HostelAvailability> getHostelAvailability() {
+		logger.info("{} : calling getHostelAvailability ",this.getClass().getName());
 		return hostelManager.getHostelAvailability();
 	}
 
 	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
+		logger.info("{} : calling getHostelAllocation by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		return hostelManager.getHostelAllocation(fileNo);
 	}
 
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
-
+		logger.info("{} : calling addHostelAllocation for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelManager.addHostelAllocation(hostelAllocation);
 	}
 
 	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
-
+		logger.info("{} : calling updateHostelAllocation for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelManager.updateHostelAllocation(hostelAllocation);
 	}
 
 	public void deleteHostelAllocation(Long fileNo) {
-
+		logger.info("{} : calling deleteHostelAllocation by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		hostelManager.deleteHostelAllocation(fileNo);
 	}
 
 	public HostelReservation getHostelReservation(Long fileNo) {
-
+		logger.info("{} : calling getHostelReservation by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		return hostelManager.getHostelReservation(fileNo);
 	}
 
 	public Long addHostelReservation(HostelReservation hostelReservation) {
-
+		logger.info("{} : addHostelReservation for fileNo:{} ",this.getClass().getName(), hostelReservation.getFileNo());
 		Long fileNo=hostelReservation.getFileNo();
 		
 		//if file No is missing create student
@@ -106,7 +109,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	public Long updateHostelReservation(HostelReservation hostelReservation) {
-
+		logger.info("{} : updateHostelReservation for fileNo:{} ",this.getClass().getName(), hostelReservation.getFileNo());
              Long fileNo=hostelReservation.getFileNo();
 		
 		//if file No is missing create student
@@ -135,33 +138,33 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	public void deleteHostelReservation(Long fileNo) {
-
+		logger.info("{} : calling deleteHostelReservation by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		hostelManager.deleteHostelReservation(fileNo);
 	}
 
 	public RoomTypeDetail getRoomTypeDetail(String typeCode) {
-
+		logger.info("{} : calling getRoomTypeDetail by passing typeCode:{} ",this.getClass().getName(), typeCode);
 		return hostelManager.getRoomTypeDetail(typeCode);
 	}
 
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
-
+		logger.info("{} : calling addRoomTypeDetail for typeCode:{} ",this.getClass().getName(), roomTypeDetail.getTypeCode());
 		hostelManager.addRoomTypeDetail(roomTypeDetail);
 	}
 
 	public void updateRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
-
+		logger.info("{} : calling updateRoomTypeDetail for typeCode:{} ",this.getClass().getName(), roomTypeDetail.getTypeCode());
 		hostelManager.updateRoomTypeDetail(roomTypeDetail);
 	}
 
 	public void deleteRoomTypeDetail(String typeCode) {
-
+		logger.info("{} : calling deleteRoomTypeDetail by passing typeCode:{} ",this.getClass().getName(), typeCode);
 		hostelManager.deleteRoomTypeDetail(typeCode);
 	}
 
 	@Override
 	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo){
-	
+		logger.info("{} :  getHostelAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
         HostelAllocationAdmissionBean hostelAllocationAdmissionBean =  new HostelAllocationAdmissionBean();
         
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
@@ -175,13 +178,13 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	
 	@Override
 	public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-		
+		logger.info("{} : calling addHostelAllocationAdmissionDtl for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());		
 		hostelManager.addHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
 	} 
 	
 	@Override
 	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-		
+		logger.info("{} : calling updateHostelAllocationAdmissionDtl for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());		
 		hostelManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
 	}
 }
