@@ -147,6 +147,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
                 hostel.setAllocatedOn(rs.getDate("Allocated_On"));
                 hostel.setUpdatedBy(rs.getString("Updated_By"));
                 hostel.setCheckoutOn(rs.getDate("Checkout_On"));
+                hostel.setRemark(rs.getString("Remark"));
                 String roomNo = rs.getString("Room_No");
                 RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
                 hostel.setRoomTypeDetail(typeDetail);
@@ -207,19 +208,26 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		logger.info("{} : update hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
 		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
-		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
-		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
-		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
-		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
-		.addValue("File_No", hostelAllocation.getFileNo())
-		.addValue("IsAllocated", hostelAllocation.isAllocated());
+		SqlParameterSource namedParameter = getParameterMap(hostelAllocation);
 		
 		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
 
 
 	}
 
+	//MapSqlParameterSource work for RoomAllocationDetail
+	
+	private MapSqlParameterSource getParameterMap(RoomAllocationDetail hostelAllocation){
+		logger.info("{} : Set value in particular field through MapSqlParameterSource for RoomAllocationDetail. File No:{}",this.getClass().getName(), hostelAllocation.getFileNo());
+		return new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
+		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
+		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
+		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
+		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
+		.addValue("File_No", hostelAllocation.getFileNo())
+		.addValue("IsAllocated", hostelAllocation.isAllocated())
+		.addValue("Remark", hostelAllocation.getRemark());
+	}
 
 	//DELETE DATA FROM HostelAllocation TABLE	
 	public void deleteHostelAllocation(Long fileNo) {
@@ -451,5 +459,45 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
 	}
 	
-	
+
+	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
+
+		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			StudentBasicInfo basicInfo = new StudentBasicInfo();
+			basicInfo.setFirstName(rs.getString("First_Name"));
+			basicInfo.setLastName(rs.getString("Last_Name"));
+			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
+			Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+		    Branch branch=cacheManager.getBranchById(branchId);
+			basicInfo.setBranch(branch); 
+			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+		    Course course=cacheManager.getCourseById(courseId);
+			basicInfo.setCourse(course);
+			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+		    CasteCategory category=cacheManager.getCategoryId(categoryId);
+			basicInfo.setCasteCategory(category);
+			basicInfo.setDob(rs.getDate("DOB"));
+			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
+			basicInfo.setFatherName(rs.getString("Father_Name"));
+			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+			basicInfo.setGender(rs.getString("Gender"));
+			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
+			basicInfo.setSemester(rs.getString("Semester"));
+			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
+		    Session session=cacheManager.getSessionBySessionId(sessionId);
+			basicInfo.setSession(session);
+			Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+		    Batch batch=cacheManager.getBatchByBatchId(batchId);
+			basicInfo.setBatch(batch);
+			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
+			basicInfo.setCentreId(rs.getLong("Centre_id"));
+			basicInfo.setShiftId(rs.getLong("Shift_Id"));
+			basicInfo.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
+			basicInfo.setLateral(rs.getBoolean("Lateral"));
+			
+			return basicInfo;
+		}
+	}
+
 }

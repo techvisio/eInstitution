@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAvailability;
+import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -28,7 +29,9 @@ public interface HostelDao {
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation(Long fileNo);
-	
+
+	public RoomAllocationDetail getRoomAllocatedDetail (Long fileNo);
+	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo );
 	
 	public HostelReservation getHostelReservation(Long fileNo);
 	public void addHostelReservation(HostelReservation hostelReservation);

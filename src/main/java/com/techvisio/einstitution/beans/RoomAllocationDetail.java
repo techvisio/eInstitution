@@ -11,7 +11,7 @@ public class RoomAllocationDetail {
     private String updatedBy;
     private Date checkoutOn;
     private boolean allocated;
-
+    private String remark;
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -66,6 +66,14 @@ public class RoomAllocationDetail {
 
 	public void setAllocated(boolean allocated) {
 		this.allocated = allocated;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }
