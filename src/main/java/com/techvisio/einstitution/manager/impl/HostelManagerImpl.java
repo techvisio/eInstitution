@@ -123,7 +123,9 @@ public class HostelManagerImpl implements HostelManager {
 @Override
 public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
 	logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
+	
 	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
+	
 	addHostelAllocation(hostelAllocation);
 }
 

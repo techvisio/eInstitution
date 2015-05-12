@@ -180,6 +180,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	@Override
 	public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
 		logger.info("{} : calling addHostelAllocationAdmissionDtl for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());		
+    
 		hostelManager.addHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
 	} 
 	

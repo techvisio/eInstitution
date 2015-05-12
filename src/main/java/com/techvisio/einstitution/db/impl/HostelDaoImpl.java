@@ -2,7 +2,10 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,7 @@ import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.CurrentAllocation;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetail;
@@ -162,6 +165,27 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		return hostelAllocation;
 	}
 
+	public void saveRoomDetail(RoomAllocationDetail roomAllocationDetail){
+		
+		RoomAllocationDetail newRoomAllocation = roomAllocationDetail;
+		RoomAllocationDetail oldRoomAllocation = getHostelAllocation(roomAllocationDetail.getFileNo());
+		
+		if(oldRoomAllocation.isAllocated()){
+			
+			if(oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
+				
+				deleteHostelAllocation(oldRoomAllocation.getFileNo());
+				addHostelAllocation(newRoomAllocation);
+			}
+		}
+		if(!oldRoomAllocation.isAllocated()){
+			
+			addHostelAllocation(newRoomAllocation);
+		}
+           	
+	
+	}
+	
 
 	// INSERT DATA IN HostelAllocation TABLE
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
@@ -200,11 +224,12 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	//DELETE DATA FROM HostelAllocation TABLE	
 	public void deleteHostelAllocation(Long fileNo) {
 		logger.info("{} : delete hostel allocation by file no:{}",this.getClass().getName(), fileNo);
-		String addQuery = hostelQueryProps.getProperty("deleteHostelAllocation");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-
-		getNamedParamJdbcTemplate().update(addQuery,namedParameter);
-	}
+	
+		RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
+		roomAllocationDetail.setAllocated(false);
+		addHostelAllocation(roomAllocationDetail);
+     		
+			}
 
 
 	// GET DATA FROM HostelReservation TABLE
@@ -240,7 +265,9 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 
-	// INSERT DATA IN HostelReservation TABLE
+	
+	
+// INSERT DATA IN HostelReservation TABLE
 	public void addHostelReservation(HostelReservation hostelReservation) {
 		logger.info("{} : add hostel reservation for file no:{}",this.getClass().getName(), hostelReservation.getFileNo());
 		String addQuery = hostelQueryProps.getProperty("addHostelReservation");
@@ -374,68 +401,55 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 
-	public CurrentAllocation getCurrentAllocation(){
+	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
+	logger.info("{} : get current allocation",this.getClass().getName());
 	
 		String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
 
-		getNamedParamJdbcTemplate().query(getQuery, new RowMapper<CurrentAllocation>() {
-
-			@Override
-			public CurrentAllocation mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-
-				CurrentAllocation currentAllocation = new CurrentAllocation();
-				currentAllocation.setCapacity(rs.getInt("Room_Capacity"));
-				currentAllocation.setRoomNo(rs.getString("Room_No"));
-				
-				StudentBasicInfoRowMaper rowMaper = new StudentBasicInfoRowMaper();
-				
-				return null;
-			}
-		});
-		return null;
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
 		
-		
+		 RoomAllocationDetailForRoom currentAllocation = new RoomAllocationDetailForRoom();
+         List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
+		 
+		 List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter );
+	    		
+	    		
+	    for (Map<String, Object> allocationMap : roomAllocationMaps) {
+	         RoomAllocationDetailForRoom roomAllocation = new RoomAllocationDetailForRoom();
+	        
+	         roomAllocation.setCapacity((Integer) (allocationMap.get("Room_Capacity")));
+	         roomAllocation.setRoomNo((String) (allocationMap.get("Room_No")));
+	        
+	         for(StudentBasicInfo basicInfo : basicInfos){
+
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("File_No")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("First_Name")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Last_Name")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Father_name")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Gender")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("DOB")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Enroll_No")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Course_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Branch_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Semester")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Academic_Year")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Batch_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Section_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Shift_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Centre_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Session_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Lateral")));
+	         
+	             basicInfos.add(basicInfo);
+	         }
+	         
+	         currentAllocation.setBasicInfos(basicInfos);
+	    }	
+				
+		return currentAllocation;
+
 	}
 	
-	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
-
-		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			StudentBasicInfo basicInfo = new StudentBasicInfo();
-			basicInfo.setFirstName(rs.getString("First_Name"));
-			basicInfo.setLastName(rs.getString("Last_Name"));
-			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
-			Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
-		    Branch branch=cacheManager.getBranchById(branchId);
-			basicInfo.setBranch(branch); 
-			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
-		    Course course=cacheManager.getCourseById(courseId);
-			basicInfo.setCourse(course);
-			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
-		    CasteCategory category=cacheManager.getCategoryId(categoryId);
-			basicInfo.setCasteCategory(category);
-			basicInfo.setDob(rs.getDate("DOB"));
-			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
-			basicInfo.setFatherName(rs.getString("Father_Name"));
-			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
-			basicInfo.setGender(rs.getString("Gender"));
-			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
-			basicInfo.setSemester(rs.getString("Semester"));
-			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
-		    Session session=cacheManager.getSessionBySessionId(sessionId);
-			basicInfo.setSession(session);
-			Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
-		    Batch batch=cacheManager.getBatchByBatchId(batchId);
-			basicInfo.setBatch(batch);
-			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
-			basicInfo.setCentreId(rs.getLong("Centre_id"));
-			basicInfo.setShiftId(rs.getLong("Shift_Id"));
-			basicInfo.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
-			basicInfo.setLateral(rs.getBoolean("Lateral"));
-			
-			return basicInfo;
-		}
-	}
 	
 }

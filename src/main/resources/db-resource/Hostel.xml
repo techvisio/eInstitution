@@ -281,6 +281,21 @@ Delete from RoomTypeDetail where Type_Code=:Type_Code;
     ]]>
 
 	</entry>
+
+	<entry key="getCurrentAllocation">
+    <![CDATA[
+      
+   select sd.File_No,sd.Registration_No,sd.First_Name,sd.Last_Name,
+   sd.Father_name,sd.Gender,sd.DOB,sd.Enroll_No,sd.Course_Id,sd.Branch_Id,
+   sd.Semester,sd.Academic_Year,sd.Batch_Id,sd.Section_Id,sd.Session_Id,
+   sd.Shift_Id,sd.Centre_Id,sd.Lateral, rtd.Room_No,rtm.Room_Capacity 
+   from studentdetail sd join roomAllocationDetail rad 
+   on rad.file_no = sd.File_No join roomtypedetail 
+   rtd on rad.Room_No = rtd.Room_No join roomtypemaster rtm 
+   on rtd.Type_Code = rtm.Type_Code where rad.isAllocated=1 and Room_No=:Room_No;   ]]>
+
+	</entry>
+
 	
 
 </properties>

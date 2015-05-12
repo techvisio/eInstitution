@@ -139,7 +139,7 @@
 						</td>
 			<td><span> Room No </span></td>
 			<td><select ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.roomNo"
-							ng-options="item.id as item.value for item in serverModelData.dropdownMasterData.ROOMNO"|filter: {hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.wingId,hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.floorId,hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.blockId}></select>
+							ng-options="item.id as item.value for item in serverModelData.dropdownMasterData.ROOMNO"|filter: {parentId : hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.wingId}></select>
 						</td>
 		</tr>
 		
@@ -174,7 +174,7 @@
 
 </tr>
 		<tr><td><button type="button" class="btn btn-success"
-							ng-click="addConsultantAdmissionDetail()">Add</button></td>
+							ng-click="addHostelAllocationAdmissionDetail()">Add</button></td>
 <td><button type="button" class="btn btn-success"
 							ng-click="getHostelAllocationAdmissionDetail()">Get</button></td>
           </tr>

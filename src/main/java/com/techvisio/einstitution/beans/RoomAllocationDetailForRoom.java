@@ -2,20 +2,12 @@ package com.techvisio.einstitution.beans;
 
 import java.util.List;
 
-public class CurrentAllocation {
+public class RoomAllocationDetailForRoom {
 
-	private int capacity;
+	private Integer capacity;
 	private String roomNo;
 	private List<StudentBasicInfo> basicInfos;
 	
-	public int getCapacity() {
-		return capacity;
-	}
-	
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
-
 	public String getRoomNo() {
 		return roomNo;
 	}
@@ -30,5 +22,13 @@ public class CurrentAllocation {
 
 	public void setBasicInfos(List<StudentBasicInfo> basicInfos) {
 		this.basicInfos = basicInfos;
+	}
+
+	public Integer getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
 	}
 }
