@@ -146,7 +146,13 @@ where File_No=:File_No;
  select 
  
  File_No,
- Vehicle_Id
+ Vehicle_Id,
+ Allocated_on,
+ Allocated_By, 
+ Updated_by,
+ Switched_On,
+ isAllocated,
+ Remark
  
  from TransportAllocation where File_No=:File_No;
  
@@ -160,7 +166,23 @@ where File_No=:File_No;
 Insert into TransportAllocation 
 
 (File_No,
-Vehicle_Id) values (:File_No, :Vehicle_Id);
+ Vehicle_Id,
+ Allocated_on,
+ Allocated_By, 
+ Updated_by,
+ Switched_On,
+ isAllocated,
+ Remark
+ ) values 
+ (:File_No,
+ :Vehicle_Id,
+ :Allocated_on,
+ :Allocated_By, 
+ :Updated_by,
+ :Switched_On,
+ :isAllocated,
+ :Remark
+ );
  
  
     ]]>
@@ -173,7 +195,13 @@ Vehicle_Id) values (:File_No, :Vehicle_Id);
  
  Update TransportAllocation set  
  
- Vehicle_Id=:Vehicle_Id
+ Vehicle_Id=:Vehicle_Id,
+ Allocated_on=:Allocated_on,
+ Allocated_By=:Allocated_By, 
+ Updated_by=:Updated_by,
+ Switched_On=:Switched_On,
+ isAllocated=:isAllocated,
+ Remark=:Remark
  
  where File_No=:File_No;
  
@@ -253,6 +281,46 @@ select
     <![CDATA[
  
  Delete from VehicleDetail where Vehicle_Id=:Vehicle_Id;
+ 
+ 
+    ]]>
+
+	</entry>
+	
+	<entry key="getVehicleAllocatedDetail">
+    <![CDATA[
+ 
+select 
+	File_No,
+	Vehicle_Id,
+	Allocated_on,
+	Allocated_By,
+	Updated_by,
+	Switched_On,
+	isAllocated,
+	Remark
+	  
+from transportallocation where File_No=:File_No and isAllocated = 1;
+ 
+ 
+    ]]>
+
+	</entry>
+	
+	<entry key="getPreviousAllocatedDetail">
+    <![CDATA[
+ 
+select 
+	File_No,
+	Vehicle_Id,
+	Allocated_on,
+	Allocated_By,
+	Updated_by,
+	Switched_On,
+	isAllocated,
+	Remark
+	  
+from transportallocation where File_No=:File_No and isAllocated = 0;
  
  
     ]]>

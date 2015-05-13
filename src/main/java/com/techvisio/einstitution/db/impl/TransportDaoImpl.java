@@ -13,11 +13,14 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
+import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 @Component
@@ -30,6 +33,8 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		this.transportQueryProps = transportQueryProps;
 	}
 
+	@Autowired
+	CacheManager cacheManager;
 	
 	public List<AvailableTransport> getAvailableTransports(){
 		logger.info("{} : get available transport",this.getClass().getName());		
@@ -145,11 +150,20 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 						TransportAllocation transportAllocation = new TransportAllocation();
 
-						transportAllocation.setFileNo(rs
-								.getLong("File_No"));
-						transportAllocation.setVehicleId(CommonUtil.getLongValue(rs
-								.getLong("Vehicle_Id")));
+						transportAllocation.setFileNo(rs.getLong("File_No"));
+						
+						Long vehicleId = (CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
+						VehicleDetail vehicleDetail = cacheManager.getVehicleDeatilByVehicleId(vehicleId);
+						
+						transportAllocation.setVehicleDetail(vehicleDetail);
+						transportAllocation.setAllocated(rs.getBoolean("isAllocated"));
+						transportAllocation.setAllocatedBy(rs.getString("Allocated_By"));
+						transportAllocation.setAllocatedOn(rs.getDate("Allocated_on"));
+						transportAllocation.setRemark(rs.getString("Remark"));
+						transportAllocation.setSwitchedOn(rs.getDate("Switched_On"));
+						transportAllocation.setUpdatedBy(rs.getString("Updated_by"));
 						return transportAllocation;
+
 					}
 				});
 
@@ -168,27 +182,37 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		String addQuery = transportQueryProps
 				.getProperty("addTransportAllocation");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", transportAllocation.getFileNo()).addValue(
-						"Vehicle_Id", transportAllocation.getVehicleId());
-
+		SqlParameterSource namedParameter = getParameterSource(transportAllocation);
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
+	
+	
 	public void updateTransportAllocationDtl(
 			TransportAllocation transportAllocation) {
 		logger.info("{} : update transport allocation detail for file no :{}",this.getClass().getName(), transportAllocation.getFileNo());
 		String updateQuery = transportQueryProps
 				.getProperty("updateTransportAllocation");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", transportAllocation.getFileNo()).addValue(
-						"Vehicle_Id", transportAllocation.getVehicleId());
+		SqlParameterSource namedParameter = getParameterSource(transportAllocation);
 
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 	}
 
+	
+private MapSqlParameterSource getParameterSource (TransportAllocation transportAllocation){
+	logger.info("{} : Adding value in particular field through MapSqlParameterSource ",this.getClass().getName());
+	return new MapSqlParameterSource("File_No", transportAllocation.getFileNo())
+											.addValue("Vehicle_Id", transportAllocation.getVehicleDetail().getVehicleId())
+											.addValue("Allocated_on", transportAllocation.getAllocatedOn())
+											.addValue("Allocated_By", transportAllocation.getAllocatedBy())
+											.addValue("Updated_by", transportAllocation.getUpdatedBy())
+											.addValue("Switched_On", transportAllocation.getSwitchedOn())
+											.addValue("isAllocated", transportAllocation.isAllocated())	
+											.addValue("Remark", transportAllocation.getRemark());
+	
+}
 	public void deleteTransportAllocationDtl(Long fileNo) {
 		logger.info("{} : delete transport allocation detail for file no :{}",this.getClass().getName(), fileNo);
 		String deleteQuery = transportQueryProps
@@ -362,6 +386,100 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
+	}
+
+
+	@Override
+	public TransportAllocation getVehicleAllocatedDetail(Long fileNo) {
+		logger.info("{} : get vehicle allocated detail for file no :{}",this.getClass().getName(), fileNo);
+		String getQuery = transportQueryProps.getProperty("getVehicleAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<TransportAllocation> transportAllocations = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<TransportAllocation>(){
+
+			@Override
+			public TransportAllocation mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				TransportAllocation allocation = new TransportAllocation();
+				allocation.setAllocated(rs.getBoolean(""));
+				allocation.setAllocatedBy(rs.getString(""));
+				allocation.setAllocatedOn(rs.getDate(""));
+				allocation.setFileNo(CommonUtil.getLongValue(rs.getLong("")));
+				allocation.setRemark(rs.getString(""));
+				allocation.setSwitchedOn(rs.getDate(""));
+				allocation.setUpdatedBy(rs.getString(""));
+				Long vehicleId = (CommonUtil.getLongValue(rs.getLong("")));
+				VehicleDetail vehicleDetail = cacheManager.getVehicleDeatilByVehicleId(vehicleId);
+				allocation.setVehicleDetail(vehicleDetail);
+						
+				
+				return allocation;
+			}
+			
+		});
+		TransportAllocation transportAllocation = null;
+		if(transportAllocations !=null && transportAllocations.size() >0 ){
+			transportAllocation = transportAllocations.get(0);
+		}
+		
+		return transportAllocation;
+	}
+/*
+SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+
+			@Override
+			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
+				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
+				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
+				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
+				allocationDetail.setRemark(rs.getString("Remark"));
+				 String roomNo = rs.getString("Room_No");
+	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+	                allocationDetail.setRoomTypeDetail(typeDetail);
+	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				return allocationDetail;
+			}
+			
+		});
+		RoomAllocationDetail roomAllocationDetail = null;
+		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
+			roomAllocationDetail = roomAllocationDetails.get(0);
+		}
+
+		return roomAllocationDetail;
+	}
+ */
+
+	@Override
+	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo) {
+		logger.info("{} : Get previous allocation detail for file no:{}",this.getClass().getName(), fileNo);
+		String getQuery = transportQueryProps.getProperty("getPreviousAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<TransportAllocation> transportAllocations = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<TransportAllocation>(){
+
+			@Override
+			public TransportAllocation mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				TransportAllocation allocation = new TransportAllocation();
+				allocation.setAllocated(rs.getBoolean(""));
+				allocation.setAllocatedBy(rs.getString(""));
+				allocation.setAllocatedOn(rs.getDate(""));
+				allocation.setFileNo(CommonUtil.getLongValue(rs.getLong("")));
+				allocation.setRemark(rs.getString(""));
+				allocation.setSwitchedOn(rs.getDate(""));
+				allocation.setUpdatedBy(rs.getString(""));
+				Long vehicleId = (CommonUtil.getLongValue(rs.getLong("")));
+				VehicleDetail vehicleDetail = cacheManager.getVehicleDeatilByVehicleId(vehicleId);
+				allocation.setVehicleDetail(vehicleDetail);
+				return allocation;
+			}
+			
+		});
+		return transportAllocations;
 	}
 
 }
