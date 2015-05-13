@@ -500,4 +500,68 @@ if(hostelReservations != null && hostelReservations.size()>0){
 		}
 	}
 
+
+	@Override
+	public RoomAllocationDetail getRoomAllocatedDetail(Long fileNo) {
+		logger.info("{} : Get room allocation detail for file no:{}",this.getClass().getName(), fileNo);
+		String getQuery = hostelQueryProps.getProperty("getRoomAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+
+			@Override
+			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
+				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
+				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
+				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
+				allocationDetail.setRemark(rs.getString("Remark"));
+				 String roomNo = rs.getString("Room_No");
+	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+	                allocationDetail.setRoomTypeDetail(typeDetail);
+	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				return allocationDetail;
+			}
+			
+		});
+		RoomAllocationDetail roomAllocationDetail = null;
+		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
+			roomAllocationDetail = roomAllocationDetails.get(0);
+		}
+
+		return roomAllocationDetail;
+	}
+
+	@Override
+	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
+		logger.info("{} : Get previous allocation detail for file no:{}",this.getClass().getName(), fileNo);
+		String getQuery = hostelQueryProps.getProperty("getPreviousAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+
+			@Override
+			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
+				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
+				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
+				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
+				allocationDetail.setRemark(rs.getString("Remark"));
+				 String roomNo = rs.getString("Room_No");
+	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+	                allocationDetail.setRoomTypeDetail(typeDetail);
+	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				return allocationDetail;
+			}
+			
+		});
+		return roomAllocationDetails;
+	}
+
+
+	
 }
