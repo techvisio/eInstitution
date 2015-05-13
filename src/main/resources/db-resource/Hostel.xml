@@ -31,7 +31,8 @@ Select
 	Allocated_By,
 	Updated_By,
 	Checkout_On,
-	IsAllocated
+	IsAllocated,
+	Remark
 	
 from RoomAllocationDetail where File_No=:File_No;
     ]]>
@@ -49,7 +50,8 @@ Insert into RoomAllocationDetail
 	Allocated_By,
 	Updated_By,
 	Checkout_On,
-	IsAllocated
+	IsAllocated,
+	Remark
 	) values
 	       
    (:File_No,
@@ -58,7 +60,8 @@ Insert into RoomAllocationDetail
 	:Allocated_By,
 	:Updated_By,
 	:Checkout_On,
-	:IsAllocated
+	:IsAllocated,
+	:Remark
 	)
     ]]>
 
@@ -75,7 +78,8 @@ Update RoomAllocationDetail set
 	Allocated_By=:Allocated_By,
 	Updated_By=:Updated_By,
 	Checkout_On=:Checkout_On,
-	IsAllocated=:IsAllocated
+	IsAllocated=:IsAllocated,
+	Remark=:Remark
 	       
    
 where File_No=:File_No;
@@ -281,6 +285,44 @@ Delete from RoomTypeDetail where Type_Code=:Type_Code;
     ]]>
 
 	</entry>
+	
+		<entry key="getRoomAllocatedDetail">
+    <![CDATA[
+select 
+	file_no,
+  	Room_No,
+  	Allocated_on,
+  	Allocated_By,
+  	updated_by,
+  	Checkout_on,
+  	isAllocated,
+  	Remark 
+
+from roomallocationdetail where file_no=:file_no And isAllocated = 1;
+      
+    ]]>
+
+	</entry>
+	
+<entry key="getPreviousAllocatedDetail">
+    <![CDATA[
+select 
+	file_no,
+  	Room_No,
+  	Allocated_on,
+  	Allocated_By,
+  	updated_by,
+  	Checkout_on,
+  	isAllocated,
+  	Remark 
+
+from roomallocationdetail where file_no=:file_no And isAllocated = 0;
+
+      
+    ]]>
+
+	</entry>
+	
 	
 
 </properties>

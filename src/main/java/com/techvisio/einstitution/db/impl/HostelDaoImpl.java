@@ -144,6 +144,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
                 hostel.setAllocatedOn(rs.getDate("Allocated_On"));
                 hostel.setUpdatedBy(rs.getString("Updated_By"));
                 hostel.setCheckoutOn(rs.getDate("Checkout_On"));
+                hostel.setRemark(rs.getString("Remark"));
                 String roomNo = rs.getString("Room_No");
                 RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
                 hostel.setRoomTypeDetail(typeDetail);
@@ -167,13 +168,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		logger.info("{} : Get hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
 		String addQuery = hostelQueryProps.getProperty("addHostelAllocation");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
-		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
-		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
-		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
-		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
-		.addValue("File_No", hostelAllocation.getFileNo())
-		.addValue("IsAllocated", hostelAllocation.isAllocated());
+		SqlParameterSource namedParameter = getParameterMap(hostelAllocation);
 
 		getNamedParamJdbcTemplate().update(addQuery,namedParameter);
 	}
@@ -183,19 +178,26 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		logger.info("{} : update hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
 		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
-		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
-		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
-		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
-		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
-		.addValue("File_No", hostelAllocation.getFileNo())
-		.addValue("IsAllocated", hostelAllocation.isAllocated());
+		SqlParameterSource namedParameter = getParameterMap(hostelAllocation);
 		
 		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
 
 
 	}
 
+	//MapSqlParameterSource work for RoomAllocationDetail
+	
+	private MapSqlParameterSource getParameterMap(RoomAllocationDetail hostelAllocation){
+		logger.info("{} : Set value in particular field through MapSqlParameterSource for RoomAllocationDetail. File No:{}",this.getClass().getName(), hostelAllocation.getFileNo());
+		return new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
+		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
+		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
+		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
+		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
+		.addValue("File_No", hostelAllocation.getFileNo())
+		.addValue("IsAllocated", hostelAllocation.isAllocated())
+		.addValue("Remark", hostelAllocation.getRemark());
+	}
 
 	//DELETE DATA FROM HostelAllocation TABLE	
 	public void deleteHostelAllocation(Long fileNo) {
@@ -437,5 +439,68 @@ if(hostelReservations != null && hostelReservations.size()>0){
 			return basicInfo;
 		}
 	}
+
+	@Override
+	public RoomAllocationDetail getRoomAllocatedDetail(Long fileNo) {
+		logger.info("{} : Get room allocation detail for file no:{}",this.getClass().getName(), fileNo);
+		String getQuery = hostelQueryProps.getProperty("getRoomAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+
+			@Override
+			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
+				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
+				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
+				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
+				allocationDetail.setRemark(rs.getString("Remark"));
+				 String roomNo = rs.getString("Room_No");
+	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+	                allocationDetail.setRoomTypeDetail(typeDetail);
+	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				return allocationDetail;
+			}
+			
+		});
+		RoomAllocationDetail roomAllocationDetail = null;
+		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
+			roomAllocationDetail = roomAllocationDetails.get(0);
+		}
+
+		return roomAllocationDetail;
+	}
+
+	@Override
+	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
+		logger.info("{} : Get previous allocation detail for file no:{}",this.getClass().getName(), fileNo);
+		String getQuery = hostelQueryProps.getProperty("getPreviousAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+
+			@Override
+			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
+				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
+				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
+				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
+				allocationDetail.setRemark(rs.getString("Remark"));
+				 String roomNo = rs.getString("Room_No");
+	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+	                allocationDetail.setRoomTypeDetail(typeDetail);
+	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				return allocationDetail;
+			}
+			
+		});
+		return roomAllocationDetails;
+	}
+
+
 	
 }
