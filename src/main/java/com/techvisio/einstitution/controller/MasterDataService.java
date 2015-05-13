@@ -137,6 +137,9 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> rooms = cacheManager.getRoomNoAsMasterdata();
 	serverData.put(AppConstants.ROOMNO, rooms);
 	
+	List<MasterDataBean> vehicle = cacheManager.getVehicleIdAsMastersata();
+	serverData.put(AppConstants.VEHICLE, vehicle);
+	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	
 }

@@ -33,6 +33,7 @@ import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.Wing;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -514,6 +515,28 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		});
 
 		return roomTypeDetails;
+	}
+
+
+	@Override
+	public List<VehicleDetail> getVehicleDetail() {
+String getQuery = masterQueryProps.getProperty("getVehicleDetail");
+List<VehicleDetail> vehicleDetails = new ArrayList<VehicleDetail>();
+vehicleDetails = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<VehicleDetail>(){
+
+	@Override
+	public VehicleDetail mapRow(ResultSet rs, int arg1) throws SQLException {
+		VehicleDetail detail = new VehicleDetail();
+		detail.setCapacity(rs.getString("Capacity"));
+		detail.setRouteCode(rs.getString("Route_Code"));
+		detail.setType(rs.getString("Type"));
+		detail.setVehicleId(CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
+		detail.setVehicleNo(rs.getString("Vehicle_No"));
+		return detail;
+	}
+	
+});
+		return vehicleDetails;
 	}
 
 }

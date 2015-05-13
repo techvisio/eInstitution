@@ -27,6 +27,7 @@ public interface AppConstants {
 	public static final String FLOOR = "FLOOR";
 	public static final String BLOCK = "BLOCK";
 	public static final String ROOMNO = "ROOMNO";
+	public static final String VEHICLE = "VEHICLE";
 	
 	public static final String TASK="TASK";
 	public static final Long HOSTEL_FEE_ID=9999L;

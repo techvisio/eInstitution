@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportReservation;
@@ -24,6 +25,9 @@ public interface TransportDao {
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
 	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
 	public void deleteTransportAllocationDtl(Long fileNo);
+	
+	public TransportAllocation getVehicleAllocatedDetail(Long fileNo);
+	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
 
 	public TransportReservation getTransportReservationDtl(Long fileNo);
 	public void addTransportReservationDtl(TransportReservation transportReservation);

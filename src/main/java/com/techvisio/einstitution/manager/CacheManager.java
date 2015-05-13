@@ -23,6 +23,7 @@ import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.Wing;
 
 @Component
@@ -113,4 +114,8 @@ public interface CacheManager {
 	RoomTypeDetail getroomDetailByRoomNo(String roomNo);
 
 	List<MasterDataBean> getRoomNoAsMasterdata();
+
+	List<MasterDataBean> getVehicleIdAsMastersata();
+
+	VehicleDetail getVehicleDeatilByVehicleId(Long vehicleId);
 }

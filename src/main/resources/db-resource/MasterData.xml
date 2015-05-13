@@ -555,5 +555,23 @@ from sectionmaster;
 
 	</entry>
 
+<entry key="getVehicleDetail">
+    <![CDATA[
+      
+
+ Select 
+ 
+   Type,
+   Capacity,
+   Vehicle_No,
+   Route_Code,
+   Vehicle_Id 
+    
+ from Vehicledetail;    
+    ]]>
+
+	</entry>
+
+
 	
 </properties>

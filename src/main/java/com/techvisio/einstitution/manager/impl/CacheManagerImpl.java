@@ -29,6 +29,7 @@ import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.Wing;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
@@ -77,6 +78,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, Floor> floorMap = new HashMap<Long, Floor>();
 	private static Map<Long, Block> blockMap = new HashMap<Long, Block>();
 	private static Map<String, RoomTypeDetail> roomDetailMap = new HashMap<String, RoomTypeDetail>();
+	private static Map<Long, VehicleDetail> vehicleDetailMap  = new HashMap<Long, VehicleDetail>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -425,6 +427,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<Wing> getWing(){
+		logger.info("{} : Mapping work for get wing ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.WING) == null || entityListMap.get(AppConstants.WING).size() == 0){
 			refreshCacheList(AppConstants.WING);
 		}
@@ -433,6 +436,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getWingAsMasterdata() {
+		logger.info("{} : Get wing as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Wing wing : getWing()){
 			MasterDataBean bean = new MasterDataBean(wing.getWingId().toString(), wing.getWing());
@@ -443,6 +447,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<Floor> getFloor(){
+		logger.info("{} : Mapping work for get Floor ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.FLOOR) == null || entityListMap.get(AppConstants.FLOOR).size() == 0){
 			refreshCacheList(AppConstants.FLOOR);
 		}
@@ -451,6 +456,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getFloorAsMasterdata() {
+		logger.info("{} : Get floor as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Floor floor: getFloor()){
 			MasterDataBean bean = new MasterDataBean(floor.getFloorId().toString(), floor.getFloor());
@@ -461,6 +467,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<Block> getBlock(){
+		logger.info("{} : Mapping work for get Block ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.BLOCK) == null || entityListMap.get(AppConstants.BLOCK).size() == 0){
 			refreshCacheList(AppConstants.BLOCK);
 		}
@@ -469,6 +476,7 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getBlockAsMasterdata() {
+		logger.info("{} : Get block as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(Block block : getBlock()){
 			MasterDataBean bean = new MasterDataBean(block.getBlockId().toString(), block.getBlock());
@@ -480,6 +488,7 @@ public class CacheManagerImpl implements CacheManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<RoomTypeDetail> getRoomTypeDetails(){
+		logger.info("{} : Mapping work for get RoomTypeDetails ",this.getClass().getName());
 		if(entityListMap.get(AppConstants.ROOMNO) == null || entityListMap.get(AppConstants.ROOMNO).size() == 0){
 			refreshCacheList(AppConstants.ROOMNO);
 		}
@@ -488,12 +497,33 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public List<MasterDataBean> getRoomNoAsMasterdata() {
+		logger.info("{} : Get room no as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(RoomTypeDetail roomTypeDetail : getRoomTypeDetails()){
 			MasterDataBean bean = new MasterDataBean(roomTypeDetail.getRoomNo(), roomTypeDetail.getRoomNo());
 			masterData.add(bean);
 		}
 		return masterData;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized List<VehicleDetail> getVehicleDetails(){
+		logger.info("{} : Mapping work for get VehicleTypeDetails ",this.getClass().getName());
+		if(entityListMap.get(AppConstants.VEHICLE) == null || entityListMap.get(AppConstants.VEHICLE).size() == 0){
+			refreshCacheList(AppConstants.VEHICLE);
+		}
+		return (List<VehicleDetail>)entityListMap.get(AppConstants.VEHICLE);
+	}
+	@Override
+	public List<MasterDataBean> getVehicleIdAsMastersata(){
+		logger.info("{} : Get vehicle as master data",this.getClass().getName());
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(VehicleDetail vehicleDetail : getVehicleDetails()){
+			MasterDataBean bean = new MasterDataBean(vehicleDetail.getVehicleId().toString(), vehicleDetail.getVehicleNo());
+			masterData.add(bean);
+		}
+		return masterData;
+		
 	}
 	
 	public void builtEntityListCache(){
@@ -584,20 +614,29 @@ public class CacheManagerImpl implements CacheManager {
 		entityListMap.put(AppConstants.SECTION, sections);
 		
 		List<Wing> wings = new ArrayList<Wing>();
+		logger.info("{} : built entity list cache work for get wing ",this.getClass().getName());
 		wings = cacheDao.getWing();
 		entityListMap.put(AppConstants.WING, wings);
 		
 		List<Floor> floors = new ArrayList<Floor>();
+		logger.info("{} : built entity list cache work for get floor ",this.getClass().getName());
 		floors = cacheDao.getFloor();
 		entityListMap.put(AppConstants.FLOOR, floors);
 		
 		List<Block> blocks = new ArrayList<Block>();
+		logger.info("{} : built entity list cache work for get block ",this.getClass().getName());
 		blocks = cacheDao.getBlock();
 		entityListMap.put(AppConstants.BLOCK, blocks);
 		
 		List<RoomTypeDetail> details = new ArrayList<RoomTypeDetail>();
-	    details = cacheDao.getRoomTypeDetail();
+		logger.info("{} : built entity list cache work for get roomTypeDetail ",this.getClass().getName());
+		details = cacheDao.getRoomTypeDetail();
 		entityListMap.put(AppConstants.ROOMNO, details);
+		
+		List<VehicleDetail> vehicleDetails = new ArrayList<VehicleDetail>();
+		logger.info("{} : built entity list cache work for get vehichleDetail ",this.getClass().getName());
+		vehicleDetails = cacheDao.getVehicleDetail();
+		entityListMap.put(AppConstants.VEHICLE, vehicleDetails);
 		
 		buildEntityMap();
 
@@ -717,25 +756,34 @@ public class CacheManagerImpl implements CacheManager {
 			entityListMap.put(AppConstants.SECTION, sections);
 			
 		case AppConstants.WING:
+			logger.info("{} : refresh cache list work for get wing ",this.getClass().getName());
 			List<Wing> wings = new ArrayList<Wing>();
 			wings = cacheDao.getWing();
 			entityListMap.put(AppConstants.WING, wings);
 			
 		case AppConstants.FLOOR:
+			logger.info("{} : refresh cache list work for get floor ",this.getClass().getName());
 			List<Floor> floors = new ArrayList<Floor>();
 			floors = cacheDao.getFloor();
 			entityListMap.put(AppConstants.FLOOR, floors);
 			
 		case AppConstants.BLOCK:
+			logger.info("{} : refresh cache list work for get block ",this.getClass().getName());
 			List<Block> blocks = new ArrayList<Block>();
 			blocks = cacheDao.getBlock();
 			entityListMap.put(AppConstants.BLOCK, blocks);
 			
 		case AppConstants.ROOMNO:
+			logger.info("{} : refresh cache list work for get roomno ",this.getClass().getName());
 			List<RoomTypeDetail> details = new ArrayList<RoomTypeDetail>();
 			details = cacheDao.getRoomTypeDetail();
 			entityListMap.put(AppConstants.ROOMNO, details);
 			
+		case AppConstants.VEHICLE:
+			logger.info("{} : refresh cache list work for get vehicle ",this.getClass().getName());
+			List<VehicleDetail> vehicleDetails = new ArrayList<VehicleDetail>();
+			vehicleDetails = cacheDao.getVehicleDetail();
+			entityListMap.put(AppConstants.VEHICLE,vehicleDetails);
 		default:
 
 		}
@@ -829,6 +877,10 @@ public class CacheManagerImpl implements CacheManager {
 		
 		for(RoomTypeDetail roomDetail : cacheDao.getRoomTypeDetail()){
 			roomDetailMap.put(roomDetail.getRoomNo(), roomDetail);
+		}
+		
+		for(VehicleDetail vehicleDetail : cacheDao.getVehicleDetail()){
+			vehicleDetailMap.put(vehicleDetail.getVehicleId(), vehicleDetail);
 		}
 	}
     
@@ -934,22 +986,33 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public Wing getWingByWingId(Long id){
+		logger.info("{} : Get wing by wing id:{} ",this.getClass().getName(), id);
 		return wingMap.get(id);
 	}
 	
 	@Override
 	public Floor getFloorByFloorId(Long id){
+		logger.info("{} : Get floor by floor id:{} ",this.getClass().getName(), id);
 		return floorMap.get(id);
 	}
 	
 	@Override
 	public Block getBlockByBlockId(Long id){
+		logger.info("{} : Get block by block id:{} ",this.getClass().getName(), id);
 		return blockMap.get(id);
 	}
 	
 	@Override
 	public RoomTypeDetail getroomDetailByRoomNo(String roomNo){
+		logger.info("{} : Get room type detail by room no:{} ",this.getClass().getName(), roomNo);
 		return roomDetailMap.get(roomNo);
+	}
+	
+	@Override
+	public VehicleDetail getVehicleDeatilByVehicleId(Long vehicleId ){
+		logger.info("{} : Get vehicle deatil by vehicle id:{} ",this.getClass().getName(), vehicleId);
+		return vehicleDetailMap.get(vehicleId);
+		
 	}
 
 }
