@@ -17,6 +17,8 @@ import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
+import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
@@ -218,7 +220,7 @@ public class HostelService {
 		try{
 			
 			HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
-            hostelWorkflowManager.addHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+            hostelWorkflowManager.saveHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
 
             Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
             hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
@@ -279,4 +281,44 @@ public class HostelService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
      	}
 
+	@RequestMapping(value ="/studenRoomAllocationDtl/{fileNo}", method = RequestMethod.GET )
+	public ResponseEntity<Response> getRoomAllocationDetailForStudent(@PathVariable Long fileNo){
+		logger.info("{}:  Calling getRoomAllocationDetailForStudent method by passing fileNo : {}",this.getClass().getName(), fileNo);
+		Response response = new Response();
+		
+		try
+		{
+		RoomAllocationForStudent allocationForStudent = hostelWorkflowManager.getAllocationForStudent(fileNo);
+		
+		response.setResponseBody(allocationForStudent);
+		}
+		catch(Exception e)
+		{
+			logger.error("{}:Error While Calling getRoomAllocationDetailForStudent method by passing typecode : {}",this.getClass().getName(),fileNo);
+			response.setError(e.getMessage());
+		}
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value ="/RoomAllocationDtlForRoomNo/{roomNo}", method = RequestMethod.GET )
+	public ResponseEntity<Response> getRoomAllocationDetailForRoomNo(@PathVariable String roomNo){
+		logger.info("{}:  Calling getRoomAllocationDetailForRoomNo method by passing fileNo : {}",this.getClass().getName(), roomNo);
+		Response response = new Response();
+		
+		try
+		{
+		RoomAllocationDetailForRoom allocationDetailForRoom = hostelWorkflowManager.getCurrentAllocationByRoom(roomNo);
+		
+		response.setResponseBody(allocationDetailForRoom);
+		}
+		catch(Exception e)
+		{
+			logger.error("{}:Error While Calling getRoomAllocationDetailForRoomNo method by passing typecode : {}",this.getClass().getName(),roomNo);
+			response.setError(e.getMessage());
+		}
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
 }

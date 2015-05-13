@@ -166,27 +166,6 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		return hostelAllocation;
 	}
 
-	public void saveRoomDetail(RoomAllocationDetail roomAllocationDetail){
-		
-		RoomAllocationDetail newRoomAllocation = roomAllocationDetail;
-		RoomAllocationDetail oldRoomAllocation = getHostelAllocation(roomAllocationDetail.getFileNo());
-		
-		if(oldRoomAllocation.isAllocated()){
-			
-			if(oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
-				
-				deleteHostelAllocation(oldRoomAllocation.getFileNo());
-				addHostelAllocation(newRoomAllocation);
-			}
-		}
-		if(!oldRoomAllocation.isAllocated()){
-			
-			addHostelAllocation(newRoomAllocation);
-		}
-           	
-	
-	}
-	
 
 	// INSERT DATA IN HostelAllocation TABLE
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
@@ -408,13 +387,13 @@ if(hostelReservations != null && hostelReservations.size()>0){
 		return hostelAvailabilities;
 	}
 
-
+    @Override
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
 	logger.info("{} : get current allocation",this.getClass().getName());
 	
-		String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
+		 String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
+		 SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
 		
 		 RoomAllocationDetailForRoom currentAllocation = new RoomAllocationDetailForRoom();
          List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
@@ -460,49 +439,10 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 	
 
-	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
-
-		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			StudentBasicInfo basicInfo = new StudentBasicInfo();
-			basicInfo.setFirstName(rs.getString("First_Name"));
-			basicInfo.setLastName(rs.getString("Last_Name"));
-			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
-			Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
-		    Branch branch=cacheManager.getBranchById(branchId);
-			basicInfo.setBranch(branch); 
-			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
-		    Course course=cacheManager.getCourseById(courseId);
-			basicInfo.setCourse(course);
-			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
-		    CasteCategory category=cacheManager.getCategoryId(categoryId);
-			basicInfo.setCasteCategory(category);
-			basicInfo.setDob(rs.getDate("DOB"));
-			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
-			basicInfo.setFatherName(rs.getString("Father_Name"));
-			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
-			basicInfo.setGender(rs.getString("Gender"));
-			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
-			basicInfo.setSemester(rs.getString("Semester"));
-			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
-		    Session session=cacheManager.getSessionBySessionId(sessionId);
-			basicInfo.setSession(session);
-			Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
-		    Batch batch=cacheManager.getBatchByBatchId(batchId);
-			basicInfo.setBatch(batch);
-			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
-			basicInfo.setCentreId(rs.getLong("Centre_id"));
-			basicInfo.setShiftId(rs.getLong("Shift_Id"));
-			basicInfo.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
-			basicInfo.setLateral(rs.getBoolean("Lateral"));
-			
-			return basicInfo;
-		}
-	}
 
 
 	@Override
-	public RoomAllocationDetail getRoomAllocatedDetail(Long fileNo) {
+	public RoomAllocationDetail getRoomAllocatedDetailForStudent(Long fileNo) {
 		logger.info("{} : Get room allocation detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = hostelQueryProps.getProperty("getRoomAllocatedDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
@@ -563,5 +503,4 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 
-	
 }

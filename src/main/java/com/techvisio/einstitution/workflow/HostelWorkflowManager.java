@@ -8,6 +8,8 @@ import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
+import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 @Component
 public interface HostelWorkflowManager {
@@ -20,8 +22,13 @@ public interface HostelWorkflowManager {
 	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation( Long fileNo);
 
+	public RoomAllocationForStudent getAllocationForStudent(Long fileNo);
+	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo);
+	public RoomAllocationDetail getRoomAllocatedDetailForStudent (Long fileNo);
+	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo );
 	
 	public HostelReservation getHostelReservation(Long fileNo);
+	public void saveRoomDetail(RoomAllocationDetail roomAllocationDetail);
 	public Long addHostelReservation(HostelReservation hostelReservation);
 	public Long updateHostelReservation(HostelReservation hostelReservation);
 	public void deleteHostelReservation(Long fileNo);
@@ -34,9 +41,8 @@ public interface HostelWorkflowManager {
 
 	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo);
 
-	public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
+	public void saveHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 
 	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 
-	
 }

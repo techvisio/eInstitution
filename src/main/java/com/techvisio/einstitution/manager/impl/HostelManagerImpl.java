@@ -9,6 +9,8 @@ import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
+import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.HostelManager;
@@ -17,6 +19,7 @@ import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class HostelManagerImpl implements HostelManager {
 	private static CustomLogger logger = CustomLogger.getLogger(HostelManagerImpl.class);	
+	
 	@Autowired
 	HostelDao hostelDao ;
 //HostelAllocation
@@ -43,6 +46,29 @@ public class HostelManagerImpl implements HostelManager {
 		return h;
 	}
 
+	@Override
+  public void saveRoomDetail(RoomAllocationDetail roomAllocationDetail){
+		
+		RoomAllocationDetail newRoomAllocation = roomAllocationDetail;
+		RoomAllocationDetail oldRoomAllocation = getHostelAllocation(roomAllocationDetail.getFileNo());
+		
+		if(oldRoomAllocation.isAllocated()){
+			
+			if(oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
+				
+				deleteHostelAllocation(oldRoomAllocation.getFileNo());
+				addHostelAllocation(newRoomAllocation);
+			}
+		}
+		if(!oldRoomAllocation.isAllocated()){
+			
+			addHostelAllocation(newRoomAllocation);
+		}
+           	
+	
+	}
+	
+	
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		logger.info("{} : calling addHostelAllocation method for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelDao.addHostelAllocation(hostelAllocation);
@@ -124,9 +150,9 @@ public class HostelManagerImpl implements HostelManager {
 public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
 	logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
 	
-	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
+	RoomAllocationDetail roomAllocationDetail = hostelAllocationAdmissionBean.getHostelAllocation();
 	
-	addHostelAllocation(hostelAllocation);
+	saveRoomDetail(roomAllocationDetail);
 }
 
 @Override
@@ -135,5 +161,26 @@ public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hos
 	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
 	updateHostelAllocation(hostelAllocation);
 }
+
+@Override
+public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo) {
+	
+	return hostelDao.getCurrentAllocationByRoom(roomNo);
+}
+
+@Override
+public RoomAllocationDetail getRoomAllocatedDetailForStudent(Long fileNo) {
+
+	return hostelDao.getRoomAllocatedDetailForStudent(fileNo);
+}
+
+@Override
+public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
+
+	return hostelDao.getPreviousAllocatedDetail(fileNo);
+}
+
+
+
 
 }
