@@ -1,6 +1,5 @@
 package com.techvisio.einstitution.workflow.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +7,12 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
-import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
-import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
@@ -24,10 +20,6 @@ import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.TransportManager;
-import com.techvisio.einstitution.manager.impl.AdmissionManagerImpl;
-import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
-import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
-import com.techvisio.einstitution.manager.impl.TransportManagerImpl;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -208,7 +200,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	}
 
 	@Override
-	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(
+	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
 			Long vehicleId) {
 		logger.info("{} : calling getCurrentAllocationByVehichleId.  Vehicle Id:{} ",this.getClass().getName(), vehicleId);
 		return transportManager.getCurrentAllocationByVehichleId(vehicleId);

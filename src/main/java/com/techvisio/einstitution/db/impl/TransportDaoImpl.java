@@ -3,6 +3,7 @@ package com.techvisio.einstitution.db.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -15,13 +16,18 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.Batch;
+import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.Centre;
+import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
-import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.Section;
+import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
-import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
@@ -489,50 +495,60 @@ SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
 
 
 	@Override
-	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(Long vehicleId) {
+	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId) {
 		logger.info("{} : get current allocation by vehicle id :{}",this.getClass().getName(), vehicleId);
+		
 		 String getQuery = transportQueryProps.getProperty("getCurrentAllocation");
 		 SqlParameterSource namedParameter = new MapSqlParameterSource("Vehicle_Id",vehicleId);
 		 
-		 TransportAllocationDetailForVehicle currentAllocation = new TransportAllocationDetailForVehicle();
-		 List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
-		 List<Map<String, Object>> transportAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
-		 
-		 for(Map<String, Object> allocationMap : transportAllocationMaps){
-			 
-			 TransportAllocationDetailForVehicle transportAllocation = new TransportAllocationDetailForVehicle();
-			 transportAllocation.setCapacity((Integer) (allocationMap.get("Capacity")));
-			 transportAllocation.setDescription((String) (allocationMap.get("Description")));
-			 transportAllocation.setRouteCode((String) (allocationMap.get("Route_Code")));
-			 transportAllocation.setVehicleId((Long) (allocationMap.get("Vehicle_Id")));
-			 transportAllocation.setVehicleNo((String) (allocationMap.get("Vehicle_No")));
-			 
+		 TransportAllocationDtlForVehicle currentAllocation = new TransportAllocationDtlForVehicle();
+			List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
+			currentAllocation.setBasicInfo(basicInfos);
+			List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
 
-			 for(StudentBasicInfo basicInfo : basicInfos){
+			for (Map<String, Object> allocationMap : roomAllocationMaps) {
 
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("File_No")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("First_Name")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Last_Name")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Father_name")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Gender")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("DOB")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Enroll_No")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Course_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Branch_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Semester")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Academic_Year")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Batch_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Section_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Shift_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Centre_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Session_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Lateral")));
+				currentAllocation.setCapacity((Integer) (allocationMap.get("Room_Capacity")));
+				currentAllocation.setVehicleId((Long)(allocationMap.get("Vehicle_Id")));
 
-	        	 basicInfos.add(basicInfo);
-		 }
-			 currentAllocation.setBasicInfos(basicInfos);
-		 }
+				StudentBasicInfo basicInfo= new StudentBasicInfo();
+				basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+				basicInfo.setFileNo((Long)(allocationMap.get("File_No")));
+				basicInfo.setFirstName((String)(allocationMap.get("First_Name")));
+				basicInfo.setLastName((String)(allocationMap.get("Last_Name")));
+				basicInfo.setFatherName((String)(allocationMap.get("Father_name")));
+				basicInfo.setGender((String)(allocationMap.get("Gender")));
+				basicInfo.setDob((Date)(allocationMap.get("DOB")));
+				basicInfo.setEnrollmentNo((String)(allocationMap.get("Enroll_No")));
+				Long courseId=CommonUtil.getLongValue(((Long)(allocationMap.get("Course_Id"))));
+				Course course = cacheManager.getCourseById(courseId);
+				basicInfo.setCourse(course);
+				Long branchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Branch_Id"))));
+				Branch branch = cacheManager.getBranchById(branchId);
+				basicInfo.setBranch(branch);
+				basicInfo.setSemester((String)(allocationMap.get("Semester")));
+				basicInfo.setAcademicYear((String)(allocationMap.get("Academic_Year")));
+				Long batchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Batch_Id"))));
+				Batch batch = cacheManager.getBatchByBatchId(batchId);
+	            basicInfo.setBatch(batch);			
+				Long sectionId=((Long)(allocationMap.get("Section_Id")));
+				Section section = cacheManager.getSectionBySectionId(sectionId);
+				basicInfo.setSection(section);
+				Long shiftId=((Long)(allocationMap.get("Shift_Id")));
+				Shift shift = cacheManager.getShiftByShiftId(shiftId);
+				basicInfo.setShift(shift);
+				Long centreId=((Long)(allocationMap.get("Centre_Id")));
+				Centre centre = cacheManager.getCentreByCentreId(centreId);
+				basicInfo.setCentre(centre);
+				basicInfo.setRegistrationNo((String)(allocationMap.get("")));
+				Long sessionId=((Long)(allocationMap.get("Session_Id")));
+				Session session = cacheManager.getSessionBySessionId(sessionId);
+				basicInfo.setSession(session);
+				basicInfo.setLateral((Boolean)(allocationMap.get("Lateral")));
+
+				basicInfos.add(basicInfo);
+
+			}	
 		 return currentAllocation;
 	}
 

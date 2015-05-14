@@ -2,10 +2,8 @@ package com.techvisio.einstitution.controller;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,20 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
-import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
-import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
-import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.util.CustomLogger;
-import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 import com.techvisio.einstitution.workflow.TransportWorkflowManager;
-import com.techvisio.einstitution.workflow.impl.HostelWorkflowManagerImpl;
 import com.techvisio.einstitution.workflow.impl.TransportWorkflowManagerImpl;
 
 @RestController
@@ -237,7 +230,7 @@ public class TransportService {
 			logger.info("{}:  Calling getCurrentAllocationByVehichleId method by passing vehicleId : {}",this.getClass().getName(), vehicleId);
 			Response response = new Response();
 			try {
-				TransportAllocationDetailForVehicle allocationDetailForVehicle = transportWorkflowManager.getCurrentAllocationByVehichleId(vehicleId);
+				TransportAllocationDtlForVehicle allocationDetailForVehicle = transportWorkflowManager.getCurrentAllocationByVehichleId(vehicleId);
 				response.setResponseBody(allocationDetailForVehicle);
 			} catch (Exception e) {
 				logger.error("{}:Error While Calling getCurrentAllocationByVehichleId method by passing vehicle id : {}",this.getClass().getName(),vehicleId);

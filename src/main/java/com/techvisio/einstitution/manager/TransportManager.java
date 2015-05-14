@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
-import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 @Component
@@ -34,7 +34,7 @@ public interface TransportManager {
 
 	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
 
-	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
+	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
 	public TransportAllocation getVehicleAllocatedDetail(Long fileNo);
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
 }

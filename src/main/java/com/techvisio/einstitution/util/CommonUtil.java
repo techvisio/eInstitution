@@ -212,11 +212,11 @@ public class CommonUtil {
 			StudentBasicInfo basicInfo) {
 		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
 		criteria.setBranchId(basicInfo.getBranch().getId());
-		criteria.setCentreId(basicInfo.getCentreId());
+		criteria.setCentreId(basicInfo.getCentre().getCentreId());
 		criteria.setCourseId(basicInfo.getCourse().getId());
 		criteria.setLateral(basicInfo.isLateral());
 		criteria.setSessionId(basicInfo.getSession().getSessionId());
-		criteria.setShiftId(basicInfo.getShiftId());
+		criteria.setShiftId(basicInfo.getShift().getShiftId());
 		return criteria;
 	}
 

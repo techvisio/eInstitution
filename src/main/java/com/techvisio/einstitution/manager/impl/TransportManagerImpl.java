@@ -6,16 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
-import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
 import com.techvisio.einstitution.manager.TransportManager;
-import com.techvisio.einstitution.util.ContextProvider;
 import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class TransportManagerImpl implements TransportManager {
@@ -137,7 +134,7 @@ public class TransportManagerImpl implements TransportManager {
 	}
 
 	@Override
-	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(
+	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
 			Long vehicleId) {
 		logger.info("{} : get Current Allocation By VehichleId:{}  ",this.getClass().getName(), vehicleId);
 		return transportDao.getCurrentAllocationByVehichleId(vehicleId);

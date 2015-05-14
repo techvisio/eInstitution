@@ -352,9 +352,6 @@ from transportallocation where File_No=:File_No and isAllocated = 0;
    sd.Lateral,
    ta.Vehicle_Id,
    vd.Capacity,
-   vd.Vehicle_No,
-   vd.Route_Code,
-   tm.Description
    
    from studentdetail sd join transportallocation ta on sd.File_No = ta.File_No
    join vehicledetail vd on ta.Vehicle_Id = vd.Vehicle_Id
