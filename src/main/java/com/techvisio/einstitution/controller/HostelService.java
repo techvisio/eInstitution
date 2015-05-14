@@ -283,7 +283,7 @@ public class HostelService {
 
 	@RequestMapping(value ="/studenRoomAllocationDtl/{fileNo}", method = RequestMethod.GET )
 	public ResponseEntity<Response> getRoomAllocationDetailForStudent(@PathVariable Long fileNo){
-		logger.info("{}:  Calling getRoomAllocationDetailForStudent method by passing fileNo : {}",this.getClass().getName(), fileNo);
+		logger.info("{}:  Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		
 		try
@@ -294,7 +294,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While Calling getRoomAllocationDetailForStudent method by passing typecode : {}",this.getClass().getName(),fileNo);
+			logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo);
 			response.setError(e.getMessage());
 		}
 		
@@ -303,7 +303,7 @@ public class HostelService {
 	
 	@RequestMapping(value ="/RoomAllocationDtlForRoomNo/{roomNo}", method = RequestMethod.GET )
 	public ResponseEntity<Response> getRoomAllocationDetailForRoomNo(@PathVariable String roomNo){
-		logger.info("{}:  Calling getRoomAllocationDetailForRoomNo method by passing fileNo : {}",this.getClass().getName(), roomNo);
+		logger.info("{}:  Calling getCurrentAllocationByRoom method by passing roomNo : {}",this.getClass().getName(), roomNo);
 		Response response = new Response();
 		
 		try
@@ -314,7 +314,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While Calling getRoomAllocationDetailForRoomNo method by passing typecode : {}",this.getClass().getName(),roomNo);
+			logger.error("{}:Error While Calling getCurrentAllocationByRoom method by passing roomNo : {}",this.getClass().getName(),roomNo);
 			response.setError(e.getMessage());
 		}
 		

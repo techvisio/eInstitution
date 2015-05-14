@@ -389,7 +389,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
     @Override
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
-	logger.info("{} : get current allocation",this.getClass().getName());
+	logger.info("{} : get current allocation by room no :{}",this.getClass().getName(), roomNo);
 	
 		 String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
 

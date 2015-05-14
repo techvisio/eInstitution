@@ -10,6 +10,7 @@ import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
@@ -133,6 +134,25 @@ public class TransportManagerImpl implements TransportManager {
 		logger.info("{} : update Transport Allocation AdmissionDtl for Student:{}  ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());		
 		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
 		updateTransportAllocationDtl(transportAllocation);
+	}
+
+	@Override
+	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(
+			Long vehicleId) {
+		logger.info("{} : get Current Allocation By VehichleId:{}  ",this.getClass().getName(), vehicleId);
+		return transportDao.getCurrentAllocationByVehichleId(vehicleId);
+	}
+
+	@Override
+	public TransportAllocation getVehicleAllocatedDetail(Long fileNo) {
+		logger.info("{} : calling getVehicleAllocatedDetail by passing file no:{}  ",this.getClass().getName(), fileNo);
+		return transportDao.getVehicleAllocatedDetail(fileNo);
+	}
+
+	@Override
+	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo) {
+		logger.info("{} : calling getPreviousAllocatedDetail by passing file no:{}  ",this.getClass().getName(), fileNo);
+		return transportDao.getPreviousAllocatedDetail(fileNo);
 	}
 
 
