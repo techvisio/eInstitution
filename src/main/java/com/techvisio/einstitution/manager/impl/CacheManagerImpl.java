@@ -495,6 +495,7 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<RoomTypeDetail>)entityListMap.get(AppConstants.ROOMNO);
 	}
 	
+	
 	@Override
 	public List<RoomTypeDetail> getRoomNoAsMasterdata() {
 		logger.info("{} : Get room no as master data",this.getClass().getName());
