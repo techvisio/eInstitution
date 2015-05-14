@@ -113,7 +113,7 @@ public interface CacheManager {
 
 	RoomTypeDetail getroomDetailByRoomNo(String roomNo);
 
-	List<MasterDataBean> getRoomNoAsMasterdata();
+	List<RoomTypeDetail> getRoomNoAsMasterdata();
 
 	List<MasterDataBean> getVehicleIdAsMastersata();
 

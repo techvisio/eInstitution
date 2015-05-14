@@ -20,12 +20,15 @@ import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.CounsellingDetail;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.QualificationSubjectDtl;
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.StudentAcademicDetail;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
@@ -1124,9 +1127,19 @@ class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 	    Batch batch=cacheManager.getBatchByBatchId(batchId);
 		basicInfo.setBatch(batch);
 		basicInfo.setRegistrationNo(rs.getString("Registration_No"));
-		basicInfo.setCentreId(rs.getLong("Centre_id"));
-		basicInfo.setShiftId(rs.getLong("Shift_Id"));
-		basicInfo.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
+		
+		Long centreId=(CommonUtil.getLongValue(rs.getLong("Centre_id")));
+	    Centre centre=cacheManager.getCentreByCentreId(centreId);
+		basicInfo.setCentre(centre);
+		
+		Long shiftId=(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
+	    Shift shift=cacheManager.getShiftByShiftId(shiftId);
+		basicInfo.setShift(shift);
+		
+		Long sectionId=(CommonUtil.getLongValue(rs.getLong("Section_Id")));
+		Section section = cacheManager.getSectionBySectionId(sectionId);
+		basicInfo.setSection(section);
+		
 		basicInfo.setLateral(rs.getBoolean("Lateral"));
 		Remark remark = getRemarkByFileNo(basicInfo.getFileNo());
 		basicInfo.setRemark(remark);

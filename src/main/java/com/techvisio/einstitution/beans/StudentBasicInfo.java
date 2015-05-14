@@ -19,9 +19,9 @@ public class StudentBasicInfo {
 	private CasteCategory casteCategory; 
 	private Batch batch;
 	private Session session;
-	private Long shiftId;
-	private Long centreId;
-    private Long sectionId;
+	private Shift shift;
+	private Centre centre;
+    private Section section;
 	private boolean isLateral;
 	private Date modifiedDate;
 	private Remark remark;
@@ -107,18 +107,6 @@ public class StudentBasicInfo {
 		this.remark = remark;
 	}
 	
-	public Long getShiftId() {
-		return shiftId;
-	}
-	public void setShiftId(Long shiftId) {
-		this.shiftId = shiftId;
-	}
-	public Long getCentreId() {
-		return centreId;
-	}
-	public void setCentreId(Long centreId) {
-		this.centreId = centreId;
-	}
 	public boolean isLateral() {
 		return isLateral;
 	}
@@ -149,11 +137,23 @@ public class StudentBasicInfo {
 	public void setSession(Session session) {
 		this.session = session;
 	}
-	public Long getSectionId() {
-		return sectionId;
+	public Shift getShift() {
+		return shift;
 	}
-	public void setSectionId(Long sectionId) {
-		this.sectionId = sectionId;
+	public void setShift(Shift shift) {
+		this.shift = shift;
+	}
+	public Centre getCentre() {
+		return centre;
+	}
+	public void setCentre(Centre centre) {
+		this.centre = centre;
+	}
+	public Section getSection() {
+		return section;
+	}
+	public void setSection(Section section) {
+		this.section = section;
 	}
 	
 }

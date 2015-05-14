@@ -3,6 +3,7 @@ package com.techvisio.einstitution.db.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.HostelAvailability;
@@ -25,7 +27,9 @@ import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -46,7 +50,7 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	//GET DATA FROM HostelInventory TABLE 
 
 	public RoomTypeMaster getHostelInventory(String typeCode) {
-		
+
 		logger.info("{} : Get hostel inventory by typecode:{}",this.getClass().getName(), typeCode);
 		String getQuery = hostelQueryProps.getProperty("getHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
@@ -142,15 +146,15 @@ if(hostelInventories != null && hostelInventories.size()>0){
 			public RoomAllocationDetail mapRow(ResultSet rs,int rowNum)throws SQLException {
 				RoomAllocationDetail hostel = new RoomAllocationDetail();
 				hostel.setFileNo(rs.getLong("File_No"));
-                hostel.setAllocated(rs.getBoolean("IsAllocated"));
-                hostel.setAllocatedBy(rs.getString("Allocated_By"));
-                hostel.setAllocatedOn(rs.getDate("Allocated_On"));
-                hostel.setUpdatedBy(rs.getString("Updated_By"));
-                hostel.setCheckoutOn(rs.getDate("Checkout_On"));
-                hostel.setRemark(rs.getString("Remark"));
-                String roomNo = rs.getString("Room_No");
-                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
-                hostel.setRoomTypeDetail(typeDetail);
+				hostel.setAllocated(rs.getBoolean("IsAllocated"));
+				hostel.setAllocatedBy(rs.getString("Allocated_By"));
+				hostel.setAllocatedOn(rs.getDate("Allocated_On"));
+				hostel.setUpdatedBy(rs.getString("Updated_By"));
+				hostel.setCheckoutOn(rs.getDate("Checkout_On"));
+				hostel.setRemark(rs.getString("Remark"));
+				String roomNo = rs.getString("Room_No");
+				RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+				hostel.setRoomTypeDetail(typeDetail);
 				return hostel;
 
 			}
@@ -188,14 +192,14 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		logger.info("{} : update hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
 		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
 		SqlParameterSource namedParameter = getParameterMap(hostelAllocation);
-		
+
 		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
 
 
 	}
 
 	//MapSqlParameterSource work for RoomAllocationDetail
-	
+
 	private MapSqlParameterSource getParameterMap(RoomAllocationDetail hostelAllocation){
 		logger.info("{} : Set value in particular field through MapSqlParameterSource for RoomAllocationDetail. File No:{}",this.getClass().getName(), hostelAllocation.getFileNo());
 		return new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
@@ -211,12 +215,12 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	//DELETE DATA FROM HostelAllocation TABLE	
 	public void deleteHostelAllocation(Long fileNo) {
 		logger.info("{} : delete hostel allocation by file no:{}",this.getClass().getName(), fileNo);
-	
+
 		RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
 		roomAllocationDetail.setAllocated(false);
 		addHostelAllocation(roomAllocationDetail);
-     		
-			}
+
+	}
 
 
 	// GET DATA FROM HostelReservation TABLE
@@ -252,9 +256,9 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 
-	
-	
-// INSERT DATA IN HostelReservation TABLE
+
+
+	// INSERT DATA IN HostelReservation TABLE
 	public void addHostelReservation(HostelReservation hostelReservation) {
 		logger.info("{} : add hostel reservation for file no:{}",this.getClass().getName(), hostelReservation.getFileNo());
 		String addQuery = hostelQueryProps.getProperty("addHostelReservation");
@@ -309,7 +313,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 				room.setWingId(CommonUtil.getLongValue(rs.getLong("Wing_Id")));
 				room.setFloorId(CommonUtil.getLongValue(rs.getLong("Floor_Id")));
 				room.setBlockId(CommonUtil.getLongValue(rs.getLong("Block_Id")));
-				
+
 				return room;
 			}
 
@@ -366,7 +370,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
 
 	public List<HostelAvailability> getHostelAvailability() {
-	logger.info("{} : get hostel availability",this.getClass().getName());
+		logger.info("{} : get hostel availability",this.getClass().getName());
 		String getQuery = hostelQueryProps.getProperty("getHostelAvailability");
 
 		List<HostelAvailability> hostelAvailabilities = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<HostelAvailability>() {
@@ -387,57 +391,67 @@ if(hostelReservations != null && hostelReservations.size()>0){
 		return hostelAvailabilities;
 	}
 
-    @Override
+	@Override
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
-	logger.info("{} : get current allocation",this.getClass().getName());
-	
-		 String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
+	logger.info("{} : get current allocation by room no :{}",this.getClass().getName(), roomNo);
 
-		 SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
-		
-		 RoomAllocationDetailForRoom currentAllocation = new RoomAllocationDetailForRoom();
-         List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
-		 
-		 List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter );
-	    		
-	    		
-	    for (Map<String, Object> allocationMap : roomAllocationMaps) {
-	         RoomAllocationDetailForRoom roomAllocation = new RoomAllocationDetailForRoom();
-	        
-	         roomAllocation.setCapacity((Integer) (allocationMap.get("Room_Capacity")));
-	         roomAllocation.setRoomNo((String) (allocationMap.get("Room_No")));
-	        
-	         for(StudentBasicInfo basicInfo : basicInfos){
+		String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
 
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("File_No")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("First_Name")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Last_Name")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Father_name")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Gender")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("DOB")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Enroll_No")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Course_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Branch_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Semester")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Academic_Year")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Batch_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Section_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Shift_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Centre_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Session_Id")));
-	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Lateral")));
-	         
-	             basicInfos.add(basicInfo);
-	         }
-	         
-	         currentAllocation.setBasicInfos(basicInfos);
-	    }	
-				
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
+
+		RoomAllocationDetailForRoom currentAllocation = new RoomAllocationDetailForRoom();
+		List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
+		currentAllocation.setBasicInfos(basicInfos);
+		List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
+
+		for (Map<String, Object> allocationMap : roomAllocationMaps) {
+
+			currentAllocation.setCapacity((Integer) (allocationMap.get("Room_Capacity")));
+			currentAllocation.setRoomNo((String) (allocationMap.get("Room_No")));
+
+			StudentBasicInfo basicInfo= new StudentBasicInfo();
+			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+			basicInfo.setFileNo((Long)(allocationMap.get("File_No")));
+			basicInfo.setFirstName((String)(allocationMap.get("First_Name")));
+			basicInfo.setLastName((String)(allocationMap.get("Last_Name")));
+			basicInfo.setFatherName((String)(allocationMap.get("Father_name")));
+			basicInfo.setGender((String)(allocationMap.get("Gender")));
+			basicInfo.setDob((Date)(allocationMap.get("DOB")));
+			basicInfo.setEnrollmentNo((String)(allocationMap.get("Enroll_No")));
+			Long courseId=CommonUtil.getLongValue(((Long)(allocationMap.get("Course_Id"))));
+			Course course = cacheManager.getCourseById(courseId);
+			basicInfo.setCourse(course);
+			Long branchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Branch_Id"))));
+			Branch branch = cacheManager.getBranchById(branchId);
+			basicInfo.setBranch(branch);
+			basicInfo.setSemester((String)(allocationMap.get("Semester")));
+			basicInfo.setAcademicYear((String)(allocationMap.get("Academic_Year")));
+			Long batchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Batch_Id"))));
+			Batch batch = cacheManager.getBatchByBatchId(batchId);
+            basicInfo.setBatch(batch);			
+			Long sectionId=((Long)(allocationMap.get("Section_Id")));
+			Section section = cacheManager.getSectionBySectionId(sectionId);
+			basicInfo.setSection(section);
+			Long shiftId=((Long)(allocationMap.get("Shift_Id")));
+			Shift shift = cacheManager.getShiftByShiftId(shiftId);
+			basicInfo.setShift(shift);
+			Long centreId=((Long)(allocationMap.get("Centre_Id")));
+			Centre centre = cacheManager.getCentreByCentreId(centreId);
+			basicInfo.setCentre(centre);
+			basicInfo.setRegistrationNo((String)(allocationMap.get("")));
+			Long sessionId=((Long)(allocationMap.get("Session_Id")));
+			Session session = cacheManager.getSessionBySessionId(sessionId);
+			basicInfo.setSession(session);
+			basicInfo.setLateral((Boolean)(allocationMap.get("Lateral")));
+
+			basicInfos.add(basicInfo);
+
+		}	
+
 		return currentAllocation;
 
 	}
-	
+
 
 
 
@@ -458,13 +472,13 @@ if(hostelReservations != null && hostelReservations.size()>0){
 				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
 				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
 				allocationDetail.setRemark(rs.getString("Remark"));
-				 String roomNo = rs.getString("Room_No");
-	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
-	                allocationDetail.setRoomTypeDetail(typeDetail);
-	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				String roomNo = rs.getString("Room_No");
+				RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+				allocationDetail.setRoomTypeDetail(typeDetail);
+				allocationDetail.setUpdatedBy(rs.getString("updated_by"));
 				return allocationDetail;
 			}
-			
+
 		});
 		RoomAllocationDetail roomAllocationDetail = null;
 		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
@@ -491,13 +505,13 @@ if(hostelReservations != null && hostelReservations.size()>0){
 				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
 				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
 				allocationDetail.setRemark(rs.getString("Remark"));
-				 String roomNo = rs.getString("Room_No");
-	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
-	                allocationDetail.setRoomTypeDetail(typeDetail);
-	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				String roomNo = rs.getString("Room_No");
+				RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+				allocationDetail.setRoomTypeDetail(typeDetail);
+				allocationDetail.setUpdatedBy(rs.getString("updated_by"));
 				return allocationDetail;
 			}
-			
+
 		});
 		return roomAllocationDetails;
 	}

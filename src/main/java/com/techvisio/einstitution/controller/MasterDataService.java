@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.MasterDataBean;
+import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -134,7 +135,7 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<MasterDataBean> block = cacheManager.getBlockAsMasterdata();
 	serverData.put(AppConstants.BLOCK, block);
 	
-	List<MasterDataBean> rooms = cacheManager.getRoomNoAsMasterdata();
+	List<RoomTypeDetail> rooms = cacheManager.getRoomNoAsMasterdata();
 	serverData.put(AppConstants.ROOMNO, rooms);
 	
 	List<MasterDataBean> vehicle = cacheManager.getVehicleIdAsMastersata();

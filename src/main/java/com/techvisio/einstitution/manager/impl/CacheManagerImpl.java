@@ -496,13 +496,10 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getRoomNoAsMasterdata() {
+	public List<RoomTypeDetail> getRoomNoAsMasterdata() {
 		logger.info("{} : Get room no as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
-		for(RoomTypeDetail roomTypeDetail : getRoomTypeDetails()){
-			MasterDataBean bean = new MasterDataBean(roomTypeDetail.getRoomNo(), roomTypeDetail.getRoomNo());
-			masterData.add(bean);
-		}
+		List<RoomTypeDetail> masterData = getRoomTypeDetails();
+		
 		return masterData;
 	}
 	

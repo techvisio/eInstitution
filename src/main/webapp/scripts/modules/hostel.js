@@ -2,8 +2,8 @@ var hostelModule = angular.module('hostelModule', []);
 
 hostelModule.controller('hostelController', ['$scope','hostelService','masterdataService',function($scope,hostelService,masterdataService) {
 
-    $scope.form={};
-    $scope.form.content='dashboard';
+	$scope.form={};
+	$scope.form.content='dashboard';
 	$scope.hostelAvailability={};
 	$scope.currentReservation={};
 	$scope.hostelReservation={};
@@ -13,21 +13,21 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 
 		$scope.init=function(){
 
-			 console.log('getting masterdata for admission module in init block');
+			console.log('getting masterdata for admission module in init block');
 
-			 masterdataService.getAdmissionMasterData()
-			 .then(function(data) {
-				 console.log(data);
-				 if (data != null) {
-					 $scope.serverModelData = data;
-				 } else {
-					 console.log('error');
-				 }
-			 })
+			masterdataService.getAdmissionMasterData()
+			.then(function(data) {
+				console.log(data);
+				if (data != null) {
+					$scope.serverModelData = data;
+				} else {
+					console.log('error');
+				}
+			})
 
-		 }
+		}
 
-		
+
 		hostelService.getHostelAvailability().then(function(response) {
 			console.log('getHostelAvailability call back : ');
 			console.log(response);
@@ -68,25 +68,25 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 				console.log(response);
 				if (response !=null && response.data != null && response.data.responseBody != null) {
 					$scope.currentReservation = response.data.responseBody;
-					
+
 				} else {
 					console.log(response.data.error);
 				}
-				
+
 			})
 		}
 
 	}
 
 	$scope.saveHostel = function(){
-		
+
 		if($scope.currentReservation.typeCode){
-			 $scope.updateReservation();
-		 }
-		 else
-		 {
-			 $scope.reserveRoom();
-		 }
+			$scope.updateReservation();
+		}
+		else
+		{
+			$scope.reserveRoom();
+		}
 	}
 
 	$scope.reserveRoom = function(){
@@ -136,56 +136,94 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 				$scope.syncReservationStatus();
 			})
 		}};
-		
-		$scope.getHostelAllocationAdmissionDetail = function(){
-			
-			 console.log('getHostelAllocationAdmissionDetail called in controller');
-	         var fileNo = prompt("enter file no" + " ") 
-			 hostelService.getHostelAllocationAdmissionDetail(fileNo)
-			 .then(function(response) {
-				 console.log('hostelAllocationAdmissionDtl Data received from service : ');
-				 console.log(response);
-				 if (response != null && response.data != null && response.data.responseBody != null) {
-					 $scope.hostelAllocationAdmissionDtl = response.data.responseBody;
-					 
-				 } else {
-					 console.log(response.data.error);
-					 alert(response.data.error);
-				 }
-			 })
-		 };
 
-		 $scope.addHostelAllocationAdmissionDetail = function(){
-			 console.log('addHostelAllocationAdmissionDetail called in controller');
-			 hostelService.addHostelAllocationAdmissionDetail($scope.hostelAllocationAdmissionDtl)
-			 .then(function(response) {
-				 console.log('addHostelAllocationAdmissionDetail Data received from service : ');
-				 console.log(response);
-				 if (response != null && response.data != null && response.data.responseBody != null) {
-					 $scope.hostelAllocationAdmissionDtl = response.data.responseBody;
-					 alert("Your Records Saved Successfully")
-				 } else {
-					 console.log(response.data.error);
-					 alert(response.data.error);
-				 }
-			 })
-		 };
+		$scope.getHostelAllocationAdmissionDetail = function(){
+
+			console.log('getHostelAllocationAdmissionDetail called in controller');
+			var fileNo = prompt("enter file no" + " ") 
+			hostelService.getHostelAllocationAdmissionDetail(fileNo)
+			.then(function(response) {
+				console.log('hostelAllocationAdmissionDtl Data received from service : ');
+				console.log(response);
+				if (response != null && response.data != null && response.data.responseBody != null) {
+					$scope.hostelAllocationAdmissionDtl = response.data.responseBody;
+
+				} else {
+					console.log(response.data.error);
+					alert(response.data.error);
+				}
+			})
+		};
+
+		$scope.addHostelAllocationAdmissionDetail = function(){
+			console.log('addHostelAllocationAdmissionDetail called in controller');
+			hostelService.addHostelAllocationAdmissionDetail($scope.hostelAllocationAdmissionDtl)
+			.then(function(response) {
+				console.log('addHostelAllocationAdmissionDetail Data received from service : ');
+				console.log(response);
+				if (response != null && response.data != null && response.data.responseBody != null) {
+					$scope.hostelAllocationAdmissionDtl = response.data.responseBody;
+					alert("Your Records Saved Successfully")
+				} else {
+					console.log(response.data.error);
+					alert(response.data.error);
+				}
+			})
+		};
+
+		$scope.updateHostelAllocationAdmissionDetail = function(){
+			console.log('updateHostelAllocationAdmissionDetail called in controller');
+			hostelService.updateHostelAllocationAdmissionDetail($scope.hostelAllocationAdmissionDtl)
+			.then(function(response) {
+				console.log('updateHostelAllocationAdmissionDetail Data received from service : ');
+				console.log(response);
+				if (response != null && response.data != null && response.data.responseBody != null) {
+					$scope.hostelAllocationAdmissionDtl = response.data.responseBody;
+					alert("Your Records Saved Successfully")
+				} else {
+					console.log(response.data.error);
+					alert(response.data.error);
+				}
+			})
+		};
+
+		$scope.getRoomAllocationDtlByRoomNo = function(){
+
+			console.log('getRoomAllocationDtlByRoomNo called in controller');
+			var roomNo = prompt("enter room no" + " ") 
+			hostelService.getRoomAllocationDtlByRoomNo(roomNo)
+			.then(function(response) {
+				console.log(' getRoomAllocation Data received from service in controller : ');
+				console.log(response);
+				if (response != null && response.data != null && response.data.responseBody != null) {
+					$scope.RoomAllocationDetailForRoom = response.data.responseBody;
+
+				} else {
+					console.log(response.data.error);
+					alert(response.data.error);
+				}
+			})
+		};
+
 		
-		 $scope.updateHostelAllocationAdmissionDetail = function(){
-			 console.log('updateHostelAllocationAdmissionDetail called in controller');
-			 hostelService.updateHostelAllocationAdmissionDetail($scope.hostelAllocationAdmissionDtl)
-			 .then(function(response) {
-				 console.log('updateHostelAllocationAdmissionDetail Data received from service : ');
-				 console.log(response);
-				 if (response != null && response.data != null && response.data.responseBody != null) {
-					 $scope.hostelAllocationAdmissionDtl = response.data.responseBody;
-					 alert("Your Records Saved Successfully")
-				 } else {
-					 console.log(response.data.error);
-					 alert(response.data.error);
-				 }
-			 })
-		 };
+		$scope.getRoomAllocationDtlForStudent = function(){
+
+			console.log('getRoomAllocationDtlForStudent called in controller');
+			var roomNo = prompt("enter file no" + " ") 
+			hostelService.getRoomAllocationDtlForStudent(fileNo)
+			.then(function(response) {
+				console.log(' getRoomAllocationDtlForStudent Data received from service in controller : ');
+				console.log(response);
+				if (response != null && response.data != null && response.data.responseBody != null) {
+					$scope.roomAllocationForStudent = response.data.responseBody;
+
+				} else {
+					console.log(response.data.error);
+					alert(response.data.error);
+				}
+			})
+		};
+
 		
 
 } ]);
@@ -201,8 +239,11 @@ hostelModule.service('hostelService', function($http, $q) {
 		updateReservation : updateReservation,
 		getHostelAllocationAdmissionDetail : getHostelAllocationAdmissionDetail,
 		addHostelAllocationAdmissionDetail : addHostelAllocationAdmissionDetail,
-		updateHostelAllocationAdmissionDetail:updateHostelAllocationAdmissionDetail
+		updateHostelAllocationAdmissionDetail:updateHostelAllocationAdmissionDetail,
+		getRoomAllocationDtlByRoomNo : getRoomAllocationDtlByRoomNo,
+		getRoomAllocationDtlForStudent : getRoomAllocationDtlForStudent
 		
+
 	});
 
 	function getHostelAvailability() {
@@ -282,28 +323,28 @@ hostelModule.service('hostelService', function($http, $q) {
 	function getHostelAllocationAdmissionDetail(fileNo){
 		console.log('getHostelAllocationAdmissionDetail called in service')
 		var request = $http({
-			 method : "get",
-			 url : "hostel/hostelAllocationAdmission/"+fileNo,
-			 params : {
-				 action : "get"
-			 }
-		 });
+			method : "get",
+			url : "hostel/hostelAllocationAdmission/"+fileNo,
+			params : {
+				action : "get"
+			}
+		});
 
-		 return (request.then(handleSuccess, handleError));
+		return (request.then(handleSuccess, handleError));
 	}
 
 	function addHostelAllocationAdmissionDetail(hostelAllocationAdmissionDtl){
 		console.log('addHostelAllocationAdmissionDetail called in service');
-		 var request = $http({
-			 method : "post",
-			 url : "hostel/hostelAllocationAdmission/",
-			 params : "",
-			 data: hostelAllocationAdmissionDtl
+		var request = $http({
+			method : "post",
+			url : "hostel/hostelAllocationAdmission/",
+			params : "",
+			data: hostelAllocationAdmissionDtl
 
-		 });
-		 
-		 return (request.then(handleSuccess, handleError));
-		
+		});
+
+		return (request.then(handleSuccess, handleError));
+
 	}
 
 	function updateHostelAllocationAdmissionDetail(hostelAllocationAdmissionDtl) {
@@ -321,6 +362,33 @@ hostelModule.service('hostelService', function($http, $q) {
 	}
 
 
+	function getRoomAllocationDtlForStudent(fileNo){
+		console.log('get room allocation detail for student called from service')
+		var request = $http({
+			method : "get",
+			url : "hostel/studenRoomAllocationDtl/"+fileNo,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+	}
+
+	function getRoomAllocationDtlByRoomNo(roomNo){
+		console.log('get room allocation detail by room no called from service')
+		var request = $http({
+			method : "get",
+			url : "hostel/RoomAllocationDtlForRoomNo/"+roomNo,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+	}
+
+	
 	function handleError(response) {
 		console.log('handle error');
 		console.log(response);
