@@ -2,7 +2,9 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,12 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
+import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.db.TransportDao;
@@ -480,6 +485,55 @@ SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
 			
 		});
 		return transportAllocations;
+	}
+
+
+	@Override
+	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(Long vehicleId) {
+		logger.info("{} : get current allocation by vehicle id :{}",this.getClass().getName(), vehicleId);
+		 String getQuery = transportQueryProps.getProperty("getCurrentAllocation");
+		 SqlParameterSource namedParameter = new MapSqlParameterSource("Vehicle_Id",vehicleId);
+		 
+		 TransportAllocationDetailForVehicle currentAllocation = new TransportAllocationDetailForVehicle();
+		 List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
+		 List<Map<String, Object>> transportAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
+		 
+		 for(Map<String, Object> allocationMap : transportAllocationMaps){
+			 
+			 TransportAllocationDetailForVehicle transportAllocation = new TransportAllocationDetailForVehicle();
+			 transportAllocation.setCapacity((Integer) (allocationMap.get("Capacity")));
+			 transportAllocation.setDescription((String) (allocationMap.get("Description")));
+			 transportAllocation.setRouteCode((String) (allocationMap.get("Route_Code")));
+			 transportAllocation.setVehicleId((Long) (allocationMap.get("Vehicle_Id")));
+			 transportAllocation.setVehicleNo((String) (allocationMap.get("Vehicle_No")));
+			 
+
+			 for(StudentBasicInfo basicInfo : basicInfos){
+
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("File_No")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("First_Name")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Last_Name")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Father_name")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Gender")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("DOB")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Enroll_No")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Course_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Branch_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Semester")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Academic_Year")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Batch_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Section_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Shift_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Centre_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Session_Id")));
+	        	 basicInfo.setRegistrationNo((String)(allocationMap.get("Lateral")));
+
+	        	 basicInfos.add(basicInfo);
+		 }
+			 currentAllocation.setBasicInfos(basicInfos);
+		 }
+		 return currentAllocation;
 	}
 
 }

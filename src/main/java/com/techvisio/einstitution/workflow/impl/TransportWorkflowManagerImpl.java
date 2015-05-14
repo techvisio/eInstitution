@@ -10,11 +10,14 @@ import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -202,5 +205,37 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
 		logger.info("{} : calling updateTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
 		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+	}
+
+	@Override
+	public TransportAllocationDetailForVehicle getCurrentAllocationByVehichleId(
+			Long vehicleId) {
+		logger.info("{} : calling getCurrentAllocationByVehichleId.  Vehicle Id:{} ",this.getClass().getName(), vehicleId);
+		return transportManager.getCurrentAllocationByVehichleId(vehicleId);
+	}
+
+	@Override
+	public TransportAllocation getVehicleAllocatedDetail(Long fileNo) {
+		logger.info("{} : calling getVehicleAllocatedDetail by passing  file no:{} ",this.getClass().getName(), fileNo);
+		return transportManager.getVehicleAllocatedDetail(fileNo);
+	}
+
+	@Override
+	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo) {
+		logger.info("{} : calling getPreviousAllocatedDetail by passing  file no:{} ",this.getClass().getName(), fileNo);
+		return transportManager.getPreviousAllocatedDetail(fileNo);
+	}
+
+	@Override
+	public TransportAllocationForStudent getAllocationForStudent(Long fileNo) {
+		TransportAllocationForStudent allocationForStudent = new TransportAllocationForStudent();
+		
+		TransportAllocation activeAllocation = getVehicleAllocatedDetail(fileNo);
+		allocationForStudent.setActiveAllocation(activeAllocation);
+		
+		List<TransportAllocation> previousAllocation = getPreviousAllocatedDetail(fileNo);
+		allocationForStudent.setPreviousAllocation(previousAllocation);
+		
+		return allocationForStudent;
 	}
 }

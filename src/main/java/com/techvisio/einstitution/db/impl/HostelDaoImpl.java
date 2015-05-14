@@ -395,6 +395,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
 	logger.info("{} : get current allocation by room no :{}",this.getClass().getName(), roomNo);
 
+	
 		String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);

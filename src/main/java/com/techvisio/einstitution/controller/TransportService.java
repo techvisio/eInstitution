@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.Response;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
+import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationDetailForVehicle;
+import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -227,5 +231,36 @@ public class TransportService {
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
 	     	}
+
+		@RequestMapping(value ="/transportAllocationDetailForVehicle/{vehicleId}", method = RequestMethod.GET )
+		public ResponseEntity<Response> getransportAllocationDetailForVehicle(@PathVariable Long vehicleId){
+			logger.info("{}:  Calling getCurrentAllocationByVehichleId method by passing vehicleId : {}",this.getClass().getName(), vehicleId);
+			Response response = new Response();
+			try {
+				TransportAllocationDetailForVehicle allocationDetailForVehicle = transportWorkflowManager.getCurrentAllocationByVehichleId(vehicleId);
+				response.setResponseBody(allocationDetailForVehicle);
+			} catch (Exception e) {
+				logger.error("{}:Error While Calling getCurrentAllocationByVehichleId method by passing vehicle id : {}",this.getClass().getName(),vehicleId);
+				response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+	
+		}
 		
-	}
+		
+		@RequestMapping(value ="/studenTransportAllocationDtl/{fileNo}", method = RequestMethod.GET )	
+		public ResponseEntity<Response> getTransportAllocationDetailForStudent(@PathVariable Long fileNo){
+			logger.info("{}:  Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(), fileNo);
+			Response response = new Response();
+			try {
+				TransportAllocationForStudent allocationForStudent = transportWorkflowManager.getAllocationForStudent(fileNo);
+			response.setResponseBody(allocationForStudent);
+			} catch (Exception e) {
+				logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo);
+				response.setError(e.getMessage());
+			}
+			
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+			
+		}
+}
