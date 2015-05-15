@@ -226,7 +226,7 @@ public class TransportService {
 	     	}
 
 		@RequestMapping(value ="/transportAllocationDetailForVehicle/{vehicleId}", method = RequestMethod.GET )
-		public ResponseEntity<Response> getransportAllocationDetailForVehicle(@PathVariable Long vehicleId){
+		public ResponseEntity<Response> getTransportAllocationDetailForVehicle(@PathVariable Long vehicleId){
 			logger.info("{}:  Calling getCurrentAllocationByVehichleId method by passing vehicleId : {}",this.getClass().getName(), vehicleId);
 			Response response = new Response();
 			try {
@@ -241,7 +241,7 @@ public class TransportService {
 		}
 		
 		
-		@RequestMapping(value ="/studenTransportAllocationDtl/{fileNo}", method = RequestMethod.GET )	
+		@RequestMapping(value ="/studentTransportAllocationDtl/{fileNo}", method = RequestMethod.GET )	
 		public ResponseEntity<Response> getTransportAllocationDetailForStudent(@PathVariable Long fileNo){
 			logger.info("{}:  Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(), fileNo);
 			Response response = new Response();

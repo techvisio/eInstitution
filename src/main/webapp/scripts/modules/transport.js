@@ -169,6 +169,45 @@ transportModule.controller('transportController', ['$scope','transportService',f
 		 };
 
 
+		 
+		 $scope.getTransportAllocationDtlForStudent = function(){
+
+				console.log('getTransportAllocationDtlForStudent called in controller');
+				var fileNo = prompt("enter file no" + " ") 
+				transportService.getTransportAllocationDtlForStudent(fileNo)
+				.then(function(response) {
+					console.log(' getTransportAllocationDtlForStudent Data received from service in controller : ');
+					console.log(response);
+					if (response != null && response.data != null && response.data.responseBody != null) {
+						$scope.TransportAllocationForStudent = response.data.responseBody;
+
+					} else {
+						console.log(response.data.error);
+						alert(response.data.error);
+					}
+				})
+			};
+
+
+			 $scope.getTransportAllocationDtlForVehicle = function(){
+
+					console.log('getTransportAllocationDtlForVehicle called in controller');
+					var vehicleId = prompt("enter vehicle id" + " ") 
+					transportService.getTransportAllocationDtlForVehicle(vehicleId)
+					.then(function(response) {
+						console.log(' getTransportAllocationDtlForVehicle Data received from service in controller : ');
+						console.log(response);
+						if (response != null && response.data != null && response.data.responseBody != null) {
+							$scope.TransportAllocationDtlForVehicle = response.data.responseBody;
+
+						} else {
+							console.log(response.data.error);
+							alert(response.data.error);
+						}
+					})
+				};
+
+		 
 } ]);
 
 transportModule.service('transportService', function($http, $q) {
@@ -182,7 +221,9 @@ transportModule.service('transportService', function($http, $q) {
 		updateReservation : updateReservation,
 		getTransportlAllocationAdmissionDetail : getTransportlAllocationAdmissionDetail,
 		addTransportAllocationAdmissionDetail : addTransportAllocationAdmissionDetail,
-		updateTransportAllocationAdmissionDetail : updateTransportAllocationAdmissionDetail
+		updateTransportAllocationAdmissionDetail : updateTransportAllocationAdmissionDetail,
+		getTransportAllocationDtlForStudent : getTransportAllocationDtlForStudent,
+		getTransportAllocationDtlForVehicle : getTransportAllocationDtlForVehicle
 	});
 
 	function getAvailableTransport() {
@@ -300,8 +341,34 @@ transportModule.service('transportService', function($http, $q) {
 
 		return (request.then(handleSuccess, handleError));
 	}
+	
+	function getTransportAllocationDtlForStudent(fileNo){
+		console.log('getTransportAllocationDtlForStudent called in service');
+		var request = $http({
+			method : "get",
+			url : "transport/studentTransportAllocationDtl/"+fileNo,
+			params : {
+				action : "get"
+			}
+		});
 
+		return (request.then(handleSuccess, handleError));
 
+	}
+
+	function getTransportAllocationDtlForVehicle(vehicleId){
+		console.log('getTransportAllocationDtlForVehicle called in service');
+		var request = $http({
+			method : "get",
+			url : "transport/transportAllocationDetailForVehicle/"+vehicleId,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
 
 	function handleError(response) {
 		console.log('handle error');
