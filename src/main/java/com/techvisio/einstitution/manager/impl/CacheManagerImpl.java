@@ -516,13 +516,9 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<VehicleDetail>)entityListMap.get(AppConstants.VEHICLE);
 	}
 	@Override
-	public List<MasterDataBean> getVehicleIdAsMastersata(){
+	public List<VehicleDetail> getVehicleDetailAsMasterdata(){
 		logger.info("{} : Get vehicleId as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
-		for(VehicleDetail vehicleDetail : getVehicleDetails()){
-			MasterDataBean bean = new MasterDataBean(vehicleDetail.getVehicleId().toString(), vehicleDetail.getVehicleNo());
-			masterData.add(bean);
-		}
+		List<VehicleDetail> masterData = getVehicleDetails();
 		return masterData;
 		
 	}
@@ -537,7 +533,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getVehicleTypeIdAsMastersata(){
+	public List<MasterDataBean> getVehicleTypeIdAsMasterdata(){
 		logger.info("{} : Get vehicleType id as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(VehicleType vehicleType  : getVehicleTypes()){

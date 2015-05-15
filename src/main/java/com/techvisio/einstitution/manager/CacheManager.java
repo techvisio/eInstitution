@@ -116,11 +116,11 @@ public interface CacheManager {
 
 	List<RoomTypeDetail> getRoomNoAsMasterdata();
 
-	List<MasterDataBean> getVehicleIdAsMastersata();
-
 	VehicleDetail getVehicleDeatilByVehicleId(Long vehicleId);
 
-	List<MasterDataBean> getVehicleTypeIdAsMastersata();
+	List<MasterDataBean> getVehicleTypeIdAsMasterdata();
 
 	VehicleType getVehicleTypeByTypeId(Long typeId);
+
+	List<VehicleDetail> getVehicleDetailAsMasterdata();
 }
