@@ -572,6 +572,20 @@ from sectionmaster;
 
 	</entry>
 
+<entry key="getVehicleType">
+    <![CDATA[
+      
+
+ Select 
+ 
+   Type_Id,
+   Type    
+ from vehicletypemaster;    
+    ]]>
+
+	</entry>
+
+
 
 	
 </properties>

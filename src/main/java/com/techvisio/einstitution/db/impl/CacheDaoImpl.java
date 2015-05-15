@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
@@ -21,7 +20,6 @@ import com.techvisio.einstitution.beans.CodeMapping;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
@@ -34,8 +32,10 @@ import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.beans.VehicleDetail;
+import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
 import com.techvisio.einstitution.db.CacheDao;
+import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 
@@ -47,6 +47,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	@Autowired @Qualifier(value="masterQueryProps")
 	private Properties masterQueryProps;
 
+	@Autowired
+	CacheManager cacheManager;
+	
 	public void setmasterQueryProps(Properties masterQueryProps) {
 
 		this.masterQueryProps = masterQueryProps;
@@ -529,7 +532,9 @@ vehicleDetails = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<Vehicl
 		VehicleDetail detail = new VehicleDetail();
 		detail.setCapacity(rs.getString("Capacity"));
 		detail.setRouteCode(rs.getString("Route_Code"));
-		detail.setType(rs.getString("Type"));
+		Long typeId =  CommonUtil.getLongValue(rs.getLong("Type_Id"));
+		VehicleType vehicleType = cacheManager.getVehicleTypeByTypeId(typeId);
+		detail.setVehicleType(vehicleType);
 		detail.setVehicleId(CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
 		detail.setVehicleNo(rs.getString("Vehicle_No"));
 		return detail;
@@ -538,5 +543,28 @@ vehicleDetails = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<Vehicl
 });
 		return vehicleDetails;
 	}
+
+
+	@Override	
+	public List<VehicleType> getVehicleTypes(){
+		String getQuery = masterQueryProps.getProperty("getVehicleType");
+		List<VehicleType> vehicleTypes = new ArrayList<VehicleType>();
+		vehicleTypes = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<VehicleType>(){
+
+			@Override
+			public VehicleType mapRow(ResultSet rs, int arg1) throws SQLException {
+				VehicleType vehicleType = new VehicleType();
+				vehicleType.setType(rs.getString("Type"));
+				vehicleType.setTypeId(CommonUtil.getLongValue(rs.getLong("Type_Id")));
+				
+				return vehicleType;
+			}
+		});
+		
+		
+		return vehicleTypes;
+		
+	}
+
 
 }

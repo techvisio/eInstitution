@@ -30,6 +30,7 @@ import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
+import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.db.TransportDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -341,7 +342,9 @@ private MapSqlParameterSource getParameterSource (TransportAllocation transportA
 						vehicleDetail.setVehicleId(CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
 						vehicleDetail.setRouteCode(rs.getString("Route_Code"));
 						vehicleDetail.setVehicleNo(rs.getString("Vehicle_No"));
-						vehicleDetail.setType(rs.getString("Type"));
+						Long typeId = CommonUtil.getLongValue(rs.getLong("Type_Id"));
+						VehicleType vehicleType = cacheManager.getVehicleTypeByTypeId(typeId); 
+						vehicleDetail.setVehicleType(vehicleType);
 						vehicleDetail.setCapacity(rs.getString("Capacity"));
 						return vehicleDetail;
 					}
@@ -363,7 +366,7 @@ private MapSqlParameterSource getParameterSource (TransportAllocation transportA
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"Vehicle_Id", vehicleDetail.getVehicleId())
-		.addValue("Type", vehicleDetail.getType())
+		.addValue("Type_Id", vehicleDetail.getVehicleType().getTypeId())
 		.addValue("Capacity", vehicleDetail.getCapacity())
 		.addValue("Vehicle_No", vehicleDetail.getVehicleNo())
 		.addValue("Route_Code", vehicleDetail.getRouteCode());
@@ -378,7 +381,7 @@ private MapSqlParameterSource getParameterSource (TransportAllocation transportA
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"Vehicle_Id", vehicleDetail.getVehicleId())
-		.addValue("Type", vehicleDetail.getType())
+		.addValue("Type_Id", vehicleDetail.getVehicleType().getTypeId())
 		.addValue("Capacity", vehicleDetail.getCapacity())
 		.addValue("Vehicle_No", vehicleDetail.getVehicleNo())
 		.addValue("Route_Code", vehicleDetail.getRouteCode());

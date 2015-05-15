@@ -30,6 +30,7 @@ import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
 import com.techvisio.einstitution.beans.VehicleDetail;
+import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
@@ -79,6 +80,8 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, Block> blockMap = new HashMap<Long, Block>();
 	private static Map<String, RoomTypeDetail> roomDetailMap = new HashMap<String, RoomTypeDetail>();
 	private static Map<Long, VehicleDetail> vehicleDetailMap  = new HashMap<Long, VehicleDetail>();
+	private static Map<Long, VehicleType> vehicleTypeMap = new HashMap<Long, VehicleType>();
+	
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -514,7 +517,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	@Override
 	public List<MasterDataBean> getVehicleIdAsMastersata(){
-		logger.info("{} : Get vehicle as master data",this.getClass().getName());
+		logger.info("{} : Get vehicleId as master data",this.getClass().getName());
 		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
 		for(VehicleDetail vehicleDetail : getVehicleDetails()){
 			MasterDataBean bean = new MasterDataBean(vehicleDetail.getVehicleId().toString(), vehicleDetail.getVehicleNo());
@@ -523,6 +526,30 @@ public class CacheManagerImpl implements CacheManager {
 		return masterData;
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized List<VehicleType> getVehicleTypes(){
+		logger.info("{} : Mapping work for get VehicleType ",this.getClass().getName());	
+		if(entityListMap.get(AppConstants.VEHICLETYPE) == null || entityListMap.get(AppConstants.VEHICLETYPE).size() == 0){
+			refreshCacheList(AppConstants.VEHICLETYPE);
+		}
+		return (List<VehicleType>)entityListMap.get(AppConstants.VEHICLETYPE);
+	}
+	
+	@Override
+	public List<MasterDataBean> getVehicleTypeIdAsMastersata(){
+		logger.info("{} : Get vehicleType id as master data",this.getClass().getName());
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(VehicleType vehicleType  : getVehicleTypes()){
+			MasterDataBean bean = new MasterDataBean(vehicleType.getTypeId().toString(),vehicleType.getType());
+			masterData.add(bean);
+		}
+		return masterData;
+		
+	}
+	
+	
+	
 	
 	public void builtEntityListCache(){
 		List<Branch> branchs =new ArrayList<Branch>();
@@ -636,10 +663,17 @@ public class CacheManagerImpl implements CacheManager {
 		vehicleDetails = cacheDao.getVehicleDetail();
 		entityListMap.put(AppConstants.VEHICLE, vehicleDetails);
 		
+		List<VehicleType> vehicleTypes = new ArrayList<VehicleType>();
+		logger.info("{} : built entity list cache work for get VehicleType ",this.getClass().getName());
+		vehicleTypes = cacheDao.getVehicleTypes();
+		entityListMap.put(AppConstants.VEHICLETYPE, vehicleTypes);
+		
 		buildEntityMap();
 
 	}
 
+	
+	
 	@Override
 	public void refreshCacheList(final String entity){
 		switch (entity) {
@@ -782,6 +816,14 @@ public class CacheManagerImpl implements CacheManager {
 			List<VehicleDetail> vehicleDetails = new ArrayList<VehicleDetail>();
 			vehicleDetails = cacheDao.getVehicleDetail();
 			entityListMap.put(AppConstants.VEHICLE,vehicleDetails);
+	
+		case AppConstants.VEHICLETYPE:
+			logger.info("{} : refresh cache list work for get vehicle type ",this.getClass().getName());
+		List<VehicleType> vehicleTypes = new ArrayList<VehicleType>();
+		vehicleTypes = cacheDao.getVehicleTypes();
+		entityListMap.put(AppConstants.VEHICLETYPE, vehicleTypes);
+		
+		
 		default:
 
 		}
@@ -880,6 +922,11 @@ public class CacheManagerImpl implements CacheManager {
 		for(VehicleDetail vehicleDetail : cacheDao.getVehicleDetail()){
 			vehicleDetailMap.put(vehicleDetail.getVehicleId(), vehicleDetail);
 		}
+		
+		for(VehicleType vehicleType : cacheDao.getVehicleTypes()){
+			vehicleTypeMap.put(vehicleType.getTypeId(), vehicleType);
+		}
+		
 	}
     
 	@Override
@@ -1012,6 +1059,13 @@ public class CacheManagerImpl implements CacheManager {
 		return vehicleDetailMap.get(vehicleId);
 		
 	}
+	
+	@Override
+	public VehicleType getVehicleTypeByTypeId(Long typeId){
+		logger.info("{} : Get Vehicle Type By Type Id:{} ",this.getClass().getName(), typeId);		
+		return vehicleTypeMap.get(typeId);
+	}
+	
 
 }
 

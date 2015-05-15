@@ -225,7 +225,7 @@ Insert into TransportAllocation
  
 select
 
-	Type,
+	Type_Id,
 	Capacity ,
 	Vehicle_No,
 	Route_Code,
@@ -244,13 +244,13 @@ select
  
  insert into VehicleDetail 
  
-    (Type,
+    (Type_Id,
 	Capacity ,
 	Vehicle_No,
 	Route_Code,
 	Vehicle_Id) values 
 	
-	(:Type,
+	(:Type_Id,
 	:Capacity,
 	:Vehicle_No,
 	:Route_Code,
@@ -266,7 +266,7 @@ select
  
  update VehicleDetail set
  
-    Type=:Type,
+    Type_Id=:Type_Id,
 	Capacity=:Capacity ,
 	Vehicle_No=:Vehicle_No,
 	Route_Code=:Route_Code
