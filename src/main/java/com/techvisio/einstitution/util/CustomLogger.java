@@ -124,12 +124,11 @@ public class CustomLogger {
 	}
 
 	public void info(String msg) {
-		// TODO Auto-generated method stub
-
+		log.info(msg);
 	}
 
 	public void info(String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.info(format, arg);
 
 	}
 
@@ -258,8 +257,7 @@ public class CustomLogger {
 	}
 
 	public void error(String format, Object... arguments) {
-		// TODO Auto-generated method stub
-
+	log.error(format, arguments);	
 	}
 
 	public void error(String msg, Throwable t) {

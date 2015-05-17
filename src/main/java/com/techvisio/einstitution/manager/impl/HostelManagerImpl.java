@@ -12,6 +12,7 @@ import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.HostelManager;
 import com.techvisio.einstitution.util.ContextProvider;
@@ -50,9 +51,9 @@ public class HostelManagerImpl implements HostelManager {
   public void saveRoomDetail(RoomAllocationDetail roomAllocationDetail){
 		
 		RoomAllocationDetail newRoomAllocation = roomAllocationDetail;
-		RoomAllocationDetail oldRoomAllocation = getHostelAllocation(roomAllocationDetail.getFileNo());
+		RoomAllocationDetail oldRoomAllocation = getActiveRoomAllocationDetail(newRoomAllocation.getFileNo());
 		
-		if(oldRoomAllocation.isAllocated()){
+		if(oldRoomAllocation!=null && oldRoomAllocation.isAllocated() ){
 			
 			if(oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
 				
@@ -60,7 +61,7 @@ public class HostelManagerImpl implements HostelManager {
 				addHostelAllocation(newRoomAllocation);
 			}
 		}
-		if(!oldRoomAllocation.isAllocated()){
+		else{
 			
 			addHostelAllocation(newRoomAllocation);
 		}
@@ -74,10 +75,10 @@ public class HostelManagerImpl implements HostelManager {
 		hostelDao.addHostelAllocation(hostelAllocation);
 	}
 
-	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
-		logger.info("{} : calling updateHostelAllocation method for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
-		hostelDao.updateHostelAllocation(hostelAllocation);
-	}
+//	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
+//		logger.info("{} : calling updateHostelAllocation method for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
+//		hostelDao.updateHostelAllocation(hostelAllocation);
+//	}
 
 	public void deleteHostelAllocation(Long fileNo) {
 		logger.info("{} : calling deleteHostelAllocation method by passing fileNo:{} ",this.getClass().getName(), fileNo);
@@ -150,17 +151,21 @@ public class HostelManagerImpl implements HostelManager {
 public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
 	logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
 	
-	RoomAllocationDetail roomAllocationDetail = hostelAllocationAdmissionBean.getHostelAllocation();
+	RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
 	
+	StudentBasicInfo basicInfo = hostelAllocationAdmissionBean.getBasicInfo();
+	Long fileNo = basicInfo.getFileNo();
+	roomAllocationDetail.setFileNo(fileNo);
 	saveRoomDetail(roomAllocationDetail);
+	
 }
 
-@Override
-public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-	logger.info("{} : calling updateHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
-	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
-	updateHostelAllocation(hostelAllocation);
-}
+//@Override
+//public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
+//	logger.info("{} : calling updateHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
+//	RoomAllocationDetail hostelAllocation = hostelAllocationAdmissionBean.getHostelAllocation();
+//	updateHostelAllocation(hostelAllocation);
+//}
 
 @Override
 public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo) {
@@ -169,9 +174,9 @@ public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo) {
 }
 
 @Override
-public RoomAllocationDetail getRoomAllocatedDetailForStudent(Long fileNo) {
+public RoomAllocationDetail getActiveRoomAllocationDetail(Long fileNo) {
 
-	return hostelDao.getRoomAllocatedDetailForStudent(fileNo);
+	return hostelDao.getActiveRoomAllocationDtl(fileNo);
 }
 
 @Override

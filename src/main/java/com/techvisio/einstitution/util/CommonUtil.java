@@ -220,4 +220,23 @@ public class CommonUtil {
 		return criteria;
 	}
 
+	public static Long getLongToObject(Object object) {
+		if(object != null){
+		
+			String s = object.toString();
+			return Long.valueOf(s);		}
+			 
+			return null;
+	}
+	
+	public static Integer getIntegerToObject(Object object) {
+		if(object != null){
+		
+			String s = object.toString();
+			return Integer.valueOf(s);	}
+			 
+			return null;
+	}
+	
+	
 }

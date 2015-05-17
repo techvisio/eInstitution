@@ -1,5 +1,6 @@
 <div ng-controller="hostelController" ng-init="getHostelAvailability(); init()">
-
+<div ng-init="getRoomAllocationDtlByRoomNo()"></div>
+<div  ng-init="getRoomAllocationDtlForStudent()"></div>
  <div ng-include src="'hostelAllocation.html'" ng-if="form.content==='dashboard'">
 </div>
 
@@ -117,7 +118,7 @@
 				ng-model="hostelAllocationAdmissionDtl.basicInfo.branch.branchName"></td>
 		</tr>
 		
-         <tr><td colspan=2><span class="header">Room Detail</span></td></tr>      
+         <tr><td colspan=2><span class="header">Room Allocation Detail</span></td></tr>      
         
          <tr>
 		
@@ -139,12 +140,10 @@
 						</td>
 			<td><span> Room No </span></td>
 			<td><select ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.roomNo"
-							ng-options="item.id as item.value for item in serverModelData.dropdownMasterData.ROOMNO"|filter: {parentId : hostelAllocationAdmissionDtl.hostelAllocation.roomTypeDetail.wingId}></select>
+							ng-options="item.roomNo as item.roomNo for item in serverModelData.dropdownMasterData.ROOMNO"|filter: {parentId : item.wingId}></select>
 						</td>
 		</tr>
 		
-<tr><td colspan=2><span class="header">Room Allocation Detail</span></td></tr>
-
 <tr>
 <td><span>Allocated By</span></td>
 <td><input type="text"

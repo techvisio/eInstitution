@@ -17,7 +17,7 @@ public interface TransportManager {
 	
 	public TransportAllocation getTransportAllocationDtl(Long fileNo);
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
-	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
+//	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
 	public void deleteTransportAllocationDtl(Long fileNo);
 
 	public TransportReservation getTransportReservationDtl(Long fileNo);
@@ -32,9 +32,9 @@ public interface TransportManager {
 
 	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
 
-	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
+//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
 
-	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
-	public TransportAllocation getVehicleAllocatedDetail(Long fileNo);
+//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
+	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo);
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
 }

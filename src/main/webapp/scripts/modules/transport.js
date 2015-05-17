@@ -122,6 +122,7 @@ transportModule.controller('transportController', ['$scope','transportService',f
 		$scope.getTransportlAllocationAdmissionDetail = function(){
 			
 			 console.log('getTransportlAllocationAdmissionDetail called in controller');
+			 var fileNo = prompt("enter file no" + " ")
 			 transportService.getTransportlAllocationAdmissionDetail(fileNo)
 			 .then(function(response) {
 				 console.log('getTransportlAllocationAdmissionDetail Data received from service : ');
@@ -189,23 +190,23 @@ transportModule.controller('transportController', ['$scope','transportService',f
 			};
 
 
-			 $scope.getTransportAllocationDtlForVehicle = function(){
-
-					console.log('getTransportAllocationDtlForVehicle called in controller');
-					var vehicleId = prompt("enter vehicle id" + " ") 
-					transportService.getTransportAllocationDtlForVehicle(vehicleId)
-					.then(function(response) {
-						console.log(' getTransportAllocationDtlForVehicle Data received from service in controller : ');
-						console.log(response);
-						if (response != null && response.data != null && response.data.responseBody != null) {
-							$scope.TransportAllocationDtlForVehicle = response.data.responseBody;
-
-						} else {
-							console.log(response.data.error);
-							alert(response.data.error);
-						}
-					})
-				};
+//			 $scope.getTransportAllocationDtlForVehicle = function(){
+//
+//					console.log('getTransportAllocationDtlForVehicle called in controller');
+//					var vehicleId = prompt("enter vehicle id" + " ") 
+//					transportService.getTransportAllocationDtlForVehicle(vehicleId)
+//					.then(function(response) {
+//						console.log(' getTransportAllocationDtlForVehicle Data received from service in controller : ');
+//						console.log(response);
+//						if (response != null && response.data != null && response.data.responseBody != null) {
+//							$scope.TransportAllocationDtlForVehicle = response.data.responseBody;
+//
+//						} else {
+//							console.log(response.data.error);
+//							alert(response.data.error);
+//						}
+//					})
+//				};
 
 		 
 } ]);
@@ -223,7 +224,7 @@ transportModule.service('transportService', function($http, $q) {
 		addTransportAllocationAdmissionDetail : addTransportAllocationAdmissionDetail,
 		updateTransportAllocationAdmissionDetail : updateTransportAllocationAdmissionDetail,
 		getTransportAllocationDtlForStudent : getTransportAllocationDtlForStudent,
-		getTransportAllocationDtlForVehicle : getTransportAllocationDtlForVehicle
+//		getTransportAllocationDtlForVehicle : getTransportAllocationDtlForVehicle
 	});
 
 	function getAvailableTransport() {
@@ -356,19 +357,19 @@ transportModule.service('transportService', function($http, $q) {
 
 	}
 
-	function getTransportAllocationDtlForVehicle(vehicleId){
-		console.log('getTransportAllocationDtlForVehicle called in service');
-		var request = $http({
-			method : "get",
-			url : "transport/transportAllocationDetailForVehicle/"+vehicleId,
-			params : {
-				action : "get"
-			}
-		});
-
-		return (request.then(handleSuccess, handleError));
-
-	}
+//	function getTransportAllocationDtlForVehicle(vehicleId){
+//		console.log('getTransportAllocationDtlForVehicle called in service');
+//		var request = $http({
+//			method : "get",
+//			url : "transport/transportAllocationDetailForVehicle/"+vehicleId,
+//			params : {
+//				action : "get"
+//			}
+//		});
+//
+//		return (request.then(handleSuccess, handleError));
+//
+//	}
 
 	function handleError(response) {
 		console.log('handle error');

@@ -193,7 +193,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 			var roomNo = prompt("enter room no" + " ") 
 			hostelService.getRoomAllocationDtlByRoomNo(roomNo)
 			.then(function(response) {
-				console.log(' getRoomAllocation Data received from service in controller : ');
+				console.log(' getRoomAllocationDtlByRoomNo Data received from service in controller : ');
 				console.log(response);
 				if (response != null && response.data != null && response.data.responseBody != null) {
 					$scope.RoomAllocationDetailForRoom = response.data.responseBody;
@@ -209,7 +209,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 		$scope.getRoomAllocationDtlForStudent = function(){
 
 			console.log('getRoomAllocationDtlForStudent called in controller');
-			var roomNo = prompt("enter file no" + " ") 
+			var fileNo = prompt("enter file no" + " ") 
 			hostelService.getRoomAllocationDtlForStudent(fileNo)
 			.then(function(response) {
 				console.log(' getRoomAllocationDtlForStudent Data received from service in controller : ');

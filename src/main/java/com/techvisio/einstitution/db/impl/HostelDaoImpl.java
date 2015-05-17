@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -18,13 +17,12 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
-import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.Section;
@@ -174,6 +172,8 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	// INSERT DATA IN HostelAllocation TABLE
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
 		logger.info("{} : Get hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
+		if(hostelAllocation!=null){
+		
 		String addQuery = hostelQueryProps.getProperty("addHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
 		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
@@ -184,44 +184,45 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		.addValue("IsAllocated", hostelAllocation.isAllocated());
 
 		getNamedParamJdbcTemplate().update(addQuery,namedParameter);
+		}
 	}
 
 
-	// UPDATE DATA IN HostelAllocation TABLE
-	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
-		logger.info("{} : update hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
-		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
-		SqlParameterSource namedParameter = getParameterMap(hostelAllocation);
-
-		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
-
-
-	}
+	//  UPDATE DATA IN HostelAllocation TABLE
+	//	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
+	//		logger.info("{} : update hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
+	//		String updateQuery = hostelQueryProps.getProperty("updateHostelAllocation");
+	//		SqlParameterSource namedParameter = getParameterMap(hostelAllocation);
+	//
+	//		getNamedParamJdbcTemplate().update(updateQuery,namedParameter);
+	//
+	//	}
 
 	//MapSqlParameterSource work for RoomAllocationDetail
 
-	private MapSqlParameterSource getParameterMap(RoomAllocationDetail hostelAllocation){
-		logger.info("{} : Set value in particular field through MapSqlParameterSource for RoomAllocationDetail. File No:{}",this.getClass().getName(), hostelAllocation.getFileNo());
-		return new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
-		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
-		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
-		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
-		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
-		.addValue("File_No", hostelAllocation.getFileNo())
-		.addValue("IsAllocated", hostelAllocation.isAllocated())
-		.addValue("Remark", hostelAllocation.getRemark());
-	}
+//	private MapSqlParameterSource getParameterMap(RoomAllocationDetail hostelAllocation){
+//		logger.info("{} : Set value in particular field through MapSqlParameterSource for RoomAllocationDetail. File No:{}",this.getClass().getName(), hostelAllocation.getFileNo());
+//		return new MapSqlParameterSource("Room_No", hostelAllocation.getRoomTypeDetail().getRoomNo())
+//		.addValue("Allocated_On", hostelAllocation.getAllocatedOn())
+//		.addValue("Allocated_By", hostelAllocation.getAllocatedBy())
+//		.addValue("Checkout_On", hostelAllocation.getCheckoutOn())
+//		.addValue("Updated_By", hostelAllocation.getUpdatedBy())
+//		.addValue("File_No", hostelAllocation.getFileNo())
+//		.addValue("IsAllocated", hostelAllocation.isAllocated())
+//		.addValue("Remark", hostelAllocation.getRemark());
+//	}
 
 	//DELETE DATA FROM HostelAllocation TABLE	
 	public void deleteHostelAllocation(Long fileNo) {
 		logger.info("{} : delete hostel allocation by file no:{}",this.getClass().getName(), fileNo);
 
 		RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
+		Date date = new Date();
 		roomAllocationDetail.setAllocated(false);
+		roomAllocationDetail.setCheckoutOn(date);
 		addHostelAllocation(roomAllocationDetail);
 
 	}
-
 
 	// GET DATA FROM HostelReservation TABLE
 	public HostelReservation getHostelReservation(Long fileNo) {
@@ -250,13 +251,8 @@ if(hostelInventories != null && hostelInventories.size()>0){
 if(hostelReservations != null && hostelReservations.size()>0){
 	hostelRes = hostelReservations.get(0);
 }*/
-
 		return hostelReservation;
-
 	}
-
-
-
 
 	// INSERT DATA IN HostelReservation TABLE
 	public void addHostelReservation(HostelReservation hostelReservation) {
@@ -284,10 +280,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 		.addValue("Is_Active",hostelReservation.isActive());
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
-
 	}
-
 
 	// DELETE DATA FROM HostelReservation TABLE	
 	public void deleteHostelReservation(Long fileNo) {
@@ -327,8 +320,6 @@ if(hostelReservations != null && hostelReservations.size()>0){
 		return roomTypeDetail;
 	}
 
-
-
 	// INSERT DATA IN RoomTypeDetail TABLE
 	public void addRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 		logger.info("{} : add room type detail for type code:{}",this.getClass().getName(), roomTypeDetail.getTypeCode());
@@ -367,8 +358,6 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 
-
-
 	public List<HostelAvailability> getHostelAvailability() {
 		logger.info("{} : get hostel availability",this.getClass().getName());
 		String getQuery = hostelQueryProps.getProperty("getHostelAvailability");
@@ -393,9 +382,9 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
 	@Override
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
-	logger.info("{} : get current allocation by room no :{}",this.getClass().getName(), roomNo);
+		logger.info("{} : get current allocation by room no :{}",this.getClass().getName(), roomNo);
 
-	
+
 		String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
@@ -412,35 +401,35 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
 			StudentBasicInfo basicInfo= new StudentBasicInfo();
 			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
-			basicInfo.setFileNo((Long)(allocationMap.get("File_No")));
+			basicInfo.setFileNo((CommonUtil.getLongToObject(allocationMap.get("File_No"))));
 			basicInfo.setFirstName((String)(allocationMap.get("First_Name")));
 			basicInfo.setLastName((String)(allocationMap.get("Last_Name")));
 			basicInfo.setFatherName((String)(allocationMap.get("Father_name")));
 			basicInfo.setGender((String)(allocationMap.get("Gender")));
 			basicInfo.setDob((Date)(allocationMap.get("DOB")));
 			basicInfo.setEnrollmentNo((String)(allocationMap.get("Enroll_No")));
-			Long courseId=CommonUtil.getLongValue(((Long)(allocationMap.get("Course_Id"))));
+			Long courseId=((CommonUtil.getLongToObject(allocationMap.get("Course_Id"))));
 			Course course = cacheManager.getCourseById(courseId);
 			basicInfo.setCourse(course);
-			Long branchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Branch_Id"))));
+			Long branchId=((CommonUtil.getLongToObject(allocationMap.get("Branch_Id"))));
 			Branch branch = cacheManager.getBranchById(branchId);
 			basicInfo.setBranch(branch);
 			basicInfo.setSemester((String)(allocationMap.get("Semester")));
 			basicInfo.setAcademicYear((String)(allocationMap.get("Academic_Year")));
-			Long batchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Batch_Id"))));
+			Long batchId=((CommonUtil.getLongToObject(allocationMap.get("Batch_Id"))));
 			Batch batch = cacheManager.getBatchByBatchId(batchId);
-            basicInfo.setBatch(batch);			
-			Long sectionId=((Long)(allocationMap.get("Section_Id")));
+			basicInfo.setBatch(batch);			
+			Long sectionId=((CommonUtil.getLongToObject(allocationMap.get("Section_Id"))));
 			Section section = cacheManager.getSectionBySectionId(sectionId);
 			basicInfo.setSection(section);
-			Long shiftId=((Long)(allocationMap.get("Shift_Id")));
+			Long shiftId=((CommonUtil.getLongToObject(allocationMap.get("Shift_Id"))));
 			Shift shift = cacheManager.getShiftByShiftId(shiftId);
 			basicInfo.setShift(shift);
-			Long centreId=((Long)(allocationMap.get("Centre_Id")));
+			Long centreId=((CommonUtil.getLongToObject(allocationMap.get("Centre_Id"))));
 			Centre centre = cacheManager.getCentreByCentreId(centreId);
 			basicInfo.setCentre(centre);
-			basicInfo.setRegistrationNo((String)(allocationMap.get("")));
-			Long sessionId=((Long)(allocationMap.get("Session_Id")));
+			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+			Long sessionId=((CommonUtil.getLongToObject(allocationMap.get("Session_Id"))));
 			Session session = cacheManager.getSessionBySessionId(sessionId);
 			basicInfo.setSession(session);
 			basicInfo.setLateral((Boolean)(allocationMap.get("Lateral")));
@@ -453,11 +442,8 @@ if(hostelReservations != null && hostelReservations.size()>0){
 
 	}
 
-
-
-
 	@Override
-	public RoomAllocationDetail getRoomAllocatedDetailForStudent(Long fileNo) {
+	public RoomAllocationDetail getActiveRoomAllocationDtl(Long fileNo) {
 		logger.info("{} : Get room allocation detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = hostelQueryProps.getProperty("getRoomAllocatedDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);

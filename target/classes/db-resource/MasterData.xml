@@ -561,7 +561,7 @@ from sectionmaster;
 
  Select 
  
-   Type,
+   Type_Id,
    Capacity,
    Vehicle_No,
    Route_Code,
@@ -571,6 +571,20 @@ from sectionmaster;
     ]]>
 
 	</entry>
+
+<entry key="getVehicleType">
+    <![CDATA[
+      
+
+ Select 
+ 
+   Type_Id,
+   Type    
+ from vehicletypemaster;    
+    ]]>
+
+	</entry>
+
 
 
 	

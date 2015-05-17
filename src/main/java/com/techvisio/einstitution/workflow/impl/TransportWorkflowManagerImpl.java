@@ -58,12 +58,12 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		logger.info("{} : calling addTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
 		transportManager.addTransportAllocationDtl(transportAllocation);
 	}
-
-	public void updateTransportAllocationDtl(
-			TransportAllocation transportAllocation) {
-		logger.info("{} : calling updateTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
-		transportManager.updateTransportAllocationDtl(transportAllocation);
-	}
+//
+//	public void updateTransportAllocationDtl(
+//			TransportAllocation transportAllocation) {
+//		logger.info("{} : calling updateTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
+//		transportManager.updateTransportAllocationDtl(transportAllocation);
+//	}
 
 	public void deleteTransportAllocationDtl(Long fileNo) {
 		logger.info("{} : calling deleteTransportAllocationDtl by passing fileNo:{} ",this.getClass().getName(), fileNo);
@@ -193,23 +193,23 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		transportManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
 	} 
 	
-	@Override
-	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-		logger.info("{} : calling updateTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
-		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
-	}
+//	@Override
+//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+//		logger.info("{} : calling updateTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
+//		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+//	}
+
+//	@Override
+//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
+//			Long vehicleId) {
+//		logger.info("{} : calling getCurrentAllocationByVehichleId.  Vehicle Id:{} ",this.getClass().getName(), vehicleId);
+//		return transportManager.getCurrentAllocationByVehichleId(vehicleId);
+//	}
 
 	@Override
-	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
-			Long vehicleId) {
-		logger.info("{} : calling getCurrentAllocationByVehichleId.  Vehicle Id:{} ",this.getClass().getName(), vehicleId);
-		return transportManager.getCurrentAllocationByVehichleId(vehicleId);
-	}
-
-	@Override
-	public TransportAllocation getVehicleAllocatedDetail(Long fileNo) {
+	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo) {
 		logger.info("{} : calling getVehicleAllocatedDetail by passing  file no:{} ",this.getClass().getName(), fileNo);
-		return transportManager.getVehicleAllocatedDetail(fileNo);
+		return transportManager.getActiveTransportAllocationDetail(fileNo);
 	}
 
 	@Override
@@ -222,7 +222,10 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	public TransportAllocationForStudent getAllocationForStudent(Long fileNo) {
 		TransportAllocationForStudent allocationForStudent = new TransportAllocationForStudent();
 		
-		TransportAllocation activeAllocation = getVehicleAllocatedDetail(fileNo);
+		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
+		allocationForStudent.setBasicInfo(basicInfo);
+		
+		TransportAllocation activeAllocation = getActiveTransportAllocationDetail(fileNo);
 		allocationForStudent.setActiveAllocation(activeAllocation);
 		
 		List<TransportAllocation> previousAllocation = getPreviousAllocatedDetail(fileNo);

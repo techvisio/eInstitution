@@ -561,7 +561,7 @@ from sectionmaster;
 
  Select 
  
-   Type,
+   Type_Id,
    Capacity,
    Vehicle_No,
    Route_Code,

@@ -20,6 +20,7 @@ import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
@@ -47,11 +48,11 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 	@Autowired
 	CacheManager cacheManager;
-	
+
 	public List<AvailableTransport> getAvailableTransports(){
 		logger.info("{} : get available transport",this.getClass().getName());		
 		String getQuery = transportQueryProps.getProperty("getAvailableTransport");
-		
+
 		List<AvailableTransport> availableTransports = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<AvailableTransport>() {
 
 			public AvailableTransport mapRow(ResultSet rs, int rowNum)
@@ -70,8 +71,8 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		});
 		return availableTransports;
 	}
-	
-	
+
+
 	public Transport getTransport(String routeCode) {
 		logger.info("{} : get transport for routecode:{}",this.getClass().getName(), routeCode);
 		String getQuery = transportQueryProps
@@ -97,7 +98,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 					}
 				});
 
- 		Transport transport = null;
+		Transport transport = null;
 
 		if (transports != null && transports.size() > 0) {
 
@@ -163,10 +164,11 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 						TransportAllocation transportAllocation = new TransportAllocation();
 
 						transportAllocation.setFileNo(rs.getLong("File_No"));
-						
+
 						Long vehicleId = (CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
 						VehicleDetail vehicleDetail = cacheManager.getVehicleDeatilByVehicleId(vehicleId);
-						
+						transportAllocation.setVehicleDetail(vehicleDetail);
+
 						transportAllocation.setVehicleDetail(vehicleDetail);
 						transportAllocation.setAllocated(rs.getBoolean("isAllocated"));
 						transportAllocation.setAllocatedBy(rs.getString("Allocated_By"));
@@ -188,53 +190,46 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 		return transportAllocation;
 	}
 
-	public void addTransportAllocationDtl(
-			TransportAllocation transportAllocation) {
+	public void addTransportAllocationDtl(TransportAllocation transportAllocation) {
 		logger.info("{} : add transport allocation detail for file no :{}",this.getClass().getName(), transportAllocation.getFileNo());
-		String addQuery = transportQueryProps
-				.getProperty("addTransportAllocation");
+		String addQuery = transportQueryProps.getProperty("addTransportAllocation");
 
 		SqlParameterSource namedParameter = getParameterSource(transportAllocation);
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 	}
 
-	
-	
-	public void updateTransportAllocationDtl(
-			TransportAllocation transportAllocation) {
-		logger.info("{} : update transport allocation detail for file no :{}",this.getClass().getName(), transportAllocation.getFileNo());
-		String updateQuery = transportQueryProps
-				.getProperty("updateTransportAllocation");
+//	public void updateTransportAllocationDtl(
+//			TransportAllocation transportAllocation) {
+//		logger.info("{} : update transport allocation detail for file no :{}",this.getClass().getName(), transportAllocation.getFileNo());
+//		String updateQuery = transportQueryProps
+//				.getProperty("updateTransportAllocation");
+//
+//		SqlParameterSource namedParameter = getParameterSource(transportAllocation);
+//
+//		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
+//
+//	}
 
-		SqlParameterSource namedParameter = getParameterSource(transportAllocation);
-
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
+	private MapSqlParameterSource getParameterSource (TransportAllocation transportAllocation){
+		logger.info("{} : Adding value in particular field through MapSqlParameterSource ",this.getClass().getName());
+		return new MapSqlParameterSource("File_No", transportAllocation.getFileNo())
+		.addValue("Vehicle_Id", transportAllocation.getVehicleDetail().getVehicleId())
+		.addValue("Allocated_on", transportAllocation.getAllocatedOn())
+		.addValue("Allocated_By", transportAllocation.getAllocatedBy())
+		.addValue("Updated_by", transportAllocation.getUpdatedBy())
+		.addValue("Switched_On", transportAllocation.getSwitchedOn())
+		.addValue("isAllocated", transportAllocation.isAllocated())	
+		.addValue("Remark", transportAllocation.getRemark());
 
 	}
-
-	
-private MapSqlParameterSource getParameterSource (TransportAllocation transportAllocation){
-	logger.info("{} : Adding value in particular field through MapSqlParameterSource ",this.getClass().getName());
-	return new MapSqlParameterSource("File_No", transportAllocation.getFileNo())
-											.addValue("Vehicle_Id", transportAllocation.getVehicleDetail().getVehicleId())
-											.addValue("Allocated_on", transportAllocation.getAllocatedOn())
-											.addValue("Allocated_By", transportAllocation.getAllocatedBy())
-											.addValue("Updated_by", transportAllocation.getUpdatedBy())
-											.addValue("Switched_On", transportAllocation.getSwitchedOn())
-											.addValue("isAllocated", transportAllocation.isAllocated())	
-											.addValue("Remark", transportAllocation.getRemark());
-	
-}
 	public void deleteTransportAllocationDtl(Long fileNo) {
 		logger.info("{} : delete transport allocation detail for file no :{}",this.getClass().getName(), fileNo);
-		String deleteQuery = transportQueryProps
-				.getProperty("deleteTransportAllocation");
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"File_No", fileNo);
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
+		TransportAllocation transportAllocation = new TransportAllocation();
+		Date date = new Date();
+		transportAllocation.setAllocated(false);
+		transportAllocation.setSwitchedOn(date);
+		addTransportAllocationDtl(transportAllocation);
 	}
 
 	public TransportReservation getTransportReservationDtl(Long fileNo) {
@@ -264,7 +259,7 @@ private MapSqlParameterSource getParameterSource (TransportAllocation transportA
 						transportReservation.setActive(rs.getBoolean("Is_Active"));
 						transportReservation.setPrice(rs.getDouble("Price"));
 						transportReservation.setDescription(rs.getString("Description"));
-						
+
 						return transportReservation;
 					}
 				});
@@ -404,155 +399,125 @@ private MapSqlParameterSource getParameterSource (TransportAllocation transportA
 
 
 	@Override
-	public TransportAllocation getVehicleAllocatedDetail(Long fileNo) {
+	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo) {
 		logger.info("{} : get vehicle allocated detail for file no :{}",this.getClass().getName(), fileNo);
 		String getQuery = transportQueryProps.getProperty("getVehicleAllocatedDetail");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
 		List<TransportAllocation> transportAllocations = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<TransportAllocation>(){
 
 			@Override
 			public TransportAllocation mapRow(ResultSet rs, int arg1)
 					throws SQLException {
 				TransportAllocation allocation = new TransportAllocation();
-				allocation.setAllocated(rs.getBoolean(""));
-				allocation.setAllocatedBy(rs.getString(""));
-				allocation.setAllocatedOn(rs.getDate(""));
-				allocation.setFileNo(CommonUtil.getLongValue(rs.getLong("")));
-				allocation.setRemark(rs.getString(""));
-				allocation.setSwitchedOn(rs.getDate(""));
-				allocation.setUpdatedBy(rs.getString(""));
-				Long vehicleId = (CommonUtil.getLongValue(rs.getLong("")));
+				allocation.setAllocated(rs.getBoolean("isAllocated"));
+				allocation.setAllocatedBy(rs.getString("Allocated_By"));
+				allocation.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocation.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				allocation.setRemark(rs.getString("Remark"));
+				allocation.setSwitchedOn(rs.getDate("Switched_On"));
+				allocation.setUpdatedBy(rs.getString("Updated_by"));
+				Long vehicleId = (CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
 				VehicleDetail vehicleDetail = cacheManager.getVehicleDeatilByVehicleId(vehicleId);
 				allocation.setVehicleDetail(vehicleDetail);
-						
-				
+
 				return allocation;
 			}
-			
+
 		});
 		TransportAllocation transportAllocation = null;
 		if(transportAllocations !=null && transportAllocations.size() >0 ){
 			transportAllocation = transportAllocations.get(0);
 		}
-		
+
 		return transportAllocation;
 	}
-/*
-SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
-		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
-
-			@Override
-			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
-					throws SQLException {
-				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
-				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
-				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
-				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
-				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
-				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
-				allocationDetail.setRemark(rs.getString("Remark"));
-				 String roomNo = rs.getString("Room_No");
-	                RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
-	                allocationDetail.setRoomTypeDetail(typeDetail);
-	                allocationDetail.setUpdatedBy(rs.getString("updated_by"));
-				return allocationDetail;
-			}
-			
-		});
-		RoomAllocationDetail roomAllocationDetail = null;
-		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
-			roomAllocationDetail = roomAllocationDetails.get(0);
-		}
-
-		return roomAllocationDetail;
-	}
- */
 
 	@Override
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo) {
 		logger.info("{} : Get previous allocation detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = transportQueryProps.getProperty("getPreviousAllocatedDetail");
-		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo);
 		List<TransportAllocation> transportAllocations = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<TransportAllocation>(){
 
 			@Override
 			public TransportAllocation mapRow(ResultSet rs, int arg1)
 					throws SQLException {
 				TransportAllocation allocation = new TransportAllocation();
-				allocation.setAllocated(rs.getBoolean(""));
-				allocation.setAllocatedBy(rs.getString(""));
-				allocation.setAllocatedOn(rs.getDate(""));
-				allocation.setFileNo(CommonUtil.getLongValue(rs.getLong("")));
-				allocation.setRemark(rs.getString(""));
-				allocation.setSwitchedOn(rs.getDate(""));
-				allocation.setUpdatedBy(rs.getString(""));
-				Long vehicleId = (CommonUtil.getLongValue(rs.getLong("")));
+				allocation.setAllocated(rs.getBoolean("isAllocated"));
+				allocation.setAllocatedBy(rs.getString("Allocated_By"));
+				allocation.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocation.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+				allocation.setRemark(rs.getString("Remark"));
+				allocation.setSwitchedOn(rs.getDate("Switched_On"));
+				allocation.setUpdatedBy(rs.getString("Updated_by"));
+				Long vehicleId = (CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
 				VehicleDetail vehicleDetail = cacheManager.getVehicleDeatilByVehicleId(vehicleId);
 				allocation.setVehicleDetail(vehicleDetail);
+
 				return allocation;
 			}
-			
+
 		});
 		return transportAllocations;
 	}
 
 
-	@Override
-	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId) {
-		logger.info("{} : get current allocation by vehicle id :{}",this.getClass().getName(), vehicleId);
-		
-		 String getQuery = transportQueryProps.getProperty("getCurrentAllocation");
-		 SqlParameterSource namedParameter = new MapSqlParameterSource("Vehicle_Id",vehicleId);
-		 
-		 TransportAllocationDtlForVehicle currentAllocation = new TransportAllocationDtlForVehicle();
-			List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
-			currentAllocation.setBasicInfo(basicInfos);
-			List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
-
-			for (Map<String, Object> allocationMap : roomAllocationMaps) {
-
-				currentAllocation.setCapacity((Integer) (allocationMap.get("Room_Capacity")));
-				currentAllocation.setVehicleId((Long)(allocationMap.get("Vehicle_Id")));
-
-				StudentBasicInfo basicInfo= new StudentBasicInfo();
-				basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
-				basicInfo.setFileNo((Long)(allocationMap.get("File_No")));
-				basicInfo.setFirstName((String)(allocationMap.get("First_Name")));
-				basicInfo.setLastName((String)(allocationMap.get("Last_Name")));
-				basicInfo.setFatherName((String)(allocationMap.get("Father_name")));
-				basicInfo.setGender((String)(allocationMap.get("Gender")));
-				basicInfo.setDob((Date)(allocationMap.get("DOB")));
-				basicInfo.setEnrollmentNo((String)(allocationMap.get("Enroll_No")));
-				Long courseId=CommonUtil.getLongValue(((Long)(allocationMap.get("Course_Id"))));
-				Course course = cacheManager.getCourseById(courseId);
-				basicInfo.setCourse(course);
-				Long branchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Branch_Id"))));
-				Branch branch = cacheManager.getBranchById(branchId);
-				basicInfo.setBranch(branch);
-				basicInfo.setSemester((String)(allocationMap.get("Semester")));
-				basicInfo.setAcademicYear((String)(allocationMap.get("Academic_Year")));
-				Long batchId=CommonUtil.getLongValue(((Long)(allocationMap.get("Batch_Id"))));
-				Batch batch = cacheManager.getBatchByBatchId(batchId);
-	            basicInfo.setBatch(batch);			
-				Long sectionId=((Long)(allocationMap.get("Section_Id")));
-				Section section = cacheManager.getSectionBySectionId(sectionId);
-				basicInfo.setSection(section);
-				Long shiftId=((Long)(allocationMap.get("Shift_Id")));
-				Shift shift = cacheManager.getShiftByShiftId(shiftId);
-				basicInfo.setShift(shift);
-				Long centreId=((Long)(allocationMap.get("Centre_Id")));
-				Centre centre = cacheManager.getCentreByCentreId(centreId);
-				basicInfo.setCentre(centre);
-				basicInfo.setRegistrationNo((String)(allocationMap.get("")));
-				Long sessionId=((Long)(allocationMap.get("Session_Id")));
-				Session session = cacheManager.getSessionBySessionId(sessionId);
-				basicInfo.setSession(session);
-				basicInfo.setLateral((Boolean)(allocationMap.get("Lateral")));
-
-				basicInfos.add(basicInfo);
-
-			}	
-		 return currentAllocation;
-	}
+//	@Override
+//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId) {
+//		logger.info("{} : get current allocation by vehicle id :{}",this.getClass().getName(), vehicleId);
+//
+//		String getQuery = transportQueryProps.getProperty("getCurrentAllocation");
+//		SqlParameterSource namedParameter = new MapSqlParameterSource("Vehicle_Id",vehicleId);
+//
+//		TransportAllocationDtlForVehicle currentAllocation = new TransportAllocationDtlForVehicle();
+//		List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
+//		currentAllocation.setBasicInfo(basicInfos);
+//		List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
+//
+//		for (Map<String, Object> allocationMap : roomAllocationMaps) {
+//
+//			currentAllocation.setCapacity((CommonUtil.getIntegerToObject(allocationMap.get("Capacity"))));
+//			currentAllocation.setVehicleId((CommonUtil.getLongToObject(allocationMap.get("Vehicle_Id"))));
+//
+//			StudentBasicInfo basicInfo= new StudentBasicInfo();
+//			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+//			basicInfo.setFileNo((CommonUtil.getLongToObject(allocationMap.get("File_No"))));
+//			basicInfo.setFirstName((String)(allocationMap.get("First_Name")));
+//			basicInfo.setLastName((String)(allocationMap.get("Last_Name")));
+//			basicInfo.setFatherName((String)(allocationMap.get("Father_name")));
+//			basicInfo.setGender((String)(allocationMap.get("Gender")));
+//			basicInfo.setDob((Date)(allocationMap.get("DOB")));
+//			basicInfo.setEnrollmentNo((String)(allocationMap.get("Enroll_No")));
+//			Long courseId=((CommonUtil.getLongToObject(allocationMap.get("Course_Id"))));
+//			Course course = cacheManager.getCourseById(courseId);
+//			basicInfo.setCourse(course);
+//			Long branchId=((CommonUtil.getLongToObject(allocationMap.get("Branch_Id"))));
+//			Branch branch = cacheManager.getBranchById(branchId);
+//			basicInfo.setBranch(branch);
+//			basicInfo.setSemester((String)(allocationMap.get("Semester")));
+//			basicInfo.setAcademicYear((String)(allocationMap.get("Academic_Year")));
+//			Long batchId=((CommonUtil.getLongToObject(allocationMap.get("Batch_Id"))));
+//			Batch batch = cacheManager.getBatchByBatchId(batchId);
+//			basicInfo.setBatch(batch);			
+//			Long sectionId=((CommonUtil.getLongToObject(allocationMap.get("Section_Id"))));
+//			Section section = cacheManager.getSectionBySectionId(sectionId);
+//			basicInfo.setSection(section);
+//			Long shiftId=((CommonUtil.getLongToObject(allocationMap.get("Shift_Id"))));
+//			Shift shift = cacheManager.getShiftByShiftId(shiftId);
+//			basicInfo.setShift(shift);
+//			Long centreId=((CommonUtil.getLongToObject(allocationMap.get("Centre_Id"))));
+//			Centre centre = cacheManager.getCentreByCentreId(centreId);
+//			basicInfo.setCentre(centre);
+//			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+//			Long sessionId=((CommonUtil.getLongToObject(allocationMap.get("Session_Id"))));
+//			Session session = cacheManager.getSessionBySessionId(sessionId);
+//			basicInfo.setSession(session);
+//			basicInfo.setLateral((Boolean)(allocationMap.get("Lateral")));
+//
+//			basicInfos.add(basicInfo);
+//
+//		}	
+//		return currentAllocation;
+//	}
 
 }

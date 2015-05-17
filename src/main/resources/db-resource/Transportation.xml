@@ -331,7 +331,7 @@ from transportallocation where File_No=:File_No and isAllocated = 0;
 	<entry key="getCurrentAllocation">
     <![CDATA[
       
- select 
+select 
    sd.File_No,
    sd.Registration_No,
    sd.First_Name,
@@ -351,12 +351,10 @@ from transportallocation where File_No=:File_No and isAllocated = 0;
    sd.Centre_Id,
    sd.Lateral,
    ta.Vehicle_Id,
-   vd.Capacity,
+   vd.Capacity
    
    from studentdetail sd join transportallocation ta on sd.File_No = ta.File_No
-   join vehicledetail vd on ta.Vehicle_Id = vd.Vehicle_Id
-   join transportmaster tm on vd.Route_Code = tm.Route_Code
-   where ta.isAllocated = 1 and ta.Vehicle_Id =:Vehicle_Id;
+   join vehicledetail vd on ta.Vehicle_Id = vd.Vehicle_Id where ta.isAllocated = 1 and ta.Vehicle_Id = :Vehicle_Id
      ]]>
 
 	</entry>

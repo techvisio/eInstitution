@@ -19,12 +19,12 @@ public interface HostelWorkflowManager {
 	
 	public RoomAllocationDetail getHostelAllocation(Long fileNo);
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation);
-	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
+//	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation( Long fileNo);
 
 	public RoomAllocationForStudent getAllocationForStudent(Long fileNo);
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo);
-	public RoomAllocationDetail getRoomAllocatedDetailForStudent (Long fileNo);
+	public RoomAllocationDetail getActiveRoomAllocationDetail (Long fileNo);
 	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo );
 	
 	public HostelReservation getHostelReservation(Long fileNo);
@@ -43,6 +43,6 @@ public interface HostelWorkflowManager {
 
 	public void saveHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 
-	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
+//	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 
 }

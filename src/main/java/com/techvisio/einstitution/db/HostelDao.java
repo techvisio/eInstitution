@@ -28,11 +28,11 @@ public interface HostelDao {
 	
 	public RoomAllocationDetail getHostelAllocation(Long fileNo);
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation);
-	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
+//	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation(Long fileNo);
 
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo);
-	public RoomAllocationDetail getRoomAllocatedDetailForStudent (Long fileNo);
+	public RoomAllocationDetail getActiveRoomAllocationDtl (Long fileNo);
 	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo );
 	
 	public HostelReservation getHostelReservation(Long fileNo);

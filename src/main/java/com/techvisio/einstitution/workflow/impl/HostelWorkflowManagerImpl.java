@@ -65,10 +65,10 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		hostelManager.addHostelAllocation(hostelAllocation);
 	}
 
-	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
-		logger.info("{} : calling updateHostelAllocation for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
-		hostelManager.updateHostelAllocation(hostelAllocation);
-	}
+//	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation) {
+//		logger.info("{} : calling updateHostelAllocation for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
+//		hostelManager.updateHostelAllocation(hostelAllocation);
+//	}
 
 	public void deleteHostelAllocation(Long fileNo) {
 		logger.info("{} : calling deleteHostelAllocation by passing fileNo:{} ",this.getClass().getName(), fileNo);
@@ -195,11 +195,11 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		hostelManager.addHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
 	} 
 
-	@Override
-	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-		logger.info("{} : calling updateHostelAllocationAdmissionDtl for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());		
-		hostelManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
-	}
+//	@Override
+//	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
+//		logger.info("{} : calling updateHostelAllocationAdmissionDtl for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());		
+//		hostelManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+//	}
 
 	@Override
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo) {
@@ -208,9 +208,9 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	@Override
-	public RoomAllocationDetail getRoomAllocatedDetailForStudent(Long fileNo) {
+	public RoomAllocationDetail getActiveRoomAllocationDetail(Long fileNo) {
 
-		return hostelManager.getRoomAllocatedDetailForStudent(fileNo);
+		return hostelManager.getActiveRoomAllocationDetail(fileNo);
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 		RoomAllocationForStudent allocationForStudent = new RoomAllocationForStudent();
 
-		RoomAllocationDetail activeAllocationDetail = getRoomAllocatedDetailForStudent(fileNo);
+		RoomAllocationDetail activeAllocationDetail = getActiveRoomAllocationDetail(fileNo);
 		allocationForStudent.setActiveAllocation(activeAllocationDetail);
 
 		List<RoomAllocationDetail> previousAllocationDetails = getPreviousAllocatedDetail(fileNo);

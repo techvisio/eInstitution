@@ -23,11 +23,11 @@ public interface TransportDao {
 
 	public TransportAllocation getTransportAllocationDtl(Long fileNo);
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
-	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
+//	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
 	public void deleteTransportAllocationDtl(Long fileNo);
 	
-	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
-	public TransportAllocation getVehicleAllocatedDetail(Long fileNo);
+//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
+	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo);
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
 
 	public TransportReservation getTransportReservationDtl(Long fileNo);

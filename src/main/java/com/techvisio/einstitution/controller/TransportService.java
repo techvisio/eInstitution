@@ -55,11 +55,11 @@ public class TransportService {
 			transportWorkflowManager.addTransportAllocationDtl(transportAllocation);
 		}
 		
-		@RequestMapping(value="/allocation",method = RequestMethod.PUT)
-		public void updateTransportAllocation(@RequestBody TransportAllocation transportAllocation) {  
-			logger.info("{}  Calling updateTransportAllocationDtl method for : fileNo :{}",this.getClass().getName(), transportAllocation.getFileNo());
-			transportWorkflowManager.updateTransportAllocationDtl(transportAllocation);
-		}
+//		@RequestMapping(value="/allocation",method = RequestMethod.PUT)
+//		public void updateTransportAllocation(@RequestBody TransportAllocation transportAllocation) {  
+//			logger.info("{}  Calling updateTransportAllocationDtl method for : fileNo :{}",this.getClass().getName(), transportAllocation.getFileNo());
+//			transportWorkflowManager.updateTransportAllocationDtl(transportAllocation);
+//		}
 		@RequestMapping(value="/allocation/{fileNo}",method = RequestMethod.DELETE)
 		public void deleteTransportAllocationDtl(@PathVariable Long fileNo ) {  
 			logger.info("{}  Calling deleteTransportAllocationDtl method by passing fileNo :{}",this.getClass().getName(), fileNo);
@@ -185,28 +185,28 @@ public class TransportService {
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
 	    	}
 		
-		@RequestMapping(value="hostelTransportAdmission",method = RequestMethod.PUT)
-		public ResponseEntity<Response> updateTransportAllocationAdmissionDtl(@RequestBody TransportAllocationAdmissionBean transportAllocationAdmissionBean) {
-			logger.info("{}: Calling updateTransportAllocationAdmissionDtl method for Student  :{}",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());
-			Response response = new Response();
-			try{
-				
-		        TransportWorkflowManager transportWorkflowManager = new TransportWorkflowManagerImpl();
-	            transportWorkflowManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
-
-	            Long fileNo = transportAllocationAdmissionBean.getBasicInfo().getFileNo();
-	            transportAllocationAdmissionBean = transportWorkflowManager.getTransportAllocationAdmissiondtl(fileNo);
-	            
-	            response.setResponseBody(transportAllocationAdmissionBean);
-	 		}
-			catch(Exception e)
-			{
-				logger.error("{}: Error While  Calling updateTransportAllocationAdmissionDtl method for Student :{}",this.getClass().getName(),transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());
-				response.setError(e.getLocalizedMessage());
-				
-			}
-			return new ResponseEntity<Response>(response,HttpStatus.OK);
-	    	}
+//		@RequestMapping(value="hostelTransportAdmission",method = RequestMethod.PUT)
+//		public ResponseEntity<Response> updateTransportAllocationAdmissionDtl(@RequestBody TransportAllocationAdmissionBean transportAllocationAdmissionBean) {
+//			logger.info("{}: Calling updateTransportAllocationAdmissionDtl method for Student  :{}",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());
+//			Response response = new Response();
+//			try{
+//				
+//		        TransportWorkflowManager transportWorkflowManager = new TransportWorkflowManagerImpl();
+//	            transportWorkflowManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+//
+//	            Long fileNo = transportAllocationAdmissionBean.getBasicInfo().getFileNo();
+//	            transportAllocationAdmissionBean = transportWorkflowManager.getTransportAllocationAdmissiondtl(fileNo);
+//	            
+//	            response.setResponseBody(transportAllocationAdmissionBean);
+//	 		}
+//			catch(Exception e)
+//			{
+//				logger.error("{}: Error While  Calling updateTransportAllocationAdmissionDtl method for Student :{}",this.getClass().getName(),transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());
+//				response.setError(e.getLocalizedMessage());
+//				
+//			}
+//			return new ResponseEntity<Response>(response,HttpStatus.OK);
+//	    	}
 		
 		@RequestMapping(value="transportAllocationAdmission/{fileNo}",method = RequestMethod.GET)
 		public ResponseEntity<Response> getConsultantAdmissionDetail(@PathVariable Long fileNo){
@@ -221,25 +221,27 @@ public class TransportService {
 			{
 				logger.error("{}: Error While Calling getTransportAllocationAdmissiondtl method by File no :{}",this.getClass().getName(),fileNo);
 				response.setError(e.getLocalizedMessage());
+				e.printStackTrace();
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
 	     	}
 
-		@RequestMapping(value ="/transportAllocationDetailForVehicle/{vehicleId}", method = RequestMethod.GET )
-		public ResponseEntity<Response> getTransportAllocationDetailForVehicle(@PathVariable Long vehicleId){
-			logger.info("{}:  Calling getCurrentAllocationByVehichleId method by passing vehicleId : {}",this.getClass().getName(), vehicleId);
-			Response response = new Response();
-			try {
-				TransportAllocationDtlForVehicle allocationDetailForVehicle = transportWorkflowManager.getCurrentAllocationByVehichleId(vehicleId);
-				response.setResponseBody(allocationDetailForVehicle);
-			} catch (Exception e) {
-				logger.error("{}:Error While Calling getCurrentAllocationByVehichleId method by passing vehicle id : {}",this.getClass().getName(),vehicleId);
-				response.setError(e.getMessage());
-			}
-			return new ResponseEntity<Response>(response,HttpStatus.OK);
-	
-		}
-		
+//		@RequestMapping(value ="/transportAllocationDetailForVehicle/{vehicleId}", method = RequestMethod.GET )
+//		public ResponseEntity<Response> getTransportAllocationDetailForVehicle(@PathVariable Long vehicleId){
+//			logger.info("{}:  Calling getCurrentAllocationByVehichleId method by passing vehicleId : {}",this.getClass().getName(), vehicleId);
+//			Response response = new Response();
+//			try {
+//				TransportAllocationDtlForVehicle allocationDetailForVehicle = transportWorkflowManager.getCurrentAllocationByVehichleId(vehicleId);
+//				response.setResponseBody(allocationDetailForVehicle);
+//			} catch (Exception e) {
+//				logger.error("{}:Error While Calling getCurrentAllocationByVehichleId method by passing vehicle id : {}",this.getClass().getName(),vehicleId);
+//				response.setError(e.getMessage());
+//				e.printStackTrace();
+//			}
+//			return new ResponseEntity<Response>(response,HttpStatus.OK);
+//	
+//		}
+//		
 		
 		@RequestMapping(value ="/studentTransportAllocationDtl/{fileNo}", method = RequestMethod.GET )	
 		public ResponseEntity<Response> getTransportAllocationDetailForStudent(@PathVariable Long fileNo){

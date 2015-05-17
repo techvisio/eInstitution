@@ -1,4 +1,6 @@
 <div ng-controller="transportController" ng-init="getAvailableTransport()">
+<div ng-init="getTransportAllocationDtlForStudent()"></div>
+
 
 <div ng-include src="'transportAllocation.html'" ng-if="form.content==='dashboard'">
 </div>
@@ -140,7 +142,7 @@
 		<tr><td><button type="button" class="btn btn-success"
 							ng-click="addConsultantAdmissionDetail()">Add</button></td>
 <td><button type="button" class="btn btn-success"
-							ng-click="getHostelAllocationAdmissionDetail()">Get</button></td>
+							ng-click="getTransportlAllocationAdmissionDetail()">Get</button></td>
 </tr>
 
 				</table>

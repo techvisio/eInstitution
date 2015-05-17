@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
@@ -19,53 +21,74 @@ public class TransportManagerImpl implements TransportManager {
 	private static CustomLogger logger = CustomLogger.getLogger(TaskFollowManagerImpl.class);
 	@Autowired
 	TransportDao transportDao;
-	
+
 	private static TransportManagerImpl instance=null;
 	public static synchronized TransportManagerImpl getInstance()
 	{
 		if(instance == null){
 			instance=new TransportManagerImpl();
 		}
-		
+
 		return instance;
 	}
-	
+
 	private TransportManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+
 	public List<AvailableTransport> getAvailableTransport(){
 		logger.info("{} : calling getAvailableTransports method  ",this.getClass().getName());
 		List<AvailableTransport> availableTransports = null;
-		
+
 		availableTransports = transportDao.getAvailableTransports();
 		return availableTransports;
-		
-		
+
+
 	}
-	
-	
+
+
 	public TransportAllocation getTransportAllocationDtl(Long fileNo) {
 		logger.info("{} : calling getTransportAllocationDtl method by passing fileno:{}  ",this.getClass().getName(), fileNo);
 		TransportAllocation transportAllocation=null;
-	
+
 		transportAllocation=transportDao.getTransportAllocationDtl(fileNo);
 
 		return transportAllocation;
 	}
 
-	public void addTransportAllocationDtl(
-			TransportAllocation transportAllocation) {
+	public void saveTransportDetail(TransportAllocation transportAllocation){
+
+		TransportAllocation newTransportAllocation = transportAllocation;
+		TransportAllocation oldTransportAllocation = getTransportAllocationDtl(transportAllocation.getFileNo());
+
+		if(oldTransportAllocation!=null && oldTransportAllocation.isAllocated()){
+
+			if(oldTransportAllocation.getVehicleDetail().getVehicleNo()!=newTransportAllocation.getVehicleDetail().getVehicleNo()){
+
+				deleteTransportAllocationDtl(oldTransportAllocation.getFileNo());
+				addTransportAllocationDtl(newTransportAllocation);
+			}
+		}
+		else{
+
+			addTransportAllocationDtl(newTransportAllocation);
+		}
+
+
+	}
+
+
+	public void addTransportAllocationDtl(TransportAllocation transportAllocation) {
 		logger.info("{} : calling addTransportAllocationDtl method for fileno:{}  ",this.getClass().getName(), transportAllocation.getFileNo());
 		transportDao.addTransportAllocationDtl(transportAllocation);
 	}
 
-	public void updateTransportAllocationDtl(
-			TransportAllocation transportAllocation) {
-		logger.info("{} : calling updateTransportAllocationDtl method for fileno:{}  ",this.getClass().getName(), transportAllocation.getFileNo());
-		transportDao.updateTransportAllocationDtl(transportAllocation);
-	}
+	//	public void updateTransportAllocationDtl(
+	//			TransportAllocation transportAllocation) {
+	//		logger.info("{} : calling updateTransportAllocationDtl method for fileno:{}  ",this.getClass().getName(), transportAllocation.getFileNo());
+	//		transportDao.updateTransportAllocationDtl(transportAllocation);
+	//	}
 
 	public void deleteTransportAllocationDtl(Long fileNo) {
 		logger.info("{} : calling deleteTransportAllocationDtl method by passing fileno:{}  ",this.getClass().getName(), fileNo);
@@ -118,32 +141,35 @@ public class TransportManagerImpl implements TransportManager {
 		logger.info("{} : calling deleteVehicleDetail method by passing vehicleId:{}  ",this.getClass().getName(),vehicleId);
 		transportDao.deleteVehicleDetail(vehicleId);
 	}
-	
+
 	@Override
 	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
 		logger.info("{} : add Transport Allocation AdmissionDtl for Student:{}  ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());		
 		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
-		updateTransportAllocationDtl(transportAllocation);
+		StudentBasicInfo basicInfo = transportAllocationAdmissionBean.getBasicInfo();
+		Long fileNo= basicInfo.getFileNo();
+		transportAllocation.setFileNo(fileNo);
+		saveTransportDetail(transportAllocation);
 	}
 
-	@Override
-	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-		logger.info("{} : update Transport Allocation AdmissionDtl for Student:{}  ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());		
-		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
-		updateTransportAllocationDtl(transportAllocation);
-	}
+	//	@Override
+	//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+	//		logger.info("{} : update Transport Allocation AdmissionDtl for Student:{}  ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());		
+	//		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
+	//		updateTransportAllocationDtl(transportAllocation);
+	//	}
+
+	//	@Override
+	//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
+	//			Long vehicleId) {
+	//		logger.info("{} : get Current Allocation By VehichleId:{}  ",this.getClass().getName(), vehicleId);
+	//		return transportDao.getCurrentAllocationByVehichleId(vehicleId);
+	//	}
 
 	@Override
-	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
-			Long vehicleId) {
-		logger.info("{} : get Current Allocation By VehichleId:{}  ",this.getClass().getName(), vehicleId);
-		return transportDao.getCurrentAllocationByVehichleId(vehicleId);
-	}
-
-	@Override
-	public TransportAllocation getVehicleAllocatedDetail(Long fileNo) {
+	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo) {
 		logger.info("{} : calling getVehicleAllocatedDetail by passing file no:{}  ",this.getClass().getName(), fileNo);
-		return transportDao.getVehicleAllocatedDetail(fileNo);
+		return transportDao.getActiveTransportAllocationDetail(fileNo);
 	}
 
 	@Override

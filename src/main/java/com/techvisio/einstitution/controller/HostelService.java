@@ -115,11 +115,11 @@ public class HostelService {
 		
 	}
 	
-	@RequestMapping(value="/hostelAllocation",method = RequestMethod.PUT)
-	public void updateHostelAllocation(@RequestBody RoomAllocationDetail hostelAllocation){
-		logger.info("{}:  Calling updateHostelAllocation method for fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
-		hostelWorkflowManager.updateHostelAllocation(hostelAllocation);
-	}
+//	@RequestMapping(value="/hostelAllocation",method = RequestMethod.PUT)
+//	public void updateHostelAllocation(@RequestBody RoomAllocationDetail hostelAllocation){
+//		logger.info("{}:  Calling updateHostelAllocation method for fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
+//		hostelWorkflowManager.updateHostelAllocation(hostelAllocation);
+//	}
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public void deleteHostelAllocation(@PathVariable Long fileNo){
@@ -219,8 +219,7 @@ public class HostelService {
 		Response response = new Response();
 		try{
 			
-			HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
-            hostelWorkflowManager.saveHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+			hostelWorkflowManager.saveHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
 
             Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
             hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
@@ -229,38 +228,38 @@ public class HostelService {
  		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
+			logger.error("{}: Error While Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo(),e);
 			response.setError(e.getLocalizedMessage());
 			
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
     	}
 	
-	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.PUT)
-	public ResponseEntity<Response> updateHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
-		logger.info("{}:  Calling updateHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
-		Response response = new Response();
-		try{
-			
-			HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
-            hostelWorkflowManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
-
-            Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
-            hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
-            
-            response.setResponseBody(hostelAllocationAdmissionBean);
- 		}
-		catch(Exception e)
-		{
-			logger.error("{}: Error While Calling updateHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
-			response.setError(e.getLocalizedMessage());
-			
-		}
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
-    	}
-	
+//	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.PUT)
+//	public ResponseEntity<Response> updateHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
+//		logger.info("{}:  Calling updateHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
+//		Response response = new Response();
+//		try{
+//			
+//			HostelWorkflowManager hostelWorkflowManager = new HostelWorkflowManagerImpl();
+//            hostelWorkflowManager.updateHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
+//
+//            Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
+//            hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+//            
+//            response.setResponseBody(hostelAllocationAdmissionBean);
+// 		}
+//		catch(Exception e)
+//		{
+//			logger.error("{}: Error While Calling updateHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
+//			response.setError(e.getLocalizedMessage());
+//			
+//		}
+//		return new ResponseEntity<Response>(response,HttpStatus.OK);
+//    	}
+//	
 	@RequestMapping(value="hostelAllocationAdmission/{fileNo}",method = RequestMethod.GET)
-	public ResponseEntity<Response> getConsultantAdmissionDetail(@PathVariable Long fileNo){
+	public ResponseEntity<Response> getHostelAllocationAdmissiondtl(@PathVariable Long fileNo){
 		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method by passing fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try{
@@ -282,7 +281,7 @@ public class HostelService {
      	}
 
 	@RequestMapping(value ="/studenRoomAllocationDtl/{fileNo}", method = RequestMethod.GET )
-	public ResponseEntity<Response> getRoomAllocationDetailForStudent(@PathVariable Long fileNo){
+	public ResponseEntity<Response> getCurrentAllocationDetailForStudent(@PathVariable Long fileNo){
 		logger.info("{}:  Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		
@@ -296,13 +295,14 @@ public class HostelService {
 		{
 			logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo);
 			response.setError(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value ="/RoomAllocationDtlForRoomNo/{roomNo}", method = RequestMethod.GET )
-	public ResponseEntity<Response> getRoomAllocationDetailForRoomNo(@PathVariable String roomNo){
+	public ResponseEntity<Response> getCurrentAllocationForRoomNo(@PathVariable String roomNo){
 		logger.info("{}:  Calling getCurrentAllocationByRoom method by passing roomNo : {}",this.getClass().getName(), roomNo);
 		Response response = new Response();
 		
@@ -316,6 +316,7 @@ public class HostelService {
 		{
 			logger.error("{}:Error While Calling getCurrentAllocationByRoom method by passing roomNo : {}",this.getClass().getName(),roomNo);
 			response.setError(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

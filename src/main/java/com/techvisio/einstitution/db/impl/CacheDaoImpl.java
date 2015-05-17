@@ -47,17 +47,14 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	@Autowired @Qualifier(value="masterQueryProps")
 	private Properties masterQueryProps;
 
-	@Autowired
-	CacheManager cacheManager;
-	
 	public void setmasterQueryProps(Properties masterQueryProps) {
 
 		this.masterQueryProps = masterQueryProps;
 	}
 
-	
+
 	public List<Branch> getBranch(){  
-		 logger.info("{} : Initializing cache for branch",this.getClass().getName());
+		logger.info("{} : Initializing cache for branch",this.getClass().getName());
 		String getBranchQuery=masterQueryProps.getProperty("getCourseBranch");
 
 		List<Branch> branchs=new ArrayList<Branch>();
@@ -77,9 +74,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return branchs;
 	}
 
-	
+
 	public List<Course> getCourse(){
-		 logger.info("{} : Initializing cache for Course ",this.getClass().getName() );
+		logger.info("{} : Initializing cache for Course ",this.getClass().getName() );
 		String getCourseQuery=masterQueryProps.getProperty("getCourse");
 
 		List<Course> courses =new ArrayList<Course>(); 
@@ -101,9 +98,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	}
 
-	
+
 	public List<CasteCategory> getCatagory(){
-		 logger.info("{} : Initializing cache for caste catagory",this.getClass().getName());
+		logger.info("{} : Initializing cache for caste catagory",this.getClass().getName());
 		String getCategoryQuery=masterQueryProps.getProperty("getCasteCategory");
 
 		List<CasteCategory> casteCategories =new ArrayList<CasteCategory>(); 
@@ -122,9 +119,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 		return casteCategories;
 	}
-	
+
 	public List<CounsellingBody> getCounsellingBody(){
-		 logger.info("{} : Initializing cache for counselling",this.getClass().getName());
+		logger.info("{} : Initializing cache for counselling",this.getClass().getName());
 		String getCounsellingQuery=masterQueryProps.getProperty("getCounselling");
 
 		List<CounsellingBody> counsellingBodies =new ArrayList<CounsellingBody>(); 
@@ -143,9 +140,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return counsellingBodies;
 	}
 
-	
+
 	public List<Subject> getSubject(){
-		 logger.info("{} : Initializing cache for subjects",this.getClass().getName());
+		logger.info("{} : Initializing cache for subjects",this.getClass().getName());
 		String getSubjectQuery=masterQueryProps.getProperty("getSubject");
 
 		List<Subject> subjects =new ArrayList<Subject>(); 
@@ -160,13 +157,13 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				return subject;
 			}
 		});
-		
+
 		return subjects;
 	}
 
-	
+
 	public List<Qualification> getQualification(){
-		 logger.info("{} : Initializing cache for qualifications",this.getClass().getName());
+		logger.info("{} : Initializing cache for qualifications",this.getClass().getName());
 		String getQualificationQuery=masterQueryProps.getProperty("getQualification");
 
 		List<Qualification> qualifications =new ArrayList<Qualification>(); 
@@ -185,9 +182,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return qualifications;
 	}
 
-	
+
 	public List<QuotaCode> getQuotaCode(){
-		 logger.info("{} : Initializing cache for quota codes",this.getClass().getName());
+		logger.info("{} : Initializing cache for quota codes",this.getClass().getName());
 		String getQuotaQuery=masterQueryProps.getProperty("getQuotaCode");
 
 		List<QuotaCode> quotaCodes =new ArrayList<QuotaCode>(); 
@@ -207,9 +204,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return quotaCodes;
 	}
 
-	
+
 	public List<State> getState(){
-		 logger.info("{} : Initializing cache for States",this.getClass().getName());
+		logger.info("{} : Initializing cache for States",this.getClass().getName());
 		String getStateQuery=masterQueryProps.getProperty("getState");
 
 		List<State> states =new ArrayList<State>(); 
@@ -229,7 +226,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	}
 
 	public List<Consultant> getConsultant(){
-		 logger.info("{} : Initializing cache for consultants",this.getClass().getName());
+		logger.info("{} : Initializing cache for consultants",this.getClass().getName());
 		String getConsultantQuery=masterQueryProps.getProperty("getConsultant");
 
 		List<Consultant> consultants =new ArrayList<Consultant>(); 
@@ -250,7 +247,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 
 	public List<FeeDiscountHead> getFeeDiscountHeadMaster() {
-		 logger.info("{} : Initializing cache for head master",this.getClass().getName());	
+		logger.info("{} : Initializing cache for head master",this.getClass().getName());	
 		String getFeeDiscountHeadQuery=masterQueryProps.getProperty("getFeeDiscountHeadMaster");
 		List<FeeDiscountHead> feeDiscountHeads = new ArrayList<FeeDiscountHead>();
 		feeDiscountHeads = getNamedParamJdbcTemplate().query(getFeeDiscountHeadQuery, new RowMapper<FeeDiscountHead>(){
@@ -267,16 +264,16 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 				return feeDiscountHead;
 			}
-			
+
 		});
-		
-		
+
+
 		return feeDiscountHeads;
 	}
 
 
 	public List<Semester> getSemester(){
-		 logger.info("{} : Getting semesters for course",this.getClass().getName());
+		logger.info("{} : Getting semesters for course",this.getClass().getName());
 		String getSemesterQuery=masterQueryProps.getProperty("getSemester");
 
 		List<Semester> semesters =new ArrayList<Semester>(); 
@@ -286,7 +283,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public Semester mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Semester semester = new Semester();
-				
+
 				semester.setCourseId(CommonUtil.getLongValue(rs.getLong("Course_Id")));
 				semester.setSemester(rs.getString("Semester"));
 				semester.setId(CommonUtil.getLongValue(rs.getLong("Id")));
@@ -296,10 +293,10 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 		return semesters;
 	}
-	
+
 	@Override
 	public List<CodeMapping> getCodeMapping(){
-		 logger.info("{} : Getting short forms for a particular course  ",this.getClass().getName());
+		logger.info("{} : Getting short forms for a particular course  ",this.getClass().getName());
 		String getSemesterQuery=masterQueryProps.getProperty("getCodeMap");
 
 		List<CodeMapping> codeMappings =new ArrayList<CodeMapping>(); 
@@ -309,12 +306,12 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public CodeMapping mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				CodeMapping codeMapping = new CodeMapping();
-				
+
 				codeMapping.setName(rs.getString("Name"));
-         		codeMapping.setCode(rs.getString("Code"));
-		        codeMapping.setDescription(rs.getString("Description"));
-				
-		        return codeMapping;
+				codeMapping.setCode(rs.getString("Code"));
+				codeMapping.setDescription(rs.getString("Description"));
+
+				return codeMapping;
 			}
 		});
 
@@ -323,7 +320,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	@Override
 	public List<Batch> getBatch() {
-		 logger.info("{} : Initializing cache for batches",this.getClass().getName());
+		logger.info("{} : Initializing cache for batches",this.getClass().getName());
 		String getBatchQuery = masterQueryProps.getProperty("getBatch");
 		List<Batch> batchs = new ArrayList<Batch>();
 		batchs = getNamedParamJdbcTemplate().query(getBatchQuery, new RowMapper<Batch>(){
@@ -338,9 +335,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				batch.setPrevBatchId(CommonUtil.getLongValue(rs.getLong("Prev_Batch_Id")));
 				return batch;
 			}
-			
-		
-			
+
+
+
 		});
 		return batchs;
 	}
@@ -348,9 +345,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	@Override
 	public List<Session> getSession() {
-		 logger.info("{} : Initializing cache for sessions",this.getClass().getName());
+		logger.info("{} : Initializing cache for sessions",this.getClass().getName());
 		String getSessionQuery = masterQueryProps.getProperty("getSession");
-		
+
 		List<Session> sessions = new ArrayList<Session>();
 		sessions = getNamedParamJdbcTemplate().query(getSessionQuery, new RowMapper<Session>(){
 
@@ -364,7 +361,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				session.setSessionId(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 				return session;
 			}
-			
+
 		});
 		return sessions;
 	}
@@ -372,9 +369,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	@Override
 	public List<Centre> getCentre() {
-		 logger.info("{} : Initializing cache for centres",this.getClass().getName());
+		logger.info("{} : Initializing cache for centres",this.getClass().getName());
 		String getCentreQuery = masterQueryProps.getProperty("getCentre");
-		
+
 		List<Centre> centres = new ArrayList<Centre>();
 		centres = getNamedParamJdbcTemplate().query(getCentreQuery, new RowMapper<Centre>(){
 
@@ -385,7 +382,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				centre.setCentreName(rs.getString("Centre_Name"));
 				return centre;
 			}
-			
+
 		});
 		return centres;
 	}
@@ -393,9 +390,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	@Override
 	public List<Shift> getShift() {
-		 logger.info("{} : Initializing cache for shifts",this.getClass().getName());
+		logger.info("{} : Initializing cache for shifts",this.getClass().getName());
 		String getShiftQuery = masterQueryProps.getProperty("getShift");
-		
+
 		List<Shift> shifts = new ArrayList<Shift>();
 		shifts = getNamedParamJdbcTemplate().query(getShiftQuery, new RowMapper<Shift>(){
 
@@ -404,10 +401,10 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				Shift shift = new Shift();
 				shift.setShiftId(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
 				shift.setShiftName(rs.getString("Shift_Name"));
-				
+
 				return shift;
 			}
-			
+
 		});
 		return shifts;
 	}
@@ -415,9 +412,9 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	@Override
 	public List<Section> getSection() {
-		 logger.info("{} : Initializing cache for a particular courses",this.getClass().getName());
+		logger.info("{} : Initializing cache for a particular courses",this.getClass().getName());
 		String getSectionQuery = masterQueryProps.getProperty("getSection");
-		
+
 		List<Section> sections = new ArrayList<Section>();
 		sections = getNamedParamJdbcTemplate().query(getSectionQuery, new RowMapper<Section>(){
 
@@ -430,7 +427,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				section.setSectionId(CommonUtil.getLongValue(rs.getLong("Section_Id")));
 				return section;
 			}
-			
+
 		});
 		return sections;
 	}
@@ -454,7 +451,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 		return wings;
 	}
-	
+
 	public List<Block> getBlock(){
 
 		String getBlockQuery=masterQueryProps.getProperty("getBlock");
@@ -487,7 +484,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 				Floor floor = new Floor();
 				floor.setFloorId(CommonUtil.getLongValue(rs.getLong("Floor_Id")));
-                floor.setFloor(rs.getString("Floor"));  
+				floor.setFloor(rs.getString("Floor"));  
 				return floor;
 			}
 		});
@@ -512,7 +509,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				roomTypeDetail.setWingId(CommonUtil.getLongValue(rs.getLong("Wing_Id")));
 				roomTypeDetail.setTypeCode(rs.getString("Type_Code"));
 				roomTypeDetail.setRoomNo(rs.getString("Room_No"));
-				
+
 				return roomTypeDetail;
 			}
 		});
@@ -523,24 +520,25 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 	@Override
 	public List<VehicleDetail> getVehicleDetail() {
-String getQuery = masterQueryProps.getProperty("getVehicleDetail");
-List<VehicleDetail> vehicleDetails = new ArrayList<VehicleDetail>();
-vehicleDetails = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<VehicleDetail>(){
+		String getQuery = masterQueryProps.getProperty("getVehicleDetail");
+		List<VehicleDetail> vehicleDetails = new ArrayList<VehicleDetail>();
+		vehicleDetails = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<VehicleDetail>(){
 
-	@Override
-	public VehicleDetail mapRow(ResultSet rs, int arg1) throws SQLException {
-		VehicleDetail detail = new VehicleDetail();
-		detail.setCapacity(rs.getString("Capacity"));
-		detail.setRouteCode(rs.getString("Route_Code"));
-		Long typeId =  CommonUtil.getLongValue(rs.getLong("Type_Id"));
-		VehicleType vehicleType = cacheManager.getVehicleTypeByTypeId(typeId);
-		detail.setVehicleType(vehicleType);
-		detail.setVehicleId(CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
-		detail.setVehicleNo(rs.getString("Vehicle_No"));
-		return detail;
-	}
-	
-});
+			@Override
+			public VehicleDetail mapRow(ResultSet rs, int arg1) throws SQLException {
+				VehicleDetail detail = new VehicleDetail();
+				detail.setCapacity(rs.getString("Capacity"));
+				detail.setRouteCode(rs.getString("Route_Code"));
+				Long typeId =  CommonUtil.getLongValue(rs.getLong("Type_Id"));
+				VehicleType vehicleType = new VehicleType();
+				vehicleType.setTypeId(typeId);
+				detail.setVehicleType(vehicleType);
+				detail.setVehicleId(CommonUtil.getLongValue(rs.getLong("Vehicle_Id")));
+				detail.setVehicleNo(rs.getString("Vehicle_No"));
+				return detail;
+			}
+
+		});
 		return vehicleDetails;
 	}
 
@@ -556,14 +554,14 @@ vehicleDetails = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<Vehicl
 				VehicleType vehicleType = new VehicleType();
 				vehicleType.setType(rs.getString("Type"));
 				vehicleType.setTypeId(CommonUtil.getLongValue(rs.getLong("Type_Id")));
-				
+
 				return vehicleType;
 			}
 		});
-		
-		
+
+
 		return vehicleTypes;
-		
+
 	}
 
 
