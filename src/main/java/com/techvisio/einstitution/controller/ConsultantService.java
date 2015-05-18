@@ -48,7 +48,7 @@ public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
   		}
 	catch(Exception e)
 	{
-		logger.error("{}:Error While  ConsultantService Calling getConsultant method by passing Consultant Id : {}",this.getClass().getName(),consultantId);
+		logger.error("{}:Error While  ConsultantService Calling getConsultant method by passing Consultant Id : {}",this.getClass().getName(),consultantId,e);
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -70,7 +70,7 @@ public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultan
 	}
 	catch(Exception e)
 	{
-		logger.error("{}:Error While ConsultantService Calling saveConsultant method for : Consultant  : {}",this.getClass().getName(),consultant.getConsultantId());
+		logger.error("{}:Error While ConsultantService Calling saveConsultant method for : Consultant  : {}",this.getClass().getName(),consultant.getConsultantId(),e);
 		response.setError(e.getLocalizedMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -91,7 +91,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
   		}
 	catch(Exception e)
 	{
-		logger.error("{} Error While ConsultantService Calling deleteConsultant method by passing  Consultant id :{}",this.getClass().getName(),consultantId);
+		logger.error("{} Error While ConsultantService Calling deleteConsultant method by passing  Consultant id :{}",this.getClass().getName(),consultantId,e);
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -115,7 +115,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
       		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While  ConsultantService Calling getConsultantDtl method by passing file no :{}",this.getClass().getName(),fileNo);
+			logger.error("{}:Error While  ConsultantService Calling getConsultantDtl method by passing file no :{}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -135,7 +135,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While  Calling saveConsultant method by passing consultantDetails:{}",this.getClass().getName(),consultantDetails);
+			logger.error("{}:Error While  Calling saveConsultant method by passing consultantDetails:{}",this.getClass().getName(),consultantDetails,e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -158,7 +158,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 			}
 			catch(Exception e)
 			{
-			logger.error("{}:Error While ConsultantService Calling getStudentDtlByCriteria method fo name:{}",this.getClass().getName(),searchCriteria.getFirstName());
+			logger.error("{}:Error While ConsultantService Calling getStudentDtlByCriteria method fo name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -183,7 +183,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
  		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While ConsultantService Calling getConsultantAdmissionDetail method for : Student : {}",this.getClass().getName(),consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());
+			logger.error("{}: Error While ConsultantService Calling getConsultantAdmissionDetail method for : Student : {}",this.getClass().getName(),consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName(),e);
 			response.setError(e.getLocalizedMessage());
 			
 		}
@@ -202,7 +202,7 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 		}
 		catch(Exception e)
 		{
-			logger.error("{} :Error While  ConsultantService Calling getConsultantAdmissionDetail method by passing file no  :{}",this.getClass().getName(),fileNo);
+			logger.error("{} :Error While  ConsultantService Calling getConsultantAdmissionDetail method by passing file no  :{}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

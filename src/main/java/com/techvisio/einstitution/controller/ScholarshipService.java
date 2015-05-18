@@ -50,13 +50,12 @@ public class ScholarshipService {
 		}
 		catch(EmptyResultDataAccessException e)
 		{
-			logger.error("{}: Error While Calling getScholarshipDetail method by passing fileno : {}",this.getClass().getName(),fileNo);
 			response.setError("No such record found");
 		}
 		
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling getScholarshipDetail method by passing fileno : {}",this.getClass().getName(),fileNo);
+			logger.error("{}: Error While Calling getScholarshipDetail method by passing fileno : {}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			//e.printStackTrace();
 		}
@@ -77,7 +76,7 @@ public class ScholarshipService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling addScholarDetail method for fileno : {}",this.getClass().getName(),scholarshipDetail.getFileNo());
+			logger.error("{}: Error While Calling addScholarDetail method for fileno : {}",this.getClass().getName(),scholarshipDetail.getFileNo(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

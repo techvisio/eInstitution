@@ -49,7 +49,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While Calling getRoomTypeDetail method by passing typecode : {}",this.getClass().getName(),typeCode);
+			logger.error("{}:Error While Calling getRoomTypeDetail method by passing typecode : {}",this.getClass().getName(),typeCode,e);
 			response.setError(e.getMessage());
 		}
 		
@@ -69,7 +69,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling addRoomTypeDetail method for  typecode : {}",this.getClass().getName(),roomTypeDetail.getTypeCode());
+			logger.error("{}: Error While Calling addRoomTypeDetail method for  typecode : {}",this.getClass().getName(),roomTypeDetail.getTypeCode(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -87,7 +87,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling updateRoomTypeDetail method for typecode :{}",this.getClass().getName(),roomTypeDetail.getTypeCode());
+			logger.error("{}: Error While Calling updateRoomTypeDetail method for typecode :{}",this.getClass().getName(),roomTypeDetail.getTypeCode(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		
@@ -152,7 +152,7 @@ public class HostelService {
 		catch(Exception e)
 		{
 			response.setError(e.getMessage());
-			logger.error("{}: Error While Calling getHostelReservation method by passing fileno :{}",this.getClass().getName(),fileNo);
+			logger.error("{}: Error While Calling getHostelReservation method by passing fileno :{}",this.getClass().getName(),fileNo,e);
 		}
 		
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -171,7 +171,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling addHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo());
+			logger.error("{}: Error While Calling addHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		
@@ -189,7 +189,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling updateHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo());
+			logger.error("{}: Error While Calling updateHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);	
@@ -274,7 +274,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error while Calling getHostelAllocationAdmissiondtl method by passing fileno : {}",this.getClass().getName(),fileNo);
+			logger.error("{}: Error while Calling getHostelAllocationAdmissiondtl method by passing fileno : {}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -293,7 +293,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo);
+			logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -314,7 +314,7 @@ public class HostelService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}:Error While Calling getCurrentAllocationByRoom method by passing roomNo : {}",this.getClass().getName(),roomNo);
+			logger.error("{}:Error While Calling getCurrentAllocationByRoom method by passing roomNo : {}",this.getClass().getName(),roomNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}

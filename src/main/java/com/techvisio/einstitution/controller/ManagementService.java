@@ -56,7 +56,7 @@ public class ManagementService {
 
 		}
 		catch(Exception e){
-			logger.error("{}: Error While Calling getAdmissionManagementView method by passing fileno :{}",this.getClass().getName(),fileNo);
+			logger.error("{}: Error While Calling getAdmissionManagementView method by passing fileno :{}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return result ;
@@ -73,7 +73,7 @@ public class ManagementService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling getUnapprovedAdmissions method by passing limit: {}",this.getClass().getName(),limit);
+			logger.error("{}: Error While Calling getUnapprovedAdmissions method by passing limit: {}",this.getClass().getName(),limit,e);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -93,7 +93,7 @@ public  ResponseEntity<Response> updateManagementChanges(@RequestBody Management
 	}
 	catch(Exception e)
 	{
-		logger.error("{}: Error While Calling updateManagementChanges method for : Student : {}",this.getClass().getName(),admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
+		logger.error("{}: Error While Calling updateManagementChanges method for : Student : {}",this.getClass().getName(),admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName(),e);
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);

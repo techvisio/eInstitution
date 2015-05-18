@@ -49,7 +49,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-		logger.error("{} :Error while AdmissionService Calling getStudentDetails method by passing : file no : {}",this.getClass().getName(),fileNo);
+		logger.error("{} :Error while AdmissionService Calling getStudentDetails method by passing : file no : {}",this.getClass().getName(),fileNo,e);
 		response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -67,7 +67,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{} :Error while  Calling addStudentDtl method for : Student : {}",this.getClass().getName(),studentDetail.getFirstName()+ studentDetail.getLastName());
+			logger.error("{} :Error while  Calling addStudentDtl method for : Student : {}",this.getClass().getName(),studentDetail.getFirstName()+ studentDetail.getLastName(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		
@@ -87,7 +87,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{} :Error while  Calling getStudentDetails method  : Student Name: {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());
+			logger.error("{} :Error while  Calling getStudentDetails method  : Student Name: {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -126,7 +126,7 @@ public class AdmissionService {
 			}
 			catch(Exception e)
 			{
-			logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName());
+			logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -142,7 +142,7 @@ public class AdmissionService {
 			response.setResponseBody(info); 
 				
 		} catch (Exception e) {
-			logger.error("{} :Error while Calling getStudentBsInfo method by passing  file no:{}",this.getClass().getName(),fileNo);
+			logger.error("{} :Error while Calling getStudentBsInfo method by passing  file no:{}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -159,7 +159,7 @@ public class AdmissionService {
 		}
 		catch(Exception e)
 		{
-			logger.error("{} :Error while Calling getLatestAdmissionInfo method by passing  Limit:{}",this.getClass().getName(),limit);
+			logger.error("{} :Error while Calling getLatestAdmissionInfo method by passing  Limit:{}",this.getClass().getName(),limit,e);
 			response.setError(e.getMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -178,7 +178,7 @@ public class AdmissionService {
 			}
 			catch(Exception e)
 			{
-			logger.error("{} :Error while  Calling moveAdmissiontoNextStep method for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+ studentDetail.getLastName() );
+			logger.error("{} :Error while  Calling moveAdmissiontoNextStep method for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+ studentDetail.getLastName(),e );
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);

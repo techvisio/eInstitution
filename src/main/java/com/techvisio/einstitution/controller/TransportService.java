@@ -89,7 +89,7 @@ public class TransportService {
 			catch(Exception e)
 			{
 		         	response.setError(e.getMessage());
-		         	logger.error("{}: Error While Calling getTransportReservationDtl method by fileNo :{}",this.getClass().getName(),fileNo);
+		         	logger.error("{}: Error While Calling getTransportReservationDtl method by fileNo :{}",this.getClass().getName(),fileNo,e);
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
       		}
@@ -106,7 +106,7 @@ public class TransportService {
 			}
 			catch(Exception e)
 			{
-				logger.error("{}: Error While  Calling addTransportReservationDtl method for fileNo :{}",this.getClass().getName(),transportReservation.getFileNo());
+				logger.error("{}: Error While  Calling addTransportReservationDtl method for fileNo :{}",this.getClass().getName(),transportReservation.getFileNo(),e);
 				response.setError(e.getLocalizedMessage());
 			}
 			
@@ -125,7 +125,7 @@ public class TransportService {
 			}
 			catch(Exception e)
 			{
-				logger.error("{}: Error While TransportService Calling updateTransportReservationDtl method by passing fileNo :{}",this.getClass().getName(),transportReservation.getFileNo());
+				logger.error("{}: Error While TransportService Calling updateTransportReservationDtl method by passing fileNo :{}",this.getClass().getName(),transportReservation.getFileNo(),e);
 				response.setError(e.getLocalizedMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -178,7 +178,7 @@ public class TransportService {
 	 		}
 			catch(Exception e)
 			{
-				logger.error("{}: Error While  Calling addTransportAllocationAdmissionDtl method for Student  :{}",this.getClass().getName(),transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());
+				logger.error("{}: Error While  Calling addTransportAllocationAdmissionDtl method for Student  :{}",this.getClass().getName(),transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName(),e);
 				response.setError(e.getLocalizedMessage());
 				
 			}
@@ -219,7 +219,7 @@ public class TransportService {
 			}
 			catch(Exception e)
 			{
-				logger.error("{}: Error While Calling getTransportAllocationAdmissiondtl method by File no :{}",this.getClass().getName(),fileNo);
+				logger.error("{}: Error While Calling getTransportAllocationAdmissiondtl method by File no :{}",this.getClass().getName(),fileNo,e);
 				response.setError(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
@@ -251,7 +251,7 @@ public class TransportService {
 				TransportAllocationForStudent allocationForStudent = transportWorkflowManager.getAllocationForStudent(fileNo);
 			response.setResponseBody(allocationForStudent);
 			} catch (Exception e) {
-				logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo);
+				logger.error("{}:Error While Calling getAllocationForStudent method by passing fileNo : {}",this.getClass().getName(),fileNo,e);
 				response.setError(e.getMessage());
 			}
 			

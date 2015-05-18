@@ -47,7 +47,7 @@ public class EnquiryService {
 		
 		catch(Exception e)
 		{
-			logger.error("{} :Error While  Calling getInquiryByTaskDate method by taskdate:{}",this.getClass().getName(),taskDate);
+			logger.error("{} :Error While  Calling getInquiryByTaskDate method by taskdate:{}",this.getClass().getName(),taskDate,e);
 			e.getLocalizedMessage();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -67,7 +67,7 @@ public class EnquiryService {
 		
 		catch(Exception e)
 		{
-			logger.error("{} :Error While Calling getEnquiryandTask method by passing enquiry Id : {}",this.getClass().getName(),enquiryId);
+			logger.error("{} :Error While Calling getEnquiryandTask method by passing enquiry Id : {}",this.getClass().getName(),enquiryId,e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -85,7 +85,7 @@ public class EnquiryService {
 		}
 		}
 		catch(Exception e){
-			logger.error("{} :Error While Calling addEnquiryandTask method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
+			logger.error("{} :Error While Calling addEnquiryandTask method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -104,7 +104,7 @@ public class EnquiryService {
 		response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
-			logger.error("{} :Error While EnquiryService Calling updateEnquiryandTask method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
+			logger.error("{} :Error While EnquiryService Calling updateEnquiryandTask method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -141,7 +141,7 @@ public class EnquiryService {
 		}
 			catch(Exception e)
 			{
-			logger.error("{} :Error While Calling getInquiryByCriteria method for enquiry Id : {}",this.getClass().getName(),searchCriteria.getInquryId());
+			logger.error("{} :Error While Calling getInquiryByCriteria method for enquiry Id : {}",this.getClass().getName(),searchCriteria.getInquryId(),e);
 			response.setError(e.getMessage());
 			}
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -160,7 +160,7 @@ public class EnquiryService {
 		}
 		}
 		catch(Exception e){
-			logger.error("{} :Error While Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
+			logger.error("{} :Error While Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -180,7 +180,7 @@ public class EnquiryService {
 		response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
-			logger.error("{} :Error While Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId());
+			logger.error("{} :Error While Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
