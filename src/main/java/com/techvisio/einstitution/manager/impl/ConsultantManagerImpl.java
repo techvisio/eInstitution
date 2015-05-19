@@ -24,18 +24,9 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	
 	@Autowired
 	UniqueIdentifierGenerator identifierGenerator;
+
 	
-	private static ConsultantManagerImpl instance=null;
-	public static synchronized ConsultantManagerImpl getInstance()
-	{
-		if(instance == null){
-			instance=new ConsultantManagerImpl();
-		}
-		
-		return instance;
-	}
-	
-	private ConsultantManagerImpl() {
+	public ConsultantManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	

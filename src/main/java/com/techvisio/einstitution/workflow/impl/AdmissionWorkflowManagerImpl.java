@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Remark;
@@ -20,6 +21,7 @@ import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 
 @Component
+@Transactional
 public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	private static CustomLogger logger=CustomLogger.getLogger(AdmissionWorkflowManagerImpl.class);
@@ -40,8 +42,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	
 	public Long addStudentDetails(StudentDetail studentDetail) {
 		logger.info("{} : calling addStudentDtl for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());
-		ConsultantWorkflowManager consultantWorkflowManager = new ConsultantWorkflowManagerImpl();
-		ScholarshipWorkflowManager scholarshipWorkflowManager = new ScholarshipWorkflowManagerImpl();
 	
 		Long fileNo = admissionManager.addStudentDtl(studentDetail);
 

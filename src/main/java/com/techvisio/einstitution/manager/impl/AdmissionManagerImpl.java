@@ -32,6 +32,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	@Autowired
 	UniqueIdentifierGenerator identifierGenerator;
 	
+	@Autowired
+	DefaultManager defaultManager;
+	
 	private static AdmissionManagerImpl instance=null;
 	public static synchronized AdmissionManagerImpl getInstance()
 	{
@@ -80,7 +83,6 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	private void updateMissingInfowithDefaultValue(StudentDetail studentDetail) {
-		DefaultManager defaultManager=new DefaultManagerImpl();
 		logger.info("{} : Updating Missing Information with Default Value for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
 		
 		if(CommonUtil.isNullLongValue(studentDetail.getBatchId())){
