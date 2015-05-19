@@ -25,12 +25,14 @@ import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
@@ -562,6 +564,52 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 		return vehicleTypes;
 
+	}
+
+// Master work for RoomTypeMaster 
+	@Override
+	public List<RoomTypeMaster> getRoomType() {
+		String getQuery = masterQueryProps.getProperty("getRoomTypeMaster");
+		List<RoomTypeMaster> roomTypeMasters = new ArrayList<RoomTypeMaster>();
+		roomTypeMasters = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<RoomTypeMaster>(){
+
+			@Override
+			public RoomTypeMaster mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomTypeMaster typeMaster = new RoomTypeMaster();
+				typeMaster.setDescription(rs.getString("Description"));
+				typeMaster.setPrice(rs.getDouble("Price"));
+				typeMaster.setRoomCapacity(rs.getInt("Room_Capacity"));
+				typeMaster.setThreshold(rs.getInt("Threshold"));
+				typeMaster.setTypeCode(rs.getString("Type_Code"));
+				return typeMaster;
+			}
+			   
+			  
+			
+		});
+		return roomTypeMasters;
+	}
+
+//Master work for Transport
+	@Override
+	public List<Transport> getTransport() {
+		String getQuery = masterQueryProps.getProperty("getTransportMaster");
+		List<Transport> transports = new ArrayList<Transport>();
+		transports = getNamedParamJdbcTemplate().query(getQuery,new RowMapper<Transport>(){
+
+			@Override
+			public Transport mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				Transport transport = new Transport();
+				transport.setDescription(rs.getString("Description"));
+				transport.setPrice(rs.getDouble("Price"));
+				transport.setRouteCode(rs.getString("Route_Code"));
+				transport.setThreshold(rs.getString("Threshold"));
+				return transport;
+			}
+		});
+		return transports;
 	}
 
 

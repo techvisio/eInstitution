@@ -23,15 +23,18 @@ import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
+import com.techvisio.einstitution.controller.MasterDataService;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -81,6 +84,8 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<String, RoomTypeDetail> roomDetailMap = new HashMap<String, RoomTypeDetail>();
 	private static Map<Long, VehicleDetail> vehicleDetailMap  = new HashMap<Long, VehicleDetail>();
 	private static Map<Long, VehicleType> vehicleTypeMap = new HashMap<Long, VehicleType>();
+	private static Map<String, RoomTypeMaster> roomTypeMap = new HashMap<String, RoomTypeMaster>();
+	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
 	
 	
 	@SuppressWarnings("unchecked")
@@ -545,6 +550,48 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public synchronized List<RoomTypeMaster> getRoomTypes(){
+		logger.info("{} : Mapping work for get RoomTypeMaster ",this.getClass().getName());		
+		if(entityListMap.get(AppConstants.ROOMTYPE) == null || entityListMap.get(AppConstants.ROOMTYPE).size() == 0){
+			refreshCacheList(AppConstants.ROOMTYPE);
+		}
+	return (List<RoomTypeMaster>)entityListMap.get(AppConstants.ROOMTYPE);
+	}
+	
+	
+	@Override
+	public List<MasterDataBean> getRoomTypeCodeAsMasterdata(){
+		logger.info("{} : Get RoomType Code as master data",this.getClass().getName());		
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(RoomTypeMaster roomTypeMaster : getRoomTypes()){
+			MasterDataBean bean = new MasterDataBean(roomTypeMaster.getTypeCode(), roomTypeMaster.getDescription());
+			masterData.add(bean);
+		}
+		return masterData;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized List<Transport> getTransports(){
+		logger.info("{} : Mapping work for get transport ",this.getClass().getName());		
+		if(entityListMap.get(AppConstants.TRANSPORT) == null || entityListMap.get(AppConstants.TRANSPORT).size() == 0){
+			refreshCacheList(AppConstants.TRANSPORT);
+		}
+		return (List<Transport>)entityListMap.get(AppConstants.TRANSPORT);
+		
+	}
+	
+	@Override
+	public List<MasterDataBean> getTransportRouteCodeAsMasterdata(){
+		logger.info("{} : Get transport route code as master data",this.getClass().getName());
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Transport transport: getTransports()){
+			MasterDataBean bean = new MasterDataBean(transport.getRouteCode(), transport.getDescription());
+			masterData.add(bean);
+		}
+		return masterData;
+	}
+	
 	
 	
 	public void builtEntityListCache(){
@@ -663,6 +710,17 @@ public class CacheManagerImpl implements CacheManager {
 		logger.info("{} : built entity list cache work for get VehicleType ",this.getClass().getName());
 		vehicleTypes = cacheDao.getVehicleTypes();
 		entityListMap.put(AppConstants.VEHICLETYPE, vehicleTypes);
+		
+		List<RoomTypeMaster> roomTypeMasters = new ArrayList<RoomTypeMaster>();
+		logger.info("{} : built entity list cache work for get RoomTypeMaster ",this.getClass().getName());
+		roomTypeMasters = cacheDao.getRoomType();
+		entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
+
+		List<Transport> transports = new ArrayList<Transport>();
+		logger.info("{} : built entity list cache work for get transport ",this.getClass().getName());
+		transports = cacheDao.getTransport();
+		entityListMap.put(AppConstants.TRANSPORT, transports);
+		
 		
 		buildEntityMap();
 
@@ -820,6 +878,19 @@ public class CacheManagerImpl implements CacheManager {
 		entityListMap.put(AppConstants.VEHICLETYPE, vehicleTypes);
 		
 		
+		case AppConstants.ROOMTYPE:
+			logger.info("{} : refresh cache list work for get room type master ",this.getClass().getName());
+			List<RoomTypeMaster> roomTypeMasters = new ArrayList<RoomTypeMaster>();
+			roomTypeMasters = cacheDao.getRoomType();
+			entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
+		
+		case AppConstants.TRANSPORT:
+			logger.info("{} : refresh cache list work for get transport ",this.getClass().getName());			
+			List<Transport> transports =new ArrayList<Transport>();
+			transports = cacheDao.getTransport();
+			entityListMap.put(AppConstants.TRANSPORT, transports);
+
+		
 		default:
 
 		}
@@ -921,6 +992,14 @@ public class CacheManagerImpl implements CacheManager {
 		
 		for(VehicleType vehicleType : cacheDao.getVehicleTypes()){
 			vehicleTypeMap.put(vehicleType.getTypeId(), vehicleType);
+		}
+		
+		for (RoomTypeMaster roomTypeMaster : cacheDao.getRoomType()) {
+			roomTypeMap.put(roomTypeMaster.getTypeCode(), roomTypeMaster);
+		}
+		
+		for(Transport transport : cacheDao.getTransport()){
+			transportMap.put(transport.getRouteCode(), transport);
 		}
 		
 	}
@@ -1061,7 +1140,18 @@ public class CacheManagerImpl implements CacheManager {
 		logger.info("{} : Get Vehicle Type By Type Id:{} ",this.getClass().getName(), typeId);		
 		return vehicleTypeMap.get(typeId);
 	}
+
+	@Override
+	public RoomTypeMaster getRoomTypeMasterByTypeCode(String typeCode){
+		logger.info("{} : Get Room Type Master By Type Code:{} ",this.getClass().getName(), typeCode);		
+		return roomTypeMap.get(typeCode);
+	}
 	
+	
+	public Transport getTransportByRouteCode(String routeCode){
+		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
+		return transportMap.get(routeCode);
+	}
 
 }
 

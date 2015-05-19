@@ -18,6 +18,7 @@ import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
@@ -123,4 +124,10 @@ public interface CacheManager {
 	VehicleType getVehicleTypeByTypeId(Long typeId);
 
 	List<VehicleDetail> getVehicleDetailAsMasterdata();
+
+	List<MasterDataBean> getRoomTypeCodeAsMasterdata();
+
+	RoomTypeMaster getRoomTypeMasterByTypeCode(String typeCode);
+
+	List<MasterDataBean> getTransportRouteCodeAsMasterdata();
 }
