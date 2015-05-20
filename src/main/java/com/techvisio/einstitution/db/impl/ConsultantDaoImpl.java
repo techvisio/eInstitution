@@ -222,7 +222,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	public List<ConsultantPaymentDtl> getConsultantPaymentDtl(Long fileNo, Long consultantId) {
 		 logger.info("{} : Getting list of payment details for a particular  file no:{} and consulatnt id:{} ",this.getClass().getName(), fileNo, consultantId);
-		String getQuery= consultantQueryProps.getProperty("getConsultantPaymentDtlByFileNo");
+		String getQuery= consultantQueryProps.getProperty("getConsultantPaymentDtlByFileNoAndConsultantId");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo)
 		.addValue("Consultant_Id", consultantId);
