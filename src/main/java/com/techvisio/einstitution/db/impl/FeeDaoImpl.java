@@ -46,6 +46,9 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	
 	@Autowired
 	CacheManager cacheManager ; 
+	
+	@Autowired
+	DefaultManager defaultManager;
 
 	@Override
 	public List<FeeAdmissionBean> getPendingfeeInfo(int limit) {
@@ -127,7 +130,6 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	@Override
 	public List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria) {
 		 logger.info("{} : Get applicable fee details of Course:{} , Session:{}",this.getClass().getName(), criteria.getCourseId(), criteria.getSessionId());
-		DefaultManager defaultManager=new DefaultManagerImpl();
 		String getFeeDetailQuery=feeQueryProps.getProperty("getFeeDetailMaster");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("COURSE",criteria.getCourseId())
 		.addValue("BRANCH", criteria.getBranchId())

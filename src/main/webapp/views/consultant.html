@@ -172,12 +172,12 @@
 			<td><input type="text"
 				ng-model="consultantAdmissionDetail.basicInfo.branch.branchName"></td>
 		</tr>
-		
-         <tr><td colspan=2><span class="header">Consultant Detail</span></td></tr>      
-        
-         <tr ng-repeat-start = "object in consultantAdmissionDetail.consultantDetails">
-		
-         	<td><span>Consultant Name </span></td>
+			</table>
+<div ng-repeat-start = "object in consultantAdmissionDetail.consultantDetails">
+</div>
+<table>
+<tr>
+<td><span>Consultant Name </span></td>
 			                                 <td><select ng-model="object.consultant.consultantId"
 									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
 			<td><span> Consultancy Agreed </span></td>
@@ -196,7 +196,7 @@
             <td><textArea rows="3" cols="33"  ng-model="object.remarks"></textArea></td>
         </tr>
 	
-<tr><td colspan=2><span class="header">Consultant Payment Criteria Detail</span></td></tr>
+		<tr><td colspan=2><span class="header">Consultant Payment Criteria Detail</span></td></tr>
 
         <tr ng-repeat="criteriaDetail in object.consultantPaymentCriterias track by $index">
 			<td><span> Fee Amount Received </span></td>
@@ -205,26 +205,14 @@
 			<td><span>Amount To Be Paid</span></td>
 			<td><input type="number"
 				ng-model="criteriaDetail.amountToBePaid"></td>
-		</tr>
-		<tr>
-<td><span> Approved </span></td>
-<td><input type="checkbox" ng-model="criteriaDetail.approved" /></td>
-
-<td><span> Fee Paid </span></td>
-<td><input type="checkbox" ng-model="criteriaDetail.paid" /></td>
-</tr>
-<tr>
-<td><span> Triggered </span></td>
-<td><input type="checkbox" ng-model="criteriaDetail.triggered" /></td>
-
-<td><img height="35" width="35" ng-src="images/plus.png"
+				<td><img height="35" width="35" ng-src="images/plus.png"
 				ng-click="addConsultantPaymentCriteria(object)" /></td>
 			<td><img height="35" width="35" ng-src="images/minus.png"
-				ng-click="removeConsultantPaymentCriteria(object,$index)" ng-show="$index>0" /></td>           
-</tr>
-
-<tr><td colspan=2><span class="header">Consultant Payment Detail</span></td></tr>
-<tr ng-repeat-end ng-repeat="payDetail in object.consultantPaymentDetail track by $index">
+				ng-click="removeConsultantPaymentCriteria(object,$index)" ng-show="$index>0" /></td>   
+		</tr>
+		
+		<tr><td colspan=2><span class="header">Consultant Payment Detail</span></td></tr>
+<tr ng-repeat="payDetail in object.consultantPaymentDetail track by $index">
 			<td><span>Amount</span></td>
 			<td><input type="number"
 				ng-model="payDetail.amount"></td>
@@ -236,13 +224,14 @@
 							<td><img height="35" width="35" ng-src="images/minus.png"
 								ng-click="removeConsultantPaymentDtl(object,$index)" ng-show="$index>0" /></td>
 		</tr>
-
 <tr><td><button type="button" class="btn btn-success"
 							ng-click="addConsultantAdmissionDetail()">Add</button></td>
 <td><button type="button" class="btn btn-success"
 							ng-click="getConsultantAdmissionDetail()">Get</button></td>
 </tr>
-				</table>
+</table>
+<div ng-repeat-end>
+</div>
 				</div>
 			</form>
 

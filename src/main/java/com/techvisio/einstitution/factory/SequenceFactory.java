@@ -7,12 +7,13 @@ import java.util.Map;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
+import org.springframework.stereotype.Repository;
 
 import com.techvisio.einstitution.db.impl.BaseDao;
 import com.techvisio.einstitution.util.SqlFunction;
 
 
-
+@Repository
 public class SequenceFactory extends BaseDao {
 	
 	public Long getSequence(String seqName){
