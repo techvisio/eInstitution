@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
 import com.techvisio.einstitution.beans.Branch;
@@ -86,7 +87,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, VehicleType> vehicleTypeMap = new HashMap<Long, VehicleType>();
 	private static Map<String, RoomTypeMaster> roomTypeMap = new HashMap<String, RoomTypeMaster>();
 	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
-	
+	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -593,6 +594,27 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public synchronized List<Amenities> getAmenities(){
+		logger.info("{} : Mapping work for get amenities ",this.getClass().getName());	
+		if(entityListMap.get(AppConstants.AMENITIES) == null || entityListMap.get(AppConstants.AMENITIES).size() == 0 ){
+			refreshCacheList(AppConstants.AMENITIES);
+		}
+	return (List<Amenities>)entityListMap.get(AppConstants.AMENITIES);
+	}
+	
+	@Override
+	public List<MasterDataBean> getAmenitiesAsMasterdata(){
+		logger.info("{} : Get amenities as master data",this.getClass().getName());
+		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		for(Amenities facilities : getAmenities()){
+			MasterDataBean bean = new MasterDataBean(facilities.getFeeId().getHeadId().toString(), facilities.getCharges().toString());
+			masterData.add(bean);
+		}
+	return masterData;
+	}
+	
+	
 	
 	public void builtEntityListCache(){
 		List<Branch> branchs =new ArrayList<Branch>();
@@ -721,6 +743,12 @@ public class CacheManagerImpl implements CacheManager {
 		transports = cacheDao.getTransport();
 		entityListMap.put(AppConstants.TRANSPORT, transports);
 		
+		
+		List<Amenities> amenities = new ArrayList<Amenities>();
+		logger.info("{} : built entity list cache work for get amenities ",this.getClass().getName());	
+		amenities = cacheDao.getAmenitiesCharges();
+		entityListMap.put(AppConstants.AMENITIES, amenities);
+
 		
 		buildEntityMap();
 
@@ -890,6 +918,12 @@ public class CacheManagerImpl implements CacheManager {
 			transports = cacheDao.getTransport();
 			entityListMap.put(AppConstants.TRANSPORT, transports);
 
+		case AppConstants.AMENITIES:
+			logger.info("{} : refresh cache list work for get amenities ",this.getClass().getName());		
+			List<Amenities> amenities = new ArrayList<Amenities>();
+			amenities = cacheDao.getAmenitiesCharges();
+			entityListMap.put(AppConstants.AMENITIES, amenities);
+	
 		
 		default:
 
@@ -1000,6 +1034,10 @@ public class CacheManagerImpl implements CacheManager {
 		
 		for(Transport transport : cacheDao.getTransport()){
 			transportMap.put(transport.getRouteCode(), transport);
+		}
+		
+		for(Amenities amenities : cacheDao.getAmenitiesCharges()){
+			amenitiesMap.put(amenities.getFeeId().getHeadId(), amenities);
 		}
 		
 	}
@@ -1151,6 +1189,11 @@ public class CacheManagerImpl implements CacheManager {
 	public Transport getTransportByRouteCode(String routeCode){
 		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
 		return transportMap.get(routeCode);
+	}
+	
+	public Amenities getAmentiesByFeeId(Long feeId ){
+		return amenitiesMap.get(feeId);
+		
 	}
 
 }

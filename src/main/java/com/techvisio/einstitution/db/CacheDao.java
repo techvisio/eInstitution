@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
 import com.techvisio.einstitution.beans.Branch;
@@ -84,4 +85,5 @@ public interface CacheDao {
 	
 	public List<Transport> getTransport();
 
+	public List<Amenities> getAmenitiesCharges();
 }

@@ -31,6 +31,7 @@ public interface AppConstants {
 	public static final String VEHICLETYPE = "VEHICLETYPE";
 	public static final String ROOMTYPE = "ROOMTYPE";
 	public static final String TRANSPORT = "TRANSPORT";
+	public static final String AMENITIES = "AMENITIES";
 	
 	public static final String TASK="TASK";
 	public static final Long HOSTEL_FEE_ID=9999L;

@@ -130,4 +130,6 @@ public interface CacheManager {
 	RoomTypeMaster getRoomTypeMasterByTypeCode(String typeCode);
 
 	List<MasterDataBean> getTransportRouteCodeAsMasterdata();
+
+	List<MasterDataBean> getAmenitiesAsMasterdata();
 }

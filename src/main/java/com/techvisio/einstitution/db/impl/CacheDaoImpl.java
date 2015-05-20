@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
 import com.techvisio.einstitution.beans.Branch;
@@ -613,4 +614,29 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 	}
 
 
-}
+	@Override
+	public List<Amenities> getAmenitiesCharges() {
+		String getQuery = masterQueryProps.getProperty("getAmenitiesCharges");
+		List<Amenities> amenities = new ArrayList<Amenities>();
+		amenities = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<Amenities>(){
+
+			@Override
+			public Amenities mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				Amenities facilities = new Amenities();
+				facilities.setCharges(rs.getDouble("Charges"));
+				Long feeId = CommonUtil.getLongValue(rs.getLong("Fee_Id"));
+				FeeDiscountHead discountHead = new FeeDiscountHead();
+				discountHead.setHeadId(feeId);
+				facilities.setFeeId(discountHead);
+				
+				return facilities;
+			}
+			
+		});
+		return amenities;
+	}
+      
+
+ 
+ }

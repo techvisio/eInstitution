@@ -617,5 +617,20 @@ from sectionmaster;
 
 	</entry>
 
+<entry key="getAmenitiesCharges">
+    <![CDATA[
+      
+
+ Select 
+ 
+	 Fee_Id,
+  	 Charges
+    
+ from amenitiescharges;    
+    ]]>
+
+	</entry>
+
+
 	
 </properties>
