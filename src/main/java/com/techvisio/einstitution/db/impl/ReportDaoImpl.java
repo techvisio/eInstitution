@@ -2,16 +2,21 @@ package com.techvisio.einstitution.db.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.css.CSSRuleList;
 
 import com.techvisio.einstitution.beans.ConsultantReport;
+import com.techvisio.einstitution.beans.EnquiryReport;
+import com.techvisio.einstitution.beans.EnquiryReportCriteria;
 import com.techvisio.einstitution.db.ReportDao;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -61,4 +66,43 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 		}
 
 	}
+
+	
+	@Override
+	public List<EnquiryReport> getEnquiryReportByEnquiryReportCriteria(EnquiryReportCriteria enquiryreportCriteria) {
+		logger.info("{} : Get enquiry report by enquiry report criteria DATEFROM:{} and DATETO:{} ",this.getClass().getName());		
+		Date dateFrom = new Date();
+		dateFrom = enquiryreportCriteria.getDateFrom(CommonUtil.removeTimeFromDate(dateFrom));
+		Date dateTo = new Date();
+		dateTo = enquiryreportCriteria.getDateTo(CommonUtil.removeTimeFromDate(dateTo));
+		String getQuery = reportProperties.getProperty("getEnquiryReport");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("date_From", dateFrom)
+											.addValue("date_To",dateTo);
+		
+		List<EnquiryReport> enquiryReports = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<EnquiryReport>(){
+
+			@Override
+			public EnquiryReport mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				EnquiryReport enquiryReport = new EnquiryReport();
+				if(rs != null){
+					enquiryReport.setApplicationStatus(rs.getString("Application_Status"));
+					enquiryReport.setBranch(rs.getString("Branch"));
+					enquiryReport.setContactNo(rs.getString("Contact_No"));
+					enquiryReport.setCourse(rs.getString("Course"));
+					enquiryReport.setCreateBy(rs.getString("Created_By"));
+					enquiryReport.setCreatedDate(rs.getDate("created_on"));
+					enquiryReport.setEmailId(rs.getString("Email_Id"));
+					enquiryReport.setEnquiryId(CommonUtil.getLongValue(rs.getLong("Inquiry_Id")));
+					enquiryReport.setFatherName(rs.getString("Father_Name"));
+					enquiryReport.setName(rs.getString("Name"));
+					enquiryReport.setRemarks(rs.getString("Remarks"));
+					enquiryReport.setUpdatedBy(rs.getString("Updated_By"));
+					enquiryReport.setUpdatedDate(rs.getDate("updated_on"));
+				}
+				return enquiryReport;
+			}
+					});
+		return enquiryReports;
+}
 }

@@ -32,5 +32,31 @@ inner join coursebranchmaster brmtr on stddtl.Branch_Id=brmtr.Id
 inner join castecategorymaster catmtr on stddtl.Category_Id=catmtr.Id
 ]]>	
 	</entry>
+
+
+<entry key="getEnquiryReport">
+    <![CDATA[
+select 
+	en.Inquiry_Id,
+	en.Name,
+	en.Father_Name,
+	en.Contact_No,
+	en.Application_Status,
+	en.Created_By,
+	en.created_on,
+	en.Updated_By,
+	en.updated_on,
+	cm.Course,
+	bm.Branch,
+	en.Remarks,
+	en.Email_Id
+
+from admissioninquiry en join coursemaster cm on en.Course_Id = cm.Id
+join coursebranchmaster bm on en.Branch_Id = bm.Id
+where  en.created_on >= :date_From  and en.created_on <= :date_To;
+]]>	
+	</entry>
+	
+
 	
 </properties>
