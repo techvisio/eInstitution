@@ -47,27 +47,6 @@ public class HostelManagerImpl implements HostelManager {
 		return h;
 	}
 
-	@Override
-  public void saveRoomDetail(RoomAllocationDetail roomAllocationDetail){
-		
-		RoomAllocationDetail newRoomAllocation = roomAllocationDetail;
-		RoomAllocationDetail oldRoomAllocation = getActiveRoomAllocationDetail(newRoomAllocation.getFileNo());
-		
-		if(oldRoomAllocation!=null && oldRoomAllocation.isAllocated() ){
-			
-			if(oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
-				
-				deleteHostelAllocation(oldRoomAllocation.getFileNo());
-				addHostelAllocation(newRoomAllocation);
-			}
-		}
-		else{
-			
-			addHostelAllocation(newRoomAllocation);
-		}
-           	
-	
-	}
 	
 	
 	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
@@ -142,23 +121,11 @@ public class HostelManagerImpl implements HostelManager {
 	public List<HostelAvailability> getHostelAvailability() {
 		logger.info("{} : calling getHostelAvailability method } ",this.getClass().getName());
 		List<HostelAvailability>  h=null;
-		h= hostelDao.getHostelAvailability();
+		h=hostelDao.getHostelAvailability();
 		
 		return h;
 	}
 
-@Override
-public void addHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-	logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
-	
-	RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
-	
-	StudentBasicInfo basicInfo = hostelAllocationAdmissionBean.getBasicInfo();
-	Long fileNo = basicInfo.getFileNo();
-	roomAllocationDetail.setFileNo(fileNo);
-	saveRoomDetail(roomAllocationDetail);
-	
-}
 
 //@Override
 //public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
@@ -183,6 +150,22 @@ public RoomAllocationDetail getActiveRoomAllocationDetail(Long fileNo) {
 public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
 
 	return hostelDao.getPreviousAllocatedDetail(fileNo);
+}
+
+@Override
+public void saveAllocationDetails(RoomAllocationDetail newRoomAllocation,RoomAllocationDetail oldRoomAllocation) {
+
+	oldRoomAllocation=getActiveRoomAllocationDetail(newRoomAllocation.getFileNo());
+	
+	if(oldRoomAllocation==null){
+		addHostelAllocation(newRoomAllocation);
+	}
+	
+	if(oldRoomAllocation!=null && oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
+		
+		deleteHostelAllocation(newRoomAllocation.getFileNo());
+		addHostelAllocation(newRoomAllocation);
+	}
 }
 
 

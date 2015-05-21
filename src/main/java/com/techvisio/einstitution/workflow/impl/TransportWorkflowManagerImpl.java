@@ -190,7 +190,10 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	@Override
 	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
 		logger.info("{} : calling addTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
+		
 		transportManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+		
+		
 	} 
 	
 //	@Override

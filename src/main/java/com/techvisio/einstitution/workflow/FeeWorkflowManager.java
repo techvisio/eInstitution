@@ -41,5 +41,7 @@ public interface FeeWorkflowManager {
 	
 	public Boolean isManagementApproved(Long fileNo);
 	void handleManagementChangesforDiscounts(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStaggingDiscounts);
+	
+	public void saveAmenities(StudentFeeStaging studentFeeStaging);
 
 }

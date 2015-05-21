@@ -8,14 +8,14 @@
 	</table>
 	</div>
 <div class="module-dashboard-content">
-<div ng-include src="'feeDashboard.html'" ng-if="form.content==='dashboard'">
-</div>
+<!-- <div ng-include src="'feeDashboard.html'" ng-if="form.content==='dashboard'"> -->
+<!-- </div> -->
 <div ng-include src="'managementPendingfeeApproval.html'" ng-if="form.content==='managementApproval'">
 </div>
 <div ng-include src="'feeAdministration.html'" ng-if="form.content==='feeManagement'">
 </div>
 	
-	<script type="text/ng-template" id="feeDashboard.html">
+<!-- 	<script type="text/ng-template" id="feeDashboard.html"> -->
 	<div>
 	<div class="searchcriteria">
 	<table>
@@ -54,10 +54,10 @@
 			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
 			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
          ng-model="currentPage" ng-change="pageChanged()"></pagination>
-        
 	</div>
+
 </div>
- </script> 
+<!--  </script>  -->
 	
 	
 	<script type="text/ng-template" id="managementPendingfeeApproval.html">
@@ -144,7 +144,7 @@
 							ng-click="admissionDetailManagement.stagingFee.splice($index, 1)"> <i
 							class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
 						    </a></td></</tr>
-	</tr>
+
 <tr><td colspan=4><hr><td></tr>
   <tr>
 	<td colspan="4"><span class="header">Instruction By Management</span></td>
@@ -168,6 +168,8 @@
 			</table>
 		</div>
     </script>
+    
+    
     <script type="text/ng-template" id="feeAdministration.html">
 	<div class="enquiry-detail-div">
 	
@@ -262,12 +264,17 @@
 <td><span ng-bind="object.feeDetail.head"></span></td>
 <td><input type="text" ng-model="object.feeAmount" readonly="true"></td>
 </tr>
+
 <tr>
 <th>Total Fee</th>
 <th>{{totalBaseFee()}}</th>
 </tr>
+
 <tr><td><span class="header">Amenities Charges</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('D')">
+<td><span ng-bind="object.discountHead.head"></span></td>
+<td><input type="text" ng-model="object.amount" readonly="true"></td>
+<tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('A')">
 <td><span ng-bind="object.discountHead.head"></span></td>
 <td><input type="text" ng-model="object.amount" readonly="true"></td>
 </tr>

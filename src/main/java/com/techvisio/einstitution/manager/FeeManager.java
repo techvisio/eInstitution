@@ -41,5 +41,6 @@ public interface FeeManager {
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);
 
 	public Boolean isManagementApproved(Long fileNo);
-	void moveStaggingandBaseFeetoTransaction(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStagging);
+	public void moveStaggingandBaseFeetoTransaction(StudentBasicInfo basicInfo,List<StudentFeeStaging> newStagging);
+	public void saveAmenities(StudentFeeStaging studentFeeStaging);
 }

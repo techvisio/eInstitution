@@ -1,7 +1,7 @@
 package com.techvisio.einstitution.beans;
 
 public class Amenities {
-private FeeDiscountHead feeId;
+private FeeDiscountHead feeDiscountHead;
 private Double charges;
 
 public Double getCharges() {
@@ -10,11 +10,12 @@ public Double getCharges() {
 public void setCharges(Double charges) {
 	this.charges = charges;
 }
-public FeeDiscountHead getFeeId() {
-	return feeId;
+public FeeDiscountHead getFeeDiscountHead() {
+	return feeDiscountHead;
 }
-public void setFeeId(FeeDiscountHead feeId) {
-	this.feeId = feeId;
+public void setFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
+	this.feeDiscountHead = feeDiscountHead;
 }
+
 	
 }

@@ -169,4 +169,10 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		feeManager.moveStaggingandBaseFeetoTransaction(basicInfo, newStaggingDiscounts);
 	}
 
+	@Override
+	public void saveAmenities(StudentFeeStaging studentFeeStaging) {
+
+		feeManager.saveAmenities(studentFeeStaging);
+	}
+
 		}

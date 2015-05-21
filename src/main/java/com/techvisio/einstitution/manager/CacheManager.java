@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
 import com.techvisio.einstitution.beans.Branch;
@@ -24,6 +25,7 @@ import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
+import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
@@ -131,5 +133,9 @@ public interface CacheManager {
 
 	List<MasterDataBean> getTransportRouteCodeAsMasterdata();
 
-	List<MasterDataBean> getAmenitiesAsMasterdata();
+	List<Amenities> getAmenitiesAsMasterdata();
+
+	Transport getTransportByRouteCode(String routeCode);
+
+	Amenities getAmentiesByFeeId(Long feeId);
 }

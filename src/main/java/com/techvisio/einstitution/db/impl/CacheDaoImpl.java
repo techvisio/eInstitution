@@ -628,7 +628,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 				Long feeId = CommonUtil.getLongValue(rs.getLong("Fee_Id"));
 				FeeDiscountHead discountHead = new FeeDiscountHead();
 				discountHead.setHeadId(feeId);
-				facilities.setFeeId(discountHead);
+				facilities.setFeeDiscountHead(discountHead);
 				
 				return facilities;
 			}

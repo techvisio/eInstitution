@@ -58,6 +58,7 @@ admissionModule
 					 "W":"Walk-In",
 					 "R":"Referral",
 					 "A":"Consultant"	 };
+
 			 $scope.itemsPerPage = 3;
 			 $scope.currentPage = 0;
 			 $scope.totalItems = 0;
@@ -488,6 +489,33 @@ admissionModule
 				 $scope.student.consultantDetail.push(angular.copy($scope.dummyConsultantDetail));
 
 			 }
+			 
+			 $scope.saveAmenity = function(amenityStaging) {
+
+					console.log('saveAmenity called in controller');
+
+					var fileNo = $scope.feeTransactionAdmissionBean.basicInfo.fileNo||$scope.admissionDetailManagement.basicInfo.fileNo;
+					amenityStaging.fileNo = fileNo;
+					
+					feeService.saveAmenity(amenityStaging)
+					.then(function(response) {
+						console.log('saveAmenity Data received from service in controller : ');
+						console.log(response);
+						if (response != null && response.data != null && response.data.responseBody != null) {
+
+							getAdmissionDetailManagement(fileNo);
+							
+						} else {
+							console.log(response.data.error);
+							alert(response.data.error);
+						}
+
+
+					})
+
+
+				}
+
 
 			 $scope.resetAdmissionMode = function(){
 				 
@@ -576,6 +604,8 @@ admissionModule
 					 return;
 				 }
 
+				 
+				 
 				 var modalInstance = $modal.open({
 					 templateUrl: 'hostelReservation.html',
 					 controller: 'hostelController',
@@ -592,6 +622,19 @@ admissionModule
 					 $scope.selected = selectedItem;
 				 });
 			 };
+			 
+			 
+			 $scope.saveAmenityPopup = function (size) {
+
+					var modalInstance = $modal.open({
+						templateUrl: 'amenity.html',
+						controller: 'feeController',
+						scope:$scope,
+						size: size,
+					});
+				};
+
+			 
 			 
 			 $scope.today = function() {
 				    $scope.dt = new Date();
@@ -630,7 +673,8 @@ admissionModule
 				 updateStudent : updateStudent,
 				 getLatestAdmission : getLatestAdmission,
 				 getStudentByCriteria : getStudentByCriteria,
-				 submitToManagement:submitToManagement
+				 submitToManagement:submitToManagement,
+				 saveAmenity:saveAmenity
 			 });
 
 			 function addStudent(student) {
@@ -721,6 +765,20 @@ admissionModule
 				 return (request.then(handleSuccess, handleError));
 			 }
 			 
+			 function saveAmenity(feeStaging) {
+
+					console.log('save amenity called in service');
+					var request = $http({
+						method : "post",
+						url : "fee/saveAmenity/",
+						params : "",
+						data : feeStaging
+
+					});
+
+					return (request.then(handleSuccess, handleError));
+				}
+
 			 			 
 
 			 function handleError(response) {

@@ -1,4 +1,4 @@
-var feeModule = angular.module('feeModule' , [ ]);
+var feeModule = angular.module('feeModule' , []);
 
 feeModule.controller('feeController',['$scope','feeService','masterdataService','admissionService','$modal',function($scope,feeService,masterdataService,admissionService,$modal){
 
@@ -13,56 +13,61 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 	$scope.form={};
 	$scope.form.content='dashboard';
 
-	
-	
-	$scope.staging = {
-			 "discountHead":{
-				 
-				 "transactionType": "W"
-			 }
-	 };
 
-	
+
+	$scope.staging = {
+			"discountHead":{
+
+				"transactionType": "W"
+			}
+	};
+
+	$scope.feeStaging = {
+			"discountHead":{
+
+				"transactionType": "A"
+			}
+	};
+
+
 	$scope.newTransaction={};
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
 	                         {"id":"9995","value":"DEMAND DRAFT"},
 	                         {"id":"9994","value":"CHEQUE DEPOSITE"}];
-	 $scope.itemsPerPage = 3
-	  $scope.currentPage = 0;
-	 $scope.totalItems = 0;
 
+	$scope.init=function(){
+
+		console.log('getting masterdata for admission module in init block');
+
+		masterdataService.getAdmissionMasterData()
+		.then(function(data) {
+			console.log(data);
+			if (data != null) {
+				$scope.serverModelData = data;
+			} else {
+				console.log('error');
+			}
+		})
+
+	}
 	
-	 $scope.init=function(){
+	$scope.updateAmenityCharges=function(temp){
+		
+		
+		angular.forEach($scope.serverModelData.dropdownMasterData.AMENITIES, function(amenity) {
+			if(amenity.feeDiscountHead.headId==temp.discountHead.headId){
+				temp.amount=amenity.charges;
+			}
+		});
+	}
 
-		 console.log('getting masterdata for admission module in init block');
+	$scope.itemsPerPage = 3
+	$scope.currentPage = 0;
+	$scope.totalItems = 0;
 
-		 masterdataService.getAdmissionMasterData()
-		 .then(function(data) {
-			 console.log(data);
-			 if (data != null) {
-				 $scope.serverModelData = data;
-			 } else {
-				 console.log('error');
-			 }
-		 })
-
-	 }
-
-	 $scope.gridOptions = {
-		      multiSelect:false,
-		        data: 'filteredSearch',
-		        columnDefs: [{ field: "firstName", width: 90,displayName :"First Name"},
-		                     { field: "lastName", width: 90,displayName :"Last Name"},
-		                    { field: "fatherName", width: 150,displayName :"Father Name" },
-		                    { field: "course.course", width: 90,displayName :"Course" },
-		                    { field: "branch.branchName", width: 180,displayName :"Branch" },
-		                    { field: '', cellTemplate: '<button class="btn btn-success btn-xs" ng-click="getAdmissionDetailManagement(row.config.selectedItems[0].fileNo)">Management</button>' },
-		                    { field: '', cellTemplate: '<button  class="btn btn-success btn-xs" ng-click="getFeeTransactionAndBasicInfoDetail(row.config.selectedItems[0].fileNo)">Fee Handling</button>' }]
-		    };
-	 
-	  $scope.pageCount = function () {
-	    return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
-	  };
+	$scope.pageCount = function () {
+		return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
+	};
 
 	$scope.numPages = function () {
 		return Math.ceil($scope.searchResultList.length / $scope.numPerPage);
@@ -75,6 +80,20 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 		$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
 	});
 
+
+	$scope.gridOptions = {
+			multiSelect:false,
+			data: 'filteredSearch',
+			columnDefs: [{ field: "firstName", width: 90,displayName :"First Name"},
+			             { field: "lastName", width: 90,displayName :"Last Name"},
+			             { field: "fatherName", width: 150,displayName :"Father Name" },
+			             { field: "course.course", width: 90,displayName :"Course" },
+			             { field: "branch.branchName", width: 180,displayName :"Branch" },
+			             { field: '', cellTemplate: '<button class="btn btn-success btn-xs" ng-click="getAdmissionDetailManagement(row.config.selectedItems[0].fileNo)">Management</button>' },
+			             { field: '', cellTemplate: '<button  class="btn btn-success btn-xs" ng-click="getFeeTransactionAndBasicInfoDetail(row.config.selectedItems[0].fileNo)">Fee Handling</button>' }]
+	};
+
+	
 	$scope.getMaxListLengthArray=function(){
 		var size=0;
 		if($scope.feeTransactionAdmissionBean && $scope.feeTransactionAdmissionBean.feeTransactionDebit && $scope.feeTransactionAdmissionBean.feeTransactionCredit){
@@ -84,13 +103,13 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 			return Array.apply(null, {length:size}).map(Number.call, Number);
 		}
 	};
-	
+
 	$scope.transactonType = function(type) {
-		  return function(staggingFee) {
-		    return staggingFee.discountHead.transactionType === type;
-		  }
-		};
-	
+		return function(staggingFee) {
+			return staggingFee.discountHead.transactionType === type;
+		}
+	};
+
 	$scope.totalBaseFee=function(){
 		var sum=0;
 		if($scope.admissionDetailManagement && $scope.admissionDetailManagement.applicableFeeDetails){
@@ -98,27 +117,27 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 				sum=sum+transaction.feeAmount;
 			});
 		}
-		
+
 		return sum;
 	}
-	
+
 	$scope.addNewDiscount = function(){
-		
+
 		console.log("addNewDiscount called");
-		 var discount = angular.copy($scope.staging);
-		 $scope.admissionDetailManagement.stagingFee.push(discount);
+		var discount = angular.copy($scope.staging);
+		$scope.admissionDetailManagement.stagingFee.push(discount);
 	}
-	
+
 	$scope.totalCharges=function(){
 		var sum=0;
 		if($scope.admissionDetailManagement && $scope.admissionDetailManagement.stagingFee){
 			angular.forEach($scope.admissionDetailManagement.stagingFee, function(object) {
 				if(object.discountHead.transactionType!='W'){
-				sum=sum+object.amount;
+					sum=sum+object.amount;
 				}
 			});
 		}
-		
+
 		return sum;
 	}
 
@@ -134,22 +153,22 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 		}
 		return sum;
 	}
+
+	$scope.showBaseFee = function (size) {
+
+		var modalInstance = $modal.open({
+			templateUrl: 'baseFee.html',
+			controller: 'feeController',
+			scope:$scope,
+			size: size,
+		});
+	};
+
 	
-	  $scope.showBaseFee = function (size) {
-
-		    var modalInstance = $modal.open({
-		      templateUrl: 'baseFee.html',
-		      controller: 'feeController',
-		      scope:$scope,
-		      size: size,
-		    });
-	  };
-		   
-
 	$scope.getSearchResult=function(){
 		console.log('get student by search criteria in controller');
 		console.log($scope.searchCriteria);
-		 $scope.currentPage = 0;
+		$scope.currentPage = 0;
 		admissionService.getStudentByCriteria($scope.searchCriteria)
 		.then(function(response) {
 			console.log('Data received from service in controller : ');
@@ -237,6 +256,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 
 	}
 
+	
 	$scope.getUnapprovedRecords=function(){
 		feeService.getUnapprovedList($scope.currentFetchLimit)
 		.then(function(response) {
@@ -290,7 +310,8 @@ feeModule.service('feeService', function($http, $q){
 		updateAdmissionDetailManagement : updateAdmissionDetailManagement,
 		getFeeTransactionAndBasicInfoDetail : getFeeTransactionAndBasicInfoDetail,
 		depositeFee : depositeFee,
-		getPendingFee : getPendingFee
+		getPendingFee : getPendingFee,
+		
 	});
 
 	function getUnapprovedList(size) {
@@ -379,7 +400,6 @@ feeModule.service('feeService', function($http, $q){
 		});
 
 		return (request.then(handleSuccess, handleError));
-
 	}
 
 	function handleError(response) {

@@ -585,6 +585,51 @@ from sectionmaster;
 
 	</entry>
 
+<entry key="getRoomTypeMaster">
+    <![CDATA[
+      
+
+ Select 
+  Type_Code,
+  Description,
+  Threshold,
+  Price,
+  Room_Capacity 
+    
+ from roomtypemaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getTransportMaster">
+    <![CDATA[
+      
+
+ Select 
+ 
+	 Route_Code,
+	 Description,
+ 	 Threshold,
+	 Price 
+    
+ from transportmaster;    
+    ]]>
+
+	</entry>
+
+<entry key="getAmenitiesCharges">
+    <![CDATA[
+      
+
+ Select 
+ 
+	 Fee_Id,
+  	 Charges
+    
+ from amenitiescharges;    
+    ]]>
+
+	</entry>
 
 
 	

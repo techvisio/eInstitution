@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.MasterDataBean;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -144,6 +145,9 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	
 	List<MasterDataBean> vehicleType = cacheManager.getVehicleTypeIdAsMasterdata();
 	serverData.put(AppConstants.VEHICLETYPE, vehicleType);
+	
+	List<Amenities> amenites = cacheManager.getAmenitiesAsMasterdata();
+	serverData.put(AppConstants.AMENITIES, amenites);
 	
 	return new ResponseEntity<Map<String,Object>>(admissionMasterData,HttpStatus.OK);
 	

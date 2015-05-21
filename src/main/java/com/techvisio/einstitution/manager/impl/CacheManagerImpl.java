@@ -604,13 +604,18 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getAmenitiesAsMasterdata(){
+	public List<Amenities> getAmenitiesAsMasterdata(){
 		logger.info("{} : Get amenities as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
-		for(Amenities facilities : getAmenities()){
-			MasterDataBean bean = new MasterDataBean(facilities.getFeeId().getHeadId().toString(), facilities.getCharges().toString());
-			masterData.add(bean);
+		List<Amenities> masterData = new ArrayList<Amenities>();
+		for(Amenities amenities:getAmenities()){
+			
+			Long feeId = amenities.getFeeDiscountHead().getHeadId();
+			FeeDiscountHead discountHead = getFeeDiscountById(feeId);
+			
+			amenities.setFeeDiscountHead(discountHead);
 		}
+		
+		masterData = getAmenities();
 	return masterData;
 	}
 	
@@ -1037,7 +1042,7 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		
 		for(Amenities amenities : cacheDao.getAmenitiesCharges()){
-			amenitiesMap.put(amenities.getFeeId().getHeadId(), amenities);
+			amenitiesMap.put(amenities.getFeeDiscountHead().getHeadId(), amenities);
 		}
 		
 	}
@@ -1185,12 +1190,13 @@ public class CacheManagerImpl implements CacheManager {
 		return roomTypeMap.get(typeCode);
 	}
 	
-	
+	@Override
 	public Transport getTransportByRouteCode(String routeCode){
 		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
 		return transportMap.get(routeCode);
 	}
 	
+	@Override
 	public Amenities getAmentiesByFeeId(Long feeId ){
 		return amenitiesMap.get(feeId);
 		

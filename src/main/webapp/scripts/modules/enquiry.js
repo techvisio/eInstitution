@@ -99,7 +99,7 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 						 $scope.data.admissionEnquiry.name=angular.copy($scope.searchCriteria.name);
 						 $scope.data.admissionEnquiry.emailId=angular.copy($scope.searchCriteria.emailId);
 						 $scope.data.admissionEnquiry.contactNo=angular.copy($scope.searchCriteria.mobileNo);
-						 //$scope.dashboard = false;
+						 $scope.dashboard = false;
 					 }
 					 }
 			 } else {

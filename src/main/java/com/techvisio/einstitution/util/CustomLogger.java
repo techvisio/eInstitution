@@ -44,83 +44,78 @@ public class CustomLogger {
 	}
 
 	public void trace(Marker marker, String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-
+        log.trace(marker, format, arg1, arg2);		
 	}
 
 	public void trace(Marker marker, String format, Object... argArray) {
-		// TODO Auto-generated method stub
-
+        log.trace(marker, format, argArray);    
 	}
 
 	public void trace(Marker marker, String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.trace(marker, msg, t);
 
 	}
 
 	public boolean isDebugEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return log.isDebugEnabled();
 	}
 
 	public void debug(String msg) {
-		// TODO Auto-generated method stub
+		log.debug(msg);
 
 	}
 
 	public void debug(String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.debug(format, arg);
 
 	}
 
 	public void debug(String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.debug(format, arg1, arg2);
 
 	}
 
 	public void debug(String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.debug(format, arguments);
 
 	}
 
 	public void debug(String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.debug(msg, t);
 
 	}
 
 	public boolean isDebugEnabled(Marker marker) {
-		// TODO Auto-generated method stub
-		return false;
+		return log.isDebugEnabled(marker);
 	}
 
 	public void debug(Marker marker, String msg) {
-		// TODO Auto-generated method stub
+		log.debug(marker, msg);
 
 	}
 
 	public void debug(Marker marker, String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.debug(marker, format, arg);
 
 	}
 
 	public void debug(Marker marker, String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.debug(marker, format, arg1, arg2);
 
 	}
 
 	public void debug(Marker marker, String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.debug(marker, format, arguments);
 
 	}
 
 	public void debug(Marker marker, String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.debug(marker, msg, t);
 
 	}
 
 	public boolean isInfoEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return log.isInfoEnabled();
 	}
 
 	public void info(String msg) {
@@ -133,113 +128,109 @@ public class CustomLogger {
 	}
 
 	public void info(String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.info(format, arg1, arg2);
 
 	}
 
 	public void info(String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.info(format, arguments);
 
 	}
 
 	public void info(String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.info(msg, t);
 
 	}
 
 	public boolean isInfoEnabled(Marker marker) {
-		// TODO Auto-generated method stub
-		return false;
+		return isInfoEnabled(marker);
 	}
 
 	public void info(Marker marker, String msg) {
-		// TODO Auto-generated method stub
+		log.info(marker, msg);
 
 	}
 
 	public void info(Marker marker, String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.info(marker, format, arg);
 
 	}
 
 	public void info(Marker marker, String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.info(marker, format, arg1, arg2);
 
 	}
 
 	public void info(Marker marker, String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.info(marker, format, arguments);
 
 	}
 
 	public void info(Marker marker, String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.info(marker, msg, t);
 
 	}
 
 	public boolean isWarnEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return isWarnEnabled();
 	}
 
 	public void warn(String msg) {
-		// TODO Auto-generated method stub
+		log.warn(msg);
 
 	}
 
 	public void warn(String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.warn(format, arg);
 
 	}
 
 	public void warn(String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.warn(format, arguments);
 
 	}
 
 	public void warn(String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.warn(format, arg1, arg2);
 
 	}
 
 	public void warn(String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.warn(msg, t);
 
 	}
 
 	public boolean isWarnEnabled(Marker marker) {
-		// TODO Auto-generated method stub
-		return false;
+		return isWarnEnabled(marker);
 	}
 
 	public void warn(Marker marker, String msg) {
-		// TODO Auto-generated method stub
+		log.warn(marker, msg);
 
 	}
 
 	public void warn(Marker marker, String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.warn(marker, format, arg);
 
 	}
 
 	public void warn(Marker marker, String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.warn(marker, format, arg1, arg2);
 
 	}
 
 	public void warn(Marker marker, String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.warn(marker, format, arguments);
 
 	}
 
 	public void warn(Marker marker, String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.warn(marker, msg, t);
 
 	}
 
 	public boolean isErrorEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return isErrorEnabled();
 	}
 
 	public void error(String msg) {
@@ -247,12 +238,12 @@ public class CustomLogger {
 	}
 
 	public void error(String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.error(format, arg);
 
 	}
 
 	public void error(String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.error(format, arg1, arg2);
 
 	}
 
@@ -261,37 +252,36 @@ public class CustomLogger {
 	}
 
 	public void error(String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.error(msg, t);
 
 	}
 
 	public boolean isErrorEnabled(Marker marker) {
-		// TODO Auto-generated method stub
-		return false;
+		return isErrorEnabled(marker);
 	}
 
 	public void error(Marker marker, String msg) {
-		// TODO Auto-generated method stub
+		log.error(marker, msg);
 
 	}
 
 	public void error(Marker marker, String format, Object arg) {
-		// TODO Auto-generated method stub
+		log.error(marker, format, arg);
 
 	}
 
 	public void error(Marker marker, String format, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		log.error(marker, format, arg1, arg2);
 
 	}
 
 	public void error(Marker marker, String format, Object... arguments) {
-		// TODO Auto-generated method stub
+		log.error(marker, format, arguments);
 
 	}
 
 	public void error(Marker marker, String msg, Throwable t) {
-		// TODO Auto-generated method stub
+		log.error(marker, msg, t);
 
 	}
 

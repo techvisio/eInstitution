@@ -244,19 +244,7 @@ Insert into feetransactionDebit
 	 now(),
 	:Remark,
 	:Mode,
-	:Amount )
-	
-	on duplicate key update
-	
-	File_No=:File_No,
-	Batch_Id=:Batch_Id,
-	Session_Id=:Session_Id, 
-	Component_Id=:Component_Id, 
-	User=:User, 
-	Created_Date=now(),
-	Remark=:Remark,
-	Mode=:Mode,
-	Amount=:Amount;
+	:Amount );
 	
     ]]>
 
