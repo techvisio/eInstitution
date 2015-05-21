@@ -72,7 +72,7 @@ Select
 	Due_Date,
 	Remarks
 
-from ConsultantDetail where File_No=:File_No;
+from ConsultantDetail where File_No=:File_No ;
     ]]>
 
 	</entry>
@@ -119,7 +119,7 @@ Delete from ConsultantDetail where File_No=:File_No and Consultant_Id not in (:C
 
 	</entry>
 
-	<entry key="getConsultantPaymentDtlByFileNo">
+	<entry key="getConsultantPaymentDtlByFileNoAndConsultantId">
     <![CDATA[
       
 Select
@@ -129,7 +129,7 @@ Select
 	File_No,
 	Consultant_Id
    
-from ConsultantPaymentDetail where File_No=:File_No;
+from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id=:Consultant_Id;
     ]]>
 
 	</entry>
@@ -162,7 +162,7 @@ Update ConsultantPaymentDetail set
       Pay_Date=:Pay_Date
       
    
-where File_No=:File_No;  
+where File_No=:File_No and Consultant_Id=:Consultant_Id;  
     ]]>
 
 	</entry>
@@ -190,7 +190,7 @@ SELECT
 
 File_No, Consultant_Id, Fee_Received, Amount_To_Be_Paid, Fee_Due_Date, Approved, Paid, Triggered 
 
-FROM consultantpaymentcriteria where File_No=:File_No; 
+FROM consultantpaymentcriteria where File_No=:File_No and Consultant_Id=:Consultant_Id; 
     ]]>
 
 	</entry>

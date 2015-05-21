@@ -1,11 +1,14 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ConsultantReport;
+import com.techvisio.einstitution.beans.EnquiryReport;
+import com.techvisio.einstitution.beans.EnquiryReportCriteria;
 import com.techvisio.einstitution.db.ReportDao;
 import com.techvisio.einstitution.manager.ReportManager;
 import com.techvisio.einstitution.util.ContextProvider;
@@ -32,5 +35,11 @@ public class ReportManagerImpl implements ReportManager {
 		List<ConsultantReport> reports = reportDao.getConsultantReport();
 		return reports;
 	}
-
+	@Override
+	public List<EnquiryReport> getEnquiryReportByEnquiryReportCriteria(EnquiryReportCriteria enquiryreportCriteria) {
+		logger.info("{} : calling getEnquiryReportByEnquiryReportCriteria method by passing EnquiryReportCriteria:{}  ",this.getClass().getName(),enquiryreportCriteria);
+		List<EnquiryReport> enquiryReports = reportDao.getEnquiryReportByEnquiryReportCriteria(enquiryreportCriteria);
+		return enquiryReports;
+	}
+	
 }
