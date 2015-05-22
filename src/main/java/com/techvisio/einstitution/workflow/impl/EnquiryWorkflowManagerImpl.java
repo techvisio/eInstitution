@@ -136,8 +136,20 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	private StudentDetail getStudentFromEquiry(AdmissionEnquiry enquiry) {
 		logger.info("{} : getStudentFromEquiry      enquiryId{}",this.getClass().getName(), enquiry.getEnquiryId());
 		StudentDetail studentDetail = new StudentDetail();
+		String[] names=enquiry.getName().split(" ");
+		if(names.length==1){
+			studentDetail.setFirstName(names[0]);
+			studentDetail.setLastName(" ");
+		}
+		else if(names.length==2){
+			studentDetail.setFirstName(names[0]);
+			studentDetail.setLastName(names[1]);
+		}
+		else if(names.length==3){
+			studentDetail.setFirstName(names[0]+" "+names[1]);
+			studentDetail.setLastName(names[2]);
+		}
 		
-		studentDetail.setFirstName(enquiry.getName());
 		studentDetail.setFatherName(enquiry.getFatherName());
 		studentDetail.setDob(enquiry.getDob());
         studentDetail.setSelfMobile_No(enquiry.getContactNo());

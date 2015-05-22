@@ -1,19 +1,20 @@
 package com.techvisio.einstitution.beans;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultantDetail {
 
 	private Long fileNo;
-	private Consultant consultant;
+	private Consultant consultant=new Consultant();
 	private boolean consultancyAgreed; 
 	private String paymentMode;
 	private Double amountToPay; 
 	private Date dueDate;
     private String remarks;
-	private List<ConsultantPaymentDtl> consultantPaymentDetail;
-    private List<ConsultantPaymentCriteria> consultantPaymentCriterias;
+	private List<ConsultantPaymentDtl> consultantPaymentDetail=new ArrayList<ConsultantPaymentDtl>();
+    private List<ConsultantPaymentCriteria> consultantPaymentCriterias=new ArrayList<ConsultantPaymentCriteria>();
     
 	public String getPaymentMode() {
 		return paymentMode;
