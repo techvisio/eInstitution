@@ -1,24 +1,27 @@
 package com.techvisio.einstitution.controller;
 
-import java.util.Date;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReport;
 import com.techvisio.einstitution.beans.EnquiryReportCriteria;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ReportWorkflowManager;
 
@@ -60,5 +63,18 @@ public class ReportService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 		
 	}
+	
+	
+	@RequestMapping(value ="/downloadEnquiryReport/{reportId}", method = RequestMethod.GET)
+	public void getEnquiryReportAsExcel(@PathVariable String reportId,HttpServletResponse response) throws IOException{
+		File file = new File("test.xlsx");		
+		file.createNewFile();
+		InputStream targetStream = new FileInputStream(file);
+		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + "test.xlsx" + "\"");
+		org.apache.commons.io.IOUtils.copy(targetStream, response.getOutputStream());
+		response.flushBuffer();	
+	}
+	
 	
 }
