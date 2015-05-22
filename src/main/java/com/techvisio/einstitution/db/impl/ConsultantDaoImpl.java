@@ -153,7 +153,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 	}
 	private void addConsultantDtl(ConsultantDetail consultantDetail) {
-		 logger.info("{} : adding counsultant detail for a particular : consultant id:{} and file no:{}",this.getClass().getName(), consultantDetail.getConsultant().getConsultantId(), consultantDetail.getFileNo());
+		 logger.info("{} : adding counsultant detail for a particular : consultant id:{} and file no:{}",this.getClass().getName());
 		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
 		if(consultantDetail.getConsultant()!=null && consultantDetail.getConsultant().getConsultantId()!=null){
 			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultant().getConsultantId())
