@@ -166,20 +166,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		hostelManager.deleteRoomTypeDetail(typeCode);
 	}
 
-	@Override
-	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo){
-		logger.info("{} :  getHostelAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
-		HostelAllocationAdmissionBean hostelAllocationAdmissionBean =  new HostelAllocationAdmissionBean();
-
-		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
-		hostelAllocationAdmissionBean.setBasicInfo(basicInfo);
-
-		RoomAllocationDetail hostelAllocation = getHostelAllocation(fileNo);
-		hostelAllocationAdmissionBean.setHostelAllocation(hostelAllocation);
-
-		return hostelAllocationAdmissionBean;
-	}
-
+	
 
 	@Override
 	public void saveRoomDetail(RoomAllocationDetail newRoomAllocation){
@@ -209,6 +196,19 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		return hostelReservation;
 	}
 
+	@Override
+	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo){
+		logger.info("{} :  getHostelAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
+		HostelAllocationAdmissionBean hostelAllocationAdmissionBean =  new HostelAllocationAdmissionBean();
+
+		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
+		hostelAllocationAdmissionBean.setBasicInfo(basicInfo);
+
+		RoomAllocationDetail hostelAllocation = getHostelAllocation(fileNo);
+		hostelAllocationAdmissionBean.setHostelAllocation(hostelAllocation);
+
+		return hostelAllocationAdmissionBean;
+	}
 
 	@Override
 	public void saveHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){

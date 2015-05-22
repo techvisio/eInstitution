@@ -11,84 +11,104 @@ reportsModule.controller('reportsController', ['$scope','reportsService',functio
 	$scope.studentData =[];
 	$scope.gridOptions = { data: 'studentData',showGroupPanel: true };
 
+	$scope.enquiryreportCriteria={};
+
 	$scope.getConsultantReport = function() {
 
 		$scope.consultantReport = [
-		                    {
-		                    	"consultantName":"Pradeep",
-		                    	"students":[{
-		                    	            "name":"Test1",
-		                    	            "dob":"21-05-1988",
-		                    	            "fatherName":"PapaTest1",
-		                    	            "feesSubmitted":"1200",
-		                    	            "course":"MBA",
-		                    	            "branch":"HR",
-		                    	            "quota":"GEN"
-		                    	},{
-                    	            "name":"Test2",
-                    	            "dob":"21-05-1988",
-                    	            "fatherName":"PapaTest2",
-                    	            "feesSubmitted":"1600",
-                    	            "course":"MBA",
-                    	            "branch":"Finance",
-                    	            "quota":"GEN"
-                    	}]
-		                    },
-		                    {
-		                    	"consultantName":"Sandeep",
-		                    	"students":[{
-		                    	            "name":"TestS1",
-		                    	            "dob":"21-05-1988",
-		                    	            "fatherName":"PapaTestS1",
-		                    	            "feesSubmitted":"300",
-		                    	            "course":"Btech",
-		                    	            "branch":"CS",
-		                    	            "quota":"GEN"
-		                    	},{
-                    	            "name":"TestS2",
-                    	            "dob":"21-05-1988",
-                    	            "fatherName":"PapaTestS2",
-                    	            "feesSubmitted":"600",
-                    	            "course":"Btech",
-                    	            "branch":"ECE",
-                    	            "quota":"GEN"
-		                    	}]
-		                    }
-		                    ];
+		                           {
+		                        	   "consultantName":"Pradeep",
+		                        	   "students":[{
+		                        		   "name":"Test1",
+		                        		   "dob":"21-05-1988",
+		                        		   "fatherName":"PapaTest1",
+		                        		   "feesSubmitted":"1200",
+		                        		   "course":"MBA",
+		                        		   "branch":"HR",
+		                        		   "quota":"GEN"
+		                        	   },{
+		                        		   "name":"Test2",
+		                        		   "dob":"21-05-1988",
+		                        		   "fatherName":"PapaTest2",
+		                        		   "feesSubmitted":"1600",
+		                        		   "course":"MBA",
+		                        		   "branch":"Finance",
+		                        		   "quota":"GEN"
+		                        	   }]
+		                           },
+		                           {
+		                        	   "consultantName":"Sandeep",
+		                        	   "students":[{
+		                        		   "name":"TestS1",
+		                        		   "dob":"21-05-1988",
+		                        		   "fatherName":"PapaTestS1",
+		                        		   "feesSubmitted":"300",
+		                        		   "course":"Btech",
+		                        		   "branch":"CS",
+		                        		   "quota":"GEN"
+		                        	   },{
+		                        		   "name":"TestS2",
+		                        		   "dob":"21-05-1988",
+		                        		   "fatherName":"PapaTestS2",
+		                        		   "feesSubmitted":"600",
+		                        		   "course":"Btech",
+		                        		   "branch":"ECE",
+		                        		   "quota":"GEN"
+		                        	   }]
+		                           }
+		                           ];
 		$scope.fillStudentData();
 		//$scope.gridOptions = { data: 'studentData',showGroupPanel: true };
 		constRpt=true;
 		admssnRpt=false;
 		dashboard=false;
 //		hostelService.getConsultantReport().then(function(response) {
-//			console.log('Received Consultant Report: ');
-//			console.log(response);
-//			if(response.data != null)
-//			{
-//				$scope.consultantReport=response.data;
-//				constRpt=true;
-//				admssnRpt=false;
-//				dashboard=false;
-//			}
-//			else
-//			{
-//				console.log('Error getting consultant Report:'+data.error);
-//				alert('Error retrieving consultant Report:'+data.error);
-//			}
+//		console.log('Received Consultant Report: ');
+//		console.log(response);
+//		if(response.data != null)
+//		{
+//		$scope.consultantReport=response.data;
+//		constRpt=true;
+//		admssnRpt=false;
+//		dashboard=false;
+//		}
+//		else
+//		{
+//		console.log('Error getting consultant Report:'+data.error);
+//		alert('Error retrieving consultant Report:'+data.error);
+//		}
 //		})
 
 	}
-	
+
 	$scope.fillStudentData = function(){
-		 for (var i=0; i<$scope.consultantReport.length; i++){
-		 for(var j=0; j<$scope.consultantReport[i].students.length; j++)
-			 $scope.studentData.push($scope.consultantReport[i].students[j]);
-		 }
+		for (var i=0; i<$scope.consultantReport.length; i++){
+			for(var j=0; j<$scope.consultantReport[i].students.length; j++)
+				$scope.studentData.push($scope.consultantReport[i].students[j]);
+		}
 	}
-	
+
+	$scope.getEnquiryReportByCriteria = function() {
+		console.log('get enquiry report by search criteria in controller');
+		$scope.currentPage = 0;
+		reportsService.getEnquiryReportByCriteria($scope.enquiryreportCriteria)
+		.then(function(response) {
+			console.log('enquiry report Data received from service in controller : ');
+			console.log(response);
+			if (response != null && response.data != null && response.data.responseBody != null) {
+				$scope.enquiryReport = response.data.responseBody;
+			}
+			else {
+				console.log(response.data.error);
+				alert(response.data.error);
+			}
+		})
+	}
+
+
 	$scope.getAdmissionReport = function() {
 
-		hostelService.getAdmissionReport().then(function(response) {
+		reportsService.getAdmissionReport().then(function(response) {
 			console.log('Received Admission Report: ');
 			console.log(response);
 			if(response.data != null)
@@ -117,14 +137,30 @@ reportsModule.service('reportsService', function($http, $q) {
 	return ({
 		getConsultantReport : getConsultantReport,
 		getAdmissionReport : getAdmissionReport,
+		getEnquiryReportByCriteria : getEnquiryReportByCriteria 
 	});
+
+	function getEnquiryReportByCriteria(enquiryreportCriteria){
+
+		console.log('Getting enquiry report by search criteria in service');
+		var request = $http({
+			method : "post",
+			url : "report/searchEnquiryReportByCriteria/",
+			params : "",
+			data : enquiryreportCriteria
+
+		});
+
+		return (request.then(handleSuccess, handleError));
+	}
+
 
 	function getConsultantReport() {
 
 		console.log('getConsultantReport called in service');
 		var request = $http({
 			method : "get",
-			url : "report/consutantReport",
+			url : "report/consutantReport/",
 			params : {
 				action : "get"
 			}
@@ -133,13 +169,13 @@ reportsModule.service('reportsService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 
 	}
-	
+
 	function getAdmissionReport() {
 
 		console.log('getAdmissionReport called in service');
 		var request = $http({
 			method : "get",
-			url : "report/admissionReport",
+			url : "report/admissionReport/",
 			params : {
 				action : "get"
 			}

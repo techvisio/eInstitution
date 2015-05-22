@@ -29,7 +29,6 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 			}
 	};
 
-
 	$scope.newTransaction={};
 	$scope.transactionTypes=[{"id":"9996","value":"CASH DEPOSITE"},
 	                         {"id":"9995","value":"DEMAND DRAFT"},
@@ -48,11 +47,10 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 				console.log('error');
 			}
 		})
-
 	}
 	
+	
 	$scope.updateAmenityCharges=function(temp){
-		
 		
 		angular.forEach($scope.serverModelData.dropdownMasterData.AMENITIES, function(amenity) {
 			if(amenity.feeDiscountHead.headId==temp.discountHead.headId){

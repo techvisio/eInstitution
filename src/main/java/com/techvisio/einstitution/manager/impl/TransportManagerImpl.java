@@ -178,5 +178,20 @@ public class TransportManagerImpl implements TransportManager {
 		return transportDao.getPreviousAllocatedDetail(fileNo);
 	}
 
+	@Override
+	public void saveTransportAllocationDetails(TransportAllocation newTransportAllocation,TransportAllocation oldTransportAllocation) {
+
+		oldTransportAllocation=getActiveTransportAllocationDetail(newTransportAllocation.getFileNo());
+		
+		if(oldTransportAllocation==null){
+			addTransportAllocationDtl(newTransportAllocation);
+		}
+		
+		if(oldTransportAllocation!=null && oldTransportAllocation.getVehicleDetail().getVehicleNo()!=newTransportAllocation.getVehicleDetail().getVehicleNo()){
+			
+			deleteTransportAllocationDtl(newTransportAllocation.getFileNo());
+			addTransportAllocationDtl(newTransportAllocation);
+		}
+	}
 
 }

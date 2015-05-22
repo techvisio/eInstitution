@@ -41,4 +41,6 @@ public List<AvailableTransport> getAvailableTransport();
 	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo);
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
 
+	public void saveTransportAllocationDetail(TransportAllocation newTransportAllocation);
+
 }

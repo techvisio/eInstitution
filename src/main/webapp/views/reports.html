@@ -11,14 +11,29 @@
 								ng-click="getAdmissionReport()">Admission Report</button></td>
 					</tr>
 				</table>
-
+				<div>
+					<table>
+						<tr>
+							<td><span>Date From</span></td>
+							<td><input type="date"
+								ng-model="enquiryreportCriteria.dateFrom"></td>
+							<td><span>Date To</span></td>
+							<td><input type="date"
+								ng-model="enquiryreportCriteria.dateTo"></td>
+						</tr>
+						<tr>
+							<td><button type="button" class="btn btn-success"
+									ng-click="getEnquiryReportByCriteria()">Search</button></td>
+						</tr>
+					</table>
+				</div>
 
 			</div>
 
-			<div >
-			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
-			<!-- <accordion>  -->
-			<!-- <accordion-group ng-repeat="consultantDtl in consultantReport">
+			<div>
+				<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+				<!-- <accordion>  -->
+				<!-- <accordion-group ng-repeat="consultantDtl in consultantReport">
 			<accordion-heading >
                     {{consultantDtl.consultantName}} - consultantDtl.students.count
                       <i class="pull-right glyphicon"
@@ -53,9 +68,9 @@
 				</table> -->
 				<!-- </accordion-group> </accordion> -->
 			</div>
-			
+
 			<td><button type="button" class="btn btn-primary btn-lg"
-								ng-click="dashboard = true">Back To Dashboard</button></td>
+					ng-click="dashboard = true">Back To Dashboard</button></td>
 		</div>
 	</div>
 </div>

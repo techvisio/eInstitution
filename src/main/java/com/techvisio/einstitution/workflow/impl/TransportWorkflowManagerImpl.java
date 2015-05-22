@@ -7,9 +7,13 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
+import com.techvisio.einstitution.beans.HostelReservation;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomTypeMaster;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDetail;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
+import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
@@ -29,17 +33,17 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	private static CustomLogger logger=CustomLogger.getLogger(TransportWorkflowManagerImpl.class);
 	@Autowired
 	AdmissionManager admissionManager;
-	
+
 	@Autowired
 	AdmissionWorkflowManager admissionWorkflowManager;
-	
+
 	@Autowired
 	FeeManager feeManager;
-	
+
 	@Autowired
 	TransportManager transportManager ;
 
-	
+
 	@Autowired
 	CacheManager cacheManager;
 
@@ -58,12 +62,12 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		logger.info("{} : calling addTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
 		transportManager.addTransportAllocationDtl(transportAllocation);
 	}
-//
-//	public void updateTransportAllocationDtl(
-//			TransportAllocation transportAllocation) {
-//		logger.info("{} : calling updateTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
-//		transportManager.updateTransportAllocationDtl(transportAllocation);
-//	}
+	//
+	//	public void updateTransportAllocationDtl(
+	//			TransportAllocation transportAllocation) {
+	//		logger.info("{} : calling updateTransportAllocationDtl for fileNo:{} ",this.getClass().getName(), transportAllocation.getFileNo());
+	//		transportManager.updateTransportAllocationDtl(transportAllocation);
+	//	}
 
 	public void deleteTransportAllocationDtl(Long fileNo) {
 		logger.info("{} : calling deleteTransportAllocationDtl by passing fileNo:{} ",this.getClass().getName(), fileNo);
@@ -101,7 +105,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
-		
+
 		feeManager.saveStudentFeeStaging(stagingFee);
 
 		return fileNo;
@@ -132,7 +136,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		stagingFee.setFileNo(fileNo);
 		stagingFee.setDiscountHead(discountHead);
 		stagingFee.setAmount(reservedObject.getPrice());
-		
+
 		feeManager.saveStudentFeeStaging(stagingFee);
 
 		return fileNo;
@@ -176,38 +180,38 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	@Override
 	public TransportAllocationAdmissionBean getTransportAllocationAdmissiondtl(Long fileNo){
 		logger.info("{} : getTransportAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
-        TransportAllocationAdmissionBean transportAllocationAdmissionBean = new TransportAllocationAdmissionBean();
-        
+		TransportAllocationAdmissionBean transportAllocationAdmissionBean = new TransportAllocationAdmissionBean();
+
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
 		transportAllocationAdmissionBean.setBasicInfo(basicInfo);
-		
+
 		TransportAllocation transportAllocation = getTransportAllocationDtl(fileNo);
 		transportAllocationAdmissionBean.setTransportAllocation(transportAllocation);
-		
+
 		return transportAllocationAdmissionBean;
 	}
-	
+
 	@Override
 	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
 		logger.info("{} : calling addTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
-		
-		transportManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
-		
-		
-	} 
-	
-//	@Override
-//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-//		logger.info("{} : calling updateTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
-//		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
-//	}
 
-//	@Override
-//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
-//			Long vehicleId) {
-//		logger.info("{} : calling getCurrentAllocationByVehichleId.  Vehicle Id:{} ",this.getClass().getName(), vehicleId);
-//		return transportManager.getCurrentAllocationByVehichleId(vehicleId);
-//	}
+		transportManager.addTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+
+
+	} 
+
+	//	@Override
+	//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+	//		logger.info("{} : calling updateTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
+	//		transportManager.updateTransportAllocationAdmissionDtl(transportAllocationAdmissionBean);
+	//	}
+
+	//	@Override
+	//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
+	//			Long vehicleId) {
+	//		logger.info("{} : calling getCurrentAllocationByVehichleId.  Vehicle Id:{} ",this.getClass().getName(), vehicleId);
+	//		return transportManager.getCurrentAllocationByVehichleId(vehicleId);
+	//	}
 
 	@Override
 	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo) {
@@ -224,16 +228,45 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	@Override
 	public TransportAllocationForStudent getAllocationForStudent(Long fileNo) {
 		TransportAllocationForStudent allocationForStudent = new TransportAllocationForStudent();
-		
+
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
 		allocationForStudent.setBasicInfo(basicInfo);
-		
+
 		TransportAllocation activeAllocation = getActiveTransportAllocationDetail(fileNo);
 		allocationForStudent.setActiveAllocation(activeAllocation);
-		
+
 		List<TransportAllocation> previousAllocation = getPreviousAllocatedDetail(fileNo);
 		allocationForStudent.setPreviousAllocation(previousAllocation);
-		
+
 		return allocationForStudent;
 	}
+
+	@Override
+	public void saveTransportAllocationDetail(TransportAllocation newTransportAllocation){
+
+		TransportAllocation oldTransportAllocation = getActiveTransportAllocationDetail(newTransportAllocation.getFileNo());
+		TransportReservation transportReservation = getReservationfromAllocation(newTransportAllocation);
+		if(oldTransportAllocation == null ){
+			addTransportReservationDtl(transportReservation);
+		}
+		if(oldTransportAllocation!=null && !oldTransportAllocation.getVehicleDetail().getRouteCode().equals(newTransportAllocation.getVehicleDetail().getRouteCode()))
+		{
+			updateTransportReservationDtl(transportReservation);
+		}
+		transportManager.saveTransportAllocationDetails(newTransportAllocation, oldTransportAllocation);
+	}
+
+	private TransportReservation getReservationfromAllocation(
+			TransportAllocation newTransportAllocation) {
+		TransportReservation transportReservation = new TransportReservation();
+		String routeCode=newTransportAllocation.getVehicleDetail().getRouteCode();
+		Transport transport = cacheManager.getTransportByRouteCode(routeCode);
+
+		transportReservation.setPrice(transport.getPrice());
+		transportReservation.setDescription(transport.getDescription());
+		transportReservation.setFileNo(newTransportAllocation.getFileNo());
+		transportReservation.setRouteCode(newTransportAllocation.getVehicleDetail().getRouteCode());
+		return transportReservation;
+	}
+
 }

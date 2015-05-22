@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
+import com.techvisio.einstitution.beans.RoomAllocationDetail;
 import com.techvisio.einstitution.beans.ScholarshipDetail;
 import com.techvisio.einstitution.beans.ScholarshipPaymentDetail;
 import com.techvisio.einstitution.db.ScholarshipDao;
@@ -29,46 +30,53 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		this.scholarshipQueryProps = scholarshipQueryProps;
 	}
 
-	
+
 	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
 		logger.info("{} : Get scholarship detail for file no:{}",this.getClass().getName(), fileNo);
 
 		ScholarshipDetail scholarshipDetail = null;
-		
+
 		try{
-			
-		String getQuery = scholarshipQueryProps.getProperty("getScholarshipDetail");
 
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
+			String getQuery = scholarshipQueryProps.getProperty("getScholarshipDetail");
 
-		scholarshipDetail = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<ScholarshipDetail>() {
+			SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 
-			public ScholarshipDetail mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				ScholarshipDetail scholarshipDetail = new ScholarshipDetail();
-				scholarshipDetail.setFileNo(rs.getLong("File_No"));
-				scholarshipDetail.setAmount(rs.getDouble("Amount"));
-				scholarshipDetail.setStateId(CommonUtil.getLongValue(rs.getLong("State_Id")));
-				scholarshipDetail.setCreateDate(rs.getDate("Created_Date"));
-				scholarshipDetail.setRemark(rs.getString("Remark"));
-				scholarshipDetail.setApproved(rs.getBoolean("Approved"));
-			    scholarshipDetail.setReoccurring(rs.getBoolean("Is_Reoccurring"));
-			    scholarshipDetail.setConditional(rs.getBoolean("Is_Conditional"));
-			    scholarshipDetail.setParentIncome(rs.getDouble("Parent_Income"));
-				return scholarshipDetail;			
-			
+			List<ScholarshipDetail> scholarshipDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ScholarshipDetail>() {
+
+				public ScholarshipDetail mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					ScholarshipDetail scholarshipDetail = new ScholarshipDetail();
+					scholarshipDetail.setFileNo(rs.getLong("File_No"));
+					scholarshipDetail.setAmount(rs.getDouble("Amount"));
+					scholarshipDetail.setStateId(CommonUtil.getLongValue(rs.getLong("State_Id")));
+					scholarshipDetail.setCreateDate(rs.getDate("Created_Date"));
+					scholarshipDetail.setRemark(rs.getString("Remark"));
+					scholarshipDetail.setApproved(rs.getBoolean("Approved"));
+					scholarshipDetail.setReoccurring(rs.getBoolean("Is_Reoccurring"));
+					scholarshipDetail.setConditional(rs.getBoolean("Is_Conditional"));
+					scholarshipDetail.setParentIncome(rs.getDouble("Parent_Income"));
+					return scholarshipDetail;			
+
+				}
+
+			});
+			ScholarshipDetail scholarshipDetail2 = null;
+			if(scholarshipDetails != null && scholarshipDetails.size()>0 ){
+				scholarshipDetail = scholarshipDetails.get(0);
+
+				List<ScholarshipPaymentDetail> scholarshipDetailPaymentDetails = getScholarshipPaymentDetail(fileNo);
+				scholarshipDetail.setScholarshipPaymentDetail(scholarshipDetailPaymentDetails);
+
 			}
-		
-		});
-			
-			List<ScholarshipPaymentDetail> scholarshipDetails = getScholarshipPaymentDetail(fileNo);
-			scholarshipDetail.setScholarshipPaymentDetail(scholarshipDetails);
+
+
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		return scholarshipDetail;
 
 	}
@@ -76,40 +84,40 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
 		logger.info("{} : Add scholarship detail for file no:{}",this.getClass().getName(), scholarshipDetail.getFileNo());
 		if(scholarshipDetail != null && scholarshipDetail.getStateId() != null){
-		String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
+			String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
 
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", scholarshipDetail.getFileNo())
-		.addValue("Amount", scholarshipDetail.getAmount())
-		.addValue("State_Id", scholarshipDetail.getStateId())
-		.addValue("Created_Date", scholarshipDetail.getCreateDate())
-		.addValue("Remark", scholarshipDetail.getRemark())
-		.addValue("Approved", scholarshipDetail.isApproved())
-		.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring())
-		.addValue("Is_Conditional", scholarshipDetail.isConditional())
-		.addValue("Parent_Income", scholarshipDetail.getParentIncome());
-		
-		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
+			SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", scholarshipDetail.getFileNo())
+			.addValue("Amount", scholarshipDetail.getAmount())
+			.addValue("State_Id", scholarshipDetail.getStateId())
+			.addValue("Created_Date", scholarshipDetail.getCreateDate())
+			.addValue("Remark", scholarshipDetail.getRemark())
+			.addValue("Approved", scholarshipDetail.isApproved())
+			.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring())
+			.addValue("Is_Conditional", scholarshipDetail.isConditional())
+			.addValue("Parent_Income", scholarshipDetail.getParentIncome());
 
-		if (scholarshipDetail.getScholarshipPaymentDetail() != null) {
-			for (ScholarshipPaymentDetail scholarshipPaymentDetail:scholarshipDetail
-					.getScholarshipPaymentDetail()) {
-				addScholarshipPaymentDetail(scholarshipPaymentDetail);
+			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
+
+			if (scholarshipDetail.getScholarshipPaymentDetail() != null) {
+				for (ScholarshipPaymentDetail scholarshipPaymentDetail:scholarshipDetail
+						.getScholarshipPaymentDetail()) {
+					addScholarshipPaymentDetail(scholarshipPaymentDetail);
+				}
 			}
-		}
 		}
 	}
 
-	
+
 	public void deleteScholarshipDetail(Long fileNo) {
 		logger.info("{} : Delete scholarship detail for file no:{}",this.getClass().getName(), fileNo);		
-         deleteScholarshipPaymentDetail(fileNo);
-		
+		deleteScholarshipPaymentDetail(fileNo);
+
 		String deleteQuery = scholarshipQueryProps.getProperty("deleteScholarshipDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
-		
+
 	}
 
 	public List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(Long fileNo) {
@@ -147,12 +155,12 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
 
-		
+
 	}
 
 	public void updateScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail) {
 		logger.info("{} : Update scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());
-		
+
 		String updateQuery = scholarshipQueryProps.getProperty("updateScholarshipPaymentDetail");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", scholarshipPaymentDetail.getFileNo())
@@ -162,7 +170,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
 
 
-		
+
 	}
 
 	public void deleteScholarshipPaymentDetail(Long fileNo) {
@@ -173,7 +181,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
-		
+
 	}
 
 }

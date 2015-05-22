@@ -83,6 +83,8 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 					FeeTransaction feeTransaction = new FeeTransaction();
 					feeTransaction.setAmount(oldScholarshipObj.getAmount());
 					feeTransaction.setFileNo(newScholarshipDetail.getFileNo());
+					feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
+					feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
 					feeTransaction.getFeeDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
 					feeManager.addFeeTransactionDebit(feeTransaction);
 				}
@@ -95,6 +97,8 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 					FeeTransaction feeTransaction = new FeeTransaction();
 					feeTransaction.setAmount(newScholarshipObj.getAmount());
 					feeTransaction.setFileNo(newScholarshipDetail.getFileNo());
+					feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
+					feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
 					feeTransaction.getFeeDiscountHead().setHeadId(AppConstants.SCHOLARSHIP_HEAD_ID);
 					feeManager.addFeeTransactionCredit(feeTransaction);
 				}

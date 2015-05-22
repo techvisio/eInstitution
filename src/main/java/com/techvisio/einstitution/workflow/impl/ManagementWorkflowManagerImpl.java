@@ -86,10 +86,10 @@ public class ManagementWorkflowManagerImpl implements ManagementWorkflowManager{
 	    
 		ScholarshipDetail scholarshipDetail= admissionBean.getScholarship();
 	    
-		
+		if(scholarshipDetail!=null){
 		scholarshipDetail.setFileNo(basicInfo.getFileNo());
 		schlarshipWorkFlow.accomodateManagementChanges(basicInfo,scholarshipDetail);
-	    
+		}
 	    //handling discounts , base applicable fee and other ameneties charges
 		List<StudentFeeStaging> feeStagings = admissionBean.getStagingFee();
 		feeworkFlow.handleManagementChangesforDiscounts(basicInfo, feeStagings);

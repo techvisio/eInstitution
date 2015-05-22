@@ -37,4 +37,6 @@ public interface TransportManager {
 //	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
 	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo);
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
+
+	public void saveTransportAllocationDetails(TransportAllocation newTransportAllocation, TransportAllocation oldTransportAllocation);
 }
