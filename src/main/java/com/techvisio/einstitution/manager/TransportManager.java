@@ -30,11 +30,6 @@ public interface TransportManager {
 	public void updateVehicleDetail(VehicleDetail vehicleDetail);
 	public void deleteVehicleDetail(Long vehicleId);
 
-	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
-
-//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
-
-//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(Long vehicleId);
 	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo);
 	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
 

@@ -57,26 +57,22 @@ public class TransportManagerImpl implements TransportManager {
 		return transportAllocation;
 	}
 
-	public void saveTransportDetail(TransportAllocation transportAllocation){
+	public void saveTransportAllocationDetails(TransportAllocation newTransportAllocation,TransportAllocation oldTransportAllocation){
 
-		TransportAllocation newTransportAllocation = transportAllocation;
-		TransportAllocation oldTransportAllocation = getTransportAllocationDtl(transportAllocation.getFileNo());
-
-		if(oldTransportAllocation!=null && oldTransportAllocation.isAllocated()){
-
-			if(oldTransportAllocation.getVehicleDetail().getVehicleNo()!=newTransportAllocation.getVehicleDetail().getVehicleNo()){
-
-				deleteTransportAllocationDtl(oldTransportAllocation.getFileNo());
-				addTransportAllocationDtl(newTransportAllocation);
-			}
-		}
-		else{
-
+oldTransportAllocation=getActiveTransportAllocationDetail(newTransportAllocation.getFileNo());
+		
+		if(oldTransportAllocation==null){
 			addTransportAllocationDtl(newTransportAllocation);
 		}
-
-
+		
+		if(oldTransportAllocation!=null && !oldTransportAllocation.getVehicleDetail().getVehicleNo().equals(newTransportAllocation.getVehicleDetail().getVehicleNo())){
+			
+			deleteTransportAllocationDtl(newTransportAllocation.getFileNo());
+			addTransportAllocationDtl(newTransportAllocation);
+		}
 	}
+
+	
 
 
 	public void addTransportAllocationDtl(TransportAllocation transportAllocation) {
@@ -142,30 +138,7 @@ public class TransportManagerImpl implements TransportManager {
 		transportDao.deleteVehicleDetail(vehicleId);
 	}
 
-	@Override
-	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-		logger.info("{} : add Transport Allocation AdmissionDtl for Student:{}  ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());		
-		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
-		StudentBasicInfo basicInfo = transportAllocationAdmissionBean.getBasicInfo();
-		Long fileNo= basicInfo.getFileNo();
-		transportAllocation.setFileNo(fileNo);
-		saveTransportDetail(transportAllocation);
-	}
-
-	//	@Override
-	//	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
-	//		logger.info("{} : update Transport Allocation AdmissionDtl for Student:{}  ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());		
-	//		TransportAllocation transportAllocation = transportAllocationAdmissionBean.getTransportAllocation();
-	//		updateTransportAllocationDtl(transportAllocation);
-	//	}
-
-	//	@Override
-	//	public TransportAllocationDtlForVehicle getCurrentAllocationByVehichleId(
-	//			Long vehicleId) {
-	//		logger.info("{} : get Current Allocation By VehichleId:{}  ",this.getClass().getName(), vehicleId);
-	//		return transportDao.getCurrentAllocationByVehichleId(vehicleId);
-	//	}
-
+	
 	@Override
 	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo) {
 		logger.info("{} : calling getVehicleAllocatedDetail by passing file no:{}  ",this.getClass().getName(), fileNo);
@@ -178,20 +151,5 @@ public class TransportManagerImpl implements TransportManager {
 		return transportDao.getPreviousAllocatedDetail(fileNo);
 	}
 
-	@Override
-	public void saveTransportAllocationDetails(TransportAllocation newTransportAllocation,TransportAllocation oldTransportAllocation) {
-
-		oldTransportAllocation=getActiveTransportAllocationDetail(newTransportAllocation.getFileNo());
-		
-		if(oldTransportAllocation==null){
-			addTransportAllocationDtl(newTransportAllocation);
-		}
-		
-		if(oldTransportAllocation!=null && oldTransportAllocation.getVehicleDetail().getVehicleNo()!=newTransportAllocation.getVehicleDetail().getVehicleNo()){
-			
-			deleteTransportAllocationDtl(newTransportAllocation.getFileNo());
-			addTransportAllocationDtl(newTransportAllocation);
-		}
-	}
-
+	
 }

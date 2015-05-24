@@ -161,7 +161,7 @@ public void saveAllocationDetails(RoomAllocationDetail newRoomAllocation,RoomAll
 		addHostelAllocation(newRoomAllocation);
 	}
 	
-	if(oldRoomAllocation!=null && oldRoomAllocation.getRoomTypeDetail().getRoomNo()!=newRoomAllocation.getRoomTypeDetail().getRoomNo()){
+	if(oldRoomAllocation!=null && !oldRoomAllocation.getRoomTypeDetail().getRoomNo().equals(newRoomAllocation.getRoomTypeDetail().getRoomNo())){
 		
 		deleteHostelAllocation(newRoomAllocation.getFileNo());
 		addHostelAllocation(newRoomAllocation);

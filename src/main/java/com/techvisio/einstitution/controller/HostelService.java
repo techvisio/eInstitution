@@ -214,22 +214,23 @@ public class HostelService {
 	
 	
 	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.POST)
-	public ResponseEntity<Response> addHostelAllocationAdmissionDtl(@RequestBody HostelAllocationAdmissionBean hostelAllocationAdmissionBean) {
-		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), hostelAllocationAdmissionBean.getBasicInfo().getFileNo());
+	public ResponseEntity<Response> addHostelAllocationAdmissionDtl(@RequestBody RoomAllocationDetail roomAllocationDetail) {
+//		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), roomAllocationDetail.getBasicInfo().getFileNo());
 		Response response = new Response();
 		try{
 			
-			hostelWorkflowManager.saveHostelAllocationAdmissionDtl(hostelAllocationAdmissionBean);
-
-            Long fileNo = hostelAllocationAdmissionBean.getBasicInfo().getFileNo();
-            hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
-            
-            response.setResponseBody(hostelAllocationAdmissionBean);
+			hostelWorkflowManager.saveHostelAllocationAdmissionDtl(roomAllocationDetail);
+         
+			Long fileNo= roomAllocationDetail.getFileNo();
+			HostelAllocationAdmissionBean allocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+			
+            response.setResponseBody(allocationAdmissionBean);
  		}
 		catch(Exception e)
 		{
-			logger.error("{}: Error While Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFileNo(),e);
+//			logger.error("{}: Error While Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(),roomAllocationDetail.getBasicInfo().getFileNo(),e);
 			response.setError(e.getLocalizedMessage());
+			e.printStackTrace();
 			
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

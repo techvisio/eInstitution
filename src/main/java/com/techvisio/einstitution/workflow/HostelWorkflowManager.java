@@ -41,7 +41,7 @@ public interface HostelWorkflowManager {
 
 	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo);
 
-	public void saveHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
+	public void saveHostelAllocationAdmissionDtl(RoomAllocationDetail roomAllocationDetail);
 
 //	public void updateHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean);
 

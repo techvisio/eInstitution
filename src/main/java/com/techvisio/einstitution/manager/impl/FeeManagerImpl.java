@@ -176,16 +176,17 @@ public class FeeManagerImpl implements FeeManager{
 					}
 					
 					else if(newFeeStag.isApproved() && oldFeeStag.isApproved()){
-						if(newFeeStag.getAmount()!=oldFeeStag.getAmount()){
+						if(!newFeeStag.getAmount().equals(oldFeeStag.getAmount())){
 						oldFeeStag.getDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
 						FeeTransaction feeTransaction = new FeeTransaction();
 						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
 						feeTransaction.setAmount(oldFeeStag.getAmount());
 						debitFeetransaction.add(feeTransaction);
 						
-						feeTransaction.setAmount(newFeeStag.getAmount());
-						feeTransaction.setFeeDiscountHead(newFeeStag.getDiscountHead());
-						creditFeetransaction.add(feeTransaction);
+						FeeTransaction feeTransac = new FeeTransaction();
+						feeTransac.setAmount(newFeeStag.getAmount());
+						feeTransac.setFeeDiscountHead(newFeeStag.getDiscountHead());
+						creditFeetransaction.add(feeTransac);
 						
 						}
 					}

@@ -211,14 +211,9 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	@Override
-	public void saveHostelAllocationAdmissionDtl(HostelAllocationAdmissionBean hostelAllocationAdmissionBean){
-		logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
+	public void saveHostelAllocationAdmissionDtl(RoomAllocationDetail roomAllocationDetail){
+//		logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
 
-		RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
-
-		StudentBasicInfo basicInfo = hostelAllocationAdmissionBean.getBasicInfo();
-		Long fileNo = basicInfo.getFileNo();
-		roomAllocationDetail.setFileNo(fileNo);
 		saveRoomDetail(roomAllocationDetail);
 
 	}
