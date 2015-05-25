@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.AdmissionReport;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReport;
 import com.techvisio.einstitution.beans.EnquiryReportCriteria;
@@ -35,6 +36,15 @@ public class ReportWorkflowManagerImpl implements ReportWorkflowManager {
 		List<EnquiryReport> reports = reportManager.getEnquiryReportByEnquiryReportCriteria(enquiryreportCriteria);
 		
 		return reports;
+	}
+
+
+	@Override
+	public List<AdmissionReport> getAdmissionReportByReportCriteria(EnquiryReportCriteria enquiryReportCriteria) {
+		logger.info("{} : calling getAdmissionReportByReportCriteria by passing EnquiryReportCriteria:{}  ",this.getClass().getName(),enquiryReportCriteria);
+		List<AdmissionReport> admissionReports = reportManager.getAdmissionReportByReportCriteria(enquiryReportCriteria);
+		
+		return admissionReports;
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.css.CSSRuleList;
 
+import com.techvisio.einstitution.beans.AdmissionReport;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReport;
 import com.techvisio.einstitution.beans.EnquiryReportCriteria;
@@ -70,7 +71,7 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 	
 	@Override
 	public List<EnquiryReport> getEnquiryReportByEnquiryReportCriteria(EnquiryReportCriteria enquiryreportCriteria) {
-		logger.info("{} : Get enquiry report by enquiry report criteria DATEFROM:{} and DATETO:{} ",this.getClass().getName());		
+		logger.info("{} : Get enquiry report by enquiry report criteria ",this.getClass().getName());		
 		Date dateFrom = new Date();
 		dateFrom = enquiryreportCriteria.getDateFrom(CommonUtil.removeTimeFromDate(dateFrom));
 		Date dateTo = new Date();
@@ -105,4 +106,45 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 					});
 		return enquiryReports;
 }
+
+	@Override
+	public List<AdmissionReport> getAdmissionReportByReportCriteria(EnquiryReportCriteria enquiryReportCriteria) {
+		logger.info("{} : Get admission report by report criteria ",this.getClass().getName());		
+		Date dateFrom = new Date();
+		dateFrom = enquiryReportCriteria.getDateFrom(CommonUtil.removeTimeFromDate(dateFrom));
+		Date dateTo = new Date();
+		dateTo = enquiryReportCriteria.getDateTo(CommonUtil.removeTimeFromDate(dateTo));
+		String getQuery = reportProperties.getProperty("getAdmissionReport");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("date_From", dateFrom)
+											.addValue("date_To",dateTo);
+		
+		List<AdmissionReport> admissionReports = getNamedParamJdbcTemplate().query(getQuery, namedParameter,new RowMapper<AdmissionReport>(){
+
+			@Override
+			public AdmissionReport mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				AdmissionReport report = new AdmissionReport();
+				report.setApplicationStatus(rs.getString("Application_Status"));
+				report.setBranch(rs.getString("Branch"));
+				report.setConsultant(rs.getString("Name"));
+				report.setCourse(rs.getString("Course"));
+				report.setCreatedBy(rs.getString("Created_By"));
+				report.setCreatedOn(rs.getDate("created_on"));
+				report.setEmailId(rs.getString("Email_Id"));
+				report.setFatherName(rs.getString("Father_Name"));
+				report.setFirstName(rs.getString("First_Name"));
+				report.setGender(rs.getString("Gender"));
+				report.setLastName(rs.getString("Last_Name"));
+				report.setReferredBy(rs.getString("Referred_By"));
+				report.setRegistrationNo(rs.getString("Registration_No"));
+				report.setRemarks(rs.getString("Remarks"));
+				report.setSelfMobileNo(rs.getString("Self_Mobile_No"));
+				
+				return report;
+			}
+			
+		});
+		
+		return admissionReports;
+	}
 }

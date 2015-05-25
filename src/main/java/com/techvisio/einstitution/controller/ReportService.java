@@ -109,6 +109,25 @@ public class ReportService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 		
 	}
+	@RequestMapping(value ="/searchAdmissionReportByCriteria/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getAdmissionReportByReportCriteria(@RequestBody EnquiryReportCriteria enquiryReportCriteria){
+		logger.info("{}:  Calling getAdmissionReportByReportCriteria method by passing EnquiryReportCriteria:{} ",this.getClass().getName(), enquiryReportCriteria);
+		Response response=new Response();
+		try {
+			 
+			List<AdmissionReport> reports = manager.getAdmissionReportByReportCriteria(enquiryReportCriteria);
+			response.setResponseBody(reports);
+			
+			if(reports == null){
+				response.setError("No such reports found");
+			}
+		} catch (Exception e) {
+			logger.error("{} :Error While Calling getEnquiryReportByEnquiryReportCriteria method by passing EnquiryReportCriteria:{} ",this.getClass().getName(),enquiryReportCriteria,e);
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+	}
 
 
 
@@ -116,5 +135,5 @@ public class ReportService {
 
 
 
-	
+
 }
