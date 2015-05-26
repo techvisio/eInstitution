@@ -494,16 +494,16 @@ admissionModule
 
 					console.log('saveAmenity called in controller');
 
-					var fileNo = $scope.feeTransactionAdmissionBean.basicInfo.fileNo||$scope.admissionDetailManagement.basicInfo.fileNo;
+					var fileNo = $scope.student.fileNo;
 					amenityStaging.fileNo = fileNo;
 					
-					feeService.saveAmenity(amenityStaging)
+					admissionService.saveAmenity(amenityStaging)
 					.then(function(response) {
 						console.log('saveAmenity Data received from service in controller : ');
 						console.log(response);
 						if (response != null && response.data != null && response.data.responseBody != null) {
 
-							getAdmissionDetailManagement(fileNo);
+							$scope.getStudent(fileNo);
 							
 						} else {
 							console.log(response.data.error);

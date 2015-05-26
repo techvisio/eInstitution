@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.AdmissionReport;
+import com.techvisio.einstitution.beans.AdmissionReportWithUrl;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReporWithUrl;
 import com.techvisio.einstitution.beans.EnquiryReport;
@@ -97,12 +98,20 @@ public class ReportService {
 		Response response=new Response();
 		try {
 			 
+			AdmissionReportWithUrl reporWithUrl = new AdmissionReportWithUrl();
 			List<AdmissionReport> reports = manager.getAdmissionReportByReportCriteria(enquiryReportCriteria);
-			response.setResponseBody(reports);
+			reporWithUrl.setAdmissionReports(reports);
+			if(reports != null){
+				String reportName="AdmissionReport"+new Date().getTime()+".xlsx";
+				ObjectExcelMapper.createExcel(reportName, reports, new String[]{"registrationNo","course","branch","firstName","lastName","fatherName","gender","emailId","selfMobileNo","createdBy","createdOn","referredBy","consultant","remarks","applicationStatus",});
+			    reporWithUrl.setReportName(reportName);
+			}
+			
+			response.setResponseBody(reporWithUrl);
 			
 			if(reports == null){
 				response.setError("No such reports found");
-			}
+					}
 		} catch (Exception e) {
 			logger.error("{} :Error While Calling getEnquiryReportByEnquiryReportCriteria method by passing EnquiryReportCriteria:{} ",this.getClass().getName(),enquiryReportCriteria,e);
 			response.setError(e.getMessage());
@@ -110,5 +119,12 @@ public class ReportService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 		
 	}
+
+
+
+
+
+
+
 
 }

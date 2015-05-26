@@ -2,95 +2,50 @@ var reportsModule = angular.module('reportsModule', []);
 
 reportsModule.controller('reportsController', ['$scope','reportsService',function($scope,reportsService) {
 
-	$scope.dashboard = false;
+	$scope.dashboard = true;
+	$scope.enquiryRpt = false;
 	$scope.constRpt=false;
 	$scope.admssnRpt=false;
 	$scope.admissionReport= [];
+	$scope.enquiryreportCriteria={};
 
 	$scope.consultantReport=[];
 	$scope.studentData =[];
-	$scope.gridOptions = { data: 'studentData',showGroupPanel: true };
+	$scope.reportType="ENQUIRY";
+	
+	$scope.enquiryGridOptions = { data: 'enquiryReport.enquiryReports',
+			showGroupPanel: true ,
+			columnDefs: [{ field: "name", width: 120,displayName :"Student Name"},
+	                     { field: "fatherName", width: 120,displayName :"Father Name"},
+	                    { field: "course", width: 100,displayName :"Course" },
+	                    { field: "branch", width: 200,displayName :"Branch" },
+	                    { field: "contactNo", width: 150,displayName :"Contact No." },
+	                    {field:"applicationStatus",width:200,displayName :"Status"},
+	                    {field:"createdDate",width:150,displayName :"Created On"}
+	                    ]
+};
 
-	$scope.enquiryreportCriteria={};
+	$scope.admissionGridOptions = { data: 'admissionReport.admissionReports',
+			showGroupPanel: true ,
+			columnDefs: [{ field: "registrationNo", width: 200,displayName :"Registration No"},
+			             { field: "firstName", width: 100,displayName :"First Name"},
+			             { field: "lastName", width: 100,displayName :"Last Name"},
+	                     { field: "fatherName", width: 200,displayName :"Father Name"},
+	                     { field: "gender", width: 50,displayName :"Gender"},
+	                     { field: "emailId", width: 200,displayName :"Email Id"},
+	                    { field: "course", width: 100,displayName :"Course" },
+	                    { field: "branch", width: 180,displayName :"Branch" },
+	                    { field: "referredBy", width: 180,displayName :"Referred By" },
+	                    { field: "consultant", width: 180,displayName :"Consultant Name" },
+	                    { field: "selfMobileNo", width: 150,displayName :"Contact No." },
+	                    {field:"applicationStatus",width:200,displayName :"Status"},
+	                    {field:"createdOn",width:150,displayName :"Created On"}
+	                    ]
+};
 
-	$scope.getConsultantReport = function() {
-
-		$scope.consultantReport = [
-		                           {
-		                        	   "consultantName":"Pradeep",
-		                        	   "students":[{
-		                        		   "name":"Test1",
-		                        		   "dob":"21-05-1988",
-		                        		   "fatherName":"PapaTest1",
-		                        		   "feesSubmitted":"1200",
-		                        		   "course":"MBA",
-		                        		   "branch":"HR",
-		                        		   "quota":"GEN"
-		                        	   },{
-		                        		   "name":"Test2",
-		                        		   "dob":"21-05-1988",
-		                        		   "fatherName":"PapaTest2",
-		                        		   "feesSubmitted":"1600",
-		                        		   "course":"MBA",
-		                        		   "branch":"Finance",
-		                        		   "quota":"GEN"
-		                        	   }]
-		                           },
-		                           {
-		                        	   "consultantName":"Sandeep",
-		                        	   "students":[{
-		                        		   "name":"TestS1",
-		                        		   "dob":"21-05-1988",
-		                        		   "fatherName":"PapaTestS1",
-		                        		   "feesSubmitted":"300",
-		                        		   "course":"Btech",
-		                        		   "branch":"CS",
-		                        		   "quota":"GEN"
-		                        	   },{
-		                        		   "name":"TestS2",
-		                        		   "dob":"21-05-1988",
-		                        		   "fatherName":"PapaTestS2",
-		                        		   "feesSubmitted":"600",
-		                        		   "course":"Btech",
-		                        		   "branch":"ECE",
-		                        		   "quota":"GEN"
-		                        	   }]
-		                           }
-		                           ];
-		$scope.fillStudentData();
-		//$scope.gridOptions = { data: 'studentData',showGroupPanel: true };
-		constRpt=true;
-		admssnRpt=false;
-		dashboard=false;
-//		hostelService.getConsultantReport().then(function(response) {
-//		console.log('Received Consultant Report: ');
-//		console.log(response);
-//		if(response.data != null)
-//		{
-//		$scope.consultantReport=response.data;
-//		constRpt=true;
-//		admssnRpt=false;
-//		dashboard=false;
-//		}
-//		else
-//		{
-//		console.log('Error getting consultant Report:'+data.error);
-//		alert('Error retrieving consultant Report:'+data.error);
-//		}
-//		})
-
-	}
-
-	$scope.fillStudentData = function(){
-		for (var i=0; i<$scope.consultantReport.length; i++){
-			for(var j=0; j<$scope.consultantReport[i].students.length; j++)
-				$scope.studentData.push($scope.consultantReport[i].students[j]);
-		}
-	}
-
+	
 	$scope.getEnquiryReportByCriteria = function() {
 		console.log('get enquiry report by search criteria in controller');
-		$scope.currentPage = 0;
 		reportsService.getEnquiryReportByCriteria($scope.enquiryreportCriteria)
 		.then(function(response) {
 			console.log('enquiry report Data received from service in controller : ');
@@ -104,27 +59,27 @@ reportsModule.controller('reportsController', ['$scope','reportsService',functio
 			}
 		})
 	}
-
-
-	$scope.getAdmissionReport = function() {
-
-		reportsService.getAdmissionReport().then(function(response) {
-			console.log('Received Admission Report: ');
+	
+	$scope.getAdmissionReportByCriteria = function() {
+		console.log('get admission report by search criteria in controller');
+		reportsService.getAdmissionReportByCriteria($scope.enquiryreportCriteria)
+		.then(function(response) {
+			console.log('admission report Data received from service in controller : ');
 			console.log(response);
-			if(response.data != null)
-			{
-				$scope.admissionReport=response.data;
-				constRpt=false;
-				admssnRpt=true;
-				dashboard=false;
+			if (response != null && response.data != null && response.data.responseBody != null) {
+				$scope.admissionReport = response.data.responseBody;
+				$scope.enquiryRpt = false;
 			}
-			else
-			{
-				console.log('Error getting Admission Report:'+data.error);
-				alert('Error retrieving admission Report:'+data.error);
+			else {
+				console.log(response.data.error);
+				alert(response.data.error);
 			}
 		})
+	}
 
+		
+	$scope.downloadReport=function(reportName){
+		reportsService.downloadReport(reportName);
 	}
 
 
@@ -136,8 +91,9 @@ reportsModule.service('reportsService', function($http, $q) {
 	// Return public API.
 	return ({
 		getConsultantReport : getConsultantReport,
-		getAdmissionReport : getAdmissionReport,
-		getEnquiryReportByCriteria : getEnquiryReportByCriteria 
+		getEnquiryReportByCriteria : getEnquiryReportByCriteria ,
+		downloadReport:downloadReport,
+		getAdmissionReportByCriteria : getAdmissionReportByCriteria
 	});
 
 	function getEnquiryReportByCriteria(enquiryreportCriteria){
@@ -170,21 +126,29 @@ reportsModule.service('reportsService', function($http, $q) {
 
 	}
 
-	function getAdmissionReport() {
+	function getAdmissionReportByCriteria(enquiryreportCriteria){
 
-		console.log('getAdmissionReport called in service');
+		console.log('Getting admission report by search criteria in service');
+		var request = $http({
+			method : "post",
+			url : "report/searchAdmissionReportByCriteria/",
+			params : "",
+			data : enquiryreportCriteria
+
+		});
+
+		return (request.then(handleSuccess, handleError));
+	}
+
+	function downloadReport(reportName){
 		var request = $http({
 			method : "get",
-			url : "report/admissionReport/",
+			url : "report/downloadEnquiryReport/"+reportName,
 			params : {
 				action : "get"
 			}
 		});
-
-		return (request.then(handleSuccess, handleError));
-
 	}
-
 
 	function handleError(response) {
 		console.log('handle error');

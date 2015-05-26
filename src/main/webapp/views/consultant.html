@@ -8,7 +8,7 @@
 				ng-if="form.content==='consultant'"></div>
 			<div ng-include src="'consultantDetail.html'"
 				ng-if="form.content==='consultantAdmission'"></div>
-			
+
 			<script type="text/ng-template" id="consultantDashboard.html">
 			<div>
 				<table>
@@ -61,32 +61,6 @@
 				</table>
 			</div>
 </script>
-			<!-- Consultants approval peding -->
-			<!-- <div class="latest-admission" ng-init="getDueEnquiry()">
-			<span class="title-span">Due Enquiries</span>
-			<table>
-				<tr>
-					<th><span>Enquiry No.</span></th>
-					<th><span>Student Name</span></th>
-					<th><span>Phone Name</span></th>
-					<th><span>Course Name</span></th>
-
-				</tr>
-				<tr ng-repeat="object in dueEnquiries">
-					<td><span ng-bind="object.fileNo"></span></td>
-					<td><span ng-bind="object.firstName+' '+object.lastName"></span></td>
-					<td><span ng-bind="object.fatherName"></span></td>
-					<td><button type="button" class="btn btn-success btn-xs"
-							ng-click="showDetail($index)">Show Detail</button></td>
-				</tr>
-				<tr>
-					<td colspan=3><button type="button"
-							class="btn btn-primary showmore" ng-click="LoadMoreData()">Load
-							more data</button></td>
-				</tr>
-
-			</table>
-		</div> -->
 
 			<script type="text/javascript" id="consultant.html">
 			<form ng-show=addNew name="enquiryFrom" id="enquiryFrom">
@@ -173,9 +147,12 @@
 				ng-model="consultantAdmissionDetail.basicInfo.branch.branchName"></td>
 		</tr>
 			</table>
+ <accordion close-others="oneAtATime">
 <div ng-repeat-start = "object in consultantAdmissionDetail.consultantDetails">
 </div>
+<accordion-group heading="Dynamic Body Content">
 <table>
+<tr><td colspan=2><span class="header">Consultant  Detail</span></td></tr>
 <tr>
 <td><span>Consultant Name </span></td>
 			                                 <td><select ng-model="object.consultant.consultantId"
@@ -230,8 +207,10 @@
 							ng-click="getConsultantAdmissionDetail()">Get</button></td>
 </tr>
 </table>
+</accordion-group>
 <div ng-repeat-end>
 </div>
+ </accordion>
 				</div>
 			</form>
 
