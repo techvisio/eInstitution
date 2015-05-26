@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.AdmissionReport;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReport;
 import com.techvisio.einstitution.beans.EnquiryReportCriteria;
@@ -15,4 +16,6 @@ public interface ReportWorkflowManager {
 	public List<ConsultantReport> getConsultantReport();
 
 	public List<EnquiryReport> getEnquiryReportByEnquiryReportCriteria(EnquiryReportCriteria enquiryreportCriteria);
+	public List<AdmissionReport> getAdmissionReportByReportCriteria(EnquiryReportCriteria enquiryReportCriteria);
+
 }

@@ -57,6 +57,34 @@ where  en.created_on >= :date_From  and en.created_on <= :date_To;
 ]]>	
 	</entry>
 	
+<entry key="getAdmissionReport">
+    <![CDATA[
+Select  
+sd.Registration_No,
+sd.First_Name,
+sd.Last_Name,
+sd.Father_Name,
+sd.Gender,
+sd.Self_Mobile_No,
+sd.Email_Id,
+cm.Course,
+bm.Branch,
+sd.Created_By,
+sd.created_on,
+consM.Name,
+sd.Referred_By,
+sd.Application_Status,
+sd.Remarks
 
+FROM studentdetail sd  join coursemaster cm on sd.Course_Id = cm.Id
+ join coursebranchmaster bm on sd.Branch_Id = bm.Id
+ left join consultantdetail consD on sd.File_No = consD.File_No
+left join consultantmaster consM on consD.Consultant_Id = consM.Id
+
+where sd.created_on >=  :date_From and sd.created_on <= :date_To;
+
+]]>	
+	</entry>
+	
 	
 </properties>

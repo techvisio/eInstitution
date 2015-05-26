@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.AdmissionReport;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReport;
 import com.techvisio.einstitution.beans.EnquiryReportCriteria;
@@ -40,6 +41,13 @@ public class ReportManagerImpl implements ReportManager {
 		logger.info("{} : calling getEnquiryReportByEnquiryReportCriteria method by passing EnquiryReportCriteria:{}  ",this.getClass().getName(),enquiryreportCriteria);
 		List<EnquiryReport> enquiryReports = reportDao.getEnquiryReportByEnquiryReportCriteria(enquiryreportCriteria);
 		return enquiryReports;
+	}
+	@Override
+	public List<AdmissionReport> getAdmissionReportByReportCriteria(EnquiryReportCriteria enquiryReportCriteria) {
+		logger.info("{} : calling getAdmissionReportByReportCriteria method by passing EnquiryReportCriteria:{}  ",this.getClass().getName(),enquiryReportCriteria);
+		List<AdmissionReport> admissionReports = reportDao.getAdmissionReportByReportCriteria(enquiryReportCriteria);
+		
+		return admissionReports;
 	}
 	
 }

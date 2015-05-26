@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.AdmissionReport;
 import com.techvisio.einstitution.beans.ConsultantReport;
 import com.techvisio.einstitution.beans.EnquiryReport;
 import com.techvisio.einstitution.beans.EnquiryReportCriteria;
@@ -76,5 +77,31 @@ public class ReportService {
 		response.flushBuffer();	
 	}
 	
-	
+	@RequestMapping(value ="/searchAdmissionReportByCriteria/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getAdmissionReportByReportCriteria(@RequestBody EnquiryReportCriteria enquiryReportCriteria){
+		logger.info("{}:  Calling getAdmissionReportByReportCriteria method by passing EnquiryReportCriteria:{} ",this.getClass().getName(), enquiryReportCriteria);
+		Response response=new Response();
+		try {
+			 
+			List<AdmissionReport> reports = manager.getAdmissionReportByReportCriteria(enquiryReportCriteria);
+			response.setResponseBody(reports);
+			
+			if(reports == null){
+				response.setError("No such reports found");
+			}
+		} catch (Exception e) {
+			logger.error("{} :Error While Calling getEnquiryReportByEnquiryReportCriteria method by passing EnquiryReportCriteria:{} ",this.getClass().getName(),enquiryReportCriteria,e);
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+	}
+
+
+
+
+
+
+
+
 }
