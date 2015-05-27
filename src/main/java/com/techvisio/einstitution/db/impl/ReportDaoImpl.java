@@ -126,7 +126,7 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 				AdmissionReport report = new AdmissionReport();
 				report.setApplicationStatus(rs.getString("Application_Status"));
 				report.setBranch(rs.getString("Branch"));
-				report.setConsultant(rs.getString("Name"));
+				report.setConsultantName(rs.getString("consultant_name"));
 				report.setCourse(rs.getString("Course"));
 				report.setCreatedBy(rs.getString("Created_By"));
 				report.setCreatedOn(rs.getDate("created_on"));
@@ -139,9 +139,14 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 				report.setRegistrationNo(rs.getString("Registration_No"));
 				report.setRemarks(rs.getString("Remarks"));
 				report.setSelfMobileNo(rs.getString("Self_Mobile_No"));
+				report.setDiscountAmount(rs.getDouble("discount_Amount"));
+				report.setFeeDeposite(rs.getDouble("Fee_deposite"));
+				report.setConsultantPayment(rs.getDouble("consultant_payment"));
 				
 				return report;
 			}
+			
+			
 			
 		});
 		

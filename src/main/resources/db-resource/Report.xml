@@ -59,7 +59,7 @@ where  en.created_on >= :date_From  and en.created_on <= :date_To;
 	
 <entry key="getAdmissionReport">
     <![CDATA[
-Select  
+Select 
 sd.Registration_No,
 sd.First_Name,
 sd.Last_Name,
@@ -71,17 +71,32 @@ cm.Course,
 bm.Branch,
 sd.Created_By,
 sd.created_on,
-consM.Name,
 sd.Referred_By,
 sd.Application_Status,
-sd.Remarks
-
+sd.Remarks,
+ifnull(dis.discount_Amount,0) discount_Amount,
+ifnull(dep.Fee_deposite,0) Fee_deposite,
+ifnull(cons.consultant_payment,0) consultant_payment,
+cons.Name consultant_name
 FROM studentdetail sd  join coursemaster cm on sd.Course_Id = cm.Id
  join coursebranchmaster bm on sd.Branch_Id = bm.Id
- left join consultantdetail consD on sd.File_No = consD.File_No
+ left join 
+ (select sd.file_no,sum(ifnull(disc.amount,0)) discount_Amount from studentdetail sd left join feetransactioncredit disc on disc.File_No = sd.File_No
+and sd.Batch_Id = disc.Batch_Id 
+and sd.Session_Id = disc.Session_Id left join feediscountheadmaster disH ON disH.Head_Id = disc.Component_Id
+where ifnull(disH.Transaction_Type,'W') = 'W' group by sd.File_No) dis on sd.File_No = dis.File_No
+left join
+(select sd.file_no,sum(ifnull(depo.amount,0)) Fee_deposite from studentdetail sd left join feetransactioncredit depo on depo.File_No = sd.File_No
+and sd.Batch_Id = depo.Batch_Id 
+and sd.Session_Id = depo.Session_Id left join feediscountheadmaster depH ON depH.Head_Id = depo.Component_Id
+where ifnull(depH.Transaction_Type,'C') = 'C' group by sd.File_No) dep on sd.File_No = dep.File_No
+left join 
+(select sd.file_no,consM.Name,sum(ifnull(conp.amount,0)) consultant_payment from studentdetail sd left join consultantdetail consD on sd.File_No = consD.File_No
 left join consultantmaster consM on consD.Consultant_Id = consM.Id
-
-where sd.created_on >=  :date_From and sd.created_on <= :date_To;
+left join consultantpaymentdetail conP on consD.File_No = conP.File_No and consD.Consultant_Id=conP.Consultant_Id
+group by sd.File_No,consM.Id
+) cons on sd.File_No = cons.File_No
+and DATE(sd.created_on) >=  :date_From and DATE(sd.created_on) <= :date_To;
 
 ]]>	
 	</entry>

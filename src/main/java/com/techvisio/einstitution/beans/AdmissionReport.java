@@ -15,10 +15,12 @@ public class AdmissionReport {
 	  private String createdBy;
 	  private Date createdOn;
 	  private String referredBy;
-	  private String consultant;
+	  private String  consultantName;
 	  private String remarks;
 	  private String applicationStatus;
-	  
+	  private Double discountAmount;
+	  private Double FeeDeposite;
+	  private Double consultantPayment;
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -91,12 +93,7 @@ public class AdmissionReport {
 	public void setReferredBy(String referredBy) {
 		this.referredBy = referredBy;
 	}
-	public String getConsultant() {
-		return consultant;
-	}
-	public void setConsultant(String consultant) {
-		this.consultant = consultant;
-	}
+	
 	public String getRemarks() {
 		return remarks;
 	}
@@ -108,5 +105,29 @@ public class AdmissionReport {
 	}
 	public void setApplicationStatus(String applicationStatus) {
 		this.applicationStatus = applicationStatus;
+	}
+	public String getConsultantName() {
+		return consultantName;
+	}
+	public void setConsultantName(String consultantName) {
+		this.consultantName = consultantName;
+	}
+	public Double getDiscountAmount() {
+		return discountAmount;
+	}
+	public void setDiscountAmount(Double discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+	public Double getFeeDeposite() {
+		return FeeDeposite;
+	}
+	public void setFeeDeposite(Double feeDeposite) {
+		FeeDeposite = feeDeposite;
+	}
+	public Double getConsultantPayment() {
+		return consultantPayment;
+	}
+	public void setConsultantPayment(Double consultantPayment) {
+		this.consultantPayment = consultantPayment;
 	}
 }
