@@ -142,7 +142,7 @@ public class ReportDaoImpl extends BaseDao implements ReportDao {
 				report.setDiscountAmount(rs.getDouble("discount_Amount"));
 				report.setFeeDeposite(rs.getDouble("Fee_deposite"));
 				report.setConsultantPayment(rs.getDouble("consultant_payment"));
-				
+				report.setConsultantRemarks(rs.getString("consultantRemarks"));
 				return report;
 			}
 			

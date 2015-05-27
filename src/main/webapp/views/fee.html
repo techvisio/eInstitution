@@ -17,8 +17,8 @@
 	
 <!-- 	<script type="text/ng-template" id="feeDashboard.html"> -->
 	<div>
-	<div class="searchcriteria">
-	<table>
+	<div class="searchcriteria" ng-show="form.content==='dashboard'">
+	<table ng-show="showCriteria">
 <tr><td colspan=2><span class="header">Search Student</span></td></tr>
 		<tr>
 			<td><span>Name</span></td>
@@ -47,14 +47,16 @@
 					ng-click="getSearchResult()">Search</button></td>
 		</tr>
 	</table>
-</div>
-<div class="searchList" ng-show="!showCriteria && searchResultList.length>0">
+	
+	<div class="searchList" ng-show="!showCriteria && searchResultList.length>0">
 				<span class="header">Double click a record to see Details</span>
 				<p>
+				<button type="button" class="btn btn-primary btn-xs" ng-click="showCriteria=true">Modify Search</button>
 			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
 			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
          ng-model="currentPage" ng-change="pageChanged()"></pagination>
 	</div>
+</div>
 
 </div>
 <!--  </script>  -->
@@ -161,8 +163,8 @@
 						<td><button type="button" class="btn btn-success btn-lg"
 								ng-click="updateAdmissionDetailManagement()">Save & Approve</button></td>
 
-<td><input type="button" value="Update Record"
-						ng-click="showBaseFee('lg')"></td></tr>
+<td><button type="button" class="btn btn-primary"
+						ng-click="showBaseFee('lg')">Current Charges</button></td></tr>
 	
 		
 			</table>

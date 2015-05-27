@@ -9,6 +9,7 @@ import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
 import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 
 @Component
 public interface ConsultantDao {
@@ -33,6 +34,7 @@ public interface ConsultantDao {
 	public void addConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
 	public void updateConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
 	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria);
-	public void deleteConsultantPaymentCriteriaExclusion(Long fileNo,
-			List<Long> consultantIds);
+	public void deleteConsultantPaymentCriteriaExclusion(Long fileNo,List<Long> consultantIds);
+	
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 }

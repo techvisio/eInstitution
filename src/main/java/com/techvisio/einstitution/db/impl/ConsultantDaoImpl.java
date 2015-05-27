@@ -14,13 +14,24 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Batch;
+import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.CasteCategory;
+import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
+import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.Section;
+import com.techvisio.einstitution.beans.Session;
+import com.techvisio.einstitution.beans.Shift;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.ConsultantDao;
+import com.techvisio.einstitution.db.impl.AdmissionDaoImpl.StudentBasicInfoRowMaper;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -38,7 +49,29 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	@Autowired
 	CacheManager cacheManager;
+	
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
+		 logger.info("{} : Getting Student detail bby searching criteria for enquiryId:{}",this.getClass().getName(), searchCriteria.getInquryId());		
+		String getQuery = consultantQueryProps
+				.getProperty("getStudentDtlForConsultant");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Registration_No",StringUtils.isEmpty(searchCriteria.getRegistrationNo())?null:searchCriteria.getRegistrationNo())
+		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
+		.addValue("Enroll_No", StringUtils.isEmpty(searchCriteria.getEnrollNo())?null:searchCriteria.getEnrollNo())
+		.addValue("Uni_Enroll_No", StringUtils.isEmpty(searchCriteria.getUniEnrollNo())?null:searchCriteria.getUniEnrollNo())
+		.addValue("First_Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getFirstName()+"%")
+		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
+		.addValue("Course_Id", searchCriteria.getCourseId())
+		.addValue("Branch_Id", searchCriteria.getBranchId());
 		
+	List<StudentBasicInfo> studentBasicInfos=getNamedParamJdbcTemplate().query(
+				getQuery, namedParameter, new StudentBasicInfoRowMaper());
+		
+		    return studentBasicInfos;
+	}
+
 	
 	public Consultant getConsultant(Long consultantId) {
 		 logger.info("{} : Getting detail for particular consultant : id :{}",this.getClass().getName(), consultantId);
@@ -389,10 +422,11 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				.getProperty("getCosultantBySearchCriteria");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Id",searchCriteria.getConsultantId())
-		.addValue("Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getName()+"%")
+				"Id", searchCriteria.getConsultantId())
+		.addValue("Name", StringUtils.isEmpty(searchCriteria.getName())?"%":searchCriteria.getName()+"%")
 		.addValue("Primary_Contact_No", StringUtils.isEmpty(searchCriteria.getPrimaryContactNo())?null:searchCriteria.getPrimaryContactNo())
-		.addValue("Primary_Contact_No", StringUtils.isEmpty(searchCriteria.getSecondaryNo())?null:searchCriteria.getSecondaryNo());
+		.addValue("Secondary_Contact_No", StringUtils.isEmpty(searchCriteria.getSecondaryNo())?null:searchCriteria.getSecondaryNo())
+		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId());
 		
 	    List<Consultant> consultants=getNamedParamJdbcTemplate().query(
 				getQuery, namedParameter, new ConsultantRowMapper());
@@ -425,4 +459,55 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		}
 	}
 	
+	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
+
+		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			logger.info("{} : Putting value in setter of studentBasicInfo bean  : {}",this.getClass().getName());
+			StudentBasicInfo basicInfo = new StudentBasicInfo();
+			basicInfo.setFirstName(rs.getString("First_Name"));
+			basicInfo.setLastName(rs.getString("Last_Name"));
+			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
+			Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+		    Branch branch=cacheManager.getBranchById(branchId);
+			basicInfo.setBranch(branch); 
+			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
+		    Course course=cacheManager.getCourseById(courseId);
+			basicInfo.setCourse(course);
+			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+		    CasteCategory category=cacheManager.getCategoryId(categoryId);
+			basicInfo.setCasteCategory(category);
+			basicInfo.setDob(rs.getDate("DOB"));
+			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
+			basicInfo.setFatherName(rs.getString("Father_Name"));
+			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+			basicInfo.setGender(rs.getString("Gender"));
+			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
+			basicInfo.setSemester(rs.getString("Semester"));
+			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
+		    Session session=cacheManager.getSessionBySessionId(sessionId);
+			basicInfo.setSession(session);
+			Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+		    Batch batch=cacheManager.getBatchByBatchId(batchId);
+			basicInfo.setBatch(batch);
+			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
+			
+			Long centreId=(CommonUtil.getLongValue(rs.getLong("Centre_id")));
+		    Centre centre=cacheManager.getCentreByCentreId(centreId);
+			basicInfo.setCentre(centre);
+			
+			Long shiftId=(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
+		    Shift shift=cacheManager.getShiftByShiftId(shiftId);
+			basicInfo.setShift(shift);
+			
+			Long sectionId=(CommonUtil.getLongValue(rs.getLong("Section_Id")));
+			Section section = cacheManager.getSectionBySectionId(sectionId);
+			basicInfo.setSection(section);
+			
+			basicInfo.setLateral(rs.getBoolean("Lateral"));
+			
+			
+			return basicInfo;
+		}
+	}
 }

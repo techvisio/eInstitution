@@ -36,10 +36,14 @@ reportsModule.controller('reportsController', ['$scope','reportsService',functio
 	                    { field: "course", width: 100,displayName :"Course" },
 	                    { field: "branch", width: 180,displayName :"Branch" },
 	                    { field: "referredBy", width: 180,displayName :"Referred By" },
-	                    { field: "consultant", width: 180,displayName :"Consultant Name" },
+	                    { field: "consultantName", width: 180,displayName :"Consultant Name" },
 	                    { field: "selfMobileNo", width: 150,displayName :"Contact No." },
 	                    {field:"applicationStatus",width:200,displayName :"Status"},
-	                    {field:"createdOn",width:150,displayName :"Created On"}
+	                    {field:"createdOn",width:150,displayName :"Created On"},
+	                    {field:"discountAmount",width:200,displayName :"Discounted Amount"},
+	                    {field:"feeDeposite",width:200,displayName :"Deposited Amount"},
+	                    {field:"consultantPayment",width:250,displayName :"Payment To Consultant"}
+	                    
 	                    ]
 };
 

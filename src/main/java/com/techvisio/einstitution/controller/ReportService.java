@@ -103,7 +103,7 @@ public class ReportService {
 			reporWithUrl.setAdmissionReports(reports);
 			if(reports != null){
 				String reportName="AdmissionReport"+new Date().getTime()+".xlsx";
-				ObjectExcelMapper.createExcel(reportName, reports, new String[]{"registrationNo","course","branch","firstName","lastName","fatherName","gender","emailId","selfMobileNo","createdBy","createdOn","referredBy","consultant","remarks","applicationStatus",});
+				ObjectExcelMapper.createExcel(reportName, reports, new String[]{"registrationNo","course","branch","firstName","lastName","fatherName","gender","emailId","selfMobileNo","createdBy","createdOn","referredBy","consultantName","remarks","applicationStatus","discountAmount","FeeDeposite","consultantPayment","consultantRemarks"});
 			    reporWithUrl.setReportName(reportName);
 			}
 			

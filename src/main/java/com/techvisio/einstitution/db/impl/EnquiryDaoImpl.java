@@ -137,8 +137,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 	}
 
 	@Override
-	public List<AdmissionEnquiry> searchInqByCriteria(
-			SearchCriteria searchCriteria) {
+	public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
 		 logger.info("{} : Searching enquiry by searching criteria for Student{}, who has enquiry id{}  ",this.getClass().getName(), searchCriteria.getName(), searchCriteria.getInquryId());
 		
 		String getQuery = enquiryQueryProps

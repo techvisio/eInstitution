@@ -53,14 +53,14 @@
 <div ng-show="reportType=='ENQUIRY'&& enquiryReport.enquiryReports.length>0">
 <span class="header">Enquiry Report &nbsp &nbsp</span>
 <a ng-href="report/downloadEnquiryReport/{{enquiryReport.reportName}}">Download Excel &nbsp &nbsp &nbsp</a>
-<button type="button" ng-click="dashboard=true">Modify Search</button>
+<button type="button" class="btn btn-primary btn-xs" ng-click="dashboard=true">Modify Search</button>
 <div  ng-grid="enquiryGridOptions" id="reportGrid"></div>
 </div>
 
 <div ng-show="reportType=='ADMISSION' && admissionReport.admissionReports.length>0">
 <span class="header">Admission Report &nbsp &nbsp </span>
 <a ng-href="report/downloadEnquiryReport/{{admissionReport.reportName}}">Download Excel &nbsp &nbsp &nbsp</a>
-<button type="button" ng-click="dashboard=true">Modify Search</button>
+<button type="button" class="btn btn-primary btn-xs" ng-click="dashboard=true">Modify Search</button>
 <div  ng-grid="admissionGridOptions" id="reportGrid"></div>
 </div>
 

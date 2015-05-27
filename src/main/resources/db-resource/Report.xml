@@ -77,7 +77,8 @@ sd.Remarks,
 ifnull(dis.discount_Amount,0) discount_Amount,
 ifnull(dep.Fee_deposite,0) Fee_deposite,
 ifnull(cons.consultant_payment,0) consultant_payment,
-cons.Name consultant_name
+cons.Name consultant_name,
+cons.remarks consultantRemarks
 FROM studentdetail sd  join coursemaster cm on sd.Course_Id = cm.Id
  join coursebranchmaster bm on sd.Branch_Id = bm.Id
  left join 
@@ -91,7 +92,7 @@ and sd.Batch_Id = depo.Batch_Id
 and sd.Session_Id = depo.Session_Id left join feediscountheadmaster depH ON depH.Head_Id = depo.Component_Id
 where ifnull(depH.Transaction_Type,'C') = 'C' group by sd.File_No) dep on sd.File_No = dep.File_No
 left join 
-(select sd.file_no,consM.Name,sum(ifnull(conp.amount,0)) consultant_payment from studentdetail sd left join consultantdetail consD on sd.File_No = consD.File_No
+(select sd.file_no,consM.Name,consD.remarks,sum(ifnull(conp.amount,0)) consultant_payment from studentdetail sd left join consultantdetail consD on sd.File_No = consD.File_No
 left join consultantmaster consM on consD.Consultant_Id = consM.Id
 left join consultantpaymentdetail conP on consD.File_No = conP.File_No and consD.Consultant_Id=conP.Consultant_Id
 group by sd.File_No,consM.Id

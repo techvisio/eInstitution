@@ -245,20 +245,52 @@ Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id=:
 <![CDATA[
 SELECT
 
-Id
+Id,
 Name, 
 Primary_Contact_No, 
 Secondary_contact_No, 
 Address, 
 Email_Id 
 
-from  consultantMaster WHERE Id=IFNULL(:Id,cm.Id) and ifnull(Primary_Contact_No,'-1')=ifnull(:Primary_Contact_No,ifnull(Primary_Contact_No,'-1')) and ifnull(Secondary_contact_No,'-1')=ifnull(:Secondary_contact_No,ifnull(Secondary_contact_No,'-1')) and cm.Name like :Name;    
+from  consultantMaster WHERE Id=IFNULL(:Id,Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Primary_Contact_No,'-1')=ifnull(:Primary_Contact_No,ifnull(Primary_Contact_No,'-1')) and ifnull(Secondary_Contact_No,'-1')=ifnull(:Secondary_Contact_No,ifnull(Secondary_Contact_No,'-1')) and Name like :Name;    
 
 
 ]]>
 
 </entry>
 
+<entry key="getStudentDtlForConsultant">
+    <![CDATA[
+SELECT
+s.Registration_No,
+s.File_No,
+s.Enroll_No,
+s.Uni_Enroll_No,
+s.First_Name,
+s.Last_Name,
+s.Father_Name,
+s.Gender,
+s.DOB,
+s.Email_Id,
+s.Category_Id,
+s.Course_Id,
+s.Branch_Id,
+s.Created_On,
+s.Updated_On,   
+s.Quota_Code,
+s.Academic_Year,
+s.Semester,
+s.Lateral,
+s.Batch_Id,
+s.Session_Id,
+s.Shift_Id,
+s.Centre_Id,
+s.Section_Id,
+s.Lateral
+from  studentdetail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
+    ]]>
+
+	</entry>
 
 </properties>
 

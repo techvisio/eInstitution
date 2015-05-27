@@ -30,6 +30,14 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		// TODO Auto-generated constructor stub
 	}
 	
+
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling getStudentDtlBySearchCriteria method for student:{}",this.getClass().getName(), searchCriteria.getFirstName());	
+		List<StudentBasicInfo> studentBasicInfos = null;
+		studentBasicInfos=consultantDao.getStudentDtlBySearchCriteria(searchCriteria);
+		
+		return studentBasicInfos;
+	}
 	
 	@Override
 	public Consultant getConsultant(Long consultantId) {

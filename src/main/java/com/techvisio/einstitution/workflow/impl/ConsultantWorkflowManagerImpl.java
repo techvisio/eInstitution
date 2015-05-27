@@ -21,22 +21,28 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	private static final int ConsultantDetail = 0;
 	
 	@Autowired
-	ConsultantManager manager;
+	ConsultantManager consultantManager;
 	
 	@Autowired
 	AdmissionWorkflowManager admissionWorkflowManager ;
+
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling getStudentDtlBySearchCriteria for Student:{}",this.getClass().getName(), searchCriteria.getFirstName());		
+		List<StudentBasicInfo> studentBasicInfos = consultantManager.getStudentDtlBySearchCriteria(searchCriteria);
+		return studentBasicInfos;
+	}
 	
 	@Override
 	public Consultant getConsultant(Long consultantId) {
 		logger.info("{} : calling getConsultant by passing consultantId:{}",this.getClass().getName(), consultantId);
-		Consultant consultant = manager.getConsultant(consultantId);
+		Consultant consultant = consultantManager.getConsultant(consultantId);
 		return consultant;
 	}
 
 	@Override
 	public Long saveConsultant(Consultant consultant) {
 		logger.info("{} : calling saveConsultant for consltant:{}",this.getClass().getName(), consultant.getName());		
-		Long consultantId = manager.saveConsultant(consultant);
+		Long consultantId = consultantManager.saveConsultant(consultant);
 		consultant.setConsultantId(consultantId);
 		return consultantId;
 	}
@@ -44,7 +50,7 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	@Override
 	public void deleteConsultant(Long consultantId) {
 		logger.info("{} :calling deleteConsultant by passing consultantId:{}",this.getClass().getName(), consultantId);
-		manager.deleteConsultant(consultantId);
+		consultantManager.deleteConsultant(consultantId);
 	}
 
 	
@@ -53,26 +59,26 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	public List<ConsultantDetail> getConsultantDtl(Long fileNo) {
 		logger.info("{} :calling getConsultantDtl by passing fileNo:{}",this.getClass().getName(), fileNo);
 		
-		List<ConsultantDetail> consultantDetails = manager.getConsultantDtl(fileNo);
+		List<ConsultantDetail> consultantDetails = consultantManager.getConsultantDtl(fileNo);
 		
 		return consultantDetails;
 	}
 
 	public void saveConsultant(List<ConsultantDetail> consultantDetails) {
 		logger.info("{} :calling saveConsultantDetail by passing consultantDetails:{}",this.getClass().getName(), consultantDetails);           
-		manager.saveConsultantDetail(consultantDetails);
+		consultantManager.saveConsultantDetail(consultantDetails);
 	}
 
 	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
 		logger.info("{} :calling deleteConsultantDtl by passing fileno:{} and consultantDetails:{}",this.getClass().getName(), fileNo,consultantDetails);
-		manager.deleteConsultantDtl(fileNo, consultantDetails);
+		consultantManager.deleteConsultantDtl(fileNo, consultantDetails);
 	}
 
 	@Override
 	public List<Consultant> getConsultantBySearchCriteria(
 			SearchCriteria searchCriteria) {
 		logger.info("{} :calling getConsultantBySearchCriteria for consultant:{} and consultantDetails:{}",this.getClass().getName(), searchCriteria.getFirstName());		
-		List<Consultant> consultants = manager.getConsultantBySearchCriteria(searchCriteria);
+		List<Consultant> consultants = consultantManager.getConsultantBySearchCriteria(searchCriteria);
 		return consultants;
 	}
 
@@ -93,6 +99,6 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	@Override
 	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail ){
 		logger.info("{} :calling saveConsultantAdmissionDetail for Student:{} ",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());
-		manager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
+		consultantManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
 	}
 }

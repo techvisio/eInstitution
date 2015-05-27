@@ -422,7 +422,7 @@ admissionModule
 					 alert("No valid fileNo provided");
 					 }
 			 }
-
+			
 			 $scope.getStudentByCriteria = function() {
 				 console.log('get student by search criteria in controller');
 				 console.log($scope.searchCriteria);
@@ -444,8 +444,6 @@ admissionModule
 
 					 $scope.processing=false;
 				 })
-
-
 			 }
 			 
 

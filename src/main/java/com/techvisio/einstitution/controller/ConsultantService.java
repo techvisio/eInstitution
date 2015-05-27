@@ -34,6 +34,30 @@ public class ConsultantService {
 @Autowired
 ConsultantWorkflowManager workflowManager;
 
+@RequestMapping(value ="/searchStudent/", method = RequestMethod.POST)
+public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
+	logger.info("{}  Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(), searchCriteria.getFirstName());
+	Response response=new Response();
+	try
+	{
+		List<StudentBasicInfo> studentBasicInfo = workflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+		response.setResponseBody(studentBasicInfo);
+		
+		if(studentBasicInfo == null){
+			
+			response.setError("No such record found");
+		}
+		}
+		catch(Exception e)
+		{
+		logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
+		response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+
+
+
 @RequestMapping(value="/consultantMaster/{consultantId}",method = RequestMethod.GET)
 public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
 	logger.info("{}: Calling getConsultant method by passing Consultant Id : {}",this.getClass().getName(), consultantId);
@@ -142,8 +166,8 @@ public ResponseEntity<Response> deleteConsultant(@PathVariable Long consultantId
 	}
 	
 	
-	@RequestMapping(value ="/search/", method = RequestMethod.POST)
-	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
+	@RequestMapping(value ="/search", method = RequestMethod.POST)
+	public ResponseEntity<Response> getConsultantByCriteria(@RequestBody SearchCriteria searchCriteria) {
 		logger.info("{}:  Calling getConsultantBySearchCriteria method  for: Name:{}",this.getClass().getName(), searchCriteria.getFirstName());
 		Response response=new Response();
 		try

@@ -9,6 +9,7 @@ import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 @Component
 public interface ConsultantWorkflowManager {
 	
@@ -24,4 +25,5 @@ public interface ConsultantWorkflowManager {
 	public ConsultantAdmissionDetail getConsultantAdmissionDetail(Long fileNo);
 	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail);
     	
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 }

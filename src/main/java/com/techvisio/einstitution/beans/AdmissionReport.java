@@ -21,6 +21,7 @@ public class AdmissionReport {
 	  private Double discountAmount;
 	  private Double FeeDeposite;
 	  private Double consultantPayment;
+	  private String consultantRemarks;
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -130,4 +131,12 @@ public class AdmissionReport {
 	public void setConsultantPayment(Double consultantPayment) {
 		this.consultantPayment = consultantPayment;
 	}
+	public String getConsultantRemarks() {
+		return consultantRemarks;
+	}
+	public void setConsultantRemarks(String consultantRemarks) {
+		this.consultantRemarks = consultantRemarks;
+	}
+
 }
+

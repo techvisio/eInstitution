@@ -11,6 +11,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 	$scope.searchCriteria={};
 	$scope.collapse=true;
 	$scope.form={};
+	$scope.showCriteria=true;
 	$scope.form.content='dashboard';
 
 
@@ -174,6 +175,7 @@ feeModule.controller('feeController',['$scope','feeService','masterdataService',
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.searchResultList = response.data.responseBody;
 				$scope.currentPage=1;
+				$scope.showCriteria=false;
 				$scope.totalItems = $scope.searchResultList.length;
 			} else {
 				console.log(response.data.error);
