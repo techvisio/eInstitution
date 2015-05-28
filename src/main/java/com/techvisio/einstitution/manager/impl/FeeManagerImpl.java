@@ -168,18 +168,20 @@ public class FeeManagerImpl implements FeeManager{
 						creditFeetransaction.add(feeTransaction);
 					}
 					else if(!newFeeStag.isApproved() && oldFeeStag.isApproved()){
-						oldFeeStag.getDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
+						FeeDiscountHead feeDiscountHead=new FeeDiscountHead();
+						feeDiscountHead.setHeadId(AppConstants.REVERSAL_ID);
 						FeeTransaction feeTransaction = new FeeTransaction();
-						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
+						feeTransaction.setFeeDiscountHead(feeDiscountHead);
 						feeTransaction.setAmount(oldFeeStag.getAmount());
 						debitFeetransaction.add(feeTransaction);
 					}
 					
 					else if(newFeeStag.isApproved() && oldFeeStag.isApproved()){
 						if(!newFeeStag.getAmount().equals(oldFeeStag.getAmount())){
-						oldFeeStag.getDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
+						FeeDiscountHead feeDiscountHead=new FeeDiscountHead();
+						feeDiscountHead.setHeadId(AppConstants.REVERSAL_ID);
 						FeeTransaction feeTransaction = new FeeTransaction();
-						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
+						feeTransaction.setFeeDiscountHead(feeDiscountHead);
 						feeTransaction.setAmount(oldFeeStag.getAmount());
 						debitFeetransaction.add(feeTransaction);
 						
@@ -195,9 +197,11 @@ public class FeeManagerImpl implements FeeManager{
 				//check if it was approved earlier if so create a reversal
 				else{
 					if(oldFeeStag.isApproved() && "W".equalsIgnoreCase(oldFeeStag.getDiscountHead().getTransactionType())){
-						oldFeeStag.getDiscountHead().setHeadId(AppConstants.REVERSAL_ID);
+						FeeDiscountHead feeDiscountHead=new FeeDiscountHead();
+						feeDiscountHead.setHeadId(AppConstants.REVERSAL_ID);
+				
 						FeeTransaction feeTransaction = new FeeTransaction();
-						feeTransaction.setFeeDiscountHead(oldFeeStag.getDiscountHead());
+						feeTransaction.setFeeDiscountHead(feeDiscountHead);
 						feeTransaction.setAmount(oldFeeStag.getAmount());
 						debitFeetransaction.add(feeTransaction);
 					}
