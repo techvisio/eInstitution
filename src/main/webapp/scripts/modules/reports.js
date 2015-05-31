@@ -42,7 +42,8 @@ reportsModule.controller('reportsController', ['$scope','reportsService',functio
 	                    {field:"createdOn",width:150,displayName :"Created On"},
 	                    {field:"discountAmount",width:200,displayName :"Discounted Amount"},
 	                    {field:"feeDeposite",width:200,displayName :"Deposited Amount"},
-	                    {field:"consultantPayment",width:250,displayName :"Payment To Consultant"}
+	                    {field:"consultantPayment",width:250,displayName :"Payment To Consultant"},
+	                    {field:"code",width:250,displayName :"Quota Code"}
 	                    
 	                    ]
 };

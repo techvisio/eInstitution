@@ -69,6 +69,7 @@ sd.Self_Mobile_No,
 sd.Email_Id,
 cm.Course,
 bm.Branch,
+qm.code,
 sd.Created_By,
 sd.created_on,
 sd.Referred_By,
@@ -79,7 +80,7 @@ ifnull(dep.Fee_deposite,0) Fee_deposite,
 ifnull(cons.consultant_payment,0) consultant_payment,
 cons.Name consultant_name,
 cons.remarks consultantRemarks
-FROM studentdetail sd  join coursemaster cm on sd.Course_Id = cm.Id
+FROM studentdetail sd  join quotacodemaster qm on sd.Quota_Code=qm.Id join coursemaster cm on sd.Course_Id = cm.Id
  join coursebranchmaster bm on sd.Branch_Id = bm.Id
  left join 
  (select sd.file_no,sum(ifnull(disc.amount,0)) discount_Amount from studentdetail sd left join feetransactioncredit disc on disc.File_No = sd.File_No

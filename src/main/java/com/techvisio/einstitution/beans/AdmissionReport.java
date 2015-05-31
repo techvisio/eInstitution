@@ -22,6 +22,7 @@ public class AdmissionReport {
 	  private Double FeeDeposite;
 	  private Double consultantPayment;
 	  private String consultantRemarks;
+	  private String code;
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -136,6 +137,12 @@ public class AdmissionReport {
 	}
 	public void setConsultantRemarks(String consultantRemarks) {
 		this.consultantRemarks = consultantRemarks;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
