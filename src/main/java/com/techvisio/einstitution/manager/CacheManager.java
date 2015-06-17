@@ -15,11 +15,11 @@ import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
-import com.techvisio.einstitution.beans.MasterDataBean;
+import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
@@ -33,33 +33,33 @@ import com.techvisio.einstitution.beans.Wing;
 @Component
 public interface CacheManager {
 
-	public List<MasterDataBean> getBranchAsMasterdata();
+	public List<MasterData> getBranchAsMasterdata();
 
-	public List<MasterDataBean> getCategoryAsMasterdata();
+	public List<MasterData> getCategoryAsMasterdata();
 
-	public List<MasterDataBean> getCourseAsMasterdata();
+	public List<MasterData> getCourseAsMasterdata();
 
-	public List<MasterDataBean> getStateAsMasterdata();
+	public List<MasterData> getStateAsMasterdata();
 
-	public List<MasterDataBean> getQualificationAsMasterdata();
+	public List<MasterData> getQualificationAsMasterdata();
 
-	public List<MasterDataBean> getCounsellingBodyAsMasterdata();
+	public List<MasterData> getCounsellingBodyAsMasterdata();
 	
-	public List<MasterDataBean> getQuotaCodeAsMasterdata();
+	public List<MasterData> getQuotaCodeAsMasterdata();
 	
-	public List<MasterDataBean> getSubjectAsMasterdata();
+	public List<MasterData> getSubjectAsMasterdata();
 	
-	public List<MasterDataBean> getConsultantAsMasterdata();
+	public List<MasterData> getConsultantAsMasterdata();
 	
-	public List<MasterDataBean> getFeeDiscountAsMasterdata();
+	public List<MasterData> getFeeDiscountAsMasterdata();
 	
-	public List<MasterDataBean> getSemesterAsMasterdata();
+	public List<MasterData> getSemesterAsMasterdata();
 
 	FeeDiscountHead getFeeDiscountById(Long headId);
 
 	void refreshCacheList(String entity);
 	
-	public List<MasterDataBean> getCodeMappingAsMasterdata();
+	public List<MasterData> getCodeMappingAsMasterdata();
 
 	Course getCourseById(Long courseId);
 
@@ -67,15 +67,15 @@ public interface CacheManager {
 
 	String getCodeMappingByName(String name);
 
-	List<MasterDataBean> getBatchAsMasterdata();
+	List<MasterData> getBatchAsMasterdata();
 	
-	public List<MasterDataBean> getSessionAsMasterdata();
+	public List<MasterData> getSessionAsMasterdata();
 
-	public List<MasterDataBean> getCentreAsMasterdata();
+	public List<MasterData> getCentreAsMasterdata();
 
-	public List<MasterDataBean> getShiftAsMasterdata();
+	public List<MasterData> getShiftAsMasterdata();
 	
-	public List<MasterDataBean> getSectionAsMasterdata();
+	public List<MasterData> getSectionAsMasterdata();
 
 	public <T> List<T> getEntityList(String entity);
 
@@ -103,11 +103,11 @@ public interface CacheManager {
 
 	Subject getSubjectId(Long id);
 
-	List<MasterDataBean> getWingAsMasterdata();
+	List<MasterData> getWingAsMasterdata();
 
-	List<MasterDataBean> getFloorAsMasterdata();
+	List<MasterData> getFloorAsMasterdata();
 
-	List<MasterDataBean> getBlockAsMasterdata();
+	List<MasterData> getBlockAsMasterdata();
 
 	Wing getWingByWingId(Long id);
 
@@ -121,17 +121,17 @@ public interface CacheManager {
 
 	VehicleDetail getVehicleDeatilByVehicleId(Long vehicleId);
 
-	List<MasterDataBean> getVehicleTypeIdAsMasterdata();
+	List<MasterData> getVehicleTypeIdAsMasterdata();
 
 	VehicleType getVehicleTypeByTypeId(Long typeId);
 
 	List<VehicleDetail> getVehicleDetailAsMasterdata();
 
-	List<MasterDataBean> getRoomTypeCodeAsMasterdata();
+	List<MasterData> getRoomTypeCodeAsMasterdata();
 
-	RoomTypeMaster getRoomTypeMasterByTypeCode(String typeCode);
+	RoomType getRoomTypeMasterByTypeCode(String typeCode);
 
-	List<MasterDataBean> getTransportRouteCodeAsMasterdata();
+	List<MasterData> getTransportRouteCodeAsMasterdata();
 
 	List<Amenities> getAmenitiesAsMasterdata();
 

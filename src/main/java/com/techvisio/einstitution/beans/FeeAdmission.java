@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class FeeAdmissionBean {
+public class FeeAdmission {
 
 	private Double pendingFee;
 	private String registrationNo;

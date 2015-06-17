@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.List;
 
-public class EnquiryAndTaskBean {
+public class EnquiryAndTask {
 
 	private AdmissionEnquiry admissionEnquiry;
 	private List<TaskAndFollowUp> tasks;

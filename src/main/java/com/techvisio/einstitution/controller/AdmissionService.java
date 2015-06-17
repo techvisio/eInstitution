@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.AdmissionWorkflowManagerImpl;
@@ -39,7 +39,7 @@ public class AdmissionService {
 		Response response=new Response();
 		try
 		{
-		StudentDetail studentDetail = workflowManager.getStudentDetails(fileNo);
+		Student studentDetail = workflowManager.getStudentDetails(fileNo);
 		response.setResponseBody(studentDetail);
 		
 		if(studentDetail == null){
@@ -56,13 +56,13 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response> addStudentDtl(@RequestBody StudentDetail studentDetail) {
+	public ResponseEntity<Response> addStudentDtl(@RequestBody Student studentDetail) {
 		logger.info("{}  Calling addStudentDtl method for : Student : {}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());
 		Response response=new Response();
 		try
 		{
 		    Long fileNo=workflowManager.addStudentDetails(studentDetail);
-		    StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
+		    Student studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e)
@@ -75,14 +75,14 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response> updateStudentDtl(@RequestBody StudentDetail studentDetail) {
+	public ResponseEntity<Response> updateStudentDtl(@RequestBody Student studentDetail) {
 		logger.info("{}  Calling getStudentDetails method  : Student Name: {}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());	
 		Response response = new Response();
 		try
 		{
 			Long fileNo=workflowManager.updateStudentDetails(studentDetail);
 			 
-			StudentDetail studentFromDB=workflowManager.getStudentDetails(fileNo);
+			Student studentFromDB=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e)
@@ -166,13 +166,13 @@ public class AdmissionService {
      	}
 
 	@RequestMapping(value ="/submitToManagement/", method = RequestMethod.POST)
-	public ResponseEntity<Response> submitToManagement(@RequestBody StudentDetail studentDetail) {
+	public ResponseEntity<Response> submitToManagement(@RequestBody Student studentDetail) {
 		logger.info("{}  Calling moveAdmissiontoNextStep method  for Student Name : {}",this.getClass().getName(), studentDetail.getFirstName()+ studentDetail.getLastName() );	
 		Response response=new Response();
 		try
 		{
 			Long fileNo=workflowManager.moveAdmissiontoNextStep(studentDetail,"PENDING_MANAGEMENT");
-		    StudentDetail student=workflowManager.getStudentDetails(fileNo);
+		    Student student=workflowManager.getStudentDetails(fileNo);
 		    response.setResponseBody(student);
 			
 			}

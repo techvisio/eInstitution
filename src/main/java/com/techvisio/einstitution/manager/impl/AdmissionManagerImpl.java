@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.SequenceFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
@@ -48,9 +48,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	private AdmissionManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
-	public StudentDetail getStudentDtl(Long fileNo) {
+	public Student getStudentDtl(Long fileNo) {
 		logger.info("{} : calling getStudentDtl method by passing file no:{}",this.getClass().getName(), fileNo);
-		StudentDetail studentDetail=null;
+		Student studentDetail=null;
 		
 		studentDetail= admissionDao.getStudentDtl(fileNo);
 		
@@ -58,7 +58,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 	}
 
-	public Long addStudentDtl(StudentDetail studentDetail) {
+	public Long addStudentDtl(Student studentDetail) {
 		logger.info("{} : calling addStudentDtl method for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());
 		Long fileNo=studentDetail.getFileNo();
 		updateMissingInfowithDefaultValue(studentDetail);
@@ -82,7 +82,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		
 	}
 
-	private void updateMissingInfowithDefaultValue(StudentDetail studentDetail) {
+	private void updateMissingInfowithDefaultValue(Student studentDetail) {
 		logger.info("{} : Updating Missing Information with Default Value for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
 		
 		if(CommonUtil.isNullLongValue(studentDetail.getBatchId())){
@@ -107,7 +107,7 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		}
 	}
 
-	public Long updateStudentDtl(StudentDetail studentDetail) {
+	public Long updateStudentDtl(Student studentDetail) {
 		logger.info("{} : calling updateStudentDtl method for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
 		Long fileNo=studentDetail.getFileNo();
 		

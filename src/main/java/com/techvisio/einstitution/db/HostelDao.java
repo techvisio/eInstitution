@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomAllocationForStudent;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 
@@ -19,21 +19,21 @@ public interface HostelDao {
 	
 	
 	
-	public RoomTypeMaster getHostelInventory(String typeCode);
-	public void addHostelInventory(RoomTypeMaster hostelInventory);
-	public void updateHostelInventory(RoomTypeMaster hostelInventory);
+	public RoomType getHostelInventory(String typeCode);
+	public void addHostelInventory(RoomType hostelInventory);
+	public void updateHostelInventory(RoomType hostelInventory);
 	public void deleteHostelInventory(String typeCode);
 	
 	
 	
-	public RoomAllocationDetail getHostelAllocation(Long fileNo);
-	public void addHostelAllocation(RoomAllocationDetail hostelAllocation);
+	public RoomAllocation getHostelAllocation(Long fileNo);
+	public void addHostelAllocation(RoomAllocation hostelAllocation);
 //	public void updateHostelAllocation(RoomAllocationDetail hostelAllocation);
 	public void deleteHostelAllocation(Long fileNo);
 
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo);
-	public RoomAllocationDetail getActiveRoomAllocationDtl (Long fileNo);
-	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo );
+	public RoomAllocation getActiveRoomAllocationDtl (Long fileNo);
+	public List<RoomAllocation> getPreviousAllocatedDetail(Long fileNo );
 	
 	public HostelReservation getHostelReservation(Long fileNo);
 	public void addHostelReservation(HostelReservation hostelReservation);

@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Remark;
-import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -40,7 +40,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	@Autowired
 	FeeWorkflowManager feeWorkflowManager;
 	
-	public Long addStudentDetails(StudentDetail studentDetail) {
+	public Long addStudentDetails(Student studentDetail) {
 		logger.info("{} : calling addStudentDtl for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());
 	
 		Long fileNo = admissionManager.addStudentDtl(studentDetail);
@@ -54,7 +54,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null && studentDetail.getScholarshipDetail().getStateId() != null){
-		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();
+		Scholarship scholarshipDetail = studentDetail.getScholarshipDetail();
 		scholarshipDetail.setFileNo(fileNo);
 		scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
 		}
@@ -62,7 +62,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return fileNo;
 	}
 
-	public Long updateStudentDetails(StudentDetail studentDetail) {
+	public Long updateStudentDetails(Student studentDetail) {
 		logger.info("{} : calling updateStudentDtl for Student Name : {}",this.getClass().getName(),studentDetail.getFirstName()+studentDetail.getLastName());	
 		Long fileNo = admissionManager.updateStudentDtl(studentDetail);
 		
@@ -78,7 +78,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		}
 		
 		if(studentDetail.getScholarshipDetail() != null){
-		ScholarshipDetail scholarshipDetail = studentDetail.getScholarshipDetail();
+		Scholarship scholarshipDetail = studentDetail.getScholarshipDetail();
 		scholarshipDetail.setFileNo(fileNo);
 		scholarshipWorkflowManager.addScholarDetail(scholarshipDetail);
 		}
@@ -90,11 +90,11 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return fileNo;
 	}
 
-	public StudentDetail getStudentDetails(Long fileNo) {
+	public Student getStudentDetails(Long fileNo) {
 		logger.info("{} : calling getScholarshipDetail, getConsultantDtl by passing file no:{}",this.getClass().getName(), fileNo);
-	StudentDetail studentDetail = admissionManager.getStudentDtl(fileNo);
+	Student studentDetail = admissionManager.getStudentDtl(fileNo);
 	
-	ScholarshipDetail scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
+	Scholarship scholarshipDetail = scholarshipWorkflowManager.getScholarshipDetail(fileNo);
 	studentDetail.setScholarshipDetail(scholarshipDetail);
 	
 	List<ConsultantDetail> consultantDetails = consultantWorkflowManager.getConsultantDtl(fileNo);
@@ -136,7 +136,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	@Override
-	public Long moveAdmissiontoNextStep(StudentDetail studentDetail,String status){
+	public Long moveAdmissiontoNextStep(Student studentDetail,String status){
 		logger.info("{} : move Admission to Next Step for Student:{} by passing status:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName(), status);		
 		studentDetail.setApplicationStatus(status);
 		

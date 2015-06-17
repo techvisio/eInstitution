@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
-public class BasicEntity {
+public abstract class BasicEntity {
 
 	private String createdBy;
 	private String updatedBy;

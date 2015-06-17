@@ -1,9 +1,9 @@
 package com.techvisio.einstitution.beans;
 
-public class HostelAllocationAdmissionBean {
+public class HostelAllocationAdmission {
 
 	private StudentBasicInfo basicInfo;
-	private RoomAllocationDetail hostelAllocation;
+	private RoomAllocation hostelAllocation;
 	
 	public StudentBasicInfo getBasicInfo() {
 		return basicInfo;
@@ -13,11 +13,11 @@ public class HostelAllocationAdmissionBean {
 		this.basicInfo = basicInfo;
 	}
 	
-	public RoomAllocationDetail getHostelAllocation() {
+	public RoomAllocation getHostelAllocation() {
 		return hostelAllocation;
 	}
 	
-	public void setHostelAllocation(RoomAllocationDetail hostelAllocation) {
+	public void setHostelAllocation(RoomAllocation hostelAllocation) {
 		this.hostelAllocation = hostelAllocation;
 	}
 }

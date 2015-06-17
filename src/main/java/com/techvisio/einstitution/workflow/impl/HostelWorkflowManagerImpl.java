@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.FeeDiscountHead;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmission;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -56,12 +56,12 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		return hostelManager.getHostelAvailability();
 	}
 
-	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
+	public RoomAllocation getHostelAllocation(Long fileNo) {
 		logger.info("{} : calling getHostelAllocation by passing fileNo:{} ",this.getClass().getName(), fileNo);
 		return hostelManager.getHostelAllocation(fileNo);
 	}
 
-	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
+	public void addHostelAllocation(RoomAllocation hostelAllocation) {
 		logger.info("{} : calling addHostelAllocation for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelManager.addHostelAllocation(hostelAllocation);
 	}
@@ -87,7 +87,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 		//if file No is missing create student
 		if(fileNo == null ){
-			StudentDetail newStudentDetail=new StudentDetail();
+			Student newStudentDetail=new Student();
 			fileNo=admissionManager.addStudentDtl(newStudentDetail);
 		}
 
@@ -118,7 +118,7 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 		//if file No is missing create student
 		if(fileNo == null ){
-			StudentDetail newStudentDetail=new StudentDetail();
+			Student newStudentDetail=new Student();
 			fileNo=admissionManager.addStudentDtl(newStudentDetail);
 		}
 
@@ -169,9 +169,9 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	
 
 	@Override
-	public void saveRoomDetail(RoomAllocationDetail newRoomAllocation){
+	public void saveRoomDetail(RoomAllocation newRoomAllocation){
 
-		RoomAllocationDetail oldRoomAllocation = getActiveRoomAllocationDetail(newRoomAllocation.getFileNo());
+		RoomAllocation oldRoomAllocation = getActiveRoomAllocationDetail(newRoomAllocation.getFileNo());
 		HostelReservation hostelReservation = getReservationfromAllocation(newRoomAllocation);
 		if(oldRoomAllocation == null ){
 			 addHostelReservation(hostelReservation);
@@ -184,10 +184,10 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	private HostelReservation getReservationfromAllocation(
-			RoomAllocationDetail newRoomAllocation) {
+			RoomAllocation newRoomAllocation) {
 		HostelReservation hostelReservation = new HostelReservation();
 		String typeCode=newRoomAllocation.getRoomTypeDetail().getTypeCode();
-		RoomTypeMaster roomTypeMaster = cacheManager.getRoomTypeMasterByTypeCode(typeCode);
+		RoomType roomTypeMaster = cacheManager.getRoomTypeMasterByTypeCode(typeCode);
 		
 		hostelReservation.setPrice(roomTypeMaster.getPrice());
 		hostelReservation.setDescription(roomTypeMaster.getDescription());
@@ -197,21 +197,21 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	@Override
-	public HostelAllocationAdmissionBean getHostelAllocationAdmissiondtl(Long fileNo){
+	public HostelAllocationAdmission getHostelAllocationAdmissiondtl(Long fileNo){
 		logger.info("{} :  getHostelAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
-		HostelAllocationAdmissionBean hostelAllocationAdmissionBean =  new HostelAllocationAdmissionBean();
+		HostelAllocationAdmission hostelAllocationAdmissionBean =  new HostelAllocationAdmission();
 
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
 		hostelAllocationAdmissionBean.setBasicInfo(basicInfo);
 
-		RoomAllocationDetail hostelAllocation = getHostelAllocation(fileNo);
+		RoomAllocation hostelAllocation = getHostelAllocation(fileNo);
 		hostelAllocationAdmissionBean.setHostelAllocation(hostelAllocation);
 
 		return hostelAllocationAdmissionBean;
 	}
 
 	@Override
-	public void saveHostelAllocationAdmissionDtl(RoomAllocationDetail roomAllocationDetail){
+	public void saveHostelAllocationAdmissionDtl(RoomAllocation roomAllocationDetail){
 //		logger.info("{} : calling addHostelAllocation method for Student:{} ",this.getClass().getName(),hostelAllocationAdmissionBean.getBasicInfo().getFirstName()+hostelAllocationAdmissionBean.getBasicInfo().getLastName());	
 
 		saveRoomDetail(roomAllocationDetail);
@@ -231,13 +231,13 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	}
 
 	@Override
-	public RoomAllocationDetail getActiveRoomAllocationDetail(Long fileNo) {
+	public RoomAllocation getActiveRoomAllocationDetail(Long fileNo) {
 
 		return hostelManager.getActiveRoomAllocationDetail(fileNo);
 	}
 
 	@Override
-	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
+	public List<RoomAllocation> getPreviousAllocatedDetail(Long fileNo) {
 
 		return hostelManager.getPreviousAllocatedDetail(fileNo);
 	}
@@ -247,10 +247,10 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 
 		RoomAllocationForStudent allocationForStudent = new RoomAllocationForStudent();
 
-		RoomAllocationDetail activeAllocationDetail = getActiveRoomAllocationDetail(fileNo);
+		RoomAllocation activeAllocationDetail = getActiveRoomAllocationDetail(fileNo);
 		allocationForStudent.setActiveAllocation(activeAllocationDetail);
 
-		List<RoomAllocationDetail> previousAllocationDetails = getPreviousAllocatedDetail(fileNo);
+		List<RoomAllocation> previousAllocationDetails = getPreviousAllocatedDetail(fileNo);
 		allocationForStudent.setPreviousAllocation(previousAllocationDetails);
 
 		StudentBasicInfo basicInfo = admissionManager.getStudentBsInfo(fileNo);

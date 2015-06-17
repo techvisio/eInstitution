@@ -1,6 +1,17 @@
 package com.techvisio.einstitution.beans;
 
-public class Batch {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "batchmaster")    
+public class Batch extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private Long batchId;
 	private String batch;
 	private Long courseId;
@@ -42,6 +53,12 @@ public class Batch {
 		return "Batch [batchId=" + batchId + ", batch=" + batch + ", courseId="
 				+ courseId + ", prevBatchId=" + prevBatchId + ", nextBatchId="
 				+ nextBatchId + "]";
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

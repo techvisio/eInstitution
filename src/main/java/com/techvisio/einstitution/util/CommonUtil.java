@@ -11,28 +11,28 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.techvisio.einstitution.beans.AddressDetail;
-import com.techvisio.einstitution.beans.AdmissionDiscountDtl;
+import com.techvisio.einstitution.beans.Address;
+import com.techvisio.einstitution.beans.AdmissionDiscount;
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.CounsellingDetail;
-import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
+import com.techvisio.einstitution.beans.Counselling;
+import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.FieldDesc;
-import com.techvisio.einstitution.beans.QualificationSubjectDtl;
-import com.techvisio.einstitution.beans.StudentAcademicDetail;
+import com.techvisio.einstitution.beans.QualificationSubject;
+import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 
 public class CommonUtil {
 
 	public static void propogateIdentifiertoAdmission(
-			StudentDetail studentDetail) {
+			Student studentDetail) {
 
 		Long fileNo = studentDetail.getFileNo();
 		if (studentDetail.getAcademicDtl() != null) {
-			for (StudentAcademicDetail studentAcademicDetail : studentDetail
+			for (StudentAcademic studentAcademicDetail : studentDetail
 					.getAcademicDtl()) {
 				studentAcademicDetail.setFileNo(fileNo);
 			}
@@ -40,7 +40,7 @@ public class CommonUtil {
 
 		if (studentDetail.getDiscountDtl() != null) {
 
-			for (AdmissionDiscountDtl admissionDiscountDtl : studentDetail
+			for (AdmissionDiscount admissionDiscountDtl : studentDetail
 					.getDiscountDtl()) {
 
 				admissionDiscountDtl.setFileNo(fileNo);
@@ -49,7 +49,7 @@ public class CommonUtil {
 
 		if (studentDetail.getAddressDtl() != null) {
 
-			for (AddressDetail addressDetail : studentDetail.getAddressDtl()) {
+			for (Address addressDetail : studentDetail.getAddressDtl()) {
 
 				addressDetail.setFileNo(fileNo);
 
@@ -72,7 +72,7 @@ public class CommonUtil {
 		
 		if (studentDetail.getCounsellingDtl() != null) {
 
-			for (CounsellingDetail counsellingDetail : studentDetail.getCounsellingDtl()) {
+			for (Counselling counsellingDetail : studentDetail.getCounsellingDtl()) {
 
 				counsellingDetail.setFileNo(fileNo);
 
@@ -84,13 +84,13 @@ public class CommonUtil {
 
 
 
-	public static void propogateIdentifierToQualification(StudentAcademicDetail academicDetail){
+	public static void propogateIdentifierToQualification(StudentAcademic academicDetail){
 		
 		Long fileNo=academicDetail.getFileNo();
 		
 		if(academicDetail.getQualificationSubDtl() != null){
 			
-			for(QualificationSubjectDtl qualificationSubjectDtl:academicDetail.getQualificationSubDtl()){
+			for(QualificationSubject qualificationSubjectDtl:academicDetail.getQualificationSubDtl()){
 				
 				qualificationSubjectDtl.setFileNo(fileNo);
 				qualificationSubjectDtl.setQualificationId(academicDetail.getQualificationId());
@@ -164,7 +164,7 @@ public class CommonUtil {
 	}
 	
 	public static List<FieldDesc> createJSONfordynamicUI() throws NoSuchFieldException, SecurityException{
-		Field[] fields=StudentDetail.class.getDeclaredFields();
+		Field[] fields=Student.class.getDeclaredFields();
 		List<FieldDesc> finalFields=new ArrayList<FieldDesc>();
 		for(Field field:fields){
 			FieldDesc desc=new FieldDesc();
@@ -213,7 +213,7 @@ public class CommonUtil {
 		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
 		criteria.setBranchId(basicInfo.getBranch().getId());
 		criteria.setCentreId(basicInfo.getCentre().getCentreId());
-		criteria.setCourseId(basicInfo.getCourse().getId());
+		criteria.setCourseId(basicInfo.getCourse().getCourseId());
 		criteria.setLateral(basicInfo.isLateral());
 		criteria.setSessionId(basicInfo.getSession().getSessionId());
 		criteria.setShiftId(basicInfo.getShift().getShiftId());

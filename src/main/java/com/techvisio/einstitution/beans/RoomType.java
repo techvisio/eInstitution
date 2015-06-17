@@ -1,7 +1,7 @@
 
 package com.techvisio.einstitution.beans;
 
-public class RoomTypeMaster {
+public class RoomType {
 private String	typeCode; 
 private String	description;
 private int	threshold;

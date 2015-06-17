@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
-import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
+import com.techvisio.einstitution.beans.ConsultantPayment;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 
@@ -25,9 +25,9 @@ public interface ConsultantDao {
 	public void deleteConsultantDtlExclusion(Long fileNo, List<ConsultantDetail> consultantDetails);
 	
 	
-	public List<ConsultantPaymentDtl> getConsultantPaymentDtl(Long fileNo,Long consultantId);
-	public void addConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
-	public void updateConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl);
+	public List<ConsultantPayment> getConsultantPaymentDtl(Long fileNo,Long consultantId);
+	public void addConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl);
+	public void updateConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl);
 	
 	
 	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo, Long consultantId);

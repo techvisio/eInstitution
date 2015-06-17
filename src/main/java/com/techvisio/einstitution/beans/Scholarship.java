@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 import java.util.Date;
 import java.util.List;
 
-public class ScholarshipDetail {
+public class Scholarship {
 
 	private Long fileNo;
 	private Double amount;
@@ -14,7 +14,7 @@ public class ScholarshipDetail {
     private boolean reoccurring;
     private boolean conditional;
     private Double parentIncome;
-    private List<ScholarshipPaymentDetail> scholarshipPaymentDetail;
+    private List<ScholarshipPayment> scholarshipPaymentDetail;
 	
 	
 	public Long getFileNo() {
@@ -47,10 +47,10 @@ public class ScholarshipDetail {
 	public void setCreateDate(Date createDate) {
 		this.createdDate = createDate;
 	}
-	public List<ScholarshipPaymentDetail> getScholarshipPaymentDetail() {
+	public List<ScholarshipPayment> getScholarshipPaymentDetail() {
 		return scholarshipPaymentDetail;
 	}
-	public void setScholarshipPaymentDetail(List<ScholarshipPaymentDetail> scholarshipPaymentDetail) {
+	public void setScholarshipPaymentDetail(List<ScholarshipPayment> scholarshipPaymentDetail) {
 		this.scholarshipPaymentDetail = scholarshipPaymentDetail;
 	}
 	public boolean isApproved() {

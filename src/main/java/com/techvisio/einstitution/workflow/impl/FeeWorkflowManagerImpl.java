@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.FeeAdmission;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
-import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.FeeTransactionAdmission;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.manager.impl.FeeManagerImpl;
@@ -29,9 +29,9 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 	AdmissionWorkflowManager admissionWorkFlow;
 	
 	@Override
-	public List<FeeAdmissionBean> getPendingfeeInfo(int limit){
+	public List<FeeAdmission> getPendingfeeInfo(int limit){
 		logger.info("{} : calling getPendingfeeInfo by passing limit:{}",this.getClass().getName(),limit);		
-		List<FeeAdmissionBean> feeAdmissionBeans = feeManager.getPendingfeeInfo(limit);
+		List<FeeAdmission> feeAdmissionBeans = feeManager.getPendingfeeInfo(limit);
 		
 		return feeAdmissionBeans;
 		
@@ -127,16 +127,16 @@ public class FeeWorkflowManagerImpl implements FeeWorkflowManager{
 		StudentBasicInfo basicInfo = admissionWorkFlow.getStudentBsInfo(fileNo);
 		feeTransaction.setBatchId(basicInfo.getBatch().getBatchId());
 		feeTransaction.setSessionId(basicInfo.getSession().getSessionId());
-		StudentDetail studentDetail = admissionWorkFlow.getStudentDetails(fileNo);
+		Student studentDetail = admissionWorkFlow.getStudentDetails(fileNo);
 		studentDetail.setFeePaid(true);
 		admissionWorkFlow.updateStudentDetails(studentDetail);
 		feeManager.addFeeTransactionCredit(feeTransaction);
 	}
 
 	@Override
-	public FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo){
+	public FeeTransactionAdmission getFeeTransactionDetail(Long fileNo){
 		logger.info("{} : calling getFeeTransactionDetail by passing file no:{} ",this.getClass().getName(), fileNo);	
-		FeeTransactionAdmissionBean admissionBean = new FeeTransactionAdmissionBean();
+		FeeTransactionAdmission admissionBean = new FeeTransactionAdmission();
 		
 		StudentBasicInfo basicInfo=admissionWorkFlow.getStudentBsInfo(fileNo);
 		

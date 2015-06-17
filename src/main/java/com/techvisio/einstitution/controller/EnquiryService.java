@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
-import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
+import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -61,7 +61,7 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 		
-		EnquiryAndTaskBean admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		EnquiryAndTask admissionInquiAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		response.setResponseBody(admissionInquiAndTask);
 		}
 		
@@ -73,13 +73,13 @@ public class EnquiryService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTask enquirynTask) {  
 		logger.info("{}  Calling addEnquiryandTask method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
 		Long enquiryId=enquiryWorkflowManager.addEnquiryandTask(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 			response.setResponseBody(admissionInquiryDB);
 		}
@@ -92,13 +92,13 @@ public class EnquiryService {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response> updateEnquiryandTask(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+	public ResponseEntity<Response> updateEnquiryandTask(@RequestBody EnquiryAndTask enquirynTask) {  
 		logger.info("{}  Calling updateEnquiryandTask method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
 		Long enquiryId=enquiryWorkflowManager.updateEnquiryandTask(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 		}
 		response.setResponseBody(admissionInquiryDB);
@@ -148,13 +148,13 @@ public class EnquiryService {
 		}
 
 	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
-	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTask enquirynTask) {  
 		logger.info("{}  Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
 		Long enquiryId=enquiryWorkflowManager.proceedToAdmission(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 			response.setResponseBody(admissionInquiryDB);
 		}
@@ -168,13 +168,13 @@ public class EnquiryService {
 	
 	
 	@RequestMapping(value="/toggleEnquiryStatus",method = RequestMethod.PUT)
-	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTaskBean enquirynTask) {  
+	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTask enquirynTask) {  
 		logger.info("{}  Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 			
 		Long enquiryId=enquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
-		EnquiryAndTaskBean admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 		if(admissionInquiryDB != null){
 		}
 		response.setResponseBody(admissionInquiryDB);

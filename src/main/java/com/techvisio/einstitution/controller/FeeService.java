@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.FeeAdmission;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
-import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.FeeTransactionAdmission;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -231,7 +231,7 @@ public class FeeService {
 		Response response = new Response();
 
 		try {
-			FeeTransactionAdmissionBean admissionBean = feeWorkflowManager.getFeeTransactionDetail(fileNo);
+			FeeTransactionAdmission admissionBean = feeWorkflowManager.getFeeTransactionDetail(fileNo);
 			response.setResponseBody(admissionBean);
 		} catch (Exception e) {
 
@@ -248,7 +248,7 @@ public class FeeService {
 		Response response = new Response();
 		try
 		{
-		    List<FeeAdmissionBean> feeAdmissionBeans = feeWorkflowManager.getPendingfeeInfo(limit);
+		    List<FeeAdmission> feeAdmissionBeans = feeWorkflowManager.getPendingfeeInfo(limit);
 		    response.setResponseBody(feeAdmissionBeans);
 		}
 		catch(Exception e)

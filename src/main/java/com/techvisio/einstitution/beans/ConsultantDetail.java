@@ -4,8 +4,17 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultantDetail {
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "consultantdetail")    
+public class ConsultantDetail extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private Long fileNo;
 	private Consultant consultant=new Consultant();
 	private boolean consultancyAgreed; 
@@ -13,7 +22,7 @@ public class ConsultantDetail {
 	private Double amountToPay; 
 	private Date dueDate;
     private String remarks;
-	private List<ConsultantPaymentDtl> consultantPaymentDetail=new ArrayList<ConsultantPaymentDtl>();
+	private List<ConsultantPayment> consultantPaymentDetail=new ArrayList<ConsultantPayment>();
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias=new ArrayList<ConsultantPaymentCriteria>();
     
 	public String getPaymentMode() {
@@ -55,11 +64,11 @@ public class ConsultantDetail {
 		this.consultancyAgreed = consultancyAgreed;
 	}
 
-	public List<ConsultantPaymentDtl> getConsultantPaymentDetail() {
+	public List<ConsultantPayment> getConsultantPaymentDetail() {
 		return consultantPaymentDetail;
 	}
 
-	public void setConsultantPaymentDetail(List<ConsultantPaymentDtl> consultantPaymentDetail) {
+	public void setConsultantPaymentDetail(List<ConsultantPayment> consultantPaymentDetail) {
 		this.consultantPaymentDetail = consultantPaymentDetail;
 	}
 
@@ -100,6 +109,16 @@ public class ConsultantDetail {
 
 	public void setConsultant(Consultant consultant) {
 		this.consultant = consultant;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

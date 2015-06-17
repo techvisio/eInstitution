@@ -7,16 +7,16 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 
 @Component
 public interface AdmissionManager {
 
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 	
-	public StudentDetail getStudentDtl(Long fileNo);
-	public Long addStudentDtl(StudentDetail studentDetail);
-	public Long updateStudentDtl(StudentDetail studentDtl);
+	public Student getStudentDtl(Long fileNo);
+	public Long addStudentDtl(Student studentDetail);
+	public Long updateStudentDtl(Student studentDtl);
 	public void deleteSudentDtl(Long fileNo);
 	
 	public StudentBasicInfo getStudentBsInfo(Long fileNo);

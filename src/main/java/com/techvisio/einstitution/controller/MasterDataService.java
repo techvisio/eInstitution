@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.FieldDesc;
-import com.techvisio.einstitution.beans.MasterDataBean;
+import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -68,73 +68,73 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	admissionMasterData.put("dropdownMasterData", serverData);
 
 	
-	List<MasterDataBean> category=cacheManager.getCategoryAsMasterdata();
+	List<MasterData> category=cacheManager.getCategoryAsMasterdata();
 //	category.add(new MasterDataBean("1", "General"));
 //	category.add(new MasterDataBean("2", "OBC"));
 	serverData.put(AppConstants.CATEGORY, category);
 	
-	List<MasterDataBean> course=cacheManager.getCourseAsMasterdata();
+	List<MasterData> course=cacheManager.getCourseAsMasterdata();
 //	course.add(new MasterDataBean("1", "B.Tech"));
 //	course.add(new MasterDataBean("2", "MBA"));
 	serverData.put(AppConstants.COURSE, course);
 	
-	List<MasterDataBean> branch=cacheManager.getBranchAsMasterdata();
+	List<MasterData> branch=cacheManager.getBranchAsMasterdata();
 //	branch.add(new MasterDataBean("1", "CS", "BTech"));
 //	branch.add(new MasterDataBean("2", "Mechanical", "BTech"));
 	serverData.put(AppConstants.BRANCH, branch);
 	
-	List<MasterDataBean> state=cacheManager.getStateAsMasterdata();
+	List<MasterData> state=cacheManager.getStateAsMasterdata();
 //	state.add(new MasterDataBean("1", "Uttar Pradesh"));
 //	state.add(new MasterDataBean("2", "Delhi"));
 	serverData.put(AppConstants.STATE, state);
 	
-	List<MasterDataBean> qualification=cacheManager.getQualificationAsMasterdata();
+	List<MasterData> qualification=cacheManager.getQualificationAsMasterdata();
 //	qualification.add(new MasterDataBean("1", "High School"));
 //	qualification.add(new MasterDataBean("2", "Intermediate"));
 	serverData.put(AppConstants.QUALIFICATION, qualification);
 	//CommonUtil.convertJavatoJSON(admissionMasterData);
 	
-	List<MasterDataBean> subject=cacheManager.getSubjectAsMasterdata();
+	List<MasterData> subject=cacheManager.getSubjectAsMasterdata();
 	serverData.put(AppConstants.SUBJECT, subject);
 	
-	List<MasterDataBean> quotaCode=cacheManager.getQuotaCodeAsMasterdata();
+	List<MasterData> quotaCode=cacheManager.getQuotaCodeAsMasterdata();
 	serverData.put(AppConstants.QUOTACODE, quotaCode);
 	
-	List<MasterDataBean> counselling=cacheManager.getCounsellingBodyAsMasterdata();
+	List<MasterData> counselling=cacheManager.getCounsellingBodyAsMasterdata();
 	serverData.put(AppConstants.COUNSELLING, counselling);
 	
-	List<MasterDataBean> consultant=cacheManager.getConsultantAsMasterdata();
+	List<MasterData> consultant=cacheManager.getConsultantAsMasterdata();
 	serverData.put(AppConstants.CONSULTANT, consultant);
 	
-	List<MasterDataBean> feeDiscount=cacheManager.getFeeDiscountAsMasterdata();
+	List<MasterData> feeDiscount=cacheManager.getFeeDiscountAsMasterdata();
 	serverData.put(AppConstants.FEEHEAD, feeDiscount);
 	
 	
-	List<MasterDataBean> semester=cacheManager.getSemesterAsMasterdata();
+	List<MasterData> semester=cacheManager.getSemesterAsMasterdata();
 	serverData.put(AppConstants.SEMESTER, semester);
 	
-	List<MasterDataBean> batch = cacheManager.getBatchAsMasterdata();
+	List<MasterData> batch = cacheManager.getBatchAsMasterdata();
 	serverData.put(AppConstants.BATCH, batch);
 	
-	List<MasterDataBean> session = cacheManager.getSessionAsMasterdata();
+	List<MasterData> session = cacheManager.getSessionAsMasterdata();
 	serverData.put(AppConstants.SESSION, session);
 	
-	List<MasterDataBean> centre = cacheManager.getCentreAsMasterdata();
+	List<MasterData> centre = cacheManager.getCentreAsMasterdata();
 	serverData.put(AppConstants.CENTRE, centre);
 	
-	List<MasterDataBean> shift = cacheManager.getShiftAsMasterdata();
+	List<MasterData> shift = cacheManager.getShiftAsMasterdata();
 	serverData.put(AppConstants.SHIFT, shift);
 	
-	List<MasterDataBean> section = cacheManager.getSectionAsMasterdata();
+	List<MasterData> section = cacheManager.getSectionAsMasterdata();
 	serverData.put(AppConstants.SECTION, section);
 	
-	List<MasterDataBean> wing = cacheManager.getWingAsMasterdata();
+	List<MasterData> wing = cacheManager.getWingAsMasterdata();
 	serverData.put(AppConstants.WING, wing);
 	
-	List<MasterDataBean> floor = cacheManager.getFloorAsMasterdata();
+	List<MasterData> floor = cacheManager.getFloorAsMasterdata();
 	serverData.put(AppConstants.FLOOR, floor);
 	
-	List<MasterDataBean> block = cacheManager.getBlockAsMasterdata();
+	List<MasterData> block = cacheManager.getBlockAsMasterdata();
 	serverData.put(AppConstants.BLOCK, block);
 	
 	List<RoomTypeDetail> rooms = cacheManager.getRoomNoAsMasterdata();
@@ -143,7 +143,7 @@ public ResponseEntity<Map<String,Object>> getMasterDataforAdmission() throws NoS
 	List<VehicleDetail> vehicle = cacheManager.getVehicleDetailAsMasterdata();
 	serverData.put(AppConstants.VEHICLE, vehicle);
 	
-	List<MasterDataBean> vehicleType = cacheManager.getVehicleTypeIdAsMasterdata();
+	List<MasterData> vehicleType = cacheManager.getVehicleTypeIdAsMasterdata();
 	serverData.put(AppConstants.VEHICLETYPE, vehicleType);
 	
 	List<Amenities> amenites = cacheManager.getAmenitiesAsMasterdata();

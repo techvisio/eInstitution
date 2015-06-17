@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.HostelReservation;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.TransportAllocation;
-import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationAdmission;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
@@ -86,7 +86,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 
 		// if file No is missing create student
 		if (fileNo == null) {
-			StudentDetail newStudentDetail = new StudentDetail();
+			Student newStudentDetail = new Student();
 			fileNo = admissionManager.addStudentDtl(newStudentDetail);
 		}
 
@@ -117,7 +117,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		Long fileNo = transportReservation.getFileNo();
 
 		if (fileNo == null) {
-			StudentDetail newStudentDetail = new StudentDetail();
+			Student newStudentDetail = new Student();
 			fileNo = admissionManager.addStudentDtl(newStudentDetail);
 		}
 
@@ -178,9 +178,9 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	}
 
 	@Override
-	public TransportAllocationAdmissionBean getTransportAllocationAdmissiondtl(Long fileNo){
+	public TransportAllocationAdmission getTransportAllocationAdmissiondtl(Long fileNo){
 		logger.info("{} : getTransportAllocationAdmissiondtl for fileno:{} ",this.getClass().getName(), fileNo);	
-		TransportAllocationAdmissionBean transportAllocationAdmissionBean = new TransportAllocationAdmissionBean();
+		TransportAllocationAdmission transportAllocationAdmissionBean = new TransportAllocationAdmission();
 
 		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
 		transportAllocationAdmissionBean.setBasicInfo(basicInfo);
@@ -192,7 +192,7 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 	}
 
 	@Override
-	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean){
+	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmission transportAllocationAdmissionBean){
 		logger.info("{} : calling addTransportAllocationAdmissionDtl for Student:{} ",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+transportAllocationAdmissionBean.getBasicInfo().getLastName());		
 
 	

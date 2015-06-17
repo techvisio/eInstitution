@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmission;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
@@ -41,15 +41,15 @@ public class HostelManagerImpl implements HostelManager {
 	}
 	
 	
-	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
+	public RoomAllocation getHostelAllocation(Long fileNo) {
 		logger.info("{} : calling getHostelAllocation method by passing fileNo:{} ",this.getClass().getName(), fileNo);
-		RoomAllocationDetail h = hostelDao.getHostelAllocation(fileNo);
+		RoomAllocation h = hostelDao.getHostelAllocation(fileNo);
 		return h;
 	}
 
 	
 	
-	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
+	public void addHostelAllocation(RoomAllocation hostelAllocation) {
 		logger.info("{} : calling addHostelAllocation method for fileNo:{} ",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelDao.addHostelAllocation(hostelAllocation);
 	}
@@ -141,19 +141,19 @@ public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo) {
 }
 
 @Override
-public RoomAllocationDetail getActiveRoomAllocationDetail(Long fileNo) {
+public RoomAllocation getActiveRoomAllocationDetail(Long fileNo) {
 
 	return hostelDao.getActiveRoomAllocationDtl(fileNo);
 }
 
 @Override
-public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
+public List<RoomAllocation> getPreviousAllocatedDetail(Long fileNo) {
 
 	return hostelDao.getPreviousAllocatedDetail(fileNo);
 }
 
 @Override
-public void saveAllocationDetails(RoomAllocationDetail newRoomAllocation,RoomAllocationDetail oldRoomAllocation) {
+public void saveAllocationDetails(RoomAllocation newRoomAllocation,RoomAllocation oldRoomAllocation) {
 
 	oldRoomAllocation=getActiveRoomAllocationDetail(newRoomAllocation.getFileNo());
 	

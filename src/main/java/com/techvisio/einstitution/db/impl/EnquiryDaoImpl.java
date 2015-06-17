@@ -96,7 +96,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 		.addValue("Branch_Id",
 				admissionInquiry.getBranch().getId())
 		.addValue("Course_Id",
-				admissionInquiry.getCourse().getId())
+				admissionInquiry.getCourse().getCourseId())
 		.addValue("Created_On", admissionInquiry.getCreatedDate())
 		.addValue("Created_By", admissionInquiry.getCreateBy())
 		.addValue("Updated_On", admissionInquiry.getUpdatedDate())

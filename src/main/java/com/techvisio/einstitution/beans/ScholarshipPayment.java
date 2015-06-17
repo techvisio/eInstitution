@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class ScholarshipPaymentDetail {
+public class ScholarshipPayment {
 
 	private Long fileNo;
 	private Double amountReceived;

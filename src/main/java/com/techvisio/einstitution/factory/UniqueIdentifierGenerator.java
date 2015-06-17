@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.factory;
 
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 
 
 public interface UniqueIdentifierGenerator {
@@ -9,6 +9,6 @@ public interface UniqueIdentifierGenerator {
 	public Long getUniqueIdentifierForEnquiry();
     public Long getUniqueIdentifierForTask();	
     public Long getUniqueIdentifierForConsultant();
-    public String getUniqueIdentifierForRegistration(StudentDetail studentDetail);	
+    public String getUniqueIdentifierForRegistration(Student studentDetail);	
 
 }

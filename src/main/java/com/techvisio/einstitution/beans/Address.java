@@ -1,7 +1,16 @@
 package com.techvisio.einstitution.beans;
 
-public class AddressDetail {
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "addressdetail")    
+public class Address extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private String houseNo;
 	private String locality;
 	private String landmark;
@@ -11,6 +20,8 @@ public class AddressDetail {
 	private String State;
 	private Long fileNo;
 	private String addressType;
+	
+	
 	
 	
 	public String getHouseNo() {
@@ -100,5 +111,14 @@ public class AddressDetail {
 				+ State + ", fileNo=" + fileNo + ", addressType=" + addressType
 				+ "]";
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	
 }

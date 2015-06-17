@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.FeeTransaction;
-import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -38,16 +38,16 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
+	public Scholarship getScholarshipDetail(Long fileNo) {
 		logger.info("{} : calling getScholarshipDetail method by passing file no:{}  ",this.getClass().getName(), fileNo);
 
-		ScholarshipDetail scholarshipDetail = scholarshipDao.getScholarshipDetail(fileNo);
+		Scholarship scholarshipDetail = scholarshipDao.getScholarshipDetail(fileNo);
 		
 		return scholarshipDetail;
 
 	}
 
-	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
+	public void addScholarDetail(Scholarship scholarshipDetail) {
 		logger.info("{} : calling addScholarDetail method for file no:{}  ",this.getClass().getName(), scholarshipDetail.getFileNo());
 		scholarshipDao.addScholarDetail(scholarshipDetail);
 	}
@@ -58,10 +58,10 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	@Override
-	public void accomodateManagementChanges(StudentBasicInfo basicInfo, ScholarshipDetail newScholarshipDetail) {
+	public void accomodateManagementChanges(StudentBasicInfo basicInfo, Scholarship newScholarshipDetail) {
 		logger.info("{} : Accomodate Management Changes  for Student:{}  ",this.getClass().getName(), basicInfo.getFirstName()+basicInfo.getLastName());
-		ScholarshipDetail newScholarshipObj = newScholarshipDetail;
-		ScholarshipDetail oldScholarshipObj = scholarshipDao.getScholarshipDetail(newScholarshipObj.getFileNo());
+		Scholarship newScholarshipObj = newScholarshipDetail;
+		Scholarship oldScholarshipObj = scholarshipDao.getScholarshipDetail(newScholarshipObj.getFileNo());
 
 		
 		if (newScholarshipObj != null && newScholarshipObj.getStateId() != null) {

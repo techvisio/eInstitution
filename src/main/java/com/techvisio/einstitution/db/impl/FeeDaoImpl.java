@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.FeeAdmission;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
@@ -51,19 +51,19 @@ public class FeeDaoImpl extends BaseDao implements FeeDao{
 	DefaultManager defaultManager;
 
 	@Override
-	public List<FeeAdmissionBean> getPendingfeeInfo(int limit) {
+	public List<FeeAdmission> getPendingfeeInfo(int limit) {
 		//StudentfeeAdmissionBean info = new StudentfeeAdmissionBean();
 		 logger.info("{} : Get pending fee information : Limit:{}",this.getClass().getName(), limit);		
 		String getQuery = feeQueryProps.getProperty("getPendingFee");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("limit",limit);
 		
-		List<FeeAdmissionBean> pendingFeeInfos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new RowMapper<FeeAdmissionBean>() {
+		List<FeeAdmission> pendingFeeInfos = getNamedParamJdbcTemplate().query(getQuery,namedParameter ,new RowMapper<FeeAdmission>() {
 
 			@Override
-			public FeeAdmissionBean mapRow(ResultSet rs, int rowNum)
+			public FeeAdmission mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
 		logger.info("{} : Putting values in setter of FeeAdmission bean through rowmaaper ",this.getClass().getName());
-				FeeAdmissionBean feeAdmissionBean = new FeeAdmissionBean();
+				FeeAdmission feeAdmissionBean = new FeeAdmission();
 				feeAdmissionBean.setFirstName(rs.getString("First_Name"));
 				feeAdmissionBean.setLastName(rs.getString("Last_Name"));
 				feeAdmissionBean.setAcademicYear(rs.getString("Academic_Year"));

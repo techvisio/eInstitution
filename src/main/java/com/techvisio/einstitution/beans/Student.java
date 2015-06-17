@@ -9,7 +9,7 @@ import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.DynamicProperties;
 
-public class StudentDetail {
+public class Student {
 
 	private String admissionMode;
 
@@ -129,15 +129,15 @@ public class StudentDetail {
 //	private Date documentVerifiedOn;
 //	private String managementApprovedBy;
 //	private Date managementApprovedOn;
-	private List<StudentAcademicDetail> academicDtl=new ArrayList<StudentAcademicDetail>();
-	private List<AdmissionDiscountDtl> DiscountDtl=new ArrayList<AdmissionDiscountDtl>();
-	private List<AddressDetail> addressDtl=new ArrayList<AddressDetail>();
+	private List<StudentAcademic> academicDtl=new ArrayList<StudentAcademic>();
+	private List<AdmissionDiscount> DiscountDtl=new ArrayList<AdmissionDiscount>();
+	private List<Address> addressDtl=new ArrayList<Address>();
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
-	private List<CounsellingDetail> counsellingDtl=new ArrayList<CounsellingDetail>();
+	private List<Counselling> counsellingDtl=new ArrayList<Counselling>();
 	
 	private TransportReservation reservation;
     private List<ConsultantDetail> consultantDetail;
-    private ScholarshipDetail scholarshipDetail;
+    private Scholarship scholarshipDetail;
     private String quotaCode;
     private String referredBy;
     private boolean lateral;
@@ -176,19 +176,19 @@ public class StudentDetail {
 		this.admissionMode = admissionMode;
 	}
 
-	public List<StudentAcademicDetail> getAcademicDtl() {
+	public List<StudentAcademic> getAcademicDtl() {
 		return academicDtl;
 	}
 
-	public void setAcademicDtl(List<StudentAcademicDetail> academicDtl) {
+	public void setAcademicDtl(List<StudentAcademic> academicDtl) {
 		this.academicDtl = academicDtl;
 	}
 
-	public List<AdmissionDiscountDtl> getDiscountDtl() {
+	public List<AdmissionDiscount> getDiscountDtl() {
 		return DiscountDtl;
 	}
 
-	public void setDiscountDtl(List<AdmissionDiscountDtl> discountDtl) {
+	public void setDiscountDtl(List<AdmissionDiscount> discountDtl) {
 		this.DiscountDtl = discountDtl;
 	}
 
@@ -405,11 +405,11 @@ public class StudentDetail {
 
 	
 
-	public List<AddressDetail> getAddressDtl() {
+	public List<Address> getAddressDtl() {
 		return addressDtl;
 	}
 
-	public void setAddressDtl(List<AddressDetail> addressDtl) {
+	public void setAddressDtl(List<Address> addressDtl) {
 		this.addressDtl = addressDtl;
 	}
 
@@ -462,11 +462,11 @@ public class StudentDetail {
 		this.referredBy = referredBy;
 	}
 
-	public List<CounsellingDetail> getCounsellingDtl() {
+	public List<Counselling> getCounsellingDtl() {
 		return counsellingDtl;
 	}
 
-	public void setCounsellingDtl(List<CounsellingDetail> counsellingDtl) {
+	public void setCounsellingDtl(List<Counselling> counsellingDtl) {
 		this.counsellingDtl = counsellingDtl;
 	}
 
@@ -486,11 +486,11 @@ public class StudentDetail {
 		this.reservation = reservation;
 	}
 
-	public ScholarshipDetail getScholarshipDetail() {
+	public Scholarship getScholarshipDetail() {
 		return scholarshipDetail;
 	}
 
-	public void setScholarshipDetail(ScholarshipDetail scholarshipDetail) {
+	public void setScholarshipDetail(Scholarship scholarshipDetail) {
 		this.scholarshipDetail = scholarshipDetail;
 	}
 

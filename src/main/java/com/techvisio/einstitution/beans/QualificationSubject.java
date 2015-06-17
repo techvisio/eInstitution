@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.beans;
 
-public class QualificationSubjectDtl {
+public class QualificationSubject {
 
 	private Long subjectId;
 	private Long qualificationId;

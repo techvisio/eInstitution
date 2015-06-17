@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.FeeAdmission;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
-import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.FeeTransactionAdmission;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 @Component
@@ -36,8 +36,8 @@ public interface FeeManager {
 	public void deleteFeeDiscountHead(Long headId);
 	
 	public void generateDiscountinStagging(Long fileNo);
-	FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo);
-	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
+	FeeTransactionAdmission getFeeTransactionDetail(Long fileNo);
+	List<FeeAdmission> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetail(ApplicableFeeCriteria criteria);
 
 	public Boolean isManagementApproved(Long fileNo);

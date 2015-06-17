@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.beans;
 
-public class TransportAllocationAdmissionBean {
+public class TransportAllocationAdmission {
 
 	private StudentBasicInfo basicInfo;
 	private TransportAllocation transportAllocation;

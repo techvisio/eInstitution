@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.util.CommonUtil;
 
-public class StudentAcademicDetail {
+public class StudentAcademic {
 
 	private String university;
 	private String collegeName;
@@ -13,7 +13,7 @@ public class StudentAcademicDetail {
 	private String rollNo;
 	private Long fileNo;
 	private Long qualificationId;
-	private List<QualificationSubjectDtl> qualificationSubDtl;
+	private List<QualificationSubject> qualificationSubDtl;
 
 	public String getUniversity() {
 		return university;
@@ -74,12 +74,12 @@ public class StudentAcademicDetail {
 		this.qualificationId = qualificationId;
 	}
 
-	public List<QualificationSubjectDtl> getQualificationSubDtl() {
+	public List<QualificationSubject> getQualificationSubDtl() {
 		return qualificationSubDtl;
 	}
 
 	public void setQualificationSubDtl(
-			List<QualificationSubjectDtl> qualificationSubDtl) {
+			List<QualificationSubject> qualificationSubDtl) {
 		this.qualificationSubDtl = qualificationSubDtl;
 	}
 

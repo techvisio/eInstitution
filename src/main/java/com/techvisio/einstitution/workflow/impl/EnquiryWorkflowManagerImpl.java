@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.EnquiryAndTaskBean;
+import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.manager.EnquiryManager;
@@ -41,9 +41,9 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	TaskFollowWorkflowManager taskFollowWorkflowManager;
 	
 	@Override
-	public EnquiryAndTaskBean getEnquiryandTask(Long inquiryId) {
+	public EnquiryAndTask getEnquiryandTask(Long inquiryId) {
 		logger.info("{} : calling getInquiry, getTaskAndFollowUpByByModuleAndEntityId by passing enquiryId:{}",this.getClass().getName(), inquiryId);
-		EnquiryAndTaskBean enquiryAndTask=new EnquiryAndTaskBean();
+		EnquiryAndTask enquiryAndTask=new EnquiryAndTask();
 		
 		AdmissionEnquiry admissionEnquiry=enquiryManager.getInquiry(inquiryId);
 		enquiryAndTask.setAdmissionEnquiry(admissionEnquiry);
@@ -55,7 +55,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 
 	@Override
-	public Long addEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
+	public Long addEnquiryandTask(EnquiryAndTask enquiryAndTaskBean) {
 		logger.info("{} : add Enquiry and Task for enquiryId:{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());	
         enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  
 	
@@ -70,7 +70,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 
 	@Override
-	public Long updateEnquiryandTask(EnquiryAndTaskBean enquiryAndTaskBean) {
+	public Long updateEnquiryandTask(EnquiryAndTask enquiryAndTaskBean) {
 		logger.info("{} : update Enquiry and Task for enquiryId:{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());	
 		
 		Long enquiryId=enquiryManager.updateInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
@@ -100,11 +100,11 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		return enquiryManager.getInquiryByTaskDate(taskDate);
 	}
 
-	public Long proceedToAdmission(EnquiryAndTaskBean enquiryAndTaskBean){
+	public Long proceedToAdmission(EnquiryAndTask enquiryAndTaskBean){
 		logger.info("{} : proceedToAdmission   enquiryId:{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());		
 		
         AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
-        StudentDetail studentDetail = getStudentFromEquiry(enquiry);
+        Student studentDetail = getStudentFromEquiry(enquiry);
         
         Long fileNo=admissionWorkflowManager.addStudentDetails(studentDetail);
         
@@ -120,7 +120,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		
 	}
 
-	private void closeAllTasks(EnquiryAndTaskBean enquiryAndTaskBean) {
+	private void closeAllTasks(EnquiryAndTask enquiryAndTaskBean) {
 		logger.info("{} : closeAllTasks     enquiryId{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());
 		if(enquiryAndTaskBean.getTasks() != null){
         for(TaskAndFollowUp taskAndFollowUp : enquiryAndTaskBean.getTasks()){
@@ -133,9 +133,9 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         }
 	}
 
-	private StudentDetail getStudentFromEquiry(AdmissionEnquiry enquiry) {
+	private Student getStudentFromEquiry(AdmissionEnquiry enquiry) {
 		logger.info("{} : getStudentFromEquiry      enquiryId{}",this.getClass().getName(), enquiry.getEnquiryId());
-		StudentDetail studentDetail = new StudentDetail();
+		Student studentDetail = new Student();
 		String[] names=enquiry.getName().split(" ");
 		if(names.length==1){
 			studentDetail.setFirstName(names[0]);
@@ -153,7 +153,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		studentDetail.setFatherName(enquiry.getFatherName());
 		studentDetail.setDob(enquiry.getDob());
         studentDetail.setSelfMobile_No(enquiry.getContactNo());
-        studentDetail.setCourseId(enquiry.getCourse().getId());
+        studentDetail.setCourseId(enquiry.getCourse().getCourseId());
         studentDetail.setBranchId(enquiry.getBranch().getId());
         studentDetail.setEmailId(enquiry.getEmailId());
         studentDetail.setGender(enquiry.getGender());
@@ -181,7 +181,7 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
         return studentDetail;
 	}
 	@Override
-	public Long toggleEnquiryStatus(EnquiryAndTaskBean enquiryAndTaskBean){
+	public Long toggleEnquiryStatus(EnquiryAndTask enquiryAndTaskBean){
 		logger.info("{} : toggleEnquiryStatus      enquiryId{}",this.getClass().getName(), enquiryAndTaskBean.getAdmissionEnquiry().getEnquiryId());		
 		 AdmissionEnquiry enquiry = enquiryAndTaskBean.getAdmissionEnquiry();
 		 if(EnquiryStatus.OPEN.name().equals(enquiry.getApplicationStatus())){

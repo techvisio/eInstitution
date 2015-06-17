@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.techvisio.einstitution.db.impl.BasicDetailBeanEntity;
 
-public class FeeTransactionAdmissionBean extends BasicDetailBeanEntity {
+public class FeeTransactionAdmission extends BasicDetailBeanEntity {
 
 	private List<FeeTransaction> feeTransactionDebit;
 	private List<FeeTransaction> feeTransactionCredit;

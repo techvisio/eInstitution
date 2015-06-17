@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
-import com.techvisio.einstitution.beans.ManagementAdmissionBean;
+import com.techvisio.einstitution.beans.FeeTransactionAdmission;
+import com.techvisio.einstitution.beans.ManagementAdmission;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -50,7 +50,7 @@ public class ManagementService {
 
 		try{
 			
-			ManagementAdmissionBean admissionBean = managementWorkflowManager.getAdmissionManagementView(fileNo);
+			ManagementAdmission admissionBean = managementWorkflowManager.getAdmissionManagementView(fileNo);
 
 			response.setResponseBody(admissionBean);
 
@@ -81,7 +81,7 @@ public class ManagementService {
 	
 
 @RequestMapping(value = "/updateManagementChanges", method = RequestMethod.PUT)
-public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmissionBean admissionBean ){
+public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmission admissionBean ){
 	logger.info("{}  Calling updateManagementChanges method for Student : {}",this.getClass().getName(), admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
 	Response response = new Response();
 	try

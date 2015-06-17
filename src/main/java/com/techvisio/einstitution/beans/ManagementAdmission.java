@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.techvisio.einstitution.db.impl.BasicDetailBeanEntity;
 
-public class ManagementAdmissionBean extends BasicDetailBeanEntity {
+public class ManagementAdmission extends BasicDetailBeanEntity {
 private List<StudentFeeStaging> stagingFee;
-private ScholarshipDetail scholarship; 
+private Scholarship scholarship; 
 private List<ApplicableFeeDetail> applicableFeeDetails;
 public List<StudentFeeStaging> getStagingFee() {
 	return stagingFee;
@@ -14,10 +14,10 @@ public List<StudentFeeStaging> getStagingFee() {
 public void setStagingFee(List<StudentFeeStaging> stagingFee) {
 	this.stagingFee = stagingFee;
 }
-public ScholarshipDetail getScholarship() {
+public Scholarship getScholarship() {
 	return scholarship;
 }
-public void setScholarship(ScholarshipDetail scholarship) {
+public void setScholarship(Scholarship scholarship) {
 	this.scholarship = scholarship;
 }
 public List<ApplicableFeeDetail> getApplicableFeeDetails() {

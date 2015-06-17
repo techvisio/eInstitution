@@ -1,7 +1,17 @@
 package com.techvisio.einstitution.beans;
 
-public class AdmissionDiscountDtl {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "admissiondiscountdtl") 
+public class AdmissionDiscount extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private Long fileNo;
 	private Long feeHeadId;
 	private double amount;
@@ -53,6 +63,14 @@ public class AdmissionDiscountDtl {
 		return "AdmissionDiscountDtl [fileNo=" + fileNo + ", feeHeadId="
 				+ feeHeadId + ", amount=" + amount + ", percent=" + percent
 				+ ", discountType=" + discountType + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

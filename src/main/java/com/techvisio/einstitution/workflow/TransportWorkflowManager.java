@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
-import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationAdmission;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
@@ -31,8 +31,8 @@ public List<AvailableTransport> getAvailableTransport();
 	public void updateVehicleDetail(VehicleDetail vehicleDetail);
 	public void deleteVehicleDetail(Long vehicleId);
 
-	public TransportAllocationAdmissionBean getTransportAllocationAdmissiondtl(Long fileNo);
-	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
+	public TransportAllocationAdmission getTransportAllocationAdmissiondtl(Long fileNo);
+	public void addTransportAllocationAdmissionDtl(TransportAllocationAdmission transportAllocationAdmissionBean);
 
 //	public void updateTransportAllocationAdmissionDtl(TransportAllocationAdmissionBean transportAllocationAdmissionBean);
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.FeeAdmission;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
@@ -34,7 +34,7 @@ public interface FeeDao {
 	public void deleteFeeDiscountHead(Long headId);
 	void generateStudentFeeStaging(StudentFeeStaging studentFeeStaging);
 	Double getPreviousSemBalance(Long fileNo);
-	List<FeeAdmissionBean> getPendingfeeInfo(int limit);
+	List<FeeAdmission> getPendingfeeInfo(int limit);
 	List<ApplicableFeeDetail> getApplicableFeeDetails(ApplicableFeeCriteria criteria);
 	void generateDiscountforStudent(Long fileNo);
 	Boolean isManagementApproved(Long fileNo);

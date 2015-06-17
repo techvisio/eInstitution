@@ -6,8 +6,8 @@ import java.util.List;
 public class RoomAllocationForStudent {
 
 	private StudentBasicInfo basicInfo;
-	private RoomAllocationDetail activeAllocation;
-	private List<RoomAllocationDetail> previousAllocation;
+	private RoomAllocation activeAllocation;
+	private List<RoomAllocation> previousAllocation;
 
 
 public StudentBasicInfo getBasicInfo() {
@@ -16,16 +16,16 @@ public StudentBasicInfo getBasicInfo() {
 public void setBasicInfo(StudentBasicInfo basicInfo) {
 	this.basicInfo = basicInfo;
 }
-public RoomAllocationDetail getActiveAllocation() {
+public RoomAllocation getActiveAllocation() {
 	return activeAllocation;
 }
-public void setActiveAllocation(RoomAllocationDetail activeAllocation) {
+public void setActiveAllocation(RoomAllocation activeAllocation) {
 	this.activeAllocation = activeAllocation;
 }
-public List<RoomAllocationDetail> getPreviousAllocation() {
+public List<RoomAllocation> getPreviousAllocation() {
 	return previousAllocation;
 }
-public void setPreviousAllocation(List<RoomAllocationDetail> previousAllocation) {
+public void setPreviousAllocation(List<RoomAllocation> previousAllocation) {
 	this.previousAllocation = previousAllocation;
 }
 

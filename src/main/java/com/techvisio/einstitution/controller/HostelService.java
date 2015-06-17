@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.HostelAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.HostelAllocationAdmission;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.Response;
@@ -102,14 +102,14 @@ public class HostelService {
 //HostelAllocation
 	
 	@RequestMapping(value="/hostelAllocation/{fileNo}",method = RequestMethod.GET )
-	public RoomAllocationDetail getHostelAllocation(@PathVariable Long fileNo){
+	public RoomAllocation getHostelAllocation(@PathVariable Long fileNo){
 		logger.info("{}:  Calling getHostelAllocation method by passing fileno :{}",this.getClass().getName(), fileNo);
-		RoomAllocationDetail hostelAllocation = hostelWorkflowManager.getHostelAllocation(fileNo);
+		RoomAllocation hostelAllocation = hostelWorkflowManager.getHostelAllocation(fileNo);
 		return hostelAllocation;
 	}
 	
 	@RequestMapping(value="/hostelAllocation",method = RequestMethod.POST)
-	public void addHostelAllocation(@RequestBody RoomAllocationDetail hostelAllocation){
+	public void addHostelAllocation(@RequestBody RoomAllocation hostelAllocation){
 		logger.info("{}:  Calling addHostelAllocation method for fileno : {}",this.getClass().getName(), hostelAllocation.getFileNo());
 		hostelWorkflowManager.addHostelAllocation(hostelAllocation);
 		
@@ -214,7 +214,7 @@ public class HostelService {
 	
 	
 	@RequestMapping(value="hostelAllocationAdmission",method = RequestMethod.POST)
-	public ResponseEntity<Response> addHostelAllocationAdmissionDtl(@RequestBody RoomAllocationDetail roomAllocationDetail) {
+	public ResponseEntity<Response> addHostelAllocationAdmissionDtl(@RequestBody RoomAllocation roomAllocationDetail) {
 //		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method for fileno : {}",this.getClass().getName(), roomAllocationDetail.getBasicInfo().getFileNo());
 		Response response = new Response();
 		try{
@@ -222,7 +222,7 @@ public class HostelService {
 			hostelWorkflowManager.saveHostelAllocationAdmissionDtl(roomAllocationDetail);
          
 			Long fileNo= roomAllocationDetail.getFileNo();
-			HostelAllocationAdmissionBean allocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+			HostelAllocationAdmission allocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
 			
             response.setResponseBody(allocationAdmissionBean);
  		}
@@ -264,7 +264,7 @@ public class HostelService {
 		logger.info("{}:  Calling getHostelAllocationAdmissiondtl method by passing fileno : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try{
-		HostelAllocationAdmissionBean hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
+		HostelAllocationAdmission hostelAllocationAdmissionBean = hostelWorkflowManager.getHostelAllocationAdmissiondtl(fileNo);
 
 		response.setResponseBody(hostelAllocationAdmissionBean);
 		}

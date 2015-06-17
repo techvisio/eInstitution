@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.impl.CacheManagerImpl;
@@ -67,7 +67,7 @@ public class UniqueIdentifierFactory implements UniqueIdentifierGenerator {
 			}
 
 			@Override
-			public String getUniqueIdentifierForRegistration(StudentDetail studentDetail) {
+			public String getUniqueIdentifierForRegistration(Student studentDetail) {
 				
 				Course course = cacheManager.getCourseById(studentDetail.getCourseId());
 				String courseName = course.getCourse();

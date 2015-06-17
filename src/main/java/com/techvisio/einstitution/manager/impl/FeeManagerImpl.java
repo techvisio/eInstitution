@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
 import com.techvisio.einstitution.beans.ApplicableFeeDetail;
-import com.techvisio.einstitution.beans.FeeAdmissionBean;
+import com.techvisio.einstitution.beans.FeeAdmission;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransaction;
-import com.techvisio.einstitution.beans.FeeTransactionAdmissionBean;
+import com.techvisio.einstitution.beans.FeeTransactionAdmission;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -56,9 +56,9 @@ public class FeeManagerImpl implements FeeManager{
 
 	}
 	@Override
-	public List<FeeAdmissionBean> getPendingfeeInfo(int limit){
+	public List<FeeAdmission> getPendingfeeInfo(int limit){
 		logger.info("{} : calling getPendingfeeInfo method by passing limit:{} ",this.getClass().getName(), limit);	
-		List<FeeAdmissionBean> feeAdmissionBeans = feeDetailDao.getPendingfeeInfo(limit);
+		List<FeeAdmission> feeAdmissionBeans = feeDetailDao.getPendingfeeInfo(limit);
 
 		return feeAdmissionBeans;
 
@@ -228,7 +228,7 @@ public class FeeManagerImpl implements FeeManager{
 				}
 			}
 
-			StudentDetail sd=admissionManager.getStudentDtl(fileNo);
+			Student sd=admissionManager.getStudentDtl(fileNo);
 			sd.setManagementApproval(true);
 			admissionManager.updateStudentDtl(sd);
 
@@ -323,9 +323,9 @@ public class FeeManagerImpl implements FeeManager{
 	}
 
 	@Override
-	public FeeTransactionAdmissionBean getFeeTransactionDetail(Long fileNo){
+	public FeeTransactionAdmission getFeeTransactionDetail(Long fileNo){
 		logger.info("{} : calling getCreditedFeeTransaction, getDebitedFeeTransaction and getPreviousSemBalance  method by passing file no:{} ",this.getClass().getName(),fileNo);		
-		FeeTransactionAdmissionBean transactionAdmissionBean = new FeeTransactionAdmissionBean();
+		FeeTransactionAdmission transactionAdmissionBean = new FeeTransactionAdmission();
 
 		List<FeeTransaction> TransactionCredit = feeDetailDao.getCreditedFeeTransaction(fileNo);
 		transactionAdmissionBean.setFeeTransactionCredit(TransactionCredit); 	

@@ -21,10 +21,10 @@ import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
@@ -47,16 +47,16 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	CacheManager cacheManager ; 
 	//GET DATA FROM HostelInventory TABLE 
 
-	public RoomTypeMaster getHostelInventory(String typeCode) {
+	public RoomType getHostelInventory(String typeCode) {
 
 		logger.info("{} : Get hostel inventory by typecode:{}",this.getClass().getName(), typeCode);
 		String getQuery = hostelQueryProps.getProperty("getHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", typeCode);
 
-		RoomTypeMaster hostelInventory = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<RoomTypeMaster>() {
+		RoomType hostelInventory = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<RoomType>() {
 
-			public RoomTypeMaster mapRow(ResultSet rs, int rowNum) throws SQLException {
-				RoomTypeMaster hostel = new RoomTypeMaster();
+			public RoomType mapRow(ResultSet rs, int rowNum) throws SQLException {
+				RoomType hostel = new RoomType();
 				hostel.setDescription(rs.getString("Description"));
 				hostel.setPrice(rs.getDouble("Price"));
 				hostel.setRoomCapacity(rs.getInt("Room_Capacity"));
@@ -85,7 +85,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	//INSERT DATA IN HostelInventory TABLE
 
 
-	public void addHostelInventory(RoomTypeMaster hostelInventory) {
+	public void addHostelInventory(RoomType hostelInventory) {
 		logger.info("{} : Add  hostel inventory for typecode:{}",this.getClass().getName(), hostelInventory.getTypeCode());
 		String addQuery = hostelQueryProps.getProperty("addHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", hostelInventory.getTypeCode())
@@ -102,7 +102,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	// UPDATE DATA IN HostelInventory TABLE
 
 
-	public void updateHostelInventory(RoomTypeMaster hostelInventory) {
+	public void updateHostelInventory(RoomType hostelInventory) {
 		logger.info("{} : Update  hostel inventory for typecode:{}",this.getClass().getName(), hostelInventory.getTypeCode());
 		String addQuery = hostelQueryProps.getProperty("updateHostelInventory");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("Type_Code", hostelInventory.getTypeCode())
@@ -134,15 +134,15 @@ if(hostelInventories != null && hostelInventories.size()>0){
 
 
 
-	public RoomAllocationDetail getHostelAllocation(Long fileNo) {
+	public RoomAllocation getHostelAllocation(Long fileNo) {
 		logger.info("{} : Get hostel allocation for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = hostelQueryProps.getProperty("getHostelAllocation");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 
-		List<RoomAllocationDetail> hostelAllocations =  getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<RoomAllocationDetail>(){
+		List<RoomAllocation> hostelAllocations =  getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<RoomAllocation>(){
 
-			public RoomAllocationDetail mapRow(ResultSet rs,int rowNum)throws SQLException {
-				RoomAllocationDetail hostel = new RoomAllocationDetail();
+			public RoomAllocation mapRow(ResultSet rs,int rowNum)throws SQLException {
+				RoomAllocation hostel = new RoomAllocation();
 				hostel.setFileNo(rs.getLong("File_No"));
 				hostel.setAllocated(rs.getBoolean("IsAllocated"));
 				hostel.setAllocatedBy(rs.getString("Allocated_By"));
@@ -160,7 +160,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 		});
 
 
-		RoomAllocationDetail hostelAllocation = null;
+		RoomAllocation hostelAllocation = null;
 		if(hostelAllocations != null && hostelAllocations.size()>0 ){
 			hostelAllocation = hostelAllocations.get(0);
 		}
@@ -170,7 +170,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 
 
 	// INSERT DATA IN HostelAllocation TABLE
-	public void addHostelAllocation(RoomAllocationDetail hostelAllocation) {
+	public void addHostelAllocation(RoomAllocation hostelAllocation) {
 		logger.info("{} : Get hostel allocation for file no:{}",this.getClass().getName(), hostelAllocation.getFileNo());
 		if(hostelAllocation!=null){
 		
@@ -216,7 +216,7 @@ if(hostelInventories != null && hostelInventories.size()>0){
 	public void deleteHostelAllocation(Long fileNo) {
 		logger.info("{} : delete hostel allocation by file no:{}",this.getClass().getName(), fileNo);
 
-		RoomAllocationDetail roomAllocationDetail = new RoomAllocationDetail();
+		RoomAllocation roomAllocationDetail = new RoomAllocation();
 		Date date = new Date();
 		roomAllocationDetail.setAllocated(false);
 		roomAllocationDetail.setCheckoutOn(date);
@@ -443,16 +443,16 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 	@Override
-	public RoomAllocationDetail getActiveRoomAllocationDtl(Long fileNo) {
+	public RoomAllocation getActiveRoomAllocationDtl(Long fileNo) {
 		logger.info("{} : Get room allocation detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = hostelQueryProps.getProperty("getRoomAllocatedDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
-		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+		List<RoomAllocation> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocation>(){
 
 			@Override
-			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+			public RoomAllocation mapRow(ResultSet rs, int arg1)
 					throws SQLException {
-				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				RoomAllocation allocationDetail = new RoomAllocation();
 				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
 				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
 				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
@@ -467,7 +467,7 @@ if(hostelReservations != null && hostelReservations.size()>0){
 			}
 
 		});
-		RoomAllocationDetail roomAllocationDetail = null;
+		RoomAllocation roomAllocationDetail = null;
 		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
 			roomAllocationDetail = roomAllocationDetails.get(0);
 		}
@@ -476,16 +476,16 @@ if(hostelReservations != null && hostelReservations.size()>0){
 	}
 
 	@Override
-	public List<RoomAllocationDetail> getPreviousAllocatedDetail(Long fileNo) {
+	public List<RoomAllocation> getPreviousAllocatedDetail(Long fileNo) {
 		logger.info("{} : Get previous allocation detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery = hostelQueryProps.getProperty("getPreviousAllocatedDetail");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
-		List<RoomAllocationDetail> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocationDetail>(){
+		List<RoomAllocation> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocation>(){
 
 			@Override
-			public RoomAllocationDetail mapRow(ResultSet rs, int arg1)
+			public RoomAllocation mapRow(ResultSet rs, int arg1)
 					throws SQLException {
-				RoomAllocationDetail allocationDetail = new RoomAllocationDetail();
+				RoomAllocation allocationDetail = new RoomAllocation();
 				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
 				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
 				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));

@@ -2,8 +2,17 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class AdmissionEnquiry {
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "admissioninquiry") 
+public class AdmissionEnquiry extends BasicEntity{
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private Long enquiryId;
 	private Long fileNo;
 	private String registrationNo;
@@ -191,6 +200,12 @@ public class AdmissionEnquiry {
 	}
 	public void setBranch(Branch branch) {
 		this.branch = branch;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 

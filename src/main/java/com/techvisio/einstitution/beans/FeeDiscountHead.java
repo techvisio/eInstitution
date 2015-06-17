@@ -1,6 +1,14 @@
 package com.techvisio.einstitution.beans;
 
-public class FeeDiscountHead {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "feediscountheadmaster")    
+public class FeeDiscountHead extends BasicEntity {
 
 	@Override
 	public int hashCode() {
@@ -25,6 +33,11 @@ public class FeeDiscountHead {
 			return false;
 		return true;
 	}
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+
 	private Long headId;
 	private String head;
 	private String transactionType;
@@ -66,6 +79,12 @@ public class FeeDiscountHead {
 	}
 	public void setRefundType(String refundType) {
 		this.refundType = refundType;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

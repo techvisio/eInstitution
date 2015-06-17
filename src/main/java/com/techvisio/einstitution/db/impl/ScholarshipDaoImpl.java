@@ -13,10 +13,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
-import com.techvisio.einstitution.beans.ScholarshipDetail;
-import com.techvisio.einstitution.beans.ScholarshipPaymentDetail;
+import com.techvisio.einstitution.beans.ConsultantPayment;
+import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.Scholarship;
+import com.techvisio.einstitution.beans.ScholarshipPayment;
 import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -31,10 +31,10 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 
-	public ScholarshipDetail getScholarshipDetail(Long fileNo) {
+	public Scholarship getScholarshipDetail(Long fileNo) {
 		logger.info("{} : Get scholarship detail for file no:{}",this.getClass().getName(), fileNo);
 
-		ScholarshipDetail scholarshipDetail = null;
+		Scholarship scholarshipDetail = null;
 
 		try{
 
@@ -42,11 +42,11 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 			SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 
-			List<ScholarshipDetail> scholarshipDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ScholarshipDetail>() {
+			List<Scholarship> scholarshipDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<Scholarship>() {
 
-				public ScholarshipDetail mapRow(ResultSet rs, int rowNum)
+				public Scholarship mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
-					ScholarshipDetail scholarshipDetail = new ScholarshipDetail();
+					Scholarship scholarshipDetail = new Scholarship();
 					scholarshipDetail.setFileNo(rs.getLong("File_No"));
 					scholarshipDetail.setAmount(rs.getDouble("Amount"));
 					scholarshipDetail.setStateId(CommonUtil.getLongValue(rs.getLong("State_Id")));
@@ -61,11 +61,11 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 				}
 
 			});
-			ScholarshipDetail scholarshipDetail2 = null;
+			Scholarship scholarshipDetail2 = null;
 			if(scholarshipDetails != null && scholarshipDetails.size()>0 ){
 				scholarshipDetail = scholarshipDetails.get(0);
 
-				List<ScholarshipPaymentDetail> scholarshipDetailPaymentDetails = getScholarshipPaymentDetail(fileNo);
+				List<ScholarshipPayment> scholarshipDetailPaymentDetails = getScholarshipPaymentDetail(fileNo);
 				scholarshipDetail.setScholarshipPaymentDetail(scholarshipDetailPaymentDetails);
 
 			}
@@ -81,7 +81,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	}
 
-	public void addScholarDetail(ScholarshipDetail scholarshipDetail) {
+	public void addScholarDetail(Scholarship scholarshipDetail) {
 		logger.info("{} : Add scholarship detail for file no:{}",this.getClass().getName(), scholarshipDetail.getFileNo());
 		if(scholarshipDetail != null && scholarshipDetail.getStateId() != null){
 			String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
@@ -99,7 +99,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 
 			if (scholarshipDetail.getScholarshipPaymentDetail() != null) {
-				for (ScholarshipPaymentDetail scholarshipPaymentDetail:scholarshipDetail
+				for (ScholarshipPayment scholarshipPaymentDetail:scholarshipDetail
 						.getScholarshipPaymentDetail()) {
 					addScholarshipPaymentDetail(scholarshipPaymentDetail);
 				}
@@ -120,18 +120,18 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	}
 
-	public List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(Long fileNo) {
+	public List<ScholarshipPayment> getScholarshipPaymentDetail(Long fileNo) {
 		logger.info("{} : Get scholarship payment detail for file no:{}",this.getClass().getName(), fileNo);
 		String getQuery= scholarshipQueryProps.getProperty("getScholarshipPaymentDetail");
 
 		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
 
 
-		List<ScholarshipPaymentDetail> scholarshipPaymentDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ScholarshipPaymentDetail>() {
+		List<ScholarshipPayment> scholarshipPaymentDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ScholarshipPayment>() {
 
-			public ScholarshipPaymentDetail mapRow(ResultSet rs, int rowNum)
+			public ScholarshipPayment mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
-				ScholarshipPaymentDetail scholarshipPaymentDetail=  new ScholarshipPaymentDetail();
+				ScholarshipPayment scholarshipPaymentDetail=  new ScholarshipPayment();
 
 				scholarshipPaymentDetail.setFileNo(rs.getLong("File_No"));
 				scholarshipPaymentDetail.setAmountReceived(rs.getDouble("Amount_Received"));
@@ -145,7 +145,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	}
 
-	public void addScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail) {
+	public void addScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail) {
 		logger.info("{} : Add scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());		
 		String addQuery = scholarshipQueryProps.getProperty("addScholarshipPaymentDetail");
 
@@ -158,7 +158,7 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 	}
 
-	public void updateScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail) {
+	public void updateScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail) {
 		logger.info("{} : Update scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());
 
 		String updateQuery = scholarshipQueryProps.getProperty("updateScholarshipPaymentDetail");

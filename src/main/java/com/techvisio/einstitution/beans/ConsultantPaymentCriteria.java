@@ -2,7 +2,17 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class ConsultantPaymentCriteria {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "consultantpaymentcriteria")    
+public class ConsultantPaymentCriteria extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 
 	private Long fileNo; 
 	private Long consultantId; 
@@ -69,6 +79,12 @@ public class ConsultantPaymentCriteria {
 				+ feeReceived + ", amountToBePaid=" + amountToBePaid
 				+ ", feeDueDate=" + feeDueDate + ", approved=" + approved
 				+ ", paid=" + paid + ", triggered=" + triggered + "]";
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

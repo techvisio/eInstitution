@@ -20,11 +20,11 @@ import com.techvisio.einstitution.beans.CounsellingBody;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
-import com.techvisio.einstitution.beans.MasterDataBean;
+import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -85,7 +85,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<String, RoomTypeDetail> roomDetailMap = new HashMap<String, RoomTypeDetail>();
 	private static Map<Long, VehicleDetail> vehicleDetailMap  = new HashMap<Long, VehicleDetail>();
 	private static Map<Long, VehicleType> vehicleTypeMap = new HashMap<Long, VehicleType>();
-	private static Map<String, RoomTypeMaster> roomTypeMap = new HashMap<String, RoomTypeMaster>();
+	private static Map<String, RoomType> roomTypeMap = new HashMap<String, RoomType>();
 	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
 	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
 	
@@ -100,11 +100,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterDataBean> getBranchAsMasterdata(){
+	public List<MasterData> getBranchAsMasterdata(){
 		logger.info("{} : Get branch as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(Branch branch:getBranchs()){
-			MasterDataBean bean=new MasterDataBean(branch.getId().toString(), branch.getBranchName(), branch.getCourseId().toString());
+			MasterData bean=new MasterData(branch.getId().toString(), branch.getBranchName(), branch.getCourseId().toString());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -121,11 +121,11 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<Course>)entityListMap.get(AppConstants.COURSE);
 	}
 
-	public List<MasterDataBean> getCourseAsMasterdata(){
+	public List<MasterData> getCourseAsMasterdata(){
 		logger.info("{} : Get course as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(Course course:getCourses()){
-			MasterDataBean bean=new MasterDataBean(course.getId().toString(), course.getCourse());
+			MasterData bean=new MasterData(course.getCourseId().toString(), course.getCourse());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -141,11 +141,11 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<CasteCategory>)entityListMap.get(AppConstants.CATEGORY);
 	}
 
-	public List<MasterDataBean> getCategoryAsMasterdata(){
+	public List<MasterData> getCategoryAsMasterdata(){
 		logger.info("{} : Get category as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(CasteCategory category:getCategories()){
-			MasterDataBean bean=new MasterDataBean(category.getId().toString(), category.getCategoryName());
+			MasterData bean=new MasterData(category.getId().toString(), category.getCategoryName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -160,11 +160,11 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<CounsellingBody>)entityListMap.get(AppConstants.COUNSELLING);
 	}
 
-	public List<MasterDataBean> getCounsellingBodyAsMasterdata(){
+	public List<MasterData> getCounsellingBodyAsMasterdata(){
 		logger.info("{} : Get counsellingBody as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(CounsellingBody body:getCounsellingBodies()){
-			MasterDataBean bean=new MasterDataBean(body.getId().toString(), body.getCousellingBody());
+			MasterData bean=new MasterData(body.getCousellingId().toString(), body.getCousellingBody());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -180,11 +180,11 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<Qualification>)entityListMap.get(AppConstants.QUALIFICATION);
 	}
 
-	public List<MasterDataBean> getQualificationAsMasterdata(){
+	public List<MasterData> getQualificationAsMasterdata(){
 		logger.info("{} : Get qualification as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(Qualification qualification:getQualifications()){
-			MasterDataBean bean=new MasterDataBean(qualification.getId().toString(), qualification.getQulaifyingExam());
+			MasterData bean=new MasterData(qualification.getId().toString(), qualification.getQulaifyingExam());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -199,11 +199,11 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<QuotaCode>)entityListMap.get(AppConstants.QUOTACODE);
 	}
 
-	public List<MasterDataBean> getQuotaCodeAsMasterdata(){
+	public List<MasterData> getQuotaCodeAsMasterdata(){
 		logger.info("{} : Get quota code as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(QuotaCode quotaCode : getQuotaCodes()){
-			MasterDataBean bean=new MasterDataBean(quotaCode.getId().toString(), quotaCode.getCode());
+			MasterData bean=new MasterData(quotaCode.getId().toString(), quotaCode.getCode());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -218,11 +218,11 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<State>)entityListMap.get(AppConstants.STATE);
 	}
 
-	public List<MasterDataBean> getStateAsMasterdata(){
+	public List<MasterData> getStateAsMasterdata(){
 		logger.info("{} : Get state code as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(State state : getStates()){
-			MasterDataBean bean=new MasterDataBean(state.getId().toString(), state.getStateName());
+			MasterData bean=new MasterData(state.getId().toString(), state.getStateName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -238,11 +238,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterDataBean> getConsultantAsMasterdata(){
+	public List<MasterData> getConsultantAsMasterdata(){
 		logger.info("{} : Get consultant as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(Consultant consultant : getConsultant()){
-			MasterDataBean bean=new MasterDataBean(consultant.getConsultantId().toString(), consultant.getName());
+			MasterData bean=new MasterData(consultant.getConsultantId().toString(), consultant.getName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -260,11 +260,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterDataBean> getSubjectAsMasterdata(){
+	public List<MasterData> getSubjectAsMasterdata(){
 		logger.info("{} : Get subject as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(Subject subject : getSubjects()){
-			MasterDataBean bean=new MasterDataBean(subject.getId().toString(), subject.getSubjectName());
+			MasterData bean=new MasterData(subject.getId().toString(), subject.getSubjectName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -281,11 +281,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterDataBean> getFeeDiscountAsMasterdata(){
+	public List<MasterData> getFeeDiscountAsMasterdata(){
 		logger.info("{} : Get fee discount as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(FeeDiscountHead feeDiscountHead : getFeeDiscountHeads()){
-			MasterDataBean bean=new MasterDataBean(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead(), feeDiscountHead.getTransactionType());
+			MasterData bean=new MasterData(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead(), feeDiscountHead.getTransactionType());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -302,11 +302,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterDataBean> getSemesterAsMasterdata(){
+	public List<MasterData> getSemesterAsMasterdata(){
 		logger.info("{} : Get semester as master data",this.getClass().getName());	
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(Semester semester : getSemester()){
-			MasterDataBean bean=new MasterDataBean(semester.getId().toString(), semester.getSemester(),semester.getCourseId().toString());
+			MasterData bean=new MasterData(semester.getId().toString(), semester.getSemester(),semester.getCourseId().toString());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -322,11 +322,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterDataBean> getCodeMappingAsMasterdata(){
+	public List<MasterData> getCodeMappingAsMasterdata(){
 		logger.info("{} : Get code mapping as master data",this.getClass().getName());
-		List<MasterDataBean> masterData=new ArrayList<MasterDataBean>();
+		List<MasterData> masterData=new ArrayList<MasterData>();
 		for(CodeMapping codeMapping : getCodeMapping()){
-			MasterDataBean bean=new MasterDataBean(codeMapping.getName(), codeMapping.getName());
+			MasterData bean=new MasterData(codeMapping.getName(), codeMapping.getName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -343,11 +343,11 @@ public class CacheManagerImpl implements CacheManager {
 	
 	
 	@Override
-	public List<MasterDataBean> getBatchAsMasterdata() {
+	public List<MasterData> getBatchAsMasterdata() {
 		logger.info("{} : Get batch as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Batch batch : getBatch()){
-			MasterDataBean bean = new MasterDataBean(batch.getBatchId().toString(), batch.getBatch(), batch.getCourseId().toString());
+			MasterData bean = new MasterData(batch.getBatchId().toString(), batch.getBatch(), batch.getCourseId().toString());
 			masterData.add(bean);
 		}
 		
@@ -364,11 +364,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getSessionAsMasterdata() {
+	public List<MasterData> getSessionAsMasterdata() {
 		logger.info("{} : Get session as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Session session : getSession()){
-			MasterDataBean bean = new MasterDataBean(session.getSessionId().toString(), session.getSession(), session.getCourseId().toString());
+			MasterData bean = new MasterData(session.getSessionId().toString(), session.getSession(), session.getCourseId().toString());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -384,11 +384,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getCentreAsMasterdata() {
+	public List<MasterData> getCentreAsMasterdata() {
 		logger.info("{} : Get centre as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Centre centre : getCentre()){
-			MasterDataBean bean = new MasterDataBean(centre.getCentreId().toString(), centre.getCentreName());
+			MasterData bean = new MasterData(centre.getCentreId().toString(), centre.getCentreName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -404,11 +404,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getShiftAsMasterdata() {
+	public List<MasterData> getShiftAsMasterdata() {
 		logger.info("{} : Get shift as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Shift shift : getShift()){
-			MasterDataBean bean = new MasterDataBean(shift.getShiftId().toString(), shift.getShiftName());
+			MasterData bean = new MasterData(shift.getShiftId().toString(), shift.getShiftName());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -424,11 +424,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getSectionAsMasterdata() {
+	public List<MasterData> getSectionAsMasterdata() {
 		logger.info("{} : Get section as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Section section : getSection()){
-			MasterDataBean bean = new MasterDataBean(section.getSectionId().toString(), section.getSection(), section.getBranchId().toString());
+			MasterData bean = new MasterData(section.getSectionId().toString(), section.getSection(), section.getBranchId().toString());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -444,11 +444,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getWingAsMasterdata() {
+	public List<MasterData> getWingAsMasterdata() {
 		logger.info("{} : Get wing as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Wing wing : getWing()){
-			MasterDataBean bean = new MasterDataBean(wing.getWingId().toString(), wing.getWing());
+			MasterData bean = new MasterData(wing.getWingId().toString(), wing.getWing());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -464,11 +464,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getFloorAsMasterdata() {
+	public List<MasterData> getFloorAsMasterdata() {
 		logger.info("{} : Get floor as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Floor floor: getFloor()){
-			MasterDataBean bean = new MasterDataBean(floor.getFloorId().toString(), floor.getFloor());
+			MasterData bean = new MasterData(floor.getFloorId().toString(), floor.getFloor());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -484,11 +484,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getBlockAsMasterdata() {
+	public List<MasterData> getBlockAsMasterdata() {
 		logger.info("{} : Get block as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Block block : getBlock()){
-			MasterDataBean bean = new MasterDataBean(block.getBlockId().toString(), block.getBlock());
+			MasterData bean = new MasterData(block.getBlockId().toString(), block.getBlock());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -539,11 +539,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getVehicleTypeIdAsMasterdata(){
+	public List<MasterData> getVehicleTypeIdAsMasterdata(){
 		logger.info("{} : Get vehicleType id as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(VehicleType vehicleType  : getVehicleTypes()){
-			MasterDataBean bean = new MasterDataBean(vehicleType.getTypeId().toString(),vehicleType.getType());
+			MasterData bean = new MasterData(vehicleType.getTypeId().toString(),vehicleType.getType());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -552,21 +552,21 @@ public class CacheManagerImpl implements CacheManager {
 	
 	
 	@SuppressWarnings("unchecked")
-	public synchronized List<RoomTypeMaster> getRoomTypes(){
+	public synchronized List<RoomType> getRoomTypes(){
 		logger.info("{} : Mapping work for get RoomTypeMaster ",this.getClass().getName());		
 		if(entityListMap.get(AppConstants.ROOMTYPE) == null || entityListMap.get(AppConstants.ROOMTYPE).size() == 0){
 			refreshCacheList(AppConstants.ROOMTYPE);
 		}
-	return (List<RoomTypeMaster>)entityListMap.get(AppConstants.ROOMTYPE);
+	return (List<RoomType>)entityListMap.get(AppConstants.ROOMTYPE);
 	}
 	
 	
 	@Override
-	public List<MasterDataBean> getRoomTypeCodeAsMasterdata(){
+	public List<MasterData> getRoomTypeCodeAsMasterdata(){
 		logger.info("{} : Get RoomType Code as master data",this.getClass().getName());		
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
-		for(RoomTypeMaster roomTypeMaster : getRoomTypes()){
-			MasterDataBean bean = new MasterDataBean(roomTypeMaster.getTypeCode(), roomTypeMaster.getDescription());
+		List<MasterData> masterData = new ArrayList<MasterData>();
+		for(RoomType roomTypeMaster : getRoomTypes()){
+			MasterData bean = new MasterData(roomTypeMaster.getTypeCode(), roomTypeMaster.getDescription());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -583,11 +583,11 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public List<MasterDataBean> getTransportRouteCodeAsMasterdata(){
+	public List<MasterData> getTransportRouteCodeAsMasterdata(){
 		logger.info("{} : Get transport route code as master data",this.getClass().getName());
-		List<MasterDataBean> masterData = new ArrayList<MasterDataBean>();
+		List<MasterData> masterData = new ArrayList<MasterData>();
 		for(Transport transport: getTransports()){
-			MasterDataBean bean = new MasterDataBean(transport.getRouteCode(), transport.getDescription());
+			MasterData bean = new MasterData(transport.getRouteCode(), transport.getDescription());
 			masterData.add(bean);
 		}
 		return masterData;
@@ -738,7 +738,7 @@ public class CacheManagerImpl implements CacheManager {
 		vehicleTypes = cacheDao.getVehicleTypes();
 		entityListMap.put(AppConstants.VEHICLETYPE, vehicleTypes);
 		
-		List<RoomTypeMaster> roomTypeMasters = new ArrayList<RoomTypeMaster>();
+		List<RoomType> roomTypeMasters = new ArrayList<RoomType>();
 		logger.info("{} : built entity list cache work for get RoomTypeMaster ",this.getClass().getName());
 		roomTypeMasters = cacheDao.getRoomType();
 		entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
@@ -913,7 +913,7 @@ public class CacheManagerImpl implements CacheManager {
 		
 		case AppConstants.ROOMTYPE:
 			logger.info("{} : refresh cache list work for get room type master ",this.getClass().getName());
-			List<RoomTypeMaster> roomTypeMasters = new ArrayList<RoomTypeMaster>();
+			List<RoomType> roomTypeMasters = new ArrayList<RoomType>();
 			roomTypeMasters = cacheDao.getRoomType();
 			entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
 		
@@ -950,7 +950,7 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		
 		for(Course course:getCourses()){
-			courseMap.put(course.getId(), course);
+			courseMap.put(course.getCourseId(), course);
 		}
 		
 		for(CasteCategory category:getCategories()){
@@ -990,7 +990,7 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		
 		for(CounsellingBody counselling : getCounsellingBodies()){
-			counsellingMap.put(counselling.getId(), counselling);
+			counsellingMap.put(counselling.getCousellingId(), counselling);
 		}
 		
 		for(Qualification qualification : getQualifications()){
@@ -1033,7 +1033,7 @@ public class CacheManagerImpl implements CacheManager {
 			vehicleTypeMap.put(vehicleType.getTypeId(), vehicleType);
 		}
 		
-		for (RoomTypeMaster roomTypeMaster : cacheDao.getRoomType()) {
+		for (RoomType roomTypeMaster : cacheDao.getRoomType()) {
 			roomTypeMap.put(roomTypeMaster.getTypeCode(), roomTypeMaster);
 		}
 		
@@ -1185,7 +1185,7 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	@Override
-	public RoomTypeMaster getRoomTypeMasterByTypeCode(String typeCode){
+	public RoomType getRoomTypeMasterByTypeCode(String typeCode){
 		logger.info("{} : Get Room Type Master By Type Code:{} ",this.getClass().getName(), typeCode);		
 		return roomTypeMap.get(typeCode);
 	}

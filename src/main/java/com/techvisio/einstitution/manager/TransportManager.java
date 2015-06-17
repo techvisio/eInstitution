@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.TransportAllocation;
-import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationAdmission;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;

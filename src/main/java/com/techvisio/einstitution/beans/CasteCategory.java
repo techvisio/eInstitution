@@ -1,17 +1,28 @@
 package com.techvisio.einstitution.beans;
 
-public class CasteCategory {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	private Long  id;
+@Entity
+@Table(name = "castecategorymaster")    
+public class CasteCategory extends BasicEntity  {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	private Long  categoryId;
 	private String CategoryName;
 
 	
-	public Long getId() {
-		return id;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public void setCategoryId(Long id) {
+		this.categoryId = id;
 	}
 	
 	
@@ -25,8 +36,16 @@ public class CasteCategory {
 
 	@Override
 	public String toString() {
-		return "CasteCategory [id=" + id + ", CategoryName=" + CategoryName
+		return "CasteCategory [id=" + categoryId + ", CategoryName=" + CategoryName
 				+ "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

@@ -2,7 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class RoomAllocationDetail {
+public class RoomAllocation {
 
 	private Long fileNo ;
     private RoomTypeDetail roomTypeDetail;

@@ -26,7 +26,7 @@ import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -89,7 +89,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Course course = new Course();
-				course.setId(CommonUtil.getLongValue(rs.getLong("Id")));
+				course.setCourseId(CommonUtil.getLongValue(rs.getLong("Id")));
 				course.setCourse(rs.getString("Course"));
 				course.setCourseType(rs.getString("Course_type"));
 				return course;
@@ -134,7 +134,7 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 			public CounsellingBody mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				CounsellingBody body = new CounsellingBody();
-				body.setId(CommonUtil.getLongValue(rs.getLong("Id")));
+				body.setCousellingId(CommonUtil.getLongValue(rs.getLong("Id")));
 				body.setCousellingBody(rs.getString("Counselling_Body"));
 				return body;
 			}
@@ -569,15 +569,15 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 
 // Master work for RoomTypeMaster 
 	@Override
-	public List<RoomTypeMaster> getRoomType() {
+	public List<RoomType> getRoomType() {
 		String getQuery = masterQueryProps.getProperty("getRoomTypeMaster");
-		List<RoomTypeMaster> roomTypeMasters = new ArrayList<RoomTypeMaster>();
-		roomTypeMasters = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<RoomTypeMaster>(){
+		List<RoomType> roomTypeMasters = new ArrayList<RoomType>();
+		roomTypeMasters = getNamedParamJdbcTemplate().query(getQuery, new RowMapper<RoomType>(){
 
 			@Override
-			public RoomTypeMaster mapRow(ResultSet rs, int arg1)
+			public RoomType mapRow(ResultSet rs, int arg1)
 					throws SQLException {
-				RoomTypeMaster typeMaster = new RoomTypeMaster();
+				RoomType typeMaster = new RoomType();
 				typeMaster.setDescription(rs.getString("Description"));
 				typeMaster.setPrice(rs.getDouble("Price"));
 				typeMaster.setRoomCapacity(rs.getInt("Room_Capacity"));

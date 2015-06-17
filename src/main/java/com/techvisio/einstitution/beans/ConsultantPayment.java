@@ -2,8 +2,18 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
-public class ConsultantPaymentDtl {
-	
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "consultantpaymentdetail")    
+public class ConsultantPayment extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+
 	private Double amount;
     private Date payDate; 
     private Long fileNo;
@@ -46,6 +56,14 @@ public class ConsultantPaymentDtl {
 
 	public void setConsultantId(Long consultantId) {
 		this.consultantId = consultantId;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

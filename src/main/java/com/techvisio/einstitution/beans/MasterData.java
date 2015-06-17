@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.beans;
 
-public class MasterDataBean {
+public class MasterData {
 private String id;
 private String value;
 private String parentId;
@@ -16,13 +16,13 @@ public String getValue() {
 public void setValue(String value) {
 	this.value = value;
 }
-public MasterDataBean(String id, String value,String parentId) {
+public MasterData(String id, String value,String parentId) {
 	super();
 	this.id = id;
 	this.value = value;
     this.parentId = parentId;
 }
-public MasterDataBean(String id, String value) {
+public MasterData(String id, String value) {
 
 	super();
 	this.id = id;

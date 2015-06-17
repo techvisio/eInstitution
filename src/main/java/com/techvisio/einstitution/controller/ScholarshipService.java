@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.beans.ScholarshipDetail;
+import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
@@ -39,7 +39,7 @@ public class ScholarshipService {
 		try
 		{
 			
-    		ScholarshipDetail scholarshipDetail = workflowManager.getScholarshipDetail(fileNo);
+    		Scholarship scholarshipDetail = workflowManager.getScholarshipDetail(fileNo);
 		    
     		response.setResponseBody(scholarshipDetail);
     		
@@ -64,7 +64,7 @@ public class ScholarshipService {
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response> addScholarshipDetail(@RequestBody ScholarshipDetail scholarshipDetail) {  
+	public ResponseEntity<Response> addScholarshipDetail(@RequestBody Scholarship scholarshipDetail) {  
 		logger.info("{} : Calling addScholarDetail method for fileno : {}",this.getClass().getName(), scholarshipDetail.getFileNo());
 		Response response = new Response();
 		

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.TransportAllocation;
-import com.techvisio.einstitution.beans.TransportAllocationAdmissionBean;
+import com.techvisio.einstitution.beans.TransportAllocationAdmission;
 import com.techvisio.einstitution.beans.TransportAllocationDtlForVehicle;
 import com.techvisio.einstitution.beans.TransportAllocationForStudent;
 import com.techvisio.einstitution.beans.TransportReservation;
@@ -164,7 +164,7 @@ public class TransportService {
 		}
 		
 		@RequestMapping(value="TransportAllocationAdmission",method = RequestMethod.POST)
-		public ResponseEntity<Response> addTransportAllocationAdmissionDtl(@RequestBody TransportAllocationAdmissionBean transportAllocationAdmissionBean) {
+		public ResponseEntity<Response> addTransportAllocationAdmissionDtl(@RequestBody TransportAllocationAdmission transportAllocationAdmissionBean) {
 			logger.info("{}:  Calling addTransportAllocationAdmissionDtl method for Student  :{}",this.getClass().getName(), transportAllocationAdmissionBean.getBasicInfo().getFirstName()+ transportAllocationAdmissionBean.getBasicInfo().getLastName());
 			Response response = new Response();
 			try{
@@ -213,7 +213,7 @@ public class TransportService {
 			logger.info("{}:  Calling getTransportAllocationAdmissiondtl method by File no  :{}",this.getClass().getName(), fileNo);
 			Response response = new Response();
 			try{
-			TransportAllocationAdmissionBean transportAllocationAdmissionBean = transportWorkflowManager.getTransportAllocationAdmissiondtl(fileNo);
+			TransportAllocationAdmission transportAllocationAdmissionBean = transportWorkflowManager.getTransportAllocationAdmissiondtl(fileNo);
 
 			response.setResponseBody(transportAllocationAdmissionBean);
 			}

@@ -22,7 +22,7 @@ import com.techvisio.einstitution.beans.Consultant;
 import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
-import com.techvisio.einstitution.beans.ConsultantPaymentDtl;
+import com.techvisio.einstitution.beans.ConsultantPayment;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
@@ -162,7 +162,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 				consultantDetail.setRemarks(rs.getString("Remarks"));
 				
                 consultantId = consultantDetail.getConsultant().getConsultantId();
-				List<ConsultantPaymentDtl> consultantPaymentDtls = getConsultantPaymentDtl(fileNo,consultantId);
+				List<ConsultantPayment> consultantPaymentDtls = getConsultantPaymentDtl(fileNo,consultantId);
 				consultantDetail.setConsultantPaymentDetail(consultantPaymentDtls);
             
 				List<ConsultantPaymentCriteria> consultantPaymentCriterias = getConsultantPaymentCriteria(fileNo, consultantId);
@@ -200,7 +200,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
 
 			if (consultantDetail.getConsultantPaymentDetail() != null) {
-				for (ConsultantPaymentDtl consultantPaymentDtl:consultantDetail.getConsultantPaymentDetail()) {
+				for (ConsultantPayment consultantPaymentDtl:consultantDetail.getConsultantPaymentDetail()) {
 			         consultantPaymentDtl.setFileNo(consultantDetail.getFileNo());
 			         consultantPaymentDtl.setConsultantId(consultantDetail.getConsultant().getConsultantId());
 					 deleteConsultantPaymentCriteria(consultantDetail.getFileNo(), consultantDetail.getConsultant().getConsultantId());
@@ -253,7 +253,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public List<ConsultantPaymentDtl> getConsultantPaymentDtl(Long fileNo, Long consultantId) {
+	public List<ConsultantPayment> getConsultantPaymentDtl(Long fileNo, Long consultantId) {
 		 logger.info("{} : Getting list of payment details for a particular  file no:{} and consulatnt id:{} ",this.getClass().getName(), fileNo, consultantId);
 		String getQuery= consultantQueryProps.getProperty("getConsultantPaymentDtlByFileNoAndConsultantId");
 
@@ -261,11 +261,11 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		.addValue("Consultant_Id", consultantId);
 
 
-		List<ConsultantPaymentDtl> consultantPaymentDtls = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ConsultantPaymentDtl>() {
+		List<ConsultantPayment> consultantPaymentDtls = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ConsultantPayment>() {
 
-			public ConsultantPaymentDtl mapRow(ResultSet rs, int rowNum)
+			public ConsultantPayment mapRow(ResultSet rs, int rowNum)
 					throws SQLException {
-				ConsultantPaymentDtl consultantPaymentDtl=  new ConsultantPaymentDtl();
+				ConsultantPayment consultantPaymentDtl=  new ConsultantPayment();
 
 				consultantPaymentDtl.setAmount(rs.getDouble("Amount"));
 				consultantPaymentDtl.setFileNo(rs.getLong("File_No"));
@@ -278,7 +278,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		return consultantPaymentDtls;
 	}
 
-	public void addConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl) {
+	public void addConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl) {
 		 logger.info("{} : Adding consultant's payment details for particular file no:{}",this.getClass().getName(), consultantPaymentDtl.getFileNo());
 		String addQuery = consultantQueryProps.getProperty("addConsultantPaymentDtl");
 
@@ -291,7 +291,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	}
 
-	public void updateConsultantPaymentDtl(ConsultantPaymentDtl consultantPaymentDtl) {
+	public void updateConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl) {
 
 			deleteConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtl.getConsultantId());
 			addConsultantPaymentDtl(consultantPaymentDtl);

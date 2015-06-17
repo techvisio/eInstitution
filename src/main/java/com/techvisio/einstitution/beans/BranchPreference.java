@@ -1,7 +1,17 @@
 package com.techvisio.einstitution.beans;
 
-public class BranchPreference {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "branchpreference")    
+public class BranchPreference extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;	
 	private Long branchPreferenceId;
 	private Long fileNo;
 	private Long branchId;
@@ -44,6 +54,14 @@ public class BranchPreference {
 		return "BranchPreference [branchPreferenceId=" + branchPreferenceId
 				+ ", fileNo=" + fileNo + ", branchId=" + branchId
 				+ ", coureseId=" + coureseId + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

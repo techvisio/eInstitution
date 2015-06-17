@@ -20,7 +20,7 @@ import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomTypeMaster;
+import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -81,7 +81,7 @@ public interface CacheDao {
 
 	List<VehicleType> getVehicleTypes();
 	
-	public List<RoomTypeMaster> getRoomType();
+	public List<RoomType> getRoomType();
 	
 	public List<Transport> getTransport();
 

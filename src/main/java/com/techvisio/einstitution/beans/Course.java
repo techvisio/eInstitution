@@ -1,17 +1,27 @@
 package com.techvisio.einstitution.beans;
 
-public class Course {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "coursemaster")    
+public class Course extends BasicEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	private Long courseId;
 	private String course;
 	private String courseType;
 	
-	public Long getId() {
-		return id;
+	public Long getCourseId() {
+		return courseId;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public void setCourseId(Long id) {
+		this.courseId = id;
 	}
 	
 	
@@ -34,11 +44,16 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", course=" + course + ", courseType="
+		return "Course [id=" + courseId + ", course=" + course + ", courseType="
 				+ courseType + "]";
 	}
-	
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 }

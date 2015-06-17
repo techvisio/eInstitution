@@ -20,7 +20,7 @@ import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.RoomAllocationDetail;
+import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
