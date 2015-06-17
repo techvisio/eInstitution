@@ -2,17 +2,42 @@ package com.techvisio.einstitution.beans;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.techvisio.einstitution.util.CommonUtil;
 
+@Entity
+@Table(name = "academicdetail")
 public class StudentAcademic {
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "University")
 	private String university;
+	@Column(name = "College_Name")
 	private String collegeName;
+	@Column(name = "Passing_Year")
 	private String passingYear;
+	@Column(name = "Percentage")
 	private float percentage;
+	@Column(name = "Roll_No")
 	private String rollNo;
+	@Column(name = "File_No")
 	private Long fileNo;
+	@Column(name = "Qualification_Id")
 	private Long qualificationId;
+	@Column(name = "Id")
+	@ManyToOne
+	@JoinColumn(name="subjectId")
 	private List<QualificationSubject> qualificationSubDtl;
 
 	public String getUniversity() {
@@ -91,5 +116,13 @@ public class StudentAcademic {
 				+ rollNo + ", fileNo=" + fileNo + ", qualificationId="
 				+ qualificationId + ", qualificationSubDtl="
 				+ qualificationSubDtl + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

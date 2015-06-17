@@ -1,21 +1,48 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "studentfeestaging")
 
 public class StudentFeeStaging {
 	
-	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "File_No")
 	private Long fileNo;
+	@Column(name = "Component_Id")
+	@OneToOne
+	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead discountHead;
+	@Column(name = "Amount")
 	private Double amount;
+	@Column(name = "Approved")
 	private boolean approved;
+	@Column(name = "Is_Fee_Generatated")
 	private boolean feeGenerated;
+	@Column(name = "Is_Reoccuring")
 	private boolean reoccuring;
+	@Column(name = "Is_Conditional")
 	private boolean conditional;
-	private Date createdDate;
-	private Date modifiedDate;
+	@Column(name = "Created_Date")
+	private String createdDate;
+	@Column(name = "Modified_Date")
+	private String modifiedDate;
+	@Column(name = "Created_By")
 	private String createdBy;
+	@Column(name = "Updated_By")
 	private String updatedBy;
+	
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -52,18 +79,7 @@ public class StudentFeeStaging {
 	public void setReoccuring(boolean isReoccuring) {
 		this.reoccuring = isReoccuring;
 	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
+	
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -111,6 +127,24 @@ public class StudentFeeStaging {
 		} else if (!fileNo.equals(other.fileNo))
 			return false;
 		return true;
+	}
+	public String getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+	public String getModifiedDate() {
+		return modifiedDate;
+	}
+	public void setModifiedDate(String modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

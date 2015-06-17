@@ -1,7 +1,18 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "qualificationsubjectdtl") 
 public class QualificationSubject {
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	private Long id;
 	private Long subjectId;
 	private Long qualificationId;
 	private Long fileNo;
@@ -58,6 +69,14 @@ public class QualificationSubject {
 				+ ", qualificationId=" + qualificationId + ", fileNo=" + fileNo
 				+ ", marksObtained=" + marksObtained + ", maxMarks=" + maxMarks
 				+ "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

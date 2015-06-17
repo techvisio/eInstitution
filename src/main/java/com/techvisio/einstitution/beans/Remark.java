@@ -2,66 +2,52 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "AdmissionRemark")
 public class Remark {
-	private Long fileNo;
-	private String enquiryRemark;
-	private Date enquiryRemarkDate;
-	private String feeRemark;
-	private Date feeRemarkDate;
-	private String managementRemark;
-	private Date managementRemarkDate;
 	
-	public String getEnquiryRemark() {
-		return enquiryRemark;
-	}
-	public void setEnquiryRemark(String enquiryRemark) {
-		this.enquiryRemark = enquiryRemark;
-	}
-	public Date getEnquiryRemarkDate() {
-		return enquiryRemarkDate;
-	}
-	public void setEnquiryRemarkDate(Date enquiryRemarkDate) {
-		this.enquiryRemarkDate = enquiryRemarkDate;
-	}
-	public String getFeeRemark() {
-		return feeRemark;
-	}
-	public void setFeeRemark(String feeRemark) {
-		this.feeRemark = feeRemark;
-	}
-	public Date getFeeRemarkDate() {
-		return feeRemarkDate;
-	}
-	public void setFeeRemarkDate(Date feeRemarkDate) {
-		this.feeRemarkDate = feeRemarkDate;
-	}
-	public String getManagementRemark() {
-		return managementRemark;
-	}
-	public void setManagementRemark(String managementRemark) {
-		this.managementRemark = managementRemark;
-	}
-	public Date getManagementRemarkDate() {
-		return managementRemarkDate;
-	}
-	public void setManagementRemarkDate(Date managementRemarkDate) {
-		this.managementRemarkDate = managementRemarkDate;
-	}
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;	
+	@Column(name = "File_No")
+	private Long fileNo;
+	@Column(name="Remark")
+	private String remark;
+	@Column(name="Remark")
+	private String remarkType;
+	
 	public Long getFileNo() {
 		return fileNo;
 	}
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-	@Override
-	public String toString() {
-		return "Remark [fileNo=" + fileNo + ", enquiryRemark=" + enquiryRemark
-				+ ", enquiryRemarkDate=" + enquiryRemarkDate + ", feeRemark="
-				+ feeRemark + ", feeRemarkDate=" + feeRemarkDate
-				+ ", managementRemark=" + managementRemark
-				+ ", managementRemarkDate=" + managementRemarkDate + "]";
+	
+	public Long getId() {
+		return id;
 	}
-	
-	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getRemarkType() {
+		return remarkType;
+	}
+	public void setRemarkType(String remarkType) {
+		this.remarkType = remarkType;
+	}
 	
 }

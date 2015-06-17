@@ -1,11 +1,21 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "moduleLog")
 public class ModuleLog {
+	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	private Long id;
 	private int entityId;
 	private String workFlowOperation;
-	private Date date;
+	private String date;
 	private int userId;
 	private String operation;
 	private String errorMessage;
@@ -22,12 +32,7 @@ public class ModuleLog {
 	public void setWorkFlowOperation(String workFlowOperation) {
 		this.workFlowOperation = workFlowOperation;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -46,15 +51,18 @@ public class ModuleLog {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	@Override
-	public String toString() {
-		return "ModuleLog [entityId=" + entityId + ", workFlowOperation="
-				+ workFlowOperation + ", date=" + date + ", userId=" + userId
-				+ ", operation=" + operation + ", errorMessage=" + errorMessage
-				+ "]";
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
-	
-
 }
 

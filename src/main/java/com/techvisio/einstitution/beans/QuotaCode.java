@@ -1,18 +1,28 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "quotacodemaster")
 public class QuotaCode {
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
 	private Long id;
+	private Long quotaId;
 	private String code;
 	private String description;
 	
-	
-	public Long getId() {
-		return id;
+	public Long getQuotaId() {
+		return quotaId;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public void setQuotaId(Long quotaId) {
+		this.quotaId = quotaId;
 	}
 	
 	
@@ -35,7 +45,15 @@ public class QuotaCode {
 
 	@Override
 	public String toString() {
-		return "QuotaCode [id=" + id + ", code=" + code + ", description="
+		return "QuotaCode [id=" + quotaId + ", code=" + code + ", description="
 				+ description + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
