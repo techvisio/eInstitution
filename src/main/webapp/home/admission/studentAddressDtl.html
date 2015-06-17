@@ -1,0 +1,98 @@
+<form>
+				<div class="admission-tab-inner">
+					<div class="four-column-view">
+						<table>
+
+							<tr>
+								<th colspan=2><span>Permanent Address</span></th>
+								<th></th>
+							</tr>
+							<tr>
+								<td><span>House No.</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('P').houseNo"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><span>Locality</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('P').locality"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+							</tr>
+							<tr>
+								<td><span>Land Mark</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('P').landmark"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><span>District</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('P').district"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+							</tr>
+							<tr>
+								<td><span>City</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('P').city"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><span>Pincode</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('P').pincode"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+							</tr>
+							<tr>
+								<td><span>State</span></td>
+								<td><select ng-model="getStudentAddress('P').state"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
+								</select></td>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr>
+								<th colspan=2><span>Correspondence Address</span></th>
+								<td><input type="checkbox"
+									ng-change="copyPermanentAddress()" ng-model="form.sameAsAbove"
+									ng-disabled="!form.isEdit && !form.isNew">Same as Above</input></td>
+							</tr>
+							<tr>
+								<td><span>House No.</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('C').houseNo"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><span>Locality</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('C').locality"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+							</tr>
+							<tr>
+								<td><span>Land Mark</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('C').landmark"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><span>District</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('C').district"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+							</tr>
+							<tr>
+								<td><span>City</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('C').city"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><span>Pincode</span></td>
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="getStudentAddress('C').pincode"
+									ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+							</tr>
+							<tr>
+								<td><span>State</span></td>
+								<td><select ng-model="getStudentAddress('C').state"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
+								</select></td>
+								<th></th>
+								<td></td>
+							</tr>
+						</table>
+
+					</div>
+				</div>
+				</form>

@@ -1,0 +1,28 @@
+
+<div class="module-dashboard-container">
+     <div class="side-live-bar" ng-init="getLatestAdmission()">
+			<span class="header">Latest Admissions</span>
+			<table>
+				<tr>
+					<th>Registration No.</th>
+					<th>Student Name</th>
+					<th>Father Name</th>
+
+				</tr>
+				<tr ng-repeat="object in latestAdmission">
+					<td>{{object.registrationNo}}</td>
+					<td>{{object.firstName+' '+object.lastName}}</td>
+					<td>{{object.fatherName}}</td>
+					<td><button type="button" class="btn btn-success btn-xs"
+							ng-click="showDetail($index)">Detail</button></td>
+				</tr>
+				<tr>
+					<td colspan=3><button type="button"
+							class="btn btn-primary showmore" ng-click="LoadMoreData()">Load
+							more data</button></td>
+					<!-- 				     <td colspan=3><button type="button" class="btn btn-primary showmore" ng-click="lessData()">Less data</button> -->
+				</tr>
+
+			</table>
+		</div>
+	</div>

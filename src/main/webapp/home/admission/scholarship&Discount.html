@@ -1,0 +1,77 @@
+<form>
+<div class="admission-tab-inner">
+					<div class="student-discount">
+						<table>
+							<tr>
+								<td><span> Scholarship </span></td>
+								<td><input type="checkbox" ng-model="isScholarship"
+									ng-disabled="!form.isEdit && !form.isNew"></td>
+								<td><span> Domicile State </span></td>
+								<td><select select
+									ng-model="student.scholarshipDetail.stateId"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.STATE"></select>
+								</td>
+							</tr>
+							<tr>
+								<td><span> Category </span></td>
+								<td><select select ng-model="student.categoryId"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+								</td>
+								<td><span> Family Income </span></td>
+								<td><input type="number"
+									ng-model="student.scholarshipDetail.parentIncome"
+									ng-Readonly="!form.isEdit && !form.isNew"></td>
+							</tr>
+
+
+							<tr>
+								<td><span> Remarks </span></td>
+								<td><textarea rows="3" cols="30"
+										ng-model="student.scholarshipDetail.remark"
+										ng-Readonly="!form.isEdit && !form.isNew">
+										
+						</textarea></td>
+								<td><span> Amount </span></td>
+								<td><input type="number"
+									ng-model="student.scholarshipDetail.amount"
+									ng-disabled="!form.isEdit && !form.isNew"></td>
+							</tr>
+							<tr>
+								<td colspan=4><hr></td>
+
+							</tr>
+							<tr>
+								<th><span>Feehead</span></th>
+								<th><span>Discount Type</span></th>
+								<th><span>Amount</span></th>
+								<th><span>Percent</span></th>
+							</tr>
+							<tr ng-repeat="discount in student.discountDtl">
+
+								<td><select ng-model="discount.feeHeadId"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD|filter:{parentId:'W'}"></select>
+								</td>
+
+								<td><select ng-model="object.type"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.DISCOUNTTYPE"></select></td>
+
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="discount.amount" ng-blur="checkAmout($index,'amount')"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+
+								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="discount.percent" ng-blur="checkAmout($index,'percent')"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+								<td><img height="35" width="35" ng-src="images/plus.png"
+									ng-click="addDiscountDtl()" /></td>
+								<td><img height="35" width="35" ng-src="images/minus.png"
+									ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+</form>

@@ -1,0 +1,90 @@
+<div class="admission-tab-inner" >
+<form>
+	<div class="four-column-view">
+		<table>
+			<tr>
+				<td><span> Father Name </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.fatherName"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+				<td><span> Mother Name </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.motherName"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+			</tr>
+
+			<tr>
+				<td><span> Gender </span></td>
+				<td>
+					<li><input type="radio" ng-model="student.gender"
+						name="gender" value='M' ng-disabled="!form.isEdit && !form.isNew" /><span>Male</span></li>
+					<li><input type="radio" ng-model="student.gender"
+						name="gender" value='F' ng-disabled="!form.isEdit && !form.isNew" /><span>Female</span></li>
+				</td>
+				<td><span> Date of Birth </span></td>
+				<td><input type="date" ng-model="student.dob"
+					ng-Readonly="!form.isEdit && !form.isNew"></td>
+				<!-- <td><p class="input-group">
+              <input type="dropdown" class="dropdown-toggle" datepicker-popup="{{format}}" ng-model="student.dob" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p></td> -->
+			</tr>
+			<tr>
+
+				<td><span> Category </span></td>
+				<td><select select ng-model="student.categoryId"
+					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+				</td>
+				<td><span> Blood Group </span></td>
+				<td><select select ng-model="student.bloodGroup"
+					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.BLOODGROUP"></select>
+				</td>
+			</tr>
+			<tr>
+				<td><span> Father Occupation </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.fatherOccupation"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+
+			</tr>
+			<tr>
+				<td><span> Mobile No </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.selfMobileNo"
+					ng-Readonly="!form.isEdit && !form.isNew" required>
+  <span class="input-group-addon">.00</span></td>
+				<td><span> Email Id </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.emailId"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+			</tr>
+
+			<tr>
+				<td><span> Fixed Line No </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.fixedlineNo"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+				<td><span> Parent Mobile No </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.parentMobileNo"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+			</tr>
+
+			<tr>
+				<td><span> Gaurdian Mobile No </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.gaurdianMobileNo"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+				<td><span> Gaurdian Email Id </span></td>
+				<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.gaurdianEmailId"
+					ng-Readonly="!form.isEdit && !form.isNew">
+  <span class="input-group-addon">.00</span></td>
+			</tr>
+
+		</table>
+	</div>
+	</form>
+</div>
