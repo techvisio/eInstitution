@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,13 @@ import javax.persistence.Table;
 public class Centre extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	@Column(name = "Centre_Id")
 	private Long centreId;
+	@Column(name = "Centre_Name")
 	private String centreName;
+	
 	public Long getCentreId() {
 		return centreId;
 	}

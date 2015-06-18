@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,14 +37,28 @@ public class FeeDiscountHead extends BasicEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
 
+	@Column(name = "Head_Id")
 	private Long headId;
+	
+	@Column(name = "Head")
 	private String head;
+	
+	@Column(name = "Transaction_Type")
 	private String transactionType;
+	
+	@Column(name = "Parent_Type_Id")
 	private Long parentId;
+	
+	@Column(name = "Is_Reoccurring")
 	private boolean isReoccurring;
+	
+	@Column(name = "Refund_Type")
 	private String refundType;
+	
+	
 	public Long getHeadId() {
 		return headId;
 	}

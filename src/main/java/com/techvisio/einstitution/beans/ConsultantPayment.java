@@ -2,6 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +13,21 @@ import javax.persistence.Table;
 public class ConsultantPayment extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
-
+	
+	@Column(name = "Amount")
 	private Double amount;
-    private Date payDate; 
+	
+	@Column(name = "pay_date")
+    private Date payDate;
+	
+	@Column(name = "File_No")
     private Long fileNo;
-    private Long consultantId; 	
+	
+	@Column(name = "Consultant_Id")
+    private Long consultantId;
+	
     public Double getAmount() {
 		return amount;
 	}

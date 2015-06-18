@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,11 @@ import javax.persistence.Table;
 public class Block extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	@Column(name = "Block_id")
 	private Long blockId;
+	@Column(name = "Block")
 	private String block;
 	
 	public Long getBlockId() {

@@ -2,6 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,15 +13,31 @@ import javax.persistence.Table;
 public class ConsultantPaymentCriteria extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
 
+	@Column(name = "File_No")
 	private Long fileNo; 
-	private Long consultantId; 
-	private Double feeReceived; 
+	
+	@Column(name = "Consultant_Id")
+	private Long consultantId;
+	
+	@Column(name = "Fee_Received")
+	private Double feeReceived;
+	
+	@Column(name = "Amount_To_Be_Paid")
 	private Double amountToBePaid; 
-	private Date feeDueDate; 
-	private boolean approved; 
-	private boolean paid; 
+	
+	@Column(name = "Fee_Due_Date")
+	private Date feeDueDate;
+	
+	@Column(name = "Approved")
+	private boolean approved;
+	
+	@Column(name = "Paid")
+	private boolean paid;
+	
+	@Column(name = "Triggered")
 	private boolean triggered;
 
 	

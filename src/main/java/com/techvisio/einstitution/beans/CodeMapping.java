@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,13 @@ import javax.persistence.Table;
 public class CodeMapping extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	@Column(name = "Name")
 	private String name;
+	@Column(name = "Code")
 	private String code;
+	@Column(name = "Description")
 	private String description;
 	
 	

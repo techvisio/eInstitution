@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,15 +12,30 @@ import javax.persistence.Table;
 public class HostelReservation extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
 
+	@Column(name = "File_No")
 private Long	fileNo ;
+	
+	@Column(name = "Fee_Paid")
 private	boolean feePaid ;
+	
+	@Column(name = "Type_Code")
 private String	typeCode;
+	
+	@Column(name = "Allocation_Status")
 private String allocationStatus;
+	
+	@Column(name = "Is_Active")
 private boolean isActive;
+	
+	@Column(name = "Price")
 private Double price;
+	
+	@Column(name = "Description")
 private String description;
+	
 
 public Long getFileNo() {
 	return fileNo;

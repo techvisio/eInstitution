@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,11 +12,16 @@ import javax.persistence.Table;
 public class BranchPreference extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;	
+	@Column(name = "Branch_Preference_Id")
 	private Long branchPreferenceId;
+	@Column(name = "File_No")
 	private Long fileNo;
+	@Column(name = "Branch_Id")
 	private Long branchId;
-	private Long coureseId;
+	@Column(name = "Course_Id")
+	private Long courseId;
 
 	public Long getFileNo() {
 		return fileNo;
@@ -41,19 +47,19 @@ public class BranchPreference extends BasicEntity {
 		this.branchId = branchId;
 	}
 
-	public Long getCoureseId() {
-		return coureseId;
+	public Long getCourseId() {
+		return courseId;
 	}
 
-	public void setCoureseId(Long coureseId) {
-		this.coureseId = coureseId;
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
 	}
 
 	@Override
 	public String toString() {
 		return "BranchPreference [branchPreferenceId=" + branchPreferenceId
 				+ ", fileNo=" + fileNo + ", branchId=" + branchId
-				+ ", coureseId=" + coureseId + "]";
+				+ ", coureseId=" + courseId + "]";
 	}
 
 	public Long getId() {

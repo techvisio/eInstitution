@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +16,25 @@ import javax.persistence.Table;
 public class Counselling extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	
+	@Column(name = "File_No")
 	private Long fileNo;
+	
+	@Column(name = "Counselling_Id")
 	private Long counsellingId;
+	
+	@Column(name = "Roll_No")
 	private String rollNo;
+	
+	@Column(name = "Rank")
 	private Long rank;
+	
+	@Column(name = "Category_Rank")
 	private Long categoryRank;
+	
+	@Column(name = "Percentile")
 	private Float percentile;
 
 	

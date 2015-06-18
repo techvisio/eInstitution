@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,12 +12,19 @@ import javax.persistence.Table;
 public class Consultant extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	@Column(name = "Consultant_Id")
 	private Long consultantId;
+	@Column(name = "Name")
 	private String name;
+	@Column(name = "Primary_Contact_No")
 	private String primaryContactNo;
+	@Column(name = "Secondary_contact_No")
 	private String secondaryContactNo;
+	@Column(name = "Address")
 	private String address;
+	@Column(name = "Email_Id")
 	private String emailId;
 	
 	public Long getConsultantId() {

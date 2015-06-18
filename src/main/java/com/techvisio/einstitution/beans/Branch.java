@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,13 @@ import javax.persistence.Table;
 public class Branch extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	@Column(name = "Course_Id")
 	private Long courseId;
+	@Column(name = "Branch_Id")
 	private Long branchId;
+	@Column(name = "Branch_Name")
 	private String branchName;
 	
 	
