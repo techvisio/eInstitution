@@ -2,6 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,30 +13,79 @@ import javax.persistence.Table;
 public class AdmissionEnquiry extends BasicEntity{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
+	
+	@Column(name = "Enquiry_Id")
 	private Long enquiryId;
+	
+	@Column(name = "File_No")
 	private Long fileNo;
+	
+	
 	private String registrationNo;
+	
+	@Column(name = "Name")
 	private String name;
+	
+	@Column(name = "Father_Name")
 	private String fatherName;
+	
+	@Column(name = "DOB")
 	private Date dob;
+	
+	@Column(name = "Contact_No")
 	private String contactNo;
+	
+	@Column(name = "Application_Status")
 	private String applicationStatus;
+	
+	@Column(name = "Due_Date")
 	private Date dueDate;
+	
+	@Column(name = "Created_On")
 	private Date createdDate;
+	
+	@Column(name = "Created_By")
 	private String createBy;
+	
+	@Column(name = "Updated_On")
 	private Date updatedDate;
+	
+	@Column(name = "Updated_By")
 	private String updatedBy;
+	
+	
 	private Course course;
+	
+	
 	private Branch branch;
+	
+	@Column(name = "FollowUp_Required")
 	private boolean followupRequired;
+	
+	@Column(name = "Remarks")
 	private String remarks;
+	
+	@Column(name = "Email_Id")
 	private String emailId;
+	
+	@Column(name = "Lateral")
 	private boolean lateral;
+	
+	@Column(name = "Gender")
 	private String gender;
+	
+	@Column(name = "Consultant_Id")
 	private Long consultantId;
+	
+	@Column(name = "Referred_By")
 	private String referredBy;
+	
+	@Column(name = "Admission_Mode")
 	private String admissionMode;
+	
+	@Column(name = "Category_Id")
 	private Long categoryId;
 	
 	
