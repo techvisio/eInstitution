@@ -1,10 +1,29 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "sessionMaster")
 public class Session {
+	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "Session_Id")
 	private Long sessionId;
+	@Column(name = "Session")
 	private String session;
+	@Column(name = "Course_Id")
 	private Long courseId;
+	@Column(name = "Previous_Session_Id")
 	private Long prevSessionId;
+	@Column(name = "Next_Session_Id")
 	private Long nextSessionId;
 	
 	public Long getSessionId() {
@@ -43,6 +62,12 @@ public class Session {
 		return "Session [sessionId=" + sessionId + ", session=" + session
 				+ ", courseId=" + courseId + ", prevSessionId=" + prevSessionId
 				+ ", nextSessionId=" + nextSessionId + "]";
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

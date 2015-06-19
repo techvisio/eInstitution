@@ -1,125 +1,104 @@
 package com.techvisio.einstitution.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.techvisio.einstitution.util.AppConstants;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.DynamicProperties;
 
+@Entity
+@Table(name = "studentDetail")
 public class Student {
 
+	@Column(name = "Admission_Mode")
 	private String admissionMode;
 
-	@DynamicProperties(id="fileNo", title="File No")
-    private String registrationNo;  
+	@Column(name = "Registration_No")
+    private String registrationNo;
+	@Id
+	@Column(name = "File__No")
 	private Long fileNo;
-	@DynamicProperties(id="enrollNo", title="Enrollment No")
+	@Column(name = "Enroll_No")
 	private String enrollNo;
-	@DynamicProperties(id="academicYear", title="Academic Year")
+	@Column(name = "Academic_Year")
 	private String academicYear;
+	@Column(name = "Semester")
 	@DynamicProperties(id="semester", title="Semester")
 	private String semester;
-	
+	@Column(name = "Course_Id")
 	@DynamicProperties(id="courseId", title="course", type="select", masterDataCode=AppConstants.COURSE)
 	private Long courseId;
+	@Column(name = "Branch_Id")
 	@DynamicProperties(id="branchId", title="branch", type="select", masterDataCode=AppConstants.BRANCH)
 	private Long branchId;
-	
+	@Column(name = "First_Name")
 	@DynamicProperties(id="firstName", title="First Name")
 	private String firstName;
+	@Column(name = "Last_Name")
 	@DynamicProperties(id="lastName", title="Last Name")
 	private String lastName;
-	
+	@Column(name = "UniEnroll_No")
 	@DynamicProperties(id="uniEnrollNo", title="University Enrollment No")
 	private String uniEnrollNo;
+	@Column(name = "DOB")
 	@DynamicProperties(id="dob", title="DOB", type="date")
-	private Date dob;
+	private String dob;
 	
-	
-
-	@Override
-	public String toString() {
-		return "StudentDetail [admissionMode=" + admissionMode
-				+ ", registrationNo=" + registrationNo + ", fileNo=" + fileNo
-				+ ", enrollNo=" + enrollNo + ", academicYear=" + academicYear
-				+ ", semester=" + semester + ", courseId=" + courseId
-				+ ", branchId=" + branchId + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", uniEnrollNo=" + uniEnrollNo
-				+ ", dob=" + dob + ", fatherName=" + fatherName
-				+ ", motherName=" + motherName + ", gender=" + gender
-				+ ", bloodGroup=" + bloodGroup + ", emailId=" + emailId
-				+ ", gaurdianEmailId=" + gaurdianEmailId + ", fixedlineNo="
-				+ fixedlineNo + ", selfMobileNo=" + selfMobileNo
-				+ ", parentMobileNo=" + parentMobileNo + ", gaurdianMobileNo="
-				+ gaurdianMobileNo + ", fatherOccupation=" + fatherOccupation
-				+ ", categoryId=" + categoryId + ", hostel=" + hostel
-				+ ", transportation=" + transportation
-				+ ", managementApproval=" + managementApproval + ", feePaid="
-				+ feePaid + ", createdBy=" + createdBy + ", createdOn="
-				+ createdOn + ", updatedBy=" + updatedBy + ", updatedOn="
-				+ updatedOn + ", photo=" + Arrays.toString(photo)
-				+ ", academicDtl=" + academicDtl + ", DiscountDtl="
-				+ DiscountDtl + ", addressDtl=" + addressDtl
-				+ ", branchPreference=" + branchPreference
-				+ ", counsellingDtl=" + counsellingDtl + ", reservation="
-				+ reservation + ", consultantDetail=" + consultantDetail
-				+ ", scholarshipDetail=" + scholarshipDetail + ", quotaCode="
-				+ quotaCode + ", referredBy=" + referredBy + ", lateral="
-				+ lateral + ", remarks=" + remarks + ", applicationStatus="
-				+ applicationStatus + ", sectionId=" + sectionId + ", shiftId="
-				+ shiftId + ", centreId=" + centreId + ", batchId=" + batchId
-				+ ", sessionId=" + sessionId + "]";
-	}
-
+	@Column(name = "Father_Name")
 	@DynamicProperties(id="fatherName", title="Father Name")
 	private String fatherName;
+	@Column(name = "Mother_Name")
 	@DynamicProperties(id="motherName", title="Mother Name")
 	private String motherName;
+	@Column(name = "Gender")
 	@DynamicProperties(id="gender", title="Gender", type="radio", validValues={"Male","Female"})
 	private String gender;
+	@Column(name = "Blood_Group")
 	@DynamicProperties(id="bloodGroup", title="Blood Group", type="select")
 	private String bloodGroup;
+	@Column(name = "Email_Id")
 	@DynamicProperties(id="emailId", title="Student Email Id", masterDataCode=AppConstants.BLOODGROUP)
 	private String emailId;
+	@Column(name = "Gaurdian_Email_Id")
 	@DynamicProperties(id="gaurdianEmailId", title="Gaurdian Email Id")
 	private String gaurdianEmailId;
+	@Column(name = "FixedLine_No")
 	@DynamicProperties(id="fixedlineNo", title="Fixed Line No")
 	private String fixedlineNo;
+	@Column(name = "Self_Mobile_No")
 	@DynamicProperties(id="selfMobileNo", title="Self Mobile No")
 	private String selfMobileNo;
+	@Column(name = "Parent_Mobile_No")
 	@DynamicProperties(id="parentMobileNo", title="Parent Cell No")
 	private String parentMobileNo;
+	@Column(name = "Gaurdian_Mobile_No")
 	@DynamicProperties(id="gaurdianMobileNo", title="Gaurdian Mobile No")
 	private String gaurdianMobileNo;
+	@Column(name = "Father_Occupation")
 	@DynamicProperties(id="fatherOccupation", title="Father Occupation")
 	private String fatherOccupation;
+	@Column(name = "Category_Id")
 	@DynamicProperties(id="categoryId", title="category", type="select" , masterDataCode=AppConstants.CATEGORY)
 	private Long categoryId;
 	@DynamicProperties(id="hostel", title="Hostel Required",type="check")
 	private boolean hostel;
 	@DynamicProperties(id="transportation", title="Transport Required", type="check")
 	private boolean transportation;
-	
-	
+
+	@Column(name = "Is_Management_Approved")
 	@DynamicProperties(id="managementApproval", title="managementApproval" , type="check")
 	private boolean managementApproval;
+	@Column(name = "Is_Fee_Paid")
 	@DynamicProperties(id="feePaid", title="feePaid", type="check")
 	private boolean feePaid;
 	
-	
-	
-	@DynamicProperties(id="createdBy", title="createdBy")
-	private String createdBy;
-	@DynamicProperties(id="createdOn", title="createdOn")
-	private Date createdOn;
-	@DynamicProperties(id="updatedBy", title="updatedBy")
-	private String updatedBy;
-	@DynamicProperties(id="updatedOn", title="updatedOn")
-	private Date updatedOn;
-	
+	@Column(name = "Photo")
 	private byte[] photo;
 //	private String feeReceivedBy;
 //	private Date feeReceivedOn;
@@ -129,26 +108,44 @@ public class Student {
 //	private Date documentVerifiedOn;
 //	private String managementApprovedBy;
 //	private Date managementApprovedOn;
-	private List<StudentAcademic> academicDtl=new ArrayList<StudentAcademic>();
-	private List<AdmissionDiscount> DiscountDtl=new ArrayList<AdmissionDiscount>();
-	private List<Address> addressDtl=new ArrayList<Address>();
-	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
-	private List<Counselling> counsellingDtl=new ArrayList<Counselling>();
+	@ManyToOne
 	
+	@Column(name = "Id")
+	private List<StudentAcademic> academicDtl=new ArrayList<StudentAcademic>();
+	@ManyToOne
+	@Column(name = "Id")
+	private List<AdmissionDiscount> DiscountDtl=new ArrayList<AdmissionDiscount>();
+	@Column(name = "Id")
+	private List<Address> addressDtl=new ArrayList<Address>();
+	@Column(name = "Id")
+	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
+	@Column(name = "Id")
+	private List<Counselling> counsellingDtl=new ArrayList<Counselling>();
+	@Column(name = "Id")
 	private TransportReservation reservation;
+	@Column(name = "Id")
     private List<ConsultantDetail> consultantDetail;
+	@Column(name = "Id")
     private Scholarship scholarshipDetail;
+    @Column(name = "Id")
     private String quotaCode;
+    @Column(name = "Id")
     private String referredBy;
+    @Column(name = "Id")
     private boolean lateral;
-    private String remarks;
+    @Column(name = "Application_Status")
     private String applicationStatus;
+    @Column(name = "Id")
     private Long sectionId;
+    @Column(name = "Id")
     private Long shiftId;
+    @Column(name = "Id")
     private Long centreId;
+    @Column(name = "Id")
     private Long batchId;
+    @Column(name = "Id")
     private Long sessionId;
-    private Remark remark;
+    private List<Remark> remarks;
     
 	
 	public String getRegistrationNo() {
@@ -266,15 +263,7 @@ public class Student {
 		this.bloodGroup = bloodGroup;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-	public String getFatherOccupation() {
+   public String getFatherOccupation() {
 		return fatherOccupation;
 	}
 
@@ -362,13 +351,6 @@ public class Student {
 		this.courseId = courseId;
 	}
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
 
 	public Long getBranchId() {
 		return branchId;
@@ -378,34 +360,7 @@ public class Student {
 		this.branchId = branchId;
 	}
 
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreated_On(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	public Date getUpdatedOn() {
-		return updatedOn;
-	}
-
-	public void setUpdatedOn(Date updatedOn) {
-		this.updatedOn = updatedOn;
-	}
-
-
-	
-
-	public List<Address> getAddressDtl() {
+		public List<Address> getAddressDtl() {
 		return addressDtl;
 	}
 
@@ -518,14 +473,6 @@ public class Student {
 		this.applicationStatus = applicationStatus;
 	}
 
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
 	public Long getSectionId() {
 		return sectionId;
 	}
@@ -566,12 +513,29 @@ public class Student {
 		this.sessionId = sessionId;
 	}
 
-	public Remark getRemark() {
-		return remark;
+	public String getDob() {
+		return dob;
 	}
 
-	public void setRemark(Remark remark) {
-		this.remark = remark;
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+
+	public void setFixedlineNo(String fixedlineNo) {
+		this.fixedlineNo = fixedlineNo;
+	}
+
+	public void setSelfMobileNo(String selfMobileNo) {
+		this.selfMobileNo = selfMobileNo;
+	}
+
+	public List<Remark> getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(List<Remark> remarks) {
+		this.remarks = remarks;
 	}
 
 }

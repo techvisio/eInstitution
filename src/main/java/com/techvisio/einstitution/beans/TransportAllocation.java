@@ -2,15 +2,42 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "transportallocation")
 public class TransportAllocation {
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "File_No")
 	private Long fileNo;
+	@Column(name = "Vehicle_Id")
+	@OneToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "Type_Id")
 	private VehicleDetail vehicleDetail;
-	private Date allocatedOn;
+	@Column(name = "Allocated_On")
+	private String allocatedOn;
+	@Column(name = "Allocated_By")
     private String allocatedBy;
+	@Column(name = "Updated_By")
     private String updatedBy;
-    private Date switchedOn;
+	@Column(name = "Switched_On")
+    private String switchedOn;
+	@Column(name = "Is_Allocated")
     private boolean allocated;
+	@Column(name = "Remark")
     private String remark;
 
 
@@ -31,14 +58,6 @@ public class TransportAllocation {
 		this.vehicleDetail = vehicleDetail;
 	}
 
-	public Date getAllocatedOn() {
-		return allocatedOn;
-	}
-
-	public void setAllocatedOn(Date allocatedOn) {
-		this.allocatedOn = allocatedOn;
-	}
-
 	public String getAllocatedBy() {
 		return allocatedBy;
 	}
@@ -55,14 +74,6 @@ public class TransportAllocation {
 		this.updatedBy = updatedBy;
 	}
 
-	public Date getSwitchedOn() {
-		return switchedOn;
-	}
-
-	public void setSwitchedOn(Date switchedOn) {
-		this.switchedOn = switchedOn;
-	}
-
 	public boolean isAllocated() {
 		return allocated;
 	}
@@ -77,6 +88,30 @@ public class TransportAllocation {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getAllocatedOn() {
+		return allocatedOn;
+	}
+
+	public void setAllocatedOn(String allocatedOn) {
+		this.allocatedOn = allocatedOn;
+	}
+
+	public String getSwitchedOn() {
+		return switchedOn;
+	}
+
+	public void setSwitchedOn(String switchedOn) {
+		this.switchedOn = switchedOn;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

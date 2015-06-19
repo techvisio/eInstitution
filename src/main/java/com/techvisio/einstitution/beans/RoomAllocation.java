@@ -1,17 +1,37 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "roomallocationdetail")
 public class RoomAllocation {
-
-	private Long fileNo ;
+    
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "File_No")
+	private Long fileNo;
+	@Column(name = "")
     private RoomTypeDetail roomTypeDetail;
-    private Date allocatedOn;
+	@Column(name = "Allocated_On")
+    private String allocatedOn;
+	@Column(name = "Alocated_By")
     private String allocatedBy;
+	@Column(name = "Updated_By")
     private String updatedBy;
-    private Date checkoutOn;
+	@Column(name = "Checkout_On")
+    private String checkoutOn;
+	@Column(name = "Allocated")
     private boolean allocated;
+	@Column(name = "Remark")
     private String remark;
+
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -26,14 +46,6 @@ public class RoomAllocation {
 
 	public void setRoomTypeDetail(RoomTypeDetail roomTypeDetail) {
 		this.roomTypeDetail = roomTypeDetail;
-	}
-
-	public Date getAllocatedOn() {
-		return allocatedOn;
-	}
-
-	public void setAllocatedOn(Date allocatedOn) {
-		this.allocatedOn = allocatedOn;
 	}
 
 	public String getAllocatedBy() {
@@ -52,14 +64,6 @@ public class RoomAllocation {
 		this.updatedBy = updatedBy;
 	}
 
-	public Date getCheckoutOn() {
-		return checkoutOn;
-	}
-
-	public void setCheckoutOn(Date checkoutOn) {
-		this.checkoutOn = checkoutOn;
-	}
-
 	public boolean isAllocated() {
 		return allocated;
 	}
@@ -74,6 +78,30 @@ public class RoomAllocation {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getCheckoutOn() {
+		return checkoutOn;
+	}
+
+	public void setCheckoutOn(String checkoutOn) {
+		this.checkoutOn = checkoutOn;
+	}
+
+	public String getAllocatedOn() {
+		return allocatedOn;
+	}
+
+	public void setAllocatedOn(String allocatedOn) {
+		this.allocatedOn = allocatedOn;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

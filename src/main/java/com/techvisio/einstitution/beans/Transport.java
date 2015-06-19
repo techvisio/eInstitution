@@ -1,10 +1,27 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "transportMaster")
 public class Transport {
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "Route_Code")
 	private String routeCode;
+	@Column(name = "Description")
 	private String description;
+	@Column(name = "Threshold")
 	private String threshold;
+	@Column(name = "Price")
 	private Double price;
 
 	public String getRouteCode() {

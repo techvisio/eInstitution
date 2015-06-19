@@ -1,13 +1,29 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class TransportReservation {
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "Id")
+	private Long id;
+	@Column(name = "File_No")
 	private Long fileNo;
+	@Column(name = "Route_Code")
 	private String routeCode;
+	@Column(name = "Fee_Paid")
 	private boolean feePaid;
+	@Column(name = "Is_Active")
     private boolean isActive;
+	@Column(name = "Allocation_Status")
     private String allocationStatus;
+	@Column(name = "Price")
     private Double price;
+	@Column(name = "Description")
     private String description;
     
 
@@ -74,6 +90,14 @@ public class TransportReservation {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }
