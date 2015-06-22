@@ -1,26 +1,29 @@
 package com.techvisio.einstitution.beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.techvisio.einstitution.util.AppConstants;
-import com.techvisio.einstitution.util.DynamicProperties;
+import com.techvisio.einstitution.util.CommonUtil;
 
 @Entity
-@Table(name = "studentDetail")
-public class Student {
+@Table(name = "STUDENT_DETAIL")
+public class Student extends BasicEntity {
 
 	@Column(name = "Admission_Mode")
 	private String admissionMode;
 
 	@Column(name = "Registration_No")
-    private String registrationNo;
+	private String registrationNo;
 	@Id
 	@Column(name = "File__No")
 	private Long fileNo;
@@ -29,125 +32,173 @@ public class Student {
 	@Column(name = "Academic_Year")
 	private String academicYear;
 	@Column(name = "Semester")
-	@DynamicProperties(id="semester", title="Semester")
 	private String semester;
-	@Column(name = "Course_Id")
-	@DynamicProperties(id="courseId", title="course", type="select", masterDataCode=AppConstants.COURSE)
-	private Long courseId;
-	@Column(name = "Branch_Id")
-	@DynamicProperties(id="branchId", title="branch", type="select", masterDataCode=AppConstants.BRANCH)
-	private Long branchId;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Course_Id")
+	private Course course;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Branch_Id")
+	private Branch branch;
 	@Column(name = "First_Name")
-	@DynamicProperties(id="firstName", title="First Name")
 	private String firstName;
 	@Column(name = "Last_Name")
-	@DynamicProperties(id="lastName", title="Last Name")
 	private String lastName;
 	@Column(name = "UniEnroll_No")
-	@DynamicProperties(id="uniEnrollNo", title="University Enrollment No")
 	private String uniEnrollNo;
 	@Column(name = "DOB")
-	@DynamicProperties(id="dob", title="DOB", type="date")
-	private String dob;
-	
+	private Date dob;
+
 	@Column(name = "Father_Name")
-	@DynamicProperties(id="fatherName", title="Father Name")
 	private String fatherName;
 	@Column(name = "Mother_Name")
-	@DynamicProperties(id="motherName", title="Mother Name")
 	private String motherName;
 	@Column(name = "Gender")
-	@DynamicProperties(id="gender", title="Gender", type="radio", validValues={"Male","Female"})
 	private String gender;
 	@Column(name = "Blood_Group")
-	@DynamicProperties(id="bloodGroup", title="Blood Group", type="select")
 	private String bloodGroup;
 	@Column(name = "Email_Id")
-	@DynamicProperties(id="emailId", title="Student Email Id", masterDataCode=AppConstants.BLOODGROUP)
 	private String emailId;
 	@Column(name = "Gaurdian_Email_Id")
-	@DynamicProperties(id="gaurdianEmailId", title="Gaurdian Email Id")
 	private String gaurdianEmailId;
 	@Column(name = "FixedLine_No")
-	@DynamicProperties(id="fixedlineNo", title="Fixed Line No")
 	private String fixedlineNo;
 	@Column(name = "Self_Mobile_No")
-	@DynamicProperties(id="selfMobileNo", title="Self Mobile No")
 	private String selfMobileNo;
 	@Column(name = "Parent_Mobile_No")
-	@DynamicProperties(id="parentMobileNo", title="Parent Cell No")
 	private String parentMobileNo;
 	@Column(name = "Gaurdian_Mobile_No")
-	@DynamicProperties(id="gaurdianMobileNo", title="Gaurdian Mobile No")
 	private String gaurdianMobileNo;
 	@Column(name = "Father_Occupation")
-	@DynamicProperties(id="fatherOccupation", title="Father Occupation")
 	private String fatherOccupation;
-	@Column(name = "Category_Id")
-	@DynamicProperties(id="categoryId", title="category", type="select" , masterDataCode=AppConstants.CATEGORY)
-	private Long categoryId;
-	@DynamicProperties(id="hostel", title="Hostel Required",type="check")
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Categry_Id")
+	private CasteCategory category;
+	public CasteCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(CasteCategory category) {
+		this.category = category;
+	}
+
 	private boolean hostel;
-	@DynamicProperties(id="transportation", title="Transport Required", type="check")
 	private boolean transportation;
 
 	@Column(name = "Is_Management_Approved")
-	@DynamicProperties(id="managementApproval", title="managementApproval" , type="check")
 	private boolean managementApproval;
 	@Column(name = "Is_Fee_Paid")
-	@DynamicProperties(id="feePaid", title="feePaid", type="check")
 	private boolean feePaid;
-	
+
 	@Column(name = "Photo")
 	private byte[] photo;
-//	private String feeReceivedBy;
-//	private Date feeReceivedOn;
-//	private String documentReceivedBy;
-//	private Date documentReceivedOn;
-//	private String documentVerifiedBy;
-//	private Date documentVerifiedOn;
-//	private String managementApprovedBy;
-//	private Date managementApprovedOn;
-	@ManyToOne
-	
-	@Column(name = "Id")
+	//	private String feeReceivedBy;
+	//	private Date feeReceivedOn;
+	//	private String documentReceivedBy;
+	//	private Date documentReceivedOn;
+	//	private String documentVerifiedBy;
+	//	private Date documentVerifiedOn;
+	//	private String managementApprovedBy;
+	//	private Date managementApprovedOn;
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
 	private List<StudentAcademic> academicDtl=new ArrayList<StudentAcademic>();
-	@ManyToOne
-	@Column(name = "Id")
+
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
 	private List<AdmissionDiscount> DiscountDtl=new ArrayList<AdmissionDiscount>();
-	@Column(name = "Id")
+
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
 	private List<Address> addressDtl=new ArrayList<Address>();
-	@Column(name = "Id")
+
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
-	@Column(name = "Id")
+
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
 	private List<Counselling> counsellingDtl=new ArrayList<Counselling>();
-	@Column(name = "Id")
-	private TransportReservation reservation;
-	@Column(name = "Id")
-    private List<ConsultantDetail> consultantDetail;
-	@Column(name = "Id")
-    private Scholarship scholarshipDetail;
-    @Column(name = "Id")
-    private String quotaCode;
-    @Column(name = "Id")
-    private String referredBy;
-    @Column(name = "Id")
-    private boolean lateral;
-    @Column(name = "Application_Status")
-    private String applicationStatus;
-    @Column(name = "Id")
-    private Long sectionId;
-    @Column(name = "Id")
-    private Long shiftId;
-    @Column(name = "Id")
-    private Long centreId;
-    @Column(name = "Id")
-    private Long batchId;
-    @Column(name = "Id")
-    private Long sessionId;
-    private List<Remark> remarks;
-    
-	
+
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
+	private List<AdmissnConsltntDtl> consultantDetail;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Quota_Id")
+	private QuotaCode quotaCode;
+	@Column(name = "Referred_By")
+	private String referredBy;
+	@Column(name = "Is_Lateral")
+	private boolean lateral;
+	@Column(name = "Application_Status")
+	private String applicationStatus;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Section_Id")
+	private Section section;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Shift_Id")
+	private Shift shift;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Centre_Id")
+	private Centre centre;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Batch_Id")
+	private Batch batch;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Session_Id")
+	private Session session;
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
+	private List<Remark> remarks;
+
+
+	public QuotaCode getQuotaCode() {
+		return quotaCode;
+	}
+
+	public void setQuotaCode(QuotaCode quotaCode) {
+		this.quotaCode = quotaCode;
+	}
+
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
+	public Shift getShift() {
+		return shift;
+	}
+
+	public void setShift(Shift shift) {
+		this.shift = shift;
+	}
+
+	public Centre getCentre() {
+		return centre;
+	}
+
+	public void setCentre(Centre centre) {
+		this.centre = centre;
+	}
+
+	public Batch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -162,10 +213,11 @@ public class Student {
 
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
+		CommonUtil.propogateIdentifiertoAdmission(this);
 	}
 
-    
-    public String getAdmissionMode() {
+
+	public String getAdmissionMode() {
 		return admissionMode;
 	}
 
@@ -263,7 +315,7 @@ public class Student {
 		this.bloodGroup = bloodGroup;
 	}
 
-   public String getFatherOccupation() {
+	public String getFatherOccupation() {
 		return fatherOccupation;
 	}
 
@@ -335,32 +387,23 @@ public class Student {
 		this.semester = semester;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
-	public Long getCourseId() {
-		return courseId;
+	public Branch getBranch() {
+		return branch;
 	}
 
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
 
-
-	public Long getBranchId() {
-		return branchId;
-	}
-
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
-	}
-
-		public List<Address> getAddressDtl() {
+	public List<Address> getAddressDtl() {
 		return addressDtl;
 	}
 
@@ -408,7 +451,7 @@ public class Student {
 		this.branchPreference = branchPreference;
 	}
 
-	
+
 	public String getReferredBy() {
 		return referredBy;
 	}
@@ -425,35 +468,11 @@ public class Student {
 		this.counsellingDtl = counsellingDtl;
 	}
 
-	public String getQuotaCode() {
-		return quotaCode;
-	}
-
-	public void setQuotaCode(String quotaCode) {
-		this.quotaCode = quotaCode;
-	}
-
-	public TransportReservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(TransportReservation reservation) {
-		this.reservation = reservation;
-	}
-
-	public Scholarship getScholarshipDetail() {
-		return scholarshipDetail;
-	}
-
-	public void setScholarshipDetail(Scholarship scholarshipDetail) {
-		this.scholarshipDetail = scholarshipDetail;
-	}
-
-	public List<ConsultantDetail> getConsultantDetail() {
+	public List<AdmissnConsltntDtl> getConsultantDetail() {
 		return consultantDetail;
 	}
 
-	public void setConsultantDetail(List<ConsultantDetail> consultantDetail) {
+	public void setConsultantDetail(List<AdmissnConsltntDtl> consultantDetail) {
 		this.consultantDetail = consultantDetail;
 	}
 
@@ -473,52 +492,13 @@ public class Student {
 		this.applicationStatus = applicationStatus;
 	}
 
-	public Long getSectionId() {
-		return sectionId;
-	}
 
-	public void setSectionId(Long sectionId) {
-		this.sectionId = sectionId;
-	}
-
-	public Long getShiftId() {
-		return shiftId;
-	}
-
-	public void setShiftId(Long shiftId) {
-		this.shiftId = shiftId;
-	}
-
-	public Long getCentreId() {
-		return centreId;
-	}
-
-	public void setCentreId(Long centreId) {
-		this.centreId = centreId;
-	}
-
-	public Long getBatchId() {
-		return batchId;
-	}
-
-	public void setBatchId(Long batchId) {
-		this.batchId = batchId;
-	}
-
-	public Long getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(Long sessionId) {
-		this.sessionId = sessionId;
-	}
-
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(String dob) {
-		this.dob = dob;
+	public void setDob(Date date) {
+		this.dob = date;
 	}
 
 

@@ -2,19 +2,22 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "consultantpaymentdetail")    
+@Table(name = "CONSULTANT_PAYMENT_DETAIL")    
 public class ConsultantPayment extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@Column(name = "Consltnt_Pymnt_Id")
+	private Long consltntPymntId;
 	
 	@Column(name = "Amount")
 	private Double amount;
@@ -25,8 +28,9 @@ public class ConsultantPayment extends BasicEntity {
 	@Column(name = "File_No")
     private Long fileNo;
 	
-	@Column(name = "Consultant_Id")
-    private Long consultantId;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name = "Consultant_Id")
+    private Consultant consultant;
 	
     public Double getAmount() {
 		return amount;
@@ -60,20 +64,20 @@ public class ConsultantPayment extends BasicEntity {
 				+ payDate + ", fileNo=" + fileNo + "]";
 	}
 
-	public Long getConsultantId() {
-		return consultantId;
+	public Long getConsltntPymntId() {
+		return consltntPymntId;
 	}
 
-	public void setConsultantId(Long consultantId) {
-		this.consultantId = consultantId;
+	public Consultant getConsultant() {
+		return consultant;
 	}
 
-	public Long getId() {
-		return id;
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setConsltntPymntId(Long consltntPymntId) {
+		this.consltntPymntId = consltntPymntId;
 	}
 
 }

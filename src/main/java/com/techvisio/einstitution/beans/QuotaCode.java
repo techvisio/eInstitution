@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,14 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "quotacodemaster")
+@Table(name = "QUOTACODE_MASTER")
 public class QuotaCode {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	private Long id;
+	@Column(name="Quota_Id")
 	private Long quotaId;
-	private String code;
+	@Column(name="Quota_Code")
+	private String quotaCode;
+	@Column(name="Description")
 	private String description;
 	
 	public Long getQuotaId() {
@@ -26,12 +29,12 @@ public class QuotaCode {
 	}
 	
 	
-	public String getCode() {
-		return code;
+	public String getQuotaCode() {
+		return quotaCode;
 	}
 	
-	public void setCode(String code) {
-		this.code = code;
+	public void setQuotaCode(String quotaCode) {
+		this.quotaCode = quotaCode;
 	}
 	
 	
@@ -45,15 +48,7 @@ public class QuotaCode {
 
 	@Override
 	public String toString() {
-		return "QuotaCode [id=" + quotaId + ", code=" + code + ", description="
+		return "QuotaCode [id=" + quotaId + ", code=" + quotaCode + ", description="
 				+ description + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

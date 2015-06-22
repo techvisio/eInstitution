@@ -9,13 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roomtypemaster")
+@Table(name = "ROOM_TYPE_MASTER")
 public class RoomType {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
+	@Column(name = "Room_Type_Id")
+	private Long roomTypeId;
+	
+	public Long getRoomTypeId() {
+		return roomTypeId;
+	}
+	public void setRoomTypeId(Long roomTypeId) {
+		this.roomTypeId = roomTypeId;
+	}
 	@Column(name = "Type_Code")
 	private String	typeCode;
 	@Column(name = "Description")
@@ -63,12 +70,5 @@ public class RoomType {
 				+ description + ", threshold=" + threshold + ", price=" + price
 				+ ", roomCapacity=" + roomCapacity + "]";
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 
 }

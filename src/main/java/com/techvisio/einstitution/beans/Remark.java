@@ -1,7 +1,5 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "AdmissionRemark")
+@Table(name = "ADMISSION_REMARK")
 public class Remark {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;	
+	@Column(name = "Remark_Id")
+	private Long remarkId;	
 	@Column(name = "File_No")
 	private Long fileNo;
 	@Column(name="Remark")
@@ -31,11 +29,11 @@ public class Remark {
 		this.fileNo = fileNo;
 	}
 	
-	public Long getId() {
-		return id;
+	public Long getRemarkId() {
+		return remarkId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setRemarkId(Long remarkId) {
+		this.remarkId = remarkId;
 	}
 	public String getRemark() {
 		return remark;

@@ -1,0 +1,65 @@
+<form>
+	<div class="module-dashboard-container">
+
+		<div class="module-dashboard-content">
+			<div>
+				<table>
+					<tr>
+						<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="showCriteria=!showCriteria">Search Existing</button></td>
+						<td><button type="button" class="btn btn-success btn-lg"
+								ng-click="dashboard=false;resetForm()">New Admission</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="searchcriteria" ng-show="showCriteria">
+				<table>
+					<tr>
+						<td><span>Registration No</span></td>
+						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="searchCriteria.registrationNo">
+  <span class="input-group-addon">.00</span></td>
+					</tr>
+					<tr>
+						<td><span>Name</span></td>
+						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="searchCriteria.firstName">
+  <span class="input-group-addon">.00</span></td>
+					</tr>
+					<tr>
+						<td><span>Enrollment No</span></td>
+						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="searchCriteria.enrollNo">
+  <span class="input-group-addon">.00</span></td>
+					</tr>
+					<tr>
+						<td><span>University Enroll No</span></td>
+						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="searchCriteria.uniEnrollNo">
+  <span class="input-group-addon">.00</span></td>
+					</tr>
+					<tr>
+						<td><span>Email Id</span></td>
+						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="searchCriteria.emailId">
+  <span class="input-group-addon">.00</span></td>
+					</tr>
+					<tr>
+						<td><span>Mobile No</span></td>
+						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="searchCriteria.mobileNo">
+  <span class="input-group-addon">.00</span></td>
+					</tr>
+
+					<tr>
+						<td><button type="button" class="btn btn-success"
+							ng-click="getStudentByCriteria()">Get Details</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="searchList"
+				ng-show="!showCriteria && searchResultList.length>0">
+				<span class="header">Double click a record to see Details</span>
+				<p>
+				<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+				<pagination total-items="totalItems" items-per-page="itemsPerPage"
+					ng-model="currentPage" ng-change="pageChanged()"></pagination>
+
+			</div>
+		</div>
+		</div>
+		</form>

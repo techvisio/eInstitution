@@ -1,18 +1,33 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TRANSPORT_RESERVATION")
 public class TransportReservation {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
 	@Column(name = "Id")
-	private Long id;
-	@Column(name = "File_No")
+	private Long trnsprtRsrvtnId;
+    @Column(name="File_No")
 	private Long fileNo;
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
+
 	@Column(name = "Route_Code")
 	private String routeCode;
 	@Column(name = "Fee_Paid")
@@ -25,15 +40,7 @@ public class TransportReservation {
     private Double price;
 	@Column(name = "Description")
     private String description;
-    
-
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
+ 
 
 	public String getRouteCode() {
 		return routeCode;
@@ -51,14 +58,6 @@ public class TransportReservation {
 		this.feePaid = feePaid;
 	}
 
-
-	@Override
-	public String toString() {
-		return "TransportReservation [fileNo=" + fileNo + ", routeCode="
-				+ routeCode + ", feePaid=" + feePaid + ", isActive=" + isActive
-				+ ", allocationStatus=" + allocationStatus + ", price=" + price
-				+ ", description=" + description + "]";
-	}
 
 	public boolean isActive() {
 		return isActive;
@@ -92,12 +91,12 @@ public class TransportReservation {
 		this.description = description;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getTrnsprtRsrvtnId() {
+		return trnsprtRsrvtnId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setTrnsprtRsrvtnId(Long trnsprtRsrvtnId) {
+		this.trnsprtRsrvtnId = trnsprtRsrvtnId;
 	}
-	
+
 }

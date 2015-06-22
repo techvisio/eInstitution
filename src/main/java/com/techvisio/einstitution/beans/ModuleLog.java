@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.beans;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +17,7 @@ public class ModuleLog {
 	private Long id;
 	private int entityId;
 	private String workFlowOperation;
-	private String date;
+	private Date date;
 	private int userId;
 	private String operation;
 	private String errorMessage;
@@ -51,10 +53,10 @@ public class ModuleLog {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public Long getId() {

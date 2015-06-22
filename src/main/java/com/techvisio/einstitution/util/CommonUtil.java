@@ -13,15 +13,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
+import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
-import com.techvisio.einstitution.beans.ConsultantDetail;
 import com.techvisio.einstitution.beans.Counselling;
-import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.FieldDesc;
 import com.techvisio.einstitution.beans.QualificationSubject;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 
@@ -39,50 +38,35 @@ public class CommonUtil {
 		}
 
 		if (studentDetail.getDiscountDtl() != null) {
-
 			for (AdmissionDiscount admissionDiscountDtl : studentDetail
 					.getDiscountDtl()) {
-
 				admissionDiscountDtl.setFileNo(fileNo);
 			}
 		}
 
 		if (studentDetail.getAddressDtl() != null) {
-
 			for (Address addressDetail : studentDetail.getAddressDtl()) {
-
 				addressDetail.setFileNo(fileNo);
-
 			}
 		}
 
 		if(studentDetail.getConsultantDetail() != null){
-			
-			for(ConsultantDetail consultantDetail:studentDetail.getConsultantDetail()){
-				
-				consultantDetail.setFileNo(fileNo);
+			for(AdmissnConsltntDtl admissnConsltntDtl:studentDetail.getConsultantDetail()){
+				admissnConsltntDtl.setFileNo(fileNo);
 			}
 		}
-		
-		if(studentDetail.getScholarshipDetail() != null){
-		        	
-			studentDetail.getScholarshipDetail().setFileNo(fileNo);
-		}
-		
-		
+//		
+//		if(studentDetail.getScholarshipDetail() != null){
+//		        	
+//			studentDetail.getScholarshipDetail().setFileNo(fileNo);
+//		}
+//		
 		if (studentDetail.getCounsellingDtl() != null) {
-
 			for (Counselling counsellingDetail : studentDetail.getCounsellingDtl()) {
-
 				counsellingDetail.setFileNo(fileNo);
-
 			}
 		}
-
-		
 	}
-
-
 
 	public static void propogateIdentifierToQualification(StudentAcademic academicDetail){
 		
@@ -93,26 +77,20 @@ public class CommonUtil {
 			for(QualificationSubject qualificationSubjectDtl:academicDetail.getQualificationSubDtl()){
 				
 				qualificationSubjectDtl.setFileNo(fileNo);
-				qualificationSubjectDtl.setQualificationId(academicDetail.getQualificationId());
+				qualificationSubjectDtl.setQualification(academicDetail.getQualification());
 			}
 		}
-		
 	}
 
-	
 	public static void propogateFileNoTofeeStaging(Long fileNo, List<StudentFeeStaging> feeStagings){
 		
-		
 		if(feeStagings != null){
-
 			for(StudentFeeStaging studentFeeStaging : feeStagings){
-				
 				studentFeeStaging.setFileNo(fileNo);
 			}
 		}
 	}
-	
-	
+
 	public static Date removeTimeFromDate(Date date) {
 		 
         if (date == null) {
@@ -129,20 +107,13 @@ public class CommonUtil {
 	
 	public static void propogateEntityIdToTaskAndFollowup(List<TaskAndFollowUp> taskAndFollowUps, Long entityId, String module){
 		
-		
 		if(taskAndFollowUps !=null){
-			
 			for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
-				
 				taskAndFollowUp.setEntityId(entityId);
 				taskAndFollowUp.setModule(module);
-				
 			}
 		}
-		
 	}
-
-	
 	
 	public static void convertJavatoJSON(Object bean){
 
@@ -211,7 +182,7 @@ public class CommonUtil {
 	public static ApplicableFeeCriteria getApplicableFeeCriteriaFromStudentBasicInfo(
 			StudentBasicInfo basicInfo) {
 		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
-		criteria.setBranchId(basicInfo.getBranch().getId());
+		criteria.setBranchId(basicInfo.getBranch().getBranchId());
 		criteria.setCentreId(basicInfo.getCentre().getCentreId());
 		criteria.setCourseId(basicInfo.getCourse().getCourseId());
 		criteria.setLateral(basicInfo.isLateral());

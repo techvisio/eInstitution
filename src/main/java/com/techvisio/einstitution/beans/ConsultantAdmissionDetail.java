@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ConsultantAdmissionDetail {
 
-	private List<ConsultantDetail> consultantDetails;
+	private List<AdmissnConsltntDtl> consultantDetails;
 	private StudentBasicInfo basicInfo;
 	
-	public List<ConsultantDetail> getConsultantDetails() {
+	public List<AdmissnConsltntDtl> getConsultantDetails() {
 		return consultantDetails;
 	}
-	public void setConsultantDetails(List<ConsultantDetail> consultantDetails) {
+	public void setConsultantDetails(List<AdmissnConsltntDtl> consultantDetails) {
 		this.consultantDetails = consultantDetails;
 	}
 	public StudentBasicInfo getBasicInfo() {

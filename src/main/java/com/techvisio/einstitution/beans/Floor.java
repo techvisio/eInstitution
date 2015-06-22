@@ -8,13 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "floormaster")    
+@Table(name = "FLOOR_MASTER")    
 public class Floor extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
-
 	@Column(name = "Floor_id")
 	private Long floorId;
 	
@@ -36,14 +33,5 @@ public class Floor extends BasicEntity {
 	public void setFloor(String floor) {
 		this.floor = floor;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	
 }

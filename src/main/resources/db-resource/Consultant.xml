@@ -110,10 +110,10 @@ on duplicate key update
 	</entry>
 
 	
-	<entry key="deleteConsultantDtl">
+	<entry key="deleteConsultantDtlExclusion">
     <![CDATA[
       
-Delete from ConsultantDetail where File_No=:File_No and Consultant_Id not in (:Consultant_Id);
+Delete from ConsultantDetail where File_No=:File_No and Consultant_Dtl_Id not in (:Consultant_Dtl_Id);
 
     ]]>
 
@@ -170,7 +170,7 @@ where File_No=:File_No and Consultant_Id=:Consultant_Id;
 	<entry key="deleteConsultantPaymentDtlExclusion">
     <![CDATA[
       
-Delete from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id not in (:Consultant_Id);  
+Delete from ConsultantPaymentDetail where File_No=:File_No and Consltnt_Pymnt_Id not in (:Consltnt_Pymnt_Id);  
     ]]>
 
 	</entry>
@@ -225,7 +225,7 @@ Triggered) values
 	<entry key="deleteConsultantPaymentCriteriaExclusion">
     <![CDATA[
       
-Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id not in (:Consultant_Id);
+Delete from consultantpaymentcriteria where File_No=:File_No and Id not in (:Id);
 
    ]]>
 

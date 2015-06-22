@@ -2,11 +2,14 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name = "admissioninquiry") 
@@ -21,9 +24,6 @@ public class AdmissionEnquiry extends BasicEntity{
 	
 	@Column(name = "File_No")
 	private Long fileNo;
-	
-	
-	private String registrationNo;
 	
 	@Column(name = "Name")
 	private String name;
@@ -43,22 +43,12 @@ public class AdmissionEnquiry extends BasicEntity{
 	@Column(name = "Due_Date")
 	private Date dueDate;
 	
-	@Column(name = "Created_On")
-	private Date createdDate;
-	
-	@Column(name = "Created_By")
-	private String createBy;
-	
-	@Column(name = "Updated_On")
-	private Date updatedDate;
-	
-	@Column(name = "Updated_By")
-	private String updatedBy;
-	
-	
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Course_Id")
 	private Course course;
 	
-	
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Branch_Id")
 	private Branch branch;
 	
 	@Column(name = "FollowUp_Required")
@@ -76,8 +66,9 @@ public class AdmissionEnquiry extends BasicEntity{
 	@Column(name = "Gender")
 	private String gender;
 	
-	@Column(name = "Consultant_Id")
-	private Long consultantId;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Consultant_Id")
+	private Consultant consultant;
 	
 	@Column(name = "Referred_By")
 	private String referredBy;
@@ -85,8 +76,9 @@ public class AdmissionEnquiry extends BasicEntity{
 	@Column(name = "Admission_Mode")
 	private String admissionMode;
 	
-	@Column(name = "Category_Id")
-	private Long categoryId;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+    @JoinColumn(name="Category_Id")
+	private CasteCategory category;
 	
 	
 	public Long getEnquiryId() {
@@ -138,31 +130,6 @@ public class AdmissionEnquiry extends BasicEntity{
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	public String getCreateBy() {
-		return createBy;
-	}
-	public void setCreateBy(String createBy) {
-		this.createBy = createBy;
-	}
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-	
 	public boolean isFollowupRequired() {
 		return followupRequired;
 	}
@@ -181,21 +148,7 @@ public class AdmissionEnquiry extends BasicEntity{
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return "AdmissionInquiry [enquiryId=" + enquiryId + ", fileNo="
-				+ fileNo + ", name=" + name + ", fatherName=" + fatherName
-				+ ", dob=" + dob + ", contactNo=" + contactNo
-				+ ", applicationStatus=" + applicationStatus + ", dueDate="
-				+ dueDate + ", createdDate=" + createdDate + ", createBy="
-				+ createBy + ", updatedDate=" + updatedDate + ", updatedBy="
-				+ updatedBy + ", followupRequired=" + followupRequired
-				+ ", remarks=" + remarks + ", emailId=" + emailId
-				+ ", Lateral=" + lateral + ", gender=" + gender + "]";
-	}
+
 	public String getGender() {
 		return gender;
 	}
@@ -209,29 +162,23 @@ public class AdmissionEnquiry extends BasicEntity{
 		this.lateral = lateral;
 	}
 	
-	public Long getConsultantId() {
-		return consultantId;
-	}
-	public void setConsultantId(Long consultantId) {
-		this.consultantId = consultantId;
-	}
-	public String getRegistrationNo() {
-		return registrationNo;
-	}
-	public void setRegistrationNo(String registrationNo) {
-		this.registrationNo = registrationNo;
-	}
 	public String getReferredBy() {
 		return referredBy;
 	}
 	public void setReferredBy(String referredBy) {
 		this.referredBy = referredBy;
 	}
-	public Long getCategoryId() {
-		return categoryId;
+	public Consultant getConsultant() {
+		return consultant;
 	}
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
+	}
+	public CasteCategory getCategory() {
+		return category;
+	}
+	public void setCategory(CasteCategory category) {
+		this.category = category;
 	}
 	public String getAdmissionMode() {
 		return admissionMode;

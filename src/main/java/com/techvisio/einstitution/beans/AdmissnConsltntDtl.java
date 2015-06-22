@@ -4,25 +4,43 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name = "consultantdetail")    
-public class ConsultantDetail extends BasicEntity {
+@Table(name = "ADMISSN_CONSLTNT_DTL")    
+public class AdmissnConsltntDtl extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	@Column(name="Consltant_Dtl_Id")
+	private Long consltantDtlId;
+	@Column(name="File_No")
 	private Long fileNo;
-	private Consultant consultant=new Consultant();
-	private boolean consultancyAgreed; 
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Consultant_Id")
+	private Consultant consultant;
+	@Column(name="Is_Consultancy_Agreed")
+	private boolean consultancyAgreed;
+	@Column(name="Payment_Mode")
 	private String paymentMode;
+	@Column(name="Amount_To_Pay")
 	private Double amountToPay; 
+	@Column(name="Due_Date")
 	private Date dueDate;
+	@Column(name="Remarks")
     private String remarks;
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
 	private List<ConsultantPayment> consultantPaymentDetail=new ArrayList<ConsultantPayment>();
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias=new ArrayList<ConsultantPaymentCriteria>();
     
 	public String getPaymentMode() {
@@ -43,17 +61,6 @@ public class ConsultantDetail extends BasicEntity {
 
 	public void setAmountToPay(Double amountToPay) {
 		this.amountToPay = amountToPay;
-	}
-
-
-
-	public java.util.Date getDueDate() {
-		return dueDate;
-	}
-
-
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
 	}
 
 	public boolean isConsultancyAgreed() {
@@ -112,13 +119,23 @@ public class ConsultantDetail extends BasicEntity {
 	}
 
 
-	public Long getId() {
-		return id;
+	public Long getConsltantDtlId() {
+		return consltantDtlId;
 	}
 
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setConsltantDtlId(Long consltantDtlId) {
+		this.consltantDtlId = consltantDtlId;
+	}
+
+
+	public Date getDueDate() {
+		return dueDate;
+	}
+
+
+	public void setDueDate(Date date) {
+		this.dueDate = date;
 	}
 
 }

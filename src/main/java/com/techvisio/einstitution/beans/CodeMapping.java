@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "codemappingmaster")    
+@Table(name = "CODE_MAPPING_MASTER")    
 public class CodeMapping extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@Column(name = "Code_Map_Id")
+	private Long codeMapId;
 	@Column(name = "Name")
 	private String name;
 	@Column(name = "Code")
@@ -45,11 +45,11 @@ public class CodeMapping extends BasicEntity {
 		return "CodeMapping [name=" + name + ", code=" + code
 				+ ", description=" + description + "]";
 	}
-	public Long getId() {
-		return id;
+	public Long getCodeMapId() {
+		return codeMapId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setCodeMapId(Long codeMapId) {
+		this.codeMapId = codeMapId;
 	}
 	
 	

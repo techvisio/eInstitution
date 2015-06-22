@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.beans;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,14 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "taskandfollowup")
+@Table(name = "TASK_AND_FOLLOWUP")
 
-public class TaskAndFollowUp {
+public class TaskAndFollowUp extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "Task_Id")
 	private Long taskId;
 	@Column(name = "User_Id")
@@ -29,7 +29,7 @@ public class TaskAndFollowUp {
 	@Column(name = "Parent_Task_Id")
 	private Long parentTaskId;
 	@Column(name = "Task_Date")
-	private String taskDate;
+	private Date taskDate;
 	@Column(name = "Remark")
 	private String remark;
 	@Column(name = "Status")
@@ -83,17 +83,11 @@ public class TaskAndFollowUp {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getTaskDate() {
+	public Date getTaskDate() {
 		return taskDate;
 	}
-	public void setTaskDate(String taskDate) {
-		this.taskDate = taskDate;
+	public void setTaskDate(Date date) {
+		this.taskDate = date;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 }

@@ -1,6 +1,6 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,39 +9,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "transportallocation")
-public class TransportAllocation {
+@Table(name = "TRANSPORT_ALLOCATION")
+public class TransportAllocation extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
-	@Column(name = "File_No")
+	@Column(name = "transport_Alloctionn_Id")
+	private Long trnsprtAllctnId;
+	@Column(name="File_No")
 	private Long fileNo;
-	@Column(name = "Vehicle_Id")
+	public Long getFielNo() {
+		return fileNo;
+	}
+
+	public void setFielNo(Long fielNo) {
+		this.fileNo = fielNo;
+	}
+
 	@OneToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "Type_Id")
+	@JoinColumn(name = "Type_Id")
 	private VehicleDetail vehicleDetail;
 	@Column(name = "Allocated_On")
-	private String allocatedOn;
+	private Date allocatedOn;
 	@Column(name = "Allocated_By")
-    private String allocatedBy;
-	@Column(name = "Updated_By")
-    private String updatedBy;
+	private String allocatedBy;
 	@Column(name = "Switched_On")
-    private String switchedOn;
+	private Date switchedOn;
 	@Column(name = "Is_Allocated")
-    private boolean allocated;
-	@Column(name = "Remark")
-    private String remark;
-
-
-
+	private boolean allocated;
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -49,6 +48,10 @@ public class TransportAllocation {
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
+
+	@Column(name = "Remark")
+	private String remark;
+
 
 	public VehicleDetail getVehicleDetail() {
 		return vehicleDetail;
@@ -64,14 +67,6 @@ public class TransportAllocation {
 
 	public void setAllocatedBy(String allocatedBy) {
 		this.allocatedBy = allocatedBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 	public boolean isAllocated() {
@@ -90,31 +85,29 @@ public class TransportAllocation {
 		this.remark = remark;
 	}
 
-	public String getAllocatedOn() {
+	public Date getAllocatedOn() {
 		return allocatedOn;
 	}
 
-	public void setAllocatedOn(String allocatedOn) {
-		this.allocatedOn = allocatedOn;
+	public void setAllocatedOn(Date date) {
+		this.allocatedOn = date;
 	}
 
-	public String getSwitchedOn() {
+	public Date getSwitchedOn() {
 		return switchedOn;
 	}
 
-	public void setSwitchedOn(String switchedOn) {
-		this.switchedOn = switchedOn;
+	public void setSwitchedOn(Date date) {
+		this.switchedOn = date;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getTrnsprtAllctnId() {
+		return trnsprtAllctnId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setTrnsprtAllctnId(Long trnsprtAllctnId) {
+		this.trnsprtAllctnId = trnsprtAllctnId;
 	}
 
-
-
-		}
+}
 

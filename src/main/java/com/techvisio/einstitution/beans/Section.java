@@ -1,30 +1,34 @@
 
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sectionmaster")
+@Table(name = "SECTION_MASTER")
 
 public class Section {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "Section_Id")
 	private Long sectionId;
 	@Column(name = "Section")
 	private String section;
-	@Column(name = "Course_Id")
-	private Long courseId;
-	@Column(name = "Branch_Id")
-	private Long branchId;
+	
+	@OneToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Course_Id")
+	private Course course;
+	@OneToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Branch_Id")
+	private Branch branch;
 	
 	public Long getSectionId() {
 		return sectionId;
@@ -41,29 +45,17 @@ public class Section {
 	public void setSection(String section){
 		this.section = section;
 	}
-	public Long getCourseId() {
-		return courseId;
+	public Course getCourse() {
+		return course;
 	}
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
-	public Long getBranchId() {
-		return branchId;
+	public Branch getBranch() {
+		return branch;
 	}
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
-	@Override
-	public String toString() {
-		return "Section [sectionId=" + sectionId + ", section=" + section
-				+ ", courseId=" + courseId + ", branchId=" + branchId + "]";
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
+	
 }

@@ -2,11 +2,14 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name = "consultantpaymentcriteria")    
@@ -19,8 +22,9 @@ public class ConsultantPaymentCriteria extends BasicEntity {
 	@Column(name = "File_No")
 	private Long fileNo; 
 	
-	@Column(name = "Consultant_Id")
-	private Long consultantId;
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name = "Consultant_Id")
+    private Consultant consultant;
 	
 	@Column(name = "Fee_Received")
 	private Double feeReceived;
@@ -47,12 +51,7 @@ public class ConsultantPaymentCriteria extends BasicEntity {
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-	public Long getConsultantId() {
-		return consultantId;
-	}
-	public void setConsultantId(Long consultantId) {
-		this.consultantId = consultantId;
-	}
+	
 	public Double getFeeReceived() {
 		return feeReceived;
 	}
@@ -89,13 +88,12 @@ public class ConsultantPaymentCriteria extends BasicEntity {
 	public void setTriggered(boolean triggered) {
 		this.triggered = triggered;
 	}
-	@Override
-	public String toString() {
-		return "ConsultantPaymentCriteria [fileNo=" + fileNo
-				+ ", consultantId=" + consultantId + ", feeReceived="
-				+ feeReceived + ", amountToBePaid=" + amountToBePaid
-				+ ", feeDueDate=" + feeDueDate + ", approved=" + approved
-				+ ", paid=" + paid + ", triggered=" + triggered + "]";
+	
+	public Consultant getConsultant() {
+		return consultant;
+	}
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
 	}
 	public Long getId() {
 		return id;

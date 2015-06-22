@@ -317,7 +317,7 @@ Section_Id=:Section_Id
 <entry key="deleteStudentDtl">
     <![CDATA[
       
-Delete from StudentDetail where File_No=:File_No; 
+Delete from Student_Detail where File_No=:File_No; 
     ]]>
 
 </entry>
@@ -373,14 +373,21 @@ on duplicate key update
 </entry>
 
 	
-<entry key="deleteAcademicDtl">
+<entry key="deleteAcademicDtlExclusion">
     <![CDATA[
       
-Delete from AcademicDetail where File_No=:File_No and Qualification_Id not in (:Qualification_Id);  
+Delete from Academic_Detail where File_No not in (:File_No) and Student_Qualification_Id not in (:Student_Qualification_Id);  
     ]]>
 
 </entry>
 
+<entry key="deleteAcademicDtl">
+    <![CDATA[
+      
+Delete from Academic_Detail where Student_Qualification_Id = :Student_Qualification_Id;  
+    ]]>
+
+</entry>
 <entry key="getAddressDtlByFileNo">
     <![CDATA[
       
@@ -436,10 +443,18 @@ State_Id=:State_Id
 
 </entry>
 
+<entry key="deleteAddressDtlExclusion">
+    <![CDATA[
+      
+Delete from Address_Detail where File_No not in (:File_No) and Address_Id not in(:Address_Id);  
+    ]]>
+
+</entry>
+
 <entry key="deleteAddressDtl">
     <![CDATA[
       
-Delete from AddressDetail where File_No=:File_No and Address_Type not in(:Address_Type);  
+Delete from Address_Detail where Address_Id = :Address_Id;  
     ]]>
 
 </entry>
@@ -484,10 +499,18 @@ Discount_Type=:Discount_Type
 
 </entry>
 
+<entry key="deleteAdmissionDisDtlExclusion">
+    <![CDATA[
+      
+Delete from Admission_Discount_Dtl where File_No not in (:File_No) and Discount_Dtl_Id not in (:Discount_Dtl_Id);  
+    ]]>
+
+</entry>
+
 <entry key="deleteAdmissionDisDtl">
     <![CDATA[
       
-Delete from AdmissionDiscountDtl where File_No=:File_No and FeeHead_Id not in (:FeeHead_Id);  
+Delete from Admission_Discount_Dtl where Discount_Dtl_Id = :Discount_Dtl_Id;  
     ]]>
 
 </entry>
@@ -536,10 +559,26 @@ Insert into QualificationSubjectDtl
 </entry>
 
 	
+<entry key="deleteQualificationSubjectDtlExclusion">
+    <![CDATA[
+      
+Delete from Qualification_Subject_Dtl where File_No not in (:File_No) and Stdnt_Subjct_Id not in (:Stdnt_Subjct_Id); 
+    ]]>
+
+</entry>
+
+<entry key="deleteSubjectDtlExclusion">
+    <![CDATA[
+      
+Delete from Qualification_Subject_Dtl where File_No not in (:File_No) and Student_Qualification_Id not in (:Student_Qualification_Id); 
+    ]]>
+
+</entry>
+	
 <entry key="deleteQualificationSubjectDtl">
     <![CDATA[
       
-Delete from QualificationSubjectDtl where File_No=:File_No and Subject_Id not in (:Subject_Id); 
+Delete from Qualification_Subject_Dtl where  Stdnt_Subjct_Id = :Stdnt_Subjct_Id; 
     ]]>
 
 </entry>
@@ -580,10 +619,18 @@ Select
 </entry>
 
 	
-<entry key="deleteBranchPreference">
+<entry key="deleteBranchPreferenceExclusion">
     <![CDATA[
       
-      Delete from BranchPreference where File_No=:File_No and Branch_Preference_Id not in (:Branch_Preference_Id); 
+      Delete from Branch_Preference where File_No not in (:File_No) and Branch_Preference_Id not in (:Branch_Preference_Id); 
+	 
+	     ]]>
+</entry>
+	
+	<entry key="deleteBranchPreference">
+    <![CDATA[
+      
+      Delete from Branch_Preference where Branch_Preference_Id = :Branch_Preference_Id; 
 	 
 	     ]]>
 </entry>
@@ -635,9 +682,17 @@ insert into counsellingDetail
 
 </entry>
 	
+<entry key="deleteCounsellingDetailExclusion">
+    <![CDATA[
+delete from counselling_Detail where File_No not in (:File_No) and Stdnt_Counslling_Id not in (:Stdnt_Counslling_Id);
+    ]]>
+
+</entry>
+
+	
 <entry key="deleteCounsellingDetail">
     <![CDATA[
-delete from counsellingDetail where File_No=:File_No and Counselling_Id not in (:Counselling_Id);
+delete from counselling_Detail where Stdnt_Counslling_Id = :Stdnt_Counslling_Id;
     ]]>
 
 </entry>

@@ -8,13 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "coursemaster")    
+@Table(name = "COURSE_MASTER")    
 public class Course extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
-	
 	@Column(name = "Course_Id")
 	private Long courseId;
 	
@@ -50,18 +47,4 @@ public class Course extends BasicEntity {
 		this.courseType = courseType;
 	}
 
-	@Override
-	public String toString() {
-		return "Course [id=" + courseId + ", course=" + course + ", courseType="
-				+ courseType + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 }

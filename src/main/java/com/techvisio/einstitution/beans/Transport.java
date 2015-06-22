@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "transportMaster")
-public class Transport {
+@Table(name = "TRANSPORT_MASTER")
+public class Transport extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
+	@Column(name = "Route_Id")
+	private Long routeId;
 	@Column(name = "Route_Code")
 	private String routeCode;
 	@Column(name = "Description")
@@ -24,6 +24,15 @@ public class Transport {
 	@Column(name = "Price")
 	private Double price;
 
+	public Long getRouteId() {
+		return routeId;
+	}
+
+	public void setRouteId(Long routeId) {
+		this.routeId = routeId;
+	}
+
+	
 	public String getRouteCode() {
 		return routeCode;
 	}

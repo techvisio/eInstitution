@@ -8,12 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "consultantmaster")    
+@Table(name = "CONSULTANT_MASTER")    
 public class Consultant extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "Consultant_Id")
 	private Long consultantId;
 	@Column(name = "Name")
@@ -80,21 +78,4 @@ public class Consultant extends BasicEntity {
 		this.emailId = emailId;
 	}
 
-	@Override
-	public String toString() {
-		return "Consultant [consultantId=" + consultantId + ", name=" + name
-				+ ", primaryContactNo=" + primaryContactNo
-				+ ", secondaryContactNo=" + secondaryContactNo + ", address="
-				+ address + ", emailId=" + emailId + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}      
-	   
-	 
 }

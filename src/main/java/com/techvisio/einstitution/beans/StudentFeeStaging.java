@@ -1,27 +1,30 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "studentfeestaging")
+@Table(name = "STUDENT_FEE_STAGING")
 
-public class StudentFeeStaging {
+public class StudentFeeStaging extends BasicEntity {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
-	@Column(name = "File_No")
+	@Column(name = "feeStgingId")
+	private Long feeStgingId;
+	
+	@Column(name="File_No")
 	private Long fileNo;
-	@Column(name = "Component_Id")
-	@OneToOne
+	
+	@OneToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead discountHead;
 	@Column(name = "Amount")
@@ -34,21 +37,9 @@ public class StudentFeeStaging {
 	private boolean reoccuring;
 	@Column(name = "Is_Conditional")
 	private boolean conditional;
-	@Column(name = "Created_Date")
-	private String createdDate;
-	@Column(name = "Modified_Date")
-	private String modifiedDate;
-	@Column(name = "Created_By")
-	private String createdBy;
-	@Column(name = "Updated_By")
-	private String updatedBy;
 	
-	public Long getFileNo() {
-		return fileNo;
-	}
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
+	
+	
 	public FeeDiscountHead getDiscountHead() {
 		return discountHead;
 	}
@@ -80,18 +71,6 @@ public class StudentFeeStaging {
 		this.reoccuring = isReoccuring;
 	}
 	
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
 	public boolean isConditional() {
 		return conditional;
 	}
@@ -104,8 +83,14 @@ public class StudentFeeStaging {
 		int result = 1;
 		result = prime * result
 				+ ((discountHead == null) ? 0 : discountHead.hashCode());
-		result = prime * result + ((fileNo == null) ? 0 : fileNo.hashCode());
+		result = prime * result + ((getFileNo() == null) ? 0 : getFileNo().hashCode());
 		return result;
+	}
+	public Long getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -121,30 +106,18 @@ public class StudentFeeStaging {
 				return false;
 		} else if (!discountHead.equals(other.discountHead))
 			return false;
-		if (fileNo == null) {
-			if (other.fileNo != null)
+		if (getFileNo() == null) {
+			if (other.getFileNo() != null)
 				return false;
-		} else if (!fileNo.equals(other.fileNo))
+		} else if (!getFileNo().equals(other.getFileNo()))
 			return false;
 		return true;
 	}
-	public String getCreatedDate() {
-		return createdDate;
+	public Long getFeeStgingId() {
+		return feeStgingId;
 	}
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
-	public String getModifiedDate() {
-		return modifiedDate;
-	}
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setFeeStgingId(Long feeStgingId) {
+		this.feeStgingId = feeStgingId;
 	}
 
 	
