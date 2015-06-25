@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
@@ -21,6 +23,7 @@ import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CustomLogger;
 
+@Transactional
 @Component
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private static CustomLogger logger = CustomLogger
@@ -34,9 +37,19 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private Properties admissionQueryProps;
 
 	public void setAdmissionQueryProps(Properties admissionQueryProps) {
-
 		this.admissionQueryProps = admissionQueryProps;
+	}
 
+	@Override
+	public Student getStudent(Long fileNo) {
+		String queryString="FROM Student s WHERE s.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<Student> result= (List<Student>)query.list();
+		if(result != null && result.size()>0){
+			return result.get(0);
+		}
+		return null;
 	}
 
 	@Override
@@ -53,6 +66,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			saveBranchPreference(student.getBranchPreference(),student.getFileNo());
 			saveCounsellingDtl(student.getCounsellingDtl(),student.getFileNo());
 		}
+	}
+
+	@Override
+	public List<Address> getAddressDtl(Long fileNo) {
+
+		String queryString="FROM Address stdntAdd WHERE stdntAdd.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<Address> result= query.list();
+		return result;
 	}
 
 	@Override
@@ -90,7 +112,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 					addressId.add(address.getAddressId());
 				}
 			}
-
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteAddressDtlExclusion");
 
@@ -99,8 +120,16 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			.addValue("File_No", fileNo);
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
 		}
+	}
+
+	@Override
+	public List<AdmissionDiscount> getDiscountDtl(Long fileNo) {
+
+		String queryString="FROM AdmissionDiscount ad WHERE ad.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<AdmissionDiscount> result= query.list();
+		return result;
 	}
 
 	@Override
@@ -151,6 +180,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		}
 	}
 
+	@Override
+	public List<StudentAcademic> getAcademicDtl(Long fileNo) {
+
+		String queryString="FROM StudentAcademic sa WHERE s.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<StudentAcademic> result= (List<StudentAcademic>)query.list();
+		return result;
+	}
 
 	@Override
 	public void saveAcademicDtl(StudentAcademic studentAcademic) {
@@ -188,8 +226,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				}
 			}
 
-			//delete subject exclusion for qualifications
-
 			String dltQuery = admissionQueryProps.getProperty("deleteSubjectDtlExclusion");
 			SqlParameterSource namedParam = new MapSqlParameterSource("Student_Qualification_Id", stdntQualifctnId)
 			.addValue("File_No", fileNo);
@@ -200,6 +236,14 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			.addValue("File_No", fileNo);
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
+	}
+	@Override
+	public List<QualificationSubject> getQualificaionSubDtl(Long fileNo) {
+
+		String queryString="FROM QualificationSubject qs WHERE qs.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<QualificationSubject> result= query.list();
+		return result;
 	}
 
 	@Override
@@ -223,8 +267,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	@Override
-	public void deleteQualificationSubDtlExclusion(
-			List<QualificationSubject> qualificationSubjects, Long fileNo) {
+	public void deleteQualificationSubDtlExclusion(List<QualificationSubject> qualificationSubjects, Long fileNo) {
 
 		List<Long> stdntSubjctId = new ArrayList<Long>();
 		if (qualificationSubjects == null || qualificationSubjects.size() == 0) {
@@ -246,6 +289,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
+	}
+
+	@Override
+	public List<BranchPreference> getBranchPreference(Long fileNo) {
+
+		String queryString="FROM BranchPreference bp WHERE bp.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<BranchPreference> result= query.list();
+		return result;
 	}
 
 	@Override
@@ -291,6 +343,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
+	}
+
+	@Override
+	public List<Counselling> getCounsellingDtl(Long fileNo) {
+
+		String queryString="FROM Counselling c WHERE c.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<Counselling> result= query.list();
+		return result;
 	}
 
 	@Override

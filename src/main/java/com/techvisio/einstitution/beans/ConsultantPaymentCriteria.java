@@ -16,15 +16,14 @@ import javax.persistence.Table;
 public class ConsultantPaymentCriteria extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@Column(name = "Pymnt_Critria_Id")
+	private Long pymntCritriaId;
 
 	@Column(name = "File_No")
 	private Long fileNo; 
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
-	@JoinColumn(name = "Consultant_Id")
-    private Consultant consultant;
+	@Column(name = "Consltant_Dtl_Id")
+    private Long  consltantDtlId;
 	
 	@Column(name = "Fee_Received")
 	private Double feeReceived;
@@ -89,17 +88,17 @@ public class ConsultantPaymentCriteria extends BasicEntity {
 		this.triggered = triggered;
 	}
 	
-	public Consultant getConsultant() {
-		return consultant;
+	public Long getPymntCritriaId() {
+		return pymntCritriaId;
 	}
-	public void setConsultant(Consultant consultant) {
-		this.consultant = consultant;
+	public void setPymntCritriaId(Long pymntCritriaId) {
+		this.pymntCritriaId = pymntCritriaId;
 	}
-	public Long getId() {
-		return id;
+	public Long getConsltantDtlId() {
+		return consltantDtlId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setConsltantDtlId(Long consltantDtlId) {
+		this.consltantDtlId = consltantDtlId;
 	}
 
 }

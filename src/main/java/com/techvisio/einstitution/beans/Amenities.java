@@ -17,7 +17,7 @@ public class Amenities extends BasicEntity{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="Amenity_Id")
 	private Long amenityId;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead feeDiscountHead;
 	@Column(name="Charges")

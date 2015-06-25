@@ -28,12 +28,12 @@ public class Address extends BasicEntity {
 	private String city;
 	@Column(name="Pincode")
 	private int pincode;
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne
 	@JoinColumn(name="State_Id")
 	private State State;
-	@Column(name="Address_Id")
+	@Column(name="File_No")
 	private Long fileNo;
-	@Column(name="Address_Id")
+	@Column(name="Address_Type")
 	private String addressType;
 
 	

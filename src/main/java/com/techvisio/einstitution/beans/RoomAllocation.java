@@ -20,17 +20,8 @@ public class RoomAllocation extends BasicEntity {
 	@Id
 	@Column(name = "Room_Allocation_Id")
 	private Long roomAllocationId;
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
-
 	@Column(name="File_No")
 	private Long fileNo;
-	
 	@OneToOne(cascade={CascadeType.PERSIST})
     @JoinColumn(name="Room_No")
     private RoomTypeDetail roomTypeDetail;
@@ -99,6 +90,14 @@ public class RoomAllocation extends BasicEntity {
 
 	public void setRoomAllocationId(Long iroomAllocationIdd) {
 		this.roomAllocationId = iroomAllocationIdd;
+	}
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
 	}
 
 }

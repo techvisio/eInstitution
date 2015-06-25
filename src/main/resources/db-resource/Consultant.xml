@@ -175,6 +175,14 @@ Delete from ConsultantPaymentDetail where File_No=:File_No and Consltnt_Pymnt_Id
 
 	</entry>
 
+<entry key="dltCnsltntPymntDtlByConsltantDtlId">
+    <![CDATA[
+      
+Delete from ConsultantPaymentDetail where File_No=:File_No and Consltant_Dtl_Id not in (:Consltant_Dtl_Id);  
+    ]]>
+
+	</entry>
+
 <entry key="deleteConsultantPaymentDtl">
     <![CDATA[
       
@@ -225,11 +233,21 @@ Triggered) values
 	<entry key="deleteConsultantPaymentCriteriaExclusion">
     <![CDATA[
       
-Delete from consultantpaymentcriteria where File_No=:File_No and Id not in (:Id);
+Delete from consultantpaymentcriteria where File_No=:File_No and Pymnt_Critria_Id not in (:Pymnt_Critria_Id);
 
    ]]>
 
 	</entry>
+
+<entry key="dltCnsltantPymntCriteriaByConsltantDtlId">
+    <![CDATA[
+      
+Delete from consultantpaymentcriteria where File_No=:File_No and Consltant_Dtl_Id not in (:Consltant_Dtl_Id);
+
+   ]]>
+
+	</entry>
+
 	
 	<entry key="deleteConsultantPaymentCriteria">
     <![CDATA[

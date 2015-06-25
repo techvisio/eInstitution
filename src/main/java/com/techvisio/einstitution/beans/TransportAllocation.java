@@ -22,15 +22,7 @@ public class TransportAllocation extends BasicEntity {
 	private Long trnsprtAllctnId;
 	@Column(name="File_No")
 	private Long fileNo;
-	public Long getFielNo() {
-		return fileNo;
-	}
-
-	public void setFielNo(Long fielNo) {
-		this.fileNo = fielNo;
-	}
-
-	@OneToOne(cascade = {CascadeType.PERSIST})
+	@OneToOne
 	@JoinColumn(name = "Type_Id")
 	private VehicleDetail vehicleDetail;
 	@Column(name = "Allocated_On")
@@ -41,6 +33,15 @@ public class TransportAllocation extends BasicEntity {
 	private Date switchedOn;
 	@Column(name = "Is_Allocated")
 	private boolean allocated;
+	
+	public Long getFielNo() {
+		return fileNo;
+	}
+
+	public void setFielNo(Long fielNo) {
+		this.fileNo = fielNo;
+	}
+	
 	public Long getFileNo() {
 		return fileNo;
 	}

@@ -21,7 +21,7 @@ public class VehicleDetail {
 	@Id
 	@Column(name = "Vehicle_Id")
 	private Long vehicleId;
-	@ManyToOne( cascade = {CascadeType.PERSIST})
+	@ManyToOne
     @JoinColumn(name = "Type_Id")
 	private VehicleType vehicleType;
 	@Column(name = "Capacity")

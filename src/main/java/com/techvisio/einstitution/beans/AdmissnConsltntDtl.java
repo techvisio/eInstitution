@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name = "ADMISSN_CONSLTNT_DTL")    
+@Table(name = "ADMISSION_CONSULTANT_DTL")    
 public class AdmissnConsltntDtl extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,7 +23,7 @@ public class AdmissnConsltntDtl extends BasicEntity {
 	private Long consltantDtlId;
 	@Column(name="File_No")
 	private Long fileNo;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Consultant_Id")
 	private Consultant consultant;
 	@Column(name="Is_Consultancy_Agreed")
@@ -37,10 +37,10 @@ public class AdmissnConsltntDtl extends BasicEntity {
 	@Column(name="Remarks")
     private String remarks;
 	@OneToMany(cascade={CascadeType.PERSIST})
-	@JoinColumn(name="File_No")
+	@JoinColumn(name="Consltant_Dtl_Id")
 	private List<ConsultantPayment> consultantPaymentDetail=new ArrayList<ConsultantPayment>();
 	@OneToMany(cascade={CascadeType.PERSIST})
-	@JoinColumn(name="File_No")
+	@JoinColumn(name="Consltant_Dtl_Id")
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias=new ArrayList<ConsultantPaymentCriteria>();
     
 	public String getPaymentMode() {

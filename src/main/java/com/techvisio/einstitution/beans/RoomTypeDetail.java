@@ -21,16 +21,16 @@ public class RoomTypeDetail {
 	private Long roomDetailId;
 	@Column(name = "Room_No")
 	private String	roomNo;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Type_Code")
 	private RoomType roomType;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Wing_Id")
 	private Wing wing;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Floor_Id")
 	private Floor floor;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Block_Id")
 	private Block block;
 

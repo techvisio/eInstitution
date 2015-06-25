@@ -16,13 +16,6 @@ public class RoomType {
 	@Id
 	@Column(name = "Room_Type_Id")
 	private Long roomTypeId;
-	
-	public Long getRoomTypeId() {
-		return roomTypeId;
-	}
-	public void setRoomTypeId(Long roomTypeId) {
-		this.roomTypeId = roomTypeId;
-	}
 	@Column(name = "Type_Code")
 	private String	typeCode;
 	@Column(name = "Description")
@@ -33,7 +26,14 @@ public class RoomType {
 	private Double	price;
 	@Column(name = "Room_Capacity")
 	private int	roomCapacity;
-	
+
+
+	public Long getRoomTypeId() {
+		return roomTypeId;
+	}
+	public void setRoomTypeId(Long roomTypeId) {
+		this.roomTypeId = roomTypeId;
+	}
 	public String getTypeCode() {
 		return typeCode;
 	}

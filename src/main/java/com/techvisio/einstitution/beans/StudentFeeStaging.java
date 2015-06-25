@@ -24,7 +24,7 @@ public class StudentFeeStaging extends BasicEntity {
 	@Column(name="File_No")
 	private Long fileNo;
 	
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne
 	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead discountHead;
 	@Column(name = "Amount")

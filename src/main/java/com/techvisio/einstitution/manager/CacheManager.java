@@ -33,109 +33,109 @@ import com.techvisio.einstitution.beans.Wing;
 @Component
 public interface CacheManager {
 
-	public List<MasterData> getBranchAsMasterdata();
-
-	public List<MasterData> getCategoryAsMasterdata();
-
-	public List<MasterData> getCourseAsMasterdata();
-
-	public List<MasterData> getStateAsMasterdata();
-
-	public List<MasterData> getQualificationAsMasterdata();
-
-	public List<MasterData> getCounsellingBodyAsMasterdata();
-	
-	public List<MasterData> getQuotaCodeAsMasterdata();
-	
-	public List<MasterData> getSubjectAsMasterdata();
-	
-	public List<MasterData> getConsultantAsMasterdata();
-	
-	public List<MasterData> getFeeDiscountAsMasterdata();
-	
-	public List<MasterData> getSemesterAsMasterdata();
-
-	FeeDiscountHead getFeeDiscountById(Long headId);
-
-	void refreshCacheList(String entity);
-	
-	public List<MasterData> getCodeMappingAsMasterdata();
-
-	Course getCourseById(Long courseId);
-
-	Branch getBranchById(Long branchId);
-
-	String getCodeMappingByName(String name);
-
-	List<MasterData> getBatchAsMasterdata();
-	
-	public List<MasterData> getSessionAsMasterdata();
-
-	public List<MasterData> getCentreAsMasterdata();
-
-	public List<MasterData> getShiftAsMasterdata();
-	
-	public List<MasterData> getSectionAsMasterdata();
-
-	public <T> List<T> getEntityList(String entity);
-
-	Batch getBatchByBatchId(Long batchId);
-
-	Centre getCentreByCentreId(Long centreId);
-
-	Section getSectionBySectionId(Long sectionId);
-
-	Session getSessionBySessionId(Long sessionId);
-
-	Shift getShiftByShiftId(Long shiftId);
-
-	CasteCategory getCategoryId(Long categoryId);
-
-	Consultant getConsultantId(Long consultantId);
-
-	CounsellingBody getCounsellingBodiesId(Long id);
-
-	Qualification getQualificationId(Long id);
-
-	QuotaCode getQuotaCodeId(Long id);
-
-	State getStateId(Long id);
-
-	Subject getSubjectId(Long id);
-
-	List<MasterData> getWingAsMasterdata();
-
-	List<MasterData> getFloorAsMasterdata();
-
-	List<MasterData> getBlockAsMasterdata();
-
-	Wing getWingByWingId(Long id);
-
-	Floor getFloorByFloorId(Long id);
-
-	Block getBlockByBlockId(Long id);
-
-	RoomTypeDetail getroomDetailByRoomNo(String roomNo);
-
-	List<RoomTypeDetail> getRoomNoAsMasterdata();
-
-	VehicleDetail getVehicleDeatilByVehicleId(Long vehicleId);
-
-	List<MasterData> getVehicleTypeIdAsMasterdata();
-
-	VehicleType getVehicleTypeByTypeId(Long typeId);
-
-	List<VehicleDetail> getVehicleDetailAsMasterdata();
-
-	List<MasterData> getRoomTypeCodeAsMasterdata();
-
-	RoomType getRoomTypeMasterByTypeCode(String typeCode);
-
-	List<MasterData> getTransportRouteCodeAsMasterdata();
-
-	List<Amenities> getAmenitiesAsMasterdata();
-
-	Transport getTransportByRouteCode(String routeCode);
-
-	Amenities getAmentiesByFeeId(Long feeId);
+//	public List<MasterData> getBranchAsMasterdata();
+//
+//	public List<MasterData> getCategoryAsMasterdata();
+//
+//	public List<MasterData> getCourseAsMasterdata();
+//
+//	public List<MasterData> getStateAsMasterdata();
+//
+//	public List<MasterData> getQualificationAsMasterdata();
+//
+//	public List<MasterData> getCounsellingBodyAsMasterdata();
+//	
+//	public List<MasterData> getQuotaCodeAsMasterdata();
+//	
+//	public List<MasterData> getSubjectAsMasterdata();
+//	
+//	public List<MasterData> getConsultantAsMasterdata();
+//	
+//	public List<MasterData> getFeeDiscountAsMasterdata();
+//	
+//	public List<MasterData> getSemesterAsMasterdata();
+//
+//	FeeDiscountHead getFeeDiscountById(Long headId);
+//
+//	void refreshCacheList(String entity);
+//	
+//	public List<MasterData> getCodeMappingAsMasterdata();
+//
+//	Course getCourseById(Long courseId);
+//
+//	Branch getBranchById(Long branchId);
+//
+//	String getCodeMappingByName(String name);
+//
+//	List<MasterData> getBatchAsMasterdata();
+//	
+//	public List<MasterData> getSessionAsMasterdata();
+//
+//	public List<MasterData> getCentreAsMasterdata();
+//
+//	public List<MasterData> getShiftAsMasterdata();
+//	
+//	public List<MasterData> getSectionAsMasterdata();
+//
+//	public <T> List<T> getEntityList(String entity);
+//
+//	Batch getBatchByBatchId(Long batchId);
+//
+//	Centre getCentreByCentreId(Long centreId);
+//
+//	Section getSectionBySectionId(Long sectionId);
+//
+//	Session getSessionBySessionId(Long sessionId);
+//
+//	Shift getShiftByShiftId(Long shiftId);
+//
+//	CasteCategory getCategoryId(Long categoryId);
+//
+//	Consultant getConsultantId(Long consultantId);
+//
+//	CounsellingBody getCounsellingBodiesId(Long id);
+//
+//	Qualification getQualificationId(Long id);
+//
+//	QuotaCode getQuotaCodeId(Long id);
+//
+//	State getStateId(Long id);
+//
+//	Subject getSubjectId(Long id);
+//
+//	List<MasterData> getWingAsMasterdata();
+//
+//	List<MasterData> getFloorAsMasterdata();
+//
+//	List<MasterData> getBlockAsMasterdata();
+//
+//	Wing getWingByWingId(Long id);
+//
+//	Floor getFloorByFloorId(Long id);
+//
+//	Block getBlockByBlockId(Long id);
+//
+//	RoomTypeDetail getroomDetailByRoomNo(String roomNo);
+//
+//	List<RoomTypeDetail> getRoomNoAsMasterdata();
+//
+//	VehicleDetail getVehicleDeatilByVehicleId(Long vehicleId);
+//
+//	List<MasterData> getVehicleTypeIdAsMasterdata();
+//
+//	VehicleType getVehicleTypeByTypeId(Long typeId);
+//
+//	List<VehicleDetail> getVehicleDetailAsMasterdata();
+//
+//	List<MasterData> getRoomTypeCodeAsMasterdata();
+//
+//	RoomType getRoomTypeMasterByTypeCode(String typeCode);
+//
+//	List<MasterData> getTransportRouteCodeAsMasterdata();
+//
+//	List<Amenities> getAmenitiesAsMasterdata();
+//
+//	Transport getTransportByRouteCode(String routeCode);
+//
+//	Amenities getAmentiesByFeeId(Long feeId);
 }

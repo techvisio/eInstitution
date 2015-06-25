@@ -19,10 +19,10 @@ public class BranchPreference extends BasicEntity {
 	private Long branchPreferenceId;
 	@Column(name = "File_No")
 	private Long fileNo;
-    @ManyToOne(cascade={CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name="Branch_Id")
 	private Branch branch;
-    @ManyToOne(cascade={CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name="Course_Id")
 	private Course course;
 

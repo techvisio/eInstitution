@@ -21,7 +21,7 @@ public class Counselling extends BasicEntity {
 	@Column(name = "File_No")
 	private Long fileNo;
 
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne
 	@JoinColumn(name="Counselling_Id")
 	private CounsellingBody counsellingBody;
 	

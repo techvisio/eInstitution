@@ -40,7 +40,7 @@ public class Scholarship extends BasicEntity{
 	@Column(name = "Parent_Income")
     private Double parentIncome;
 	@OneToMany(cascade={CascadeType.PERSIST})
-	@JoinColumn(name="File_No")
+	@JoinColumn(name="Stdnt_Schlarshp_Id")
     private List<ScholarshipPayment> scholarshipPaymentDetail;
 	
 	public Double getAmount() {

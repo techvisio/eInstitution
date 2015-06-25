@@ -5,15 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.Consultant;
-import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
-import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
+import com.techvisio.einstitution.beans.ConsultantPayment;
+import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.manager.ConsultantManager;
-import com.techvisio.einstitution.manager.impl.ConsultantManagerImpl;
 import com.techvisio.einstitution.util.CustomLogger;
-import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 @Component
 public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
@@ -22,83 +18,69 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	
 	@Autowired
 	ConsultantManager consultantManager;
-	
-	@Autowired
-	AdmissionWorkflowManager admissionWorkflowManager ;
 
-	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
-		logger.info("{} : calling getStudentDtlBySearchCriteria for Student:{}",this.getClass().getName(), searchCriteria.getFirstName());		
-		List<StudentBasicInfo> studentBasicInfos = consultantManager.getStudentDtlBySearchCriteria(searchCriteria);
-		return studentBasicInfos;
-	}
-	
 	@Override
-	public Consultant getConsultant(Long consultantId) {
-		logger.info("{} : calling getConsultant by passing consultantId:{}",this.getClass().getName(), consultantId);
-		Consultant consultant = consultantManager.getConsultant(consultantId);
-		return consultant;
+	public void saveAdmissionConsultantDtl(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo) {
+		consultantManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
 	}
 
 	@Override
-	public Long saveConsultant(Consultant consultant) {
-		logger.info("{} : calling saveConsultant for consltant:{}",this.getClass().getName(), consultant.getName());		
-		Long consultantId = consultantManager.saveConsultant(consultant);
-		consultant.setConsultantId(consultantId);
-		return consultantId;
+	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
+        consultantManager.saveAdmissionConsultantDtl(admissnConsltntDtl); 		
 	}
 
 	@Override
-	public void deleteConsultant(Long consultantId) {
-		logger.info("{} :calling deleteConsultant by passing consultantId:{}",this.getClass().getName(), consultantId);
-		consultantManager.deleteConsultant(consultantId);
-	}
-
-	
-	
-	
-	public List<ConsultantDetail> getConsultantDtl(Long fileNo) {
-		logger.info("{} :calling getConsultantDtl by passing fileNo:{}",this.getClass().getName(), fileNo);
-		
-		List<ConsultantDetail> consultantDetails = consultantManager.getConsultantDtl(fileNo);
-		
-		return consultantDetails;
-	}
-
-	public void saveConsultant(List<ConsultantDetail> consultantDetails) {
-		logger.info("{} :calling saveConsultantDetail by passing consultantDetails:{}",this.getClass().getName(), consultantDetails);           
-		consultantManager.saveConsultantDetail(consultantDetails);
-	}
-
-	public void deleteConsultantDtl(Long fileNo, List<ConsultantDetail> consultantDetails) {
-		logger.info("{} :calling deleteConsultantDtl by passing fileno:{} and consultantDetails:{}",this.getClass().getName(), fileNo,consultantDetails);
-		consultantManager.deleteConsultantDtl(fileNo, consultantDetails);
+	public void deleteAdmissionConsultantDtlExclusion(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo) {
+		consultantManager.deleteAdmissionConsultantDtlExclusion(admissnConsltntDtls, fileNo);
 	}
 
 	@Override
-	public List<Consultant> getConsultantBySearchCriteria(
-			SearchCriteria searchCriteria) {
-		logger.info("{} :calling getConsultantBySearchCriteria for consultant:{} and consultantDetails:{}",this.getClass().getName(), searchCriteria.getFirstName());		
-		List<Consultant> consultants = consultantManager.getConsultantBySearchCriteria(searchCriteria);
-		return consultants;
+	public void saveConsultantPayment(List<ConsultantPayment> consultantPayments, Long fileNo) {
+		consultantManager.saveConsultantPayment(consultantPayments, fileNo);
 	}
 
 	@Override
-	public ConsultantAdmissionDetail getConsultantAdmissionDetail(Long fileNo){
-		logger.info("{} : getConsultantAdmissionDetail passing fileno:{}",this.getClass().getName(), fileNo);		
-        ConsultantAdmissionDetail consultantAdmissionDetail=new ConsultantAdmissionDetail();
-        
-		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
-		consultantAdmissionDetail.setBasicInfo(basicInfo);
-		
-		List<ConsultantDetail> consultantDetails = getConsultantDtl(fileNo);
-		consultantAdmissionDetail.setConsultantDetails(consultantDetails);
-		
-		return consultantAdmissionDetail;
+	public void saveConsultantPayment(ConsultantPayment consultantPayment) {
+		consultantManager.saveConsultantPayment(consultantPayment);
 	}
-	
+
 	@Override
-	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail ){
-		logger.info("{} :calling saveConsultantAdmissionDetail for Student:{} ",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());
-		consultantManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
+	public void deleteConsultantPaymentExclusion(List<ConsultantPayment> consultantPayments, Long fileNo) {
+		consultantManager.deleteConsultantPaymentExclusion(consultantPayments, fileNo);
 	}
+
+	@Override
+	public void saveConsultantPaymentCriteria(List<ConsultantPaymentCriteria> consultantPaymentCriterias,Long fileNo) {
+		consultantManager.saveConsultantPaymentCriteria(consultantPaymentCriterias, fileNo);
+	}
+
+	@Override
+	public void saveConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria) {
+		consultantManager.saveConsultantPaymentCriteria(consultantPaymentCriteria);
+	}
+
+	@Override
+	public void deleteConsultantPaymentCriteriaExclusion(List<ConsultantPaymentCriteria> consultantPaymentCriterias,Long fileNo) {
+		consultantManager.deleteConsultantPaymentCriteriaExclusion(consultantPaymentCriterias, fileNo);
+	}
+
+	@Override
+	public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(Long fileNo) {
+		List<AdmissnConsltntDtl> admissnConsltntDtls = consultantManager.getAdmissnConsltntDtl(fileNo);
+		return admissnConsltntDtls;
+	}
+
+	@Override
+	public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
+		List<ConsultantPayment> consultantPayments = consultantManager.getConsultantPayment(fileNo);
+		return consultantPayments;
+	}
+
+	@Override
+	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(
+			Long fileNo) {
+		List<ConsultantPaymentCriteria> consultantPaymentCriterias = consultantManager.getConsultantPaymentCriteria(fileNo);
+		return consultantPaymentCriterias;
+	}
+
 }

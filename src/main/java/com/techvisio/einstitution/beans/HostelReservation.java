@@ -23,15 +23,6 @@ public class HostelReservation extends BasicEntity {
 
 	@Column(name = "Fee_Paid")
 	private boolean feePaid;
-
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
-
 	@Column(name = "Type_Code")
 	private String typeCode;
 
@@ -46,6 +37,15 @@ public class HostelReservation extends BasicEntity {
 
 	@Column(name = "Description")
 	private String description;
+
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
 
 	public String getTypeCode() {
 		return typeCode;

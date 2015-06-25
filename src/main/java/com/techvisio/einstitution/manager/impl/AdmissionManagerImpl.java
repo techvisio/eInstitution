@@ -1,25 +1,26 @@
 package com.techvisio.einstitution.manager.impl;
 
-import com.techvisio.einstitution.beans.SearchCriteria;
-
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.techvisio.einstitution.beans.Address;
+import com.techvisio.einstitution.beans.AdmissionDiscount;
+import com.techvisio.einstitution.beans.BranchPreference;
+import com.techvisio.einstitution.beans.Counselling;
+import com.techvisio.einstitution.beans.QualificationSubject;
 import com.techvisio.einstitution.beans.Remark;
-import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
+import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.AdmissionDao;
-import com.techvisio.einstitution.factory.SequenceFactory;
-import com.techvisio.einstitution.factory.UniqueIdentifierFactory;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.util.CommonUtil;
-import com.techvisio.einstitution.util.ContextProvider;
 import com.techvisio.einstitution.util.CustomLogger;
 
 @Component
@@ -48,118 +49,171 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	private AdmissionManagerImpl() {
 		// TODO Auto-generated constructor stub
 	}
-	public Student getStudentDtl(Long fileNo) {
-		logger.info("{} : calling getStudentDtl method by passing file no:{}",this.getClass().getName(), fileNo);
-		Student studentDetail=null;
-		
-		studentDetail= admissionDao.getStudentDtl(fileNo);
-		
-		return studentDetail;
 
-	}
+	@Override
+	public void saveStudent(Student student) {
 
-	public Long addStudentDtl(Student studentDetail) {
-		logger.info("{} : calling addStudentDtl method for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());
-		Long fileNo=studentDetail.getFileNo();
-		updateMissingInfowithDefaultValue(studentDetail);
-		
-		if(fileNo==null){
-			fileNo=identifierGenerator.getUniqueIdentifierForAdmission();
-		}
-		studentDetail.setFileNo(fileNo);
-		CommonUtil.propogateIdentifiertoAdmission(studentDetail);;
-		
-		String registrationNo=studentDetail.getRegistrationNo();
-		if(registrationNo==null){
-			registrationNo=identifierGenerator.getUniqueIdentifierForRegistration(studentDetail);
-		}
-		studentDetail.setRegistrationNo(registrationNo);
-		
-		
-		admissionDao.addStudentDtl(studentDetail);
-
-		return fileNo;
-		
-	}
-
-	private void updateMissingInfowithDefaultValue(Student studentDetail) {
-		logger.info("{} : Updating Missing Information with Default Value for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
-		
-		if(CommonUtil.isNullLongValue(studentDetail.getBatchId())){
-			Long defaultBatchId=defaultManager.getDefaultBatch(studentDetail.getCourseId());
-			studentDetail.setBatchId(defaultBatchId);
-		}
-		if(CommonUtil.isNullLongValue(studentDetail.getSessionId())){
-			Long sessionId=defaultManager.getDefaultSession(studentDetail.getCourseId());
-			studentDetail.setSessionId(sessionId);
-		}
-		if(CommonUtil.isNullLongValue(studentDetail.getCentreId())){
-			Long centreId=defaultManager.getDefaultCentre();
-			studentDetail.setCentreId(centreId);
-		}
-		if(CommonUtil.isNullLongValue(studentDetail.getShiftId())){
-			Long shiftId=defaultManager.getDefaultShift();
-			studentDetail.setShiftId(shiftId);
-		}
-		if(StringUtils.isEmpty(studentDetail.getAcademicYear())){
-			String academicyr=defaultManager.getDefaultAcademicYear().toString();
-			studentDetail.setAcademicYear(academicyr);
-		}
-	}
-
-	public Long updateStudentDtl(Student studentDetail) {
-		logger.info("{} : calling updateStudentDtl method for Student:{}",this.getClass().getName(), studentDetail.getFirstName()+studentDetail.getLastName());		
-		Long fileNo=studentDetail.getFileNo();
-		
-		CommonUtil.propogateIdentifiertoAdmission(studentDetail);
-		
-		admissionDao.updateStudentDtl(studentDetail);
-		
-		return fileNo;
-	}
-
-	public void deleteSudentDtl(Long fileNo) {
-		logger.info("{} : calling deleteSudentDtl method by passing file no:{}",this.getClass().getName(), fileNo);
-		admissionDao.deleteSudentDtl(fileNo);
-	}
-
-	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
-		logger.info("{} : calling getStudentDtlBySearchCriteria method for student:{}",this.getClass().getName(), searchCriteria.getFirstName());	
-		List<StudentBasicInfo> studentBasicInfos = null;
-		studentBasicInfos=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
-		
-		return studentBasicInfos;
-	}
-	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
-		logger.info("{} : calling getStudentBsInfo method by passing file no:{}",this.getClass().getName(), fileNo);		
-		StudentBasicInfo info = admissionDao.getStudentBsInfo(fileNo);
-		
-		return info;
-	}
-
-	public List<StudentBasicInfo> getLatestAdmissionInfo(int limit) {
-		logger.info("{} : calling getLatestAdmissionInfo method by passing limit:{}",this.getClass().getName(), limit);
-		List<StudentBasicInfo> basicInfos = admissionDao.getLatestAdmissionInfo(limit);
-		return basicInfos;
-	}
-	
-	
-	public List<StudentBasicInfo> getUnapprovedAdmissions(int limit) {
-		logger.info("{} : calling getUnapprovedAdmissions method by passing limit:{}",this.getClass().getName(), limit);
-		List<StudentBasicInfo> basicInfos = admissionDao.getUnapprovedAdmissions(limit);
-		return basicInfos;
+		admissionDao.saveStudent(student);
 	}
 
 	@Override
-	public Remark getRemarkByFileNo(Long fileNo) {
-		logger.info("{} : calling getRemarkByFileNo method by passing file no:{}",this.getClass().getName(), fileNo);		
-		return admissionDao.getRemarkByFileNo(fileNo);
+	public void saveAcademicDtl(List<StudentAcademic> studentAcademics, Long fileNo) {
+
+		admissionDao.saveAcademicDtl(studentAcademics, fileNo);
 	}
 
 	@Override
-	public void saveRemark(Remark remark) {
-		logger.info("{} : calling saveRemark method for file no:{}",this.getClass().getName(), remark.getFileNo());
-		admissionDao.saveRemark(remark);
+	public void saveAcademicDtl(StudentAcademic studentAcademic) {
+
+		admissionDao.saveAcademicDtl(studentAcademic);
 	}
 
+	@Override
+	public void deleteAcademicDtlExclusion(List<StudentAcademic> studentAcademics, Long fileNo) {
+
+		admissionDao.deleteAcademicDtlExclusion(studentAcademics, fileNo);
+	}
+
+	@Override
+	public void saveAddressDtl(List<Address> addresses, Long fileNo) {
+
+		admissionDao.saveAddressDtl(addresses, fileNo);
+	}
+
+	@Override
+	public void saveAddressDtl(Address address) {
+
+		admissionDao.saveAddressDtl(address);
+	}
+
+	@Override
+	public void deleteAddressDtlExclusion(List<Address> addresses, Long fileNo) {
+
+		deleteAddressDtlExclusion(addresses, fileNo);
+	}
+
+	@Override
+	public void saveDiscountDtl(List<AdmissionDiscount> admissionDiscounts,
+			Long fileNo) {
+
+		admissionDao.saveDiscountDtl(admissionDiscounts, fileNo);
+	}
+
+	@Override
+	public void saveDiscountDtl(AdmissionDiscount admissionDiscount) {
+
+		admissionDao.saveDiscountDtl(admissionDiscount);
+	}
+
+	@Override
+	public void deleteDiscountDtlExclusion(
+			List<AdmissionDiscount> admissionDiscounts, Long fileNo) {
+
+		admissionDao.deleteDiscountDtlExclusion(admissionDiscounts, fileNo);
+	}
+
+	@Override
+	public void saveQualificationSubDtl(
+			List<QualificationSubject> qualificationSubjects, Long fileNo) {
+
+		admissionDao.saveQualificationSubDtl(qualificationSubjects, fileNo);
+	}
+
+	@Override
+	public void saveQualificationSubDtl(
+			QualificationSubject qualificationSubject) {
+
+		admissionDao.saveQualificationSubDtl(qualificationSubject);
+	}
+
+	@Override
+	public void deleteQualificationSubDtlExclusion(
+			List<QualificationSubject> qualificationSubjects, Long fileNo) {
+
+		admissionDao.deleteQualificationSubDtlExclusion(qualificationSubjects, fileNo);
+	}
+
+	@Override
+	public void saveBranchPreference(List<BranchPreference> branchPreferences,
+			Long fileNo) {
+
+		admissionDao.saveBranchPreference(branchPreferences, fileNo);
+	}
+
+	@Override
+	public void saveBranchPreference(BranchPreference branchPreference) {
+
+		admissionDao.saveBranchPreference(branchPreference);
+	}
+
+	@Override
+	public void deleteBranchPreferenceExclusion(
+			List<BranchPreference> branchPreferences, Long fileNo) {
+
+		admissionDao.deleteBranchPreferenceExclusion(branchPreferences, fileNo);
+	}
+
+	@Override
+	public void saveCounsellingDtl(List<Counselling> counsellings, Long fileNo) {
+
+		admissionDao.saveCounsellingDtl(counsellings, fileNo);
+	}
+
+	@Override
+	public void saveCounsellingDtl(Counselling counselling) {
+
+		admissionDao.saveCounsellingDtl(counselling);
+	}
+
+	@Override
+	public void deleteCounsellingDtlExclusion(List<Counselling> counsellings,
+			Long fileNo) {
+
+		admissionDao.deleteCounsellingDtlExclusion(counsellings, fileNo);
+	}
+
+	@Override
+	public Student getStudent(Long fileNo) {
+
+		Student student = admissionDao.getStudent(fileNo);
+		return student;
+	}
+
+	@Override
+	public List<StudentAcademic> getAcademicDtl(Long fileNo) {
+
+		List<StudentAcademic> studentAcademics = admissionDao.getAcademicDtl(fileNo);
+		return studentAcademics;
+	}
+
+	@Override
+	public List<Address> getAddressDtl(Long fileNo) {
+        List<Address> addresses = admissionDao.getAddressDtl(fileNo);
+		return addresses;
+	}
+
+	@Override
+	public List<AdmissionDiscount> getDiscountDtl(Long fileNo) {
+		List<AdmissionDiscount> admissionDiscounts = admissionDao.getDiscountDtl(fileNo);
+		return admissionDiscounts;
+	}
+
+	@Override
+	public List<QualificationSubject> getQualificaionSubDtl(Long fileNo) {
+		List<QualificationSubject> qualificationSubjects = admissionDao.getQualificaionSubDtl(fileNo);
+		return qualificationSubjects;
+	}
+
+	@Override
+	public List<BranchPreference> getBranchPreference(Long fileNo) {
+		List<BranchPreference> branchPreferences = admissionDao.getBranchPreference(fileNo);
+		return branchPreferences;
+	}
+
+	@Override
+	public List<Counselling> getCounsellingDtl(Long fileNo) {
+		List<Counselling> counsellings = admissionDao.getCounsellingDtl(fileNo);
+		return counsellings;
+	}
+	
 }

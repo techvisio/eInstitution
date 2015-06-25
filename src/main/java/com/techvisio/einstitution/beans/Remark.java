@@ -19,7 +19,7 @@ public class Remark {
 	private Long fileNo;
 	@Column(name="Remark")
 	private String remark;
-	@Column(name="Remark")
+	@Column(name="Remark_Type")
 	private String remarkType;
 	
 	public Long getFileNo() {

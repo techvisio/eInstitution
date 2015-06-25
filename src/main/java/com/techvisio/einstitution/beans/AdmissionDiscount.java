@@ -19,7 +19,7 @@ public class AdmissionDiscount extends BasicEntity {
 	private Long discountDtlId;
 	@Column(name="File_No")
 	private Long fileNo;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead discountHead;
 	public FeeDiscountHead getDiscountHead() {

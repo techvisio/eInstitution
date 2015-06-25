@@ -2,15 +2,19 @@ package com.techvisio.einstitution.beans;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.techvisio.einstitution.util.CommonUtil;
@@ -19,24 +23,27 @@ import com.techvisio.einstitution.util.CommonUtil;
 @Table(name = "STUDENT_DETAIL")
 public class Student extends BasicEntity {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "File_No")
+	private Long fileNo;
+
 	@Column(name = "Admission_Mode")
 	private String admissionMode;
 
 	@Column(name = "Registration_No")
 	private String registrationNo;
-	@Id
-	@Column(name = "File__No")
-	private Long fileNo;
 	@Column(name = "Enroll_No")
 	private String enrollNo;
 	@Column(name = "Academic_Year")
 	private String academicYear;
 	@Column(name = "Semester")
 	private String semester;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Course_Id")
 	private Course course;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+
+	@ManyToOne
 	@JoinColumn(name="Branch_Id")
 	private Branch branch;
 	@Column(name = "First_Name")
@@ -70,17 +77,9 @@ public class Student extends BasicEntity {
 	private String gaurdianMobileNo;
 	@Column(name = "Father_Occupation")
 	private String fatherOccupation;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Categry_Id")
 	private CasteCategory category;
-	public CasteCategory getCategory() {
-		return category;
-	}
-
-	public void setCategory(CasteCategory category) {
-		this.category = category;
-	}
-
 	private boolean hostel;
 	private boolean transportation;
 
@@ -111,6 +110,18 @@ public class Student extends BasicEntity {
 	@JoinColumn(name="File_No")
 	private List<Address> addressDtl=new ArrayList<Address>();
 
+	@OneToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="File_No")
+	private Scholarship scholarship;
+
+	public Scholarship getScholarship() {
+		return scholarship;
+	}
+
+	public void setScholarship(Scholarship scholarship) {
+		this.scholarship = scholarship;
+	}
+
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
@@ -122,7 +133,7 @@ public class Student extends BasicEntity {
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
 	private List<AdmissnConsltntDtl> consultantDetail;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Quota_Id")
 	private QuotaCode quotaCode;
 	@Column(name = "Referred_By")
@@ -131,25 +142,32 @@ public class Student extends BasicEntity {
 	private boolean lateral;
 	@Column(name = "Application_Status")
 	private String applicationStatus;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Section_Id")
 	private Section section;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Shift_Id")
 	private Shift shift;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Centre_Id")
 	private Centre centre;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Batch_Id")
 	private Batch batch;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Session_Id")
 	private Session session;
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
 	private List<Remark> remarks;
 
+	public CasteCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(CasteCategory category) {
+		this.category = category;
+	}
 
 	public QuotaCode getQuotaCode() {
 		return quotaCode;

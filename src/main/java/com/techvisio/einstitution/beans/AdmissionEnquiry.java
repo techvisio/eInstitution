@@ -43,11 +43,11 @@ public class AdmissionEnquiry extends BasicEntity{
 	@Column(name = "Due_Date")
 	private Date dueDate;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Course_Id")
 	private Course course;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Branch_Id")
 	private Branch branch;
 	
@@ -66,7 +66,7 @@ public class AdmissionEnquiry extends BasicEntity{
 	@Column(name = "Gender")
 	private String gender;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Consultant_Id")
 	private Consultant consultant;
 	
@@ -76,7 +76,7 @@ public class AdmissionEnquiry extends BasicEntity{
 	@Column(name = "Admission_Mode")
 	private String admissionMode;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
     @JoinColumn(name="Category_Id")
 	private CasteCategory category;
 	

@@ -18,7 +18,7 @@ public class Branch extends BasicEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "Branch_Id")
 	private Long branchId;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name = "Course_Id")
 	private Course course;
 	@Column(name = "Branch_Name")

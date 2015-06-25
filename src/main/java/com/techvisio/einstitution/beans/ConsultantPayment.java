@@ -28,9 +28,8 @@ public class ConsultantPayment extends BasicEntity {
 	@Column(name = "File_No")
     private Long fileNo;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
-	@JoinColumn(name = "Consultant_Id")
-    private Consultant consultant;
+	@Column(name = "Consltant_Dtl_Id")
+    private Long consltantDtlId;
 	
     public Double getAmount() {
 		return amount;
@@ -68,16 +67,16 @@ public class ConsultantPayment extends BasicEntity {
 		return consltntPymntId;
 	}
 
-	public Consultant getConsultant() {
-		return consultant;
-	}
-
-	public void setConsultant(Consultant consultant) {
-		this.consultant = consultant;
-	}
-
 	public void setConsltntPymntId(Long consltntPymntId) {
 		this.consltntPymntId = consltntPymntId;
+	}
+
+	public Long getConsltantDtlId() {
+		return consltantDtlId;
+	}
+
+	public void setConsltantDtlId(Long consltantDtlId) {
+		this.consltantDtlId = consltantDtlId;
 	}
 
 }

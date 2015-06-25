@@ -19,10 +19,10 @@ public class QualificationSubject {
 	@Id
 	@Column(name="Stdnt_Subjct_Id")
 	private Long stdntSubjctId;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Subject_Id")
 	private Subject subject;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name="Qualification_Id")
 	private Qualification qualification;
 	@Column(name="File_No")

@@ -17,8 +17,15 @@ public class ScholarshipPayment {
 	@Id
 	@Column(name = "Schlarshp_Paymnt_Id")
 	private Long schlarshpPaymntId;
+	@Column(name="Stdnt_Schlarshp_Id")
+	private Long stdntSchlarshpId;
 	@Column(name="File_No")
 	private Long fileNo;
+	@Column(name = "Amount_Received")
+	private Double amountReceived;
+	@Column(name = "Received_Date")
+	private Date receivingDate;
+	
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -28,12 +35,12 @@ public class ScholarshipPayment {
 	public Long getSchlarshpPaymntId() {
 		return schlarshpPaymntId;
 	}
-	@Column(name = "Amount_Received")
-	private Double amountReceived;
-	@Column(name = "Received_Date")
-	private Date receivingDate;
-	
-	
+	public Long getStdntSchlarshpId() {
+		return stdntSchlarshpId;
+	}
+	public void setStdntSchlarshpId(Long stdntSchlarshpId) {
+		this.stdntSchlarshpId = stdntSchlarshpId;
+	}
 	public Double getAmountReceived() {
 		return amountReceived;
 	}
@@ -47,11 +54,8 @@ public class ScholarshipPayment {
 	public void setReceivingDate(Date date) {
 		this.receivingDate = date;
 	}
-	public Long getschlarshpPaymntId() {
-		return schlarshpPaymntId;
-	}
-	public void setSchlarshpPaymntId(Long ischlarshpPaymntIdd) {
-		this.schlarshpPaymntId = ischlarshpPaymntIdd;
+	public void setSchlarshpPaymntId(Long schlarshpPaymntIdd) {
+		this.schlarshpPaymntId = schlarshpPaymntIdd;
 	}
 
 }

@@ -5,10 +5,15 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-public abstract class BasicFeeTransaction{
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public abstract class BasicFeeTransaction extends BasicEntity{
 
 	@Id
 	@Column(name="Transaction_Id")
@@ -18,8 +23,6 @@ public abstract class BasicFeeTransaction{
 	private FeeDiscountHead feeDiscountHead=new FeeDiscountHead();
 	@Column(name="User")
 	private String user;
-	@Column(name="Created_Date")
-	private Date createdDate;
 	@Column(name="Remark")
 	private String remark;
 	@Column(name="Mode")
@@ -30,10 +33,10 @@ public abstract class BasicFeeTransaction{
 	private Double amount;
 	@ManyToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="Batch_Id")
-	private Long batchId;
+	private Batch batch;
 	@ManyToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="Session_Id")
-	private Long sessionId;
+	private Session session;
 
 	public Long getTransactionId() {
 		return transactionId;
@@ -48,11 +51,11 @@ public abstract class BasicFeeTransaction{
 
 	}
 
-	public BasicFeeTransaction(Long batchId, Long sessionId, Long fileNo, Double amount, FeeDiscountHead discountHead){
+	public BasicFeeTransaction(Batch batch, Session session, Long fileNo, Double amount, FeeDiscountHead discountHead){
 
 		this.amount=amount;
-		this.batchId=batchId;
-		this.sessionId=sessionId;
+		this.batch=batch;
+		this.session=session;
 		this.fileNo=fileNo;
 		this.feeDiscountHead=discountHead;
 	}
@@ -62,12 +65,6 @@ public abstract class BasicFeeTransaction{
 	}
 	public void setUser(String user) {
 		this.user = user;
-	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
 	}
 	public String getRemark() {
 		return remark;
@@ -102,26 +99,21 @@ public abstract class BasicFeeTransaction{
 	public void setFeeDiscountHead(FeeDiscountHead feeDiscountHead) {
 		this.feeDiscountHead = feeDiscountHead;
 	}
-	public Long getBatchId() {
-		return batchId;
-	}
-	public void setBatchId(Long batchId) {
-		this.batchId = batchId;
-	}
-	public Long getSessionId() {
-		return sessionId;
-	}
-	public void setSessionId(Long sessionId) {
-		this.sessionId = sessionId;
-	}
-	@Override
-	public String toString() {
-		return "FeeTransaction [feeDiscountHead=" + feeDiscountHead + ", user="
-				+ user + ", createdDate=" + createdDate + ", remark=" + remark
-				+ ", mode=" + mode + ", fileNo=" + fileNo + ", amount="
-				+ amount + ", batchId=" + batchId + ", sessionId=" + sessionId
-				+ "]";
+
+	public Batch getBatch() {
+		return batch;
 	}
 
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
 
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+	
 }

@@ -10,16 +10,12 @@ import com.techvisio.einstitution.beans.ScholarshipPayment;
 @Component
 public interface ScholarshipDao {
 
-	public Scholarship getScholarshipDetail(Long fileNo);
-	public void addScholarDetail(Scholarship scholarshipDetail);
-	public void deleteScholarshipDetail(Long fileNo);
-	
-	
-	List<ScholarshipPayment> getScholarshipPaymentDetail(Long fileNo);
-	public void addScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail);
-	public void updateScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail);
-	public void deleteScholarshipPaymentDetail(Long fileNo);
-	
-	
+    public Scholarship getScholarship(Long fileNo);
+	public void saveScholarship(Scholarship scholarship);	
+
+	public List<ScholarshipPayment> getScholarshipPayments(Long fileNo);
+	public void saveScholarshipPaymentDtl(List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo);
+	public void saveScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail);
+	public void deleteScholarshipPaymentDetailExclusion(List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo);
 	
 }
