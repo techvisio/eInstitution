@@ -3,6 +3,8 @@ package com.techvisio.einstitution.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import com.techvisio.einstitution.beans.AdmissionDiscount;
 import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.Counselling;
+import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
@@ -33,10 +36,10 @@ public class AdmissionService {
 
 	@Autowired
 	ConsultantWorkflowManager constntWorkflowManager;
-	
+
 	@Autowired
 	ScholarshipWorkflowManager schlrshpWorkflowManager;
-	
+
 	@RequestMapping(value = "student/{fileNo}", method = RequestMethod.GET)
 	public Student getStudent(@PathVariable Long fileNo){
 		Student student = admWorkflowManager.getStudent(fileNo);
@@ -49,80 +52,201 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(value = "student/academic/{fileNo}", method = RequestMethod.GET)
-	public List<StudentAcademic> getStudentAcademic(@PathVariable Long fileNo){
-		List<StudentAcademic> studentAcademics = admWorkflowManager.getAcademicDtl(fileNo);
-		return studentAcademics;
+	public ResponseEntity<Response> getStudentAcademic(@PathVariable Long fileNo){
+
+		Response response = new Response();
+		try{
+			List<StudentAcademic> studentAcademics = admWorkflowManager.getAcademicDtl(fileNo);
+			response.setResponseBody(studentAcademics);
+		}
+		catch(Exception e){
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/academic/{fileNo}", method = RequestMethod.PUT)
-	public void saveStudentAcademicDtl(@RequestBody List<StudentAcademic> studentAcademics,@PathVariable Long fileNo){
-		admWorkflowManager.saveAcademicDtl(studentAcademics, fileNo);
+	public ResponseEntity<Response> saveStudentAcademicDtl(@RequestBody List<StudentAcademic> studentAcademics,@PathVariable Long fileNo){
+
+		Response response = new Response();
+		try{
+			admWorkflowManager.saveAcademicDtl(studentAcademics, fileNo);
+			List<StudentAcademic> academicFromDB = admWorkflowManager.getAcademicDtl(fileNo);
+			response.setResponseBody(academicFromDB);
+		}
+		catch(Exception e){
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/discount/{fileNo}", method = RequestMethod.GET)
-	public List<AdmissionDiscount> getDiscountDtl(@PathVariable Long fileNo){
-		List<AdmissionDiscount> admissionDiscounts = admWorkflowManager.getDiscountDtl(fileNo); 
-		return admissionDiscounts;
+	public ResponseEntity<Response> getDiscountDtl(@PathVariable Long fileNo){
+
+		Response response = new Response();
+		try{
+			List<AdmissionDiscount> admissionDiscounts = admWorkflowManager.getDiscountDtl(fileNo);
+			response.setResponseBody(admissionDiscounts);
+		} 
+		catch(Exception e){
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/discount/{fileNo}", method = RequestMethod.PUT)
-	public void saveDiscountDtl(@RequestBody List<AdmissionDiscount> admissionDiscounts, @PathVariable Long fileNo){
-		admWorkflowManager.saveDiscountDtl(admissionDiscounts, fileNo);
+	public ResponseEntity<Response> saveDiscountDtl(@RequestBody List<AdmissionDiscount> admissionDiscounts, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			admWorkflowManager.saveDiscountDtl(admissionDiscounts, fileNo);
+			List<AdmissionDiscount> discountFromDB = admWorkflowManager.getDiscountDtl(fileNo);
+			response.setResponseBody(discountFromDB);
+		} 
+		catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/address/{fileNo}", method = RequestMethod.GET)
-	public List<Address> getAddressDtl(@PathVariable Long fileNo){
-		List<Address> address = admWorkflowManager.getAddressDtl(fileNo);
-		return address;
+	public ResponseEntity<Response> getAddressDtl(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			List<Address> addresses = admWorkflowManager.getAddressDtl(fileNo);
+			response.setResponseBody(addresses);
+		} 
+		catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/address/{fileNo}", method = RequestMethod.PUT)
-	public void saveAddressDtl(@RequestBody List<Address> addresses, @PathVariable Long fileNo){
-		admWorkflowManager.saveAddressDtl(addresses, fileNo);
+	public ResponseEntity<Response> saveAddressDtl(@RequestBody List<Address> addresses, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			admWorkflowManager.saveAddressDtl(addresses, fileNo);
+			List<Address> addressFromDB = admWorkflowManager.getAddressDtl(fileNo);
+			response.setResponseBody(addressFromDB);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/branchpref{fileNo}", method = RequestMethod.GET)
-	public List<BranchPreference> getBranchPreference(@PathVariable Long fileNo){
-		List<BranchPreference> branchPreferences = admWorkflowManager.getBranchPreference(fileNo); 
-		return branchPreferences;
+	@RequestMapping(value = "student/branchpref/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getBranchPreference(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			List<BranchPreference> branchPreferences = admWorkflowManager.getBranchPreference(fileNo);
+			response.setResponseBody(branchPreferences);
+		} 
+		catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/branchpref/{fileNo}", method = RequestMethod.PUT)
-	public void saveBranchPreference(@RequestBody List<BranchPreference> branchPreferences, @PathVariable Long fileNo){
-		admWorkflowManager.saveBranchPreference(branchPreferences, fileNo);
+	public ResponseEntity<Response> saveBranchPreference(@RequestBody List<BranchPreference> branchPreferences, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			admWorkflowManager.saveBranchPreference(branchPreferences, fileNo);
+			List<BranchPreference> branchPrefFromDB = admWorkflowManager.getBranchPreference(fileNo);
+			response.setResponseBody(branchPrefFromDB);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/counselling/{fileNo}", method = RequestMethod.GET)
-	public List<Counselling> getCounsellingDtl(@PathVariable Long fileNo){
-		List<Counselling> counsellings = admWorkflowManager.getCounsellingDtl(fileNo); 
-		return counsellings;
+	public ResponseEntity<Response> getCounsellingDtl(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			List<Counselling> counsellings = admWorkflowManager.getCounsellingDtl(fileNo);
+			response.setResponseBody(counsellings);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/counselling/{fileNo}", method = RequestMethod.PUT)
-	public void saveCounsellingDtl (@RequestBody List<Counselling> counsellings, @PathVariable Long fileNo){
-		admWorkflowManager.saveCounsellingDtl(counsellings, fileNo);
+	public ResponseEntity<Response> saveCounsellingDtl (@RequestBody List<Counselling> counsellings, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			admWorkflowManager.saveCounsellingDtl(counsellings, fileNo);
+			List<Counselling> counsellingFromDB = admWorkflowManager.getCounsellingDtl(fileNo);
+			response.setResponseBody(counsellingFromDB);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/consultant/{fileNo}", method = RequestMethod.GET)
-	public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(@PathVariable Long fileNo){
-		List<AdmissnConsltntDtl> admissnConsltntDtls = constntWorkflowManager.getAdmissnConsltntDtl(fileNo); 
-		return admissnConsltntDtls;
+	public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			List<AdmissnConsltntDtl> admissnConsltntDtls = constntWorkflowManager.getAdmissnConsltntDtl(fileNo);
+			response.setResponseBody(admissnConsltntDtls);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "student/consultant/{fileNo}", method = RequestMethod.PUT)
-	public void saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
-		constntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
+	public ResponseEntity<Response> saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			constntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
+			List<AdmissnConsltntDtl> consultantFromDB = constntWorkflowManager.getAdmissnConsltntDtl(fileNo);
+			response.setResponseBody(consultantFromDB);
+
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
-	public Scholarship getScholarship(@PathVariable Long fileNo){
-		Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
-		return scholarship;
+	@RequestMapping(value = "student/scholarship/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
+		Response response =new Response();
+		try {
+			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
+			response.setResponseBody(scholarship);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{fileNo}", method = RequestMethod.PUT)
-	public void saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
-		schlrshpWorkflowManager.saveScholarship(scholarship);
+	@RequestMapping(value = "student/scholarship/{fileNo}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
+		Response response =new Response();
+		try {
+			schlrshpWorkflowManager.saveScholarship(scholarship);
+			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
+			response.setResponseBody(scholarshpFromDB);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-
 }

@@ -32,14 +32,28 @@ public class ConsultantService {
 ConsultantWorkflowManager consltntWorkflowManager;
 
 @RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
-public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(@PathVariable Long fileNo){
-	List<AdmissnConsltntDtl> admissnConsltntDtls = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo); 
-	return admissnConsltntDtls;
+public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo){
+	Response response = new Response();
+	try {
+		List<AdmissnConsltntDtl> admissnConsltntDtls = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
+		response.setResponseBody(admissnConsltntDtls);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
 }
 
 @RequestMapping(value = "/{fileNo}", method = RequestMethod.POST)
-public void saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
-	consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
+public ResponseEntity<Response> saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
+	Response response = new Response();
+	try {
+		consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
+		List<AdmissnConsltntDtl> consultntFromDB = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
+		response.setResponseBody(consultntFromDB);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
 }
 	
 	

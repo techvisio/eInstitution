@@ -28,14 +28,28 @@ public class ScholarshipService {
 	ScholarshipWorkflowManager schlrshpWorkflowManager;
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
-	public Scholarship getScholarship(@PathVariable Long fileNo){
-		Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
-		return scholarship;
+	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
+			response.setResponseBody(scholarship);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.POST)
-	public void saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
-		schlrshpWorkflowManager.saveScholarship(scholarship);
+	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			schlrshpWorkflowManager.saveScholarship(scholarship);
+			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
+			response.setResponseBody(scholarshpFromDB);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	

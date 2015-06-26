@@ -29,7 +29,7 @@ admissionModule
 
 			 $scope.student.consultantDetail=[];
 			 $scope.student.consultantDetail.push(angular.copy($scope.dummyConsultantDetail));
-			 
+
 			 $scope.student.academicDtl = [];
 			 $scope.student.academicDtl.push(angular.copy($scope.dummyQualification));
 
@@ -41,7 +41,7 @@ admissionModule
 
 			 $scope.form.showSub = false;
 			 $scope.searchResultList=[];
-		   	 $scope.filteredSearch=[];
+			 $scope.filteredSearch=[];
 
 			 $scope.dummyAddress = {};
 			 $scope.dummyQualification = {"qualificationSubDtl" : [ {} ] };
@@ -53,7 +53,7 @@ admissionModule
 
 
 			 $scope.dummyConsultantDetail={};
-			 
+
 			 $scope.admissionMode={"C":"Counselling",
 					 "W":"Walk-In",
 					 "R":"Referral",
@@ -63,32 +63,32 @@ admissionModule
 			 $scope.currentPage = 0;
 			 $scope.totalItems = 0;
 
-			  $scope.pageCount = function () {
-			    return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
-			  };
+			 $scope.pageCount = function () {
+				 return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
+			 };
 
-			$scope.numPages = function () {
-				return Math.ceil($scope.searchResultList.length / $scope.numPerPage);
-			};
+			 $scope.numPages = function () {
+				 return Math.ceil($scope.searchResultList.length / $scope.numPerPage);
+			 };
 
-			$scope.$watch('currentPage + numPerPage', function() {
-				var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
-				, end = begin + $scope.itemsPerPage;
+			 $scope.$watch('currentPage + numPerPage', function() {
+				 var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
+				 , end = begin + $scope.itemsPerPage;
 
-			$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
-			});
-			
-			  $scope.gridOptions = {
-				      multiSelect:false,
-				        data: 'filteredSearch',
-				        rowTemplate: '<div ng-dblclick="getStudent(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
-				        columnDefs: [{ field: "firstName", width: 100,displayName :"FirstName"},
-				                     { field: "lastName", width: 100,displayName :"LastName"},
-				                    { field: "fatherName", width: 180,displayName :"Father Name" },
-				                    { field: "course.course", width: 140,displayName :"Course" },
-				                    { field: "branch.branchName", width: 180,displayName :"Branch" },
-				                    {field:"applicationStatus",width:200,displayName :"Status"}]
-				    };
+				 $scope.filteredSearch = $scope.searchResultList.slice(begin, end);
+			 });
+
+			 $scope.gridOptions = {
+					 multiSelect:false,
+					 data: 'filteredSearch',
+					 rowTemplate: '<div ng-dblclick="getStudent(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+					 columnDefs: [{ field: "firstName", width: 100,displayName :"FirstName"},
+					              { field: "lastName", width: 100,displayName :"LastName"},
+					              { field: "fatherName", width: 180,displayName :"Father Name" },
+					              { field: "course.course", width: 140,displayName :"Course" },
+					              { field: "branch.branchName", width: 180,displayName :"Branch" },
+					              {field:"applicationStatus",width:200,displayName :"Status"}]
+			 };
 
 			 $scope.LoadMoreData = function() {
 
@@ -97,7 +97,7 @@ admissionModule
 				 $scope.getLatestAdmission();
 
 			 };
-			 
+
 
 			 $scope.lessData = function() {
 
@@ -124,7 +124,7 @@ admissionModule
 
 				 $scope.dashboard=true;
 				 $scope.resetSearchCriteria();
-				 
+
 			 }
 			 $scope.checkAmout=function(index,type){
 				 if(type=='amount'){
@@ -175,7 +175,7 @@ admissionModule
 				 $scope.student.consultantDetail.splice(index, 1);
 			 };
 
-			 
+
 			 $scope.addDiscountDtl = function(){
 
 				 var discountDtl = angular.copy($scope.dummyDiscountDtl);
@@ -279,7 +279,7 @@ admissionModule
 			 }
 
 			 $scope.submitToManagement = function(){
-				 
+
 				 console.log('submitToManagement called in controller')
 				 console.log($scope.student);
 				 $scope.processing=true;
@@ -299,11 +299,11 @@ admissionModule
 					 }
 
 					 $scope.processing=false;  
-					 
+
 				 })
 
-				 
-				 
+
+
 			 }
 
 			 $scope.addStudent = function() {
@@ -327,13 +327,10 @@ admissionModule
 					 }
 
 					 $scope.processing=false;  
-					 
+
 				 })
-
-
 			 }
 
-			 
 			 $scope.updateStudent = function() {
 				 console.log('update student called');
 				 console.log($scope.student);
@@ -354,8 +351,6 @@ admissionModule
 					 }
 					 $scope.processing=false;  
 				 })
-
-
 			 }
 
 			 $scope.getStudent = function(fileNo) {
@@ -378,10 +373,101 @@ admissionModule
 					 }
 					 $scope.processing=false;
 				 })
-
 			 }
 
+			 $scope.getStudentAcademicDtl = function(){
 
+				 admissionService.getStudentAcademicDtl(student.fileNo)
+				 .then(function(response) {
+					 console.log('academic detail received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student.academicDtl = response.data.responseBody;
+
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+			 } 
+			 
+			 $scope.updateStudentAcademicDtl = function(){
+				 admissionService.getStudentAcademicDtl($scope.student.academicDtl, $scope.sudent.fileNo)
+				 .then(function(response) {
+					 console.log('academic detail received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student.academicDtl = response.data.responseBody;
+
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+			 }
+			 
+			 $scope.getStudentAddress = function(){
+				 admissionService.getStudentAddress(student.fileNo)
+				 .then(function(response) {
+					 console.log('address detail received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student.addressDtl = response.data.responseBody;
+
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })				 
+				 
+			 }
+			 
+			 $scope.updateStudentAddress = function(){
+				 admissionService.updateStudentAddress($scope.student.addressDtl, $scope.sudent.fileNo)
+				 .then(function(response) {
+					 console.log('academic detail received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student.academicDtl = response.data.responseBody;
+
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+			 }
+
+			 $scope.getStudentDiscountDtl = function(){
+				 admissionService.getStudentDiscountDtl(student.fileNo)
+				 .then(function(response) {
+					 console.log('discount detail received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student.discountDtl = response.data.responseBody;
+
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+				 
+			 }
+			 
+			 $scope.updateStudentDiscountDtl = function(){
+				 admissionService.updateStudentAddress($scope.student.discountDtl, $scope.sudent.fileNo)
+				 .then(function(response) {
+					 console.log('academic detail received from service : ');
+					 console.log(response);
+					 if (response !=null && response.data != null && response.data.responseBody != null) {
+						 $scope.student.discountDtl = response.data.responseBody;
+
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+			 }
+			 
 			 $scope.getLatestAdmission = function(){
 
 				 admissionService.getLatestAdmission($scope.currentFetchLimit)
@@ -396,33 +482,32 @@ admissionModule
 						 alert(response.data.error);
 					 }
 				 })
-
 			 }
-
+			 
 			 $scope.showDetail =  function(index){
 
 				 var fileNo=$scope.latestAdmission[index].fileNo;
 				 if(fileNo){
-				 $scope.getStudent(fileNo);
+					 $scope.getStudent(fileNo);
 				 }
 				 else
-					 {
+				 {
 					 alert("No valid fileNo provided");
-					 }
+				 }
 			 }
-			 
+
 			 $scope.showStudentDetail =  function(index){
 
 				 var fileNo=$scope.searchResultList[index].fileNo;
 				 if(fileNo){
-				 $scope.getStudent(fileNo);
+					 $scope.getStudent(fileNo);
 				 }
 				 else
-					 {
+				 {
 					 alert("No valid fileNo provided");
-					 }
+				 }
 			 }
-			
+
 			 $scope.getStudentByCriteria = function() {
 				 console.log('get student by search criteria in controller');
 				 console.log($scope.searchCriteria);
@@ -433,10 +518,10 @@ admissionModule
 					 console.log('Data received from service in controller : ');
 					 console.log(response);
 					 if (response != null && response.data != null && response.data.responseBody != null) {
-						$scope.searchResultList=response.data.responseBody;
-						$scope.showCriteria=false;
-						$scope.currentPage=1;
-						$scope.totalItems = $scope.searchResultList.length;
+						 $scope.searchResultList=response.data.responseBody;
+						 $scope.showCriteria=false;
+						 $scope.currentPage=1;
+						 $scope.totalItems = $scope.searchResultList.length;
 					 } else {
 						 console.log(response.data.error);
 						 alert(response.data.error);
@@ -445,7 +530,7 @@ admissionModule
 					 $scope.processing=false;
 				 })
 			 }
-			 
+
 
 			 $scope.next=function(){
 				 var selectionIndex=$scope.subModules.indexOf($scope.selection);
@@ -468,7 +553,7 @@ admissionModule
 			 $scope.resetForm = function(){
 
 				 console.log("calling reset.....")
-				 $scope.form.processing=false;
+				 $scope.form.processing=false;a
 				 $scope.form.isNew=true;
 				 $scope.form.isEdit=true;
 				 $scope.student = {};
@@ -482,46 +567,41 @@ admissionModule
 
 				 $scope.student.counsellingDtl = [];
 				 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
-				 
+
 				 $scope.student.consultantDetail=[];
 				 $scope.student.consultantDetail.push(angular.copy($scope.dummyConsultantDetail));
-
 			 }
-			 
+
 			 $scope.saveAmenity = function(amenityStaging) {
 
-					console.log('saveAmenity called in controller');
+				 console.log('saveAmenity called in controller');
 
-					var fileNo = $scope.student.fileNo;
-					amenityStaging.fileNo = fileNo;
-					
-					admissionService.saveAmenity(amenityStaging)
-					.then(function(response) {
-						console.log('saveAmenity Data received from service in controller : ');
-						console.log(response);
-						if (response != null && response.data != null && response.data.responseBody != null) {
+				 var fileNo = $scope.student.fileNo;
+				 amenityStaging.fileNo = fileNo;
 
-							$scope.getStudent(fileNo);
-							
-						} else {
-							console.log(response.data.error);
-							alert(response.data.error);
-						}
+				 admissionService.saveAmenity(amenityStaging)
+				 .then(function(response) {
+					 console.log('saveAmenity Data received from service in controller : ');
+					 console.log(response);
+					 if (response != null && response.data != null && response.data.responseBody != null) {
 
+						 $scope.getStudent(fileNo);
 
-					})
-
-
-				}
+					 } else {
+						 console.log(response.data.error);
+						 alert(response.data.error);
+					 }
+				 })
+			 }
 
 
 			 $scope.resetAdmissionMode = function(){
-				 
+
 				 $scope.student.counsellingDtl = [];
 				 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl));
-				 
+
 				 $scope.student.referredBy = null;
-				 
+
 			 }
 			 $scope.populateMissingData = function(data){
 
@@ -558,7 +638,6 @@ admissionModule
 						 $scope.student.academicDtl[i].qualificationSubDtl.push(angular.copy($scope.dummyQualificationSubDtl))
 					 }
 				 } 
-
 			 }
 
 			 $scope.showTransportModal=function (size) {
@@ -602,8 +681,6 @@ admissionModule
 					 return;
 				 }
 
-				 
-				 
 				 var modalInstance = $modal.open({
 					 templateUrl: 'hostelReservation.html',
 					 controller: 'hostelController',
@@ -620,55 +697,64 @@ admissionModule
 					 $scope.selected = selectedItem;
 				 });
 			 };
-			 
-			 
+
 			 $scope.saveAmenityPopup = function (size) {
 
-					var modalInstance = $modal.open({
-						templateUrl: 'amenity.html',
-						controller: 'feeController',
-						scope:$scope,
-						size: size,
-					});
-				};
+				 var modalInstance = $modal.open({
+					 templateUrl: 'amenity.html',
+					 controller: 'feeController',
+					 scope:$scope,
+					 size: size,
+				 });
+			 };
 
-			 
-			 
 			 $scope.today = function() {
-				    $scope.dt = new Date();
-				  };
-				  $scope.today();
+				 $scope.dt = new Date();
+			 };
+			 $scope.today();
 
-				  $scope.clear = function () {
-				    $scope.dt = null;
-				  };
+			 $scope.clear = function () {
+				 $scope.dt = null;
+			 };
 
-				  // Disable weekend selection
-				  $scope.disabled = function(date, mode) {
-				    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-				  };
+			 // Disable weekend selection
+			 $scope.disabled = function(date, mode) {
+				 return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+			 };
 
-				  $scope.open = function($event) {
-				    $event.preventDefault();
-				    $event.stopPropagation();
+			 $scope.open = function($event) {
+				 $event.preventDefault();
+				 $event.stopPropagation();
 
-				    $scope.opened = true;
-				  };
+				 $scope.opened = true;
+			 };
 
-				  $scope.dateOptions = {
-				    formatYear: 'yy',
-				    startingDay: 1
-				  };
-
+			 $scope.dateOptions = {
+					 formatYear: 'yy',
+					 startingDay: 1
+			 };
 		 } ])
 
 		 admissionModule.service("admissionService", function($http, $q) {
 
 			 // Return public API.
 			 return ({
-				 addStudent : addStudent,
+				 saveStudent : saveStudent,
 				 getStudent : getStudent,
-				 updateStudent : updateStudent,
+				 getStudentAcademicDtl : getStudentAcademicDtl,
+				 updateStudentAcademicDtl : updateStudentAcademicDtl,
+				 getStudentAddress : getStudentAddress,
+				 updateStudentAddress : updateStudentAddress,
+				 getStudentDiscountDtl : getStudentDiscountDtl,
+				 updateStudentDiscountDtl : updateStudentDiscountDtl,
+				 getBranchPref : getBranchPref,
+				 updateBranchPref : updateBranchPref,
+				 getCounsellingDtl : getCounsellingDtl,
+				 updateCounsellingDtl : updateCounsellingDtl,
+				 getConsultantDtl : getConsultantDtl,
+				 updateConsultantDtl : updateConsultantDtl,
+				 getScholarshipDtl : getScholarshipDtl,
+				 updateScholarshipDtl : updateScholarshipDtl,
 				 getLatestAdmission : getLatestAdmission,
 				 getStudentByCriteria : getStudentByCriteria,
 				 submitToManagement:submitToManagement,
@@ -680,31 +766,14 @@ admissionModule
 				 console.log('add student called in service');
 				 var request = $http({
 					 method : "post",
-					 url : "admission",
+					 url : "admission/student/"+fileNo,
 					 params : "",
 					 data : student
 
 				 });
 
 				 return (request.then(handleSuccess, handleError));
-
 			 }
-
-			 function updateStudent(student) {
-
-				 console.log('update student called in service');
-				 var request = $http({
-					 method : "put",
-					 url : "admission",
-					 params : "",
-					 data : student
-
-				 });
-
-				 return (request.then(handleSuccess, handleError));
-
-			 }
-
 
 			 function getStudent(fileNo) {
 
@@ -715,12 +784,157 @@ admissionModule
 						 action : "get"
 					 }
 				 });
-
 				 return (request.then(handleSuccess, handleError));
-
 			 }
 
+			 function getStudentAcademicDtl(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/academic/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
 
+			 function updateStudentAcademicDtl(academicDtl, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/academic"+fileNo,
+					 params : "",
+					 data : academicDtl
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }			 
+
+			 function getStudentAddress(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/address/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));				 
+			 }
+
+			 function updateStudentAddress(addressDtl,fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/address/"+fileNo,
+					 params : "",
+					 data : addressDtl
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getStudentDiscountDtl(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/discount/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function updateStudentDiscountDtl(DiscountDtl, fileNo){
+
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/discount/"+fileNo,
+					 params : "",
+					 data : DiscountDtl
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getBranchPref(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/branchpref/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function updateBranchPref (branchPreference, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/branchpref/"+fileNo,
+					 params : "",
+					 data : branchPreference
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getCounsellingDtl(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/counselling/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));				 
+			 }
+
+			 function updateCounsellingDtl(counsellingDtl, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/counselling/"+fileNo,
+					 params : "",
+					 data : counsellingDtl
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getScholarshipDtl(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/scholarship/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function updateScholarshipDtl(scholarship, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/scholarship/"+fileNo,
+					 params : "",
+					 data : scholarship
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getConsultantDtl(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/consultant/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+			 
+			 function updateCounsellingDtl(consultantDetail, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/consultant/"+fileNo,
+					 params : "",
+					 data : consultantDetail
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+			 
 			 function getLatestAdmission(limit){
 
 				 console.log("Latest Admission called from service")
@@ -762,22 +976,20 @@ admissionModule
 
 				 return (request.then(handleSuccess, handleError));
 			 }
-			 
+
 			 function saveAmenity(feeStaging) {
 
-					console.log('save amenity called in service');
-					var request = $http({
-						method : "post",
-						url : "fee/saveAmenity/",
-						params : "",
-						data : feeStaging
+				 console.log('save amenity called in service');
+				 var request = $http({
+					 method : "post",
+					 url : "fee/saveAmenity/",
+					 params : "",
+					 data : feeStaging
 
-					});
+				 });
 
-					return (request.then(handleSuccess, handleError));
-				}
-
-			 			 
+				 return (request.then(handleSuccess, handleError));
+			 }
 
 			 function handleError(response) {
 				 console.log('Error occured while calling service');
@@ -787,10 +999,8 @@ admissionModule
 					 return ($q.reject("An unknown error occurred."));
 
 				 }
-
 				 // Otherwise, use expected error message.
 				 return ($q.reject(response.data.message));
-
 			 }
 
 			 // I transform the successful response, unwrapping the application data
@@ -801,8 +1011,6 @@ admissionModule
 				 return (response);
 
 			 }
-
-
 
 		 });
 
