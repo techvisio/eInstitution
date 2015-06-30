@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "COURSE_BRANCH_MASTER")    
 public class Branch extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Branch_Id")
 	private Long branchId;
 	@ManyToOne

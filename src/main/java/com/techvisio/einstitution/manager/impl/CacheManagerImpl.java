@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
@@ -41,6 +42,7 @@ import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CustomLogger;
 
+@Transactional
 @Component
 public class CacheManagerImpl implements CacheManager {
 	private static CustomLogger logger = CustomLogger.getLogger(CacheManagerImpl.class);

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -15,6 +17,7 @@ import javax.persistence.MappedSuperclass;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class BasicFeeTransaction extends BasicEntity{
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name="Transaction_Id")
 	private Long transactionId;

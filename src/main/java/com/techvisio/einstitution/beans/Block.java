@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "BLOCK_MASTER")    
 public class Block extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Block_id")
 	private Long blockId;
 	@Column(name = "Block")

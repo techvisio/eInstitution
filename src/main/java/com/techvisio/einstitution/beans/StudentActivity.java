@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "STUDENT_ACTIVITY")
 public class StudentActivity {
 
 	private Long activityId;

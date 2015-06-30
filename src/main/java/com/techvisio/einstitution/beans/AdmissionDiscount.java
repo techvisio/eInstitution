@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "ADMISSION_DISCOUNT_DTL") 
 public class AdmissionDiscount extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Discount_Dtl_Id")
 	private Long discountDtlId;
 	@Column(name="File_No")

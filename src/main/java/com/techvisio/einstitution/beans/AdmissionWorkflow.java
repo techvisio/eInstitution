@@ -2,13 +2,20 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "ADMISSION_WORKFLOW")
 public class AdmissionWorkflow {
-
+    
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="Admission_workflow_Id")
+	private Long admissionWorkflowId;
+	
 	private Long fileNo;
 	private Workflow workflow;
 	private User user;

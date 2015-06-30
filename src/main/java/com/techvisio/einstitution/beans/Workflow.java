@@ -3,8 +3,7 @@ package com.techvisio.einstitution.beans;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "WORKFLOW_MASTER")
+
 public class Workflow {
 
 	private String workflow;

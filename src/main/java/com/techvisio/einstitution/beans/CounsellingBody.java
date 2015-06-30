@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 public class CounsellingBody extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Counselling_Id")
 	private Long counsellingId;
 	

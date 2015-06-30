@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
@@ -42,6 +43,7 @@ import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 
+@Transactional
 @Component
 public class CacheDaoImpl extends BaseDao implements CacheDao {
 	private static CustomLogger logger = CustomLogger.getLogger(CacheDaoImpl.class);

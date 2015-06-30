@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "BRANCH_PREFERENCE")    
 public class BranchPreference extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Branch_Preference_Id")
 	private Long branchPreferenceId;
 	@Column(name = "File_No")

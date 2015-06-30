@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class CasteCategory extends BasicEntity  {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Categry_Id")
 	private Long  categoryId;
 	@Column(name="Category_Name")

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "AMENITIES_CHARGES")    
 public class Amenities extends BasicEntity{
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Amenity_Id")
 	private Long amenityId;
 	@ManyToOne

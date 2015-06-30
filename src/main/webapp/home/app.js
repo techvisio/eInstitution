@@ -1,63 +1,56 @@
 var erpModule = angular
   .module('mainModule', [
     'ngRoute',
-    'admissionModule',
-    'masterdataModule',
-    'transportModule',
-    'hostelModule',
-    'managementModule',
-    'feeModule',
     'ui.bootstrap',
     'ngGrid',
-    'enquiryModule',
-    'consultantModule',
     'ui.bootstrap.pagination',
-    'reportsModule',
     'ngGrid'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'admissionController'
+        //controller: 'admissionController'
       })
       .when('/admissionFrom', {
         templateUrl: 'views/admission.html',
-        controller: 'admissionController'
+        //controller: 'admissionController'
         
       })
       .when('/transportFrom', {
         templateUrl: 'views/transport.html',
-        controller: 'transportController'
+        //controller: 'transportController'
         
       })
       .when('/hostelFrom', {
         templateUrl: 'views/hostel.html',
-        controller: 'hostelController'
+       // controller: 'hostelController'
         
       })
        .when('/managementform', {
         templateUrl: 'views/management.html',
-        controller: 'managementController'
+        //controller: 'managementController'
         
       })
        .when('/feeFrom', {
         templateUrl: 'views/fee.html',
-        controller: 'feeController'
+        //controller: 'feeController'
         
       })
       .when('/enquiryForm', {
         templateUrl: 'views/enquiry.html',
-        controller: 'enquiryController'
+        //controller: 'enquiryController'
         
       }).when('/consultantForm', {
           templateUrl: 'views/consultant.html',
-          controller: 'consultantController'})
+          //controller: 'consultantController'
+        	  })
       .otherwise({
         redirectTo: '/'
       }).when('/reports', {
           templateUrl: 'views/reports.html',
-          controller: 'reportsController'})
+          //controller: 'reportsController'
+        	  })
       .otherwise({
         redirectTo: '/'
       });

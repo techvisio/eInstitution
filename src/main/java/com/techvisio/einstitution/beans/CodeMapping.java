@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "CODE_MAPPING_MASTER")    
 public class CodeMapping extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Code_Map_Id")
 	private Long codeMapId;
 	@Column(name = "Name")

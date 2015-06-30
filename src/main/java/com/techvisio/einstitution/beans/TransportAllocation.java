@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "TRANSPORT_ALLOCATION")
 public class TransportAllocation extends BasicEntity {
 
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "transport_Alloctionn_Id")
 	private Long trnsprtAllctnId;

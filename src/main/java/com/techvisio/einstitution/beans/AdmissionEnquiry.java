@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "admissioninquiry") 
 public class AdmissionEnquiry extends BasicEntity{
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private Long id;
 	

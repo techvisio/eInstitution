@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "BATCH_MASTER")    
 public class Batch extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Batch_Id")
 	private Long batchId;
 	@Column(name = "Batch")

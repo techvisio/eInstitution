@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "consultantpaymentcriteria")    
 public class ConsultantPaymentCriteria extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Pymnt_Critria_Id")
 	private Long pymntCritriaId;
 

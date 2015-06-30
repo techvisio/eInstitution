@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "ADDRESS_DETAIL")    
 public class Address extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Address_Id")
 	private Long addressId;
 	@Column(name="House_No")
