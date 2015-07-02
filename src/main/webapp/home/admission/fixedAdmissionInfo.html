@@ -1,5 +1,5 @@
 <form>
-<div class="admission-fixed-div">
+<div class="admission-fixed-div" ng-init="init()">
 				<table>
 					<tr>
 						<td><span>Admission Mode</span></td>
@@ -14,17 +14,17 @@
 						<td><span>Registration No</span></td>
 						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.registrationNo"
 							ng-Readonly="true">
-  <span class="input-group-addon">.00</span></td>
+  </td>
 					</tr>
 					<tr>
 						<td><span> Enrollment No </span></td>
 						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.enrollNo"
 							ng-Readonly="!form.isEdit && !form.isNew">
-  <span class="input-group-addon">.00</span></td>
+  </td>
 						<td><span> Uni Enrollment No </span></td>
 						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.uniEnrollNo"
 							ng-Readonly="!form.isEdit && !form.isNew">
-  <span class="input-group-addon">.00</span></td>
+ </td>
 					</tr>
 					<tr>
 						<td><span> Course </span></td>
@@ -42,11 +42,11 @@
 						<td><span> First Name </span></td>
 						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.firstName"
 							ng-Readonly="!form.isEdit && !form.isNew" required>
-  <span class="input-group-addon">.00</span></td>
+  </td>
 						<td><span> Last Name </span></td>
 						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.lastName"
 							ng-Readonly="!form.isEdit && !form.isNew" required>
-  <span class="input-group-addon">.00</span></td>
+  </td>
 					</tr>
 				</table>
 			</div>

@@ -79,7 +79,7 @@ public ResponseEntity<Response> getMasterDataforAdmission() {
 	}
 	catch(Exception e){
 		logger.error("Error while fetching master data for admssion", e);
-		response.setError(e.getLocalizedMessage());
+		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
 	

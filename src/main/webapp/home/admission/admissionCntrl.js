@@ -8,7 +8,8 @@ admissionModule
 		 'admissionService',
 		 'masterdataService',
 		 '$modal',
-		 function($scope, admissionService,masterdataService,$modal) {
+		 '$state',
+		 function($scope, admissionService,masterdataService,$modal,$state) {
 
 			 $scope.form = {};
 			 $scope.form.sameAsAbove=false;
@@ -78,6 +79,10 @@ admissionModule
 
 				 $scope.filteredSearch = $scope.searchResultList.slice(begin, end);
 			 });
+			 
+			 $scope.newAdmission=function(){
+				 $state.go('newadmission');
+			 }
 
 			 $scope.gridOptions = {
 					 multiSelect:false,

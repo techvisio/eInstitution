@@ -1,4 +1,4 @@
-angular.module('ky3p.services')
+angular.module('erp.services',[])
     .service('deferredManager', ['$location', '$q', '$timeout',
         function ($location, $q, $timeout) {
             var deferredQueries = {},

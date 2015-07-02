@@ -4,7 +4,7 @@
 							<tr ng-repeat="consultant in student.consultantDetail">
 
 								<td><select ng-model="consultant.consultant.consultantId"
-									ng-disabled="!form.isEdit && !form.isNew"
+									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
 									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
 								<td><img height="35" width="35" ng-src="images/plus.png"
 									ng-click="addConsultantDetail()" /></td>

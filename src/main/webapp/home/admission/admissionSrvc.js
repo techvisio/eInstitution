@@ -2,7 +2,7 @@
 
 			 // Return public API.
 			 return ({
-				 saveStudent : saveStudent,
+				// saveStudent : saveStudent,
 				 getStudent : getStudent,
 				 getStudentAcademicDtl : getStudentAcademicDtl,
 				 updateStudentAcademicDtl : updateStudentAcademicDtl,
@@ -15,7 +15,7 @@
 				 getCounsellingDtl : getCounsellingDtl,
 				 updateCounsellingDtl : updateCounsellingDtl,
 				 getConsultantDtl : getConsultantDtl,
-				 updateConsultantDtl : updateConsultantDtl,
+				 //updateConsultantDtl : updateConsultantDtl,
 				 getScholarshipDtl : getScholarshipDtl,
 				 updateScholarshipDtl : updateScholarshipDtl,
 				 getLatestAdmission : getLatestAdmission,
