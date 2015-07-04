@@ -1,0 +1,50 @@
+<div class="halfScreen-left">
+	 <div ng-include src="'home/admission/fixedAdmissionInfo.html'">
+	 </div>
+</div>
+
+<div class="fullscreen-left">
+
+  <tabset justified="true" type="pills">
+
+  <tab heading="PERSONAL INFORMATION">
+	<br>
+	 <tabset justified="true" type="pills">
+	 <tab heading="PERSONAL DETAIL">
+	 <div ng-include src="'home/admission/personalInfo.html'">
+	 </div>
+	 </tab>
+	 <tab heading="ACADEMIC INFO">
+	 <div ng-include src="'home/admission/academicDetail.html'">
+	 </div>
+	 </tab>
+	 <tab heading="ADDRESS INFO">
+	 <div ng-include src="'home/admission/studentAddressDtl.html'">
+	 </div>
+	 </tab>
+	 
+	 </tabset>
+	</tab>
+	
+  <tab heading="OFFICIAL INFORMATION">
+  	<br>
+  	 <tabset justified="true" type="pills">
+	 <tab heading="OFFICE USE">
+	 <div ng-include src="'home/admission/officeUse.html'"></div>
+	 </tab>
+	 <tab heading="SCHOLARSHIP AND DISCOUNTS">
+	 <div ng-include src="'home/admission/scholarshipAndDiscount.html'"></div>
+	 </tab>
+	 <tab heading="COUNSELLING">
+	 <div ng-include src="'home/admission/counselling.html'"></div>
+      </tab>
+	 <tab heading="CONSULTANT">
+	 <div ng-include src="'home/admission/consultant.html'"></div>
+     </tab> 
+	 <tab heading="REFERRAL">
+	 <div ng-include src="'home/admission/referred.html'"></div>
+     </tab>
+	 </tabset>
+  </tab>
+  </tabset>
+</div>

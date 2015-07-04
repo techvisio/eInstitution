@@ -59,7 +59,7 @@ admissionModule
 					 "W":"Walk-In",
 					 "R":"Referral",
 					 "A":"Consultant"	 
-					};
+			 };
 
 			 $scope.itemsPerPage = 3;
 			 $scope.currentPage = 0;
@@ -79,9 +79,13 @@ admissionModule
 
 				 $scope.filteredSearch = $scope.searchResultList.slice(begin, end);
 			 });
-			 
+
 			 $scope.newAdmission=function(){
 				 $state.go('newadmission');
+			 }
+
+			 $scope.personalInfo=function(){
+				 $state.go('personalInfo');
 			 }
 
 			 $scope.gridOptions = {
@@ -238,7 +242,7 @@ admissionModule
 				 $scope.showSub = true;
 			 };
 
-			 $scope.getStudentAddress = function(addressType) {
+			 $scope.getAddress = function(addressType) {
 				 var address = null;
 				 for (var i = 0; i <= $scope.student.addressDtl.length - 1; i++) {
 					 var add = $scope.student.addressDtl[i];
@@ -261,8 +265,8 @@ admissionModule
 				 console.log($scope.form.sameAsAbove);
 				 if($scope.form.sameAsAbove == true){
 					 console.log('same as above');
-					 var cAddress=$scope.getStudentAddress('C');
-					 angular.copy($scope.getStudentAddress('P'),cAddress)
+					 var cAddress=$scope.getAddress('C');
+					 angular.copy($scope.getAddress('P'),cAddress)
 					 cAddress.addressType='C';
 				 }
 			 }
@@ -388,7 +392,7 @@ admissionModule
 					 }
 				 })
 			 } 
-			 
+
 			 $scope.updateStudentAcademicDtl = function(){
 				 admissionService.getStudentAcademicDtl($scope.student.academicDtl, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -403,9 +407,9 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.getStudentAddress = function(){
-				 admissionService.getStudentAddress(student.fileNo)
+				 admissionService.getStudentAddress( $scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('address detail received from service : ');
 					 console.log(response);
@@ -417,9 +421,9 @@ admissionModule
 						 alert(response.data.error);
 					 }
 				 })				 
-				 
+
 			 }
-			 
+
 			 $scope.updateStudentAddress = function(){
 				 admissionService.updateStudentAddress($scope.student.addressDtl, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -449,7 +453,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.updateStudentDiscountDtl = function(){
 				 admissionService.updateStudentDiscountDtl($scope.student.discountDtl, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -464,7 +468,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.getBranchPref=  function(){
 				 admissionService.getBranchPref(student.fileNo)
 				 .then(function(response) {
@@ -479,7 +483,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.updateBranchPref = function(){
 				 admissionService.updateBranchPref($scope.student.branchPreference, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -509,7 +513,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.updateCounsellingDtl = function(){
 				 admissionService.updateCounsellingDtl($scope.student.counsellingDtl, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -524,7 +528,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.getConsultantDtl = function(){
 				 admissionService.getConsultantDtl(student.fileNo)
 				 .then(function(response) {
@@ -539,7 +543,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.updateConsultantDtl = function(){
 				 admissionService.updateConsultantDtl($scope.student.counsellingDtl, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -554,7 +558,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.getScholarshipDtl = function(){
 				 admissionService.getScholarshipDtl(student.fileNo)
 				 .then(function(response) {
@@ -569,7 +573,7 @@ admissionModule
 					 }
 				 })				 
 			 }
-			 
+
 			 $scope.updateScholarshipDtl = function(){
 				 admissionService.updateScholarshipDtl($scope.student.scholarship, $scope.sudent.fileNo)
 				 .then(function(response) {
@@ -584,7 +588,7 @@ admissionModule
 					 }
 				 })				 
 			 }
-			 
+
 			 $scope.getLatestAdmission = function(){
 
 				 admissionService.getLatestAdmission($scope.currentFetchLimit)
@@ -600,7 +604,7 @@ admissionModule
 					 }
 				 })
 			 }
-			 
+
 			 $scope.showDetail =  function(index){
 
 				 var fileNo=$scope.latestAdmission[index].fileNo;
@@ -825,6 +829,73 @@ admissionModule
 				 });
 			 };
 
+			 $scope.offcialTabs = [
+			                       {
+			                    	   "heading": "OFFICE USE",
+			                    	   "active": true,
+			                    	   "template":"home/admission/officeUse.html"
+			                       },
+			                       {
+			                    	   "heading": "SCHOLARSHIP AND DISCOUNTS",
+			                    	   "active": false,
+			                    	   "template":"home/admission/scholarshipAndDiscount.html"
+			                       },
+			                       {
+			                    	   "heading": "Counselling",
+			                    	   "active": false,
+			                    	   "template":"home/admission/counselling.html"
+			                       },
+
+			                       {
+			                    	   "heading": "CONSULTANT",
+			                    	   "active": false,
+			                    	   "template":"home/admission/consultant.html"
+			                       },
+			                       {
+			                    	   "heading": "REFERRAL",
+			                    	   "active": false,
+			                    	   "template":"home/admission/referred.html"
+			                       },
+
+			                       ];
+
+			 $scope.selectTabs = [
+			                      {
+			                    	  "heading": "PERSONAL INFORMATION",
+			                    	  "active": true,
+			                    	  "template":"home/admission/studentPersonal.html"
+			                      },
+			                      {
+			                    	  "heading": "OFFICIAL INFORMATION",
+			                    	  "active": false,
+			                    	  "template":"home/admission/OfficialInfo.html"
+			                      }
+			                      ];
+
+			 $scope.personalTabs = [
+			                        {
+			                        	"heading": "FIXED INFO",
+			                        	"active": true,
+			                        	"template":"home/admission/fixedAdmissionInfo.html"
+			                        },
+			                        {
+			                        	"heading": "PERSONAL DETAIL",
+			                        	"active": false,
+			                        	"template":"home/admission/personalInfo.html"
+			                        },
+			                        {
+			                        	"heading": "ACADEMIC INFO",
+			                        	"active": false,
+			                        	"template":"home/admission/academicDetail.html"
+			                        },
+
+			                        {
+			                        	"heading": "ADDRESS INFO",
+			                        	"active": false,
+			                        	"template":"home/admission/studentAddressDtl.html"
+			                        }
+			                        ];
+
 			 $scope.today = function() {
 				 $scope.dt = new Date();
 			 };
@@ -851,3 +922,5 @@ admissionModule
 					 startingDay: 1
 			 };
 		 } ]);
+
+

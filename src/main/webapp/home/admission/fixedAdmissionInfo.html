@@ -1,53 +1,52 @@
 <form>
-<div class="admission-fixed-div" ng-init="init()">
-				<table>
-					<tr>
-						<td><span>Admission Mode</span></td>
-						<td><select ng-model="student.admissionMode"
-							ng-change="resetAdmissionMode()" class="form-control"
-							ng-disabled="!form.isEdit && !form.isNew" required>
-								<option value="C">Counselling</option>
-								<option value="A">Consultant</option>
-								<option value="R">Referral</option>
-								<option value="W">Walk-In</option>
-						</select></td>
-						<td><span>Registration No</span></td>
-						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.registrationNo"
-							ng-Readonly="true">
-  </td>
-					</tr>
-					<tr>
-						<td><span> Enrollment No </span></td>
-						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.enrollNo"
-							ng-Readonly="!form.isEdit && !form.isNew">
-  </td>
-						<td><span> Uni Enrollment No </span></td>
-						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.uniEnrollNo"
-							ng-Readonly="!form.isEdit && !form.isNew">
- </td>
-					</tr>
-					<tr>
-						<td><span> Course </span></td>
-						<td><select select ng-model="student.courseId"
-							ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
-							required></select></td>
-						<td><span> Branch </span></td>
-						<td><select select ng-model="student.branchId"
-							ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
-							required></select></td>
-					</tr>
-					<tr>
-						<td><span> First Name </span></td>
-						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.firstName"
-							ng-Readonly="!form.isEdit && !form.isNew" required>
-  </td>
-						<td><span> Last Name </span></td>
-						<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.lastName"
-							ng-Readonly="!form.isEdit && !form.isNew" required>
-  </td>
-					</tr>
-				</table>
-			</div>
-			</form>
+	<div ng-init="init()">
+		<table>
+			<tr>
+				<td><span> Admission Mode </span></td>
+				<td><select ng-model="student.admissionMode"
+					ng-change="resetAdmissionMode()" class="form-control"
+					ng-disabled="!form.isEdit && !form.isNew" required>
+						<option value="C">Counselling</option>
+						<option value="A">Consultant</option>
+						<option value="R">Referral</option>
+						<option value="W">Walk-In</option>
+				</select></td>
+			</tr>
+			<tr>
+				</td>
+				<td><span>Registration No</span></td>
+				<td><input type="text" class="form-control"
+					aria-label="Amount (to the nearest dollar)"
+					ng-model="student.registrationNo" ng-Readonly="true"></td>
+			</tr>
+
+			<tr>
+				<td><span> Course </span></td>
+				<td><select select ng-model="student.courseId"
+					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
+					required></select></td>
+			</tr>
+			<tr>
+				<td><span> Branch </span></td>
+				<td><select select ng-model="student.branchId"
+					ng-disabled="!form.isEdit && !form.isNew" 
+					class="form-control"
+					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
+					required></select></td>
+			</tr>
+			<tr>
+				<td><span> First Name </span></td>
+				<td><input type="text" 
+					ng-model="student.firstName" class="form-control"
+					ng-Readonly="!form.isEdit && !form.isNew" required></td>
+			<tr>
+				<td><span> Last Name </span></td>
+				<td><input type="text" 
+					ng-model="student.lastName" class="form-control"
+					ng-Readonly="!form.isEdit && !form.isNew" required></td>
+			</tr>
+		</table>
+
+	</div>
+</form>

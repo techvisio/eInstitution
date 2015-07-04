@@ -28,9 +28,38 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('newadmission', {
     	url: "/newadmission",
-        templateUrl: 'home/admission/fixedAdmissionInfo.html',
+        templateUrl: 'home/admission/admissionMain.html',
+        controller: "admissionController"
+    })
+    .state('newadmission.personal', {
+    	url: "/newadmission",
+        templateUrl: 'home/admission/personalInfo.html',
         controller: "admissionController"
     });
+//    
+//    .state('personalInfo', {
+//    	url: "/personalInfo",
+//        templateUrl: 'home/admission/admissionTab.html',
+//        controller: "admissionController"
+//    })
+    
+//    .state('newadmission',{
+//    views: {
+//      'fixedAdmissionInfo': {
+//        templateUrl: 'home/admission/fixedAdmissionInfo.html',
+//        controller: function($scope){}
+//      },
+//      'personalInfo': {
+//        templateUrl: 'home/admission/personalInfo.html',
+//        controller: "admissionController"
+//      },
+//      'academicDetail': {
+//        templateUrl: 'home/admission/academicDetail.html',
+//        controller: "admissionController"
+//      }
+//    }
+//  })
+//  
 });
 
 erp.config(['$httpProvider', '$sceProvider',
@@ -59,7 +88,7 @@ erp.config(['$httpProvider', '$sceProvider',
                              if(response.status == 401) {
                                  $rootScope.user = null;
                                  window.location = "/kyv-web/";
-                             } else if (response && [403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
+                             } else if (response && [400,403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
                                  // temporary - while 404 error in html mode
                                  if (response.data && response.data.match && response.data.match(/^<html/i)) {
                                      var rdata = response.data.match(/(\<body\>)(.*)(\<\/body\>)/);

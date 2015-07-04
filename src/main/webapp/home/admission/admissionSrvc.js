@@ -2,7 +2,7 @@
 
 			 // Return public API.
 			 return ({
-				// saveStudent : saveStudent,
+				 saveStudent : saveStudent,
 				 getStudent : getStudent,
 				 getStudentAcademicDtl : getStudentAcademicDtl,
 				 updateStudentAcademicDtl : updateStudentAcademicDtl,
@@ -15,7 +15,7 @@
 				 getCounsellingDtl : getCounsellingDtl,
 				 updateCounsellingDtl : updateCounsellingDtl,
 				 getConsultantDtl : getConsultantDtl,
-				 //updateConsultantDtl : updateConsultantDtl,
+				 updateConsultantDtl : updateConsultantDtl,
 				 getScholarshipDtl : getScholarshipDtl,
 				 updateScholarshipDtl : updateScholarshipDtl,
 				 getLatestAdmission : getLatestAdmission,
@@ -24,7 +24,7 @@
 				 saveAmenity:saveAmenity
 			 });
 
-			 function addStudent(student) {
+			 function saveStudent(student) {
 
 				 console.log('add student called in service');
 				 var request = $http({
@@ -188,7 +188,7 @@
 				 return (request.then(handleSuccess, handleError));
 			 }
 			 
-			 function updateCounsellingDtl(consultantDetail, fileNo){
+			 function updateConsultantDtl(consultantDetail, fileNo){
 				 var request = $http({
 					 method : "put",
 					 url : "admission/student/consultant/"+fileNo,
