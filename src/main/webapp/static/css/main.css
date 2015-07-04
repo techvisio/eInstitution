@@ -72,7 +72,7 @@
 }
 
 .content {
-	width: 99.8%;
+	width: 100%;
 	margin-top: 90px;
 	padding-top: 0px;
 	padding-bottom: 0px;
@@ -87,15 +87,24 @@
 
 .content span {
 	font-family: "Verdana";
-	font-size: 14px;
+	font-size: 13px;
 	font-style: none;
 	color: grey;
-	padding-left: 15px;
+}
+
+.content input[type="text"]
+{
+	height: 25px;
+}
+
+.content select
+{
+	height: 25px;
 }
 
 .dashboard {
 	width: 80%;
-	height: 600px;
+	height: 80%;
 	margin-left: auto;
 	margin-right: auto;
 	background-image: url(../images/dashboardTheme.jpg);
@@ -231,15 +240,31 @@ height:600px;
 .fullscreen-left table td:nth-child(even),.content table th:nth-child(even) {
    overflow: hidden;
     width: 30%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }	
 	
 .fullscreen-left table td:nth-child(odd),.content table th:nth-child(odd) {
    overflow: hidden;
    width: 20%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
+.side-menu
+{
+	width:22%;
+	height: 100%;
+	float: left;
+}
 
+.module-content {
+	width: 78%;
+	margin-top: 90px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	float:right;
+	height:500px;
+}
