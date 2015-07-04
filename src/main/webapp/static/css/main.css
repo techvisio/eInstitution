@@ -260,11 +260,16 @@ height:600px;
 
 .module-content {
 	width: 78%;
-	margin-top: 90px;
-	padding-top: 0px;
+	padding-top: 5px;
 	padding-bottom: 0px;
 	margin-left: auto;
 	margin-right: auto;
 	float:right;
 	height:500px;
+}
+
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 8px 10px;
 }
