@@ -268,8 +268,11 @@ height:600px;
 	height:500px;
 }
 
-.nav > li > a {
-  position: relative;
-  display: block;
+.module-content.nav > li > a {
   padding: 8px 10px;
+}
+
+.tab-separator{
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
