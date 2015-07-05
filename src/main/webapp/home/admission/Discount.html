@@ -3,46 +3,6 @@
 					<div class="student-discount">
 						<table>
 							<tr>
-								<td><span> Scholarship </span></td>
-								<td><input type="checkbox" ng-model="isScholarship"
-									ng-disabled="!form.isEdit && !form.isNew"></td>
-								<td><span> Domicile State </span></td>
-								<td><select select
-									ng-model="student.scholarshipDetail.stateId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.STATE"></select>
-								</td>
-							</tr>
-							<tr>
-								<td><span> Category </span></td>
-								<td><select select ng-model="student.categoryId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
-								</td>
-								<td><span> Family Income </span></td>
-								<td><input type="number"
-									ng-model="student.scholarshipDetail.parentIncome"
-									ng-Readonly="!form.isEdit && !form.isNew"></td>
-							</tr>
-
-
-							<tr>
-								<td><span> Remarks </span></td>
-								<td><textarea rows="3" cols="30"
-										ng-model="student.scholarshipDetail.remark"
-										ng-Readonly="!form.isEdit && !form.isNew">
-										
-						</textarea></td>
-								<td><span> Amount </span></td>
-								<td><input type="number"
-									ng-model="student.scholarshipDetail.amount"
-									ng-disabled="!form.isEdit && !form.isNew"></td>
-							</tr>
-							<tr>
-								<td colspan=4><hr></td>
-
-							</tr>
-							<tr>
 								<th><span>Feehead</span></th>
 								<th><span>Discount Type</span></th>
 								<th><span>Amount</span></th>

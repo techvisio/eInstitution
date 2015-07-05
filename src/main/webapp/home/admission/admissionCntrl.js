@@ -310,11 +310,11 @@ admissionModule
 				 })
 			 }
 
-			 $scope.addStudent = function() {
+			 $scope.saveStudent = function() {
 				 console.log('add student called');
 				 console.log($scope.student);
 				 $scope.processing=true;
-				 admissionService.addStudent($scope.student)
+				 admissionService.saveStudent($scope.student)
 				 .then(function(response) {
 					 console.log('Data received from service : ');
 					 console.log(response);
@@ -369,9 +369,6 @@ admissionModule
 						 $scope.form.isEdit=false;
 						 $scope.dashboard=false;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
 					 }
 					 $scope.processing=false;
 				 })
@@ -379,16 +376,13 @@ admissionModule
 
 			 $scope.getStudentAcademicDtl = function(){
 
-				 admissionService.getStudentAcademicDtl(student.fileNo)
+				 admissionService.getStudentAcademicDtl($scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('academic detail received from service : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.academicDtl = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
 					 }
 				 })
 			 } 
@@ -401,9 +395,6 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.academicDtl = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
 					 }
 				 })
 			 }
@@ -416,10 +407,7 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.addressDtl = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })				 
 
 			 }
@@ -431,25 +419,17 @@ admissionModule
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.addressDtl = response.data.responseBody;
-
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
 					 }
 				 })
 			 }
 
 			 $scope.getStudentDiscountDtl = function(){
-				 admissionService.getStudentDiscountDtl(student.fileNo)
+				 admissionService.getStudentDiscountDtl($scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('student discount detail received from service : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.discountDtl = response.data.responseBody;
-
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
 					 }
 				 })
 			 }
@@ -461,26 +441,19 @@ admissionModule
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.discountDtl = response.data.responseBody;
-
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })
 			 }
 
 			 $scope.getBranchPref=  function(){
-				 admissionService.getBranchPref(student.fileNo)
+				 admissionService.getBranchPref($scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('branchpref detail received from service : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.branchPreference = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })
 			 }
 
@@ -492,25 +465,19 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.branchPreference = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })				 
 			 }
 
 			 $scope.getCounsellingDtl= function(){
-				 admissionService.getCounsellingDtl(student.fileNo)
+				 admissionService.getCounsellingDtl($scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('counselling detail received from service : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.counsellingDtl = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })
 			 }
 
@@ -522,25 +489,19 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.counsellingDtl = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })
 			 }
 
 			 $scope.getConsultantDtl = function(){
-				 admissionService.getConsultantDtl(student.fileNo)
+				 admissionService.getConsultantDtl($scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('consulant detail received from service : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.consultantDetail = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })
 			 }
 
@@ -552,25 +513,19 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.counsellingDtl = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })
 			 }
 
 			 $scope.getScholarshipDtl = function(){
-				 admissionService.getScholarshipDtl(student.fileNo)
+				 admissionService.getScholarshipDtl($scope.student.fileNo)
 				 .then(function(response) {
 					 console.log('scholarship detail received from service : ');
 					 console.log(response);
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.scholarship = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })				 
 			 }
 
@@ -582,10 +537,7 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.student.scholarship = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
+					 } 
 				 })				 
 			 }
 
@@ -598,11 +550,7 @@ admissionModule
 					 if (response !=null && response.data != null && response.data.responseBody != null) {
 						 $scope.latestAdmission = response.data.responseBody;
 
-					 } else {
-						 console.log(response.data.error);
-						 alert(response.data.error);
-					 }
-				 })
+					 } 				 })
 			 }
 
 			 $scope.showDetail =  function(index){
