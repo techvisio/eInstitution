@@ -10,38 +10,40 @@
   <tab heading="PERSONAL INFORMATION">
 	<br>
 	 <tabset justified="true" type="pills">
-	 <tab heading="PERSONAL DETAIL">
+	 <tab heading="PERSONAL DETAIL" ng-click="getStudent()">
 	 <div ng-include src="'home/admission/personalInfo.html'">
 	 </div>
 	 </tab>
-	 <tab heading="ACADEMIC INFO">
+	 <tab heading="ACADEMIC INFO" ng-click="getStudentAcademicDtl()">
 	 <div ng-include src="'home/admission/academicDetail.html'">
 	 </div>
 	 </tab>
-	 <tab heading="ADDRESS INFO">
+	 <tab heading="ADDRESS INFO" ng-click="getStudentAddress()">
 	 <div ng-include src="'home/admission/studentAddressDtl.html'">
 	 </div>
 	 </tab>
-	 
+     <tab heading="COUNSELLING" ng-click="getCounsellingDtl()">
+	 <div ng-include src="'home/admission/counselling.html'"></div>
+      </tab>	 
 	 </tabset>
 	</tab>
 	
   <tab heading="OFFICIAL INFORMATION">
   	<br>
   	 <tabset justified="true" type="pills">
-	 <tab heading="OFFICE USE">
+	 <tab heading="OFFICE USE" ng-click="getStudent()">
 	 <div ng-include src="'home/admission/officeUse.html'"></div>
 	 </tab>
-	 <tab heading="SCHOLARSHIP AND DISCOUNTS">
-	 <div ng-include src="'home/admission/scholarshipAndDiscount.html'"></div>
+	 <tab heading="DISCOUNTS" ng-click="getStudentDiscountDtl()">
+	 <div ng-include src="'home/admission/Discount.html'"></div>
 	 </tab>
-	 <tab heading="COUNSELLING">
-	 <div ng-include src="'home/admission/counselling.html'"></div>
-      </tab>
-	 <tab heading="CONSULTANT">
+	 <tab heading="SCHOLARSHIP " ng-click="getScholarshipDtl()">
+	 <div ng-include src="'home/admission/scholarship.html'"></div>
+	 </tab>
+	 <tab heading="CONSULTANT" ng-click="getConsultantDtl()">
 	 <div ng-include src="'home/admission/consultant.html'"></div>
      </tab> 
-	 <tab heading="REFERRAL">
+	 <tab heading="REFERRAL" ng-click="getStudent()">
 	 <div ng-include src="'home/admission/referred.html'"></div>
      </tab>
 	 </tabset>
