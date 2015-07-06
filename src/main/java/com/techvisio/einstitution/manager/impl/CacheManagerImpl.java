@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
@@ -23,8 +24,8 @@ import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
-import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomType;
+import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -35,13 +36,13 @@ import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
-import com.techvisio.einstitution.controller.MasterDataService;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
 import com.techvisio.einstitution.util.CustomLogger;
 
+@Transactional
 @Component
 public class CacheManagerImpl implements CacheManager {
 	private static CustomLogger logger = CustomLogger.getLogger(CacheManagerImpl.class);
@@ -100,17 +101,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterData> getBranchAsMasterdata(){
-		logger.info("{} : Get branch as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(Branch branch:getBranchs()){
-			MasterData bean=new MasterData(branch.getId().toString(), branch.getBranchName(), branch.getCourseId().toString());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
-
-
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Course> getCourses() {
 		logger.info("{} : Mapping work for get courses ",this.getClass().getName());
@@ -121,15 +111,6 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<Course>)entityListMap.get(AppConstants.COURSE);
 	}
 
-	public List<MasterData> getCourseAsMasterdata(){
-		logger.info("{} : Get course as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(Course course:getCourses()){
-			MasterData bean=new MasterData(course.getCourseId().toString(), course.getCourse());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CasteCategory> getCategories() {
@@ -141,15 +122,6 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<CasteCategory>)entityListMap.get(AppConstants.CATEGORY);
 	}
 
-	public List<MasterData> getCategoryAsMasterdata(){
-		logger.info("{} : Get category as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(CasteCategory category:getCategories()){
-			MasterData bean=new MasterData(category.getId().toString(), category.getCategoryName());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CounsellingBody> getCounsellingBodies() {
@@ -158,16 +130,6 @@ public class CacheManagerImpl implements CacheManager {
 			refreshCacheList(AppConstants.COUNSELLING);
 		}
 		return (List<CounsellingBody>)entityListMap.get(AppConstants.COUNSELLING);
-	}
-
-	public List<MasterData> getCounsellingBodyAsMasterdata(){
-		logger.info("{} : Get counsellingBody as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(CounsellingBody body:getCounsellingBodies()){
-			MasterData bean=new MasterData(body.getCousellingId().toString(), body.getCousellingBody());
-			masterData.add(bean);
-		}
-		return masterData;
 	}
 
 
@@ -180,15 +142,6 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<Qualification>)entityListMap.get(AppConstants.QUALIFICATION);
 	}
 
-	public List<MasterData> getQualificationAsMasterdata(){
-		logger.info("{} : Get qualification as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(Qualification qualification:getQualifications()){
-			MasterData bean=new MasterData(qualification.getId().toString(), qualification.getQulaifyingExam());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<QuotaCode> getQuotaCodes() {
@@ -199,15 +152,6 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<QuotaCode>)entityListMap.get(AppConstants.QUOTACODE);
 	}
 
-	public List<MasterData> getQuotaCodeAsMasterdata(){
-		logger.info("{} : Get quota code as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(QuotaCode quotaCode : getQuotaCodes()){
-			MasterData bean=new MasterData(quotaCode.getId().toString(), quotaCode.getCode());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<State> getStates() {
@@ -218,15 +162,6 @@ public class CacheManagerImpl implements CacheManager {
 		return (List<State>)entityListMap.get(AppConstants.STATE);
 	}
 
-	public List<MasterData> getStateAsMasterdata(){
-		logger.info("{} : Get state code as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(State state : getStates()){
-			MasterData bean=new MasterData(state.getId().toString(), state.getStateName());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Consultant> getConsultant() {
@@ -238,17 +173,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterData> getConsultantAsMasterdata(){
-		logger.info("{} : Get consultant as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(Consultant consultant : getConsultant()){
-			MasterData bean=new MasterData(consultant.getConsultantId().toString(), consultant.getName());
-			masterData.add(bean);
-		}
-		return masterData;
-
-
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized  List<Subject> getSubjects() {
@@ -260,15 +184,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterData> getSubjectAsMasterdata(){
-		logger.info("{} : Get subject as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(Subject subject : getSubjects()){
-			MasterData bean=new MasterData(subject.getId().toString(), subject.getSubjectName());
-			masterData.add(bean);
-		}
-		return masterData;
-	}	
 
 
 	@SuppressWarnings("unchecked")
@@ -281,15 +196,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterData> getFeeDiscountAsMasterdata(){
-		logger.info("{} : Get fee discount as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(FeeDiscountHead feeDiscountHead : getFeeDiscountHeads()){
-			MasterData bean=new MasterData(feeDiscountHead.getHeadId().toString(), feeDiscountHead.getHead(), feeDiscountHead.getTransactionType());
-			masterData.add(bean);
-		}
-		return masterData;
-	}	
 
 
 	@SuppressWarnings("unchecked")
@@ -302,16 +208,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterData> getSemesterAsMasterdata(){
-		logger.info("{} : Get semester as master data",this.getClass().getName());	
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(Semester semester : getSemester()){
-			MasterData bean=new MasterData(semester.getId().toString(), semester.getSemester(),semester.getCourseId().toString());
-			masterData.add(bean);
-		}
-		return masterData;
-	}	
-
 	@SuppressWarnings("unchecked")
 	public synchronized  List<CodeMapping> getCodeMapping() {
 		logger.info("{} : Mapping work for get code mapping ",this.getClass().getName());
@@ -322,16 +218,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 
-	public List<MasterData> getCodeMappingAsMasterdata(){
-		logger.info("{} : Get code mapping as master data",this.getClass().getName());
-		List<MasterData> masterData=new ArrayList<MasterData>();
-		for(CodeMapping codeMapping : getCodeMapping()){
-			MasterData bean=new MasterData(codeMapping.getName(), codeMapping.getName());
-			masterData.add(bean);
-		}
-		return masterData;
-	}	
-	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Batch> getBatch(){
 		logger.info("{} : Mapping work for get batches ",this.getClass().getName());
@@ -342,18 +228,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
-	@Override
-	public List<MasterData> getBatchAsMasterdata() {
-		logger.info("{} : Get batch as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Batch batch : getBatch()){
-			MasterData bean = new MasterData(batch.getBatchId().toString(), batch.getBatch(), batch.getCourseId().toString());
-			masterData.add(bean);
-		}
-		
-		return masterData;
-	}
-
 	@SuppressWarnings("unchecked")
 	public synchronized List<Session> getSession(){
 		logger.info("{} : Mapping work for get sessions ",this.getClass().getName());
@@ -361,17 +235,6 @@ public class CacheManagerImpl implements CacheManager {
 			refreshCacheList(AppConstants.SESSION);
 		}
 		return (List<Session>)entityListMap.get(AppConstants.SESSION);
-	}
-	
-	@Override
-	public List<MasterData> getSessionAsMasterdata() {
-		logger.info("{} : Get session as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Session session : getSession()){
-			MasterData bean = new MasterData(session.getSessionId().toString(), session.getSession(), session.getCourseId().toString());
-			masterData.add(bean);
-		}
-		return masterData;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -383,17 +246,6 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Centre>)entityListMap.get(AppConstants.CENTRE);
 	}
 	
-	@Override
-	public List<MasterData> getCentreAsMasterdata() {
-		logger.info("{} : Get centre as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Centre centre : getCentre()){
-			MasterData bean = new MasterData(centre.getCentreId().toString(), centre.getCentreName());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
-
 	@SuppressWarnings("unchecked")
 	public synchronized List<Shift> getShift(){
 		logger.info("{} : Mapping work for get shifts ",this.getClass().getName());
@@ -401,17 +253,6 @@ public class CacheManagerImpl implements CacheManager {
 			refreshCacheList(AppConstants.SHIFT);
 		}
 	return (List<Shift>)entityListMap.get(AppConstants.SHIFT);
-	}
-	
-	@Override
-	public List<MasterData> getShiftAsMasterdata() {
-		logger.info("{} : Get shift as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Shift shift : getShift()){
-			MasterData bean = new MasterData(shift.getShiftId().toString(), shift.getShiftName());
-			masterData.add(bean);
-		}
-		return masterData;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -423,17 +264,6 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Section>)entityListMap.get(AppConstants.SECTION);
 	}
 	
-	@Override
-	public List<MasterData> getSectionAsMasterdata() {
-		logger.info("{} : Get section as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Section section : getSection()){
-			MasterData bean = new MasterData(section.getSectionId().toString(), section.getSection(), section.getBranchId().toString());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
-
 	@SuppressWarnings("unchecked")
 	public synchronized List<Wing> getWing(){
 		logger.info("{} : Mapping work for get wing ",this.getClass().getName());
@@ -443,16 +273,6 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Wing>)entityListMap.get(AppConstants.WING);
 	}
 	
-	@Override
-	public List<MasterData> getWingAsMasterdata() {
-		logger.info("{} : Get wing as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Wing wing : getWing()){
-			MasterData bean = new MasterData(wing.getWingId().toString(), wing.getWing());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<Floor> getFloor(){
@@ -463,17 +283,6 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Floor>)entityListMap.get(AppConstants.FLOOR);
 	}
 	
-	@Override
-	public List<MasterData> getFloorAsMasterdata() {
-		logger.info("{} : Get floor as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Floor floor: getFloor()){
-			MasterData bean = new MasterData(floor.getFloorId().toString(), floor.getFloor());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
-
 	@SuppressWarnings("unchecked")
 	public synchronized List<Block> getBlock(){
 		logger.info("{} : Mapping work for get Block ",this.getClass().getName());
@@ -483,17 +292,6 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Block>)entityListMap.get(AppConstants.BLOCK);
 	}
 	
-	@Override
-	public List<MasterData> getBlockAsMasterdata() {
-		logger.info("{} : Get block as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Block block : getBlock()){
-			MasterData bean = new MasterData(block.getBlockId().toString(), block.getBlock());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
-
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<RoomTypeDetail> getRoomTypeDetails(){
@@ -505,14 +303,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
-	@Override
-	public List<RoomTypeDetail> getRoomNoAsMasterdata() {
-		logger.info("{} : Get room no as master data",this.getClass().getName());
-		List<RoomTypeDetail> masterData = getRoomTypeDetails();
-		
-		return masterData;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public synchronized List<VehicleDetail> getVehicleDetails(){
 		logger.info("{} : Mapping work for get VehicleTypeDetails ",this.getClass().getName());
@@ -520,13 +310,6 @@ public class CacheManagerImpl implements CacheManager {
 			refreshCacheList(AppConstants.VEHICLE);
 		}
 		return (List<VehicleDetail>)entityListMap.get(AppConstants.VEHICLE);
-	}
-	@Override
-	public List<VehicleDetail> getVehicleDetailAsMasterdata(){
-		logger.info("{} : Get vehicleId as master data",this.getClass().getName());
-		List<VehicleDetail> masterData = getVehicleDetails();
-		return masterData;
-		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -536,18 +319,6 @@ public class CacheManagerImpl implements CacheManager {
 			refreshCacheList(AppConstants.VEHICLETYPE);
 		}
 		return (List<VehicleType>)entityListMap.get(AppConstants.VEHICLETYPE);
-	}
-	
-	@Override
-	public List<MasterData> getVehicleTypeIdAsMasterdata(){
-		logger.info("{} : Get vehicleType id as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(VehicleType vehicleType  : getVehicleTypes()){
-			MasterData bean = new MasterData(vehicleType.getTypeId().toString(),vehicleType.getType());
-			masterData.add(bean);
-		}
-		return masterData;
-		
 	}
 	
 	
@@ -561,17 +332,6 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
-	@Override
-	public List<MasterData> getRoomTypeCodeAsMasterdata(){
-		logger.info("{} : Get RoomType Code as master data",this.getClass().getName());		
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(RoomType roomTypeMaster : getRoomTypes()){
-			MasterData bean = new MasterData(roomTypeMaster.getTypeCode(), roomTypeMaster.getDescription());
-			masterData.add(bean);
-		}
-		return masterData;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Transport> getTransports(){
 		logger.info("{} : Mapping work for get transport ",this.getClass().getName());		
@@ -580,17 +340,6 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		return (List<Transport>)entityListMap.get(AppConstants.TRANSPORT);
 		
-	}
-	
-	@Override
-	public List<MasterData> getTransportRouteCodeAsMasterdata(){
-		logger.info("{} : Get transport route code as master data",this.getClass().getName());
-		List<MasterData> masterData = new ArrayList<MasterData>();
-		for(Transport transport: getTransports()){
-			MasterData bean = new MasterData(transport.getRouteCode(), transport.getDescription());
-			masterData.add(bean);
-		}
-		return masterData;
 	}
 	
 	
@@ -602,23 +351,6 @@ public class CacheManagerImpl implements CacheManager {
 		}
 	return (List<Amenities>)entityListMap.get(AppConstants.AMENITIES);
 	}
-	
-	@Override
-	public List<Amenities> getAmenitiesAsMasterdata(){
-		logger.info("{} : Get amenities as master data",this.getClass().getName());
-		List<Amenities> masterData = new ArrayList<Amenities>();
-		for(Amenities amenities:getAmenities()){
-			
-			Long feeId = amenities.getFeeDiscountHead().getHeadId();
-			FeeDiscountHead discountHead = getFeeDiscountById(feeId);
-			
-			amenities.setFeeDiscountHead(discountHead);
-		}
-		
-		masterData = getAmenities();
-	return masterData;
-	}
-	
 	
 	
 	public void builtEntityListCache(){
@@ -954,11 +686,11 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		
 		for(CasteCategory category:getCategories()){
-			categoryMap.put(category.getId(), category);
+			categoryMap.put(category.getCategoryId(), category);
 		}
 		
 		for(Branch branch:getBranchs()){
-			branchMap.put(branch.getId(), branch);
+			branchMap.put(branch.getBranchId(), branch);
 		}
 	
 		for(CodeMapping codeMapping:getCodeMapping()){
@@ -990,23 +722,23 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		
 		for(CounsellingBody counselling : getCounsellingBodies()){
-			counsellingMap.put(counselling.getCousellingId(), counselling);
+			counsellingMap.put(counselling.getCounsellingId(), counselling);
 		}
 		
 		for(Qualification qualification : getQualifications()){
-			qualificationMap.put(qualification.getId(), qualification);
+			qualificationMap.put(qualification.getQualificationId(), qualification);
 		}
 		
 		for(QuotaCode quotaCode : getQuotaCodes()){
-			quotaCodeMap.put(quotaCode.getId(), quotaCode);
+			quotaCodeMap.put(quotaCode.getQuotaId(), quotaCode);
 		}
 		
 		for(State state : getStates()){
-			stateMap.put(state.getId(), state);
+			stateMap.put(state.getStateId(), state);
 		}
 		
 		for(Subject subject : getSubjects()){
-			subjectMap.put(subject.getId(), subject);
+			subjectMap.put(subject.getSubjectId(), subject);
 		}
 		
 		for(Wing wing : getWing()){
@@ -1030,7 +762,7 @@ public class CacheManagerImpl implements CacheManager {
 		}
 		
 		for(VehicleType vehicleType : cacheDao.getVehicleTypes()){
-			vehicleTypeMap.put(vehicleType.getTypeId(), vehicleType);
+			vehicleTypeMap.put(vehicleType.getVehicleTypeId(), vehicleType);
 		}
 		
 		for (RoomType roomTypeMaster : cacheDao.getRoomType()) {
@@ -1200,6 +932,12 @@ public class CacheManagerImpl implements CacheManager {
 	public Amenities getAmentiesByFeeId(Long feeId ){
 		return amenitiesMap.get(feeId);
 		
+	}
+
+	@Override
+	public List<MasterData> getBatchAsMasterdata() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

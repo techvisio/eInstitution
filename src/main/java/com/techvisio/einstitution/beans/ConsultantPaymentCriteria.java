@@ -2,25 +2,28 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name = "consultantpaymentcriteria")    
 public class ConsultantPaymentCriteria extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "Pymnt_Critria_Id")
+	private Long pymntCritriaId;
 
 	@Column(name = "File_No")
 	private Long fileNo; 
 	
-	@Column(name = "Consultant_Id")
-	private Long consultantId;
+	@Column(name = "Consltant_Dtl_Id")
+    private Long  consltantDtlId;
 	
 	@Column(name = "Fee_Received")
 	private Double feeReceived;
@@ -47,12 +50,7 @@ public class ConsultantPaymentCriteria extends BasicEntity {
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-	public Long getConsultantId() {
-		return consultantId;
-	}
-	public void setConsultantId(Long consultantId) {
-		this.consultantId = consultantId;
-	}
+	
 	public Double getFeeReceived() {
 		return feeReceived;
 	}
@@ -89,19 +87,18 @@ public class ConsultantPaymentCriteria extends BasicEntity {
 	public void setTriggered(boolean triggered) {
 		this.triggered = triggered;
 	}
-	@Override
-	public String toString() {
-		return "ConsultantPaymentCriteria [fileNo=" + fileNo
-				+ ", consultantId=" + consultantId + ", feeReceived="
-				+ feeReceived + ", amountToBePaid=" + amountToBePaid
-				+ ", feeDueDate=" + feeDueDate + ", approved=" + approved
-				+ ", paid=" + paid + ", triggered=" + triggered + "]";
+	
+	public Long getPymntCritriaId() {
+		return pymntCritriaId;
 	}
-	public Long getId() {
-		return id;
+	public void setPymntCritriaId(Long pymntCritriaId) {
+		this.pymntCritriaId = pymntCritriaId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public Long getConsltantDtlId() {
+		return consltantDtlId;
+	}
+	public void setConsltantDtlId(Long consltantDtlId) {
+		this.consltantDtlId = consltantDtlId;
 	}
 
 }

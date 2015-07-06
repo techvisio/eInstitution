@@ -1,50 +1,55 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "qualificationsubjectdtl") 
+@Table(name = "QUALIFICATION_SUBJECT_DTL") 
 public class QualificationSubject {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	private Long id;
-	private Long subjectId;
-	private Long qualificationId;
+	@Column(name="Stdnt_Subjct_Id")
+	private Long stdntSubjctId;
+	@ManyToOne
+	@JoinColumn(name="Subject_Id")
+	private Subject subject;
+	@ManyToOne
+	@JoinColumn(name="Qualification_Id")
+	private Qualification qualification;
+	@Column(name="File_No")
 	private Long fileNo;
-	private double marksObtained;
-	private double maxMarks;
 	
 	
-	public Long getSubjectId() {
-		return subjectId;
-	}
-	
-	public void setSubjectId(Long subjectId) {
-		this.subjectId = subjectId;
-	}
-	
-	
-	public Long getQualificationId() {
-		return qualificationId;
-	}
-	
-	public void setQualificationId(Long qualificationId) {
-		this.qualificationId = qualificationId;
-	}
-	
-	
-	public Long getFileNo() {
-		return fileNo;
+	public Subject getSubject() {
+		return subject;
 	}
 
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
+
+	public Qualification getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(Qualification qualification) {
+		this.qualification = qualification;
+	}
+
+	@Column(name="Marks_Obtained")
+	private double marksObtained;
+	@Column(name="Max_Marks")
+	private double maxMarks;
+	
 
 	public double getMarksObtained() {
 		return marksObtained;
@@ -63,20 +68,19 @@ public class QualificationSubject {
 		this.maxMarks = maxMarks;
 	}
 
-	@Override
-	public String toString() {
-		return "QualificationSubjectDtl [subjectId=" + subjectId
-				+ ", qualificationId=" + qualificationId + ", fileNo=" + fileNo
-				+ ", marksObtained=" + marksObtained + ", maxMarks=" + maxMarks
-				+ "]";
+	public Long getStdntSubjctId() {
+		return stdntSubjctId;
 	}
 
-	public Long getId() {
-		return id;
+	public void setStdntSubjctId(Long stdntSubjctId) {
+		this.stdntSubjctId = stdntSubjctId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Long getFileNo() {
+		return fileNo;
 	}
-	
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
 }

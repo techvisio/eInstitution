@@ -1,9 +1,12 @@
 package com.techvisio.einstitution.workflow.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.Scholarship;
+import com.techvisio.einstitution.beans.ScholarshipPayment;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.manager.ScholarshipManager;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -13,28 +16,39 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 	private static CustomLogger logger=CustomLogger.getLogger(ScholarshipWorkflowManagerImpl.class);
 	@Autowired
 	ScholarshipManager scholarshipManager;
+	@Override
+	public void saveScholarship(Scholarship scholarship) {
+		scholarshipManager.saveScholarship(scholarship);
+		
+	}
+	@Override
+	public void saveScholarshipPaymentDtl(
+			List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo) {
+		scholarshipManager.saveScholarshipPaymentDtl(scholarshipPaymentDetails, fileNo);
+		
+	}
+	@Override
+	public void saveScholarshipPaymentDetail(
+			ScholarshipPayment scholarshipPaymentDetail) {
+		scholarshipManager.saveScholarshipPaymentDetail(scholarshipPaymentDetail);
+		
+	}
+	@Override
+	public void deleteScholarshipPaymentDetailExclusion(
+			List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo) {
+		scholarshipManager.deleteScholarshipPaymentDetailExclusion(scholarshipPaymentDetails, fileNo);
+		
+	}
+	@Override
+	public Scholarship getScholarship(Long fileNo) {
+	    Scholarship scholarship = scholarshipManager.getScholarship(fileNo); 
+		return scholarship;
+	}
+	@Override
+	public List<ScholarshipPayment> getScholarshipPayments(Long fileNo) {
+		List<ScholarshipPayment> scholarshipPayments = scholarshipManager.getScholarshipPayments(fileNo);
+		return scholarshipPayments;
+	}
 	
-	public Scholarship getScholarshipDetail(Long fileNo) {
-		logger.info("{} : calling getScholarshipDetail by passing fleno:{} ",this.getClass().getName(),fileNo);	
-		Scholarship scholarshipDetail = scholarshipManager.getScholarshipDetail(fileNo);
-	
-		return scholarshipDetail;
-	}
-
-	public void addScholarDetail(Scholarship scholarshipDetail) {
-		logger.info("{} : calling addScholarDetail for fleno:{} ",this.getClass().getName(),scholarshipDetail.getFileNo());
-		scholarshipManager.addScholarDetail(scholarshipDetail);
-	}
-
-
-	public void deleteScholarshipDetail(Long fileNo) {
-		logger.info("{} : calling deleteScholarshipDetail by passing fleno:{} ",this.getClass().getName(),fileNo);
-		scholarshipManager.deleteScholarshipDetail(fileNo);
-	}
-
-	public void accomodateManagementChanges(StudentBasicInfo basicInfo, Scholarship newScholarshipDetail){
-		logger.info("{} : calling accomodateManagementChanges for Student:{} ",this.getClass().getName(), basicInfo.getFirstName()+basicInfo.getLastName());		
-		scholarshipManager.accomodateManagementChanges(basicInfo, newScholarshipDetail);
-	}
 	
 }

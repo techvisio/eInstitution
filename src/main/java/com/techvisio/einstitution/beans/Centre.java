@@ -8,40 +8,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "centremaster")    
+@Table(name = "CENTRE_MASTER")    
 public class Centre extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Centre_Id")
 	private Long centreId;
 	@Column(name = "Centre_Name")
 	private String centreName;
 	
+	
 	public Long getCentreId() {
 		return centreId;
 	}
+	
 	public void setCentreId(Long centreId) {
 		this.centreId = centreId;
 	}
+	
 	public String getCentreName() {
 		return centreName;
 	}
+	
 	public void setCentreName(String centreName) {
 		this.centreName = centreName;
 	}
-	@Override
-	public String toString() {
-		return "Centre [centreId=" + centreId + ", centreName=" + centreName
-				+ "]";
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 
 }

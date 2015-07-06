@@ -1,45 +1,27 @@
 package com.techvisio.einstitution.db.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.Batch;
-import com.techvisio.einstitution.beans.Branch;
-import com.techvisio.einstitution.beans.CasteCategory;
-import com.techvisio.einstitution.beans.Centre;
-import com.techvisio.einstitution.beans.Consultant;
-import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
-import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
+import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.ConsultantPayment;
-import com.techvisio.einstitution.beans.Course;
-import com.techvisio.einstitution.beans.Remark;
-import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.beans.Section;
-import com.techvisio.einstitution.beans.Session;
-import com.techvisio.einstitution.beans.Shift;
-import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
+import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.db.ConsultantDao;
-import com.techvisio.einstitution.db.impl.AdmissionDaoImpl.StudentBasicInfoRowMaper;
 import com.techvisio.einstitution.manager.CacheManager;
-import com.techvisio.einstitution.util.AppConstants;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	private static CustomLogger logger = CustomLogger.getLogger(ConsultantDaoImpl.class);
-	
+
 	@Autowired @Qualifier(value="consultantQueryProps")
 	private Properties consultantQueryProps;
 
@@ -49,465 +31,199 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 	@Autowired
 	CacheManager cacheManager;
-	
-	@Override
-	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
-		 logger.info("{} : Getting Student detail bby searching criteria for enquiryId:{}",this.getClass().getName(), searchCriteria.getInquryId());		
-		String getQuery = consultantQueryProps
-				.getProperty("getStudentDtlForConsultant");
 
+	@Override
+	public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(Long fileNo) {
+
+		String queryString="FROM AdmissnConsltntDtl ac WHERE ac.fileNo = "+fileNo;
+			Query query=getCurrentSession().createQuery(queryString);
+			List<AdmissnConsltntDtl> result= query.list();
+				return result;
+	}
+
+	@Override
+	public void saveAdmissionConsultantDtl(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo) {
+
+		if(admissnConsltntDtls!=null && admissnConsltntDtls.size()>0){
+			deleteAdmissionConsultantDtlExclusion(admissnConsltntDtls, fileNo);
+			for(AdmissnConsltntDtl admissnConsltntDtl:admissnConsltntDtls){
+				saveAdmissionConsultantDtl(admissnConsltntDtl);
+			}
+		}
+	}
+
+	@Override
+	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
+
+		if(admissnConsltntDtl.getConsltantDtlId()==null){
+			getCurrentSession().persist(admissnConsltntDtl);
+		}
+		else{
+			getCurrentSession().update(admissnConsltntDtl);
+			saveConsultantPayment(admissnConsltntDtl.getConsultantPaymentDetail(), admissnConsltntDtl.getFileNo());
+			saveConsultantPaymentCriteria(admissnConsltntDtl.getConsultantPaymentCriterias(), admissnConsltntDtl.getFileNo());
+		}
+	}
+
+	@Override
+	public void deleteAdmissionConsultantDtlExclusion(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo) {
+
+		List<Long> consultantDtlIds = new ArrayList<Long>();
+		if (admissnConsltntDtls == null || admissnConsltntDtls.size() == 0) {
+			consultantDtlIds.add(-1L);
+		}
+		else {
+			if (admissnConsltntDtls != null) {
+				for (AdmissnConsltntDtl admissnConsltntDtl : admissnConsltntDtls) {
+					consultantDtlIds.add(admissnConsltntDtl.getConsltantDtlId());
+				}
+			}
+
+
+			String deletePaymntQuery = consultantQueryProps.getProperty("dltCnsltntPymntDtlByConsltantDtlId");
+
+			SqlParameterSource namedParametr = namedParameterForDltConsultnt(
+					fileNo, consultantDtlIds);
+
+			getNamedParamJdbcTemplate().update(deletePaymntQuery, namedParametr);
+
+
+			String deleteCriteriaQuery = consultantQueryProps.getProperty("dltCnsltantPymntCriteriaByConsltantDtlId");
+
+			SqlParameterSource namedParam = namedParameterForDltConsultnt(
+					fileNo, consultantDtlIds);
+
+			getNamedParamJdbcTemplate().update(deleteCriteriaQuery, namedParam);
+
+
+			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtlExclusion");
+
+			SqlParameterSource namedParameter = namedParameterForDltConsultnt(
+					fileNo, consultantDtlIds);
+
+			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+		}
+	}
+
+	private SqlParameterSource namedParameterForDltConsultnt(Long fileNo,
+			List<Long> consultantDtlIds) {
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Registration_No",StringUtils.isEmpty(searchCriteria.getRegistrationNo())?null:searchCriteria.getRegistrationNo())
-		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
-		.addValue("Enroll_No", StringUtils.isEmpty(searchCriteria.getEnrollNo())?null:searchCriteria.getEnrollNo())
-		.addValue("Uni_Enroll_No", StringUtils.isEmpty(searchCriteria.getUniEnrollNo())?null:searchCriteria.getUniEnrollNo())
-		.addValue("First_Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getFirstName()+"%")
-		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
-		.addValue("Course_Id", searchCriteria.getCourseId())
-		.addValue("Branch_Id", searchCriteria.getBranchId());
-		
-	List<StudentBasicInfo> studentBasicInfos=getNamedParamJdbcTemplate().query(
-				getQuery, namedParameter, new StudentBasicInfoRowMaper());
-		
-		    return studentBasicInfos;
+				"Consultant_Dtl_Id", consultantDtlIds)
+		.addValue("File_No", fileNo);
+		return namedParameter;
 	}
 
-	
-	public Consultant getConsultant(Long consultantId) {
-		 logger.info("{} : Getting detail for particular consultant : id :{}",this.getClass().getName(), consultantId);
-		String getQuery = consultantQueryProps.getProperty("getConsultantById");
+	@Override
+public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 
-		SqlParameterSource namedParameter = new MapSqlParameterSource("Id", consultantId);
+	String queryString="FROM ConsultantPayment acp WHERE acp.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<ConsultantPayment> result= query.list();
+			return result;
+}
 
-		List<Consultant> consultants = getNamedParamJdbcTemplate().query(getQuery,namedParameter, new ConsultantRowMapper());
-		Consultant consultant =  null;
-
-		if(consultants != null && consultants.size()>0){
-
-			consultant = consultants.get(0);		}
-
-		return consultant;
-
-	}
-
-
-
-	public void saveConsultant(Consultant consultant) {
-		 logger.info("{} : adding values in particlar field for a particular consulatant : Name:{}",this.getClass().getName(), consultant.getName());
-		String upsertQuery = consultantQueryProps.getProperty("upsertConsultant");
-		
-		if(consultant.getConsultantId() != null){
-		
-		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", consultant.getConsultantId())
-		.addValue("Name", consultant.getName())
-		.addValue("Primary_Contact_No", consultant.getPrimaryContactNo())
-		.addValue("Secondary_contact_No", consultant.getSecondaryContactNo())
-		.addValue("Address", consultant.getAddress())
-		.addValue("Email_Id", consultant.getEmailId());
-
-		getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
-		}
-		
-		//refresh cache
-		//CacheManager cacheManager=new CacheManagerImpl();
-		cacheManager.refreshCacheList(AppConstants.CONSULTANT);
-	}
-
-/*	public void updateConsultant(Consultant consultant) {
-
-		String updateQuery = consultantQueryProps.getProperty("updateConsultant");
-
-		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", consultant.getConsultantId())
-		.addValue("Name", consultant.getName())
-		.addValue("Primary_Contact_No", consultant.getPrimaryContactNo())
-		.addValue("Secondary_contact_No", consultant.getSecondaryContactNo())
-		.addValue("Address", consultant.getAddress())
-		.addValue("Email_Id", consultant.getEmailId());
-
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-	}
-*/
-	public void deleteConsultant(
-			Long consultantId) {
-		 logger.info("{} :Deleting record for a particular consultant: id:{}",this.getClass().getName(), consultantId);
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultant");
-
-		SqlParameterSource namedParameter= new MapSqlParameterSource("Id", consultantId);
-
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
-	}
-
-	public List<ConsultantDetail> getConsultantDtl(final Long fileNo) {
-		 logger.info("{} : Getting list of consultants for a particular : file no:{}",this.getClass().getName(), fileNo);
-		String getQuery = consultantQueryProps.getProperty("getConsultantDtlByFileNo");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
-
-		List<ConsultantDetail> consultantDetails  = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ConsultantDetail>() {
-
-			public ConsultantDetail mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				ConsultantDetail consultantDetail = new ConsultantDetail();
-
-				Long consultantId=(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
-				Consultant consultant= cacheManager.getConsultantId(consultantId);
-                consultantDetail.setConsultant(consultant);
-				consultantDetail.setFileNo(rs.getLong("File_No"));
-				consultantDetail.setAmountToPay(rs.getDouble("Amount_To_Pay"));
-				consultantDetail.setConsultancyAgreed(rs.getBoolean("Consultancy_Agreed"));
-				consultantDetail.setPaymentMode(rs.getString("Payment_Mode"));
-				consultantDetail.setDueDate(rs.getDate("Due_Date"));
-				consultantDetail.setRemarks(rs.getString("Remarks"));
-				
-                consultantId = consultantDetail.getConsultant().getConsultantId();
-				List<ConsultantPayment> consultantPaymentDtls = getConsultantPaymentDtl(fileNo,consultantId);
-				consultantDetail.setConsultantPaymentDetail(consultantPaymentDtls);
-            
-				List<ConsultantPaymentCriteria> consultantPaymentCriterias = getConsultantPaymentCriteria(fileNo, consultantId);
-				consultantDetail.setConsultantPaymentCriterias(consultantPaymentCriterias);
-				return consultantDetail;			}
-		});
-
-		return consultantDetails;
-	}
-
-	public void saveConsultantDetail(List<ConsultantDetail> consultantDetails){
-		 logger.info("{} : First, deleting records of consultant for a particular file no and then calling addConsltantDtl method for adding new consultant for a particular file no",this.getClass().getName());		
-		if(consultantDetails != null){
-		for(ConsultantDetail consultantDetail:consultantDetails){
-	
-			Long fileNo = consultantDetail.getFileNo();
-			deleteConsultantDtlExclusion(fileNo, consultantDetails);
-		
-			addConsultantDtl(consultantDetail);
+	@Override
+	public void saveConsultantPayment(List<ConsultantPayment> consultantPayments, Long fileNo) {
+		if(consultantPayments!=null && consultantPayments.size()>0){
+			deleteConsultantPaymentExclusion(consultantPayments, fileNo);
+			for(ConsultantPayment consultantPayment : consultantPayments){
+				saveConsultantPayment(consultantPayment);
+			}
 		}
 	}
+
+	@Override
+	public void saveConsultantPayment(ConsultantPayment consultantPayment) {
+
+		if(consultantPayment.getConsltntPymntId()==null){
+			getCurrentSession().persist(consultantPayment);
+		}
+		else
+		{
+			getCurrentSession().update(consultantPayment);
+		}
 	}
-	private void addConsultantDtl(ConsultantDetail consultantDetail) {
-		 logger.info("{} : adding counsultant detail for a particular : consultant id:{} and file no:{}",this.getClass().getName());
-		String upsertQuery = consultantQueryProps.getProperty("upsertConsultantDtl");
-		if(consultantDetail.getConsultant()!=null && consultantDetail.getConsultant().getConsultantId()!=null){
-			SqlParameterSource namedParameter =  new MapSqlParameterSource("Consultant_Id", consultantDetail.getConsultant().getConsultantId())
-			.addValue("File_No", consultantDetail.getFileNo())
-			.addValue("Consultancy_Agreed", consultantDetail.isConsultancyAgreed())
-			.addValue("Payment_Mode", consultantDetail.getPaymentMode())
-			.addValue("Amount_To_Pay", consultantDetail.getAmountToPay())
-			.addValue("Due_Date", consultantDetail.getDueDate())
-			.addValue("Remarks", consultantDetail.getRemarks());
 
-			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
-
-			if (consultantDetail.getConsultantPaymentDetail() != null) {
-				for (ConsultantPayment consultantPaymentDtl:consultantDetail.getConsultantPaymentDetail()) {
-			         consultantPaymentDtl.setFileNo(consultantDetail.getFileNo());
-			         consultantPaymentDtl.setConsultantId(consultantDetail.getConsultant().getConsultantId());
-					 deleteConsultantPaymentCriteria(consultantDetail.getFileNo(), consultantDetail.getConsultant().getConsultantId());
-			         addConsultantPaymentDtl(consultantPaymentDtl);
+	@Override
+	public void deleteConsultantPaymentExclusion(List<ConsultantPayment> consultantPayments, Long fileNo) {
+		List<Long> consultantPymntIds = new ArrayList<Long>();
+		if (consultantPayments == null || consultantPayments.size() == 0) {
+			consultantPymntIds.add(-1L);
+		}
+		else 
+		{
+			if (consultantPayments != null) {
+				for (ConsultantPayment consultantPayment : consultantPayments) {
+					consultantPymntIds.add(consultantPayment.getConsltntPymntId());
 				}
 			}
-			
-			if(consultantDetail.getConsultantPaymentCriterias() != null){
-				
-				for(ConsultantPaymentCriteria consultantPaymentCriteria : consultantDetail.getConsultantPaymentCriterias()){
-					
-					consultantPaymentCriteria.setConsultantId(consultantDetail.getConsultant().getConsultantId());
-					consultantPaymentCriteria.setFileNo(consultantDetail.getFileNo());
-					deleteConsultantPaymentCriteria(consultantDetail.getFileNo(), consultantDetail.getConsultant().getConsultantId());
-					addConsultantPaymentCriteria(consultantPaymentCriteria);
+
+			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
+
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"Consltnt_Pymnt_Id", consultantPymntIds)
+			.addValue("File_No", fileNo);
+
+			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+		}
+	}
+
+	@Override
+	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo) {
+		String queryString="FROM ConsultantPaymentCriteria acpc WHERE acpc.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<ConsultantPaymentCriteria> result=query.list();
+			return result;
+	}
+	
+	@Override
+	public void saveConsultantPaymentCriteria(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo) {
+
+		if(consultantPaymentCriterias != null && consultantPaymentCriterias.size()>0){
+			deleteConsultantPaymentCriteriaExclusion(consultantPaymentCriterias, fileNo);
+			for(ConsultantPaymentCriteria consultantPaymentCriteria : consultantPaymentCriterias){
+				saveConsultantPaymentCriteria(consultantPaymentCriteria);
+			}
+		}
+	}
+
+	@Override
+	public void saveConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria) {
+
+		if(consultantPaymentCriteria.getPymntCritriaId()==null){
+			getCurrentSession().persist(consultantPaymentCriteria);
+		}
+		else
+		{
+			getCurrentSession().update(consultantPaymentCriteria);
+		}
+	}
+
+	@Override
+	public void deleteConsultantPaymentCriteriaExclusion(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo) {
+
+
+		List<Long> Ids = new ArrayList<Long>();
+		if (consultantPaymentCriterias == null || consultantPaymentCriterias.size() == 0) {
+			Ids.add(-1L);
+		}
+		else 
+		{
+			if (consultantPaymentCriterias != null) {
+				for (ConsultantPaymentCriteria consultantPaymentCriteria : consultantPaymentCriterias) {
+					Ids.add(consultantPaymentCriteria.getPymntCritriaId());
 				}
 			}
+
+			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
+
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"Id", Ids)
+			.addValue("File_No", fileNo);
+
+			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
-
-
-	public void deleteConsultantDtlExclusion(Long fileNo, List<ConsultantDetail> consultantDetails) {
-		 logger.info("{} : calling delete methods of payment detail and payment criteria for a particular : file no :{}",this.getClass().getName(), fileNo);	
-		List<Long> consultantIds=new ArrayList<Long>();
-		
-		if(consultantDetails != null){
-			for(ConsultantDetail consultantDetail:consultantDetails){
-				if(consultantDetail.getConsultant() !=null && consultantDetail.getConsultant().getConsultantId()!=null){
-				consultantIds.add(consultantDetail.getConsultant().getConsultantId());
-		
-				deleteConsultantPaymentDtl(fileNo, consultantDetail.getConsultant().getConsultantId());
-
-				deleteConsultantPaymentCriteria(fileNo, consultantDetail.getConsultant().getConsultantId());
-
-				}
-			}
-		
-		}
-			
-		if(consultantIds == null || consultantIds.size()==0){
-				consultantIds.add(-1L);
-		}
-		
-				
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtl");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo)
-		.addValue("Consultant_Id", consultantIds);
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 
 	}
 
-	public List<ConsultantPayment> getConsultantPaymentDtl(Long fileNo, Long consultantId) {
-		 logger.info("{} : Getting list of payment details for a particular  file no:{} and consulatnt id:{} ",this.getClass().getName(), fileNo, consultantId);
-		String getQuery= consultantQueryProps.getProperty("getConsultantPaymentDtlByFileNoAndConsultantId");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo)
-		.addValue("Consultant_Id", consultantId);
-
-
-		List<ConsultantPayment> consultantPaymentDtls = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ConsultantPayment>() {
-
-			public ConsultantPayment mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				ConsultantPayment consultantPaymentDtl=  new ConsultantPayment();
-
-				consultantPaymentDtl.setAmount(rs.getDouble("Amount"));
-				consultantPaymentDtl.setFileNo(rs.getLong("File_No"));
-				consultantPaymentDtl.setPayDate(rs.getDate("Pay_Date"));
-
-				return consultantPaymentDtl;
-			}
-		});
-
-		return consultantPaymentDtls;
-	}
-
-	public void addConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl) {
-		 logger.info("{} : Adding consultant's payment details for particular file no:{}",this.getClass().getName(), consultantPaymentDtl.getFileNo());
-		String addQuery = consultantQueryProps.getProperty("addConsultantPaymentDtl");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", consultantPaymentDtl.getFileNo())
-		.addValue("Amount", consultantPaymentDtl.getAmount())
-		.addValue("Pay_Date", consultantPaymentDtl.getPayDate())
-		.addValue("Consultant_Id", consultantPaymentDtl.getConsultantId());
-
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
-	}
-
-	public void updateConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl) {
-
-			deleteConsultantPaymentDtl(consultantPaymentDtl.getFileNo(), consultantPaymentDtl.getConsultantId());
-			addConsultantPaymentDtl(consultantPaymentDtl);
-//		String updateQuery = consultantQueryProps.getProperty("updateConsultantPaymentDtl");
-//
-//		SqlParameterSource namedParameter = new MapSqlParameterSource("FileNo", consultantPaymentDtl.getFileNo())
-//		.addValue("Amount", consultantPaymentDtl.getAmount())
-//		.addValue("Pay_Date", consultantPaymentDtl.getPayDate());
-//
-//		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-//
-
-	}
-
-
-	public void deleteConsultantPaymentDtl(Long fileNo, Long consultantId) {
-		 logger.info("{} : Deleting consultant's payment detail for particular file no:{} and consultant id:{}",this.getClass().getName(), fileNo, consultantId);
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtl");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
-		.addValue("Consultant_Id", consultantId);
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-	}
-
-	public void deleteConsultantPaymentDtlExclusion(Long fileNo, List<Long> consultantIds) {
-		 logger.info("{} : Deal with deleteConsultantPaymentDtlExclusion : file no:{}",this.getClass().getName(), fileNo);
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
-		.addValue("Consultant_Id", consultantIds);
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-	}
-
-
-	@Override
-	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo, Long consultantId) {
-		 logger.info("{} : Getting consulant payment criteria for a particular  file no:{} and consultant id:{}",this.getClass().getName(), fileNo, consultantId);
-		String getQuery = consultantQueryProps.getProperty("getConsultantPaymentCriteria");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo)
-		.addValue("Consultant_Id", consultantId);
-
-		List<ConsultantPaymentCriteria> consultantPaymentCriterias= getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ConsultantPaymentCriteria>() {
-
-			@Override
-			public ConsultantPaymentCriteria mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-
-				ConsultantPaymentCriteria consultantPaymentCriteria = new ConsultantPaymentCriteria();
-
-				consultantPaymentCriteria.setFileNo(rs.getLong("File_No"));
-				consultantPaymentCriteria.setConsultantId(CommonUtil.getLongValue(rs.getLong("Consultant_Id")));
-				consultantPaymentCriteria.setFeeReceived(rs.getDouble("Fee_Received"));
-				consultantPaymentCriteria.setAmountToBePaid(rs.getDouble("Amount_To_Be_Paid"));
-				consultantPaymentCriteria.setFeeDueDate(rs.getDate("Fee_Due_Date"));
-				consultantPaymentCriteria.setApproved(rs.getBoolean("Approved"));
-				consultantPaymentCriteria.setPaid(rs.getBoolean("Paid"));
-				consultantPaymentCriteria.setTriggered(rs.getBoolean("Triggered"));
-
-				return consultantPaymentCriteria;
-			}
-		});
-
-		return consultantPaymentCriterias;
-	}
-
-
-	@Override
-	public void addConsultantPaymentCriteria(
-			ConsultantPaymentCriteria consultantPaymentCriteria) {
-		 logger.info("{} : Add consultant payment criteria for particular  file no:{} and consultant id:{}",this.getClass().getName(), consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
-		String addQuery = consultantQueryProps.getProperty("addConsultantPaymentCriteria");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", consultantPaymentCriteria.getFileNo())
-		.addValue("Consultant_Id", consultantPaymentCriteria.getConsultantId())
-		.addValue("Fee_Received", consultantPaymentCriteria.getFeeReceived())
-		.addValue("Amount_To_Be_Paid", consultantPaymentCriteria.getAmountToBePaid())
-		.addValue("Fee_Due_Date", consultantPaymentCriteria.getFeeDueDate())
-		.addValue("Approved", consultantPaymentCriteria.isApproved())
-		.addValue("Paid", consultantPaymentCriteria.isPaid())
-		.addValue("Triggered", consultantPaymentCriteria.isTriggered());
-
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-	}
-
-	@Override
-	public void updateConsultantPaymentCriteria(
-			ConsultantPaymentCriteria consultantPaymentCriteria) {
-		 logger.info("{} : updating consultant payment criteria for particular  file no:{} and consultant id :{}",this.getClass().getName(), consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
-		deleteConsultantPaymentCriteria(consultantPaymentCriteria.getFileNo(), consultantPaymentCriteria.getConsultantId());
-		addConsultantPaymentCriteria(consultantPaymentCriteria);
-	}
-
-
-	@Override
-	public void deleteConsultantPaymentCriteriaExclusion(Long fileNo, List<Long> consultantIds) {
-		 logger.info("{} : Deal with deleteConsultantPaymentCriteriaExclusion : file no:{}",this.getClass().getName(), fileNo);
-		
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo)
-		.addValue("Consultant_Id",consultantIds);
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
-	}
-
-	
-   public void deleteConsultantPaymentCriteria(Long fileNo, Long consultantId) {
-	   logger.info("{} : Deleting consultant payment criteria for particular file no:{} and consultant id:{}",this.getClass().getName(), fileNo, consultantId);	   
-		
-		String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteria");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No",fileNo)
-		.addValue("Consultant_Id",consultantId);
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
-	}
-
-	
-	@Override
-	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria){
-		 logger.info("{} : getting consultant by searching criteria : Consultant name:{}",this.getClass().getName(), searchCriteria.getName());
-		String getQuery = consultantQueryProps
-				.getProperty("getCosultantBySearchCriteria");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Id", searchCriteria.getConsultantId())
-		.addValue("Name", StringUtils.isEmpty(searchCriteria.getName())?"%":searchCriteria.getName()+"%")
-		.addValue("Primary_Contact_No", StringUtils.isEmpty(searchCriteria.getPrimaryContactNo())?null:searchCriteria.getPrimaryContactNo())
-		.addValue("Secondary_Contact_No", StringUtils.isEmpty(searchCriteria.getSecondaryNo())?null:searchCriteria.getSecondaryNo())
-		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId());
-		
-	    List<Consultant> consultants=getNamedParamJdbcTemplate().query(
-				getQuery, namedParameter, new ConsultantRowMapper());
-		
-		    return consultants;
-	}
-
-	class ConsultantRowMapper implements RowMapper<Consultant>{
-
-		public Consultant mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			 logger.info("{}Putting values in particular field by getting from user through rowmapper : ",this.getClass().getName());
-			Consultant consultant = new Consultant();
-			consultant.setConsultantId(CommonUtil.getLongValue(rs.getLong("Id")));
-			consultant.setName(rs.getString("Name"));
-			consultant.setPrimaryContactNo(rs.getString("Primary_Contact_No"));
-			consultant.setSecondaryContactNo(rs.getString("Secondary_contact_No"));
-			consultant.setAddress(rs.getString("Address"));
-			consultant.setEmailId(rs.getString("Email_Id"));
-
-			return consultant;			
-		}
-	}
-
-	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail){
-		 logger.info("{} : Adding Student{}'s consultant detail",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+ consultantAdmissionDetail.getBasicInfo().getLastName());		
-		List<ConsultantDetail> consultantDetails = consultantAdmissionDetail.getConsultantDetails();
-		for(ConsultantDetail consultantDetail : consultantDetails){
-			addConsultantDtl(consultantDetail);
-		}
-	}
-	
-	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
-
-		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			logger.info("{} : Putting value in setter of studentBasicInfo bean  : {}",this.getClass().getName());
-			StudentBasicInfo basicInfo = new StudentBasicInfo();
-			basicInfo.setFirstName(rs.getString("First_Name"));
-			basicInfo.setLastName(rs.getString("Last_Name"));
-			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
-			Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
-		    Branch branch=cacheManager.getBranchById(branchId);
-			basicInfo.setBranch(branch); 
-			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
-		    Course course=cacheManager.getCourseById(courseId);
-			basicInfo.setCourse(course);
-			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
-		    CasteCategory category=cacheManager.getCategoryId(categoryId);
-			basicInfo.setCasteCategory(category);
-			basicInfo.setDob(rs.getDate("DOB"));
-			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
-			basicInfo.setFatherName(rs.getString("Father_Name"));
-			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
-			basicInfo.setGender(rs.getString("Gender"));
-			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
-			basicInfo.setSemester(rs.getString("Semester"));
-			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
-		    Session session=cacheManager.getSessionBySessionId(sessionId);
-			basicInfo.setSession(session);
-			Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
-		    Batch batch=cacheManager.getBatchByBatchId(batchId);
-			basicInfo.setBatch(batch);
-			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
-			
-			Long centreId=(CommonUtil.getLongValue(rs.getLong("Centre_id")));
-		    Centre centre=cacheManager.getCentreByCentreId(centreId);
-			basicInfo.setCentre(centre);
-			
-			Long shiftId=(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
-		    Shift shift=cacheManager.getShiftByShiftId(shiftId);
-			basicInfo.setShift(shift);
-			
-			Long sectionId=(CommonUtil.getLongValue(rs.getLong("Section_Id")));
-			Section section = cacheManager.getSectionBySectionId(sectionId);
-			basicInfo.setSection(section);
-			
-			basicInfo.setLateral(rs.getBoolean("Lateral"));
-			
-			
-			return basicInfo;
-		}
-	}
 }

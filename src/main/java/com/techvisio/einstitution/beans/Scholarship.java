@@ -9,27 +9,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "scholarshipdetail")
-public class Scholarship {
+@Table(name = "SCHOLARSHIP_DETAIL")
+public class Scholarship extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
-	@Column(name = "File_No")
-	private Long fileNo;
+	@Column(name = "Stdnt_Schlarshp_Id")
+	private Long stdntSchlarshpId;
+	@Column(name="File_No")
+	private Long fileNo; 
 	@Column(name = "Amount")
 	private Double amount;
 	@Column(name = "State_Id")
 	private Long stateId;
 	@Column(name = "Remark")
 	private String remark;
-	@Column(name = "Created_Date")
-	private String createdDate;
+	
 	@Column(name = "Is_Approved")
     private boolean approved;
 	@Column(name = "Is_Reoccuring")
@@ -38,16 +39,10 @@ public class Scholarship {
     private boolean conditional;
 	@Column(name = "Parent_Income")
     private Double parentIncome;
-	@Column(name = "Id")
+	@OneToMany(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Stdnt_Schlarshp_Id")
     private List<ScholarshipPayment> scholarshipPaymentDetail;
 	
-	
-	public Long getFileNo() {
-		return fileNo;
-	}
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
 	public Double getAmount() {
 		return amount;
 	}
@@ -97,18 +92,18 @@ public class Scholarship {
 	public void setConditional(boolean conditional) {
 		this.conditional = conditional;
 	}
-	public String getCreatedDate() {
-		return createdDate;
+	
+	public Long getStdntSchlarshpId() {
+		return stdntSchlarshpId;
 	}
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
+	public void setStdntSchlarshpId(Long istdntSchlarshpIdd) {
+		this.stdntSchlarshpId = istdntSchlarshpIdd;
 	}
-	public Long getId() {
-		return id;
+	public Long getFileNo() {
+		return fileNo;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
 	}
-
 
 }

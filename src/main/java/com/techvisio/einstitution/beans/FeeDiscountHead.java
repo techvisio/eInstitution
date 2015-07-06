@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "feediscountheadmaster")    
+@Table(name = "FEE_DISCOUNTHEAD_MASTER")    
 public class FeeDiscountHead extends BasicEntity {
 
 	@Override
@@ -36,10 +36,7 @@ public class FeeDiscountHead extends BasicEntity {
 	}
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Head_Id")
 	private Long headId;
 	
@@ -95,12 +92,5 @@ public class FeeDiscountHead extends BasicEntity {
 	public void setRefundType(String refundType) {
 		this.refundType = refundType;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	
 }

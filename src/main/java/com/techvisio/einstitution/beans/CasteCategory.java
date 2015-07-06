@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "castecategorymaster")    
+@Table(name = "CASTECATEGORY_MASTER")    
 public class CasteCategory extends BasicEntity  {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="Categry_Id")
 	private Long  categoryId;
+	@Column(name="Category_Name")
 	private String CategoryName;
 
 	
@@ -41,15 +41,5 @@ public class CasteCategory extends BasicEntity  {
 		return "CasteCategory [id=" + categoryId + ", CategoryName=" + CategoryName
 				+ "]";
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
 
 }

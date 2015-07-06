@@ -1,0 +1,61 @@
+<form>
+<div class="admission-tab-inner">
+					<table class="six-column-view">
+						<tr ng-repeat-start="object in student.academicDtl">
+							<th><span>Qualification</span></th>
+							<th><span>University</span></th>
+							<th><span>College</span></th>
+							<th><span>Roll No.</span></th>
+							<th><span>Passing Year</span></th>
+							<th><span>Percentage</span></th>
+						</tr>
+						<tr>
+							<td><select ng-model="object.qualificationId" class="form-control"
+								ng-disabled="!form.isEdit && !form.isNew" 
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
+									<!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
+							</select></td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.university"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.collegeName"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"  ng-model="object.rollNo"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+								</td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.passingYear"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.percentage"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+							<td><img height="35" width="35" ng-src="images/plus.png"
+								ng-click="addQualification($index)" /></td>
+							<td><img height="35" width="35" ng-src="images/minus.png"
+								ng-click="removeQualification($index)" ng-show="$index>0" /></td>
+						</tr>
+
+						<tr ng-repeat-end
+							ng-repeat="subject in object.qualificationSubDtl track by $index">
+							<td><span>Subject</span></td>
+							<td><select ng-model=subject.subjectId
+								ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+								ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+							<td><span>Marks Obtained</span></td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="subject.marksObtained"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+							<td><span>Maximum Marks</span></td>
+							<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="subject.maxMarks"
+								ng-Readonly="!form.isEdit && !form.isNew">
+  </td>
+							<td><img height="35" width="35" ng-src="images/plus.png"
+								ng-click="addSubject(object)" /></td>
+							<td><img height="35" width="35" ng-src="images/minus.png"
+								ng-click="removeSubject(object,$index)" ng-show="$index>0" /></td>
+						</tr>
+					</table>
+				</div>
+</form>

@@ -8,13 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "stateMaster")
+@Table(name = "STATE_MASTER")
 public class State {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "State_Id")
 	private Long stateId;
 	@Column(name = "State_Name")
@@ -37,18 +35,4 @@ public class State {
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
 	}
-
-	@Override
-	public String toString() {
-		return "State [id=" + stateId + ", stateName=" + stateName + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 }

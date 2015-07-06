@@ -1,44 +1,40 @@
 package com.techvisio.einstitution.beans;
 
+import java.sql.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "roomallocationdetail")
-public class RoomAllocation {
+public class RoomAllocation extends BasicEntity {
     
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
-	@Column(name = "File_No")
+	@Column(name = "Room_Allocation_Id")
+	private Long roomAllocationId;
+	@Column(name="File_No")
 	private Long fileNo;
-	@Column(name = "")
+	@OneToOne(cascade={CascadeType.PERSIST})
+    @JoinColumn(name="Room_No")
     private RoomTypeDetail roomTypeDetail;
 	@Column(name = "Allocated_On")
-    private String allocatedOn;
+    private Date allocatedOn;
 	@Column(name = "Alocated_By")
     private String allocatedBy;
-	@Column(name = "Updated_By")
-    private String updatedBy;
 	@Column(name = "Checkout_On")
-    private String checkoutOn;
+    private Date checkoutOn;
 	@Column(name = "Allocated")
     private boolean allocated;
 	@Column(name = "Remark")
     private String remark;
-
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
 
 	public RoomTypeDetail getRoomTypeDetail() {
 		return roomTypeDetail;
@@ -54,14 +50,6 @@ public class RoomAllocation {
 
 	public void setAllocatedBy(String allocatedBy) {
 		this.allocatedBy = allocatedBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 	public boolean isAllocated() {
@@ -80,28 +68,36 @@ public class RoomAllocation {
 		this.remark = remark;
 	}
 
-	public String getCheckoutOn() {
+	public Date getCheckoutOn() {
 		return checkoutOn;
 	}
 
-	public void setCheckoutOn(String checkoutOn) {
-		this.checkoutOn = checkoutOn;
+	public void setCheckoutOn(Date date) {
+		this.checkoutOn = date;
 	}
 
-	public String getAllocatedOn() {
+	public Date getAllocatedOn() {
 		return allocatedOn;
 	}
 
-	public void setAllocatedOn(String allocatedOn) {
-		this.allocatedOn = allocatedOn;
+	public void setAllocatedOn(Date date) {
+		this.allocatedOn = date;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getRoomAllocationId() {
+		return roomAllocationId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setRoomAllocationId(Long iroomAllocationIdd) {
+		this.roomAllocationId = iroomAllocationIdd;
+	}
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
 	}
 
 }

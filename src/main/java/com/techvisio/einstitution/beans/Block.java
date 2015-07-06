@@ -8,12 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "blockmaster")    
+@Table(name = "BLOCK_MASTER")    
 public class Block extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Block_id")
 	private Long blockId;
 	@Column(name = "Block")
@@ -35,13 +33,4 @@ public class Block extends BasicEntity {
 		this.block = block;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
 }

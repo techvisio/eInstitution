@@ -10,9 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "workflowfieldmapping")
-public class WorkFlowFieldMapping 
+
+public class WorkFlowFieldMapping extends BasicEntity
 
 {
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -40,12 +39,7 @@ public class WorkFlowFieldMapping
 	public List<FieldDesc> getFieldDesc() {
 		return fieldDesc;
 	}
-	@Override
-	public String toString() {
-		return "WorkFlowFieldMapping [workFlowStepId=" + workFlowStepId
-				+ ", workFlowId=" + workFlowId + ", fieldDesc=" + fieldDesc
-				+ "]";
-	}
+	
 	public void setFieldDesc(List<FieldDesc> fieldDesc) {
 		this.fieldDesc = fieldDesc;
 	

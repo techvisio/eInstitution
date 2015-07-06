@@ -8,13 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wingMaster")
-public class Wing {
+@Table(name = "WING_MASTER")
+public class Wing extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "Wing_Id")
 	private Long wingId;
 	@Column(name = "Wing")
@@ -34,14 +32,6 @@ public class Wing {
 	
 	public void setWing(String wing) {
 		this.wing = wing;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 }

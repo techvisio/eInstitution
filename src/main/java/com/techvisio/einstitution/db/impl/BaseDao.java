@@ -2,6 +2,8 @@ package com.techvisio.einstitution.db.impl;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,7 @@ public abstract class BaseDao {
 private DataSource dataSource;
 private JdbcTemplate jdbcTemplate;
 private NamedParameterJdbcTemplate namedParamJdbcTemplate;
+private SessionFactory sessionFactory;
 
 @Autowired
 public void setDatasource(DataSource dataSource) {
@@ -27,6 +30,10 @@ public JdbcTemplate getJdbcTemplate() {
 }
 
 
+@Autowired
+public void setSessionFactory(SessionFactory sessionFactory) {
+	this.sessionFactory = sessionFactory;
+}
 
 
 public NamedParameterJdbcTemplate getNamedParamJdbcTemplate() {
@@ -38,7 +45,9 @@ public DataSource getDataSource() {
 	return dataSource;
 }
 
-
+public Session getCurrentSession(){
+	return sessionFactory.getCurrentSession();
+}
 
 
 }

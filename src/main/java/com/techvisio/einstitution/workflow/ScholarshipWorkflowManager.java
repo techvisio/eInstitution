@@ -1,23 +1,23 @@
 package com.techvisio.einstitution.workflow;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Scholarship;
+import com.techvisio.einstitution.beans.ScholarshipPayment;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 @Component
+@Transactional
 public interface ScholarshipWorkflowManager {
 
-	public Scholarship getScholarshipDetail(Long fileNo);
-	public void addScholarDetail(Scholarship scholarshipDetail);
-	public void deleteScholarshipDetail(Long fileNo);
-	public void accomodateManagementChanges(StudentBasicInfo basicInfo, Scholarship newScholarshipDetail);
+	public Scholarship getScholarship(Long fileNo);
+	public void saveScholarship(Scholarship scholarship);	
 
-
-	//	List<ScholarshipPaymentDetail> getScholarshipPaymentDetail(String fileNo);
-	//	public void addScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail);
-	//	public void updateScholarshipPaymentDetail(ScholarshipPaymentDetail scholarshipPaymentDetail);
-	//	public void deleteScholarshipPaymentDetail(String fileNo);
-
-
+	public List<ScholarshipPayment> getScholarshipPayments(Long fileNo);
+	public void saveScholarshipPaymentDtl(List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo);
+	public void saveScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail);
+	public void deleteScholarshipPaymentDetailExclusion(List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo);
 
 }

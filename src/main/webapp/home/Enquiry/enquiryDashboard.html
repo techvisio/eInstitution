@@ -1,0 +1,55 @@
+<div class="module-dashboard-container">
+		<div class="module-dashboard-content">
+			<div ng-show="dashboard">
+				<table>
+					<tr>
+						<td><button type="button" class="btn btn-primary btn-lg"
+								ng-click="searchEnquiryList=[];showCriteria=!showCriteria">Search
+								Existing</button></td>
+						<td><button type="button" class="btn btn-success btn-lg"
+								ng-click="searchEnquiryList=[];dashboard=false; resetForm()">New Enquiry</button></td>
+					</tr>
+				</table>
+				<div class="searchcriteria" ng-show="showCriteria">
+				<table>
+					<tr>
+						<td><span>Name</span></td>
+						<td><input type="text" ng-model="searchCriteria.name" class="form-control"></td>
+					</tr>
+					<tr>
+						<td><span>Enquiry No</span></td>
+						<td><input type="text" ng-model="searchCriteria.inquryId" class="form-control"></td>
+					</tr>
+
+					<tr>
+						<td><span>Course</span></td>
+						<td><select ng-model="searchCriteria.courseId" class="form-control"
+							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE" ></td>
+					</tr>
+					<tr>
+						<td><span>Branch</span></td>
+						<td><select ng-model="searchCriteria.branchId" class="form-control"
+							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: searchCriteria.courseId}"></td>
+					</tr>
+					<tr>
+						<td><span>Email Id</span></td>
+						<td><input type="text" ng-model="searchCriteria.emailId" class="form-control"></td>
+					</tr>
+					<tr>
+						<td><span>Mobile No</span></td>
+						<td><input type="text" ng-model="searchCriteria.mobileNo" class="form-control"></td>
+					</tr>
+					<tr>
+						<td><span>Status</span></td>
+						<td><select ng-model="searchCriteria.status" class="form-control">
+						<option value="OPEN">OPEN</option>
+						<option value="CLOSED">CLOSED</option>
+						<option value="MOVED_TO_ADMISSION">IN ADMISSION</option></select></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-success"
+								ng-click="getEnquiryBySearchCriteria()">Search</button></td>
+					</tr>
+				</table>
+			</div>
+</div>

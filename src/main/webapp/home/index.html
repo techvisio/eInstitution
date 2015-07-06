@@ -1,36 +1,28 @@
 <!doctype html>
 <html>
   <head>
-    <link href="styles/main.css" rel="stylesheet" />
-    <script src="bower_components/angular/angular.js"></script>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="bower_components/ng-grid/ng-grid.css" rel="stylesheet" />
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/ui-bootstrap-tpls-0.12.0.min.js"></script>
-    <script src="bower_components/ng-grid/ng-grid.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="scripts/modules/admission.js"></script>
-    <script src="scripts/modules/masterdata.js"></script>
-    <script src="scripts/modules/transport.js"></script>
-    <script src="scripts/modules/hostel.js"></script>
-    <script src="scripts/modules/management.js"></script>
-    <script src="scripts/modules/fee.js"></script>
-    <script src="scripts/modules/enquiry.js"></script>
-    <script src="scripts/modules/consultant.js"></script>
-    <script src="scripts/modules/reports.js"></script>
-        <!-- endbuild -->
+    <link href="static/css/main.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="lib/ng-grid/ng-grid.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/angular-cookies.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="lib/ng-grid/ng-grid.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+    <script src="home/app.js"></script>
+    <script src="home/admission/admissionCntrl.js"></script>
+    <script src="home/admission/admissionSrvc.js"></script>
+    <script src="home/shared/masterdata.js"></script>
+    <script src="home/shared/services.js"></script>
+    <!-- endbuild -->
     <meta charset="utf-8">
     <title>eInstitution</title>
   </head>
-  <body ng-app="mainModule">
+  <body ng-app="erp" ng-controller="ApplicationController">
     <div class="navigation-main">
       <div class="brand-logo">
         <img src="images/MIT-LOGO.jpg" height="45" width="140">
@@ -71,10 +63,10 @@
       </ul>
     </div>
       </div>
-
  <div class="content">
-     <div>
-      <div ng-view></div>
+	<div class="side-menu"></div>
+     <div class="module-content">
+      <div ui-view></div>
     </div>
 </div>
 <div class="footer">

@@ -8,14 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "counsellingmaster")    
+@Table(name = "COUNSELLING_MASTER")    
 
 public class CounsellingBody extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
-	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Counselling_Id")
 	private Long counsellingId;
 	
@@ -23,36 +20,21 @@ public class CounsellingBody extends BasicEntity {
 	private String CousellingBody;
 	
 	
-	public Long getCousellingId() {
+	public Long getCounsellingId() {
 		return counsellingId;
 	}
 	
-	public void setCousellingId(Long id) {
+	public void setCounsellingId(Long id) {
 		this.counsellingId = id;
 	}
 	
 	
-	public String getCousellingBody() {
+	public String getCounsellingBody() {
 		return CousellingBody;
 	}
 	
-	public void setCousellingBody(String cousellingBody) {
+	public void setCounsellingBody(String cousellingBody) {
 		CousellingBody = cousellingBody;
 	}
-
-	@Override
-	public String toString() {
-		return "CounsellingBody [id=" + counsellingId + ", CousellingBody="
-				+ CousellingBody + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 
 }

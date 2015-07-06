@@ -1,23 +1,26 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "coursebranchmaster")    
+@Table(name = "COURSE_BRANCH_MASTER")    
 public class Branch extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;
-	@Column(name = "Course_Id")
-	private Long courseId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Branch_Id")
 	private Long branchId;
+	@ManyToOne
+	@JoinColumn(name = "Course_Id")
+	private Course course;
 	@Column(name = "Branch_Name")
 	private String branchName;
 	
@@ -39,20 +42,13 @@ public class Branch extends BasicEntity {
 		this.branchName = branchName;
 	}
 
-		public Long getCourseId() {
-		return courseId;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 }

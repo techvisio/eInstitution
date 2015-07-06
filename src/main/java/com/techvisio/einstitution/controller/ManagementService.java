@@ -33,71 +33,71 @@ import com.techvisio.einstitution.workflow.impl.ScholarshipWorkflowManagerImpl;
 @RestController
 @RequestMapping("/management")
 public class ManagementService {
-	
-	@Autowired
-	ManagementWorkflowManager managementWorkflowManager ;
-
-	@Autowired
-	 AdmissionWorkflowManager admissionWorkflowManager;
-	
-	private static CustomLogger logger = CustomLogger.getLogger(ManagementService.class);
-	
-	@RequestMapping(value ="/admission/approval/{fileNo}", method = RequestMethod.GET )
-	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable Long fileNo){
-		logger.info("{}:  Calling getAdmissionManagementView method by passing fileno : {}",this.getClass().getName(), fileNo);
-		Response response = new Response();
-		ResponseEntity<Response> result = new ResponseEntity<Response>(response, HttpStatus.OK);
-
-		try{
-			
-			ManagementAdmission admissionBean = managementWorkflowManager.getAdmissionManagementView(fileNo);
-
-			response.setResponseBody(admissionBean);
-
-		}
-		catch(Exception e){
-			logger.error("{}: Error While Calling getAdmissionManagementView method by passing fileno :{}",this.getClass().getName(),fileNo,e);
-			response.setError(e.getLocalizedMessage());
-		}
-		return result ;
-	}
-
-	@RequestMapping(value = "/uapprovedList/{limit}", method = RequestMethod.GET)
-	public  ResponseEntity<Response> getUnapprovedAdmissions(@PathVariable int limit){
-		logger.info("{}  Calling getUnapprovedAdmissions method by passing limit :{}",this.getClass().getName(), limit);
-		Response response = new Response();
-		try
-		{
-		    List<StudentBasicInfo> basicInfo = managementWorkflowManager.getUnapprovedAdmissions(limit);
-		    response.setResponseBody(basicInfo);
-		}
-		catch(Exception e)
-		{
-			logger.error("{}: Error While Calling getUnapprovedAdmissions method by passing limit: {}",this.getClass().getName(),limit,e);
-			response.setError(e.getMessage());
-		}
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
-     	}
-	
-
-@RequestMapping(value = "/updateManagementChanges", method = RequestMethod.PUT)
-public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmission admissionBean ){
-	logger.info("{}  Calling updateManagementChanges method for Student : {}",this.getClass().getName(), admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
-	Response response = new Response();
-	try
-	{
-       
-		admissionBean.getBasicInfo().getRemark().setFileNo(admissionBean.getBasicInfo().getFileNo());
-	    admissionBean = managementWorkflowManager.updateManagementChanges(admissionBean);
-	    response.setResponseBody(admissionBean);
-	}
-	catch(Exception e)
-	{
-		logger.error("{}: Error While Calling updateManagementChanges method for : Student : {}",this.getClass().getName(),admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName(),e);
-		response.setError(e.getMessage());
-	}
-	return new ResponseEntity<Response>(response,HttpStatus.OK);
- 	}
-
+//	
+//	@Autowired
+//	ManagementWorkflowManager managementWorkflowManager ;
+//
+//	@Autowired
+//	 AdmissionWorkflowManager admissionWorkflowManager;
+//	
+//	private static CustomLogger logger = CustomLogger.getLogger(ManagementService.class);
+//	
+//	@RequestMapping(value ="/admission/approval/{fileNo}", method = RequestMethod.GET )
+//	public ResponseEntity<Response> getAdmissionManagementView(@PathVariable Long fileNo){
+//		logger.info("{}:  Calling getAdmissionManagementView method by passing fileno : {}",this.getClass().getName(), fileNo);
+//		Response response = new Response();
+//		ResponseEntity<Response> result = new ResponseEntity<Response>(response, HttpStatus.OK);
+//
+//		try{
+//			
+//			ManagementAdmission admissionBean = managementWorkflowManager.getAdmissionManagementView(fileNo);
+//
+//			response.setResponseBody(admissionBean);
+//
+//		}
+//		catch(Exception e){
+//			logger.error("{}: Error While Calling getAdmissionManagementView method by passing fileno :{}",this.getClass().getName(),fileNo,e);
+//			response.setError(e.getLocalizedMessage());
+//		}
+//		return result ;
+//	}
+//
+//	@RequestMapping(value = "/uapprovedList/{limit}", method = RequestMethod.GET)
+//	public  ResponseEntity<Response> getUnapprovedAdmissions(@PathVariable int limit){
+//		logger.info("{}  Calling getUnapprovedAdmissions method by passing limit :{}",this.getClass().getName(), limit);
+//		Response response = new Response();
+//		try
+//		{
+//		    List<StudentBasicInfo> basicInfo = managementWorkflowManager.getUnapprovedAdmissions(limit);
+//		    response.setResponseBody(basicInfo);
+//		}
+//		catch(Exception e)
+//		{
+//			logger.error("{}: Error While Calling getUnapprovedAdmissions method by passing limit: {}",this.getClass().getName(),limit,e);
+//			response.setError(e.getMessage());
+//		}
+//		return new ResponseEntity<Response>(response,HttpStatus.OK);
+//     	}
+//	
+//
+//@RequestMapping(value = "/updateManagementChanges", method = RequestMethod.PUT)
+//public  ResponseEntity<Response> updateManagementChanges(@RequestBody ManagementAdmission admissionBean ){
+//	logger.info("{}  Calling updateManagementChanges method for Student : {}",this.getClass().getName(), admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName());
+//	Response response = new Response();
+//	try
+//	{
+//       
+//		admissionBean.getBasicInfo().getRemark().setFileNo(admissionBean.getBasicInfo().getFileNo());
+//	    admissionBean = managementWorkflowManager.updateManagementChanges(admissionBean);
+//	    response.setResponseBody(admissionBean);
+//	}
+//	catch(Exception e)
+//	{
+//		logger.error("{}: Error While Calling updateManagementChanges method for : Student : {}",this.getClass().getName(),admissionBean.getBasicInfo().getFatherName()+admissionBean.getBasicInfo().getLastName(),e);
+//		response.setError(e.getMessage());
+//	}
+//	return new ResponseEntity<Response>(response,HttpStatus.OK);
+// 	}
+//
 
 }

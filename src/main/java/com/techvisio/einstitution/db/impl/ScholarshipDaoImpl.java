@@ -1,24 +1,21 @@
 package com.techvisio.einstitution.db.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.ConsultantPayment;
-import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.ScholarshipPayment;
+import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.db.ScholarshipDao;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 @Component
 public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
@@ -30,158 +27,83 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		this.scholarshipQueryProps = scholarshipQueryProps;
 	}
 
-
-	public Scholarship getScholarshipDetail(Long fileNo) {
-		logger.info("{} : Get scholarship detail for file no:{}",this.getClass().getName(), fileNo);
-
-		Scholarship scholarshipDetail = null;
-
-		try{
-
-			String getQuery = scholarshipQueryProps.getProperty("getScholarshipDetail");
-
-			SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
-
-			List<Scholarship> scholarshipDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<Scholarship>() {
-
-				public Scholarship mapRow(ResultSet rs, int rowNum)
-						throws SQLException {
-					Scholarship scholarshipDetail = new Scholarship();
-					scholarshipDetail.setFileNo(rs.getLong("File_No"));
-					scholarshipDetail.setAmount(rs.getDouble("Amount"));
-					scholarshipDetail.setStateId(CommonUtil.getLongValue(rs.getLong("State_Id")));
-					scholarshipDetail.setCreateDate(rs.getDate("Created_Date"));
-					scholarshipDetail.setRemark(rs.getString("Remark"));
-					scholarshipDetail.setApproved(rs.getBoolean("Approved"));
-					scholarshipDetail.setReoccurring(rs.getBoolean("Is_Reoccurring"));
-					scholarshipDetail.setConditional(rs.getBoolean("Is_Conditional"));
-					scholarshipDetail.setParentIncome(rs.getDouble("Parent_Income"));
-					return scholarshipDetail;			
-
-				}
-
-			});
-			Scholarship scholarshipDetail2 = null;
-			if(scholarshipDetails != null && scholarshipDetails.size()>0 ){
-				scholarshipDetail = scholarshipDetails.get(0);
-
-				List<ScholarshipPayment> scholarshipDetailPaymentDetails = getScholarshipPaymentDetail(fileNo);
-				scholarshipDetail.setScholarshipPaymentDetail(scholarshipDetailPaymentDetails);
-
-			}
-
-
+	@Override
+	public Scholarship getScholarship(Long fileNo) {
+		String queryString="FROM Scholarship sch WHERE sch.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<Scholarship> result= (List<Scholarship>)query.list();
+		if(result != null && result.size()>0){
+			return result.get(0);
 		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		return scholarshipDetail;
-
+		return null;
 	}
 
-	public void addScholarDetail(Scholarship scholarshipDetail) {
-		logger.info("{} : Add scholarship detail for file no:{}",this.getClass().getName(), scholarshipDetail.getFileNo());
-		if(scholarshipDetail != null && scholarshipDetail.getStateId() != null){
-			String upsertQuery = scholarshipQueryProps.getProperty("upsertScholarshipDetail");
+	@Override
+	public void saveScholarship(Scholarship scholarship) {
 
-			SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", scholarshipDetail.getFileNo())
-			.addValue("Amount", scholarshipDetail.getAmount())
-			.addValue("State_Id", scholarshipDetail.getStateId())
-			.addValue("Created_Date", scholarshipDetail.getCreateDate())
-			.addValue("Remark", scholarshipDetail.getRemark())
-			.addValue("Approved", scholarshipDetail.isApproved())
-			.addValue("Is_Reoccurring", scholarshipDetail.isReoccurring())
-			.addValue("Is_Conditional", scholarshipDetail.isConditional())
-			.addValue("Parent_Income", scholarshipDetail.getParentIncome());
+		if(scholarship.getStdntSchlarshpId()==null){
+			getCurrentSession().persist(scholarship);
+		}
+		else{
+			getCurrentSession().update(scholarship);
+			saveScholarshipPaymentDtl(scholarship.getScholarshipPaymentDetail(), scholarship.getFileNo());
+		}
+	}
 
-			getNamedParamJdbcTemplate().update(upsertQuery, namedParameter);
+	@Override
+	public List<ScholarshipPayment> getScholarshipPayments(Long fileNo) {
 
-			if (scholarshipDetail.getScholarshipPaymentDetail() != null) {
-				for (ScholarshipPayment scholarshipPaymentDetail:scholarshipDetail
-						.getScholarshipPaymentDetail()) {
-					addScholarshipPaymentDetail(scholarshipPaymentDetail);
+		String queryString="FROM ScholarshipPayment schp WHERE schp.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<ScholarshipPayment> result= query.list();
+			return result;
+	}
+
+	@Override
+	public void saveScholarshipPaymentDtl(List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo) {
+
+		if(scholarshipPaymentDetails!=null && scholarshipPaymentDetails.size()>0){
+			deleteScholarshipPaymentDetailExclusion(scholarshipPaymentDetails, fileNo);
+			for(ScholarshipPayment scholarshipPayment : scholarshipPaymentDetails){
+				saveScholarshipPaymentDetail(scholarshipPayment);
+			}
+		}
+	}
+
+	@Override
+	public void saveScholarshipPaymentDetail(ScholarshipPayment scholarshipPayment) {
+
+		if(scholarshipPayment.getSchlarshpPaymntId()==null){
+			getCurrentSession().persist(scholarshipPayment);
+		}
+		else{
+			getCurrentSession().update(scholarshipPayment);
+		}
+	}
+
+	@Override
+	public void deleteScholarshipPaymentDetailExclusion(List<ScholarshipPayment> scholarshipPayments, Long fileNo) {
+
+		List<Long> schlrshpPymntIds = new ArrayList<Long>();
+		if (scholarshipPayments == null || scholarshipPayments.size() == 0) {
+			schlrshpPymntIds.add(-1L);
+		}
+		else {
+			if (scholarshipPayments != null) {
+				for (ScholarshipPayment scholarshipPayment : scholarshipPayments) {
+					schlrshpPymntIds.add(scholarshipPayment.getSchlarshpPaymntId());
 				}
 			}
+			String deleteQuery = scholarshipQueryProps
+					.getProperty("deleteScholarshipPaymentDetailExclusion");
+
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"Schlarshp_Paymnt_Id", schlrshpPymntIds)
+			.addValue("File_No", fileNo);
+
+			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
-
-
-	public void deleteScholarshipDetail(Long fileNo) {
-		logger.info("{} : Delete scholarship detail for file no:{}",this.getClass().getName(), fileNo);		
-		deleteScholarshipPaymentDetail(fileNo);
-
-		String deleteQuery = scholarshipQueryProps.getProperty("deleteScholarshipDetail");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
-
-	}
-
-	public List<ScholarshipPayment> getScholarshipPaymentDetail(Long fileNo) {
-		logger.info("{} : Get scholarship payment detail for file no:{}",this.getClass().getName(), fileNo);
-		String getQuery= scholarshipQueryProps.getProperty("getScholarshipPaymentDetail");
-
-		SqlParameterSource namedParameter =  new MapSqlParameterSource("File_No", fileNo);
-
-
-		List<ScholarshipPayment> scholarshipPaymentDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter, new RowMapper<ScholarshipPayment>() {
-
-			public ScholarshipPayment mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				ScholarshipPayment scholarshipPaymentDetail=  new ScholarshipPayment();
-
-				scholarshipPaymentDetail.setFileNo(rs.getLong("File_No"));
-				scholarshipPaymentDetail.setAmountReceived(rs.getDouble("Amount_Received"));
-				scholarshipPaymentDetail.setReceivingDate(rs.getDate("Receiving_Date"));
-				return scholarshipPaymentDetail;
-			}
-		});
-
-		return scholarshipPaymentDetails;
-
-
-	}
-
-	public void addScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail) {
-		logger.info("{} : Add scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());		
-		String addQuery = scholarshipQueryProps.getProperty("addScholarshipPaymentDetail");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", scholarshipPaymentDetail.getFileNo())
-		.addValue("Amount_Received", scholarshipPaymentDetail.getAmountReceived())
-		.addValue("Receiving_Date", scholarshipPaymentDetail.getReceivingDate());
-
-		getNamedParamJdbcTemplate().update(addQuery, namedParameter);
-
-
-	}
-
-	public void updateScholarshipPaymentDetail(ScholarshipPayment scholarshipPaymentDetail) {
-		logger.info("{} : Update scholarship payment detail for file no:{}",this.getClass().getName(), scholarshipPaymentDetail.getFileNo());
-
-		String updateQuery = scholarshipQueryProps.getProperty("updateScholarshipPaymentDetail");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", scholarshipPaymentDetail.getFileNo())
-		.addValue("Amount_Received", scholarshipPaymentDetail.getAmountReceived())
-		.addValue("Receiving_Date", scholarshipPaymentDetail.getReceivingDate());
-
-		getNamedParamJdbcTemplate().update(updateQuery, namedParameter);
-
-
-
-	}
-
-	public void deleteScholarshipPaymentDetail(Long fileNo) {
-		logger.info("{} : Delete scholarship payment detail for file no:{}",this.getClass().getName(), fileNo);		
-		String deleteQuery = scholarshipQueryProps.getProperty("deleteScholarshipPaymentDetail");
-
-		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
-
-		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-
-
 	}
 
 }

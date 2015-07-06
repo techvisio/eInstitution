@@ -4,37 +4,26 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.techvisio.einstitution.beans.ConsultantDetail;
-import com.techvisio.einstitution.beans.Consultant;
-import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
+import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.ConsultantPayment;
-import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 
 @Component
 public interface ConsultantDao {
 
-	public Consultant getConsultant(Long consultantId);
-	public void saveConsultant(Consultant consultant);
-	//public void updateConsultant(Consultant consultant);
-	public void deleteConsultant(Long consultantId);
+	public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(Long fileNo);
+	public void saveAdmissionConsultantDtl(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo);
+	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl);
+	public void deleteAdmissionConsultantDtlExclusion(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo);
 	
-	
-	public List<ConsultantDetail> getConsultantDtl(Long fileNo);
-	public void saveConsultantDetail(List<ConsultantDetail> consultantDetails);
-	public void deleteConsultantDtlExclusion(Long fileNo, List<ConsultantDetail> consultantDetails);
-	
-	
-	public List<ConsultantPayment> getConsultantPaymentDtl(Long fileNo,Long consultantId);
-	public void addConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl);
-	public void updateConsultantPaymentDtl(ConsultantPayment consultantPaymentDtl);
-	
-	
-	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo, Long consultantId);
-	public void addConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
-	public void updateConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
-	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria);
-	public void deleteConsultantPaymentCriteriaExclusion(Long fileNo,List<Long> consultantIds);
-	
-	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	public List<ConsultantPayment> getConsultantPayment(Long fileNo);
+	public void saveConsultantPayment(List<ConsultantPayment> consultantPayments, Long fileNo);
+	public void saveConsultantPayment(ConsultantPayment consultantPayment);
+	public void deleteConsultantPaymentExclusion(List<ConsultantPayment> consultantPayments, Long fileNo);
+
+	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo);
+	public void saveConsultantPaymentCriteria(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo);
+	public void saveConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
+	public void deleteConsultantPaymentCriteriaExclusion(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo);
+
 }

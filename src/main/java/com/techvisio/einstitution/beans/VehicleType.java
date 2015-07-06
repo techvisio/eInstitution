@@ -8,24 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "vehicletypemaster")
+@Table(name = "VEHICLE_TYPE_MASTER")
 
-public class VehicleType {
+public class VehicleType extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "Type_Id")
-	private Long typeId;
+	private Long vehicleTypeId;
 	@Column(name = "Type")
 	private String type;
 	
-	public Long getTypeId() {
-		return typeId;
+	public Long getVehicleTypeId() {
+		return vehicleTypeId;
 	}
-	public void setTypeId(Long typeId) {
-		this.typeId = typeId;
+	public void setVehicleTypeId(Long typeId) {
+		this.vehicleTypeId = typeId;
 	}
 	public String getType() {
 		return type;
@@ -33,12 +31,5 @@ public class VehicleType {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
+	
 }

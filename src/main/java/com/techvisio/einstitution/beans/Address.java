@@ -1,28 +1,41 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "addressdetail")    
+@Table(name = "ADDRESS_DETAIL")    
 public class Address extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="Address_Id")
+	private Long addressId;
+	@Column(name="House_No")
 	private String houseNo;
+	@Column(name="Locality")
 	private String locality;
+	@Column(name="Landmark")
 	private String landmark;
+	@Column(name="District")
 	private String district;
+	@Column(name="City")
 	private String city;
+	@Column(name="Pincode")
 	private int pincode;
-	private String State;
+	@OneToOne
+	@JoinColumn(name="State_Id")
+	private State State;
+	@Column(name="File_No")
 	private Long fileNo;
+	@Column(name="Address_Type")
 	private String addressType;
-	
-	
-	
+
 	
 	public String getHouseNo() {
 		return houseNo;
@@ -85,16 +98,22 @@ public class Address extends BasicEntity {
 		this.pincode = pincode;
 	}
 	
-	
-	
-	public String getState() {
+	public Long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Long addressId) {
+		this.addressId = addressId;
+	}
+
+	public State getState() {
 		return State;
 	}
-	
-	public void setState(String state) {
+
+	public void setState(State state) {
 		State = state;
 	}
-	
+
 	public String getAddressType() {
 		return addressType;
 	}
@@ -103,22 +122,4 @@ public class Address extends BasicEntity {
 		this.addressType = addressType;
 	}
 
-	@Override
-	public String toString() {
-		return "AddressDetail [houseNo=" + houseNo + ", locality=" + locality
-				+ ", landmark=" + landmark + ", district=" + district
-				+ ", city=" + city + ", pincode=" + pincode + ", State="
-				+ State + ", fileNo=" + fileNo + ", addressType=" + addressType
-				+ "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	
 }

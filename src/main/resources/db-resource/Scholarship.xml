@@ -121,10 +121,10 @@ Update ScholarshipPaymentDetail set
 
 </entry>
 
-<entry key="deleteScholarshipPaymentDetail">
+<entry key="deleteScholarshipPaymentDetailExclusion">
     <![CDATA[
       
-Delete from ScholarshipPaymentDetail where File_No=:File_No;
+Delete from ScholarshipPaymentDetail where File_No bot in(:File_No) and Schlarshp_Paymnt_Id not in(:Schlarshp_Paymnt_Id);
     ]]>
 
 </entry>

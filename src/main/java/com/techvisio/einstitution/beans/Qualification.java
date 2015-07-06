@@ -1,18 +1,20 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "qualificationMaster") 
+@Table(name = "QUALIFICATION_MASTER") 
 public class Qualification {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	private Long id;   
+    @Column(name="Qualification_Id")   
 	private Long qualificationId;
+	@Column(name="Qualifying_Exam")
 	private String qulaifyingExam;
 	
 	@Id
@@ -38,14 +40,4 @@ public class Qualification {
 		return "Qualfication [id=" + qualificationId + ", qulaifyingExam=" + qulaifyingExam
 				+ "]";
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
- 
-
 }

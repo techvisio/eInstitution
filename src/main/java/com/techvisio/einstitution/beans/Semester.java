@@ -1,34 +1,36 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "semesterMaster")
+@Table(name = "SEMESTER_MASTER")
 
 public class Semester {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
-	@Column(name = "Course_Id")
-	private Long courseId;
-	@Column(name = "Semester")
-	private String semester;
 	@Column(name = "Semester_Id")
 	private Long semesterId;
-
+	@ManyToOne(cascade={CascadeType.PERSIST})
+	@JoinColumn(name="Course_Id")
+	private Course course;
+	@Column(name = "Semester")
+	private String semester;
 	
-	public Long getCourseId() {
-		return courseId;
+
+	public Course getCourse() {
+		return course;
 	}
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 	public String getSemester() {
 		return semester;
@@ -42,18 +44,5 @@ public class Semester {
 	public void setSemesterId(Long semesterId) {
 		this.semesterId = semesterId;
 	}
-	@Override
-	public String toString() {
-		return "Semester [courseId=" + courseId + ", semester=" + semester
-				+ ", id=" + semesterId + "]";
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
-	
-
 }

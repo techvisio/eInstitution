@@ -1,31 +1,38 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roomtypemaster")
+@Table(name = "ROOM_TYPE_DETAIL")
 
 public class RoomTypeDetail {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
+	@Column(name = "Room_Detail_Id")
+	private Long roomDetailId;
 	@Column(name = "Room_No")
 	private String	roomNo;
-	@Column(name = "Type_Code")
-	private String	typeCode;
-	@Column(name = "Wing_Id")
-	private Long wingId;
-	@Column(name = "Floor_Id")
-	private Long floorId;
-	@Column(name = "Block_Id")
-	private Long blockId;
+	@ManyToOne
+	@JoinColumn(name="Type_Code")
+	private RoomType roomType;
+	@ManyToOne
+	@JoinColumn(name="Wing_Id")
+	private Wing wing;
+	@ManyToOne
+	@JoinColumn(name="Floor_Id")
+	private Floor floor;
+	@ManyToOne
+	@JoinColumn(name="Block_Id")
+	private Block block;
 
 	public String getRoomNo() {
 		return roomNo;
@@ -33,38 +40,35 @@ public class RoomTypeDetail {
 	public void setRoomNo(String roomNo) {
 		this.roomNo = roomNo;
 	}
-	public String getTypeCode() {
-		return typeCode;
+	
+	public RoomType getRoomType() {
+		return roomType;
 	}
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
 	}
-	@Override
-	public String toString() {
-		return "RoomTypeDetail [roomNo=" + roomNo + ", typeCode=" + typeCode + "]";
+	public Wing getWing() {
+		return wing;
 	}
-	public Long getWingId() {
-		return wingId;
+	public void setWing(Wing wing) {
+		this.wing = wing;
 	}
-	public void setWingId(Long wingId) {
-		this.wingId = wingId;
+	public Floor getFloor() {
+		return floor;
 	}
-	public Long getFloorId() {
-		return floorId;
+	public void setFloor(Floor floor) {
+		this.floor = floor;
 	}
-	public void setFloorId(Long floorId) {
-		this.floorId = floorId;
+	public Block getBlock() {
+		return block;
 	}
-	public Long getBlockId() {
-		return blockId;
+	public void setBlock(Block block) {
+		this.block = block;
 	}
-	public void setBlockId(Long blockId) {
-		this.blockId = blockId;
+	public Long getRoomDetailId() {
+		return roomDetailId;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setRoomDetailId(Long roomDetailId) {
+		this.roomDetailId = roomDetailId;
 	}
 }

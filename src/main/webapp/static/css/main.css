@@ -1,0 +1,278 @@
+.nav-header {
+	top: 0;
+	display: block;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #428bca;
+	padding-bottom: 20px;
+	padding-top: 20px;
+}
+
+.nav-header-center {
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
+}
+
+.navigation-main {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	color: #ffffff;
+	height: 85px;
+	padding-top: 10px;
+	/* Adds shadow to the bottom of the bar */
+	-webkit-box-shadow: 0px 0px 8px 0px #000000;
+	-moz-box-shadow: 0px 0px 8px 0px #000000;
+	box-shadow: 0px 0px 8px 0px #000000;
+	/* Adds the transparent background */
+	background-color: #057DBC;
+	color: #057DBC;
+}
+
+.header-menu {
+	float: right;
+	clear: right;
+	padding-right: 20px;
+	margin-top: 35px;
+}
+
+.header-menu a {
+	font-size: 14px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: white;
+	text-decoration: none;
+}
+
+.header-menu a:hover {
+	color: grey;
+}
+
+.header-menu li {
+	display: inline;
+	color: white;
+}
+
+.company-logo {
+	padding-right: 20px;
+	display: block;
+	float: right;
+	height: 20px;
+}
+
+.brand-logo {
+	padding-left: 20px;
+	display: block;
+	float: left;
+	text-align: center;
+	color: white;
+	font-size: 16px;
+}
+
+.content {
+	width: 100%;
+	margin-top: 90px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	height:500px;
+}
+
+.content table{
+    width:100%;
+}
+
+.content span {
+	font-family: "Verdana";
+	font-size: 13px;
+	font-style: none;
+	color: grey;
+}
+
+.content input[type="text"]
+{
+	height: 25px;
+}
+
+.content select
+{
+	height: 25px;
+}
+
+.dashboard {
+	width: 80%;
+	height: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(../images/dashboardTheme.jpg);
+	margin-top: 160px;
+}
+
+.dashboard-icon table, .dashboard-icon th, .dashboard-icon td {
+	border: none;
+	padding: 40px;
+	text-align: center;
+	color: white;
+}
+
+.ajax-busy-indicator {
+	position: fixed;
+	top: 300px;
+	right: 600px;
+	background-image: url("../images/loading.gif");
+	height: 100px;
+	width: 100px;
+}
+
+.panel-div {
+	background-color: #057DBC;
+	text-align: center;
+	width:100%;
+	float:left;
+}
+
+.panel-div span{
+	color: white;
+	font-size: 18px;
+	text-shadow: 1px 0px 3px rgb(157, 157, 157);
+	border-radius: 25px;
+}
+
+
+.panel-div-modal {
+	background-color: #057DBC;
+	font-size: 20px;
+	margin:0 auto;
+	margin-top : 20px;
+	color: white;
+	border-radius: 25px;
+	text-align: center;
+}
+
+.footer{
+	width:100%;
+	height:100px;
+	float:left;
+	text-align:center;
+	line-height: 100px;
+}
+
+.content input[type="text"].ng-invalid, .content select.ng-invalid {
+	border: 1px solid red;
+}	
+
+span.header
+{
+font-size: 20px;
+color:#50A4D0;
+}
+
+.searchList{
+	padding-left:50px;
+}
+
+.searchList span{
+	font-size:14px;
+}
+
+.searchList tr td {
+	cursor: pointer;
+	padding-right:10px;
+}
+
+.searchList tr:HOVER {
+	background-color: #ccc;
+}
+.searchList input[type="text"],.searchList select {
+	width:150px;
+}
+
+#gridStyle {
+    border: 1px solid rgb(212,212,212);
+    cursor: pointer;
+    width: 800px; 
+    height: 300px
+}
+#reportGrid {
+    border: 1px solid rgb(212,212,212);
+    cursor: pointer;
+    width: 1300px; 
+    height: 500px;
+    margin: auto;
+}
+
+#reportArea{
+overflow-y: auto;
+height:600px;
+ width: 1300px; 
+ margin: auto;
+}
+
+.halfScreen-left
+{
+	float: left;
+	width: 50%;
+}
+
+.halfScreen-left table td:nth-child(even),.content table th:nth-child(even) {
+   overflow: hidden;
+    width: 60%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}	
+	
+.halfScreen-left table td:nth-child(odd),.content table th:nth-child(odd) {
+   overflow: hidden;
+   width: 40%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.fullscreen-left
+{
+	float: left;
+	width: 100%;
+}
+
+.fullscreen-left table td:nth-child(even),.content table th:nth-child(even) {
+   overflow: hidden;
+    width: 30%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}	
+	
+.fullscreen-left table td:nth-child(odd),.content table th:nth-child(odd) {
+   overflow: hidden;
+   width: 20%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.side-menu
+{
+	width:22%;
+	height: 100%;
+	float: left;
+}
+
+.module-content {
+	width: 78%;
+	padding-top: 5px;
+	padding-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	float:right;
+	height:500px;
+}
+
+.module-content.nav > li > a {
+  padding: 8px 10px;
+}
+
+.tab-separator{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

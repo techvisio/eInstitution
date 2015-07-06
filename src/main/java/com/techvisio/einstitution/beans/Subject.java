@@ -8,14 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "subjectmaster")
+@Table(name = "SUBJECT_MASTER")
 
 public class Subject {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long id;
 	@Column(name = "Subject_Id")
 	private Long subjectId;
 	@Column(name = "Subject_Name")
@@ -38,20 +36,4 @@ public class Subject {
 		this.subjectName = subjectName;
 	}
 
-	@Override
-	public String toString() {
-		return "Subject [id=" + subjectId + ", subjectName=" + subjectName + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
-	
-	
 }

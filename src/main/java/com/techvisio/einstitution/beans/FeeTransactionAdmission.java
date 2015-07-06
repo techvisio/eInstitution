@@ -6,25 +6,25 @@ import com.techvisio.einstitution.db.impl.BasicDetailBeanEntity;
 
 public class FeeTransactionAdmission extends BasicDetailBeanEntity {
 
-	private List<FeeTransaction> feeTransactionDebit;
-	private List<FeeTransaction> feeTransactionCredit;
+	private List<BasicFeeTransaction> feeTransactionDebit;
+	private List<BasicFeeTransaction> feeTransactionCredit;
 	private Double amountDiffrence;
 	private Remark remark;
 
 	
-	public List<FeeTransaction> getFeeTransactionDebit() {
+	public List<BasicFeeTransaction> getFeeTransactionDebit() {
 		return feeTransactionDebit;
 	}
 
-	public void setFeeTransactionDebit(List<FeeTransaction> feeTransactionDebit) {
+	public void setFeeTransactionDebit(List<BasicFeeTransaction> feeTransactionDebit) {
 		this.feeTransactionDebit = feeTransactionDebit;
 	}
 
-	public List<FeeTransaction> getFeeTransactionCredit() {
+	public List<BasicFeeTransaction> getFeeTransactionCredit() {
 		return feeTransactionCredit;
 	}
 
-	public void setFeeTransactionCredit(List<FeeTransaction> feeTransactionCredit) {
+	public void setFeeTransactionCredit(List<BasicFeeTransaction> feeTransactionCredit) {
 		this.feeTransactionCredit = feeTransactionCredit;
 	}
 

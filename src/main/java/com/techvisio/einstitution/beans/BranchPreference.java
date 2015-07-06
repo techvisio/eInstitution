@@ -1,30 +1,49 @@
 package com.techvisio.einstitution.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "branchpreference")    
+@Table(name = "BRANCH_PREFERENCE")    
 public class BranchPreference extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private Long id;	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Branch_Preference_Id")
 	private Long branchPreferenceId;
 	@Column(name = "File_No")
 	private Long fileNo;
-	@Column(name = "Branch_Id")
-	private Long branchId;
-	@Column(name = "Course_Id")
-	private Long courseId;
+    @ManyToOne
+    @JoinColumn(name="Branch_Id")
+	private Branch branch;
+    @ManyToOne
+    @JoinColumn(name="Course_Id")
+	private Course course;
 
 	public Long getFileNo() {
 		return fileNo;
+	}
+
+	public Branch getBranch() {
+		return branch;
+	}
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public void setFileNo(Long fileNo) {
@@ -37,37 +56,6 @@ public class BranchPreference extends BasicEntity {
 
 	public void setBranchPreferenceId(Long branchPreferenceId) {
 		this.branchPreferenceId = branchPreferenceId;
-	}
-
-	public Long getBranchId() {
-		return branchId;
-	}
-
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
-	}
-
-	public Long getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
-	}
-
-	@Override
-	public String toString() {
-		return "BranchPreference [branchPreferenceId=" + branchPreferenceId
-				+ ", fileNo=" + fileNo + ", branchId=" + branchId
-				+ ", coureseId=" + courseId + "]";
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 }
