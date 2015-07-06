@@ -160,6 +160,10 @@ public class Student extends BasicEntity {
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
 	private List<Remark> remarks;
+	
+	@OneToMany
+	@JoinColumn(name = "File_No")
+	private List<StudentDocument> documents = new ArrayList<StudentDocument>();
 
 	public CasteCategory getCategory() {
 		return category;
@@ -534,6 +538,14 @@ public class Student extends BasicEntity {
 
 	public void setRemarks(List<Remark> remarks) {
 		this.remarks = remarks;
+	}
+
+	public List<StudentDocument> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<StudentDocument> documents) {
+		this.documents = documents;
 	}
 
 }
