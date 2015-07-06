@@ -1,5 +1,8 @@
 package com.techvisio.einstitution.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +11,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.techvisio.einstitution.beans.StudentDetail;
+import com.techvisio.einstitution.beans.Address;
+import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.Student;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-config/Application-context.xml" })
-
 public class AdmissionDaoTest {
 
 	@Autowired
@@ -22,8 +27,18 @@ public class AdmissionDaoTest {
 	@Test
 	public void testaddAdmissionDao(){
 		
-		StudentDetail studentDetail=new StudentDetail();
-		studentDetail.setFileNo(11L);
+		Student studentDetail=new Student();
+        List<Address> addresses = new ArrayList<Address>();
+        Address address=new Address();
+        address.setAddressType("P");
+        Course course=new Course();
+        course.setCourseId(1L);
+        course.setCourse("MBA");
+        address.setCity("GHAZIABAD");
+        address.setDistrict("GHAZIABAD");
+        address.setHouseNo("258");
+        address.setLocality("New Kot Gaon");
+		//studentDetail.setFileNo(11L);
 		studentDetail.setEnrollNo("3");
 		studentDetail.setFirstName("Sandeep");
 		studentDetail.setLastName("Gusain");
@@ -35,26 +50,28 @@ public class AdmissionDaoTest {
 //		studentDetail.setBranchId("4");
 //		studentDetail.setDomicileState("2");
 //		studentDetail.setCategoryId("5");
+        addresses.add(address);
+        studentDetail.setAddressDtl(addresses);
+        studentDetail.setCourse(course);
 		ApplicationContext ctx=new ClassPathXmlApplicationContext("spring-config/Application-context.xml");
 		AdmissionDao dao=ctx.getBean(AdmissionDao.class);
-		dao.addStudentDtl(studentDetail);
-	}
-	
-	
-	@Test
-	public void testGetStudentDtl(){
-		StudentDetail detail = dao.getStudentDtl(1L);
-		System.out.println("Data is :- "+detail);
+		dao.saveStudent(studentDetail);
 	}
 	
 	@Test
-	public void testGetAdmission(){
-		StudentDetail detail=dao.getStudentDtl(11L);
-		System.out.println(detail);
+	public void testGetStudent(){
 		
-		
+		Student student = dao.getStudent(1L);
+	
+		System.out.println(student);
 	}
 	
+	@Test
+	public void testGetAddress(){
 		
+		List<Address> addresses = dao.getAddressDtl(2L);
+	
+		System.out.println(addresses);
 	}
-
+	}
+  
