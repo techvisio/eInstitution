@@ -1,13 +1,20 @@
-<from>
+<from id="REFERRAL">
 <div class="two-column-view">
-						<table>
-							<tr>
-								<th><span>Referred By</span></th>
-								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.referredBy"
-									ng-disabled="!form.isEdit && !form.isNew">
- </td>
-							</tr>
-						</table>
+	<table>
+		<tr>
+			<th><span>Referred By</span></th>
+			<td><input type="text" class="form-control"
+				aria-label="Amount (to the nearest dollar)"
+				ng-model="student.referredBy"
+				ng-disabled="!form.isEdit && !form.isNew"></td>
+		</tr>
+		        <td></td>
+				<td></td>
+				<td></td>
+				<td><button type="button" class="btn btn-success btn-sm"
+						ng-click="">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+	</table>
 
-					</div>
+</div>
 </from>

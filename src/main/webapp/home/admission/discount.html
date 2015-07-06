@@ -1,0 +1,45 @@
+<form id="DISCOUNT">
+	<div class="admission-tab-inner">
+		<div class="student-discount">
+			<table>
+				<tr>
+					<th><span>Feehead</span></th>
+					<th><span>Discount Type</span></th>
+					<th><span>Amount</span></th>
+					<th><span>Percent</span></th>
+				</tr>
+				<tr ng-repeat="discount in student.discountDtl">
+
+					<td><select ng-model="discount.feeHeadId"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD|filter:{parentId:'W'}"></select>
+					</td>
+
+					<td><select ng-model="object.type"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.DISCOUNTTYPE"></select></td>
+
+					<td><input type="text" class="form-control"
+						aria-label="Amount (to the nearest dollar)"
+						ng-model="discount.amount" ng-blur="checkAmout($index,'amount')"
+						ng-Readonly="!form.isEdit && !form.isNew"></td>
+
+					<td><input type="text" class="form-control"
+						aria-label="Amount (to the nearest dollar)"
+						ng-model="discount.percent" ng-blur="checkAmout($index,'percent')"
+						ng-Readonly="!form.isEdit && !form.isNew"></td>
+					<td><img height="35" width="35" ng-src="images/plus.png"
+						ng-click="addDiscountDtl()" /></td>
+					<td><img height="35" width="35" ng-src="images/minus.png"
+						ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
+				</tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><button type="button" class="btn btn-success btn-sm"
+						ng-click="">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+			</table>
+		</div>
+	</div>
+</form>

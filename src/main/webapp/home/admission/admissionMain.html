@@ -1,105 +1,48 @@
-
-<div class="halfScreen-left">
-	 <div ng-include src="'home/admission/fixedAdmissionInfo.html'">
-	 </div>
+<div class="tab-separator">
+	<div class="halfScreen-left">
+		<div ng-include src="'home/admission/fixedAdmissionInfo.html'">
+		</div>
+	</div>
+	<div class="halfScreen-right">
+		<div ng-include src="'home/admission/studentPhoto.html'"></div>
+	</div>
 </div>
-
 <div class="fullscreen-left">
-
-  <tabset justified="true" type="pills">
-
-  <tab heading="PERSONAL INFORMATION">
-	<br>
-	 <tabset justified="true" type="pills">
-	 <tab heading="PERSONAL DETAIL" ng-click="getStudent()">
-	 <div ng-include src="'home/admission/personalInfo.html'">
-	 </div>
-	 </tab>
-	 <tab heading="ACADEMIC INFO" ng-click="getStudentAcademicDtl()">
-	 <div ng-include src="'home/admission/academicDetail.html'">
-	 </div>
-	 </tab>
-	 <tab heading="ADDRESS INFO" ng-click="getStudentAddress()">
-	 <div ng-include src="'home/admission/studentAddressDtl.html'">
-	 </div>
-	 </tab>
-     <tab heading="COUNSELLING" ng-click="getCounsellingDtl()">
-	 <div ng-include src="'home/admission/counselling.html'"></div>
-      </tab>	 
-	 </tabset>
-	</tab>
-	
-  <tab heading="OFFICIAL INFORMATION">
-  	<br>
-  	 <tabset justified="true" type="pills">
-	 <tab heading="OFFICE USE" ng-click="getStudent()">
-	 <div ng-include src="'home/admission/officeUse.html'"></div>
-	 </tab>
-	 <tab heading="DISCOUNTS" ng-click="getStudentDiscountDtl()">
-	 <div ng-include src="'home/admission/Discount.html'"></div>
-	 </tab>
-	 <tab heading="SCHOLARSHIP " ng-click="getScholarshipDtl()">
-	 <div ng-include src="'home/admission/scholarship.html'"></div>
-	 </tab>
-	 <tab heading="CONSULTANT" ng-click="getConsultantDtl()">
-	 <div ng-include src="'home/admission/consultant.html'"></div>
-     </tab> 
-	 <tab heading="REFERRAL" ng-click="getStudent()">
-	 <div ng-include src="'home/admission/referred.html'"></div>
-     </tab>
-	 </tabset>
-  </tab>
-  </tabset>
-
-<div class="halfScreen-left">
-	 <div ng-include src="'home/admission/fixedAdmissionInfo.html'">
-	 </div>
-</div>
-
-<div class="fullscreen-left">
-
-  <tabset justified="true" type="pills">
-
-  <tab heading="PERSONAL INFORMATION">
 	<div class="tab-separator">
-	 <tabset justified="true" type="pills">
-	 <tab heading="PERSONAL DETAIL">
-	 <div ng-include src="'home/admission/personalInfo.html'">
-	 </div>
-	 </tab>
-	 <tab heading="ACADEMIC INFO">
-	 <div ng-include src="'home/admission/academicDetail.html'">
-	 </div>
-	 </tab>
-	 <tab heading="ADDRESS INFO">
-	 <div ng-include src="'home/admission/studentAddressDtl.html'">
-	 </div>
-	 </tab>
-	 </tabset>
-	 </div>
-	</tab>
-	
-  <tab heading="OFFICIAL INFORMATION">
-  	<div class="tab-separator">
-  	 <tabset justified="true" type="pills">
-	 <tab heading="OFFICE USE">
-	 <div ng-include src="'home/admission/officeUse.html'"></div>
-	 </tab>
-	 <tab heading="SCHOLARSHIP AND DISCOUNTS">
-	 <div ng-include src="'home/admission/scholarshipAndDiscount.html'"></div>
-	 </tab>
-	 <tab heading="COUNSELLING">
-	 <div ng-include src="'home/admission/counselling.html'"></div>
-      </tab>
-	 <tab heading="CONSULTANT">
-	 <div ng-include src="'home/admission/consultant.html'"></div>
-     </tab> 
-	 <tab heading="REFERRAL">
-	 <div ng-include src="'home/admission/referred.html'"></div>
-     </tab>
-	 </tabset>
-	 </div>
-  </tab>
-  </tabset>
-
+		<tabset justified="true" type="pills"> <tab
+			heading="PERSONAL INFORMATION">
+		<div class="tab-separator">
+			<tabset justified="true" type="pills"> <tab
+				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')">
+			<div ng-include src="'home/admission/personalInfo.html'"></div>
+			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')" >
+			<div ng-include src="'home/admission/academicDetail.html'"></div>
+			</tab> <tab heading="ADDRESS INFO">
+			<div ng-include src="'home/admission/studentAddressDtl.html'">
+			</div>
+			</tab> <tab heading="COUNSELLING" >
+			<div ng-include src="'home/admission/counselling.html'"></div>
+			</tab> </tabset>
+		</div>
+		</tab> <tab heading="OFFICIAL INFORMATION">
+		<div class="tab-separator">
+			<tabset justified="true" type="pills"> <tab
+				heading="OFFICE USE">
+			<div ng-include src="'home/admission/officeUse.html'"></div>
+			</tab> <tab heading="DISCOUNTS">
+			<div ng-include src="'home/admission/discount.html'"></div>
+			</tab> <tab heading="SCHOLARSHIP">
+			<div ng-include src="'home/admission/scholarship.html'"></div>
+			</tab> <tab heading="CONSULTANT">
+			<div ng-include src="'home/admission/consultant.html'"></div>
+			</tab> <tab heading="REFERRAL">
+			<div ng-include src="'home/admission/referred.html'"></div>
+			</tab>
+			</tab> <tab heading="DOCUMENTS">
+			<div ng-include src="'home/admission/document.html'"></div>
+			</tab>
+			 </tabset>
+		</div>
+		</tab> </tabset>
+	</div>
 </div>

@@ -108,7 +108,8 @@ erp.controller('ApplicationController',
 		['$scope', '$rootScope', '$timeout', '$modal', '$http',
 		function ($scope, $rootScope, $timeout, $modal) {
 		    $rootScope.enableSidebar = true;
-
+		    $rootScope.user={};
+		    $rootScope.user.privilege=['VIEW_PERSONAL'];
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;
