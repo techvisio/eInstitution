@@ -13,32 +13,32 @@
 			heading="PERSONAL INFORMATION">
 		<div class="tab-separator">
 			<tabset justified="true" type="pills"> <tab
-				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')">
+				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')" ng-click="getRelatedData(PERSONALINFO)">
 			<div ng-include src="'home/admission/personalInfo.html'"></div>
-			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')" >
+			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')"  ng-click="getRelatedData(ACADEMIC)">
 			<div ng-include src="'home/admission/academicDetail.html'"></div>
-			</tab> <tab heading="ADDRESS INFO">
+			</tab> <tab heading="ADDRESS INFO" ng-click="getRelatedData(PERSONALINFO)" ng-click="getRelatedData(ADDRESS)">
 			<div ng-include src="'home/admission/studentAddressDtl.html'">
 			</div>
-			</tab> <tab heading="COUNSELLING" >
+			</tab> <tab heading="COUNSELLING" ng-click="getRelatedData(COUNSELLING)">
 			<div ng-include src="'home/admission/counselling.html'"></div>
 			</tab> </tabset>
 		</div>
 		</tab> <tab heading="OFFICIAL INFORMATION">
 		<div class="tab-separator">
 			<tabset justified="true" type="pills"> <tab
-				heading="OFFICE USE">
+				heading="OFFICE USE" ng-click="getRelatedData(OFFICEUSE)">
 			<div ng-include src="'home/admission/officeUse.html'"></div>
-			</tab> <tab heading="DISCOUNTS">
+			</tab> <tab heading="DISCOUNTS" ng-click="getRelatedData(DISCOUNT)">
 			<div ng-include src="'home/admission/discount.html'"></div>
-			</tab> <tab heading="SCHOLARSHIP">
+			</tab> <tab heading="SCHOLARSHIP" ng-click="getRelatedData(SCHOLARSHIP)">
 			<div ng-include src="'home/admission/scholarship.html'"></div>
-			</tab> <tab heading="CONSULTANT">
+			</tab> <tab heading="CONSULTANT" ng-click="getRelatedData(CONSULTANT)">
 			<div ng-include src="'home/admission/consultant.html'"></div>
-			</tab> <tab heading="REFERRAL">
+			</tab> <tab heading="REFERRAL" ng-click="getRelatedData(REFERRAL)">
 			<div ng-include src="'home/admission/referred.html'"></div>
 			</tab>
-			</tab> <tab heading="DOCUMENTS">
+			</tab> <tab heading="DOCUMENTS" ng-click="getRelatedData(DOCUMENT)">
 			<div ng-include src="'home/admission/document.html'"></div>
 			</tab>
 			 </tabset>

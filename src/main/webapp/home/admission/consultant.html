@@ -1,13 +1,14 @@
 <form id="CONSULTANT">
 	<div class="two-column-view">
+	
+	
 		<table>
 			<tr ng-repeat="consultant in student.consultantDetail">
-				<td></td>>
+				<td></td>
+						<td ng-show="student.consultantDetail<0"><span>No consultant for this student</span></td></tr>
 				<td><select ng-model="consultant.consultant.consultantId"
-					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
-				<td><img height="35" width="35" ng-src="images/plus.png"
-					ng-click="addConsultantDetail()" /></td>
+					 class="form-control" ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-click="addConsultantDetail()">Add Consultant</button></td>
 				<td><img height="35" width="35" ng-src="images/minus.png"
 					ng-click="removeConsultantDetail($index)" ng-show="$index>0" /></td>
 			</tr>

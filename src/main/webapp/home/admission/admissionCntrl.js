@@ -27,62 +27,76 @@ admissionModule
 								"DOCUMENT" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : [],
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
 									"displayName" : "OFFICIAL -> DOCUMENT"
 								},
 								"PERSONALINFO" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : ['VIEW_PERSONAL']
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "PERSONAL -> PERSONAL INFO"
 								},
 								"ADDRESS" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "PERSONAL -> ADDRESS"
 								},
 								"ACADEMIC" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "PERSONAL -> ACADEMIC"
 								},
 								"COUNSELLING" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
-								},
-								"ACADEMIC" : {
-									"isEdit" : false,
-									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "PERSONAL -> COUNSELLING"
 								},
 								"OFFICEUSE" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "OFFICIAL -> OFFICE USE"
 								},
 								"DISCOUNT" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "OFFICIAL -> DISCOUNT"
 								},
 								"SCHOLARSHIP" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "OFFICIAL -> SCHOLARSHIP"
 								},
 								"CONSULTANT" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "OFFICIAL -> CONSULTANT"
 								},
 								"REFERRAL" : {
 									"isEdit" : false,
 									"activities" : [],
-									"privileges" : []
+									"privilege":{},
+									"privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+									"displayName" : "OFFICIAL -> REFERRAL"
 								}
 
 							};
-
+							
 							$scope.student = {};
 							$scope.latestAdmission = [];
 							$scope.searchCriteria = {};
@@ -91,9 +105,7 @@ admissionModule
 							$scope.student.addressDtl = [];
 
 							$scope.student.consultantDetail = [];
-							$scope.student.consultantDetail.push(angular
-									.copy($scope.dummyConsultantDetail));
-
+							
 							$scope.student.academicDtl = [];
 							$scope.student.academicDtl.push(angular
 									.copy($scope.dummyQualification));
@@ -867,8 +879,7 @@ admissionModule
 										.copy($scope.dummyCounsellingDtl));
 
 								$scope.student.consultantDetail = [];
-								$scope.student.consultantDetail.push(angular
-										.copy($scope.dummyConsultantDetail));
+								
 							}
 
 							$scope.saveAmenity = function(amenityStaging) {
@@ -1112,13 +1123,11 @@ admissionModule
 								var userPrivilege=$rootScope.user.privilege;
 								if(userPrivilege){
 									var tab = $scope.formTabs[form];
-									var tabPrivilege=tab.privileges;
-									for(var i = 0; i < tabPrivilege.length; i++){
+									var tabPrivilege=tab.privilege;
 										if(userPrivilege.indexOf(tabPrivilege[i]) != -1)
 											{
 											return true;
 											}
-									}
 								}
 							}
 							

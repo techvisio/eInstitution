@@ -51,29 +51,22 @@
 						ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select>
 					</td>
 				</tr>
+
+				<tr>
+					<td><span> Enrollment No </span></td>
+					<td><input type="text" ng-model="student.enrollNo"
+						ng-Readonly="!form.isEdit && !form.isNew"></td>
+					<td><span> Uni Enrollment No </span></td>
+					<td><input type="text" ng-model="student.uniEnrollNo"
+						ng-Readonly="!form.isEdit && !form.isNew"></td>
+				</tr>
 				<tr>
 					<td><span> Remarks from Enquiry </span></td>
-					<td><textarea rows="3" cols="41" ng-model="student.remarks"
+					<td><textarea rows="3" cols="39" ng-model="student.remarks"
 							ng-Readonly="!form.isEdit && !form.isNew">
-										
 						</textarea></td>
 				</tr>
-				<tr>
-					<td><span> Hostel Required </span></td>
-					<td><input type="checkbox" ng-model="student.hostel"
-						ng-disabled="true"></td>
-					<td><span> Transport Required </span></td>
-					<td><input type="checkbox" ng-model="student.transportation"
-						ng-disabled="true"></td>
-				</tr>
-				<tr>
-					<td><span> Management Approval </span></td>
-					<td><input type="checkbox"
-						ng-model="student.managementApproval" ng-disabled="true"></td>
-					<td><span> Fee paid </span></td>
-					<td><input type="checkbox" ng-model="student.feePaid"
-						ng-disabled="true"></td>
-				</tr>
+
 				<td></td>
 				<td></td>
 				<td></td>
