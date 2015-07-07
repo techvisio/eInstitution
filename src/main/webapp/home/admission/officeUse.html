@@ -1,79 +1,86 @@
-<form>
-				<div class="admission-tab-inner">
-					<div class="four-column-view">
-						<table>
-							<tr>
-								<td><span> Academic Year </span></td>
-								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="student.academicYear"
-									ng-disabled="!form.isEdit && !form.isNew">
-  </td>
-								<td><span> Semester </span></td>
-								<td><select select ng-model="student.semester"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}"></select>
-								</td>
-							</tr>
-							<tr>
-								<td><span>Centre</span></td>
-								<td><select select ng-model="student.centreId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CENTRE"></select>
-								</td>
-								<td><span>Shift</span></td>
-								<td><select select ng-model="student.shiftId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SHIFT"></select>
-								</td>
-							</tr>
-							<tr>
-								<td><span>Batch</span></td>
-								<td><select select ng-model="student.batchId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BATCH|filter: {parentId: student.courseId}"></select>
-								</td>
-								<td><span>Session</span></td>
-								<td><select select ng-model="student.sessionId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SESSION|filter: {parentId: student.courseId}"></select>
-								</td>
+<form id="OFFICEUSE">
+	<div class="admission-tab-inner">
+		<div class="four-column-view">
+			<table>
+				<tr>
+					<td><span> Academic Year </span></td>
+					<td><input type="text" class="form-control"
+						aria-label="Amount (to the nearest dollar)"
+						ng-model="student.academicYear"
+						ng-disabled="!form.isEdit && !form.isNew"></td>
+					<td><span> Semester </span></td>
+					<td><select select ng-model="student.semester"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.SEMESTER|filter: {parentId: student.courseId}"></select>
+					</td>
+				</tr>
+				<tr>
+					<td><span>Centre</span></td>
+					<td><select select ng-model="student.centreId"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CENTRE"></select>
+					</td>
+					<td><span>Shift</span></td>
+					<td><select select ng-model="student.shiftId"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SHIFT"></select>
+					</td>
+				</tr>
+				<tr>
+					<td><span>Batch</span></td>
+					<td><select select ng-model="student.batchId"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BATCH|filter: {parentId: student.courseId}"></select>
+					</td>
+					<td><span>Session</span></td>
+					<td><select select ng-model="student.sessionId"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SESSION|filter: {parentId: student.courseId}"></select>
+					</td>
 
-							</tr>
-							<tr>
-								<td><span>Section</span></td>
-								<td><select select ng-model="student.sectionId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SECTION|filter: {parentId: student.courseId}"></select>
-								</td>
-								<td><span> Quota Code </span></td>
-								<td><select select ng-model="student.quotaCode"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select>
-								</td>
-							</tr>
-							<tr>
-								<td><span> Remarks from Enquiry </span></td>
-								<td><textarea rows="3" cols="41" ng-model="student.remarks"
-										ng-Readonly="!form.isEdit && !form.isNew">
+				</tr>
+				<tr>
+					<td><span>Section</span></td>
+					<td><select select ng-model="student.sectionId"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SECTION|filter: {parentId: student.courseId}"></select>
+					</td>
+					<td><span> Quota Code </span></td>
+					<td><select select ng-model="student.quotaCode"
+						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.QUOTACODE"></select>
+					</td>
+				</tr>
+				<tr>
+					<td><span> Remarks from Enquiry </span></td>
+					<td><textarea rows="3" cols="41" ng-model="student.remarks"
+							ng-Readonly="!form.isEdit && !form.isNew">
 										
 						</textarea></td>
-							</tr>
-							<tr>
-								<td><span> Hostel Required </span></td>
-								<td><input type="checkbox" ng-model="student.hostel"
-									ng-disabled="true"></td>
-								<td><span> Transport Required </span></td>
-								<td><input type="checkbox"
-									ng-model="student.transportation" ng-disabled="true"></td>
-							</tr>
-							<tr>
-								<td><span> Management Approval </span></td>
-								<td><input type="checkbox"
-									ng-model="student.managementApproval" ng-disabled="true"></td>
-								<td><span> Fee paid </span></td>
-								<td><input type="checkbox" ng-model="student.feePaid"
-									ng-disabled="true"></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				</form>
+				</tr>
+				<tr>
+					<td><span> Hostel Required </span></td>
+					<td><input type="checkbox" ng-model="student.hostel"
+						ng-disabled="true"></td>
+					<td><span> Transport Required </span></td>
+					<td><input type="checkbox" ng-model="student.transportation"
+						ng-disabled="true"></td>
+				</tr>
+				<tr>
+					<td><span> Management Approval </span></td>
+					<td><input type="checkbox"
+						ng-model="student.managementApproval" ng-disabled="true"></td>
+					<td><span> Fee paid </span></td>
+					<td><input type="checkbox" ng-model="student.feePaid"
+						ng-disabled="true"></td>
+				</tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><button type="button" class="btn btn-success btn-sm"
+						ng-click="">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+			</table>
+		</div>
+	</div>
+</form>
