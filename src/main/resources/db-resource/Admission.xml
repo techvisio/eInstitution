@@ -794,5 +794,15 @@ on duplicate key update
     ]]>
 
 	</entry>
+
+
+<entry key="deleteDocumentDtlExclusion">
+    <![CDATA[
+delete from STUDENT_DOCUMENTS where File_No not in (:File_No) and Student_Doc_Id not in (:Student_Doc_Id);
+    ]]>
+
+</entry>
+
+
 	
 </properties>

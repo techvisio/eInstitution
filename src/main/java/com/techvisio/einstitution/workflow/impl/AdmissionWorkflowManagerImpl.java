@@ -18,6 +18,7 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -193,6 +194,28 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	public List<Counselling> getCounsellingDtl(Long fileNo) {
 		List<Counselling> counsellings = admissionManager.getCounsellingDtl(fileNo);
 		return counsellings;
+	}
+
+	@Override
+	public List<StudentDocument> getDocumentDtl(Long fileNo) {
+		List<StudentDocument> studentDocuments = admissionManager.getDocumentDtl(fileNo);
+		return studentDocuments;
+	}
+
+	@Override
+	public void saveDocumentDtl(List<StudentDocument> documents, Long fileNo) {
+		admissionManager.saveDocumentDtl(documents, fileNo);
+	}
+
+	@Override
+	public void saveDocumentDtl(StudentDocument document) {
+		admissionManager.saveDocumentDtl(document);
+	}
+
+	@Override
+	public void deleteDocumentDtlExclusion(List<StudentDocument> documents,
+			Long fileNo) {
+		admissionManager.deleteDocumentDtlExclusion(documents, fileNo);		
 	}
 
 }

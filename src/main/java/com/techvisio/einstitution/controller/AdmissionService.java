@@ -20,6 +20,7 @@ import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
@@ -249,4 +250,39 @@ public class AdmissionService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
+
+
+	@RequestMapping(value = "student/document/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getDocumentDtl(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			List<StudentDocument> studentDocuments = admWorkflowManager.getDocumentDtl(fileNo);
+			response.setResponseBody(studentDocuments);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);		
+	}
+
+
+	@RequestMapping(value = "student/document/{fileNo}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> saveDocumentDtl(@RequestBody List<StudentDocument> documents, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			admWorkflowManager.saveDocumentDtl(documents, fileNo);
+			List<StudentDocument> documentFromDB = admWorkflowManager.getDocumentDtl(fileNo);
+			response.setResponseBody(documentFromDB);
+
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+
+		
+	}
+	
+	
+
 }
