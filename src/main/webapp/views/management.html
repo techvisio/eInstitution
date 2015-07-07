@@ -76,11 +76,9 @@
 	<td><span>{{object.fatherName}}</span></td>
 	<td><span>{{object.dob}}</span></td>
 	<td><select select ng-model="object.courseId"
-		ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
-		ng-disabled="true"></select></td>
+		ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select></td>
 	<td><select select ng-model="object.branchId"
-		ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
-		ng-disabled="true"></select></td>
+		ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"></select></td>
 </tr>
 </table>
 
@@ -205,10 +203,10 @@ ng-model="currentPage" ng-change="pageChanged()"></pagination>
 		<tr	ng-repeat="i in getMaxListLengthArray() track by $index">
 			<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionDebit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></span></td>
 			<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionDebit[i].amount"
-				readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></td>
+				 ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></td>
 				<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionCredit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></span></td>
 			<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionCredit[i].amount"
-				readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></td>
+				 ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></td>
 		</tr>
 		<tr><th>Total Debit</th><td>{{totalDebit()}}</td>
 		<th>Total Credit</th><td>{{totalCredit()}}</td>

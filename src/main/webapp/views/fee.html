@@ -179,35 +179,35 @@
 	<tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 		<tr>
 			<td><span> File No </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.fileNo"></td>
 			<td><span> Enrollment No </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.enrollmentNo"></td>
 		</tr>
 		<tr>
 			<td> First Name</td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.firstName"></td>
 			<td><span> Last Name </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.lastName"></td>
 
 		</tr>
 		<tr>
 			<td><span> Father Name </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.fatherName"></td>
 			<td><span> Date Of Birth </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.dob"></td>
 		</tr>
 		<tr>
 			<td><span> Course </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.course.course"></td>
 			<td><span> Branch </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.branch.branchName"></td>
 		</tr>
 		
@@ -220,10 +220,10 @@
 		<tr	ng-repeat="i in getMaxListLengthArray() track by $index">
 			<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionDebit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></span></td>
 			<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionDebit[i].amount"
-				readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></td>
+				 ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></td>
 				<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionCredit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></span></td>
 			<td><input type="text" ng-model="feeTransactionAdmissionBean.feeTransactionCredit[i].amount"
-				readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></td>
+				 ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></td>
 		</tr>
 		<tr><th>Total Debit</th><td>{{totalDebit()}}</td>
 		<th>Total Credit</th><td>{{totalCredit()}}</td>
@@ -264,7 +264,7 @@
 <tr><td><span class="header">Base Fee</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.applicableFeeDetails">
 <td><span ng-bind="object.feeDetail.head"></span></td>
-<td><input type="text" ng-model="object.feeAmount" readonly="true"></td>
+<td><input type="text" ng-model="object.feeAmount" ></td>
 </tr>
 
 <tr>
@@ -275,10 +275,10 @@
 <tr><td><span class="header">Amenities Charges</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('D')">
 <td><span ng-bind="object.discountHead.head"></span></td>
-<td><input type="text" ng-model="object.amount" readonly="true"></td>
+<td><input type="text" ng-model="object.amount" ></td>
 <tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('A')">
 <td><span ng-bind="object.discountHead.head"></span></td>
-<td><input type="text" ng-model="object.amount" readonly="true"></td>
+<td><input type="text" ng-model="object.amount" ></td>
 </tr>
 <tr>
 <th>Total Charges</th>

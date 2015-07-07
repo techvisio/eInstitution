@@ -4,7 +4,7 @@
 <tr><td><span class="header">Base Fee</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.applicableFeeDetails">
 <td><span ng-bind="object.feeDetail.head"></span></td>
-<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.feeAmount" readonly="true">
+<td><input type="text" class="form-control"  ng-model="object.feeAmount" >
   <span class="input-group-addon">.00</span></td>
 </tr>
 
@@ -16,11 +16,11 @@
 <tr><td><span class="header">Amenities Charges</span></td></tr>
 <tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('D')">
 <td><span ng-bind="object.discountHead.head"></span></td>
-<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.amount" readonly="true">
+<td><input type="text" class="form-control"  ng-model="object.amount" >
   <span class="input-group-addon">.00</span></td>
 <tr ng-repeat="object in admissionDetailManagement.stagingFee|filter:transactonType('A')">
 <td><span ng-bind="object.discountHead.head"></span></td>
-<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.amount" readonly="true">
+<td><input type="text" class="form-control"  ng-model="object.amount" >
   <span class="input-group-addon">.00</span></td>
 </tr>
 <tr>

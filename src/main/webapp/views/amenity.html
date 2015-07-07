@@ -7,7 +7,7 @@
 	ng-options="item.feeDiscountHead.headId*1 as item.feeDiscountHead.head  for item in serverModelData.dropdownMasterData.AMENITIES"
 	ng-change="updateAmenityCharges(amenity)"></select>
 	</td>	
-<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="amenity.amount">
+<td><input type="text" class="form-control"  ng-model="amenity.amount">
   <span class="input-group-addon">.00</span></td>
 </tr>
 <tr><td><button type="button" class="btn btn-primary btn-xs"ng-click="saveAmenity(amenity)">Add Amenity</button></td></tr>

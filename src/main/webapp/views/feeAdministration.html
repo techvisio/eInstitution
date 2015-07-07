@@ -4,49 +4,42 @@
 	<tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 		<tr>
 			<td><span> File No </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				 readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.fileNo">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Enrollment No </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				 readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.enrollmentNo">
   <span class="input-group-addon">.00</span></td>
 		</tr>
 		<tr>
 			<td> First Name</td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				 readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.firstName">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Last Name </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.lastName">
   <span class="input-group-addon">.00</span></td>
 
 		</tr>
 		<tr>
 			<td><span> Father Name </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.fatherName">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Date Of Birth </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.dob">
   <span class="input-group-addon">.00</span></td>
 		</tr>
 		<tr>
 			<td><span> Course </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-				readonly="true"
+			<td><input type="text" class="form-control" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.course.course">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Branch </span></td>
-			<td><input type="text" readonly="true"
+			<td><input type="text" 
 				ng-model="feeTransactionAdmissionBean.basicInfo.branch.branchName"></td>
 		</tr>
 		
@@ -58,15 +51,15 @@
 <div collapse="collapse">
 		<tr	ng-repeat="i in getMaxListLengthArray() track by $index">
 			<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionDebit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length"></span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+			<td><input type="text" class="form-control" 
 				 ng-model="feeTransactionAdmissionBean.feeTransactionDebit[i].amount"
-				readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length">
+				 ng-if="i<feeTransactionAdmissionBean.feeTransactionDebit.length">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Branch </span></td>
 				<td><span ng-bind="feeTransactionAdmissionBean.feeTransactionCredit[i].feeDiscountHead.head" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length"></span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+			<td><input type="text" class="form-control" 
 				 ng-model="feeTransactionAdmissionBean.feeTransactionCredit[i].amount"
-				readonly="true" ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length">
+				 ng-if="i<feeTransactionAdmissionBean.feeTransactionCredit.length">
   <span class="input-group-addon">.00</span></td>
 		</tr>
 		<tr><th>Total Debit</th><td>{{totalDebit()}}</td>

@@ -4,35 +4,35 @@
                 <tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 		<tr>
 			<td><span> Registration No </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.registrationNo">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.registrationNo">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Enrollment No </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.enrollmentNo">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.enrollmentNo">
   <span class="input-group-addon">.00</span></td>
 		</tr>
 		<tr>
 			<td><span> First Name </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.firstName">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.firstName">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Last Name </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.lastName">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.lastName">
   <span class="input-group-addon">.00</span></td>
 
 		</tr>
 		<tr>
 			<td><span> Father Name </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.fatherName">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.fatherName">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Date Of Birth </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.dob">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.dob">
   <span class="input-group-addon">.00</span></td>
 		</tr>
 		<tr>
 			<td><span> Course </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.course.course">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.course.course">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Branch </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="consultantAdmissionDetail.basicInfo.branch.branchName">
+			<td><input type="text" class="form-control"  ng-model="consultantAdmissionDetail.basicInfo.branch.branchName">
   <span class="input-group-addon">.00</span></td>
 		</tr>
 			</table>
@@ -51,10 +51,10 @@
 		</tr>
           <tr>
             <td><span> Payment Mode </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.paymentMode">
+			<td><input type="text" class="form-control"  ng-model="object.paymentMode">
   <span class="input-group-addon">.00</span></td>
 			<td><span> Amount To Pay </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="object.amountToPay">
+			<td><input type="text" class="form-control"  ng-model="object.amountToPay">
   <span class="input-group-addon">.00</span></td>
 		</tr>
         <tr>
@@ -67,10 +67,10 @@
 
         <tr ng-repeat="criteriaDetail in object.consultantPaymentCriterias track by $index">
 			<td><span> Fee Amount Received </span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="criteriaDetail.feeReceived">
+			<td><input type="text" class="form-control"  ng-model="criteriaDetail.feeReceived">
   <span class="input-group-addon">.00</span></td>
 			<td><span>Amount To Be Paid</span></td>
-			<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="criteriaDetail.amountToBePaid">
+			<td><input type="text" class="form-control"  ng-model="criteriaDetail.amountToBePaid">
   <span class="input-group-addon">.00</span></td>
 				<td><a class='expandable'
 							ng-click="removeConsultantPaymentCriteria(object,$index)"> <i
