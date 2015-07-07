@@ -14,6 +14,7 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.Student;
+import com.techvisio.einstitution.beans.StudentDocument;
 
 @Component
 public interface AdmissionManager {
@@ -50,5 +51,11 @@ public interface AdmissionManager {
 	public void saveCounsellingDtl (List<Counselling> counsellings, Long fileNo);
 	public void saveCounsellingDtl(Counselling counselling);
 	public void deleteCounsellingDtlExclusion(List<Counselling> counsellings, Long fileNo);
+
+	public List<StudentDocument> getDocumentDtl(Long fileNo);
+	public void saveDocumentDtl(List<StudentDocument> documents, Long fileNo);
+	public void saveDocumentDtl(StudentDocument document);
+	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
+
 
 }

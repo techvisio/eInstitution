@@ -24,6 +24,9 @@ public class StudentDocument {
 	@OneToOne
 	@JoinColumn(name = "Document_Id")
 	private Document document;
+	
+	@Column(name = "Is_Received")
+	private boolean received;
 
 	public Long getFileNo() {
 		return fileNo;
@@ -49,6 +52,14 @@ public class StudentDocument {
 
 	public void setDocument(Document document) {
 		this.document = document;
+	}
+
+	public boolean isReceived() {
+		return received;
+	}
+
+	public void setReceived(boolean received) {
+		this.received = received;
 	}
 
 }

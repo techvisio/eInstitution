@@ -19,6 +19,7 @@ import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.QualificationSubject;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -398,6 +399,64 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
+	}
+
+	@Override
+	public List<StudentDocument> getDocumentDtl(Long fileNo) {
+		String queryString="FROM StudentDocument s WHERE s.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<StudentDocument> result= query.list();
+		return result;
+
+	}
+
+	@Override
+	public void saveDocumentDtl(List<StudentDocument> documents, Long fileNo) {
+		if(documents!=null && documents.size()>0){
+			deleteDocumentDtlExclusion(documents, fileNo);
+			for(StudentDocument document:documents){
+				saveDocumentDtl(document);
+			}
+		}
+	}
+
+	@Override
+	public void saveDocumentDtl(StudentDocument document) {
+		if(document.getStudentDocumentId()==null){
+			getCurrentSession().persist(document);
+		}
+		else{
+			getCurrentSession().update(document);
+		}
+
+		
+	}
+
+	@Override
+	public void deleteDocumentDtlExclusion(List<StudentDocument> documents,
+			Long fileNo) {
+		List<Long> studentDocumentId = new ArrayList<Long>();
+		if (documents == null || documents.size() == 0) {
+			studentDocumentId.add(-1L);
+		}
+		else {
+			if (documents != null) {
+				for (StudentDocument studentDocument : documents) {
+					studentDocumentId.add(studentDocument.getStudentDocumentId());
+				}
+			}
+
+			String deleteQuery = admissionQueryProps
+					.getProperty("deleteDocumentDtlExclusion");
+
+			SqlParameterSource namedParameter = new MapSqlParameterSource(
+					"Student_Doc_Id", studentDocumentId)
+			.addValue("File_No", fileNo);
+
+			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+		}
+
+		
 	}
 
 }
