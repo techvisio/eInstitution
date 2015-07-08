@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "STUDENT_DOCUMENTS")    
 
-public class StudentDocument {
+public class StudentDocument extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Student_Doc_Id")
