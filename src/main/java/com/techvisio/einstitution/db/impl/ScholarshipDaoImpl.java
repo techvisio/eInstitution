@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.ScholarshipPayment;
@@ -86,16 +87,17 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	public void deleteScholarshipPaymentDetailExclusion(List<ScholarshipPayment> scholarshipPayments, Long fileNo) {
 
 		List<Long> schlrshpPymntIds = new ArrayList<Long>();
-		if (scholarshipPayments == null || scholarshipPayments.size() == 0) {
-			schlrshpPymntIds.add(-1L);
-		}
-		else {
-			if (scholarshipPayments != null) {
-				for (ScholarshipPayment scholarshipPayment : scholarshipPayments) {
+		if (scholarshipPayments != null) {
+			for (ScholarshipPayment scholarshipPayment : scholarshipPayments) {
+				if(scholarshipPayment.getSchlarshpPaymntId() != null){
 					schlrshpPymntIds.add(scholarshipPayment.getSchlarshpPaymntId());
 				}
 			}
-			String deleteQuery = scholarshipQueryProps
+			
+			if (schlrshpPymntIds.size() == 0) {
+				schlrshpPymntIds.add(-1L);
+			}
+		}			String deleteQuery = scholarshipQueryProps
 					.getProperty("deleteScholarshipPaymentDetailExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -104,6 +106,6 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 }
