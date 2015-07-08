@@ -104,13 +104,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void deleteAddressDtlExclusion(List<Address> addresses, Long fileNo) {
 
 		List<Long> addressId = new ArrayList<Long>();
-		if (addresses == null || addresses.size() == 0) {
-			addressId.add(-1L);
-		}
-		else {
 			if (addresses != null) {
 				for (Address address : addresses) {
+					if(address.getAddressId() != null){
 					addressId.add(address.getAddressId());
+					}
+				}
+				
+				if (addressId.size() == 0) {
+					addressId.add(-1L);
 				}
 			}
 			String deleteQuery = admissionQueryProps
@@ -121,7 +123,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			.addValue("File_No", fileNo);
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-		}
 	}
 
 	@Override
@@ -160,15 +161,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			List<AdmissionDiscount> admissionDiscounts, Long fileNo) {
 
 		List<Long> discountId = new ArrayList<Long>();
-		if (admissionDiscounts == null || admissionDiscounts.size() == 0) {
-			discountId.add(-1L);
-		}
-		else {
-			if (admissionDiscounts != null) {
-				for (AdmissionDiscount admissionDiscount : admissionDiscounts) {
+		if (admissionDiscounts != null) {
+			for (AdmissionDiscount admissionDiscount : admissionDiscounts) {
+				if(admissionDiscount.getDiscountDtlId() != null){
 					discountId.add(admissionDiscount.getDiscountDtlId());
 				}
 			}
+			
+			if (discountId.size() == 0) {
+				discountId.add(-1L);
+			}
+		}
 
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteAdmissionDisDtlExclusion");
@@ -179,7 +182,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 	@Override
 	public List<StudentAcademic> getAcademicDtl(Long fileNo) {
@@ -217,16 +220,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void deleteAcademicDtlExclusion(List<StudentAcademic> studentAcademics, Long fileNo) {
 
 		List<Long> stdntQualifctnId = new ArrayList<Long>();
-		if (studentAcademics == null || studentAcademics.size() == 0) {
-			stdntQualifctnId.add(-1L);
-		}
-		else {
-			if (studentAcademics != null) {
-				for (StudentAcademic studentAcademic : studentAcademics) {
+		if (studentAcademics != null) {
+			for (StudentAcademic studentAcademic : studentAcademics) {
+				if(studentAcademic.getStdntQualifctnId() != null){
 					stdntQualifctnId.add(studentAcademic.getStdntQualifctnId());
 				}
 			}
-
+			
+			if (stdntQualifctnId.size() == 0) {
+				stdntQualifctnId.add(-1L);
+			}
+		}
 			String dltQuery = admissionQueryProps.getProperty("deleteSubjectDtlExclusion");
 			SqlParameterSource namedParam = new MapSqlParameterSource("Student_Qualification_Id", stdntQualifctnId)
 			.addValue("File_No", fileNo);
@@ -237,7 +241,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			.addValue("File_No", fileNo);
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 	@Override
 	public List<QualificationSubject> getQualificaionSubDtl(Long fileNo) {
 
@@ -271,15 +275,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void deleteQualificationSubDtlExclusion(List<QualificationSubject> qualificationSubjects, Long fileNo) {
 
 		List<Long> stdntSubjctId = new ArrayList<Long>();
-		if (qualificationSubjects == null || qualificationSubjects.size() == 0) {
-			stdntSubjctId.add(-1L);
-		}
-		else {
-			if (qualificationSubjects != null) {
-				for (QualificationSubject qualificationSubject : qualificationSubjects) {
+		if (qualificationSubjects != null) {
+			for (QualificationSubject qualificationSubject : qualificationSubjects) {
+				if(qualificationSubject.getStdntSubjctId() != null){
 					stdntSubjctId.add(qualificationSubject.getStdntSubjctId());
 				}
 			}
+			
+			if (stdntSubjctId.size() == 0) {
+				stdntSubjctId.add(-1L);
+			}
+		}
 
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteQualificationSubjectDtlExclusion");
@@ -290,7 +296,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 	@Override
 	public List<BranchPreference> getBranchPreference(Long fileNo) {
@@ -325,15 +331,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void deleteBranchPreferenceExclusion(List<BranchPreference> branchPreferences, Long fileNo) {
 
 		List<Long> branchPreferenceId = new ArrayList<Long>();
-		if (branchPreferences == null || branchPreferences.size() == 0) {
-			branchPreferenceId.add(-1L);
-		}
-		else {
-			if (branchPreferences != null) {
-				for (BranchPreference branchPreference : branchPreferences) {
+		if (branchPreferences != null) {
+			for (BranchPreference branchPreference : branchPreferences) {
+				if(branchPreference.getBranchPreferenceId() != null){
 					branchPreferenceId.add(branchPreference.getBranchPreferenceId());
 				}
 			}
+			
+			if (branchPreferenceId.size() == 0) {
+				branchPreferenceId.add(-1L);
+			}
+		}
 
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteBranchPreferenceExclusion");
@@ -344,7 +352,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 	@Override
 	public List<Counselling> getCounsellingDtl(Long fileNo) {
@@ -380,15 +388,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void deleteCounsellingDtlExclusion(List<Counselling> counsellings, Long fileNo) {
 
 		List<Long> stdntCounsllingId = new ArrayList<Long>();
-		if (counsellings == null || counsellings.size() == 0) {
-			stdntCounsllingId.add(-1L);
-		}
-		else {
-			if (counsellings != null) {
-				for (Counselling counselling : counsellings) {
+		if (counsellings != null) {
+			for (Counselling counselling : counsellings) {
+				if(counselling.getStdntCounsllingId() != null){
 					stdntCounsllingId.add(counselling.getStdntCounsllingId());
 				}
 			}
+			
+			if (stdntCounsllingId.size() == 0) {
+				stdntCounsllingId.add(-1L);
+			}
+		}
 
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteCounsellingDetailExclusion");
@@ -399,7 +409,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 	@Override
 	public List<StudentDocument> getDocumentDtl(Long fileNo) {
@@ -415,6 +425,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		if(documents!=null && documents.size()>0){
 			deleteDocumentDtlExclusion(documents, fileNo);
 			for(StudentDocument document:documents){
+				document.setFileNo(fileNo);
 				saveDocumentDtl(document);
 			}
 		}
@@ -436,16 +447,17 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents,
 			Long fileNo) {
 		List<Long> studentDocumentId = new ArrayList<Long>();
-		if (documents == null || documents.size() == 0) {
-			studentDocumentId.add(-1L);
-		}
-		else {
-			if (documents != null) {
-				for (StudentDocument studentDocument : documents) {
+		if (documents != null) {
+			for (StudentDocument studentDocument : documents) {
+				if(studentDocument.getStudentDocumentId() != null){
 					studentDocumentId.add(studentDocument.getStudentDocumentId());
 				}
 			}
-
+			
+			if (studentDocumentId.size() == 0) {
+				studentDocumentId.add(-1L);
+			}
+		}
 			String deleteQuery = admissionQueryProps
 					.getProperty("deleteDocumentDtlExclusion");
 
@@ -457,6 +469,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		}
 
 		
-	}
+	
 
 }
