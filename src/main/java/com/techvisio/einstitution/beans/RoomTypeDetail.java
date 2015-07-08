@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ROOM_TYPE_DETAIL")
 
-public class RoomTypeDetail {
+public class RoomTypeDetail extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
