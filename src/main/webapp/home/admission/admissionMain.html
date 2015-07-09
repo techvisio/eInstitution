@@ -13,11 +13,11 @@
 			heading="PERSONAL INFORMATION">
 		<div class="tab-separator">
 			<tabset justified="true" type="pills"> <tab
-				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')" ng-click="getRelatedData(PERSONALINFO)">
+				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')" ng-click="getRelatedData('PERSONALINFO')">
 			<div ng-include src="'home/admission/personalInfo.html'"></div>
 			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')"  ng-click="getRelatedData(ACADEMIC)">
 			<div ng-include src="'home/admission/academicDetail.html'"></div>
-			</tab> <tab heading="ADDRESS INFO" ng-click="getRelatedData(PERSONALINFO)" ng-click="getRelatedData(ADDRESS)">
+			</tab> <tab heading="ADDRESS INFO"  ng-click="getRelatedData('ADDRESS')">
 			<div ng-include src="'home/admission/studentAddressDtl.html'">
 			</div>
 			</tab> <tab heading="COUNSELLING" ng-click="getRelatedData(COUNSELLING)">

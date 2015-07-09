@@ -62,34 +62,33 @@ public class UniqueIdentifierFactory implements UniqueIdentifierGenerator {
 				
 				Long Id = sf.getSequence(AppConstants.CONSULTANT);
 				
-				
 				return Id;
 			}
-//
-//			@Override
-//			public String getUniqueIdentifierForRegistration(Student studentDetail) {
-//				
-//				Course course = cacheManager.getCourseById(studentDetail.getCourse().getCourseId());
-//				String courseName = course.getCourse();
-//				
-//				Branch branch = cacheManager.getBranchById(studentDetail.getBranch().getBranchId());
-//				String branchName = branch.getBranchName();
-//				
-//				String courseCode = cacheManager.getCodeMappingByName(courseName);
-//				String branchCode = cacheManager.getCodeMappingByName(branchName);
-//				
-//				String registrationCode = studentDetail.getAcademicYear()+"_"+courseCode+"_"+branchCode;
-//				
-//				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
-//				
-//				Long Id = sf.getSequence(registrationCode);
-//				
-//				if(Id==0){
-//					throw new RuntimeException("Enable to generate registration no for code : "+ registrationCode);
-//				}
-//				
-//				String registrationNo=studentDetail.getAcademicYear()+"/"+courseCode+"/"+branchCode+"/"+Id;
-//				
-//				return registrationNo;
-//			}
+
+			@Override
+			public String getUniqueIdentifierForRegistration(Student studentDetail) {
+				
+				Course course = cacheManager.getCourseById(studentDetail.getCourse().getCourseId());
+				String courseName = course.getCourse();
+				
+				Branch branch = cacheManager.getBranchById(studentDetail.getBranch().getBranchId());
+				String branchName = branch.getBranchName();
+				
+				String courseCode = cacheManager.getCodeMappingByName(courseName);
+				String branchCode = cacheManager.getCodeMappingByName(branchName);
+				
+				String registrationCode = studentDetail.getAcademicYear()+"_"+courseCode+"_"+branchCode;
+				
+				SequenceFactory sf=ContextProvider.getContext().getBean(SequenceFactory.class);
+				
+				Long Id = sf.getSequence(registrationCode);
+				
+				if(Id==0){
+					throw new RuntimeException("Enable to generate registration no for code : "+ registrationCode);
+				}
+				
+				String registrationNo=studentDetail.getAcademicYear()+"/"+courseCode+"/"+branchCode+"/"+Id;
+				
+				return registrationNo;
+			}
 	}

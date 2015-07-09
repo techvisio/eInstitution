@@ -15,7 +15,7 @@ import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "VEHICLE_DETAIL")
-public class VehicleDetail {
+public class VehicleDetail extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

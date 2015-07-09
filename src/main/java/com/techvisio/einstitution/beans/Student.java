@@ -2,7 +2,6 @@ package com.techvisio.einstitution.beans;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techvisio.einstitution.util.CommonUtil;
 
 @Entity
@@ -100,7 +101,8 @@ public class Student extends BasicEntity {
 	//	private Date managementApprovedOn;
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
-	private List<StudentAcademic> academicDtl=new ArrayList<StudentAcademic>();
+	@JsonIgnore
+	private List<StudentAcademic> academicDtl;
 
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
@@ -114,10 +116,12 @@ public class Student extends BasicEntity {
 	@JoinColumn(name="File_No")
 	private Scholarship scholarship;
 
+	@JsonIgnore
 	public Scholarship getScholarship() {
 		return scholarship;
 	}
 
+	@JsonProperty("scholarship")
 	public void setScholarship(Scholarship scholarship) {
 		this.scholarship = scholarship;
 	}
@@ -247,18 +251,22 @@ public class Student extends BasicEntity {
 		this.admissionMode = admissionMode;
 	}
 
+	@JsonIgnore
 	public List<StudentAcademic> getAcademicDtl() {
 		return academicDtl;
 	}
 
+	@JsonProperty("academicDtl")
 	public void setAcademicDtl(List<StudentAcademic> academicDtl) {
 		this.academicDtl = academicDtl;
 	}
 
+	@JsonIgnore
 	public List<AdmissionDiscount> getDiscountDtl() {
 		return DiscountDtl;
 	}
 
+	@JsonProperty("discountDtl")
 	public void setDiscountDtl(List<AdmissionDiscount> discountDtl) {
 		this.DiscountDtl = discountDtl;
 	}
@@ -425,10 +433,12 @@ public class Student extends BasicEntity {
 		this.branch = branch;
 	}
 
+	@JsonIgnore
 	public List<Address> getAddressDtl() {
 		return addressDtl;
 	}
 
+	@JsonProperty("addressDtl")
 	public void setAddressDtl(List<Address> addressDtl) {
 		this.addressDtl = addressDtl;
 	}
@@ -465,10 +475,12 @@ public class Student extends BasicEntity {
 		this.feePaid = feePaid;
 	}
 
+	@JsonIgnore
 	public List<BranchPreference> getBranchPreference() {
 		return branchPreference;
 	}
 
+	@JsonProperty("branchPreference")
 	public void setBranchPreference(List<BranchPreference> branchPreference) {
 		this.branchPreference = branchPreference;
 	}
@@ -482,18 +494,22 @@ public class Student extends BasicEntity {
 		this.referredBy = referredBy;
 	}
 
+	@JsonIgnore
 	public List<Counselling> getCounsellingDtl() {
 		return counsellingDtl;
 	}
 
+	@JsonProperty("counsellingDtl")
 	public void setCounsellingDtl(List<Counselling> counsellingDtl) {
 		this.counsellingDtl = counsellingDtl;
 	}
 
+	@JsonIgnore
 	public List<AdmissnConsltntDtl> getConsultantDetail() {
 		return consultantDetail;
 	}
 
+	@JsonProperty("consultantDetail")
 	public void setConsultantDetail(List<AdmissnConsltntDtl> consultantDetail) {
 		this.consultantDetail = consultantDetail;
 	}
@@ -532,18 +548,22 @@ public class Student extends BasicEntity {
 		this.selfMobileNo = selfMobileNo;
 	}
 
+	@JsonIgnore
 	public List<Remark> getRemarks() {
 		return remarks;
 	}
 
+	@JsonProperty("remarks")
 	public void setRemarks(List<Remark> remarks) {
 		this.remarks = remarks;
 	}
 
+	@JsonIgnore
 	public List<StudentDocument> getDocuments() {
 		return documents;
 	}
 
+	@JsonProperty("documents")
 	public void setDocuments(List<StudentDocument> documents) {
 		this.documents = documents;
 	}
