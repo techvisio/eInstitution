@@ -9,11 +9,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "DOCUMENT_MASTER")    
-public class Document {
+public class Document extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Document_Id")
-	private Long documentID;
+	private Long documentId;
 	
 	@Column(name = "Document_Name")
 	private String documentName;
@@ -21,11 +21,11 @@ public class Document {
 	@Column(name = "Document_Type")
 	private String documentType;
 	
-	public Long getDocumentID() {
-		return documentID;
+	public Long getDocumentId() {
+		return documentId;
 	}
-	public void setDocumentID(Long documentID) {
-		this.documentID = documentID;
+	public void setDocumentId(Long documentId) {
+		this.documentId = documentId;
 	}
 	public String getDocumentName() {
 		return documentName;

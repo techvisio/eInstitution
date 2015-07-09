@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SUBJECT_MASTER")
 
-public class Subject extends BasicEntity{
+public class Subject extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

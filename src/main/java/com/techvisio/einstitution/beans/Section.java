@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SECTION_MASTER")
 
-public class Section extends BasicEntity{
+public class Section extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

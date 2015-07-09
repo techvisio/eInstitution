@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SHIFT_MASTER")
-public class Shift extends BasicEntity{
+public class Shift extends BasicEntity {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

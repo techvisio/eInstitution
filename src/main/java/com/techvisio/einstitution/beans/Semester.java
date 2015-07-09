@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SEMESTER_MASTER")
 
-public class Semester extends BasicEntity {
+public class Semester extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
