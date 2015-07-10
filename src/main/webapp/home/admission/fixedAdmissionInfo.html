@@ -22,17 +22,17 @@
 
 			<tr>
 				<td><span> Course </span></td>
-				<td><select select ng-model="student.courseId"
+				<td><select select ng-model="student.course.courseId"
 					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
+					ng-options="item.courseId as item.course  for item in serverModelData.COURSE"
 					required></select></td>
 			</tr>
 			<tr>
 				<td><span> Branch </span></td>
-				<td><select select ng-model="student.branchId"
+				<td><select select ng-model="student.branch.branchId"
 					ng-disabled="!form.isEdit && !form.isNew" 
 					class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
+					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH"
 					required></select></td>
 			</tr>
 			<tr>

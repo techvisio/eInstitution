@@ -97,12 +97,16 @@
 {
 	height: 25px;
 	width:90%;
+	font-size: 13px;
+	padding: 0px;
 }
 
 .content select
 {
 	height: 25px;
 	width:90%;
+	font-size: 13px;
+	padding: 0px;
 }
 
 .content li

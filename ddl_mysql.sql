@@ -107,6 +107,10 @@
         drop 
         foreign key FK_962v6vhntr4hlxfk7vj67bf4b;
 
+    alter table ROOM_ALLOCATION_DETAIL 
+        drop 
+        foreign key FK_tpnfagdgeskvwtcafh232bvin;
+
     alter table ROOM_TYPE_DETAIL 
         drop 
         foreign key FK_4psgd91iqalghmefmuguamucp;
@@ -179,6 +183,14 @@
         drop 
         foreign key FK_rfbfbi3h7upfxi2wkgq4k9wox;
 
+    alter table STUDENT_DOCUMENTS 
+        drop 
+        foreign key FK_i1ao6b0x5fid1nbvdge3jrksw;
+
+    alter table STUDENT_DOCUMENTS 
+        drop 
+        foreign key FK_advbo8dpqmxuhe3dwxrjupfft;
+
     alter table STUDENT_FEE_STAGING 
         drop 
         foreign key FK_oiak0n8272y09g4gw244dsoj8;
@@ -210,10 +222,6 @@
     alter table consultantpaymentcriteria 
         drop 
         foreign key FK_go7iyjt6j4vpwynt2rw0tyl0x;
-
-    alter table roomallocationdetail 
-        drop 
-        foreign key FK_ay0dk27k7l184gw7nd5eafl1b;
 
     drop table if exists ACADEMIC_DETAIL;
 
@@ -251,6 +259,8 @@
 
     drop table if exists COURSE_MASTER;
 
+    drop table if exists DOCUMENT_MASTER;
+
     drop table if exists FEE_DISCOUNTHEAD_MASTER;
 
     drop table if exists FEE_TRANSACTION_CREDIT;
@@ -266,6 +276,8 @@
     drop table if exists QUALIFICATION_SUBJECT_DTL;
 
     drop table if exists QUOTACODE_MASTER;
+
+    drop table if exists ROOM_ALLOCATION_DETAIL;
 
     drop table if exists ROOM_TYPE_DETAIL;
 
@@ -286,6 +298,8 @@
     drop table if exists STATE_MASTER;
 
     drop table if exists STUDENT_DETAIL;
+
+    drop table if exists STUDENT_DOCUMENTS;
 
     drop table if exists STUDENT_FEE_STAGING;
 
@@ -310,8 +324,6 @@
     drop table if exists consultantpaymentcriteria;
 
     drop table if exists moduleLog;
-
-    drop table if exists roomallocationdetail;
 
     create table ACADEMIC_DETAIL (
         Student_Qualification_Id bigint not null auto_increment,
@@ -375,6 +387,10 @@
 
     create table ADMISSION_REMARK (
         Remark_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         File_No bigint,
         Remark varchar(255),
         Remark_Type varchar(255),
@@ -533,6 +549,13 @@
         primary key (Course_Id)
     );
 
+    create table DOCUMENT_MASTER (
+        Document_Id bigint not null auto_increment,
+        Document_Name varchar(255),
+        Document_Type varchar(255),
+        primary key (Document_Id)
+    );
+
     create table FEE_DISCOUNTHEAD_MASTER (
         Head_Id bigint not null auto_increment,
         createdBy varchar(255),
@@ -609,12 +632,20 @@
 
     create table QUALIFICATION_MASTER (
         qualificationId bigint not null,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         qulaifyingExam varchar(255),
         primary key (qualificationId)
     );
 
     create table QUALIFICATION_SUBJECT_DTL (
         Stdnt_Subjct_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         File_No bigint,
         Marks_Obtained double precision,
         Max_Marks double precision,
@@ -626,13 +657,37 @@
 
     create table QUOTACODE_MASTER (
         Quota_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Description varchar(255),
         Quota_Code varchar(255),
         primary key (Quota_Id)
     );
 
+    create table ROOM_ALLOCATION_DETAIL (
+        Room_Allocation_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
+        Allocated bit,
+        Alocated_By varchar(255),
+        Allocated_On date,
+        Checkout_On date,
+        File_No bigint,
+        Remark varchar(255),
+        Room_No bigint,
+        primary key (Room_Allocation_Id)
+    );
+
     create table ROOM_TYPE_DETAIL (
         Room_Detail_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Room_No varchar(255),
         Block_Id bigint,
         Floor_Id bigint,
@@ -643,6 +698,10 @@
 
     create table ROOM_TYPE_MASTER (
         Room_Type_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Description varchar(255),
         Price double precision,
         Room_Capacity integer,
@@ -679,6 +738,10 @@
 
     create table SECTION_MASTER (
         Section_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Section varchar(255),
         Branch_Id bigint,
         Course_Id bigint,
@@ -687,6 +750,10 @@
 
     create table SEMESTER_MASTER (
         Semester_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Semester varchar(255),
         Course_Id bigint,
         primary key (Semester_Id)
@@ -694,6 +761,10 @@
 
     create table SESSION_MASTER (
         Session_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Next_Session_Id bigint,
         Previous_Session_Id bigint,
         Session varchar(255),
@@ -703,12 +774,20 @@
 
     create table SHIFT_MASTER (
         Shift_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Shift_Name varchar(255),
         primary key (Shift_Id)
     );
 
     create table STATE_MASTER (
         State_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         State_Name varchar(255),
         primary key (State_Id)
     );
@@ -759,6 +838,14 @@
         primary key (File_No)
     );
 
+    create table STUDENT_DOCUMENTS (
+        Student_Doc_Id bigint not null auto_increment,
+        File_No bigint,
+        Is_Received bit,
+        Document_Id bigint,
+        primary key (Student_Doc_Id)
+    );
+
     create table STUDENT_FEE_STAGING (
         feeStgingId bigint not null auto_increment,
         createdBy varchar(255),
@@ -777,6 +864,10 @@
 
     create table SUBJECT_MASTER (
         Subject_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Subject_Name varchar(255),
         primary key (Subject_Id)
     );
@@ -841,6 +932,10 @@
 
     create table VEHICLE_DETAIL (
         Vehicle_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Capacity varchar(255),
         Route_Code varchar(255),
         Vehicle_No varchar(255),
@@ -869,7 +964,7 @@
     );
 
     create table admissioninquiry (
-        Id bigint not null auto_increment,
+        Enquiry_Id bigint not null auto_increment,
         createdBy varchar(255),
         createdOn datetime,
         updatedBy varchar(255),
@@ -880,7 +975,6 @@
         DOB datetime,
         Due_Date datetime,
         Email_Id varchar(255),
-        Enquiry_Id bigint,
         Father_Name varchar(255),
         File_No bigint,
         FollowUp_Required bit,
@@ -893,7 +987,7 @@
         Category_Id bigint,
         Consultant_Id bigint,
         Course_Id bigint,
-        primary key (Id)
+        primary key (Enquiry_Id)
     );
 
     create table consultantpaymentcriteria (
@@ -922,22 +1016,6 @@
         userId integer not null,
         workFlowOperation varchar(255),
         primary key (id)
-    );
-
-    create table roomallocationdetail (
-        Room_Allocation_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
-        Allocated bit,
-        Alocated_By varchar(255),
-        Allocated_On date,
-        Checkout_On date,
-        File_No bigint,
-        Remark varchar(255),
-        Room_No bigint,
-        primary key (Room_Allocation_Id)
     );
 
     alter table ACADEMIC_DETAIL 
@@ -1075,6 +1153,11 @@
         foreign key (Student_Qualification_Id) 
         references ACADEMIC_DETAIL (Student_Qualification_Id);
 
+    alter table ROOM_ALLOCATION_DETAIL 
+        add constraint FK_tpnfagdgeskvwtcafh232bvin 
+        foreign key (Room_No) 
+        references ROOM_TYPE_DETAIL (Room_Detail_Id);
+
     alter table ROOM_TYPE_DETAIL 
         add constraint FK_4psgd91iqalghmefmuguamucp 
         foreign key (Block_Id) 
@@ -1165,6 +1248,16 @@
         foreign key (Shift_Id) 
         references SHIFT_MASTER (Shift_Id);
 
+    alter table STUDENT_DOCUMENTS 
+        add constraint FK_i1ao6b0x5fid1nbvdge3jrksw 
+        foreign key (Document_Id) 
+        references DOCUMENT_MASTER (Document_Id);
+
+    alter table STUDENT_DOCUMENTS 
+        add constraint FK_advbo8dpqmxuhe3dwxrjupfft 
+        foreign key (File_No) 
+        references STUDENT_DETAIL (File_No);
+
     alter table STUDENT_FEE_STAGING 
         add constraint FK_oiak0n8272y09g4gw244dsoj8 
         foreign key (Head_Id) 
@@ -1204,8 +1297,3 @@
         add constraint FK_go7iyjt6j4vpwynt2rw0tyl0x 
         foreign key (Consltant_Dtl_Id) 
         references ADMISSION_CONSULTANT_DTL (Consltant_Dtl_Id);
-
-    alter table roomallocationdetail 
-        add constraint FK_ay0dk27k7l184gw7nd5eafl1b 
-        foreign key (Room_No) 
-        references ROOM_TYPE_DETAIL (Room_Detail_Id);

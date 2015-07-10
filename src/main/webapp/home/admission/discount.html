@@ -4,7 +4,6 @@
 			<table>
 				<tr>
 					<th><span>Feehead</span></th>
-					<th><span>Discount Type</span></th>
 					<th><span>Amount</span></th>
 					<th><span>Percent</span></th>
 				</tr>
@@ -12,13 +11,8 @@
 
 					<td><select ng-model="discount.feeHeadId"
 						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD|filter:{parentId:'W'}"></select>
+						ng-options="item.headId*1 as item.head  for item in serverModelData.FEEHEAD"></select>
 					</td>
-
-					<td><select ng-model="object.type"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.DISCOUNTTYPE"></select></td>
-
 					<td><input type="text" class="form-control"
 						aria-label="Amount (to the nearest dollar)"
 						ng-model="discount.amount" ng-blur="checkAmout($index,'amount')"

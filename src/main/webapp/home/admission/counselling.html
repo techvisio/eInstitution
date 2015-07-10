@@ -14,7 +14,7 @@
 				<tr ng-repeat="counselling in student.counsellingDtl">
 					<td><select ng-model="counselling.counsellingId"
 						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
+						ng-options="item.counsellingId*1 as item.counsellingBody for item in serverModelData.COUNSELLING"></select></td>
 					<td><input type="text" class="form-control"
 						aria-label="Amount (to the nearest dollar)"
 						ng-model="counselling.rollNo"

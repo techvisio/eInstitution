@@ -18,6 +18,8 @@
 				 updateConsultantDtl : updateConsultantDtl,
 				 getScholarshipDtl : getScholarshipDtl,
 				 updateScholarshipDtl : updateScholarshipDtl,
+				 getdocuments : getdocuments,
+				 updateDocuments : updateDocuments, 
 				 getLatestAdmission : getLatestAdmission,
 				 getStudentByCriteria : getStudentByCriteria,
 				 submitToManagement:submitToManagement,
@@ -29,7 +31,7 @@
 				 console.log('add student called in service');
 				 var request = $http({
 					 method : "post",
-					 url : "admission/student/"+fileNo,
+					 url : "admission/student/",
 					 params : "",
 					 data : student
 
@@ -42,7 +44,7 @@
 
 				 var request = $http({
 					 method : "get",
-					 url : "admission/"+fileNo,
+					 url : "admission/student/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -194,6 +196,27 @@
 					 url : "admission/student/consultant/"+fileNo,
 					 params : "",
 					 data : consultantDetail
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+			 
+			 function getdocuments(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/document/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+			 
+			 function updateDocuments(studentDocument, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/document/"+fileNo,
+					 params : "",
+					 data : studentDocument
 				 });
 				 return (request.then(handleSuccess, handleError));
 			 }

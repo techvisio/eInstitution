@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roomallocationdetail")
+@Table(name = "ROOM_ALLOCATION_DETAIL")
 public class RoomAllocation extends BasicEntity {
     
 	@GeneratedValue(strategy=GenerationType.AUTO)

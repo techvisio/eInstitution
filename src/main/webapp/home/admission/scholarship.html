@@ -9,18 +9,18 @@
 				<td><span> Domicile State </span></td>
 				<td><select select ng-model="student.scholarshipDetail.stateId"
 					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.STATE"></select>
+					ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE"></select>
 				</td>
 			</tr>
 			<tr>
 				<td><span> Category </span></td>
 				<td><select select ng-model="student.categoryId"
 					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+					ng-options="item.categoryId*1 as item.categoryName  for item in serverModelData.CATEGORY"></select>
 				</td>
 				<td><span> Family Income </span></td>
 				<td><input type="number"
-					ng-model="student.scholarshipDetail.parentIncome"
+					ng-model="student.scholarshipDetail.parentIncome" class="form-control"
 					ng-Readonly="!form.isEdit && !form.isNew"></td>
 			</tr>
 
@@ -28,12 +28,12 @@
 			<tr>
 				<td><span> Remarks </span></td>
 				<td><textarea rows="3" cols="30"
-						ng-model="student.scholarshipDetail.remark"
+						ng-model="student.scholarshipDetail.remark" class="form-control"
 						ng-Readonly="!form.isEdit && !form.isNew">
 										
 						</textarea></td>
 				<td><span> Amount </span></td>
-				<td><input type="number"
+				<td><input type="number" class="form-control"
 					ng-model="student.scholarshipDetail.amount"
 					ng-disabled="!form.isEdit && !form.isNew"></td>
 			</tr>

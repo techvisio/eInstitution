@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "QUALIFICATION_SUBJECT_DTL") 
-public class QualificationSubject {
+public class QualificationSubject extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

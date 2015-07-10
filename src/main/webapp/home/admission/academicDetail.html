@@ -12,7 +12,7 @@
 			<tr>
 				<td><select ng-model="object.qualificationId"
 					class="form-control" ng-disabled="!form.isEdit && !form.isNew"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.QUALIFICATION">
+					ng-options="item.qualificationId*1 as item.qulaifyingExam for item in serverModelData.QUALIFICATION">
 						<!--  <option ng-repeat="object in serverModelData.dropdownMasterData.qualification" value="{{object.id}}">{{object.value}}</option> -->
 				</select></td>
 				<td><input type="text" class="form-control"
@@ -47,7 +47,7 @@
 				<td><span>Subject</span></td>
 				<td><select ng-model=subject.subjectId
 					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.SUBJECT"></select></td>
+					ng-options="item.subjectId*1 as item.subjectName for item in serverModelData.SUBJECT"></select></td>
 				<td><span>Marks Obtained</span></td>
 				<td><input type="text" class="form-control"
 					aria-label="Amount (to the nearest dollar)"

@@ -35,7 +35,7 @@
 					<td><span> Category </span></td>
 					<td><select select ng-model="student.categoryId"
 						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
+						ng-options="item.categoryId*1 as item.categoryName  for item in serverModelData.CATEGORY"></select>
 					</td>
 					<td><span> Blood Group </span></td>
 					<td><select select ng-model="student.bloodGroup"

@@ -45,9 +45,9 @@
 				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getAddress('P').state"
+					<td><select ng-model="getAddress('P').state" class="form-control"
 						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
+						ng-options="item.stateId as item.stateName  for item in serverModelData.STATE">
 					</select></td>
 					<th></th>
 					<td></td>
@@ -98,7 +98,7 @@
 					<td><span>State</span></td>
 					<td><select ng-model="getAddress('C').state"
 						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.STATE">
+						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>
 				</tr>
 				
