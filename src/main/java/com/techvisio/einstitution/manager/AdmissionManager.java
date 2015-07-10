@@ -58,4 +58,5 @@ public interface AdmissionManager {
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 
 
+	public List<Object[]> getStudentDocumentDtl();
 }

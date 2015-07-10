@@ -218,4 +218,10 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		admissionManager.deleteDocumentDtlExclusion(documents, fileNo);		
 	}
 
+	@Override
+	public List<Object[]> getStudentDocumentDtl() {
+		List<Object[]> studentDocuments = admissionManager.getStudentDocumentDtl();
+		return studentDocuments;
+	}
+
 }

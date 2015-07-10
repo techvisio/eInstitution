@@ -468,6 +468,15 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
 
+	@Override
+	public List<Object[]> getStudentDocumentDtl() {
+		String queryString="Select stdoc.File_No, docm.Document_Id as DocId,docm.Document_Name as DocName,  (case when stdoc.File_No is null then 0 else 1end) as Received" +
+							"FROM Document as docm left join StudentDocument as stdoc" ;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<Object[]> studentDocuments = query.list();
+		return studentDocuments;
+	}
+
 		
 	
 

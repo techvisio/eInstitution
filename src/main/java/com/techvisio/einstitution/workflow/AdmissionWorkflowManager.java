@@ -59,5 +59,6 @@ public interface AdmissionWorkflowManager {
 	public void saveDocumentDtl(StudentDocument document);
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 
+	public List<Object[]> getStudentDocumentDtl();
 
 }

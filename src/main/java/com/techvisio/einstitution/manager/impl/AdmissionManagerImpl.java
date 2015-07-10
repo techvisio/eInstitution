@@ -241,5 +241,11 @@ public class AdmissionManagerImpl implements AdmissionManager {
 
 		admissionDao.deleteDocumentDtlExclusion(documents, fileNo);
 	}
+
+	@Override
+	public List<Object[]> getStudentDocumentDtl() {
+		List<Object[]> studentDocuments = admissionDao.getStudentDocumentDtl();
+		return studentDocuments;
+	}
 	
 }

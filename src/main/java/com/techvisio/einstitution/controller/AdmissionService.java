@@ -284,5 +284,19 @@ public class AdmissionService {
 	}
 	
 	
-
+	@RequestMapping(value = "student/document", method = RequestMethod.GET)
+	public ResponseEntity<Response> getStudentDocumentDtl(){
+		Response response = new Response();
+		try {
+			List<Object[]> studentDocuments = admWorkflowManager.getStudentDocumentDtl();
+			response.setResponseBody(studentDocuments);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+	}
+	
+	
 }
