@@ -1,3 +1,48 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* end reest */
 .nav-header {
 	top: 0;
 	display: block;
@@ -78,7 +123,7 @@
 	padding-bottom: 0px;
 	margin-left: auto;
 	margin-right: auto;
-	height:500px;
+	height:100%;
 }
 
 .content table{
@@ -104,6 +149,13 @@
 .content select
 {
 	height: 25px;
+	width:90%;
+	font-size: 13px;
+	padding: 0px;
+}
+
+.content textarea
+{
 	width:90%;
 	font-size: 13px;
 	padding: 0px;
@@ -170,7 +222,7 @@
 	height:100%;
 	float:left;
 	text-align:center;
-	line-height: 100px;
+	padding-top:20px;
 }
 
 .content input[type="text"].ng-invalid, .content select.ng-invalid {
@@ -272,9 +324,18 @@ height:600px;
 
 .side-menu
 {
-	width:18%;
+	width:15%;
+	min-height:600px;
 	height: 100%;
 	float: left;
+	background:#7575A3;
+	box-shadow: 15px 15px 15px #777;
+	color: white;
+}
+
+.side-menu span{
+	color: white;
+	font-size: 15px;
 }
 
 .module-content {
@@ -284,7 +345,7 @@ height:600px;
 	margin-left: auto;
 	margin-right: auto;
 	float:right;
-	height:500px;
+	height:100%;
 }
 
 .module-content.nav > li > a {
@@ -305,4 +366,261 @@ height:600px;
 	height: 35px;
 	width:100px;
 	margin-right: 30px;
+}
+
+.councelling-view table td:nth-child(1),
+.councelling-view table td:nth-child(2),
+.councelling-view table td:nth-child(3),
+.councelling-view table td:nth-child(4),
+.councelling-view table td:nth-child(5),
+.councelling-view table th:nth-child(1),
+.councelling-view table th:nth-child(2),
+.councelling-view table th:nth-child(3),
+.councelling-view table th:nth-child(4),
+.councelling-view table th:nth-child(5){
+	width:18%;
+}
+
+.councelling-view table td:nth-child(6),
+.councelling-view table td:nth-child(7),
+.councelling-view table th:nth-child(6),
+.councelling-view table th:nth-child(7){
+	width:5%;
+}
+
+.discount-view table td:nth-child(1),
+.discount-view table td:nth-child(2),
+.discount-view table td:nth-child(3),
+.discount-view table th:nth-child(1),
+.discount-view table th:nth-child(2),
+.discount-view table th:nth-child(3){
+	width:20%;
+}
+
+.discount-view table td:nth-child(4),
+.discount-view table td:nth-child(5),
+.discount-view table td:nth-child(6),
+.discount-view table th:nth-child(4),
+.discount-view table th:nth-child(5),
+.discount-view table th:nth-child(6){
+	width:10%;
+}
+
+.discount-view table td:nth-child(7),
+.discount-view table td:nth-child(8),
+.discount-view table th:nth-child(7),
+.discount-view table th:nth-child(8){
+	width:5%;
+}
+
+/* special css for fancy check box */
+.squaredOne {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  margin: 20px auto;
+  background: #fcfff4;
+  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.squaredOne label {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  cursor: pointer;
+  background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
+  background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+}
+.squaredOne label:after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background: #27ae60;
+  background: -webkit-linear-gradient(top, #27ae60 0%, #145b32 100%);
+  background: linear-gradient(to bottom, #27ae60 0%, #145b32 100%);
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+}
+.squaredOne label:hover::after {
+  opacity: 0.3;
+}
+.squaredOne input[type=checkbox] {
+  visibility: hidden;
+}
+.squaredOne input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+// css for side bar
+
+.accordion,
+.accordion ul,
+.accordion li,
+.accordion a,
+.accordion span {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    list-style-type: none;
+    padding-left:1em;
+    margin-left:0;
+}
+ 
+.accordion li {
+    list-style: none;
+}
+
+.accordion li > a {
+    display: block;
+    position: relative;
+    min-width: 110px;
+    padding: 0 5px 0 5px;
+ 
+    color: #fdfdfd;
+    font: bold 12px/32px Arial, sans-serif;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+ 
+    background: #6c6e74;
+    background: -moz-linear-gradient(top,  #6c6e74 0%, #4b4d51 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6c6e74), color-stop(100%,#4b4d51));
+    background: -webkit-linear-gradient(top,  #6c6e74 0%,#4b4d51 100%);
+    background: -o-linear-gradient(top,  #6c6e74 0%,#4b4d51 100%);
+    background: -ms-linear-gradient(top,  #6c6e74 0%,#4b4d51 100%);
+    background: linear-gradient(top,  #6c6e74 0%,#4b4d51 100%);
+ 
+    -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+    -moz-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+}
+
+.accordion li > a span {
+    display: block;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    padding: 0 10px;
+    margin-right: 10px;
+ 
+    font: normal bold 12px/18px Arial, sans-serif;
+    background: #404247;
+ 
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+ 
+    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+}
+
+.accordion > li > a:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 4px 8px;
+ 
+    background-repeat: no-repeat;
+    background-image: url(../images/icons.png);
+    background-position: 0px 0px;
+}
+
+.accordion li.files > a:before { background-position: 0px 0px; }
+.accordion li.files:hover > a:before,
+.accordion li.files:target > a:before { background-position: 0px -24px; }
+ 
+.accordion li.mail > a:before { background-position: -24px 0px; }
+.accordion li.mail:hover > a:before,
+.accordion li.mail:target > a:before { background-position: -24px -24px; }
+ 
+.accordion li.cloud > a:before { background-position: -48px 0px; }
+.accordion li.cloud:hover > a:before,
+.accordion li.cloud:target > a:before { background-position: -48px -24px; }
+ 
+.accordion li.sign > a:before { background-position: -72px 0px; }
+.accordion li.sign:hover > a:before,
+.accordion li.sign:target > a:before { background-position: -72px -24px; }
+
+.sub-menu li a {
+    color: #797979;
+    text-shadow: 1px 1px 0px rgba(255,255,255, .2);
+ 
+    background: #e5e5e5;
+    border-bottom: 1px solid #c9c9c9;
+ 
+    -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+    -moz-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+}
+ 
+.sub-menu li:last-child a { border: none; }
+ 
+.sub-menu li > a span {
+    color: #797979;
+    text-shadow: 1px 1px 0px rgba(255,255,255, .2);
+    background: transparent;
+    border: 1px solid #c9c9c9;
+ 
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+ 
+.sub-menu em {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 14px;
+    color: #a6a6a6;
+    font: normal 10px/32px Arial, sans-serif;
+}
+
+.accordion > li:hover > a,
+.accordion > li:target > a {
+    color: #3e5706;
+    text-shadow: 1px 1px 1px rgba(255,255,255, .2);
+ 
+    /*background: url(../img/active.png) repeat-x;*/
+    background: #a5cd4e;
+    background: -moz-linear-gradient(top,  #a5cd4e 0%, #6b8f1a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a5cd4e), color-stop(100%,#6b8f1a));
+    background: -webkit-linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);
+    background: -o-linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);
+    background: -ms-linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);
+    background: linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);
+}
+ 
+.accordion > li:hover > a span,
+.accordion > li:target > a span {
+    color: #fdfdfd;
+    text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+    background: #3e5706;
+}
+ 
+.sub-menu li:hover a { background: #efefef; }
+
+.accordion li > .sub-menu {
+    height: 0;
+    overflow: hidden;
+ 
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+ 
+.accordion li:target > .sub-menu {
+    height: 98px;
 }
