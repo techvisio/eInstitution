@@ -325,6 +325,7 @@ height:600px;
 .side-menu
 {
 	float: left;
+	width: 17%;
 }
 
 .side-menu span{

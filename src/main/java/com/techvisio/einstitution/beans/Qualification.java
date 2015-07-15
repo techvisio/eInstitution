@@ -18,7 +18,10 @@ public class Qualification extends BasicEntity {
 	@Column(name="Qualifying_Exam")
 	private String qulaifyingExam;
 	
-	@Id
+	public Qualification() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Long getQualificationId() {
 		return qualificationId;
 	}
