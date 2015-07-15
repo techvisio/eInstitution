@@ -17,6 +17,10 @@ public class Centre extends BasicEntity {
 	@Column(name = "Centre_Name")
 	private String centreName;
 	
+	public Centre(){}
+	public Centre(Long id){
+		this.centreId=id;
+	}
 	
 	public Long getCentreId() {
 		return centreId;

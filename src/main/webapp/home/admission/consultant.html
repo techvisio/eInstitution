@@ -3,22 +3,25 @@
 		<table>
 			<tr ng-repeat="consultant in student.consultantDetail">
 				<td></td>
-				<td ng-show="student.consultantDetail<0"><span>No
-						consultant for this student</span></td>
-			</tr>
+<!-- 				<td ng-show=""><span>No -->
+<!-- 						consultant for this student</span></td> -->
+			
 			<td><select ng-model="consultant.consultant.consultantId"
 				class="form-control"
 				ng-options="item.consultantId*1 as item.name  for item in serverModelData.CONSULTANT"></select></td>
-			<td><button type="button" class="btn btn-success btn-sm"
-					ng-click="addConsultantDetail()">Add Consultant</button></td>
+			
 			<td><img height="35" width="35" ng-src="images/minus.png"
 				ng-click="removeConsultantDetail($index)" ng-show="$index>0" /></td>
 			</tr>
-			<td></td>
+			<tr>
+			<td><button type="button" class="btn btn-success btn-sm"
+					ng-click="addConsultantDetail()">Add Consultant</button></td>
 
 			<td><button type="button" class="btn btn-success btn-sm"
 					ng-click="">Edit</button>
-				<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="updateConsultantDtl()">Save</button></td>
+				</tr>
 		</table>
 	</div>
 </form>

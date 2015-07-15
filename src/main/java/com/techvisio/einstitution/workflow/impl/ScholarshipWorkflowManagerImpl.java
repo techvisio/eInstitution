@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.ScholarshipPayment;
@@ -12,12 +13,13 @@ import com.techvisio.einstitution.manager.ScholarshipManager;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 @Component
+@Transactional
 public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManager {
 	private static CustomLogger logger=CustomLogger.getLogger(ScholarshipWorkflowManagerImpl.class);
 	@Autowired
 	ScholarshipManager scholarshipManager;
 	@Override
-	public void saveScholarship(Scholarship scholarship) {
+	public void saveScholarship(List<Scholarship> scholarship) {
 		scholarshipManager.saveScholarship(scholarship);
 		
 	}
@@ -40,8 +42,8 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 		
 	}
 	@Override
-	public Scholarship getScholarship(Long fileNo) {
-	    Scholarship scholarship = scholarshipManager.getScholarship(fileNo); 
+	public List<Scholarship> getScholarship(Long fileNo) {
+	   List<Scholarship> scholarship = scholarshipManager.getScholarship(fileNo); 
 		return scholarship;
 	}
 	@Override

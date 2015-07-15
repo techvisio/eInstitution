@@ -10,39 +10,58 @@
 <div class="fullscreen-left">
 	<div class="tab-separator">
 		<tabset justified="true" type="pills"> <tab
-			heading="PERSONAL INFORMATION">
+			heading="STUDENT">
 		<div class="tab-separator">
 			<tabset justified="true" type="pills"> <tab
 				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')" ng-click="getRelatedData('PERSONALINFO')">
 			<div ng-include src="'home/admission/personalInfo.html'"></div>
-			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')"  ng-click="getRelatedData(ACADEMIC)">
+			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')"  ng-click="getRelatedData('ACADEMIC')">
 			<div ng-include src="'home/admission/academicDetail.html'"></div>
 			</tab> <tab heading="ADDRESS INFO"  ng-click="getRelatedData('ADDRESS')">
 			<div ng-include src="'home/admission/studentAddressDtl.html'">
 			</div>
-			</tab> <tab heading="COUNSELLING" ng-click="getRelatedData(COUNSELLING)">
+			</tab> <tab heading="COUNSELLING" ng-click="getRelatedData('COUNSELLING')">
 			<div ng-include src="'home/admission/counselling.html'"></div>
 			</tab> </tabset>
 		</div>
-		</tab> <tab heading="OFFICIAL INFORMATION">
+		</tab> <tab heading="ADMINISTRATION">
 		<div class="tab-separator">
 			<tabset justified="true" type="pills"> <tab
-				heading="OFFICE USE" ng-click="getRelatedData(OFFICEUSE)">
+				heading="OFFICE USE" ng-click="getRelatedData('OFFICEUSE')">
 			<div ng-include src="'home/admission/officeUse.html'"></div>
-			</tab> <tab heading="DISCOUNTS" ng-click="getRelatedData(DISCOUNT)">
-			<div ng-include src="'home/admission/discount.html'"></div>
-			</tab> <tab heading="SCHOLARSHIP" ng-click="getRelatedData(SCHOLARSHIP)">
-			<div ng-include src="'home/admission/scholarship.html'"></div>
-			</tab> <tab heading="CONSULTANT" ng-click="getRelatedData(CONSULTANT)">
-			<div ng-include src="'home/admission/consultant.html'"></div>
-			</tab> <tab heading="REFERRAL" ng-click="getRelatedData(REFERRAL)">
-			<div ng-include src="'home/admission/referred.html'"></div>
-			</tab>
-			</tab> <tab heading="DOCUMENTS" ng-click="getRelatedData(DOCUMENT)">
+			</tab> 
+			</tab> <tab heading="DOCUMENTS" ng-click="getRelatedData('DOCUMENT')">
 			<div ng-include src="'home/admission/document.html'"></div>
+			</tab>
+			</tab> <tab heading="TRANSPORT">
+			<div ng-include src="'home/admission/transportReservation.html'"></div>
+			</tab>
+			</tab> <tab heading="HOSTEL">
+			<div ng-include src="'home/admission/hostelReservation.html'"></div>
 			</tab>
 			 </tabset>
 		</div>
-		</tab> </tabset>
+		</tab> 
+		<tab heading="FINANCIAL">
+		<div class="tab-separator">
+			<tabset justified="true" type="pills">
+			<tab heading="DISCOUNTS" ng-click="getRelatedData('DISCOUNT')">
+			<div ng-include src="'home/admission/discount.html'"></div>
+			</tab> 
+			<tab heading="SCHOLARSHIP" ng-click="getRelatedData('SCHOLARSHIP')">
+			<div ng-include src="'home/admission/scholarship.html'"></div>
+			</tab> 
+			<tab heading="CONSULTANT" ng-click="getRelatedData('CONSULTANT')">
+			<div ng-include src="'home/admission/consultant.html'"></div>
+			</tab> 
+			<tab heading="REFERRAL" ng-click="getRelatedData('REFERRAL')">
+			<div ng-include src="'home/admission/referred.html'"></div>
+			</tab>
+			<tab heading="APPLICABLE FEE" ng-click="">
+			<div ng-include src=""></div>
+			</tab> 
+				</tabset>
+				</tab>
+		</tabset>
 	</div>
 </div>

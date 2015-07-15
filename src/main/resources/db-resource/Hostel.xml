@@ -20,72 +20,6 @@ FROM Roomtypemaster HI left JOIN  hostelreservation HR ON HI.Type_Code = HR.Type
 
 
 
-<entry key="getHostelAllocation">
-    <![CDATA[
-      
-Select 
-
-	File_No,
-	Room_No,
-	Allocated_On,
-	Allocated_By,
-	Updated_By,
-	Checkout_On,
-	IsAllocated,
-	Remark
-	
-from RoomAllocationDetail where File_No=:File_No;
-    ]]>
-
-	</entry>
-
-	<entry key="addHostelAllocation">
-    <![CDATA[
-      
-Insert into RoomAllocationDetail
-
-	(File_No,
-	Room_No,
-	Allocated_On,
-	Allocated_By,
-	Updated_By,
-	Checkout_On,
-	IsAllocated,
-	Remark
-	) values
-	       
-   (:File_No,
-	:Room_No,
-	:Allocated_On,
-	:Allocated_By,
-	:Updated_By,
-	:Checkout_On,
-	:IsAllocated,
-	:Remark
-	)
-    ]]>
-
-	</entry>
-
-	<entry key="updateHostelAllocation">
-    <![CDATA[
-      
-Update RoomAllocationDetail set
- 
-	File_No=File_No:,
-	Room_No=:Room_No,
-	Allocated_On=:Allocated_On,
-	Allocated_By=:Allocated_By,
-	Updated_By=:Updated_By,
-	Checkout_On=:Checkout_On,
-	IsAllocated=:IsAllocated,
-	Remark=:Remark
-	       
-   
-where File_No=:File_No;
-    ]]>
-
-	</entry>
 
 	<entry key="deleteHostelAllocation">
     <![CDATA[
@@ -94,122 +28,11 @@ Delete from RoomAllocationDetail where File_No=:File_No;
     ]]>
 
 	</entry>
-
-	<entry key="getHostelInventory">
-    <![CDATA[
-      
-Select 
-
-	Type_Code,
-	Description,
-	Threshold,
-	Price,
-	Room_Capacity
-	
-from Roomtypemaster where Type_Code=:Type_Code;
-    ]]>
-
-	</entry>
-
-	<entry key="addHostelInventory">
-    <![CDATA[
-      
-Insert into Roomtypemaster
-
-   (Type_Code,
-	Description,
-	Threshold,
-	Price,
-	Room_Capacity
-) values
-   
-   (:Type_Code,
-	:Description,
-	:Threshold,
-	:Price,
-	:Room_Capacity);
-
-    ]]>
-
-	</entry>
-
-	<entry key="updateHostelInventory">
-    <![CDATA[
-      
- Update Roomtypemaster set
-
-    Type_Code=:Type_Code,
-	Description=:Description,
-	Threshold=:Threshold,
-	Price=:Price,
-	Room_Capacity=:Room_Capacity
-    
- where Type_Code=:Type_Code;
-    ]]>
-
-	</entry>
-
 	<entry key="deleteHostelInventory">
     <![CDATA[
       
 Delete from Roomtypemaster where Type_Code=:Type_Code;
 
-    ]]>
-
-	</entry>
-
-	<entry key="getHostelReservation">
-    <![CDATA[
-      
-Select
-
-	hr.File_No,
-	hr.Fee_Paid,
-	hr.Type_Code,
-	hr.Allocation_Status,
-	hr.Is_Active,
-    hi.Description,
-    hi.Price
-
-from HostelReservation hr join RoomTypeMaster hi on hi.Type_Code = hr.Type_Code where File_No=:File_No;
-    ]]>
-
-	</entry>
-
-	<entry key="addHostelReservation">
-    <![CDATA[
-      
-Insert into HostelReservation
-
-      (File_No,
-	Fee_Paid,
-	Type_Code,
-	Allocation_Status,
-	Is_Active) values 
-      
-     (:File_No,
-	:Fee_Paid,
-	:Type_Code,
-	:Allocation_Status,
-	:Is_Active);
-    ]]>
-
-	</entry>
-
-	<entry key="updateHostelReservation">
-    <![CDATA[
-      
-Update HostelReservation set
-
-      File_No=:File_No,
-	Fee_Paid=:Fee_Paid,
-	Type_Code=:Type_Code,
-	Allocation_Status=:Allocation_Status,
-	Is_Active=:Is_Active
-	
-      
-   
-where File_No=:File_No;  
     ]]>
 
 	</entry>
@@ -221,63 +44,6 @@ Delete from HostelReservation where File_No=:File_No;
     ]]>
 
 	</entry>
-	
-		<entry key="getRoomTypeDetail">
-    <![CDATA[
-      
-Select  
-
-	Room_No,
-	Type_Code,
-	Wing_Id,
-	Floor_Id,
-	Block_Id
-	
-from RoomTypeDetail where Type_Code=:Type_Code;
-    ]]>
-
-	</entry>
-
-	<entry key="addRoomTypeDetail">
-    <![CDATA[
-      
-Insert into RoomTypeDetail
-
-      (Room_No,
-	   Type_Code,
-	   Wing_Id,
-	   Floor_Id,
-	   Block_Id
-	) values 
-      
-     (:Room_No,
-	  :Type_Code,
-	  :Wing_Id,
-	  :Floor_Id,
-	  :Block_Id
-	);
-    ]]>
-
-	</entry>
-
-	<entry key="updateRoomTypeDetail">
-    <![CDATA[
-      
-Update RoomTypeDetail set
-
-    Room_No=:Room_No,
-	Type_Code=:Type_Code,
-	Wing_Id=:Wing_Id,
-	Floor_Id=:Floor_Id,
-	Block_Id=:Block_Id
-	
-      
-   
-where Type_Code=:Type_Code;  
-    ]]>
-
-	</entry>
-
 	<entry key="deleteRoomTypeDetail">
     <![CDATA[
       
@@ -311,51 +77,11 @@ Delete from RoomTypeDetail where Type_Code=:Type_Code;
     rtd.Room_No,
     rtm.Room_Capacity
      
-   from studentdetail sd join roomAllocationDetail rad on rad.file_no = sd.File_No
+   from studentdetail sd join room_Allocation_Detail rad on rad.file_no = sd.File_No
     join roomtypedetail rtd on rad.Room_No = rtd.Room_No
      join roomtypemaster rtm on rtd.Type_Code = rtm.Type_Code
       where rad.isAllocated=1 and rtd.Room_No=:Room_No;   ]]>
 
 	</entry>
-
-	
-		<entry key="getRoomAllocatedDetail">
-    <![CDATA[
-select 
-	file_no,
-  	Room_No,
-  	Allocated_on,
-  	Allocated_By,
-  	updated_by,
-  	Checkout_on,
-  	isAllocated,
-  	Remark 
-
-from roomallocationdetail where file_no=:file_no And isAllocated = 1;
-      
-    ]]>
-
-	</entry>
-	
-<entry key="getPreviousAllocatedDetail">
-    <![CDATA[
-select 
-	file_no,
-  	Room_No,
-  	Allocated_on,
-  	Allocated_By,
-  	updated_by,
-  	Checkout_on,
-  	isAllocated,
-  	Remark 
-
-from roomallocationdetail where file_no=:file_no And isAllocated = 0;
-
-      
-    ]]>
-
-	</entry>
-	
-	
 
 </properties>

@@ -28,6 +28,11 @@ public class Batch extends BasicEntity {
 	@Column(name = "Next_Batch_Id")
 	private Long nextBatchId;
 	
+	public Batch(){}
+	public Batch(Long id){
+		this.batchId=id;
+	}
+	
 	public Long getBatchId() {
 		return batchId;
 	}

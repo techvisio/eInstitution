@@ -17,7 +17,7 @@
 
     alter table ADMISSION_CONSULTANT_DTL 
         drop 
-        foreign key FK_pjxmrj441hj7cp5879uooep08;
+        foreign key FK_ck608lyqncs92h6cq72gul1cw;
 
     alter table ADMISSION_CONSULTANT_DTL 
         drop 
@@ -127,6 +127,10 @@
         drop 
         foreign key FK_fcuj04r1h5wyextvtm0m2iqbi;
 
+    alter table SCHOLARSHIP_DETAIL 
+        drop 
+        foreign key FK_mv6ea53cvoxbku5mda6rai51l;
+
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         drop 
         foreign key FK_2u7fgvgie8l2k4mro3njud4fh;
@@ -203,25 +207,25 @@
         drop 
         foreign key FK_4mmiquwsacu8g006dqhmuebhm;
 
-    alter table admissioninquiry 
+    alter table admission_Enquiry 
         drop 
-        foreign key FK_4l6j2x20iif7cc9ryohnk20bp;
+        foreign key FK_5n6yjv5u447gdnug38dlwkpja;
 
-    alter table admissioninquiry 
+    alter table admission_Enquiry 
         drop 
-        foreign key FK_58n27k43t1gho9cyab42ns6ah;
+        foreign key FK_gwk6dij468s5tteagr01vb02t;
 
-    alter table admissioninquiry 
+    alter table admission_Enquiry 
         drop 
-        foreign key FK_n9pkrffd2a1a4pbmwv0gg01kt;
+        foreign key FK_kkbwa9kxf2ttnstjd96iogbtt;
 
-    alter table admissioninquiry 
+    alter table admission_Enquiry 
         drop 
-        foreign key FK_vsifsvp1te18iij1lgylh1ns;
+        foreign key FK_a69cfapfdqnktv4ariqxf41w1;
 
-    alter table consultantpaymentcriteria 
+    alter table consultant_payment_criteria 
         drop 
-        foreign key FK_go7iyjt6j4vpwynt2rw0tyl0x;
+        foreign key FK_f8xm3csvc8j8y0hxvt4qgxky;
 
     drop table if exists ACADEMIC_DETAIL;
 
@@ -319,9 +323,9 @@
 
     drop table if exists WING_MASTER;
 
-    drop table if exists admissioninquiry;
+    drop table if exists admission_Enquiry;
 
-    drop table if exists consultantpaymentcriteria;
+    drop table if exists consultant_payment_criteria;
 
     drop table if exists moduleLog;
 
@@ -367,7 +371,7 @@
         File_No bigint,
         Payment_Mode varchar(255),
         Remarks varchar(255),
-        Consultant_Id bigint,
+        Consltant_Id bigint,
         primary key (Consltant_Dtl_Id)
     );
 
@@ -551,6 +555,10 @@
 
     create table DOCUMENT_MASTER (
         Document_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         Document_Name varchar(255),
         Document_Type varchar(255),
         primary key (Document_Id)
@@ -620,11 +628,13 @@
         createdOn datetime,
         updatedBy varchar(255),
         updatedOn datetime,
-        Allocation_Status varchar(255),
-        Description varchar(255),
-        Fee_Paid bit,
-        File_No bigint,
         Is_Active bit,
+        Allocation_Status varchar(255),
+        Charges double precision,
+        Description varchar(255),
+        Is_Fee_Generated bit,
+        Is_Fee_Paid bit,
+        File_No bigint,
         Price double precision,
         Type_Code varchar(255),
         primary key (hostl_Rsrvation_Id)
@@ -840,6 +850,10 @@
 
     create table STUDENT_DOCUMENTS (
         Student_Doc_Id bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        updatedBy varchar(255),
+        updatedOn datetime,
         File_No bigint,
         Is_Received bit,
         Document_Id bigint,
@@ -963,7 +977,7 @@
         primary key (Wing_Id)
     );
 
-    create table admissioninquiry (
+    create table admission_Enquiry (
         Enquiry_Id bigint not null auto_increment,
         createdBy varchar(255),
         createdOn datetime,
@@ -990,7 +1004,7 @@
         primary key (Enquiry_Id)
     );
 
-    create table consultantpaymentcriteria (
+    create table consultant_payment_criteria (
         Pymnt_Critria_Id bigint not null auto_increment,
         createdBy varchar(255),
         createdOn datetime,
@@ -1039,8 +1053,8 @@
         references STUDENT_DETAIL (File_No);
 
     alter table ADMISSION_CONSULTANT_DTL 
-        add constraint FK_pjxmrj441hj7cp5879uooep08 
-        foreign key (Consultant_Id) 
+        add constraint FK_ck608lyqncs92h6cq72gul1cw 
+        foreign key (Consltant_Id) 
         references CONSULTANT_MASTER (Consultant_Id);
 
     alter table ADMISSION_CONSULTANT_DTL 
@@ -1178,6 +1192,11 @@
         foreign key (Wing_Id) 
         references WING_MASTER (Wing_Id);
 
+    alter table SCHOLARSHIP_DETAIL 
+        add constraint FK_mv6ea53cvoxbku5mda6rai51l 
+        foreign key (File_No) 
+        references STUDENT_DETAIL (File_No);
+
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         add constraint FK_2u7fgvgie8l2k4mro3njud4fh 
         foreign key (Stdnt_Schlarshp_Id) 
@@ -1273,27 +1292,27 @@
         foreign key (Type_Id) 
         references VEHICLE_TYPE_MASTER (Type_Id);
 
-    alter table admissioninquiry 
-        add constraint FK_4l6j2x20iif7cc9ryohnk20bp 
+    alter table admission_Enquiry 
+        add constraint FK_5n6yjv5u447gdnug38dlwkpja 
         foreign key (Branch_Id) 
         references COURSE_BRANCH_MASTER (Branch_Id);
 
-    alter table admissioninquiry 
-        add constraint FK_58n27k43t1gho9cyab42ns6ah 
+    alter table admission_Enquiry 
+        add constraint FK_gwk6dij468s5tteagr01vb02t 
         foreign key (Category_Id) 
         references CASTECATEGORY_MASTER (Categry_Id);
 
-    alter table admissioninquiry 
-        add constraint FK_n9pkrffd2a1a4pbmwv0gg01kt 
+    alter table admission_Enquiry 
+        add constraint FK_kkbwa9kxf2ttnstjd96iogbtt 
         foreign key (Consultant_Id) 
         references CONSULTANT_MASTER (Consultant_Id);
 
-    alter table admissioninquiry 
-        add constraint FK_vsifsvp1te18iij1lgylh1ns 
+    alter table admission_Enquiry 
+        add constraint FK_a69cfapfdqnktv4ariqxf41w1 
         foreign key (Course_Id) 
         references COURSE_MASTER (Course_Id);
 
-    alter table consultantpaymentcriteria 
-        add constraint FK_go7iyjt6j4vpwynt2rw0tyl0x 
+    alter table consultant_payment_criteria 
+        add constraint FK_f8xm3csvc8j8y0hxvt4qgxky 
         foreign key (Consltant_Dtl_Id) 
         references ADMISSION_CONSULTANT_DTL (Consltant_Dtl_Id);

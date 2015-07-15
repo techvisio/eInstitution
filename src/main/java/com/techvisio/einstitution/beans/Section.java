@@ -30,6 +30,11 @@ public class Section extends BasicEntity {
 	@JoinColumn(name="Branch_Id")
 	private Branch branch;
 	
+	public Section(){}
+	public Section(Long id){
+		this.sectionId=id;
+	}
+	
 	public Long getSectionId() {
 		return sectionId;
 	}

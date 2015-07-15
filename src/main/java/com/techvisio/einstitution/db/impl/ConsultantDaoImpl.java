@@ -222,7 +222,7 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
-					"Id", Ids)
+					"Pymnt_Critria_Id", Ids)
 			.addValue("File_No", fileNo);
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);

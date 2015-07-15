@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "admissioninquiry") 
+@Table(name = "admission_Enquiry") 
 public class AdmissionEnquiry extends BasicEntity{
 
 	@Id

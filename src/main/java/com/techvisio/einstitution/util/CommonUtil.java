@@ -3,10 +3,17 @@ package com.techvisio.einstitution.util;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -55,12 +62,12 @@ public class CommonUtil {
 				admissnConsltntDtl.setFileNo(fileNo);
 			}
 		}
-		
-		if(studentDetail.getScholarship() != null){
-		        	
-			studentDetail.getScholarship().setFileNo(fileNo);
-		}
-		
+//
+//		if(studentDetail.getScholarship() != null){
+//
+//			studentDetail.getScholarship().setFileNo(fileNo);
+//		}
+
 		if (studentDetail.getCounsellingDtl() != null) {
 			for (Counselling counsellingDetail : studentDetail.getCounsellingDtl()) {
 				counsellingDetail.setFileNo(fileNo);
@@ -69,13 +76,13 @@ public class CommonUtil {
 	}
 
 	public static void propogateIdentifierToQualification(StudentAcademic academicDetail){
-		
+
 		Long fileNo=academicDetail.getFileNo();
-		
+
 		if(academicDetail.getQualificationSubDtl() != null){
-			
+
 			for(QualificationSubject qualificationSubjectDtl:academicDetail.getQualificationSubDtl()){
-				
+
 				qualificationSubjectDtl.setFileNo(fileNo);
 				qualificationSubjectDtl.setQualification(academicDetail.getQualification());
 			}
@@ -83,7 +90,7 @@ public class CommonUtil {
 	}
 
 	public static void propogateFileNoTofeeStaging(Long fileNo, List<StudentFeeStaging> feeStagings){
-		
+
 		if(feeStagings != null){
 			for(StudentFeeStaging studentFeeStaging : feeStagings){
 				studentFeeStaging.setFileNo(fileNo);
@@ -92,21 +99,21 @@ public class CommonUtil {
 	}
 
 	public static Date removeTimeFromDate(Date date) {
-		 
-        if (date == null) {
-            return null;
-        }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTime();
-    }
-	
+
+		if (date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
 	public static void propogateEntityIdToTaskAndFollowup(List<TaskAndFollowUp> taskAndFollowUps, Long entityId, String module){
-		
+
 		if(taskAndFollowUps !=null){
 			for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
 				taskAndFollowUp.setEntityId(entityId);
@@ -114,26 +121,26 @@ public class CommonUtil {
 			}
 		}
 	}
-	
+
 	public static void convertJavatoJSON(Object bean){
 
 		ObjectMapper mapper = new ObjectMapper();
-	      try
-	      {
-	         mapper.writeValue(new File("java.json"), bean);
-	      } catch (JsonGenerationException e)
-	      {
-	         e.printStackTrace();
-	      } catch (JsonMappingException e)
-	      {
-	         e.printStackTrace();
-	      } catch (IOException e)
-	      {
-	         e.printStackTrace();
-	      }
-	
+		try
+		{
+			mapper.writeValue(new File("java.json"), bean);
+		} catch (JsonGenerationException e)
+		{
+			e.printStackTrace();
+		} catch (JsonMappingException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
-	
+
 	public static List<FieldDesc> createJSONfordynamicUI() throws NoSuchFieldException, SecurityException{
 		Field[] fields=Student.class.getDeclaredFields();
 		List<FieldDesc> finalFields=new ArrayList<FieldDesc>();
@@ -143,42 +150,42 @@ public class CommonUtil {
 			String type=null;
 			DynamicProperties annotation=field.getAnnotation(DynamicProperties.class);
 			if(annotation !=null){
-			String title=annotation.title();
-			String[] validValues=annotation.validValues();
-			String masterDataCode=annotation.masterDataCode();
-			type="text";
-			if(annotation.type() != null && annotation.type().trim() != ""){
-				type=annotation.type();
-			}
-			desc.setType(type);
-			desc.setTitle(title);
-			desc.setValidValue(validValues);
-			desc.setMasterDataCode(masterDataCode);
+				String title=annotation.title();
+				String[] validValues=annotation.validValues();
+				String masterDataCode=annotation.masterDataCode();
+				type="text";
+				if(annotation.type() != null && annotation.type().trim() != ""){
+					type=annotation.type();
+				}
+				desc.setType(type);
+				desc.setTitle(title);
+				desc.setValidValue(validValues);
+				desc.setMasterDataCode(masterDataCode);
 			}
 			else{
 				continue;
 			}
-					
+
 			desc.setMandatoryInd(false);
 			finalFields.add(desc);
 		}
 		return finalFields;
 	}
-	
+
 
 	public static Long getLongValue(long long1) {
 		if(long1 == 0){
-		return null;
+			return null;
 		}
 		else{
 			return long1;
 		}
 	}
-	
+
 	public static boolean isNullLongValue(Long val){
 		return val==null||val.equals(0L);
 	}
-	
+
 	public static ApplicableFeeCriteria getApplicableFeeCriteriaFromStudentBasicInfo(
 			StudentBasicInfo basicInfo) {
 		ApplicableFeeCriteria criteria=new ApplicableFeeCriteria();
@@ -193,21 +200,40 @@ public class CommonUtil {
 
 	public static Long getLongToObject(Object object) {
 		if(object != null){
-		
+
 			String s = object.toString();
 			return Long.valueOf(s);		}
-			 
-			return null;
+
+		return null;
 	}
-	
+
 	public static Integer getIntegerToObject(Object object) {
 		if(object != null){
-		
+
 			String s = object.toString();
 			return Integer.valueOf(s);	}
-			 
-			return null;
+
+		return null;
 	}
-	
-	
+
+	public static void removeJunk(List<T> object, String property) {
+
+		Iterator iterator = object.iterator();
+		while(iterator.hasNext()){
+			Object obj = iterator.next();
+			Object value;
+			try {
+				value = BeanUtils.getProperty(obj, property);
+			} 
+			catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) 
+			{
+				e.printStackTrace();  
+				throw new RuntimeException();			
+			}
+			
+			if(value == null || StringUtils.isEmpty(value.toString())){
+				iterator.remove();
+			}
+		}
+	}
 }

@@ -3,128 +3,19 @@
 
 <properties>
 
-	<entry key="getScholarshipDetail">
+<entry key="deleteScholarshipDetailExclusion">
     <![CDATA[
       
-Select 
-
-	File_No,
-	Amount,
-	State_Id,
-	Remark,
-    Approved,
-	Created_Date,
-	Is_Reoccurring,
-	Is_Conditional,
-	Parent_Income
-	
-from scholarshipdetail where File_No=:File_No;	
-    ]]>
-
-	</entry>
-
-<entry key="upsertScholarshipDetail">
-    <![CDATA[
-      
-Insert into scholarshipdetail
-
-	(File_No,
-	Amount,
-	State_Id,
-	Remark,
-	Approved,
-	Created_Date,
-	Is_Reoccurring,
-	Is_Conditional,
-	Parent_Income) values
-	
-	(:File_No,
-	:Amount,
-	:State_Id,
-	:Remark,
-	:Approved,
-	:Created_Date,
-	:Is_Reoccurring,
-	:Is_Conditional,
-	:Parent_Income)
-	
-	on duplicate key update
-	
-	File_No=:File_No,
-	Amount=:Amount,
-	State_Id=:State_Id,
-	Remark=:Remark,
-	Approved=:Approved,
-	Created_Date=:Created_Date,
-	Is_Reoccurring=:Is_Reoccurring,
-	Is_Conditional=:Is_Conditional,
-	Parent_Income=:Parent_Income
-	
-	
-		
-    ]]>
-
-	</entry>
-
-<entry key="deleteScholarshipDetail">
-    <![CDATA[
-      
-Delete from scholarshipdetail where File_No=:File_No;
+Delete from Scholarship_Detail where File_No not in(:File_No) and Stdnt_Schlarshp_Id not in(:Stdnt_Schlarshp_Id);
     ]]>
 
 </entry>
 
-
-<entry key="getScholarshipPaymentDetail">
-    <![CDATA[
-      
-Select 
-
-	File_No,
-	Amount_Received,
-	Receiving_Date
-	
-from ScholarshipPaymentDetail where File_No=:File_No;	
-    ]]>
-
-	</entry>
-
-<entry key="addScholarshipPaymentDetail">
-    <![CDATA[
-      
-Insert into ScholarshipPaymentDetail
-
-	(File_No,
-	Amount_Received,
-	Receiving_Date
-	) values
-	
-	(:File_No,
-	:Amount_Received,
-	:Receiving_Date
-	);	
-    ]]>
-
-	</entry>
-
-<entry key="updateScholarshipPaymentDetail">
-    <![CDATA[
-      
-Update ScholarshipPaymentDetail set
-
-	File_No=:File_No,
-	Amount_Received=:Amount_Received,
-	Receiving_Date=:Receiving_Date
-	
-	where File_No=:File_No;
-    ]]>
-
-</entry>
 
 <entry key="deleteScholarshipPaymentDetailExclusion">
     <![CDATA[
       
-Delete from ScholarshipPaymentDetail where File_No bot in(:File_No) and Schlarshp_Paymnt_Id not in(:Schlarshp_Paymnt_Id);
+Delete from Scholarship_Payment_Detail where File_No not in(:File_No) and Schlarshp_Paymnt_Id not in(:Schlarshp_Paymnt_Id);
     ]]>
 
 </entry>

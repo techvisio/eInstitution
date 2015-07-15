@@ -18,6 +18,11 @@ public class Shift extends BasicEntity {
 	@Column(name = "Shift_Name")
 	private String shiftName;
 	
+	public Shift(){}
+	public Shift(Long id){
+	this.shiftId=id;	
+	}
+	
 	public Long getShiftId() {
 		return shiftId;
 	}

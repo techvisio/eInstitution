@@ -8,7 +8,7 @@ admissionModule
 		 'admissionService',
 		 'masterdataService',
 		 '$modal',
-		 '$state',
+		 '$state',  
 		 '$rootScope',
 		 function($scope, admissionService, masterdataService,
 				 $modal, $state,$rootScope) {
@@ -97,7 +97,20 @@ admissionModule
 
 			 };
 
+			 $scope.dummyAddress = {};
+			 $scope.dummyQualification = {
+					 "qualificationSubDtl" : [ {} ]
+			 };
+			 $scope.dummyQualificationSubDtl = {};
+
+			 $scope.dummyDiscountDtl = {};
+
+			 $scope.dummyCounsellingDtl = {};
+
+			 $scope.dummyConsultantDetail = {};
+
 			 $scope.student = {};
+			 
 			 $scope.latestAdmission = [];
 			 $scope.searchCriteria = {};
 			 $scope.currentFetchLimit = 2;
@@ -105,6 +118,7 @@ admissionModule
 			 $scope.student.addressDtl = [];
 
 			 $scope.student.consultantDetail = [];
+			 $scope.student.scholarship = [];
 
 			 $scope.student.academicDtl = [];
 			 $scope.student.academicDtl.push(angular
@@ -122,17 +136,6 @@ admissionModule
 			 $scope.searchResultList = [];
 			 $scope.filteredSearch = [];
 
-			 $scope.dummyAddress = {};
-			 $scope.dummyQualification = {
-					 "qualificationSubDtl" : [ {} ]
-			 };
-			 $scope.dummyQualificationSubDtl = {};
-
-			 $scope.dummyDiscountDtl = {};
-
-			 $scope.dummyCounsellingDtl = {};
-
-			 $scope.dummyConsultantDetail = {};
 
 			 $scope.admissionMode = {
 					 "C" : "Counselling",
@@ -326,7 +329,6 @@ admissionModule
 			 };
 
 			 $scope.resetSearchCriteria = function() {
-
 				 $scope.searchCriteria = {};
 			 }
 
@@ -349,7 +351,7 @@ admissionModule
 
 			 $scope.getAddress = function(addressType) {
 				 var address = null;
-				 for (var i = 0; i <= $scope.student.addressDtl.length - 1; i++) {
+				 for (var i = 0; i <= ($scope.student.addressDtl.length||0) - 1; i++) {
 					 var add = $scope.student.addressDtl[i];
 					 if (add.addressType == addressType) {
 						 address = add;
@@ -568,6 +570,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.addressDtl = response.data.responseBody;
+										 alert("Your Records Saved Successfully")
 									 }
 								 })
 			 }
@@ -1110,6 +1113,11 @@ admissionModule
 					 case "REFERRAL": {
 						 $scope.getStudent($scope.student.fileNo);
 						 break;
+					 }
+					
+					 default: 
+					 { 
+						 $scope.getStudent($scope.student.fileNo);
 					 }
 					 }
 				 }

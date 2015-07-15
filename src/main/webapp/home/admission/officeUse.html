@@ -5,65 +5,67 @@
 				<tr>
 					<td><span> Academic Year </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
+						
 						ng-model="student.academicYear"
-						ng-disabled="!form.isEdit && !form.isNew"></td>
+						></td>
 					<td><span> Semester </span></td>
 					<td><select select ng-model="student.semester"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						 class="form-control"
 						ng-options="item.semesterId as item.semester  for item in serverModelData.SEMESTER"></select>
 					</td>
 				</tr>
 				<tr>
 					<td><span>Centre</span></td>
-					<td><select select ng-model="student.centreId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select select ng-model="student.centre.centreId"
+						 class="form-control"
 						ng-options="item.centreId*1 as item.centreName for item in serverModelData.CENTRE"></select>
 					</td>
 					<td><span>Shift</span></td>
-					<td><select select ng-model="student.shiftId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select select ng-model="student.shift.shiftId"
+						 class="form-control"
 						ng-options="item.shiftId*1 as item.shiftName  for item in serverModelData.SHIFT"></select>
 					</td>
 				</tr>
 				<tr>
 					<td><span>Batch</span></td>
-					<td><select select ng-model="student.batchId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select select ng-model="student.batch.batchId"
+						 class="form-control"
 						ng-options="item.batchId*1 as item.batch  for item in serverModelData.BATCH"></select>
 					</td>
 					<td><span>Session</span></td>
-					<td><select select ng-model="student.sessionId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select select ng-model="student.session.sessionId"
+						 class="form-control"
 						ng-options="item.sessionId*1 as item.session  for item in serverModelData.SESSION"></select>
 					</td>
 
 				</tr>
 				<tr>
 					<td><span>Section</span></td>
-					<td><select select ng-model="student.sectionId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select select ng-model="student.section.sectionId"
+						 class="form-control"
 						ng-options="item.sectionId*1 as item.section  for item in serverModelData.SECTION"></select>
 					</td>
 					<td><span> Quota Code </span></td>
-					<td><select select ng-model="student.quotaCode"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.quotaId as item.quotaCode  for item in serverModelData.QUOTACODE"></select>
+					<td><select select ng-model="student.quotaCode.quotaId"
+						 class="form-control"
+						ng-options="item.quotaId*1 as item.quotaCode  for item in serverModelData.QUOTACODE"></select>
 					</td>
 				</tr>
 
 				<tr>
 					<td><span> Enrollment No </span></td>
 					<td><input type="text" ng-model="student.enrollNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						
+						class="form-control"></td>
 					<td><span> Uni Enrollment No </span></td>
 					<td><input type="text" ng-model="student.uniEnrollNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						
+						class="form-control"></td>
 				</tr>
 				<tr>
 					<td><span> Remarks from Enquiry </span></td>
 					<td><textarea rows="3" cols="39" ng-model="student.remarks" class="form-control"
-							ng-Readonly="!form.isEdit && !form.isNew">
+							>
 						</textarea></td>
 				</tr>
 
@@ -72,7 +74,8 @@
 				<td></td>
 				<td><button type="button" class="btn btn-success btn-sm"
 						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Save</button></td>
 			</table>
 		</div>
 	</div>
