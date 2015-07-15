@@ -160,7 +160,6 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 				consultantPymntIds.add(-1L);
 			}
 		}
-
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -218,7 +217,6 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 				Ids.add(-1L);
 			}
 		}
-
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
