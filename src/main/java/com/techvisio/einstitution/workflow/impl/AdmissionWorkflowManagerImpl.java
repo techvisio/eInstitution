@@ -12,12 +12,9 @@ import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.QualificationSubject;
-import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.Scholarship;
-import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
-import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -51,6 +48,20 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	public void saveStudent(Student student) {
 
 		admissionManager.saveStudent(student);
+		
+		if(student.getScholarship() != null && student.getScholarship().getStateId() != null){
+			Scholarship scholarship = student.getScholarship();
+			scholarship.setFileNo(student.getFileNo());
+			scholarshipWorkflowManager.saveScholarship(scholarship);
+			}
+		
+		if(student.getConsultantDetail().size()>0 && student.getConsultantDetail()!=null){
+			
+			List<AdmissnConsltntDtl> consultantDetails = student.getConsultantDetail();
+			if(consultantDetails != null){
+				consultantWorkflowManager.saveAdmissionConsultantDtl(consultantDetails, student.getFileNo());
+			}
+		}
 	}
 
 	@Override
@@ -66,7 +77,6 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	@Override
 	public void deleteAcademicDtlExclusion(List<StudentAcademic> studentAcademics, Long fileNo) {
 		admissionManager.deleteAcademicDtlExclusion(studentAcademics, fileNo);
-
 	}
 
 	@Override
