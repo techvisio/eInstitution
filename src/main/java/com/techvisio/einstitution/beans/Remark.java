@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ADMISSION_REMARK")
-public class Remark {
+public class Remark extends BasicEntity{
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

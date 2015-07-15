@@ -8,7 +8,10 @@ var erp = angular
     'ui.router',
     'erp.services',
     'admissionModule',
-    'masterdataModule'
+    'masterdataModule',
+    'transportModule',
+    'admissionModule',
+    'sidebarModule'
   ]);
 
 erp.config(function ($stateProvider, $urlRouterProvider) {
@@ -22,18 +25,13 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('admission', {
             // Use a url of "/" to set a state as the "index".
-            url: "/admission",
+            url: "/admission/:fileNo",
             templateUrl: 'home/admission/admissionDashboard.html',
             controller: "admissionController"
         })
-        .state('newadmission', {
-    	url: "/newadmission",
+      .state('newadmission', {
+    	url: "/admission/new",
         templateUrl: 'home/admission/admissionMain.html',
-        controller: "admissionController"
-    })
-    .state('newadmission.personal', {
-    	url: "/newadmission",
-        templateUrl: 'home/admission/personalInfo.html',
         controller: "admissionController"
     });
 //    
@@ -86,16 +84,9 @@ erp.config(['$httpProvider', '$sceProvider',
                          },
                          responseError: function (response) {
                              if(response.status == 401) {
-                                 $rootScope.user = null;
-                                 window.location = "/kyv-web/";
+                                
                              } else if (response && [400,403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
-                                 // temporary - while 404 error in html mode
-                                 if (response.data && response.data.match && response.data.match(/^<html/i)) {
-                                     var rdata = response.data.match(/(\<body\>)(.*)(\<\/body\>)/);
-                                     if (rdata.length == 4) {
-                                         response.data = rdata[2];
-                                     }
-                                 }
+                                
                                  $rootScope.$broadcast('showError', response.data || 'Error '+response.status, response.status);
                              }
                              return $q.reject(response);
@@ -108,7 +99,8 @@ erp.controller('ApplicationController',
 		['$scope', '$rootScope', '$timeout', '$modal', '$http',
 		function ($scope, $rootScope, $timeout, $modal) {
 		    $rootScope.enableSidebar = true;
-
+		    $rootScope.user={};
+		    $rootScope.user.privilege={"view":"VIEW_PERSONAL"};
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;

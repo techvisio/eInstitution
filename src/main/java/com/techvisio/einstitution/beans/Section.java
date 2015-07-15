@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SECTION_MASTER")
 
-public class Section {
+public class Section extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -29,6 +29,11 @@ public class Section {
 	@OneToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="Branch_Id")
 	private Branch branch;
+	
+	public Section(){}
+	public Section(Long id){
+		this.sectionId=id;
+	}
 	
 	public Long getSectionId() {
 		return sectionId;

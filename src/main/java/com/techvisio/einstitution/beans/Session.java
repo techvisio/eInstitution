@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SESSION_MASTER")
-public class Session {
+public class Session extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -23,6 +23,11 @@ public class Session {
 	@OneToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="Course_Id")
 	private Course course;
+
+	public Session(){}
+	public Session(Long id){
+		this.sessionId=id;
+	}
 	public Course getCourse() {
 		return course;
 	}

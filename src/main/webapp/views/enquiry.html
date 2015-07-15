@@ -15,34 +15,34 @@
 				<table>
 					<tr>
 						<td><span>Name</span></td>
-						<td><input type="text" ng-model="searchCriteria.name"></td>
+						<td><input type="text" ng-model="searchCriteria.name" class="form-control"></td>
 					</tr>
 					<tr>
 						<td><span>Enquiry No</span></td>
-						<td><input type="text" ng-model="searchCriteria.inquryId"></td>
+						<td><input type="text" ng-model="searchCriteria.inquryId" class="form-control"></td>
 					</tr>
 
 					<tr>
 						<td><span>Course</span></td>
-						<td><select ng-model="searchCriteria.courseId"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></td>
+						<td><select ng-model="searchCriteria.courseId" class="form-control"
+							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE" ></td>
 					</tr>
 					<tr>
 						<td><span>Branch</span></td>
-						<td><select ng-model="searchCriteria.branchId"
+						<td><select ng-model="searchCriteria.branchId" class="form-control"
 							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: searchCriteria.courseId}"></td>
 					</tr>
 					<tr>
 						<td><span>Email Id</span></td>
-						<td><input type="text" ng-model="searchCriteria.emailId"></td>
+						<td><input type="text" ng-model="searchCriteria.emailId" class="form-control"></td>
 					</tr>
 					<tr>
 						<td><span>Mobile No</span></td>
-						<td><input type="text" ng-model="searchCriteria.mobileNo"></td>
+						<td><input type="text" ng-model="searchCriteria.mobileNo" class="form-control"></td>
 					</tr>
 					<tr>
 						<td><span>Status</span></td>
-						<td><select ng-model="searchCriteria.status">
+						<td><select ng-model="searchCriteria.status" class="form-control">
 						<option value="OPEN">OPEN</option>
 						<option value="CLOSED">CLOSED</option>
 						<option value="MOVED_TO_ADMISSION">IN ADMISSION</option></select></td>
@@ -77,46 +77,44 @@
 					<tr>
 						<td><span> Course </span></td>
 						<td><select select ng-model="data.admissionEnquiry.course.id" ng-init="data.admissionEnquiry.course=data.admissionEnquiry.course||{}"
-							ng-disabled="isTaskClosedOrInAdmission()"
+							 class="form-control"
 							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></select></td>
 						<td><span> Branch </span></td>
 						<td><select select ng-model="data.admissionEnquiry.branch.id" ng-init="data.admissionEnquiry.branch=data.admissionEnquiry.branch||{}"
-							ng-disabled="isTaskClosedOrInAdmission()"
+							 class="form-control"
 							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: data.admissionEnquiry.course.id}"></select></td>
 					</tr>
 					<tr>
 						<td><span> Name </span></td>
-						<td><input type="text" ng-model="data.admissionEnquiry.name"
-							required ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<td><input type="text" ng-model="data.admissionEnquiry.name" class="form-control"
+							required ></td>
 						<td><span> Father Name </span></td>
 						<td><input type="text"
-							ng-model="data.admissionEnquiry.fatherName"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+							ng-model="data.admissionEnquiry.fatherName" class="form-control"></td>
 					</tr>
 					<tr>
 						<td><span> Gender </span></td>
 						<td>
 							<li><input type="radio"
 								ng-model="data.admissionEnquiry.gender" name="gender" value='M'
-								ng-disabled="isTaskClosedOrInAdmission()" /><span>Male</span></li>
+								 /><span>Male</span></li>
 							<li><input type="radio"
 								ng-model="data.admissionEnquiry.gender" name="gender" value='F'
-								ng-disabled="isTaskClosedOrInAdmission()" /><span>Female</span></li>
+								 /><span>Female</span></li>
 
 						</td>
 						<td><span>Date Of Birth </span></td>
-						<td><input type="date" ng-model="data.admissionEnquiry.dob"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<td><input type="date" ng-model="data.admissionEnquiry.dob" class="form-control" ></td>
 						
 					</tr>
                       <tr>
 							<td><span> Category</span></td>
 						<td><select select ng-model="data.admissionEnquiry.categoryId"
-									ng-disabled="isTaskClosedOrInAdmission()"
+									 class="form-control"
 									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CATEGORY"></select>
 								</td>
 						<td><span>Admission Mode</span></td>
-						<td><select ng-model="data.admissionEnquiry.admissionMode" ng-change="resetAdmissionMode()" ng-disabled="isTaskClosedOrInAdmission()">
+						<td><select ng-model="data.admissionEnquiry.admissionMode" class="form-control" ng-change="resetAdmissionMode()" ">
 								<option value="A">Consultant</option>
 								<option value="R">Referral</option>
 								<option value="W">Walk-In</option>
@@ -127,35 +125,30 @@
 					<tr>
 							<td><span> Email Id </span></td>
 						<td><input type="text"
-							ng-model="data.admissionEnquiry.emailId"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+							ng-model="data.admissionEnquiry.emailId" class="form-control"></td>
 							<td><span> Contact No </span></td>
 						<td><input type="text"
-							ng-model="data.admissionEnquiry.contactNo"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+							ng-model="data.admissionEnquiry.contactNo" class="form-control"></td>
 							
 					</tr>
 					<tr>
 						<td ><span ng-show="data.admissionEnquiry.admissionMode=='A'"> Consultant Name </span>
 						<span ng-show="data.admissionEnquiry.admissionMode=='R'"> Referred By </span></spanng-show></td>
-						<td><select ng-model="data.admissionEnquiry.consultantId" 
-									ng-disabled="isTaskClosedOrInAdmission()" ng-show="data.admissionEnquiry.admissionMode=='A'"
+						<td><select ng-model="data.admissionEnquiry.consultantId" class="form-control"
+									 ng-show="data.admissionEnquiry.admissionMode=='A'"
 									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.CONSULTANT"></select>
-						<input type="text"
-							ng-model="data.admissionEnquiry.referredBy" ng-show="data.admissionEnquiry.admissionMode=='R'"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<input type="text" class="form-control"
+							ng-model="data.admissionEnquiry.referredBy" ng-show="data.admissionEnquiry.admissionMode=='R'"></td>
 							
 					</tr>
 					<tr>
 						<td><span> Remarks </span></td>
 						<td><textarea cols="32" rows="4"
-								ng-model="data.admissionEnquiry.remarks"
-								ng-disabled="isTaskClosedOrInAdmission()"></textarea></td>
+								ng-model="data.admissionEnquiry.remarks"></textarea></td>
 								
 						<td><span> Is Lateral </span></td>
-						<td><input type="checkbox"
-							ng-model="data.admissionEnquiry.lateral"
-							ng-disabled="isTaskClosedOrInAdmission()"></td>
+						<td><input type="checkbox" 
+							ng-model="data.admissionEnquiry.lateral"></td>
 					</tr>
 					<tr>
 						<td>Enquiry Status</td>
@@ -171,13 +164,12 @@
 					</tr>
 					<tr ng-repeat="task in data.tasks">
 						<td><span> Reminder Date </span></td>
-						<td><input type="date" ng-model="task.taskDate" ng-disabled="task.status=='C'||isTaskClosedOrInAdmission()">
+						<td><input type="date" ng-model="task.taskDate" class="form-control" >
 						<td ng-show="task.taskId"><span> Follow-up Remark </span></td>
 						<td ng-show="task.taskId"><textarea cols="32" rows="3"
-								ng-model="task.remark" ng-disabled="task.status=='C'||!task.taskId||isTaskClosedOrInAdmission()"></textarea></td>
+								ng-model="task.remark" ></textarea></td>
 						<td><button type="button" class="btn btn-primary"
-								ng-click="closeTask(task)"
-								ng-disabled="task.status=='C'||!task.taskId||isTaskClosedOrInAdmission()">Close
+								ng-click="closeTask(task)">Close
 								Task</button></td>
 						<td><a ng-show="!task.taskId" class='expandable'
 							ng-click="data.tasks.splice($index, 1)"> <i
@@ -187,7 +179,7 @@
 
 					<tr>
 						<td><button type="button" class="btn btn-primary"
-								ng-click="AddTask()" ng-disabled="isTaskClosedOrInAdmission()">Add
+								ng-click="AddTask()" >Add
 								Task</button></td>
 
 					</tr>
@@ -198,14 +190,11 @@
 								>Back To
 								Dashboard</button>
 						<button type="button" class="btn btn-primary"
-								ng-click="saveEnquiry()"
-								ng-disabled="isTaskClosedOrInAdmission()">Save Enquiry</button>
+								ng-click="saveEnquiry()">Save Enquiry</button>
 						<button type="button" class="btn btn-success"
-								ng-click="proceedToAdmission()"
-								ng-disabled="isTaskClosedOrInAdmission()">Proceed to
-								Admission</button>
+								ng-click="proceedToAdmission()">Proceed toAdmission</button>
 						<button type="button" class="btn btn-danger"
-								ng-click="toggleEnquiryStatus()" ng-show="data.admissionEnquiry.enquiryId && data.admissionEnquiry.applicationStatus!='CLOSED'" ng-disabled="isTaskClosedOrInAdmission()">Close Enquiry</button>
+								ng-click="toggleEnquiryStatus()" ng-show="data.admissionEnquiry.enquiryId && data.admissionEnquiry.applicationStatus!='CLOSED'" >Close Enquiry</button>
 								<button type="button" class="btn btn-success"
 								ng-click="toggleEnquiryStatus()" ng-show="data.admissionEnquiry.applicationStatus=='CLOSED'">Open Enquiry</button>
 						</td>

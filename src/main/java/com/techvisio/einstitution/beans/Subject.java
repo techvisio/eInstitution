@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SUBJECT_MASTER")
 
-public class Subject {
+public class Subject extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -19,6 +19,10 @@ public class Subject {
 	@Column(name = "Subject_Name")
 	private String subjectName;
 	
+	public Subject(){}
+	public Subject(Long id){
+		this.subjectId=id;
+	}
 	
 	public Long getSubjectId() {
 		return subjectId;

@@ -12,13 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "admissioninquiry") 
+@Table(name = "admission_Enquiry") 
 public class AdmissionEnquiry extends BasicEntity{
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "Id")
-	private Long id;
-	
 	@Column(name = "Enquiry_Id")
 	private Long enquiryId;
 	
@@ -198,12 +196,4 @@ public class AdmissionEnquiry extends BasicEntity{
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-
 }

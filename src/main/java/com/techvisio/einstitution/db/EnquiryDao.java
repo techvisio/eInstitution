@@ -12,11 +12,6 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 @Component
 public interface EnquiryDao {
 
-//	public AdmissionEnquiry getInquiry(Long inquiryId);
-//	public void addInquiry (AdmissionEnquiry admissionInquiry);
-//	public List<AdmissionEnquiry> getInquiryByTaskDate(Date taskDate);
-//	public void updateInquiry(AdmissionEnquiry admissionInquiry);
-//	public void deleteInquiry(Long inquiryId);
-//	List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria  searchCriteria);
-	
+	public AdmissionEnquiry getInquiry(Long inquiryId);
+	public void saveInquiry (AdmissionEnquiry admissionInquiry);
 }

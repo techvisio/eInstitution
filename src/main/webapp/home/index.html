@@ -14,10 +14,13 @@
     <script src="lib/ng-grid/ng-grid.js"></script>
     <script src="lib/angular-ui-router.min.js"></script>
     <script src="home/app.js"></script>
+    <script src="scripts/modules/transport.js"></script>
     <script src="home/admission/admissionCntrl.js"></script>
     <script src="home/admission/admissionSrvc.js"></script>
     <script src="home/shared/masterdata.js"></script>
     <script src="home/shared/services.js"></script>
+    <script src="home/sidebar/sidebarcntrl.js"></script>
+    
     <!-- endbuild -->
     <meta charset="utf-8">
     <title>eInstitution</title>
@@ -63,9 +66,10 @@
       </ul>
     </div>
       </div>
-
  <div class="content">
-     <div>
+	<div class="side-menu"  ng-include src="'home/sidebar/sidebar.html'">
+	</div>
+     <div class="module-content">
       <div ui-view></div>
     </div>
 </div>

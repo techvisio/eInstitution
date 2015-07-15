@@ -1,3 +1,4 @@
+
 package com.techvisio.einstitution.beans;
 
 import javax.persistence.Column;
@@ -8,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name = "QUALIFICATION_MASTER") 
-public class Qualification {
+public class Qualification extends BasicEntity {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id

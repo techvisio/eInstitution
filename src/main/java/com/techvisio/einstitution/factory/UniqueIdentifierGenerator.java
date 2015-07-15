@@ -9,6 +9,6 @@ public interface UniqueIdentifierGenerator {
 	public Long getUniqueIdentifierForEnquiry();
     public Long getUniqueIdentifierForTask();	
     public Long getUniqueIdentifierForConsultant();
-//    public String getUniqueIdentifierForRegistration(Student studentDetail);	
+    public String getUniqueIdentifierForRegistration(Student studentDetail);	
 
 }

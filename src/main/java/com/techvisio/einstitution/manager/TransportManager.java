@@ -12,26 +12,10 @@ import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 @Component
 public interface TransportManager {
-//
-//	public List<AvailableTransport> getAvailableTransport();
-//	
-//	public TransportAllocation getTransportAllocationDtl(Long fileNo);
-//	public void addTransportAllocationDtl(TransportAllocation transportAllocation);
-////	public void updateTransportAllocationDtl(TransportAllocation transportAllocation);
-//	public void deleteTransportAllocationDtl(Long fileNo);
-//
-//	public TransportReservation getTransportReservationDtl(Long fileNo);
-//	public void addTransportReservationDtl(TransportReservation transportReservation);
-//	public void updateTransportReservationDtl(TransportReservation transportReservation);
-//	public void deleteTransportReservationDtl(Long fileNo);
-//
-//	public VehicleDetail getVehicleDetail(Long vehicleId);
-//	public void addVehicleDetail(VehicleDetail vehicleDetail);
-//	public void updateVehicleDetail(VehicleDetail vehicleDetail);
-//	public void deleteVehicleDetail(Long vehicleId);
-//
-//	public TransportAllocation getActiveTransportAllocationDetail(Long fileNo);
-//	public List<TransportAllocation> getPreviousAllocatedDetail(Long fileNo);
-//
-//	public void saveTransportAllocationDetails(TransportAllocation newTransportAllocation, TransportAllocation oldTransportAllocation);
+
+	public List<AvailableTransport> getAvailableTransport();
+	
+	public TransportReservation getTransportReservationDtl(Long fileNo);
+	public void saveTransportReservationDtl(TransportReservation transportReservation);
+	public void deleteTransportReservationDtl(Long fileNo);
 }

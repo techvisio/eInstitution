@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "STATE_MASTER")
-public class State {
+public class State extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -18,6 +18,11 @@ public class State {
 	@Column(name = "State_Name")
 	private String stateName;
 	
+	public State(){}
+	
+	public State(Long id){
+		this.stateId = id;
+	}
 	
 	public Long getStateId() {
 		return stateId;

@@ -15,6 +15,7 @@ import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.ConsultantPayment;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.Counselling;
+import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.db.ConsultantDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -69,16 +70,17 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	public void deleteAdmissionConsultantDtlExclusion(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo) {
 
 		List<Long> consultantDtlIds = new ArrayList<Long>();
-		if (admissnConsltntDtls == null || admissnConsltntDtls.size() == 0) {
-			consultantDtlIds.add(-1L);
-		}
-		else {
-			if (admissnConsltntDtls != null) {
-				for (AdmissnConsltntDtl admissnConsltntDtl : admissnConsltntDtls) {
+		if (admissnConsltntDtls != null) {
+			for (AdmissnConsltntDtl admissnConsltntDtl : admissnConsltntDtls) {
+				if(admissnConsltntDtl.getConsltantDtlId() != null){
 					consultantDtlIds.add(admissnConsltntDtl.getConsltantDtlId());
 				}
 			}
-
+			
+			if (consultantDtlIds.size() == 0) {
+				consultantDtlIds.add(-1L);
+			}
+		}
 
 			String deletePaymntQuery = consultantQueryProps.getProperty("dltCnsltntPymntDtlByConsltantDtlId");
 
@@ -103,7 +105,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 	private SqlParameterSource namedParameterForDltConsultnt(Long fileNo,
 			List<Long> consultantDtlIds) {
@@ -147,17 +149,17 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 	@Override
 	public void deleteConsultantPaymentExclusion(List<ConsultantPayment> consultantPayments, Long fileNo) {
 		List<Long> consultantPymntIds = new ArrayList<Long>();
-		if (consultantPayments == null || consultantPayments.size() == 0) {
-			consultantPymntIds.add(-1L);
-		}
-		else 
-		{
-			if (consultantPayments != null) {
-				for (ConsultantPayment consultantPayment : consultantPayments) {
+		if (consultantPayments != null) {
+			for (ConsultantPayment consultantPayment : consultantPayments) {
+				if(consultantPayment.getConsltntPymntId() != null){
 					consultantPymntIds.add(consultantPayment.getConsltntPymntId());
 				}
 			}
-
+			
+			if (consultantPymntIds.size() == 0) {
+				consultantPymntIds.add(-1L);
+			}
+		}
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -166,7 +168,7 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 	@Override
 	public List<ConsultantPaymentCriteria> getConsultantPaymentCriteria(Long fileNo) {
@@ -204,26 +206,26 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 
 
 		List<Long> Ids = new ArrayList<Long>();
-		if (consultantPaymentCriterias == null || consultantPaymentCriterias.size() == 0) {
-			Ids.add(-1L);
-		}
-		else 
-		{
-			if (consultantPaymentCriterias != null) {
-				for (ConsultantPaymentCriteria consultantPaymentCriteria : consultantPaymentCriterias) {
+		if (consultantPaymentCriterias != null) {
+			for (ConsultantPaymentCriteria consultantPaymentCriteria : consultantPaymentCriterias) {
+				if(consultantPaymentCriteria.getPymntCritriaId() != null){
 					Ids.add(consultantPaymentCriteria.getPymntCritriaId());
 				}
 			}
-
+			
+			if (Ids.size() == 0) {
+				Ids.add(-1L);
+			}
+		}
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
-					"Id", Ids)
+					"Pymnt_Critria_Id", Ids)
 			.addValue("File_No", fileNo);
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
 
-	}
+	
 
 }

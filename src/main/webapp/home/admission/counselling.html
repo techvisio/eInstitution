@@ -1,38 +1,48 @@
-				<form>
-				<div class="admission-tab-inner" >
-					<div class="five-column-view">
-						<table>
-							<tr>
-								<th><span>Counselling</span></th>
-								<th><span>Roll No</span></th>
-								<th><span>Rank</span></th>
-								<th><span>Category Rank</span></th>
-								<th><span>Percentile</span></th>
-							</tr>
 
-							<tr ng-repeat="counselling in student.counsellingDtl">
-								<td><select ng-model="counselling.counsellingId"
-									ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-									ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COUNSELLING"></select></td>
-								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="counselling.rollNo"
-								ng-Readonly="!form.isEdit && !form.isNew">
-  </td>
-								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="counselling.rank"
-								ng-Readonly="!form.isEdit && !form.isNew">
-  </td>
-								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="counselling.categoryRank"
-								ng-Readonly="!form.isEdit && !form.isNew">
-  </td>
-								<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model="counselling.percentile"
-								ng-Readonly="!form.isEdit && !form.isNew">
-  </td>
+<form id="COUNSELLING">
+		<div class="councelling-view">
+			<table>
+				<tr>
+					<th><span>Counselling</span></th>
+					<th><span>Roll No</span></th>
+					<th><span>Rank</span></th>
+					<th><span>Category Rank</span></th>
+					<th><span>Percentile</span></th>
+				</tr>
 
-								<td><img height="35" width="35" ng-src="images/plus.png"
-									ng-click="addCounsellingDtl()" /></td>
-								<td><img height="35" width="35" ng-src="images/minus.png"
-									ng-click="removeCounsellingDtl($index)" ng-show="$index>0" /></td>
-							</tr>
-						</table>
-					</div>
-					</div>
-					</form>
+				<tr ng-repeat="counselling in student.counsellingDtl">
+					<td><select ng-model="counselling.counsellingBody.counsellingId"
+						 class="form-control"
+						ng-options="item.counsellingId*1 as item.counsellingBody for item in serverModelData.COUNSELLING"></select></td>
+					<td><input type="text" class="form-control"
+				
+						ng-model="counselling.rollNo"
+						></td>
+					<td><input type="text" class="form-control"
+				
+						ng-model="counselling.rank"
+						></td>
+					<td><input type="text" class="form-control"
+				
+						ng-model="counselling.categoryRank"
+						></td>
+					<td><input type="text" class="form-control"
+				
+						ng-model="counselling.percentile"
+						></td>
+
+					<td><img height="35" width="35" ng-src="images/plus.png"
+						ng-click="addCounsellingDtl()" /></td>
+					<td><img height="35" width="35" ng-src="images/minus.png"
+						ng-click="removeCounsellingDtl($index)" ng-show="$index>0" /></td>
+				</tr>
+				<td></td>
+				<td></td>
+					<td></td>
+					<td><button type="button" class="btn btn-success btn-sm"
+							ng-click="">Edit</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="updateCounsellingDtl()">Save</button></td>
+			</table>
+		</div>
+</form>

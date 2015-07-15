@@ -1,11 +1,10 @@
-<form>
+<form id="FIXEDINFO">
 	<div ng-init="init()">
 		<table>
 			<tr>
 				<td><span> Admission Mode </span></td>
 				<td><select ng-model="student.admissionMode"
-					ng-change="resetAdmissionMode()" class="form-control"
-					ng-disabled="!form.isEdit && !form.isNew" required>
+					ng-change="resetAdmissionMode()" class="form-control" required>
 						<option value="C">Counselling</option>
 						<option value="A">Consultant</option>
 						<option value="R">Referral</option>
@@ -22,29 +21,26 @@
 
 			<tr>
 				<td><span> Course </span></td>
-				<td><select select ng-model="student.courseId"
-					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"
+				<td><select select ng-model="student.course.courseId"
+					class="form-control"
+					ng-options="item.courseId as item.course  for item in serverModelData.COURSE"
 					required></select></td>
 			</tr>
 			<tr>
 				<td><span> Branch </span></td>
-				<td><select select ng-model="student.branchId"
-					ng-disabled="!form.isEdit && !form.isNew" 
+				<td><select select ng-model="student.branch.branchId"
 					class="form-control"
-					ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: student.courseId}"
+					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH"
 					required></select></td>
 			</tr>
 			<tr>
 				<td><span> First Name </span></td>
-				<td><input type="text" 
-					ng-model="student.firstName" class="form-control"
-					ng-Readonly="!form.isEdit && !form.isNew" required></td>
+				<td><input type="text" ng-model="student.firstName"
+					class="form-control" required></td>
 			<tr>
 				<td><span> Last Name </span></td>
-				<td><input type="text" 
-					ng-model="student.lastName" class="form-control"
-					ng-Readonly="!form.isEdit && !form.isNew" required></td>
+				<td><input type="text" ng-model="student.lastName"
+					class="form-control" required></td>
 			</tr>
 		</table>
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.ConsultantPayment;
@@ -12,6 +13,7 @@ import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 @Component
+@Transactional
 public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	private static CustomLogger logger=CustomLogger.getLogger(ConsultantWorkflowManagerImpl.class);
 	private static final int ConsultantDetail = 0;

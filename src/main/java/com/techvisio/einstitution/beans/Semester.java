@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SEMESTER_MASTER")
 
-public class Semester {
+public class Semester extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -24,6 +24,11 @@ public class Semester {
 	private Course course;
 	@Column(name = "Semester")
 	private String semester;
+	
+	public Semester(){}
+	public Semester(Long id){
+		this.semesterId=id;
+	}
 	
 
 	public Course getCourse() {

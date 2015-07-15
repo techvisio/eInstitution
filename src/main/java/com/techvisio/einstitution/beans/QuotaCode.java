@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "QUOTACODE_MASTER")
-public class QuotaCode {
+public class QuotaCode extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -19,6 +19,12 @@ public class QuotaCode {
 	private String quotaCode;
 	@Column(name="Description")
 	private String description;
+
+	public QuotaCode (){}
+	
+	public QuotaCode(Long id){
+		this.quotaId = id;
+	}
 	
 	public Long getQuotaId() {
 		return quotaId;

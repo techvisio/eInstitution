@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "consultantpaymentcriteria")    
+@Table(name = "consultant_payment_criteria")    
 public class ConsultantPaymentCriteria extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SHIFT_MASTER")
-public class Shift {
+public class Shift extends BasicEntity {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
@@ -17,6 +17,11 @@ public class Shift {
 	private Long shiftId;
 	@Column(name = "Shift_Name")
 	private String shiftName;
+	
+	public Shift(){}
+	public Shift(Long id){
+	this.shiftId=id;	
+	}
 	
 	public Long getShiftId() {
 		return shiftId;

@@ -48,7 +48,7 @@
 	<th>Domicile State</th>
 	<td><select ng-model="admissionDetailManagement.scholarship.stateId" class="form-control" class="form-control" ng-options= "item.id*1 as item.value for item in serverModelData.dropdownMasterData.STATE" ></td>
 	<th>Amount</th>
-	<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+	<td><input type="text" class="form-control" 
 				ng-model="admissionDetailManagement.scholarship.amount">
   <span class="input-group-addon">.00</span></td>
 	</tr>
@@ -74,7 +74,7 @@
     <td><select ng-model="object.discountHead.headId" class="form-control"
 	ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.FEEHEAD|filter:{parentId:'W'}"></select>
 	</td>	
-<td><input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+<td><input type="text" class="form-control" 
 				ng-model="object.amount">
   <span class="input-group-addon">.00</span></td>
 	<td colspan=2>

@@ -1,5 +1,7 @@
 package com.techvisio.einstitution.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -31,7 +33,7 @@ public class ScholarshipService {
 	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
-			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
+			List<Scholarship> scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarship);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,11 +42,11 @@ public class ScholarshipService {
 	}
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.POST)
-	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
+	public ResponseEntity<Response> saveScholarship(@RequestBody List<Scholarship> scholarship, @PathVariable Long fileNo){
 		Response response = new Response();
 		try {
 			schlrshpWorkflowManager.saveScholarship(scholarship);
-			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
+			List<Scholarship> scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarshpFromDB);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -20,6 +20,7 @@ import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
@@ -40,18 +41,29 @@ public class AdmissionService {
 	@Autowired
 	ScholarshipWorkflowManager schlrshpWorkflowManager;
 
-	@RequestMapping(value = "student/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/{fileNo}", method = RequestMethod.GET)
 	public Student getStudent(@PathVariable Long fileNo){
 		Student student = admWorkflowManager.getStudent(fileNo);
 		return student;
 	}
 
-	@RequestMapping(value = "student/{fileNo}", method = RequestMethod.POST)
-	public void saveStudent(@RequestBody Student student, @PathVariable Long fileNo){
-		admWorkflowManager.saveStudent(student);
+	@RequestMapping(value = "/student", method = RequestMethod.POST)
+	public ResponseEntity<Response> saveStudent(@RequestBody Student student){
+		Response response = new Response();
+		try{
+			admWorkflowManager.saveStudent(student);
+			Student studentFromDB = admWorkflowManager.getStudent(student.getFileNo());
+			response.setResponseBody(studentFromDB);
+		}
+		catch(Exception e){
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+
 	}
 
-	@RequestMapping(value = "student/academic/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/academic/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentAcademic(@PathVariable Long fileNo){
 
 		Response response = new Response();
@@ -66,7 +78,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/academic/{fileNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/student/academic/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveStudentAcademicDtl(@RequestBody List<StudentAcademic> studentAcademics,@PathVariable Long fileNo){
 
 		Response response = new Response();
@@ -82,7 +94,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/discount/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/discount/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getDiscountDtl(@PathVariable Long fileNo){
 
 		Response response = new Response();
@@ -97,7 +109,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/discount/{fileNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/student/discount/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveDiscountDtl(@RequestBody List<AdmissionDiscount> admissionDiscounts, @PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -112,7 +124,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/address/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/address/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getAddressDtl(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -126,7 +138,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/address/{fileNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/student/address/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveAddressDtl(@RequestBody List<Address> addresses, @PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -140,7 +152,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/branchpref/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/branchpref/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getBranchPreference(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -154,7 +166,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/branchpref/{fileNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/student/branchpref/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveBranchPreference(@RequestBody List<BranchPreference> branchPreferences, @PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -168,7 +180,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/counselling/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/counselling/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getCounsellingDtl(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -181,7 +193,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/counselling/{fileNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/student/counselling/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveCounsellingDtl (@RequestBody List<Counselling> counsellings, @PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -195,7 +207,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/consultant/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/consultant/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -208,7 +220,7 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/consultant/{fileNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/student/consultant/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
 		Response response = new Response();
 		try {
@@ -223,11 +235,11 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/scholarship/{fileNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/scholarship/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
 		Response response =new Response();
 		try {
-			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
+			List<Scholarship> scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarship);
 		} catch (Exception e) {
 			response.setError(e.getMessage());
@@ -236,12 +248,12 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "student/scholarship/{fileNo}", method = RequestMethod.PUT)
-	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
+	@RequestMapping(value = "/student/scholarship/{fileNo}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> saveScholarship(@RequestBody List<Scholarship> scholarship, @PathVariable Long fileNo){
 		Response response =new Response();
 		try {
 			schlrshpWorkflowManager.saveScholarship(scholarship);
-			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
+			List<Scholarship> scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarshpFromDB);
 		} catch (Exception e) {
 			response.setError(e.getMessage());
@@ -249,4 +261,53 @@ public class AdmissionService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
+
+
+	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getDocumentDtl(@PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			List<StudentDocument> studentDocuments = admWorkflowManager.getDocumentDtl(fileNo);
+			response.setResponseBody(studentDocuments);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);		
+	}
+
+
+	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> saveDocumentDtl(@RequestBody List<StudentDocument> documents, @PathVariable Long fileNo){
+		Response response = new Response();
+		try {
+			admWorkflowManager.saveDocumentDtl(documents, fileNo);
+			List<StudentDocument> documentFromDB = admWorkflowManager.getDocumentDtl(fileNo);
+			response.setResponseBody(documentFromDB);
+
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+
+		
+	}
+	
+	
+	@RequestMapping(value = "student/document", method = RequestMethod.GET)
+	public ResponseEntity<Response> getStudentDocumentDtl(){
+		Response response = new Response();
+		try {
+			List<Object[]> studentDocuments = admWorkflowManager.getStudentDocumentDtl();
+			response.setResponseBody(studentDocuments);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+	}
+	
+	
 }

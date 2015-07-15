@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Address;
+import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.ScholarshipPayment;
@@ -28,17 +30,19 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	}
 
 	@Override
-	public Scholarship getScholarship(Long fileNo) {
+	public List<Scholarship> getScholarship(Long fileNo) {
 		String queryString="FROM Scholarship sch WHERE sch.fileNo = "+fileNo;
 		Query query=getCurrentSession().createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<Scholarship> result= (List<Scholarship>)query.list();
-		if(result != null && result.size()>0){
-			return result.get(0);
-		}
-		return null;
+		return result;
 	}
 
+	@Override
+	public void saveScholarship(List<Scholarship> scholarship) {
+		
+	}
+	
 	@Override
 	public void saveScholarship(Scholarship scholarship) {
 
@@ -51,6 +55,31 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 		}
 	}
 
+	@Override
+	public void deleteScholarshipExlusion(List<Scholarship> scholarships , Long fileNo){
+		
+		List<Long> scholarshipId = new ArrayList<Long>();
+		if (scholarships != null) {
+			for (Scholarship scholarship : scholarships) {
+				if(scholarship.getStdntSchlarshpId() != null){
+				scholarshipId.add(scholarship.getStdntSchlarshpId());
+				}
+			}
+			
+			if (scholarshipId.size() == 0) {
+				scholarshipId.add(-1L);
+			}
+		}
+		String deleteQuery = scholarshipQueryProps
+				.getProperty("deleteScholarshipDetailExclusion");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Stdnt_Schlarshp_Id", scholarshipId)
+		.addValue("File_No", fileNo);
+
+		getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+	}
+	
 	@Override
 	public List<ScholarshipPayment> getScholarshipPayments(Long fileNo) {
 
@@ -86,16 +115,17 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 	public void deleteScholarshipPaymentDetailExclusion(List<ScholarshipPayment> scholarshipPayments, Long fileNo) {
 
 		List<Long> schlrshpPymntIds = new ArrayList<Long>();
-		if (scholarshipPayments == null || scholarshipPayments.size() == 0) {
-			schlrshpPymntIds.add(-1L);
-		}
-		else {
-			if (scholarshipPayments != null) {
-				for (ScholarshipPayment scholarshipPayment : scholarshipPayments) {
+		if (scholarshipPayments != null) {
+			for (ScholarshipPayment scholarshipPayment : scholarshipPayments) {
+				if(scholarshipPayment.getSchlarshpPaymntId() != null){
 					schlrshpPymntIds.add(scholarshipPayment.getSchlarshpPaymntId());
 				}
 			}
-			String deleteQuery = scholarshipQueryProps
+			
+			if (schlrshpPymntIds.size() == 0) {
+				schlrshpPymntIds.add(-1L);
+			}
+		}			String deleteQuery = scholarshipQueryProps
 					.getProperty("deleteScholarshipPaymentDetailExclusion");
 
 			SqlParameterSource namedParameter = new MapSqlParameterSource(
@@ -104,6 +134,6 @@ public class ScholarshipDaoImpl extends BaseDao implements ScholarshipDao{
 
 			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
 		}
-	}
+	
 
 }

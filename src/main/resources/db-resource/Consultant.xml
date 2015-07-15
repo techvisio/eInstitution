@@ -3,262 +3,50 @@
 
 <properties>
 
-	<entry key="getConsultantById">
-    <![CDATA[
-      
-Select 
-
-	Id, 
-	Name, 
-	Primary_Contact_No, 
-	Secondary_contact_No, 
-	Address, 
-	Email_Id       
-   
- from ConsultantMaster where Id=:Id;
-    ]]>
-
-	</entry>
-
-	<entry key="upsertConsultant">
-    <![CDATA[
-      
-Insert into ConsultantMaster
-
-	(Id,
-	Name, 
-	Primary_Contact_No, 
-	Secondary_contact_No, 
-	Address, 
-	Email_Id) values
-	       
-   (:Id,
-   :Name, 
-   :Primary_Contact_No, 
-   :Secondary_contact_No, 
-   :Address, 
-   :Email_Id)
-   
-   on duplicate key update
-   
-  	Name=:Name, 
-	Primary_Contact_No=:Primary_Contact_No, 
-	Secondary_contact_No=:Secondary_contact_No, 
-	Address=:Address, 
-	Email_Id=:Email_Id ; 
-   
-    ]]>
-
-	</entry>
-	
-	<entry key="deleteConsultant">
-    <![CDATA[
-      
-Delete from ConsultantMaster where Id=:Id;
-    ]]>
-
-	</entry>
-
-	<entry key="getConsultantDtlByFileNo">
-    <![CDATA[
-      
-Select
-
-	File_No, 
-	Consultant_Id, 
-	Consultancy_Agreed, 
-	Payment_Mode, 
-	Amount_To_Pay, 
-	Due_Date,
-	Remarks
-
-from ConsultantDetail where File_No=:File_No ;
-    ]]>
-
-	</entry>
-
-	<entry key="upsertConsultantDtl">
-    <![CDATA[
-      
-Insert into ConsultantDetail
-
-   (File_No, 
-	Consultant_Id, 
-   Consultancy_Agreed, 
-   Payment_Mode, 
-   Amount_To_Pay, 
-   Due_Date,
-   Remarks) values
-   
- (:File_No, 
- :Consultant_Id, 
- :Consultancy_Agreed, 
- :Payment_Mode, 
- :Amount_To_Pay, 
- :Due_Date,
- :Remarks)
-
-on duplicate key update
-
-    Consultancy_Agreed=:Consultancy_Agreed, 
-    Payment_Mode=:Payment_Mode, 
-    Amount_To_Pay=:Amount_To_Pay, 
-    Due_Date=:Due_Date,
-    Remarks = :Remarks
-    ]]>
-
-	</entry>
-
-	
 	<entry key="deleteConsultantDtlExclusion">
     <![CDATA[
       
-Delete from ConsultantDetail where File_No=:File_No and Consultant_Dtl_Id not in (:Consultant_Dtl_Id);
+Delete from admission_consultant_Dtl where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id);
 
     ]]>
 
 	</entry>
-
-	<entry key="getConsultantPaymentDtlByFileNoAndConsultantId">
-    <![CDATA[
-      
-Select
-
-	Amount, 
-	Pay_Date, 
-	File_No,
-	Consultant_Id
-   
-from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id=:Consultant_Id;
-    ]]>
-
-	</entry>
-
-	<entry key="addConsultantPaymentDtl">
-    <![CDATA[
-      
-Insert into ConsultantPaymentDetail
-
-      (File_No,
-      Consultant_Id,
-      Amount, 
-      Pay_Date) values 
-      
-     (:File_No,
-     :Consultant_Id,
-     :Amount, 
-     :Pay_Date);
-    ]]>
-
-	</entry>
-
-	<entry key="updateConsultantPaymentDtl">
-    <![CDATA[
-      
-Update ConsultantPaymentDetail set
-
-      
-      Amount=:Amount, 
-      Pay_Date=:Pay_Date
-      
-   
-where File_No=:File_No and Consultant_Id=:Consultant_Id;  
-    ]]>
-
-	</entry>
-
 	<entry key="deleteConsultantPaymentDtlExclusion">
     <![CDATA[
       
-Delete from ConsultantPaymentDetail where File_No=:File_No and Consltnt_Pymnt_Id not in (:Consltnt_Pymnt_Id);  
+Delete from Consultant_Payment_Detail where File_No=:File_No and Consltnt_Pymnt_Id not in (:Consltnt_Pymnt_Id);  
     ]]>
 
 	</entry>
 
-<entry key="dltCnsltntPymntDtlByConsltantDtlId">
+	<entry key="dltCnsltntPymntDtlByConsltantDtlId">
     <![CDATA[
       
-Delete from ConsultantPaymentDetail where File_No=:File_No and Consltant_Dtl_Id not in (:Consltant_Dtl_Id);  
+Delete from Consultant_Payment_Detail where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id);  
     ]]>
-
-	</entry>
-
-<entry key="deleteConsultantPaymentDtl">
-    <![CDATA[
-      
-Delete from ConsultantPaymentDetail where File_No=:File_No and Consultant_Id=:Consultant_Id;  
-    ]]>
-
-	</entry>
-
-	<entry key="getConsultantPaymentCriteria">
-    <![CDATA[
-      
-SELECT 
-
-File_No, Consultant_Id, Fee_Received, Amount_To_Be_Paid, Fee_Due_Date, Approved, Paid, Triggered 
-
-FROM consultantpaymentcriteria where File_No=:File_No and Consultant_Id=:Consultant_Id; 
-    ]]>
-
-	</entry>
-
-	<entry key="addConsultantPaymentCriteria">
-    <![CDATA[
-      
-Insert into  consultantpaymentcriteria
-
-(File_No, 
-Consultant_Id, 
-Fee_Received, 
-Amount_To_Be_Paid, 
-Fee_Due_Date, 
-Approved, 
-Paid, 
-Triggered) values
-
-(:File_No, 
-:Consultant_Id, 
-:Fee_Received, 
-:Amount_To_Be_Paid, 
-:Fee_Due_Date, 
-:Approved, 
-:Paid, 
-:Triggered);
-
-   ]]>
 
 	</entry>
 
 	<entry key="deleteConsultantPaymentCriteriaExclusion">
     <![CDATA[
       
-Delete from consultantpaymentcriteria where File_No=:File_No and Pymnt_Critria_Id not in (:Pymnt_Critria_Id);
+Delete from consultant_payment_criteria where File_No=:File_No and Pymnt_Critria_Id not in (:Pymnt_Critria_Id);
 
    ]]>
 
 	</entry>
 
-<entry key="dltCnsltantPymntCriteriaByConsltantDtlId">
+	<entry key="dltCnsltantPymntCriteriaByConsltantDtlId">
     <![CDATA[
       
-Delete from consultantpaymentcriteria where File_No=:File_No and Consltant_Dtl_Id not in (:Consltant_Dtl_Id);
+Delete from consultant_payment_criteria where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id);
 
    ]]>
 
 	</entry>
 
-	
-	<entry key="deleteConsultantPaymentCriteria">
-    <![CDATA[
-      
-Delete from consultantpaymentcriteria where File_No=:File_No and Consultant_Id=:Consultant_Id;
 
-   ]]>
-
-	</entry>
-	
-<entry key="getCosultantBySearchCriteria">
+	<entry key="getCosultantBySearchCriteria">
 
 <![CDATA[
 SELECT
@@ -275,9 +63,9 @@ from  consultantMaster WHERE Id=IFNULL(:Id,Id) and ifnull(Email_Id,'-1')=ifnull(
 
 ]]>
 
-</entry>
+	</entry>
 
-<entry key="getStudentDtlForConsultant">
+	<entry key="getStudentDtlForConsultant">
     <![CDATA[
 SELECT
 s.Registration_No,
