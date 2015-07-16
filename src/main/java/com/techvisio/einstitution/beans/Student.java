@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -111,17 +112,17 @@ public class Student extends BasicEntity {
 	@JoinColumn(name="File_No")
 	private List<Address> addressDtl=new ArrayList<Address>();
 
-	@OneToMany(cascade={CascadeType.PERSIST})
-	@JoinColumn(name="File_No")
-	private List<Scholarship> scholarship;
+	@OneToOne(cascade={CascadeType.PERSIST})
+	@PrimaryKeyJoinColumn 
+	private Scholarship scholarship;
 
 	@JsonIgnore
-	public List<Scholarship> getScholarship() {
+	public Scholarship getScholarship() {
 		return scholarship;
 	}
 
 	@JsonProperty("scholarship")
-	public void setScholarship(List<Scholarship> scholarship) {
+	public void setScholarship(Scholarship scholarship) {
 		this.scholarship = scholarship;
 	}
 

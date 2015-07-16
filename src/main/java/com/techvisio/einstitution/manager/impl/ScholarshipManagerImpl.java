@@ -38,7 +38,7 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	@Override
-	public void saveScholarship(List<Scholarship> scholarship) {
+	public void saveScholarship(Scholarship scholarship) {
 		scholarshipDao.saveScholarship(scholarship);
 	}
 
@@ -62,8 +62,8 @@ public class ScholarshipManagerImpl implements ScholarshipManager {
 	}
 
 	@Override
-	public List<Scholarship> getScholarship(Long fileNo) {
-		List<Scholarship> scholarship =scholarshipDao.getScholarship(fileNo);
+	public Scholarship getScholarship(Long fileNo) {
+		Scholarship scholarship =scholarshipDao.getScholarship(fileNo);
 		return scholarship;
 	}
 

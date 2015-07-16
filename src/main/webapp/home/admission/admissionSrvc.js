@@ -1,4 +1,4 @@
-		 admissionModule.service("admissionService", function($http, $q) {
+admissionModule.service("admissionService", function($http, $q) {
 
 			 // Return public API.
 			 return ({

@@ -239,7 +239,7 @@ public class AdmissionService {
 	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
 		Response response =new Response();
 		try {
-			List<Scholarship> scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
+			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarship);
 		} catch (Exception e) {
 			response.setError(e.getMessage());
@@ -249,11 +249,11 @@ public class AdmissionService {
 	}
 
 	@RequestMapping(value = "/student/scholarship/{fileNo}", method = RequestMethod.PUT)
-	public ResponseEntity<Response> saveScholarship(@RequestBody List<Scholarship> scholarship, @PathVariable Long fileNo){
+	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
 		Response response =new Response();
 		try {
 			schlrshpWorkflowManager.saveScholarship(scholarship);
-			List<Scholarship> scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
+			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarshpFromDB);
 		} catch (Exception e) {
 			response.setError(e.getMessage());

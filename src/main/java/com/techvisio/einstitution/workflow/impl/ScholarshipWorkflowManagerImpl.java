@@ -19,7 +19,7 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 	@Autowired
 	ScholarshipManager scholarshipManager;
 	@Override
-	public void saveScholarship(List<Scholarship> scholarship) {
+	public void saveScholarship(Scholarship scholarship) {
 		scholarshipManager.saveScholarship(scholarship);
 		
 	}
@@ -42,8 +42,8 @@ public class ScholarshipWorkflowManagerImpl implements ScholarshipWorkflowManage
 		
 	}
 	@Override
-	public List<Scholarship> getScholarship(Long fileNo) {
-	   List<Scholarship> scholarship = scholarshipManager.getScholarship(fileNo); 
+	public Scholarship getScholarship(Long fileNo) {
+	   Scholarship scholarship = scholarshipManager.getScholarship(fileNo); 
 		return scholarship;
 	}
 	@Override

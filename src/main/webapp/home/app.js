@@ -25,21 +25,31 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('admission', {
             // Use a url of "/" to set a state as the "index".
-            url: "/admission/:fileNo",
-            templateUrl: 'home/admission/admissionDashboard.html',
-            controller: "admissionController"
+            url: "/admission/{fileNo:[0-9]{1,8}}",
+            templateUrl: 'home/admission/admissionMain.html',
+            controller: "admissionController",
+            resolve:{
+                student: ['$stateParams','admissionService', function($stateParams,admissionService){
+                    return admissionService.getStudent($stateParams.fileNo);
+                }]
+             }
         })
       .state('newadmission', {
     	url: "/admission/new",
         templateUrl: 'home/admission/admissionMain.html',
+        controller: "admissionController",
+        resolve:{
+            student: ['$stateParams','admissionService', function($stateParams,admissionService){
+                return {};
+            }]
+         }
+    })
+    
+    .state('searchStudent', {
+    	url: "/search",
+        templateUrl: 'home/admission/admissionSearch.html',
         controller: "admissionController"
     });
-//    
-//    .state('personalInfo', {
-//    	url: "/personalInfo",
-//        templateUrl: 'home/admission/admissionTab.html',
-//        controller: "admissionController"
-//    })
     
 //    .state('newadmission',{
 //    views: {

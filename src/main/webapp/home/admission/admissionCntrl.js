@@ -10,8 +10,9 @@ admissionModule
 		 '$modal',
 		 '$state',  
 		 '$rootScope',
+		 'student',
 		 function($scope, admissionService, masterdataService,
-				 $modal, $state,$rootScope) {
+				 $modal, $state,$rootScope,student) {
 
 			 $scope.form = {};
 			 $scope.form.sameAsAbove = false;
@@ -109,7 +110,7 @@ admissionModule
 
 			 $scope.dummyConsultantDetail = {};
 
-			 $scope.student = {};
+			 $scope.student = student.data||{};
 			 
 			 $scope.latestAdmission = [];
 			 $scope.searchCriteria = {};
@@ -118,7 +119,7 @@ admissionModule
 			 $scope.student.addressDtl = [];
 
 			 $scope.student.consultantDetail = [];
-			 $scope.student.scholarship = [];
+			 $scope.student.scholarship = {};
 
 			 $scope.student.academicDtl = [];
 			 $scope.student.academicDtl.push(angular
@@ -173,8 +174,8 @@ admissionModule
 				 $state.go('newadmission');
 			 }
 
-			 $scope.personalInfo = function() {
-				 $state.go('personalInfo');
+			 $scope.searchStudent = function() {
+				 $state.go('searchStudent');
 			 }
 
 			 $scope.gridOptions = {
@@ -553,7 +554,6 @@ admissionModule
 
 									 }
 								 })
-
 			 }
 
 			 $scope.updateStudentAddress = function() {

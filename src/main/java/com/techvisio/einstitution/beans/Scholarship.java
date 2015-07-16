@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,14 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "SCHOLARSHIP_DETAIL")
 public class Scholarship extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	
 	@Id
-	@Column(name = "Stdnt_Schlarshp_Id")
-	private Long stdntSchlarshpId;
 	@Column(name="File_No")
 	private Long fileNo; 
 	@Column(name = "Amount")
@@ -39,7 +41,8 @@ public class Scholarship extends BasicEntity{
     private boolean conditional;
 	@Column(name = "Parent_Income")
     private Double parentIncome;
-	@OneToMany(cascade={CascadeType.PERSIST})
+
+	@OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
 	@JoinColumn(name="Stdnt_Schlarshp_Id")
     private List<ScholarshipPayment> scholarshipPaymentDetail;
 	
@@ -61,7 +64,7 @@ public class Scholarship extends BasicEntity{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
+	@JsonIgnore
 	public List<ScholarshipPayment> getScholarshipPaymentDetail() {
 		return scholarshipPaymentDetail;
 	}
@@ -93,12 +96,6 @@ public class Scholarship extends BasicEntity{
 		this.conditional = conditional;
 	}
 	
-	public Long getStdntSchlarshpId() {
-		return stdntSchlarshpId;
-	}
-	public void setStdntSchlarshpId(Long istdntSchlarshpIdd) {
-		this.stdntSchlarshpId = istdntSchlarshpIdd;
-	}
 	public Long getFileNo() {
 		return fileNo;
 	}

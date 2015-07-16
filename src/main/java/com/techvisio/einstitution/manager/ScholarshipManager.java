@@ -10,8 +10,8 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 @Component
 public interface ScholarshipManager {
 
-	public List<Scholarship> getScholarship(Long fileNo);
-	public void saveScholarship(List<Scholarship> scholarship);	
+	public Scholarship getScholarship(Long fileNo);
+	public void saveScholarship(Scholarship scholarship);	
 
 	public List<ScholarshipPayment> getScholarshipPayments(Long fileNo);
 	public void saveScholarshipPaymentDtl(List<ScholarshipPayment> scholarshipPaymentDetails, Long fileNo);

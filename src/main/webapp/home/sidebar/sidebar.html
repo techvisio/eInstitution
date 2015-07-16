@@ -15,16 +15,16 @@ $(document).ready(function(){
 </script>
 <div id="accordian">
 	<ul>
-		<li>
-			<h3><span class="icon-dashboard"></span>ADMISSION</h3>
+		<li class="active">
+			<h3><span></span>ADMISSION</h3>
 			<ul>
 				<li><a href="#">Dashboard</a></li>
-				<li><a href="#">Search Student</a></li>
-				<li><a href="#">New student</a></li>
+				<li><a ui-sref="searchStudent">Search Student</a></li>
+				<li><a ui-sref="newadmission">New student</a></li>
 			</ul>
 		</li>
 		<!-- we will keep this LI open by default -->
-		<li class="active">
+		<li>
 			<h3><span class="icon-tasks"></span>ENQURIY</h3>
 			<ul>
 				<li><a href="#">Dashboard</a></li>
@@ -51,9 +51,8 @@ $(document).ready(function(){
 				<li>
 			<h3><span class="icon-heart"></span>CONSULTANT</h3>
 			<ul>
-				<li><a href="#">Global favs</a></li>
-				<li><a href="#">My favs</a></li>
-				<li><a href="#">Team favs</a></li>
+				<li><a href="#">Search By Student</a></li>
+				<li><a href="#">Search By Consultant</a></li>
 			</ul>
 		</li>
 				<li>

@@ -107,6 +107,18 @@
         drop 
         foreign key FK_962v6vhntr4hlxfk7vj67bf4b;
 
+    alter table ROLE 
+        drop 
+        foreign key FK_jjqf2oo9s1e6xqlcc61hbcc54;
+
+    alter table ROLE_PRIVILEGE 
+        drop 
+        foreign key FK_246137tlonap0m38a0iox7ycn;
+
+    alter table ROLE_PRIVILEGE 
+        drop 
+        foreign key FK_tmaad96qmg825j8p7e1l3u50;
+
     alter table ROOM_ALLOCATION_DETAIL 
         drop 
         foreign key FK_tpnfagdgeskvwtcafh232bvin;
@@ -126,10 +138,6 @@
     alter table ROOM_TYPE_DETAIL 
         drop 
         foreign key FK_fcuj04r1h5wyextvtm0m2iqbi;
-
-    alter table SCHOLARSHIP_DETAIL 
-        drop 
-        foreign key FK_mv6ea53cvoxbku5mda6rai51l;
 
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         drop 
@@ -275,11 +283,17 @@
 
     drop table if exists HOSTEL_RESERVATION;
 
+    drop table if exists PRIVILEGE;
+
     drop table if exists QUALIFICATION_MASTER;
 
     drop table if exists QUALIFICATION_SUBJECT_DTL;
 
     drop table if exists QUOTACODE_MASTER;
+
+    drop table if exists ROLE;
+
+    drop table if exists ROLE_PRIVILEGE;
 
     drop table if exists ROOM_ALLOCATION_DETAIL;
 
@@ -316,6 +330,8 @@
     drop table if exists TRANSPORT_MASTER;
 
     drop table if exists TRANSPORT_RESERVATION;
+
+    drop table if exists USER;
 
     drop table if exists VEHICLE_DETAIL;
 
@@ -640,14 +656,24 @@
         primary key (hostl_Rsrvation_Id)
     );
 
+    create table PRIVILEGE (
+        PRIVILEGE_ID bigint not null auto_increment,
+        CREATED_BY varchar(255),
+        CREATED_ON datetime,
+        description varchar(255),
+        privilege varchar(255),
+        type varchar(255),
+        primary key (PRIVILEGE_ID)
+    );
+
     create table QUALIFICATION_MASTER (
-        qualificationId bigint not null,
+        Qualification_Id bigint not null auto_increment,
         createdBy varchar(255),
         createdOn datetime,
         updatedBy varchar(255),
         updatedOn datetime,
-        qulaifyingExam varchar(255),
-        primary key (qualificationId)
+        Qualifying_Exam varchar(255),
+        primary key (Qualification_Id)
     );
 
     create table QUALIFICATION_SUBJECT_DTL (
@@ -674,6 +700,20 @@
         Description varchar(255),
         Quota_Code varchar(255),
         primary key (Quota_Id)
+    );
+
+    create table ROLE (
+        ROLE_ID bigint not null auto_increment,
+        createdBy varchar(255),
+        createdOn datetime,
+        roleName varchar(255),
+        USER_ID bigint,
+        primary key (ROLE_ID)
+    );
+
+    create table ROLE_PRIVILEGE (
+        ROLE_ROLE_ID bigint not null,
+        privilegeList_PRIVILEGE_ID bigint not null
     );
 
     create table ROOM_ALLOCATION_DETAIL (
@@ -721,7 +761,7 @@
     );
 
     create table SCHOLARSHIP_DETAIL (
-        Stdnt_Schlarshp_Id bigint not null auto_increment,
+        File_No bigint not null auto_increment,
         createdBy varchar(255),
         createdOn datetime,
         updatedBy varchar(255),
@@ -729,12 +769,11 @@
         Amount double precision,
         Is_Approved bit,
         Is_Conditional bit,
-        File_No bigint,
         Parent_Income double precision,
         Remark varchar(255),
         Is_Reoccuring bit,
         State_Id bigint,
-        primary key (Stdnt_Schlarshp_Id)
+        primary key (File_No)
     );
 
     create table SCHOLARSHIP_PAYMENT_DETAIL (
@@ -944,6 +983,15 @@
         primary key (Id)
     );
 
+    create table USER (
+        USER_ID bigint not null auto_increment,
+        department varchar(255),
+        name varchar(255),
+        password varchar(255),
+        status varchar(255),
+        primary key (USER_ID)
+    );
+
     create table VEHICLE_DETAIL (
         Vehicle_Id bigint not null auto_increment,
         createdBy varchar(255),
@@ -1035,7 +1083,7 @@
     alter table ACADEMIC_DETAIL 
         add constraint FK_8d8m4sy6b4814lyj3bs6bqhv4 
         foreign key (Qualification_Id) 
-        references QUALIFICATION_MASTER (qualificationId);
+        references QUALIFICATION_MASTER (Qualification_Id);
 
     alter table ACADEMIC_DETAIL 
         add constraint FK_3q4hnklta6p8eu5s1ig5rukui 
@@ -1155,7 +1203,7 @@
     alter table QUALIFICATION_SUBJECT_DTL 
         add constraint FK_cstohfnj2itxfx6n124mwvhj 
         foreign key (Qualification_Id) 
-        references QUALIFICATION_MASTER (qualificationId);
+        references QUALIFICATION_MASTER (Qualification_Id);
 
     alter table QUALIFICATION_SUBJECT_DTL 
         add constraint FK_jbxhkcpca60cdu3l5h4msmjpb 
@@ -1166,6 +1214,21 @@
         add constraint FK_962v6vhntr4hlxfk7vj67bf4b 
         foreign key (Student_Qualification_Id) 
         references ACADEMIC_DETAIL (Student_Qualification_Id);
+
+    alter table ROLE 
+        add constraint FK_jjqf2oo9s1e6xqlcc61hbcc54 
+        foreign key (USER_ID) 
+        references USER (USER_ID);
+
+    alter table ROLE_PRIVILEGE 
+        add constraint FK_246137tlonap0m38a0iox7ycn 
+        foreign key (privilegeList_PRIVILEGE_ID) 
+        references PRIVILEGE (PRIVILEGE_ID);
+
+    alter table ROLE_PRIVILEGE 
+        add constraint FK_tmaad96qmg825j8p7e1l3u50 
+        foreign key (ROLE_ROLE_ID) 
+        references ROLE (ROLE_ID);
 
     alter table ROOM_ALLOCATION_DETAIL 
         add constraint FK_tpnfagdgeskvwtcafh232bvin 
@@ -1192,15 +1255,10 @@
         foreign key (Wing_Id) 
         references WING_MASTER (Wing_Id);
 
-    alter table SCHOLARSHIP_DETAIL 
-        add constraint FK_mv6ea53cvoxbku5mda6rai51l 
-        foreign key (File_No) 
-        references STUDENT_DETAIL (File_No);
-
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         add constraint FK_2u7fgvgie8l2k4mro3njud4fh 
         foreign key (Stdnt_Schlarshp_Id) 
-        references SCHOLARSHIP_DETAIL (Stdnt_Schlarshp_Id);
+        references SCHOLARSHIP_DETAIL (File_No);
 
     alter table SECTION_MASTER 
         add constraint FK_49p5601yem7mxrt6kmp94og11 
