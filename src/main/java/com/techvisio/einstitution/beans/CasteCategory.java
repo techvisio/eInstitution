@@ -18,6 +18,10 @@ public class CasteCategory extends BasicEntity  {
 	@Column(name="Category_Name")
 	private String CategoryName;
 
+	public CasteCategory(){}
+	public CasteCategory(Long id){
+		this.categoryId=id;
+	}
 	
 	public Long getCategoryId() {
 		return categoryId;

@@ -17,6 +17,11 @@ public class Block extends BasicEntity {
 	@Column(name = "Block")
 	private String block;
 	
+	public Block(){}
+	public Block(Long id){
+		this.blockId=id;
+	}
+	
 	public Long getBlockId() {
 		return blockId;
 	}

@@ -10,44 +10,32 @@
 				<tr>
 					<td><span>House No.</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('P').houseNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('P').houseNo"></td>
 					<td><span>Locality</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('P').locality"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('P').locality"></td>
 				</tr>
 				<tr>
 					<td><span>Land Mark</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('P').landmark"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('P').landmark"></td>
 					<td><span>District</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('P').district"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('P').district"></td>
 				</tr>
 				<tr>
 					<td><span>City</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('P').city"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('P').city"></td>
 					<td><span>Pincode</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('P').pincode"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('P').pincode"></td>
 				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getAddress('P').state" class="form-control"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.stateId as item.stateName  for item in serverModelData.STATE">
+					<td><select ng-model="getAddress('P').state"
+						class="form-control" class="form-control"
+						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>
 					<th></th>
 					<td></td>
@@ -55,59 +43,47 @@
 				<tr>
 					<th><span>Correspondence Address</span></th>
 					<td><input type="checkbox" ng-change="copyPermanentAddress()"
-						ng-model="form.sameAsAbove"
-						ng-disabled="!form.isEdit && !form.isNew">Same as Above</input></td>
+						ng-model="form.sameAsAbove">Same as Above</input></td>
 				</tr>
 				<tr>
 					<td><span>House No.</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('C').houseNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('C').houseNo"></td>
 					<td><span>Locality</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('C').locality"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('C').locality"></td>
 				</tr>
 				<tr>
 					<td><span>Land Mark</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('C').landmark"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('C').landmark"></td>
 					<td><span>District</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('C').district"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('C').district"></td>
 				</tr>
 				<tr>
 					<td><span>City</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('C').city"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('C').city"></td>
 					<td><span>Pincode</span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="getAddress('C').pincode"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="getAddress('C').pincode"></td>
 				</tr>
 				<tr>
 					<td><span>State</span></td>
 					<td><select ng-model="getAddress('C').state"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						class="form-control"
 						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>
 				</tr>
-				
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><button type="button" class="btn btn-success btn-sm"
-							ng-click="">Edit</button>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><button type="button" class="btn btn-success btn-sm"
+						ng-click="">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentAddress()">Save</button></td>
 			</table>
 
 		</div>

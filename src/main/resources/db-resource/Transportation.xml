@@ -13,123 +13,6 @@ from TransportMaster tm left join transportReservation tr on tm.Route_Code=tr.Ro
 
 	</entry>
 
-
-
-	<entry key="getTransportByRouteCode">
-    <![CDATA[
-Select
-
-	Route_Code ,
-	Description,
-	Threshold,
-	Price,
-
-from TransportMaster where Route_Code=:Route_Code;    
-    ]]>
-
-	</entry>
-
-	<entry key="addTransport">
-    <![CDATA[
-
-Insert into TransportMaster
-
-	
-	(Route_Code,
-	Description,
-	Threshold,
-	Price,
-	) values
-	
-	(:Route_Code,
-	:Description,
-	:Threshold,
-	:Price,
-	);
-
-
-    ]]>
-
-	</entry>
-
-	<entry key="updateTransport">
-    <![CDATA[
-
-Update TransportMaster set
-    
-    Route_Code=:Route_Code
-    Description=:Description,
-	Threshold=:Threshold,
-	Price=:Price,
-	
-	where Route_Code=:Route_Code;
-
-    ]]>
-
-	</entry>
-
-	<entry key="deleteTransport">
-    <![CDATA[
-
-Delete from TransportMaster where Route_Code=:Route_Code;
-
-    ]]>
-
-	</entry>
-
-	<entry key="getTransportReservationByFileNo">
-    <![CDATA[
-
-select 
-
-    TM.Description, TM.Price, TR.Route_Code, TR.File_No, TR.Fee_Paid, TR.Allocation_Status,TR.Is_Active 
-
-    from transportmaster TM join transportreservation TR on TM.Route_Code = TR.Route_Code 
-    
-    where TR.File_No=:File_No;
-    ]]>
-
-	</entry>
-
-
-	<entry key="addTransportReservation">
-    <![CDATA[
-
-Insert into TransportReservation
-
- (  File_No,
-   Fee_Paid,
-   Route_Code,
-   Allocation_Status,
-   Is_Active)
-
-values (:File_No,
-   :Fee_Paid,
-   :Route_Code,
-   :Allocation_Status,
-   :Is_Active);
-
-    ]]>
-
-	</entry>
-
-	<entry key="updateTransportReservation">
-    <![CDATA[
-
-Update TransportReservation set
-
-  
-   File_No=:File_No,
-   Fee_Paid=:Fee_Paid,
-   Route_Code=:Route_Code,
-   Allocation_Status=:Allocation_Status,
-   Is_Active=:Is_Active
-
-where File_No=:File_No;
-    ]]>
-
-	</entry>
-
 	<entry key="deleteTransportReservation">
     <![CDATA[
  
@@ -139,174 +22,14 @@ where File_No=:File_No;
     ]]>
 
 	</entry>
-
-	<entry key="getTransportAllocationByFileNo">
-    <![CDATA[
- 
- select 
- 
- File_No,
- Vehicle_Id,
- Allocated_on,
- Allocated_By, 
- Updated_by,
- Switched_On,
- isAllocated,
- Remark
- 
- from TransportAllocation where File_No=:File_No;
- 
-    ]]>
-
-	</entry>
-
-	<entry key="addTransportAllocation">
-    <![CDATA[
- 
-Insert into TransportAllocation 
-
-(File_No,
- Vehicle_Id,
- Allocated_on,
- Allocated_By, 
- Updated_by,
- Switched_On,
- isAllocated,
- Remark
- ) values 
- (:File_No,
- :Vehicle_Id,
- :Allocated_on,
- :Allocated_By, 
- :Updated_by,
- :Switched_On,
- :isAllocated,
- :Remark
- );
- 
- 
-    ]]>
-
-	</entry>
-
-
-	<entry key="updateTransportAllocation">
-    <![CDATA[
- 
- Update TransportAllocation set  
- 
- Vehicle_Id=:Vehicle_Id,
- Allocated_on=:Allocated_on,
- Allocated_By=:Allocated_By, 
- Updated_by=:Updated_by,
- Switched_On=:Switched_On,
- isAllocated=:isAllocated,
- Remark=:Remark
- 
- where File_No=:File_No;
- 
-    ]]>
-
-	</entry>
-
-
 	<entry key="deleteTransportAllocation">
     <![CDATA[
- 
  Delete from TransportAllocation where File_No=:File_No;
- 
- 
+
     ]]>
 
 	</entry>
 
-	<entry key="getVehicleDetailByVehicleId">
-    <![CDATA[
- 
-select
-
-	Type_Id,
-	Capacity ,
-	Vehicle_No,
-	Route_Code,
-	Vehicle_Id
-	
-	from VehicleDetail where Vehicle_Id=:Vehicle_Id;
-
- 
- 
-    ]]>
-
-	</entry>
-
-	<entry key="addtVehicleDetail">
-    <![CDATA[
- 
- insert into VehicleDetail 
- 
-    (Type_Id,
-	Capacity ,
-	Vehicle_No,
-	Route_Code,
-	Vehicle_Id) values 
-	
-	(:Type_Id,
-	:Capacity,
-	:Vehicle_No,
-	:Route_Code,
-	:Vehicle_Id);
- 
- 
-    ]]>
-
-	</entry>
-
-	<entry key="updateVehicleDetail">
-    <![CDATA[
- 
- update VehicleDetail set
- 
-    Type_Id=:Type_Id,
-	Capacity=:Capacity ,
-	Vehicle_No=:Vehicle_No,
-	Route_Code=:Route_Code
- 
- where Vehicle_Id=:Vehicle_Id;
- 
-    ]]>
-
-	</entry>
-
-	<entry key="deleteVehicleDetail">
-    <![CDATA[
- 
- Delete from VehicleDetail where Vehicle_Id=:Vehicle_Id;
- 
- 
-    ]]>
-
-	</entry>
-	
-	<entry key="getVehicleAllocatedDetail">
-    <![CDATA[
- 
-select 
-	File_No,
-	Vehicle_Id,
-	Allocated_on,
-	Allocated_By,
-	Updated_by,
-	Switched_On,
-	isAllocated,
-	Remark
-	  
-from transportallocation where File_No=:File_No and isAllocated = 1;
- 
- 
-    ]]>
-
-	</entry>
-	
 	<entry key="getPreviousAllocatedDetail">
     <![CDATA[
  
@@ -324,9 +47,7 @@ from transportallocation where File_No=:File_No and isAllocated = 0;
  
  
     ]]>
-
 	</entry>
-	
 	
 	<entry key="getCurrentAllocation">
     <![CDATA[
@@ -358,7 +79,4 @@ select
      ]]>
 
 	</entry>
-
-	
-
 </properties>

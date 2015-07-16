@@ -61,11 +61,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		}
 		else{
 			getCurrentSession().update(student);
-			saveAcademicDtl(student.getAcademicDtl(), student.getFileNo());
-			saveDiscountDtl(student.getDiscountDtl(),student.getFileNo());
-			saveAddressDtl(student.getAddressDtl(),student.getFileNo());
-			saveBranchPreference(student.getBranchPreference(),student.getFileNo());
-			saveCounsellingDtl(student.getCounsellingDtl(),student.getFileNo());
 		}
 	}
 
@@ -187,7 +182,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	@Override
 	public List<StudentAcademic> getAcademicDtl(Long fileNo) {
 
-		String queryString="FROM StudentAcademic sa WHERE s.fileNo = "+fileNo;
+		String queryString="FROM StudentAcademic sa WHERE sa.fileNo = "+fileNo;
 		Query query=getCurrentSession().createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<StudentAcademic> result= (List<StudentAcademic>)query.list();

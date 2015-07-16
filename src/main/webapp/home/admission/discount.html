@@ -1,39 +1,68 @@
 <form id="DISCOUNT">
-	<div class="admission-tab-inner">
-		<div class="student-discount">
-			<table>
-				<tr>
-					<th><span>Feehead</span></th>
-					<th><span>Amount</span></th>
-					<th><span>Percent</span></th>
-				</tr>
-				<tr ng-repeat="discount in student.discountDtl">
+	<div class="discount-view">
+		<table>
+			<tr>
+				<th><span>Feehead</span></th>
+				<th><span>Amount</span></th>
+				<th><span>Percent</span></th>
+				<th><span>Approved</span></th>
+				<th><span>Conditional</span></th>
+				<th><span>Re-Occuring</span></th>
+			</tr>
+			<tr ng-repeat="discount in student.discountDtl">
 
-					<td><select ng-model="discount.feeHeadId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
-						ng-options="item.headId*1 as item.head  for item in serverModelData.FEEHEAD"></select>
-					</td>
-					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="discount.amount" ng-blur="checkAmout($index,'amount')"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+				<td><select ng-model="discount.discountHead.headId" class="form-control"
+					ng-options="item.headId*1 as item.head  for item in serverModelData.FEEHEAD"></select>
+				</td>
+				<td><input type="text" class="form-control"
+					ng-model="discount.amount" ng-blur="checkAmout($index,'amount')">
+				</td>
 
-					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="discount.percent" ng-blur="checkAmout($index,'percent')"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
-					<td><img height="35" width="35" ng-src="images/plus.png"
-						ng-click="addDiscountDtl()" /></td>
-					<td><img height="35" width="35" ng-src="images/minus.png"
-						ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
-				</tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm"
-						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
-			</table>
-		</div>
+				<td><input type="text" class="form-control"
+					ng-model="discount.percent" ng-blur="checkAmout($index,'percent')">
+				</td>
+				<td>
+					<section title=".squaredOne">
+						<!-- .squaredOne -->
+						<div class="squaredOne">
+							<input type="checkbox" value="None" id="three" name="check"
+								checked /> <label for="three"></label>
+						</div>
+						<!-- end .squaredOne -->
+					</section>
+				</td>
+				<td>
+					<section title=".squaredOne">
+						<!-- .squaredOne -->
+						<div class="squaredOne">
+							<input type="checkbox" value="None" id="One" name="check"
+								checked /> <label for="One"></label>
+						</div>
+						<!-- end .squaredOne -->
+					</section>
+				</td>
+				<td>
+					<section title=".squaredOne">
+						<!-- .squaredOne -->
+						<div class="squaredOne">
+							<input type="checkbox" value="None" id="two" name="check"
+								checked /> <label for="two"></label>
+						</div>
+						<!-- end .squaredOne -->
+					</section>
+				</td>
+				<td><img height="35" width="35" ng-src="images/plus.png"
+					ng-click="addDiscountDtl()" /></td>
+				<td><img height="35" width="35" ng-src="images/minus.png"
+					ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
+			</tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><button type="button" class="btn btn-success btn-sm"
+					ng-click="">Edit</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentDiscountDtl()">Save</button></td>
+		</table>
 	</div>
 </form>

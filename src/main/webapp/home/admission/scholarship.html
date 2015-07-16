@@ -2,48 +2,49 @@
 <div class="admission-tab-inner">
 	<div class="student-discount">
 		<table>
-			<tr>
+			<tr ng-repeat="scholarship in student.scholarship">
 				<td><span> Scholarship </span></td>
 				<td><input type="checkbox" ng-model="isScholarship"
-					ng-disabled="!form.isEdit && !form.isNew"></td>
+					></td>
 				<td><span> Domicile State </span></td>
-				<td><select select ng-model="student.scholarshipDetail.stateId"
-					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+				<td><select select ng-model="scholarship.stateId"
+					 class="form-control"
 					ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE"></select>
 				</td>
 			</tr>
-			<tr>
+			<tr ng-repeat="scholarship in student.scholarship">
 				<td><span> Category </span></td>
 				<td><select select ng-model="student.categoryId"
-					ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					 class="form-control"
 					ng-options="item.categoryId*1 as item.categoryName  for item in serverModelData.CATEGORY"></select>
 				</td>
 				<td><span> Family Income </span></td>
 				<td><input type="number"
-					ng-model="student.scholarshipDetail.parentIncome" class="form-control"
-					ng-Readonly="!form.isEdit && !form.isNew"></td>
+					ng-model="scholarship.parentIncome" class="form-control"
+					></td>
 			</tr>
 
 
-			<tr>
+			<tr ng-repeat="scholarship in student.scholarship">
 				<td><span> Remarks </span></td>
 				<td><textarea rows="3" cols="30"
-						ng-model="student.scholarshipDetail.remark" class="form-control"
-						ng-Readonly="!form.isEdit && !form.isNew">
+						ng-model="scholarship.remark" class="form-control"
+						>
 										
 						</textarea></td>
 				<td><span> Amount </span></td>
 				<td><input type="number" class="form-control"
-					ng-model="student.scholarshipDetail.amount"
-					ng-disabled="!form.isEdit && !form.isNew"></td>
+					ng-model="scholarship.amount"
+					></td>
 			</tr>
-			    <td></td>
+			 <tr>   <td></td>
 				<td></td>
 				<td></td>
 				<td><button type="button" class="btn btn-success btn-sm"
 						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
-		
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="updateScholarshipDtl()">Save</button></td>
+		</tr>
 		</table>
 	</div>
 </div>

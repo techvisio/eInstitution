@@ -23,6 +23,11 @@ public class Session extends BasicEntity {
 	@OneToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="Course_Id")
 	private Course course;
+
+	public Session(){}
+	public Session(Long id){
+		this.sessionId=id;
+	}
 	public Course getCourse() {
 		return course;
 	}

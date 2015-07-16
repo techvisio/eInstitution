@@ -1,13 +1,10 @@
 package com.techvisio.einstitution.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,8 +18,9 @@ public class HostelReservation extends BasicEntity {
 	@Column(name = "File_No")
 	private Long fileNo;
 
-	@Column(name = "Fee_Paid")
+	@Column(name = "Is_Fee_Paid")
 	private boolean feePaid;
+	
 	@Column(name = "Type_Code")
 	private String typeCode;
 
@@ -30,14 +28,43 @@ public class HostelReservation extends BasicEntity {
 	private String allocationStatus;
 
 	@Column(name = "Is_Active")
-	private boolean isActive;
+	private boolean active;
+	
+	@Column(name = "Charges")
+	private Double charges;
+	
+	@Column(name = "Is_Fee_Generated")
+	private boolean feeGenerated;
 
 	@Column(name = "Price")
 	private Double price;
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Double getCharges() {
+		return charges;
+	}
+
+	public void setCharges(Double charges) {
+		this.charges = charges;
+	}
+
+	public boolean isFeeGenerated() {
+		return feeGenerated;
+	}
+
+	public void setFeeGenerated(boolean feeGenerated) {
+		this.feeGenerated = feeGenerated;
+	}
+
 	@Column(name = "Description")
 	private String description;
-
 
 	public Long getFileNo() {
 		return fileNo;
@@ -69,14 +96,6 @@ public class HostelReservation extends BasicEntity {
 
 	public void setAllocationStatus(String allocationStatus) {
 		this.allocationStatus = allocationStatus;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
 	}
 
 	public Double getPrice() {

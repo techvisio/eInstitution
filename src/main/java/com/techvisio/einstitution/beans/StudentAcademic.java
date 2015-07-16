@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,10 +36,10 @@ public class StudentAcademic {
 	private String rollNo;
 	@Column(name = "File_No")
 	private Long fileNo;
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Qualification_Id")
 	private Qualification qualification;
-	@OneToMany(cascade={CascadeType.PERSIST})
+	@OneToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
 	@JoinColumn(name="Student_Qualification_Id")
 	private List<QualificationSubject> qualificationSubDtl;
 

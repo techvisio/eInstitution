@@ -25,6 +25,11 @@ public class Semester extends BasicEntity{
 	@Column(name = "Semester")
 	private String semester;
 	
+	public Semester(){}
+	public Semester(Long id){
+		this.semesterId=id;
+	}
+	
 
 	public Course getCourse() {
 		return course;

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
 @Entity
 @Table(name = "ADMISSION_CONSULTANT_DTL")    
 public class AdmissnConsltntDtl extends BasicEntity {
@@ -24,7 +27,7 @@ public class AdmissnConsltntDtl extends BasicEntity {
 	@Column(name="File_No")
 	private Long fileNo;
 	@ManyToOne
-	@JoinColumn(name="Consultant_Id")
+	@JoinColumn(name="Consltant_Id")
 	private Consultant consultant;
 	@Column(name="Is_Consultancy_Agreed")
 	private boolean consultancyAgreed;
@@ -36,10 +39,10 @@ public class AdmissnConsltntDtl extends BasicEntity {
 	private Date dueDate;
 	@Column(name="Remarks")
     private String remarks;
-	@OneToMany(cascade={CascadeType.PERSIST})
+	@OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER)
 	@JoinColumn(name="Consltant_Dtl_Id")
 	private List<ConsultantPayment> consultantPaymentDetail=new ArrayList<ConsultantPayment>();
-	@OneToMany(cascade={CascadeType.PERSIST})
+	@OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER)
 	@JoinColumn(name="Consltant_Dtl_Id")
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias=new ArrayList<ConsultantPaymentCriteria>();
     

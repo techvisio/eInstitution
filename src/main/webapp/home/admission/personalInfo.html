@@ -4,25 +4,23 @@
 			<table>
 				<tr>
 					<td><span> Father Name </span></td>
-					<td><input type="text" class="form-control"	ng-model="student.fatherName"></td>
+					<td><input type="text" class="form-control"
+						ng-model="student.fatherName"></td>
 					<td><span> Mother Name </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.motherName"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.motherName"></td>
 				</tr>
 
 				<tr>
 					<td><span> Gender </span></td>
 					<td>
 						<li><input type="radio" ng-model="student.gender"
-							name="gender" value='M' ng-disabled="!form.isEdit && !form.isNew" /><span>Male</span></li>
+							name="gender" value='M' /><span>Male</span></li>
 						<li><input type="radio" ng-model="student.gender"
-							name="gender" value='F' ng-disabled="!form.isEdit && !form.isNew" /><span>Female</span></li>
+							name="gender" value='F' /><span>Female</span></li>
 					</td>
 					<td><span> Date of Birth </span></td>
-					<td><input type="date" ng-model="student.dob"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+					<td><input type="date" ng-model="student.dob"></td>
 					<!-- <td><p class="input-group">
               <input type="dropdown" class="dropdown-toggle" datepicker-popup="{{format}}" ng-model="student.dob" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
@@ -33,68 +31,56 @@
 				<tr>
 
 					<td><span> Category </span></td>
-					<td><select select ng-model="student.categoryId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select select ng-model="student.category.categoryId"
+						class="form-control"
 						ng-options="item.categoryId*1 as item.categoryName  for item in serverModelData.CATEGORY"></select>
 					</td>
 					<td><span> Blood Group </span></td>
 					<td><select select ng-model="student.bloodGroup"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+						class="form-control"
 						ng-options="item.id as item.value  for item in serverModelData.dropdownMasterData.BLOODGROUP"></select>
 					</td>
 				</tr>
 				<tr>
 					<td><span> Father Occupation </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.fatherOccupation"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.fatherOccupation"></td>
 
 				</tr>
 				<tr>
 					<td><span> Mobile No </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.selfMobileNo"
-						ng-Readonly="!form.isEdit && !form.isNew" required></td>
+						ng-model="student.selfMobileNo" required></td>
 					<td><span> Email Id </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.emailId"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.emailId"></td>
 				</tr>
 
 				<tr>
 					<td><span> Fixed Line No </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.fixedlineNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.fixedlineNo"></td>
 					<td><span> Parent Mobile No </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.parentMobileNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.parentMobileNo"></td>
 				</tr>
 
 				<tr>
 					<td><span> Gaurdian Mobile No </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.gaurdianMobileNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.gaurdianMobileNo"></td>
 					<td><span> Gaurdian Email Id </span></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
-						ng-model="student.gaurdianEmailId"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						ng-model="student.gaurdianEmailId"></td>
 				</tr>
+				<tr>
 				<td></td>
 				<td></td>
-				<td></td>
+				<td><button type="button" class="btn btn-primary btn-sm" ng-click="saveStudent()">Save</button></td>
 				<td><button type="button" class="btn btn-success btn-sm"
 						ng-click="toggleReadOnly('PERSONALINFO')">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+					</td></tr>
 			</table>
 		</div>
 	</form>

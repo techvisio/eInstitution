@@ -18,6 +18,11 @@ public class State extends BasicEntity{
 	@Column(name = "State_Name")
 	private String stateName;
 	
+	public State(){}
+	
+	public State(Long id){
+		this.stateId = id;
+	}
 	
 	public Long getStateId() {
 		return stateId;

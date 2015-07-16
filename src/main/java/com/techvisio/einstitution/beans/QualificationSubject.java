@@ -3,6 +3,7 @@ package com.techvisio.einstitution.beans;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,10 +20,10 @@ public class QualificationSubject extends BasicEntity {
 	@Id
 	@Column(name="Stdnt_Subjct_Id")
 	private Long stdntSubjctId;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Subject_Id")
 	private Subject subject;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Qualification_Id")
 	private Qualification qualification;
 	@Column(name="File_No")

@@ -1,7 +1,6 @@
 
 <form id="COUNSELLING">
-	<div class="admission-tab-inner">
-		<div class="five-column-view">
+		<div class="councelling-view">
 			<table>
 				<tr>
 					<th><span>Counselling</span></th>
@@ -12,25 +11,25 @@
 				</tr>
 
 				<tr ng-repeat="counselling in student.counsellingDtl">
-					<td><select ng-model="counselling.counsellingId"
-						ng-disabled="!form.isEdit && !form.isNew" class="form-control"
+					<td><select ng-model="counselling.counsellingBody.counsellingId"
+						 class="form-control"
 						ng-options="item.counsellingId*1 as item.counsellingBody for item in serverModelData.COUNSELLING"></select></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
+				
 						ng-model="counselling.rollNo"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
+				
 						ng-model="counselling.rank"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
+				
 						ng-model="counselling.categoryRank"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						></td>
 					<td><input type="text" class="form-control"
-						aria-label="Amount (to the nearest dollar)"
+				
 						ng-model="counselling.percentile"
-						ng-Readonly="!form.isEdit && !form.isNew"></td>
+						></td>
 
 					<td><img height="35" width="35" ng-src="images/plus.png"
 						ng-click="addCounsellingDtl()" /></td>
@@ -42,8 +41,8 @@
 					<td></td>
 					<td><button type="button" class="btn btn-success btn-sm"
 							ng-click="">Edit</button>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button></td>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="updateCounsellingDtl()">Save</button></td>
 			</table>
 		</div>
-	</div>
 </form>

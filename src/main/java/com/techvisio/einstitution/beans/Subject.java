@@ -19,6 +19,10 @@ public class Subject extends BasicEntity {
 	@Column(name = "Subject_Name")
 	private String subjectName;
 	
+	public Subject(){}
+	public Subject(Long id){
+		this.subjectId=id;
+	}
 	
 	public Long getSubjectId() {
 		return subjectId;

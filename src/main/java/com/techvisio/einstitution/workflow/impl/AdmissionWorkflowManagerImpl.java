@@ -36,33 +36,12 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	FeeManager feeManager;
 
 	@Autowired
-	ScholarshipWorkflowManager scholarshipWorkflowManager;
-
-	@Autowired
-	ConsultantWorkflowManager consultantWorkflowManager;
-
-	@Autowired
 	FeeWorkflowManager feeWorkflowManager;
 
 	@Override
 	public void saveStudent(Student student) {
-
 		admissionManager.saveStudent(student);
-		
-		if(student.getScholarship() != null && student.getScholarship().getStateId() != null){
-			Scholarship scholarship = student.getScholarship();
-			scholarship.setFileNo(student.getFileNo());
-			scholarshipWorkflowManager.saveScholarship(scholarship);
 			}
-		
-		if(student.getConsultantDetail().size()>0 && student.getConsultantDetail()!=null){
-			
-			List<AdmissnConsltntDtl> consultantDetails = student.getConsultantDetail();
-			if(consultantDetails != null){
-				consultantWorkflowManager.saveAdmissionConsultantDtl(consultantDetails, student.getFileNo());
-			}
-		}
-	}
 
 	@Override
 	public void saveAcademicDtl(List<StudentAcademic> studentAcademics,Long fileNo) {

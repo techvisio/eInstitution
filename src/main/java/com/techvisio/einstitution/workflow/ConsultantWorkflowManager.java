@@ -4,11 +4,13 @@ package com.techvisio.einstitution.workflow;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.ConsultantPayment;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
 @Component
+@Transactional
 public interface ConsultantWorkflowManager {
 	
 	public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(Long fileNo);

@@ -1,4 +1,3 @@
-
 package com.techvisio.einstitution.beans;
 
 import javax.persistence.Column;

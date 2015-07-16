@@ -19,6 +19,12 @@ public class QuotaCode extends BasicEntity{
 	private String quotaCode;
 	@Column(name="Description")
 	private String description;
+
+	public QuotaCode (){}
+	
+	public QuotaCode(Long id){
+		this.quotaId = id;
+	}
 	
 	public Long getQuotaId() {
 		return quotaId;

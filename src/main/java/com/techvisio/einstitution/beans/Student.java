@@ -101,7 +101,6 @@ public class Student extends BasicEntity {
 	//	private Date managementApprovedOn;
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
-	@JsonIgnore
 	private List<StudentAcademic> academicDtl;
 
 	@OneToMany(cascade={CascadeType.PERSIST})
@@ -112,17 +111,17 @@ public class Student extends BasicEntity {
 	@JoinColumn(name="File_No")
 	private List<Address> addressDtl=new ArrayList<Address>();
 
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
-	private Scholarship scholarship;
+	private List<Scholarship> scholarship;
 
 	@JsonIgnore
-	public Scholarship getScholarship() {
+	public List<Scholarship> getScholarship() {
 		return scholarship;
 	}
 
 	@JsonProperty("scholarship")
-	public void setScholarship(Scholarship scholarship) {
+	public void setScholarship(List<Scholarship> scholarship) {
 		this.scholarship = scholarship;
 	}
 
@@ -163,7 +162,7 @@ public class Student extends BasicEntity {
 	private Session session;
 	@OneToMany(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="File_No")
-	private List<Remark> remarks;
+	private List<Remark> remarks=new ArrayList<Remark>();
 	
 	@OneToMany
 	@JoinColumn(name = "File_No")
