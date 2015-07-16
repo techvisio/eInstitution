@@ -29,6 +29,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 		<property name="maxTotal" value="3"/>
 		<property name="maxWaitMillis" value="1000"/>
 		</bean>
+		<import resource="spring-security.xml" />
 		
 		<!-- Enable Annotation based Declarative Transaction Management -->
     <tx:annotation-driven proxy-target-class="true"
@@ -127,5 +128,8 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 		value="classpath:db-resource/Report.xml"></property>
 	</bean>
 
+	<bean id="myAuthenticationProvider" 
+         class="com.techvisio.einstitution.manager.AuthenticationManager">
+	</bean>
 
 </beans>
