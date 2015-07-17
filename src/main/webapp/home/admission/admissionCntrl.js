@@ -10,15 +10,21 @@ admissionModule
 		 '$modal',
 		 '$state',  
 		 '$rootScope',
-		 'student',
+		 'injectedData',
 		 function($scope, admissionService, masterdataService,
-				 $modal, $state,$rootScope,student) {
+				 $modal, $state,$rootScope,injectedData) {
 
 			 $scope.form = {};
+			 $scope.form.isNew = true;
+			 $scope.student = {};
+			 if(injectedData.data){
+				 $scope.form.isNew=false;
+				 $scope.student = injectedData.data;
+			 }
 			 $scope.form.sameAsAbove = false;
 			 $scope.form.processing = false;
 			 $scope.form.isEdit = true;
-			 $scope.form.isNew = true;
+			
 			 $scope.dashboard = true;
 			 $scope.showCriteria = false;
 			 $scope.tab = 1;
@@ -110,7 +116,6 @@ admissionModule
 
 			 $scope.dummyConsultantDetail = {};
 
-			 $scope.student = student.data||{};
 			 
 			 $scope.latestAdmission = [];
 			 $scope.searchCriteria = {};
@@ -174,8 +179,8 @@ admissionModule
 				 $state.go('newadmission');
 			 }
 
-			 $scope.searchStudent = function() {
-				 $state.go('searchStudent');
+			 $scope.admissionSearch = function() {
+				 $state.go('admissionSearch');
 			 }
 
 			 $scope.gridOptions = {
@@ -523,7 +528,7 @@ admissionModule
 				 admissionService
 				 .getStudentAcademicDtl(
 						 $scope.student.academicDtl,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -560,7 +565,7 @@ admissionModule
 				 admissionService
 				 .updateStudentAddress(
 						 $scope.student.addressDtl,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -596,7 +601,7 @@ admissionModule
 				 admissionService
 				 .updateStudentDiscountDtl(
 						 $scope.student.discountDtl,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -631,7 +636,7 @@ admissionModule
 				 admissionService
 				 .updateBranchPref(
 						 $scope.student.branchPreference,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -668,7 +673,7 @@ admissionModule
 				 admissionService
 				 .updateCounsellingDtl(
 						 $scope.student.counsellingDtl,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -704,7 +709,7 @@ admissionModule
 				 admissionService
 				 .updateConsultantDtl(
 						 $scope.student.counsellingDtl,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -741,7 +746,7 @@ admissionModule
 				 admissionService
 				 .updateScholarshipDtl(
 						 $scope.student.scholarship,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console
@@ -779,7 +784,7 @@ admissionModule
 				 admissionService
 				 .updateDocuments(
 						 $scope.student.documents,
-						 $scope.sudent.fileNo)
+						 $scope.student.fileNo)
 						 .then(
 								 function(response) {
 									 console

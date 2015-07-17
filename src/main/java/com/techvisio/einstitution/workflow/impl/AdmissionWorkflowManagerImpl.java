@@ -8,21 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
-import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.QualificationSubject;
-import com.techvisio.einstitution.beans.Scholarship;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
-import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
-import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 
 @Component
 @Transactional
@@ -38,6 +36,13 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	@Autowired
 	FeeWorkflowManager feeWorkflowManager;
 
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling getStudentDtlBySearchCriteria for Student:{}",this.getClass().getName(), searchCriteria.getFirstName());		
+		List<StudentBasicInfo> studentBasicInfos = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
+		return studentBasicInfos;
+	}
+	
 	@Override
 	public void saveStudent(Student student) {
 		admissionManager.saveStudent(student);
@@ -92,9 +97,8 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	@Override
-	public void saveQualificationSubDtl(
-			List<QualificationSubject> qualificationSubjects, Long fileNo) {
-		admissionManager.saveQualificationSubDtl(qualificationSubjects, fileNo);
+	public void saveQualificationSubDtl (List<QualificationSubject> qualificationSubjects, Long fileNo, Long stdntQualifctnId){
+		admissionManager.saveQualificationSubDtl(qualificationSubjects, fileNo,stdntQualifctnId);
 	}
 
 	@Override
@@ -104,9 +108,8 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	@Override
-	public void deleteQualificationSubDtlExclusion(
-			List<QualificationSubject> qualificationSubjects, Long fileNo) {
-		admissionManager.deleteQualificationSubDtlExclusion(qualificationSubjects, fileNo);
+	public void deleteQualificationSubDtlExclusion(List<QualificationSubject> qualificationSubjects, Long fileNo, Long stdntQualifctnId){
+		admissionManager.deleteQualificationSubDtlExclusion(qualificationSubjects, fileNo, stdntQualifctnId);
 	}
 
 	@Override

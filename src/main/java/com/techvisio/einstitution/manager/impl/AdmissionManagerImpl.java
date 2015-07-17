@@ -52,6 +52,15 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling getStudentDtlBySearchCriteria method for student:{}",this.getClass().getName(), searchCriteria.getFirstName());	
+		List<StudentBasicInfo> studentBasicInfos = null;
+		studentBasicInfos=admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
+		
+		return studentBasicInfos;
+	}
+	
+	@Override
 	public void saveStudent(Student student) {
 		String registrationNo=student.getRegistrationNo();
 		if(registrationNo==null){
@@ -118,10 +127,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	@Override
-	public void saveQualificationSubDtl(
-			List<QualificationSubject> qualificationSubjects, Long fileNo) {
+	public void saveQualificationSubDtl (List<QualificationSubject> qualificationSubjects, Long fileNo, Long stdntQualifctnId){
 
-		admissionDao.saveQualificationSubDtl(qualificationSubjects, fileNo);
+		admissionDao.saveQualificationSubDtl(qualificationSubjects, fileNo,stdntQualifctnId);
 	}
 
 	@Override
@@ -132,10 +140,9 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	@Override
-	public void deleteQualificationSubDtlExclusion(
-			List<QualificationSubject> qualificationSubjects, Long fileNo) {
+	public void deleteQualificationSubDtlExclusion(List<QualificationSubject> qualificationSubjects, Long fileNo, Long stdntQualifctnId){
 
-		admissionDao.deleteQualificationSubDtlExclusion(qualificationSubjects, fileNo);
+		admissionDao.deleteQualificationSubDtlExclusion(qualificationSubjects, fileNo,stdntQualifctnId);
 	}
 
 	@Override

@@ -18,8 +18,10 @@ import com.techvisio.einstitution.beans.BranchPreference;
 import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.Scholarship;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -40,6 +42,28 @@ public class AdmissionService {
 
 	@Autowired
 	ScholarshipWorkflowManager schlrshpWorkflowManager;
+
+	@RequestMapping(value ="/search/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		logger.info("{}  Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(), searchCriteria.getFirstName());
+		Response response=new Response();
+		try
+		{
+			List<StudentBasicInfo> studentBasicInfo = admWorkflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+			response.setResponseBody(studentBasicInfo);
+			
+			if(studentBasicInfo == null){
+				
+				response.setError("No such record found");
+			}
+			}
+			catch(Exception e)
+			{
+			logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
+			response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
 
 	@RequestMapping(value = "/student/{fileNo}", method = RequestMethod.GET)
 	public Student getStudent(@PathVariable Long fileNo){

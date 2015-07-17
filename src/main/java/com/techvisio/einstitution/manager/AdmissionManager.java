@@ -19,6 +19,8 @@ import com.techvisio.einstitution.beans.StudentDocument;
 @Component
 public interface AdmissionManager {
 
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	
 	public Student getStudent(Long fileNo);
 	public void saveStudent(Student student);
 	
@@ -38,9 +40,9 @@ public interface AdmissionManager {
 	public void deleteDiscountDtlExclusion(List<AdmissionDiscount> admissionDiscounts, Long fileNo);
 
 	public List<QualificationSubject> getQualificaionSubDtl(Long fileNo);
-	public void saveQualificationSubDtl (List<QualificationSubject> qualificationSubjects, Long fileNo);
+	public void saveQualificationSubDtl (List<QualificationSubject> qualificationSubjects, Long fileNo, Long stdntQualifctnId);
 	public void saveQualificationSubDtl(QualificationSubject qualificationSubject);
-	public void deleteQualificationSubDtlExclusion(List<QualificationSubject> qualificationSubjects, Long fileNo);
+	public void deleteQualificationSubDtlExclusion(List<QualificationSubject> qualificationSubjects, Long fileNo, Long stdntQualifctnId);
 	
 	public List<BranchPreference> getBranchPreference(Long fileNo);
 	public void saveBranchPreference(List<BranchPreference> branchPreferences, Long fileNo);
@@ -57,6 +59,6 @@ public interface AdmissionManager {
 	public void saveDocumentDtl(StudentDocument document);
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 
-
 	public List<Object[]> getStudentDocumentDtl();
+	
 }

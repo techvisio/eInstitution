@@ -84,36 +84,30 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 			String deletePaymntQuery = consultantQueryProps.getProperty("dltCnsltntPymntDtlByConsltantDtlId");
 
-			SqlParameterSource namedParametr = namedParameterForDltConsultnt(
-					fileNo, consultantDtlIds);
-
-			getNamedParamJdbcTemplate().update(deletePaymntQuery, namedParametr);
-
+			Query query=getCurrentSession().createSQLQuery(deletePaymntQuery).setParameter("File_No", fileNo).setParameterList("Consultant_Dtl_Id", consultantDtlIds);
+			query.executeUpdate();
 
 			String deleteCriteriaQuery = consultantQueryProps.getProperty("dltCnsltantPymntCriteriaByConsltantDtlId");
 
-			SqlParameterSource namedParam = namedParameterForDltConsultnt(
-					fileNo, consultantDtlIds);
-
-			getNamedParamJdbcTemplate().update(deleteCriteriaQuery, namedParam);
+			Query query1=getCurrentSession().createSQLQuery(deleteCriteriaQuery).setParameter("File_No", fileNo).setParameterList("Consultant_Dtl_Id", consultantDtlIds);
+			query1.executeUpdate();
 
 
-			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantDtlExclusion");
+			String deleteConsltntDtl = consultantQueryProps
+					.getProperty("deleteConsultantDtlExclusion");
 
-			SqlParameterSource namedParameter = namedParameterForDltConsultnt(
-					fileNo, consultantDtlIds);
-
-			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
+			Query query2=getCurrentSession().createSQLQuery(deleteConsltntDtl).setParameter("File_No", fileNo).setParameterList("Consultant_Dtl_Id", consultantDtlIds);
+			query2.executeUpdate();
 		}
-	
-
-	private SqlParameterSource namedParameterForDltConsultnt(Long fileNo,
-			List<Long> consultantDtlIds) {
-		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Consultant_Dtl_Id", consultantDtlIds)
-		.addValue("File_No", fileNo);
-		return namedParameter;
-	}
+//	
+//
+//	private SqlParameterSource namedParameterForDltConsultnt(Long fileNo,
+//			List<Long> consultantDtlIds) {
+//		SqlParameterSource namedParameter = new MapSqlParameterSource(
+//				"Consultant_Dtl_Id", consultantDtlIds)
+//		.addValue("File_No", fileNo);
+//		return namedParameter;
+//	}
 
 	@Override
 public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
@@ -162,12 +156,8 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 		}
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentDtlExclusion");
 
-			SqlParameterSource namedParameter = new MapSqlParameterSource(
-					"Consltnt_Pymnt_Id", consultantPymntIds)
-			.addValue("File_No", fileNo);
-
-			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-		}
+			Query query=getCurrentSession().createSQLQuery(deleteQuery).setParameter("File_No", fileNo).setParameterList("Consltnt_Pymnt_Id", consultantPymntIds);
+			query.executeUpdate();		}
 	
 
 	@Override
@@ -219,13 +209,12 @@ public List<ConsultantPayment> getConsultantPayment(Long fileNo) {
 		}
 			String deleteQuery = consultantQueryProps.getProperty("deleteConsultantPaymentCriteriaExclusion");
 
-			SqlParameterSource namedParameter = new MapSqlParameterSource(
-					"Pymnt_Critria_Id", Ids)
-			.addValue("File_No", fileNo);
+			Query query=getCurrentSession().createSQLQuery(deleteQuery).setParameter("File_No", fileNo).setParameterList("Pymnt_Critria_Id", Ids);
+			query.executeUpdate();		
+	}
 
-			getNamedParamJdbcTemplate().update(deleteQuery, namedParameter);
-		}
+}
 
 	
 
-}
+

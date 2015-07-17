@@ -15,7 +15,7 @@ public class Qualification extends BasicEntity {
     @Column(name="Qualification_Id")   
 	private Long qualificationId;
 	@Column(name="Qualifying_Exam")
-	private String qulaifyingExam;
+	private String qualifyingExam;
 	
 	public Qualification() {
 		// TODO Auto-generated constructor stub
@@ -30,17 +30,13 @@ public class Qualification extends BasicEntity {
 	}
 	
 	
-	public String getQulaifyingExam() {
-		return qulaifyingExam;
+	public String getQualifyingExam() {
+		return qualifyingExam;
 	}
 	
-	public void setQulaifyingExam(String qulaifyingExam) {
-		this.qulaifyingExam = qulaifyingExam;
+	public void setQualifyingExam(String qulaifyingExam) {
+		this.qualifyingExam = qulaifyingExam;
 	}
 
-	@Override
-	public String toString() {
-		return "Qualfication [id=" + qualificationId + ", qulaifyingExam=" + qulaifyingExam
-				+ "]";
-	}
+	
 }

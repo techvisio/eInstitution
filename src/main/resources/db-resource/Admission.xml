@@ -31,12 +31,12 @@ s.Shift_Id,
 s.Centre_Id,
 s.Section_Id,
 s.Lateral
-from  studentdetail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
+from  student_detail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
     ]]>
 
-	</entry>
+	</entry>    
 
-<entry key="getUnapprovedAdmissions">
+	<entry key="getUnapprovedAdmissions">
     <![CDATA[
 select * from (select registration_No, File_No,
 First_Name,
@@ -53,67 +53,51 @@ Updated_On,
 Category_Id from StudentDetail where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
 </entry>
 
-	
-<entry key="deleteAcademicDtlExclusion">
+
+	<entry key="deleteAcademicDtlExclusion">
     <![CDATA[
       
-Delete from Academic_Detail where File_No not in (:File_No) and Student_Qualification_Id not in (:Student_Qualification_Id);  
+Delete from Academic_Detail where File_No =:File_No and Student_Qualification_Id not in (:Student_Qualification_Id)  
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteAddressDtlExclusion">
+	<entry key="deleteAdmissionDisDtlExclusion">
     <![CDATA[
       
-Delete from Address_Detail where File_No not in (:File_No) and Address_Id not in(:Address_Id);  
+Delete from Admission_Discount_Dtl where File_No=:File_No and Discount_Dtl_Id not in (:Discount_Dtl_Id)  
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteAdmissionDisDtlExclusion">
+	<entry key="deleteSubjectDtlExclusion">
     <![CDATA[
       
-Delete from Admission_Discount_Dtl where File_No not in (:File_No) and Discount_Dtl_Id not in (:Discount_Dtl_Id);  
+Delete from Qualification_Subject_Dtl where File_No =:File_No and Student_Qualification_Id=:Student_Qualification_Id and Student_Qualification_Id not in (:Student_Qualification_Id) 
     ]]>
+	</entry>
 
-</entry>
-
-<entry key="deleteSubjectDtlExclusion">
+	<entry key="deleteBranchPreferenceExclusion">
     <![CDATA[
       
-Delete from Qualification_Subject_Dtl where File_No not in (:File_No) and Student_Qualification_Id not in (:Student_Qualification_Id); 
-    ]]>
-    </entry>
-<entry key="deleteBranchPreferenceExclusion">
-    <![CDATA[
-      
-      Delete from Branch_Preference where File_No not in (:File_No) and Branch_Preference_Id not in (:Branch_Preference_Id); 
+      Delete from Branch_Preference where File_No =:File_No and Branch_Preference_Id not in (:Branch_Preference_Id) 
 	 
 	     ]]>
 </entry>
-	
-	
-<entry key="deleteCounsellingDetailExclusion">
+
+
+	<entry key="deleteCounsellingDetailExclusion">
     <![CDATA[
-delete from counselling_Detail where File_No not in (:File_No) and Stdnt_Counslling_Id not in (:Stdnt_Counslling_Id);
+delete from counselling_Detail where File_No=:File_No and Stdnt_Counslling_Id not in (:Stdnt_Counslling_Id)
     ]]>
 
-</entry>
-	
-<entry key="deleteCounsellingDetail">
+	</entry>
+
+	<entry key="deleteDocumentDtlExclusion">
     <![CDATA[
-delete from counselling_Detail where Stdnt_Counslling_Id = :Stdnt_Counslling_Id;
+delete from STUDENT_DOCUMENTS where File_No not in (:File_No) and Student_Doc_Id not in (:Student_Doc_Id)
     ]]>
 
-</entry>
+	</entry>
 
-<entry key="deleteDocumentDtlExclusion">
-    <![CDATA[
-delete from STUDENT_DOCUMENTS where File_No not in (:File_No) and Student_Doc_Id not in (:Student_Doc_Id);
-    ]]>
-
-</entry>
-
-
-	
 </properties>

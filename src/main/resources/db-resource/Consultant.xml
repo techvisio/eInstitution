@@ -6,7 +6,7 @@
 	<entry key="deleteConsultantDtlExclusion">
     <![CDATA[
       
-Delete from admission_consultant_Dtl where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id);
+Delete from admission_consultant_Dtl where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id)
 
     ]]>
 
@@ -14,7 +14,7 @@ Delete from admission_consultant_Dtl where File_No=:File_No and Consltant_Dtl_Id
 	<entry key="deleteConsultantPaymentDtlExclusion">
     <![CDATA[
       
-Delete from Consultant_Payment_Detail where File_No=:File_No and Consltnt_Pymnt_Id not in (:Consltnt_Pymnt_Id);  
+Delete from Consultant_Payment_Detail where File_No=:File_No and Consltnt_Pymnt_Id not in (:Consltnt_Pymnt_Id)
     ]]>
 
 	</entry>
@@ -22,7 +22,7 @@ Delete from Consultant_Payment_Detail where File_No=:File_No and Consltnt_Pymnt_
 	<entry key="dltCnsltntPymntDtlByConsltantDtlId">
     <![CDATA[
       
-Delete from Consultant_Payment_Detail where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id);  
+Delete from Consultant_Payment_Detail where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id)  
     ]]>
 
 	</entry>
@@ -30,7 +30,7 @@ Delete from Consultant_Payment_Detail where File_No=:File_No and Consltant_Dtl_I
 	<entry key="deleteConsultantPaymentCriteriaExclusion">
     <![CDATA[
       
-Delete from consultant_payment_criteria where File_No=:File_No and Pymnt_Critria_Id not in (:Pymnt_Critria_Id);
+Delete from consultant_payment_criteria where File_No=:File_No and Pymnt_Critria_Id not in (:Pymnt_Critria_Id)
 
    ]]>
 
@@ -39,7 +39,7 @@ Delete from consultant_payment_criteria where File_No=:File_No and Pymnt_Critria
 	<entry key="dltCnsltantPymntCriteriaByConsltantDtlId">
     <![CDATA[
       
-Delete from consultant_payment_criteria where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id);
+Delete from consultant_payment_criteria where File_No=:File_No and Consltant_Dtl_Id not in (:Consultant_Dtl_Id)
 
    ]]>
 
