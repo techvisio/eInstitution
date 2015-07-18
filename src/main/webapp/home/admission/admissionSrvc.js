@@ -2,6 +2,7 @@ admissionModule.service("admissionService", function($http, $q) {
 
 			 // Return public API.
 			 return ({
+				 getStudentByCriteria : getStudentByCriteria,
 				 saveStudent : saveStudent,
 				 getStudent : getStudent,
 				 getStudentAcademicDtl : getStudentAcademicDtl,
@@ -26,6 +27,20 @@ admissionModule.service("admissionService", function($http, $q) {
 				 saveAmenity:saveAmenity
 			 });
 
+			 function getStudentByCriteria(searchCriteria){
+
+				 console.log('Getting student by search criteria in service');
+				 var request = $http({
+					 method : "post",
+					 url : "admission/search/",
+					 params : "",
+					 data : searchCriteria
+
+				 });
+
+				 return (request.then(handleSuccess, handleError));
+			 }
+			 
 			 function saveStudent(student) {
 
 				 console.log('add student called in service');
@@ -66,7 +81,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateStudentAcademicDtl(academicDtl, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/academic"+fileNo,
+					 url : "admission/student/academic/"+fileNo,
 					 params : "",
 					 data : academicDtl
 				 });
@@ -230,20 +245,6 @@ admissionModule.service("admissionService", function($http, $q) {
 					 params : {
 						 action : "get"
 					 }
-				 });
-
-				 return (request.then(handleSuccess, handleError));
-			 }
-
-			 function getStudentByCriteria(searchCriteria){
-
-				 console.log('Getting student by search criteria in service');
-				 var request = $http({
-					 method : "post",
-					 url : "admission/search/",
-					 params : "",
-					 data : searchCriteria
-
 				 });
 
 				 return (request.then(handleSuccess, handleError));

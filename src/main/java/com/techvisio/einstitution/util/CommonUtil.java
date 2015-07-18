@@ -62,11 +62,11 @@ public class CommonUtil {
 				admissnConsltntDtl.setFileNo(fileNo);
 			}
 		}
-//
-//		if(studentDetail.getScholarship() != null){
-//
-//			studentDetail.getScholarship().setFileNo(fileNo);
-//		}
+
+		if(studentDetail.getScholarship() != null){
+
+			studentDetail.getScholarship().setFileNo(fileNo);
+		}
 
 		if (studentDetail.getCounsellingDtl() != null) {
 			for (Counselling counsellingDetail : studentDetail.getCounsellingDtl()) {

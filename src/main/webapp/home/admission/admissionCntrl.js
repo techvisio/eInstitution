@@ -182,6 +182,10 @@ admissionModule
 			 $scope.admissionSearch = function() {
 				 $state.go('admissionSearch');
 			 }
+			 
+			 $scope.directViewAdmission=function(currentFileNo){
+				 $state.go('admission',{fileNo:currentFileNo});
+			 }
 
 			 $scope.gridOptions = {
 					 multiSelect : false,
@@ -448,6 +452,7 @@ admissionModule
 								 $scope.student = response.data.responseBody;
 								 $scope.form.isNew=false;
 								 alert("Your Records Saved Successfully")
+								 $scope.directViewAdmission($scope.student.fileNo);
 							 } 
 							 $scope.processing = false;
 						 })
@@ -526,7 +531,7 @@ admissionModule
 
 			 $scope.updateStudentAcademicDtl = function() {
 				 admissionService
-				 .getStudentAcademicDtl(
+				 .updateStudentAcademicDtl(
 						 $scope.student.academicDtl,
 						 $scope.student.fileNo)
 						 .then(

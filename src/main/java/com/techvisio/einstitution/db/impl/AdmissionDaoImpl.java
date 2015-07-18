@@ -233,7 +233,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 				stdntQualifctnId.add(-1L);
 			}
 		}
-		String dltQuery = admissionQueryProps.getProperty("deleteSubjectDtlExclusion");
+		String dltQuery = admissionQueryProps.getProperty("deleteSubjectDtlExclusionByQualifctnStndtId");
 		Query query1=getCurrentSession().createSQLQuery(dltQuery).setParameter("File_No", fileNo).setParameterList("Student_Qualification_Id", stdntQualifctnId);
 		query1.executeUpdate();	
 
@@ -287,8 +287,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			}
 		}
 
-		String deleteQuery = admissionQueryProps
-				.getProperty("deleteQualificationSubjectDtlExclusion");
+		String deleteQuery = admissionQueryProps.getProperty("deleteSubjectDtlExclusion");
 		Query query=getCurrentSession().createSQLQuery(deleteQuery).setParameter("File_No", fileNo).setParameter("Student_Qualification_Id", stdntQualifctnId).setParameterList("Stdnt_Subjct_Id", stdntSubjctId);
 		query.executeUpdate();	
 	}
@@ -478,7 +477,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
 		    Course course=cacheManager.getCourseById(courseId);
 			basicInfo.setCourse(course);
-			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
+			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Categry_Id")));
 		    CasteCategory category=cacheManager.getCategoryId(categoryId);
 			basicInfo.setCasteCategory(category);
 			basicInfo.setDob(rs.getDate("DOB"));
@@ -486,7 +485,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			basicInfo.setFatherName(rs.getString("Father_Name"));
 			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 			basicInfo.setGender(rs.getString("Gender"));
-			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
+			basicInfo.setModifiedDate(rs.getDate("UpdatedOn"));
 			basicInfo.setSemester(rs.getString("Semester"));
 			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 		    Session session=cacheManager.getSessionBySessionId(sessionId);

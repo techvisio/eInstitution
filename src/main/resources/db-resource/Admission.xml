@@ -9,50 +9,31 @@ SELECT
 s.Registration_No,
 s.File_No,
 s.Enroll_No,
-s.Uni_Enroll_No,
+s.UniEnroll_No,
 s.First_Name,
 s.Last_Name,
 s.Father_Name,
 s.Gender,
 s.DOB,
 s.Email_Id,
-s.Category_Id,
+s.Categry_Id,
 s.Course_Id,
 s.Branch_Id,
-s.Created_On,
-s.Updated_On,   
-s.Quota_Code,
+s.createdOn,
+s.UpdatedOn,   
+s.Quota_Id,
 s.Academic_Year,
 s.Semester,
-s.Lateral,
 s.Batch_Id,
 s.Session_Id,
 s.Shift_Id,
 s.Centre_Id,
 s.Section_Id,
-s.Lateral
-from  student_detail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(Uni_Enroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
+s.Is_Lateral
+from  student_detail s  WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and Course_Id = IFNULL(:Course_Id,Course_Id) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and ifnull(Email_Id,'-1')=ifnull(:Email_Id,ifnull(Email_Id,'-1')) and ifnull(Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(Enroll_No,'-1')) and ifnull(UniEnroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(UniEnroll_No,'-1')) and ifnull(Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(Self_Mobile_No,'-1')) and First_Name like :First_Name;    
     ]]>
 
 	</entry>    
-
-	<entry key="getUnapprovedAdmissions">
-    <![CDATA[
-select * from (select registration_No, File_No,
-First_Name,
-Last_Name,
-Enroll_No,
-Father_Name,
-Gender,
-DOB,
-Course_Id,
-Branch_Id,
-Semester,
-Academic_Year,
-Updated_On,
-Category_Id from StudentDetail where Management_Approval != 1 order by Updated_On desc) as Admissionbasicinfo limit :limit; ]]>
-</entry>
-
 
 	<entry key="deleteAcademicDtlExclusion">
     <![CDATA[
@@ -73,10 +54,17 @@ Delete from Admission_Discount_Dtl where File_No=:File_No and Discount_Dtl_Id no
 	<entry key="deleteSubjectDtlExclusion">
     <![CDATA[
       
-Delete from Qualification_Subject_Dtl where File_No =:File_No and Student_Qualification_Id=:Student_Qualification_Id and Student_Qualification_Id not in (:Student_Qualification_Id) 
+Delete from Qualification_Subject_Dtl where File_No =:File_No and Student_Qualification_Id=:Student_Qualification_Id and Stdnt_Subjct_Id not in (:Stdnt_Subjct_Id) 
     ]]>
 	</entry>
 
+	<entry key="deleteSubjectDtlExclusionByQualifctnStndtId">
+    <![CDATA[
+      
+Delete from Qualification_Subject_Dtl where File_No =:File_No and Student_Qualification_Id not in (:Student_Qualification_Id) 
+    ]]>
+	</entry>
+	
 	<entry key="deleteBranchPreferenceExclusion">
     <![CDATA[
       

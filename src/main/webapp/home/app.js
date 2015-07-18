@@ -47,7 +47,8 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
     .state('admissionSearch', {
     	url: "/admission/search",
         templateUrl: 'home/admission/admissionSearch.html',
-        controller: "admissionController"
+        controller: "admissionController",
+        	
     });
     
 //    .state('newadmission',{

@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.Branch;
 import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -73,5 +75,20 @@ public class AdmissionDaoTest {
 	
 		System.out.println(addresses);
 	}
-	}
+	
+
+@Test
+public void testSearch(){
+	SearchCriteria criteria = new SearchCriteria();
+	criteria.setEmailId("saurbh@gmail.com");
+	List<StudentBasicInfo> basicInfos = dao.getStudentDtlBySearchCriteria(criteria);
+	System.out.println("Data is:"+basicInfos);
+}
+
+
+
+
+
+
+}
   

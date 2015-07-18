@@ -4,6 +4,19 @@ import java.util.Date;
 
 public class StudentBasicInfo {
 	
+	@Override
+	public String toString() {
+		return "StudentBasicInfo [registrationNo=" + registrationNo
+				+ ", fileNo=" + fileNo + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", enrollmentNo=" + enrollmentNo
+				+ ", fatherName=" + fatherName + ", gender=" + gender
+				+ ", dob=" + dob + ", course=" + course + ", branch=" + branch
+				+ ", semester=" + semester + ", academicYear=" + academicYear
+				+ ", casteCategory=" + casteCategory + ", batch=" + batch
+				+ ", session=" + session + ", shift=" + shift + ", centre="
+				+ centre + ", section=" + section + ", isLateral=" + isLateral
+				+ ", modifiedDate=" + modifiedDate + ", remark=" + remark + "]";
+	}
 	private String registrationNo;
 	private Long fileNo;
 	private String firstName;

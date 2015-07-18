@@ -113,7 +113,7 @@ public class Student extends BasicEntity {
 	private List<Address> addressDtl=new ArrayList<Address>();
 
 	@OneToOne(cascade={CascadeType.PERSIST})
-	@PrimaryKeyJoinColumn 
+	@JoinColumn(name="File_No")
 	private Scholarship scholarship;
 
 	@JsonIgnore

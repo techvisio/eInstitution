@@ -22,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Scholarship extends BasicEntity{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	
 	@Id
+	@Column(name="Scholarship_id")
+	private Long schlarshipId;
 	@Column(name="File_No")
 	private Long fileNo; 
 	@Column(name = "Amount")
@@ -101,6 +102,12 @@ public class Scholarship extends BasicEntity{
 	}
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
+	}
+	public Long getSchlarshipId() {
+		return schlarshipId;
+	}
+	public void setSchlarshipId(Long schlarshipId) {
+		this.schlarshipId = schlarshipId;
 	}
 
 }

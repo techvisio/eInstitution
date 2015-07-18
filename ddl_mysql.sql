@@ -761,7 +761,7 @@
     );
 
     create table SCHOLARSHIP_DETAIL (
-        File_No bigint not null auto_increment,
+        Scholarship_id bigint not null auto_increment,
         createdBy varchar(255),
         createdOn datetime,
         updatedBy varchar(255),
@@ -769,11 +769,12 @@
         Amount double precision,
         Is_Approved bit,
         Is_Conditional bit,
+        File_No bigint,
         Parent_Income double precision,
         Remark varchar(255),
         Is_Reoccuring bit,
         State_Id bigint,
-        primary key (File_No)
+        primary key (Scholarship_id)
     );
 
     create table SCHOLARSHIP_PAYMENT_DETAIL (
@@ -1258,7 +1259,7 @@
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         add constraint FK_2u7fgvgie8l2k4mro3njud4fh 
         foreign key (Stdnt_Schlarshp_Id) 
-        references SCHOLARSHIP_DETAIL (File_No);
+        references SCHOLARSHIP_DETAIL (Scholarship_id);
 
     alter table SECTION_MASTER 
         add constraint FK_49p5601yem7mxrt6kmp94og11 
