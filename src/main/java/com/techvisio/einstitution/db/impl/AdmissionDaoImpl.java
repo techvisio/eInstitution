@@ -503,7 +503,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
 		    Course course=cacheManager.getCourseById(courseId);
 			basicInfo.setCourse(course);
-			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Categry_Id")));
+			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
 		    CasteCategory category=cacheManager.getCategoryId(categoryId);
 			basicInfo.setCasteCategory(category);
 			basicInfo.setDob(rs.getDate("DOB"));
@@ -511,7 +511,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			basicInfo.setFatherName(rs.getString("Father_Name"));
 			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
 			basicInfo.setGender(rs.getString("Gender"));
-			basicInfo.setModifiedDate(rs.getDate("UpdatedOn"));
+			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
 			basicInfo.setSemester(rs.getString("Semester"));
 			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
 		    Session session=cacheManager.getSessionBySessionId(sessionId);

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,49 +26,61 @@ import com.techvisio.einstitution.util.CommonUtil;
 public class Student extends BasicEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "File_No")
 	private Long fileNo;
+	
 	@Column(name = "Registration_No")
 	private String registrationNo;
+	
 	@Column(name = "Academic_Year")
 	private String academicYear;
+	
 	@ManyToOne
 	@JoinColumn(name="Course_Id")
 	private Course course;
+	
 	@ManyToOne
 	@JoinColumn(name="Branch_Id")
 	private Branch branch;
-	@OneToMany(cascade={CascadeType.ALL})
+	
 	@JoinColumn(name="File_No")
+	@OneToMany(cascade={CascadeType.ALL})
 	private List<StudentAcademic> academicDtl;
+	
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private List<AdmissionDiscount> DiscountDtl=new ArrayList<AdmissionDiscount>();
+	
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private List<Address> addressDtl=new ArrayList<Address>();
+	
 	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private Scholarship scholarship;
+	
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private List<BranchPreference> branchPreference=new ArrayList<BranchPreference>();
+	
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private List<Counselling> counsellingDtl=new ArrayList<Counselling>();
+	
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private List<AdmissnConsltntDtl> consultantDetail;
+	
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="File_No")
 	private List<Remark> remarks=new ArrayList<Remark>();
-	@OneToMany
+	
+	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name = "File_No")
 	private List<StudentDocument> documents = new ArrayList<StudentDocument>();
    
-	  @OneToOne(cascade = CascadeType.ALL)
-	    @PrimaryKeyJoinColumn
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
 	private StudentBasics studentBasics;
     
     
@@ -81,6 +94,7 @@ public class Student extends BasicEntity {
 		this.scholarship = scholarship;
 	}
 
+	
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -89,6 +103,7 @@ public class Student extends BasicEntity {
 		this.registrationNo = registrationNo;
 	}
 
+	
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -203,6 +218,7 @@ public class Student extends BasicEntity {
 		this.documents = documents;
 	}
 
+	
 	public StudentBasics getStudentBasics() {
 		return studentBasics;
 	}

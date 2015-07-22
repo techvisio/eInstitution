@@ -1124,7 +1124,7 @@ admissionModule
 					 }
 
 					 case "PERSONALINFO": {
-						 $scope.getStudent($scope.student.fileNo);
+						 $scope.getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
 
@@ -1142,7 +1142,7 @@ admissionModule
 						 break;
 					 }
 					 case "OFFICEUSE": {
-						 $scope.getStudent($scope.student.fileNo);
+						 $scope.getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
 					 case "DISCOUNT": {
@@ -1158,7 +1158,7 @@ admissionModule
 						 break;
 					 }
 					 case "REFERRAL": {
-						 $scope.getStudent($scope.student.fileNo);
+						 $scope.getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
 					

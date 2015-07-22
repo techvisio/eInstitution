@@ -5,15 +5,12 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,11 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "STUDENT_BASIC")
 public class StudentBasics extends BasicEntity{
 
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	@Column(name = "Student_Basic_Id")
-//	private Long studentBasicId;
-//	@Column(name = "File_No")
+	@Id
+	@Column(name = "FILE_NO")
 	private Long fileNo;
 	@Column(name = "Admission_Mode")
 	private String admissionMode;
@@ -94,13 +88,12 @@ public class StudentBasics extends BasicEntity{
 	private Session session;
 
 	@JsonIgnore
+	@MapsId
+	   @JoinColumn(name = "FILE_NO", referencedColumnName = "FILE_NO")
+	   @OneToOne(optional = false, fetch = FetchType.LAZY)
 	private Student student;
 	
-	@Id
-	@GeneratedValue(generator = "foreigngen")
-	@GenericGenerator(strategy = "foreign", name="foreigngen",
-			parameters = @Parameter(name = "property", value="student"))
-	@Column(name = "FILE_NO")
+	
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -349,7 +342,6 @@ public class StudentBasics extends BasicEntity{
 	}
 	
 	@JsonIgnore
-	@OneToOne(mappedBy = "studentBasics" ,fetch=FetchType.EAGER )
 	public Student getStudent() {
 		return student;
 	}
