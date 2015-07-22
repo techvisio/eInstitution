@@ -20,7 +20,7 @@ public class Session extends BasicEntity {
 	private Long sessionId;
 	@Column(name = "Session")
 	private String session;
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="Course_Id")
 	private Course course;
 

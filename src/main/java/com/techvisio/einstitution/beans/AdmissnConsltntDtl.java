@@ -39,10 +39,10 @@ public class AdmissnConsltntDtl extends BasicEntity {
 	private Date dueDate;
 	@Column(name="Remarks")
     private String remarks;
-	@OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER)
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinColumn(name="Consltant_Dtl_Id")
 	private List<ConsultantPayment> consultantPaymentDetail=new ArrayList<ConsultantPayment>();
-	@OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER)
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinColumn(name="Consltant_Dtl_Id")
     private List<ConsultantPaymentCriteria> consultantPaymentCriterias=new ArrayList<ConsultantPaymentCriteria>();
     

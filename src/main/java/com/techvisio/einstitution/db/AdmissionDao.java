@@ -15,6 +15,7 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.Student;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 @Component
 public interface AdmissionDao {
@@ -23,6 +24,9 @@ public interface AdmissionDao {
 	public void saveStudent(Student student);
 	public Student getStudent(Long fileNo);
 
+	public StudentBasics getStudentBasics(Long fileNo);
+	public void saveStudentBasics(StudentBasics studentBasics);
+	
 	public List<StudentAcademic> getAcademicDtl(Long fileNo);
 	public void saveAcademicDtl(List<StudentAcademic> studentAcademics, Long fileNo);
 	public void saveAcademicDtl(StudentAcademic studentAcademic);

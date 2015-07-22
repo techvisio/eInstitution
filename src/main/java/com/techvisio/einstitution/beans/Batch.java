@@ -19,7 +19,7 @@ public class Batch extends BasicEntity {
 	private Long batchId;
 	@Column(name = "Batch")
 	private String batch;
-    @ManyToOne(cascade={CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="Course_Id")
 	private Course course;
 	

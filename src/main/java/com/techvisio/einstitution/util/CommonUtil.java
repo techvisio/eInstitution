@@ -73,6 +73,10 @@ public class CommonUtil {
 				counsellingDetail.setFileNo(fileNo);
 			}
 		}
+		
+		if(studentDetail.getStudentBasics()!=null){
+			studentDetail.getStudentBasics().setFileNo(fileNo);
+		}
 	}
 
 	public static void propogateIdentifierToQualification(StudentAcademic academicDetail){

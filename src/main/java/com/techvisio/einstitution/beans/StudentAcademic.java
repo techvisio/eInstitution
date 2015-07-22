@@ -39,7 +39,7 @@ public class StudentAcademic {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Qualification_Id")
 	private Qualification qualification;
-	@OneToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
+	@OneToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
 	@JoinColumn(name="Student_Qualification_Id")
 	private List<QualificationSubject> qualificationSubDtl;
 

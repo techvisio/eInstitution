@@ -15,6 +15,7 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -46,7 +47,19 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	@Override
 	public void saveStudent(Student student) {
 		admissionManager.saveStudent(student);
+		
 			}
+
+	@Override
+	public StudentBasics getStudentBasics(Long fileNo) {
+		StudentBasics studentBasics = admissionManager.getStudentBasics(fileNo);
+		return studentBasics;
+	}
+
+	@Override
+	public void saveStudentBasics(StudentBasics studentBasics) {
+		admissionManager.saveStudentBasics(studentBasics);		
+	}
 
 	@Override
 	public void saveAcademicDtl(List<StudentAcademic> studentAcademics,Long fileNo) {

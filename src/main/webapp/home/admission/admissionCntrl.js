@@ -17,6 +17,7 @@ admissionModule
 			 $scope.form = {};
 			 $scope.form.isNew = true;
 			 $scope.student = {};
+			 $scope.student.studentBasics={};
 			 if(injectedData.data){
 				 $scope.form.isNew=false;
 				 $scope.student = injectedData.data;
@@ -508,6 +509,42 @@ admissionModule
 							 }
 							 $scope.processing = false;
 						 })
+			 }
+			 $scope.getStudentBasics = function() {
+				 admissionService
+				 .getStudentBasics(
+						 $scope.student.fileNo)
+						 .then(
+								 function(response) {
+									 console
+									 .log('student basic detail received from service : ');
+									 console.log(response);
+									 if (response != null
+											 && response.data != null
+											 && response.data.responseBody != null) {
+										 $scope.student.studentBasics = response.data.responseBody;
+
+									 }
+								 })
+			 }
+
+			 $scope.updateStudentBasics = function() {
+				 admissionService
+				 .updateStudentBasics(
+						 $scope.student.studentBasics,
+						 $scope.student.fileNo)
+						 .then(
+								 function(response) {
+									 console
+									 .log('updateStudentBasics called in controller : ');
+									 console.log(response);
+									 if (response != null
+											 && response.data != null
+											 && response.data.responseBody != null) {
+										 $scope.student.studentBasics = response.data.responseBody;
+
+									 }
+								 })
 			 }
 
 			 $scope.getStudentAcademicDtl = function() {

@@ -23,7 +23,7 @@ public class User {
 	private Long userId;
 	private String department;
 	private String name;
-	@OneToMany(cascade = { CascadeType.PERSIST },fetch=FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinColumn(name = "USER_ID")
 	private List<Role> roles;
 	private char[] password;

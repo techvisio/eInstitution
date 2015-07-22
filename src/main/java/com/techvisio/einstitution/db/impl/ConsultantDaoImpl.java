@@ -48,6 +48,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 		if(admissnConsltntDtls!=null && admissnConsltntDtls.size()>0){
 			deleteAdmissionConsultantDtlExclusion(admissnConsltntDtls, fileNo);
 			for(AdmissnConsltntDtl admissnConsltntDtl:admissnConsltntDtls){
+                admissnConsltntDtl.setFileNo(fileNo);
 				saveAdmissionConsultantDtl(admissnConsltntDtl);
 			}
 		}

@@ -34,6 +34,7 @@ import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -94,13 +95,37 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public void saveStudent(Student student) {
 
 		if(student.getFileNo()==null){
-			getCurrentSession().persist(student);
+			student.getStudentBasics().setStudent(student);
+			getCurrentSession().save(student);
 		}
 		else{
 			getCurrentSession().update(student);
 		}
 	}
 
+	@Override
+	public StudentBasics getStudentBasics(Long fileNo) {
+		String queryString="FROM StudentBasics sb WHERE sb.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<StudentBasics> result= (List<StudentBasics>)query.list();
+		if(result != null && result.size()>0){
+			return result.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public void saveStudentBasics(StudentBasics studentBasics) {
+
+		if(studentBasics.getFileNo()==null){
+			getCurrentSession().persist(studentBasics);
+		}
+		else{
+			getCurrentSession().update(studentBasics);
+		}
+	}
+	
 	@Override
 	public List<Address> getAddressDtl(Long fileNo) {
 
@@ -146,6 +171,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		if(admissionDiscounts!=null && admissionDiscounts.size()>0){
 			deleteDiscountDtlExclusion(admissionDiscounts,fileNo);
 			for(AdmissionDiscount admissionDiscount : admissionDiscounts){
+				admissionDiscount.setFileNo(fileNo);
 				saveDiscountDtl(admissionDiscount);
 			}
 		}

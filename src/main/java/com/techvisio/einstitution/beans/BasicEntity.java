@@ -3,6 +3,7 @@ package com.techvisio.einstitution.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
@@ -13,10 +14,15 @@ import javax.persistence.PreUpdate;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class BasicEntity implements Serializable {
 
+	@Column(name="Created_By")
 	private String createdBy;
+	@Column(name="Updated_By")
 	private String updatedBy;
+	@Column(name="Created_On")
 	private Date createdOn;
+	@Column(name="Updated_On")
 	private Date updatedOn;
+	
 	public String getCreatedBy() {
 		return createdBy;
 	}

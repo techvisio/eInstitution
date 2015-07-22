@@ -161,39 +161,11 @@
 
     alter table STUDENT_DETAIL 
         drop 
-        foreign key FK_l9t5b1lqtqlvufl6a7w4oayfv;
-
-    alter table STUDENT_DETAIL 
-        drop 
         foreign key FK_8iimrp47q00ti7q7p2gknev0t;
 
     alter table STUDENT_DETAIL 
         drop 
-        foreign key FK_ivjojcnxetg3yqpatyriypmud;
-
-    alter table STUDENT_DETAIL 
-        drop 
-        foreign key FK_mtaqql7vshmgy70sug4fds0vp;
-
-    alter table STUDENT_DETAIL 
-        drop 
         foreign key FK_16ee44ep142lhljf1lya0rbhs;
-
-    alter table STUDENT_DETAIL 
-        drop 
-        foreign key FK_pj9m126e1hwavbtckye1shp3t;
-
-    alter table STUDENT_DETAIL 
-        drop 
-        foreign key FK_kwi9kr4xiq01s5yqi200vytlm;
-
-    alter table STUDENT_DETAIL 
-        drop 
-        foreign key FK_66echmop9yruoe3mhil1iql1;
-
-    alter table STUDENT_DETAIL 
-        drop 
-        foreign key FK_rfbfbi3h7upfxi2wkgq4k9wox;
 
     alter table STUDENT_DOCUMENTS 
         drop 
@@ -315,6 +287,8 @@
 
     drop table if exists STATE_MASTER;
 
+    drop table if exists STUDENT_BASIC;
+
     drop table if exists STUDENT_DETAIL;
 
     drop table if exists STUDENT_DOCUMENTS;
@@ -359,10 +333,10 @@
 
     create table ADDRESS_DETAIL (
         Address_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Address_Type varchar(255),
         City varchar(255),
         District varchar(255),
@@ -377,10 +351,10 @@
 
     create table ADMISSION_CONSULTANT_DTL (
         Consltant_Dtl_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount_To_Pay double precision,
         Is_Consultancy_Agreed bit,
         Due_Date date,
@@ -393,10 +367,10 @@
 
     create table ADMISSION_DISCOUNT_DTL (
         Discount_Dtl_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount double precision,
         Discout_Type varchar(255),
         File_No bigint,
@@ -407,10 +381,10 @@
 
     create table ADMISSION_REMARK (
         Remark_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         File_No bigint,
         Remark varchar(255),
         Remark_Type varchar(255),
@@ -419,10 +393,10 @@
 
     create table AMENITIES_CHARGES (
         Amenity_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Charges double precision,
         Head_Id bigint,
         primary key (Amenity_Id)
@@ -430,10 +404,10 @@
 
     create table BATCH_MASTER (
         Batch_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Batch varchar(255),
         Next_Batch_Id bigint,
         Prev_Batch_Id bigint,
@@ -443,20 +417,20 @@
 
     create table BLOCK_MASTER (
         Block_id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Block varchar(255),
         primary key (Block_id)
     );
 
     create table BRANCH_PREFERENCE (
         Branch_Preference_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         File_No bigint,
         Branch_Id bigint,
         Course_Id bigint,
@@ -465,30 +439,30 @@
 
     create table CASTECATEGORY_MASTER (
         Categry_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Category_Name varchar(255),
         primary key (Categry_Id)
     );
 
     create table CENTRE_MASTER (
         Centre_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Centre_Name varchar(255),
         primary key (Centre_Id)
     );
 
     create table CODE_MAPPING_MASTER (
         Code_Map_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Code varchar(255),
         Description varchar(255),
         Name varchar(255),
@@ -497,10 +471,10 @@
 
     create table CONSULTANT_MASTER (
         Consultant_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Address varchar(255),
         Email_Id varchar(255),
         Name varchar(255),
@@ -511,10 +485,10 @@
 
     create table CONSULTANT_PAYMENT_DETAIL (
         Consltnt_Pymnt_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount double precision,
         Consltant_Dtl_Id bigint,
         File_No bigint,
@@ -524,10 +498,10 @@
 
     create table COUNSELLING_DETAIL (
         Stdnt_Counslling_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Category_Rank bigint,
         File_No bigint,
         Percentile float,
@@ -539,20 +513,20 @@
 
     create table COUNSELLING_MASTER (
         Counselling_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Counselling_Body varchar(255),
         primary key (Counselling_Id)
     );
 
     create table COURSE_BRANCH_MASTER (
         Branch_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Branch_Name varchar(255),
         Course_Id bigint,
         primary key (Branch_Id)
@@ -560,10 +534,10 @@
 
     create table COURSE_MASTER (
         Course_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Course varchar(255),
         Course_Type varchar(255),
         primary key (Course_Id)
@@ -571,10 +545,10 @@
 
     create table DOCUMENT_MASTER (
         Document_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Document_Name varchar(255),
         Document_Type varchar(255),
         primary key (Document_Id)
@@ -582,10 +556,10 @@
 
     create table FEE_DISCOUNTHEAD_MASTER (
         Head_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Head varchar(255),
         Is_Reoccurring bit,
         Parent_Type_Id bigint,
@@ -596,10 +570,10 @@
 
     create table FEE_TRANSACTION_CREDIT (
         Transaction_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount double precision,
         File_No bigint,
         Mode varchar(255),
@@ -613,10 +587,10 @@
 
     create table FEE_TRANSACTION_DEBIT (
         Transaction_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount double precision,
         File_No bigint,
         Mode varchar(255),
@@ -630,20 +604,20 @@
 
     create table FLOOR_MASTER (
         Floor_id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Floor varchar(255),
         primary key (Floor_id)
     );
 
     create table HOSTEL_RESERVATION (
         hostl_Rsrvation_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Is_Active bit,
         Allocation_Status varchar(255),
         Charges double precision,
@@ -668,20 +642,20 @@
 
     create table QUALIFICATION_MASTER (
         Qualification_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Qualifying_Exam varchar(255),
         primary key (Qualification_Id)
     );
 
     create table QUALIFICATION_SUBJECT_DTL (
         Stdnt_Subjct_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         File_No bigint,
         Marks_Obtained double precision,
         Max_Marks double precision,
@@ -693,10 +667,10 @@
 
     create table QUOTACODE_MASTER (
         Quota_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Description varchar(255),
         Quota_Code varchar(255),
         primary key (Quota_Id)
@@ -718,10 +692,10 @@
 
     create table ROOM_ALLOCATION_DETAIL (
         Room_Allocation_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Allocated bit,
         Alocated_By varchar(255),
         Allocated_On date,
@@ -734,10 +708,10 @@
 
     create table ROOM_TYPE_DETAIL (
         Room_Detail_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Room_No varchar(255),
         Block_Id bigint,
         Floor_Id bigint,
@@ -748,10 +722,10 @@
 
     create table ROOM_TYPE_MASTER (
         Room_Type_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Description varchar(255),
         Price double precision,
         Room_Capacity integer,
@@ -762,10 +736,10 @@
 
     create table SCHOLARSHIP_DETAIL (
         Scholarship_id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount double precision,
         Is_Approved bit,
         Is_Conditional bit,
@@ -788,10 +762,10 @@
 
     create table SECTION_MASTER (
         Section_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Section varchar(255),
         Branch_Id bigint,
         Course_Id bigint,
@@ -800,10 +774,10 @@
 
     create table SEMESTER_MASTER (
         Semester_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Semester varchar(255),
         Course_Id bigint,
         primary key (Semester_Id)
@@ -811,10 +785,10 @@
 
     create table SESSION_MASTER (
         Session_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Next_Session_Id bigint,
         Previous_Session_Id bigint,
         Session varchar(255),
@@ -824,76 +798,81 @@
 
     create table SHIFT_MASTER (
         Shift_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Shift_Name varchar(255),
         primary key (Shift_Id)
     );
 
     create table STATE_MASTER (
         State_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         State_Name varchar(255),
         primary key (State_Id)
     );
 
-    create table STUDENT_DETAIL (
-        File_No bigint not null auto_increment,
+    create table STUDENT_BASIC (
+        FILE_NO bigint not null,
         createdBy varchar(255),
         createdOn datetime,
         updatedBy varchar(255),
         updatedOn datetime,
+        admissionMode varchar(255),
+        applicationStatus varchar(255),
+        batch tinyblob,
+        bloodGroup varchar(255),
+        category tinyblob,
+        centre tinyblob,
+        dob date,
+        emailId varchar(255),
+        enrollNo varchar(255),
+        fatherName varchar(255),
+        fatherOccupation varchar(255),
+        firstName varchar(255),
+        fixedlineNo varchar(255),
+        gaurdianEmailId varchar(255),
+        gaurdianMobileNo varchar(255),
+        gender varchar(255),
+        lastName varchar(255),
+        lateral bit not null,
+        motherName varchar(255),
+        parentMobileNo varchar(255),
+        photo tinyblob,
+        quotaCode tinyblob,
+        referredBy varchar(255),
+        section tinyblob,
+        selfMobileNo varchar(255),
+        semester varchar(255),
+        session tinyblob,
+        shift tinyblob,
+        uniEnrollNo varchar(255),
+        primary key (FILE_NO)
+    );
+
+    create table STUDENT_DETAIL (
+        File_No bigint not null auto_increment,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Academic_Year varchar(255),
-        Admission_Mode varchar(255),
-        Application_Status varchar(255),
-        Blood_Group varchar(255),
-        DOB date,
-        Email_Id varchar(255),
-        Enroll_No varchar(255),
-        Father_Name varchar(255),
-        Father_Occupation varchar(255),
-        Is_Fee_Paid bit,
-        First_Name varchar(255),
-        FixedLine_No varchar(255),
-        Gaurdian_Email_Id varchar(255),
-        Gaurdian_Mobile_No varchar(255),
-        Gender varchar(255),
-        hostel bit not null,
-        Last_Name varchar(255),
-        Is_Lateral bit,
-        Is_Management_Approved bit,
-        Mother_Name varchar(255),
-        Parent_Mobile_No varchar(255),
-        Photo tinyblob,
-        Referred_By varchar(255),
         Registration_No varchar(255),
-        Self_Mobile_No varchar(255),
-        Semester varchar(255),
-        transportation bit not null,
-        UniEnroll_No varchar(255),
-        Batch_Id bigint,
         Branch_Id bigint,
-        Categry_Id bigint,
-        Centre_Id bigint,
         Course_Id bigint,
-        Quota_Id bigint,
-        Section_Id bigint,
-        Session_Id bigint,
-        Shift_Id bigint,
         primary key (File_No)
     );
 
     create table STUDENT_DOCUMENTS (
         Student_Doc_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         File_No bigint,
         Is_Received bit,
         Document_Id bigint,
@@ -902,10 +881,10 @@
 
     create table STUDENT_FEE_STAGING (
         feeStgingId bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount double precision,
         Approved bit,
         Is_Conditional bit,
@@ -918,20 +897,20 @@
 
     create table SUBJECT_MASTER (
         Subject_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Subject_Name varchar(255),
         primary key (Subject_Id)
     );
 
     create table TASK_AND_FOLLOWUP (
         Task_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Entity_Id bigint,
         Module varchar(255),
         Parent_Task_Id bigint,
@@ -945,10 +924,10 @@
 
     create table TRANSPORT_ALLOCATION (
         transport_Alloctionn_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Is_Allocated bit,
         Allocated_By varchar(255),
         Allocated_On date,
@@ -961,10 +940,10 @@
 
     create table TRANSPORT_MASTER (
         Route_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Description varchar(255),
         Price double precision,
         Route_Code varchar(255),
@@ -995,10 +974,10 @@
 
     create table VEHICLE_DETAIL (
         Vehicle_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Capacity varchar(255),
         Route_Code varchar(255),
         Vehicle_No varchar(255),
@@ -1008,30 +987,30 @@
 
     create table VEHICLE_TYPE_MASTER (
         Type_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Type varchar(255),
         primary key (Type_Id)
     );
 
     create table WING_MASTER (
         Wing_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Wing varchar(255),
         primary key (Wing_Id)
     );
 
     create table admission_Enquiry (
         Enquiry_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Admission_Mode varchar(255),
         Application_Status varchar(255),
         Contact_No varchar(255),
@@ -1055,10 +1034,10 @@
 
     create table consultant_payment_criteria (
         Pymnt_Critria_Id bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         Amount_To_Be_Paid double precision,
         Approved bit,
         Consltant_Dtl_Id bigint,
@@ -1282,49 +1261,14 @@
         references COURSE_MASTER (Course_Id);
 
     alter table STUDENT_DETAIL 
-        add constraint FK_l9t5b1lqtqlvufl6a7w4oayfv 
-        foreign key (Batch_Id) 
-        references BATCH_MASTER (Batch_Id);
-
-    alter table STUDENT_DETAIL 
         add constraint FK_8iimrp47q00ti7q7p2gknev0t 
         foreign key (Branch_Id) 
         references COURSE_BRANCH_MASTER (Branch_Id);
 
     alter table STUDENT_DETAIL 
-        add constraint FK_ivjojcnxetg3yqpatyriypmud 
-        foreign key (Categry_Id) 
-        references CASTECATEGORY_MASTER (Categry_Id);
-
-    alter table STUDENT_DETAIL 
-        add constraint FK_mtaqql7vshmgy70sug4fds0vp 
-        foreign key (Centre_Id) 
-        references CENTRE_MASTER (Centre_Id);
-
-    alter table STUDENT_DETAIL 
         add constraint FK_16ee44ep142lhljf1lya0rbhs 
         foreign key (Course_Id) 
         references COURSE_MASTER (Course_Id);
-
-    alter table STUDENT_DETAIL 
-        add constraint FK_pj9m126e1hwavbtckye1shp3t 
-        foreign key (Quota_Id) 
-        references QUOTACODE_MASTER (Quota_Id);
-
-    alter table STUDENT_DETAIL 
-        add constraint FK_kwi9kr4xiq01s5yqi200vytlm 
-        foreign key (Section_Id) 
-        references SECTION_MASTER (Section_Id);
-
-    alter table STUDENT_DETAIL 
-        add constraint FK_66echmop9yruoe3mhil1iql1 
-        foreign key (Session_Id) 
-        references SESSION_MASTER (Session_Id);
-
-    alter table STUDENT_DETAIL 
-        add constraint FK_rfbfbi3h7upfxi2wkgq4k9wox 
-        foreign key (Shift_Id) 
-        references SHIFT_MASTER (Shift_Id);
 
     alter table STUDENT_DOCUMENTS 
         add constraint FK_i1ao6b0x5fid1nbvdge3jrksw 

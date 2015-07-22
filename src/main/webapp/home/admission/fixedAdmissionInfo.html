@@ -3,7 +3,7 @@
 		<table>
 			<tr>
 				<td><span> Admission Mode </span></td>
-				<td><select ng-model="student.admissionMode"
+				<td><select ng-model="student.studentBasics.admissionMode"
 					ng-change="resetAdmissionMode()" class="form-control" required>
 						<option value="C">Counselling</option>
 						<option value="A">Consultant</option>
@@ -35,11 +35,11 @@
 			</tr>
 			<tr>
 				<td><span> First Name </span></td>
-				<td><input type="text" ng-model="student.firstName"
+				<td><input type="text" ng-model="student.studentBasics.firstName"
 					class="form-control" required></td>
 			<tr>
 				<td><span> Last Name </span></td>
-				<td><input type="text" ng-model="student.lastName"
+				<td><input type="text" ng-model="student.studentBasics.lastName"
 					class="form-control" required></td>
 			</tr>
 		</table>

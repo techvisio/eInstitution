@@ -5,6 +5,8 @@ admissionModule.service("admissionService", function($http, $q) {
 				 getStudentByCriteria : getStudentByCriteria,
 				 saveStudent : saveStudent,
 				 getStudent : getStudent,
+	             updateStudentBasics : updateStudentBasics,
+				 getStudentBasics : getStudentBasics,
 				 getStudentAcademicDtl : getStudentAcademicDtl,
 				 updateStudentAcademicDtl : updateStudentAcademicDtl,
 				 getStudentAddress : getStudentAddress,
@@ -63,6 +65,27 @@ admissionModule.service("admissionService", function($http, $q) {
 					 params : {
 						 action : "get"
 					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function getStudentBasics(fileNo){
+				 var request = $http({
+					 method : "get",
+					 url : "admission/student/studentbasic/"+fileNo,
+					 params : {
+						 action : "get"
+					 }
+				 });
+				 return (request.then(handleSuccess, handleError));
+			 }
+
+			 function updateStudentBasics(studentBasics, fileNo){
+				 var request = $http({
+					 method : "put",
+					 url : "admission/student/studentbasic/"+fileNo,
+					 params : "",
+					 data : studentBasics
 				 });
 				 return (request.then(handleSuccess, handleError));
 			 }

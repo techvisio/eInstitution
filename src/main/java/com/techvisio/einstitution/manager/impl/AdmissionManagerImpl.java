@@ -16,6 +16,7 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
@@ -71,8 +72,19 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	@Override
-	public void saveAcademicDtl(List<StudentAcademic> studentAcademics, Long fileNo) {
+	public StudentBasics getStudentBasics(Long fileNo) {
+		
+		StudentBasics studentBasics = admissionDao.getStudentBasics(fileNo);
+		return studentBasics;
+	}
 
+	@Override
+	public void saveStudentBasics(StudentBasics studentBasics) {
+		admissionDao.saveStudentBasics(studentBasics);
+	}
+	
+	@Override
+	public void saveAcademicDtl(List<StudentAcademic> studentAcademics, Long fileNo) {
 		admissionDao.saveAcademicDtl(studentAcademics, fileNo);
 	}
 
@@ -258,5 +270,4 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		List<Object[]> studentDocuments = admissionDao.getStudentDocumentDtl();
 		return studentDocuments;
 	}
-	
 }

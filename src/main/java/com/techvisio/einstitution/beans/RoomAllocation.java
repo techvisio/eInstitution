@@ -22,7 +22,7 @@ public class RoomAllocation extends BasicEntity {
 	private Long roomAllocationId;
 	@Column(name="File_No")
 	private Long fileNo;
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="Room_No")
     private RoomTypeDetail roomTypeDetail;
 	@Column(name = "Allocated_On")

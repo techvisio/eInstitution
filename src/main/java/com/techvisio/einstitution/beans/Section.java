@@ -23,10 +23,10 @@ public class Section extends BasicEntity {
 	@Column(name = "Section")
 	private String section;
 	
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="Course_Id")
 	private Course course;
-	@OneToOne(cascade={CascadeType.PERSIST})
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="Branch_Id")
 	private Branch branch;
 	

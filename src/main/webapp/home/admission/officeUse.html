@@ -9,31 +9,31 @@
 						ng-model="student.academicYear"
 						></td>
 					<td><span> Semester </span></td>
-					<td><select select ng-model="student.semester"
+					<td><select select ng-model="student.studentBasics.semester"
 						 class="form-control"
 						ng-options="item.semesterId as item.semester  for item in serverModelData.SEMESTER"></select>
 					</td>
 				</tr>
 				<tr>
 					<td><span>Centre</span></td>
-					<td><select select ng-model="student.centre.centreId"
+					<td><select select ng-model="student.studentBasics.centre.centreId"
 						 class="form-control"
 						ng-options="item.centreId*1 as item.centreName for item in serverModelData.CENTRE"></select>
 					</td>
 					<td><span>Shift</span></td>
-					<td><select select ng-model="student.shift.shiftId"
+					<td><select select ng-model="student.studentBasics.shift.shiftId"
 						 class="form-control"
 						ng-options="item.shiftId*1 as item.shiftName  for item in serverModelData.SHIFT"></select>
 					</td>
 				</tr>
 				<tr>
 					<td><span>Batch</span></td>
-					<td><select select ng-model="student.batch.batchId"
+					<td><select select ng-model="student.studentBasics.batch.batchId"
 						 class="form-control"
 						ng-options="item.batchId*1 as item.batch  for item in serverModelData.BATCH"></select>
 					</td>
 					<td><span>Session</span></td>
-					<td><select select ng-model="student.session.sessionId"
+					<td><select select ng-model="student.studentBasics.session.sessionId"
 						 class="form-control"
 						ng-options="item.sessionId*1 as item.session  for item in serverModelData.SESSION"></select>
 					</td>
@@ -41,12 +41,12 @@
 				</tr>
 				<tr>
 					<td><span>Section</span></td>
-					<td><select select ng-model="student.section.sectionId"
+					<td><select select ng-model="student.studentBasics.section.sectionId"
 						 class="form-control"
 						ng-options="item.sectionId*1 as item.section  for item in serverModelData.SECTION"></select>
 					</td>
 					<td><span> Quota Code </span></td>
-					<td><select select ng-model="student.quotaCode.quotaId"
+					<td><select select ng-model="student.studentBasics.quotaCode.quotaId"
 						 class="form-control"
 						ng-options="item.quotaId*1 as item.quotaCode  for item in serverModelData.QUOTACODE"></select>
 					</td>
@@ -54,17 +54,17 @@
 
 				<tr>
 					<td><span> Enrollment No </span></td>
-					<td><input type="text" ng-model="student.enrollNo"
+					<td><input type="text" ng-model="student.studentBasics.enrollNo"
 						
 						class="form-control"></td>
 					<td><span> Uni Enrollment No </span></td>
-					<td><input type="text" ng-model="student.uniEnrollNo"
+					<td><input type="text" ng-model="student.studentBasics.uniEnrollNo"
 						
 						class="form-control"></td>
 				</tr>
 				<tr>
 					<td><span> Remarks from Enquiry </span></td>
-					<td><textarea rows="3" cols="39" ng-model="student.remarks" class="form-control"
+					<td><textarea rows="3" cols="39" ng-model="student.studentBasics.remarks" class="form-control"
 							>
 						</textarea></td>
 				</tr>

@@ -48,7 +48,11 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
     	url: "/admission/search",
         templateUrl: 'home/admission/admissionSearch.html',
         controller: "admissionController",
-        	
+        	resolve:{
+        		injectedData: ['$stateParams', function($stateParams){
+                    return {};
+                }]
+             }
     });
     
 //    .state('newadmission',{

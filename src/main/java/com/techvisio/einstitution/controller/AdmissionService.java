@@ -22,6 +22,7 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -84,7 +85,33 @@ public class AdmissionService {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
 
+	@RequestMapping(value = "/student/studentbasic/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> geStudentBasics(@PathVariable Long fileNo){
+		Response response =new Response();
+		try {
+			StudentBasics studentBasics = admWorkflowManager.getStudentBasics(fileNo);
+			response.setResponseBody(studentBasics);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/student/studentbasic/{fileNo}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> savestudentBasics(@RequestBody StudentBasics studentBasics, @PathVariable Long fileNo){
+		Response response =new Response();
+		try {
+			admWorkflowManager.saveStudentBasics(studentBasics);
+			StudentBasics studentBasicFromDB = admWorkflowManager.getStudentBasics(fileNo);
+			response.setResponseBody(studentBasicFromDB);
+		} catch (Exception e) {
+			response.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/student/academic/{fileNo}", method = RequestMethod.GET)
