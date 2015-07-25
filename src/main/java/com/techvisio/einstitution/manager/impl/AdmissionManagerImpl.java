@@ -62,13 +62,14 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 	
 	@Override
-	public void saveStudent(Student student) {
+	public Long saveStudent(Student student) {
 		String registrationNo=student.getRegistrationNo();
 		if(registrationNo==null){
 			registrationNo=identifierGenerator.getUniqueIdentifierForRegistration(student);
 		}
 		student.setRegistrationNo(registrationNo);
-		admissionDao.saveStudent(student);
+		Long fileNo=admissionDao.saveStudent(student);
+		return fileNo;
 	}
 
 	@Override

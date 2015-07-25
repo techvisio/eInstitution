@@ -25,7 +25,7 @@ public interface AdmissionWorkflowManager {
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
 	
 	public Student getStudent(Long fileNo);	
-	public void saveStudent(Student student);
+	public Long saveStudent(Student student);
 	
 	public StudentBasics getStudentBasics(Long fileNo);
 	public void saveStudentBasics(StudentBasics studentBasics);

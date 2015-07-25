@@ -1,6 +1,5 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,19 +15,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ROLE")    
-public class Role {
+public class Role extends BasicEntity{
 
-	private String roleName;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ROLE_ID")
+	@Column(name = "Role_Id")
 	private Long roleId;
+	@Column(name = "Role_Name")
+	private String roleName;
 	@ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
-	@JoinColumn(name="PRIVILEGE_ID")
+	@JoinColumn(name="Privilege_Id")
 	private List<Privilege> privilegeList;
-	private String createdBy;
-	private Date createdOn;
-	@Column(name ="USER_ID")
+	@Column(name ="User_Id")
 	private Long userId;
 
 	public String getRoleName() {
@@ -54,21 +53,4 @@ public class Role {
 	public void setPrivilegeList(List<Privilege> privilegeList) {
 		this.privilegeList = privilegeList;
 	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
 }

@@ -11,6 +11,6 @@ import com.techvisio.einstitution.beans.SearchCriteria;
 public interface EnquiryManager {
 
 	public AdmissionEnquiry getInquiry(Long inquiryId);
-	public void saveInquiry (AdmissionEnquiry admissionInquiry);
-
+	public Long saveInquiry (AdmissionEnquiry admissionInquiry);
+    public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria  searchCriteria);
 }

@@ -1,9 +1,12 @@
 package com.techvisio.einstitution.manager.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.db.EnquiryDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.EnquiryManager;
@@ -42,8 +45,14 @@ public class EnquiryManagerImpl implements EnquiryManager {
 	}
 
 	@Override
-	public void saveInquiry (AdmissionEnquiry admissionInquiry) {
-		inquiryDao.saveInquiry(admissionInquiry);
+	public Long saveInquiry (AdmissionEnquiry admissionInquiry) {
+		Long enquiryId=inquiryDao.saveInquiry(admissionInquiry);
+		return enquiryId;
 	}
 
+	@Override
+	public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling searchInqByCriteria method for enquiryId:{} ",this.getClass().getName(), searchCriteria.getInquryId());
+		return inquiryDao.searchInqByCriteria(searchCriteria);
+	}
 	}

@@ -1,6 +1,6 @@
-var enquiryModule = angular.module('enquiryModule', ['ngGrid']);
+var enquiryModule = angular.module('enquiryModule', ['ui.bootstrap','ngGrid']);
 
-enquiryModule.controller('enquiryController', ['$scope','enquiryService','masterdataService',function($scope,enquiryService,masterdataService) {
+enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquiryService','$state','masterdataService','injectedData', function($scope,$rootScope,enquiryService,$state,masterdataService,injectedData) {
 
 	// Data variables.
 	$scope.form={};
@@ -30,6 +30,13 @@ enquiryModule.controller('enquiryController', ['$scope','enquiryService','master
 	    return Math.ceil($scope.searchEnquiryList.length / $scope.itemsPerPage);
 	  };
 	  
+//		 $scope.newEnquiry = function() {
+//			 $state.go('newEnquiry');
+//		 }
+//
+//		 $scope.enquirySearch = function() {
+//			 $state.go('enquirySearch');
+//		 }
 	 $scope.dummyTask = {
 			 "taskDate" : null,
 			 "remark" : null,

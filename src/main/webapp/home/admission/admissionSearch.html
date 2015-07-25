@@ -1,53 +1,98 @@
 <form>
-	<div class="module-dashboard-container">
+	<div class="searchcriteria">
+		<table>
+			<tr>
+				<td><span>Registration No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.registrationNo"></td>
+			</tr>
+			<tr>
+				<td><span>Name</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.firstName"></td>
+			</tr>
+			<tr>
+				<td><span>Enrollment No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.enrollNo"></td>
+			</tr>
+			<tr>
+				<td><span>University Enroll No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.uniEnrollNo"></td>
+			</tr>
+			<tr>
+				<td><span>Email Id</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.emailId"></td>
+			</tr>
+			<tr>
+				<td><span>Mobile No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.mobileNo"></td>
+			</tr>
 
-		<div class="module-dashboard-content">
-			<div class="searchcriteria">
-				<table>
-					<tr>
-						<td><span>Registration No</span></td>
-						<td><input type="text" class="form-control" ng-model="searchCriteria.registrationNo"></td>
-					</tr>
-					<tr>
-						<td><span>Name</span></td>
-						<td><input type="text" class="form-control"  ng-model="searchCriteria.firstName"></td>
-					</tr>
-					<tr>
-						<td><span>Enrollment No</span></td>
-						<td><input type="text" class="form-control"  ng-model="searchCriteria.enrollNo">
-  </td>
-					</tr>
-					<tr>
-						<td><span>University Enroll No</span></td>
-						<td><input type="text" class="form-control"  ng-model="searchCriteria.uniEnrollNo">
-  </td>
-					</tr>
-					<tr>
-						<td><span>Email Id</span></td>
-						<td><input type="text" class="form-control"  ng-model="searchCriteria.emailId">
-  </td>
-					</tr>
-					<tr>
-						<td><span>Mobile No</span></td>
-						<td><input type="text" class="form-control"  ng-model="searchCriteria.mobileNo">
-  </td>
-					</tr>
-
-					<tr>
-						<td><button type="button" class="btn btn-success"
-							ng-click="getStudentByCriteria()">Get Details</button></td>
-					</tr>
-				</table>
-			</div>
-<!-- 			<div class="searchList" -->
-<!-- 				ng-show="!showCriteria && searchResultList.length>0"> -->
-<!-- 				<span class="header">Double click a record to see Details</span> -->
-<!-- 				<p> -->
-<!-- 				<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div> -->
-<!-- 				<pagination total-items="totalItems" items-per-page="itemsPerPage" -->
-<!-- 					ng-model="currentPage" ng-change="pageChanged()"></pagination> -->
-
-<!-- 			</div> -->
-		</div>
-		</div>
-		</form>
+			<tr>
+				<td><button type="button" class="btn btn-success"
+						ng-click="getStudentByCriteria()">Get Details</button></td>
+			</tr>
+		</table>
+	</div>
+			<div class="searchList" ng-show="!showCriteria && searchAdmissionList.length>0">
+				<span class="header">Double click a record to see Details</span>
+				<p>
+			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+         ng-model="currentPage" ng-change="pageChanged()"></pagination>
+        
+        
+	</div>
+		<div>
+	
+<!-- 	<table st-table="rowCollection" class="table table-striped"> -->
+<!-- 		<thead> -->
+<!-- 		<tr> -->
+<!-- 			<th st-sort="registrationNo">Registration No</th> -->
+<!-- 			<th st-sort="firstName">First Name</th> -->
+<!-- 			<th st-sort="lastName">Last Name</th> -->
+<!-- 			<th st-sort="fatherName">Father Name</th> -->
+<!-- 			<th st-sort="dob">DOB</th> -->
+<!-- 			<th st-sort="course.course">Course</th> -->
+<!-- 			<th st-sort="branch.branchName">Branch</th> -->
+<!-- 			<th st-sort="batch">Batch</th> -->
+<!-- 			<th st-sort="casteCategory">Category</th> -->
+<!-- 			<th>View</th> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<th> -->
+<!-- 				<input st-search="'firstName'" placeholder="search for firstname" class="input-sm form-control" type="search"/> -->
+<!-- 			</th> -->
+<!-- 			<th colspan="4"> -->
+<!-- 				<input st-search placeholder="global search" class="input-sm form-control" type="search"/> -->
+<!-- 			</th> -->
+<!-- 		</tr> -->
+<!-- 		</thead> -->
+<!-- 		<tbody> -->
+<!-- 		<tr ng-repeat="row in rowCollection"> -->
+<!-- 			<td>{{row.registrationNo}}</td> -->
+<!-- 			<td>{{row.firstName}}</td> -->
+<!-- 			<td>{{row.lastName }}</td> -->
+<!-- 			<td>{{row.fatherName }}</td> -->
+<!-- 			<td>{{row.dob | date }}</td> -->
+<!-- 			<td>{{row.course.course }}</td> -->
+<!-- 			<td>{{row.branch.branchName }}</td> -->
+<!-- 			<td>{{row.batch }}</td> -->
+<!-- 			<td>{{row.casteCategory }}</td> -->
+<!-- 			<td><a ui-sref="admission({fileNo:row.fileNo})">view</a></td> -->
+<!-- 		</tr> -->
+<!-- 		</tbody> -->
+<!-- 		<tfoot> -->
+<!-- 			<tr> -->
+<!-- 				<td colspan="5" class="text-center"> -->
+<!-- 					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 		</tfoot> -->
+<!-- 	</table> -->
+	</div>
+</form>

@@ -45,9 +45,9 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 	
 	@Override
-	public void saveStudent(Student student) {
-		admissionManager.saveStudent(student);
-		
+	public Long saveStudent(Student student) {
+	Long fileNo=admissionManager.saveStudent(student);
+		return fileNo;
 			}
 
 	@Override

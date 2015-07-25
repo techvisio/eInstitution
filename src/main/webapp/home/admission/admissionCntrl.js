@@ -1,4 +1,4 @@
-var admissionModule = angular.module('admissionModule', [ 'ui.bootstrap' ]);
+var admissionModule = angular.module('admissionModule', [ 'ui.bootstrap','ngGrid']);
 
 admissionModule
 .controller(
@@ -25,7 +25,6 @@ admissionModule
 			 $scope.form.sameAsAbove = false;
 			 $scope.form.processing = false;
 			 $scope.form.isEdit = true;
-			
 			 $scope.dashboard = true;
 			 $scope.showCriteria = false;
 			 $scope.tab = 1;
@@ -35,74 +34,63 @@ admissionModule
 					 "DOCUMENT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_DOC_R","create":"ROLE_DOC_C","update":"ROLE_DOC_U"},
 						 "displayName" : "OFFICIAL -> DOCUMENT"
 					 },
 					 "PERSONALINFO" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_PER_R","create":"ROLE_PER_C","update":"ROLE_PER_U"},
 						 "displayName" : "PERSONAL -> PERSONAL INFO"
 					 },
 					 "ADDRESS" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_ADD_R","create":"ROLE_ADD_C","update":"ROLE_ADD_U"},
 						 "displayName" : "PERSONAL -> ADDRESS"
 					 },
 					 "ACADEMIC" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_ACD_R","create":"ROLE_ACD_C","update":"ROLE_ACD_U"},
 						 "displayName" : "PERSONAL -> ACADEMIC"
 					 },
 					 "COUNSELLING" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_COUN_R","create":"ROLE_COUN_C","update":"ROLE_COUN_U"},
 						 "displayName" : "PERSONAL -> COUNSELLING"
 					 },
 					 "OFFICEUSE" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_OFF_R","create":"ROLE_OFF_C","update":"ROLE_OFF_U"},
 						 "displayName" : "OFFICIAL -> OFFICE USE"
 					 },
 					 "DISCOUNT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_DIS_R","create":"ROLE_DIS_C","update":"ROLE_DIS_U"},
 						 "displayName" : "OFFICIAL -> DISCOUNT"
 					 },
 					 "SCHOLARSHIP" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_SCH_R","create":"ROLE_SCH_C","update":"ROLE_SCH_U"},
 						 "displayName" : "OFFICIAL -> SCHOLARSHIP"
 					 },
 					 "CONSULTANT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_CON_R","create":"ROLE_CON_C","update":"ROLE_CON_U"},
 						 "displayName" : "OFFICIAL -> CONSULTANT"
 					 },
 					 "REFERRAL" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege":{},
-						 "privilege" :{"view":"VIEW_PERSONAL","add":"ADD_PERSONAL","update":"UPDATE_PERSONAL"},
+						 "privilege" :{"view":"ROLE_REF_R","create":"ROLE_REF_C","update":"ROLE_REF_U"},
 						 "displayName" : "OFFICIAL -> REFERRAL"
 					 }
-
 			 };
 
 			 $scope.dummyAddress = {};
@@ -140,9 +128,16 @@ admissionModule
 					 .copy($scope.dummyCounsellingDtl));
 
 			 $scope.form.showSub = false;
-			 $scope.searchResultList = [];
-			 $scope.filteredSearch = [];
+			 $scope.searchAdmissionList=[];
+			 $scope.filteredSearch=[];
 
+			 $scope.itemsPerPage = 3
+			  $scope.currentPage = 0;
+			 $scope.totalItems = 0;
+
+			  $scope.pageCount = function () {
+			    return Math.ceil($scope.searchAdmissionList.length / $scope.itemsPerPage);
+			  };
 
 			 $scope.admissionMode = {
 					 "C" : "Counselling",
@@ -151,73 +146,19 @@ admissionModule
 					 "A" : "Consultant"
 			 };
 
-			 $scope.itemsPerPage = 3;
-			 $scope.currentPage = 0;
-			 $scope.totalItems = 0;
-
-			 $scope.pageCount = function() {
-				 return Math.ceil($scope.searchResultList.length
-						 / $scope.itemsPerPage);
-			 };
-
-			 $scope.numPages = function() {
-				 return Math.ceil($scope.searchResultList.length
-						 / $scope.numPerPage);
-			 };
-
-			 $scope
-			 .$watch(
-					 'currentPage + numPerPage',
-					 function() {
-						 var begin = (($scope.currentPage - 1) * $scope.itemsPerPage), end = begin
-						 + $scope.itemsPerPage;
-
-						 $scope.filteredSearch = $scope.searchResultList
-						 .slice(begin, end);
-					 });
-
-			 $scope.newAdmission = function() {
-				 $state.go('newadmission');
-			 }
-
-			 $scope.admissionSearch = function() {
-				 $state.go('admissionSearch');
-			 }
+			
+//			 $scope.newAdmission = function() {
+//				 $state.go('newadmission');
+//			 }
+//
+//			 $scope.admissionSearch = function() {
+//				 $state.go('admissionSearch');
+//			 }
 			 
 			 $scope.directViewAdmission=function(currentFileNo){
 				 $state.go('admission',{fileNo:currentFileNo});
 			 }
 
-			 $scope.gridOptions = {
-					 multiSelect : false,
-					 data : 'filteredSearch',
-					 rowTemplate : '<div ng-dblclick="getStudent(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
-					 columnDefs : [ {
-						 field : "firstName",
-						 width : 100,
-						 displayName : "FirstName"
-					 }, {
-						 field : "lastName",
-						 width : 100,
-						 displayName : "LastName"
-					 }, {
-						 field : "fatherName",
-						 width : 180,
-						 displayName : "Father Name"
-					 }, {
-						 field : "course.course",
-						 width : 140,
-						 displayName : "Course"
-					 }, {
-						 field : "branch.branchName",
-						 width : 180,
-						 displayName : "Branch"
-					 }, {
-						 field : "applicationStatus",
-						 width : 200,
-						 displayName : "Status"
-					 } ]
-			 };
 
 			 $scope.LoadMoreData = function() {
 
@@ -498,6 +439,7 @@ admissionModule
 									 && response.data != null
 									 && response.data.responseBody != null) {
 								 $scope.student = response.data.responseBody;
+								 $scope.directViewAdmission(fileNo);
 								 $scope
 								 .populateMissingData($scope.student);
 								 $scope
@@ -897,20 +839,41 @@ admissionModule
 									 if (response != null
 											 && response.data != null
 											 && response.data.responseBody != null) {
-										 $scope.searchResultList = response.data.responseBody;
-										 $scope.showCriteria = false;
-										 $scope.currentPage = 1;
-										 $scope.totalItems = $scope.searchResultList.length;
-									 } else {
-										 console
-										 .log(response.data.error);
-										 alert(response.data.error);
-									 }
+										 $scope.searchAdmissionList = response.data.responseBody;
+										 if($scope.searchAdmissionList.length>0){
+											 $scope.showCriteria=false;
+											 //$scope.dashboard = false;
+											 $scope.currentPage=1;
+											 $scope.totalItems = $scope.searchAdmissionList.length;
+										 }
+									 } 
 
 									 $scope.processing = false;
 								 })
 			 }
+			 
+			 $scope.numPages = function () {
+				    return Math.ceil($scope.searchAdmissionList.length / $scope.itemsPerPage);
+				  };
 
+				  $scope.$watch('currentPage + itemsPerPage', function() {
+				    var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
+				    , end = begin + $scope.itemsPerPage;
+
+				    $scope.filteredSearch = $scope.searchAdmissionList.slice(begin, end);
+				  });
+				  
+				  $scope.gridOptions = {
+					      multiSelect:false,
+					        data: 'filteredSearch',
+					        rowTemplate: '<div ng-dblclick="getStudent(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+					        columnDefs: [{field:"registrationNo",width:200,displayName :"Registration No"},
+					                     { field: "firstName", width: 180,displayName :"Name"},
+					                    { field: "fatherName", width: 180,displayName :"Father Name" },
+					                    { field: "course.course", width: 140,displayName :"Course" },
+					                    { field: "branch.branchName", width: 180,displayName :"Branch"}]
+					    };
+			 
 			 $scope.next = function() {
 				 var selectionIndex = $scope.subModules
 				 .indexOf($scope.selection);
@@ -1190,22 +1153,18 @@ admissionModule
 			 };
 
 			 $scope.isTabEnabled = function(form) {
-				 if($scope.form.isNew){
-					 return $scope.isPrivileged(form);
+				 if($scope.form.isNew || $scope.isAlltabsReadOnly()){
+					return true;
 				 }
-				 else
-				 {
-					 return $scope.isPrivileged(form) && $scope.isAlltabsReadOnly() ;
-				 }
-
+				 
 			 };
 
-			 $scope.isPrivileged=function(form){
+			 $scope.isTabViewable=function(form){
 				 var userPrivilege=$rootScope.user.privilege;
 				 if(userPrivilege){
 					 var tab = $scope.formTabs[form];
-					 var tabPrivilege=tab.privilege;
-					 if(userPrivilege.tabPrivilege != -1)
+					 var tabPrivilege=tab.privilege.view;
+					 if(userPrivilege.indexOf(tabPrivilege) != -1)
 					 {
 						 return true;
 					 }

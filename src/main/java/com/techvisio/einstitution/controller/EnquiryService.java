@@ -1,9 +1,7 @@
  package com.techvisio.einstitution.controller;
 
-import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -19,10 +17,8 @@ import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.SearchCriteria;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
-import com.techvisio.einstitution.workflow.impl.EnquiryWorkflowManagerImpl;
 
 
 @RestController
@@ -40,8 +36,8 @@ public class EnquiryService {
 		Response response=new Response();
 		try{
 		
-		AdmissionEnquiry admissionEnquiry= enquiryWorkflowManager.getInquiry(enquiryId);
-		response.setResponseBody(admissionEnquiry);
+		EnquiryAndTask enquiryAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		response.setResponseBody(enquiryAndTask);
 		}
 		catch(Exception e)
 		{
@@ -52,13 +48,13 @@ public class EnquiryService {
 	}
 	
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.POST)
-	public ResponseEntity<Response> addEnquiryandTask(@RequestBody AdmissionEnquiry admissionEnquiry , @PathVariable Long enquiryId) {  
+	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask , @PathVariable Long enquiryId) {  
 		Response response=new Response();
 		try{
-		enquiryWorkflowManager.saveInquiry(admissionEnquiry);
-		AdmissionEnquiry admissionInquiryDB=enquiryWorkflowManager.getInquiry(enquiryId);
-		if(admissionInquiryDB != null){
-			response.setResponseBody(admissionInquiryDB);
+		enquiryWorkflowManager.saveEnquiryAndTask(enquiryAndTask);
+		EnquiryAndTask admissionEnquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		if(admissionEnquiryDB != null){
+			response.setResponseBody(admissionEnquiryDB);
 		}
 		}
 		catch(Exception e){
@@ -66,5 +62,90 @@ public class EnquiryService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-		
+	
+	@RequestMapping(value="/{enquiryId}",method = RequestMethod.PUT)
+	public ResponseEntity<Response> UpdateEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask , @PathVariable Long enquiryId) {  
+		Response response=new Response();
+		try{
+			enquiryWorkflowManager.saveEnquiryAndTask(enquiryAndTask);
+			EnquiryAndTask admissionEnquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+			if(admissionEnquiryDB != null){
+				response.setResponseBody(admissionEnquiryDB);
+		}
+		}
+		catch(Exception e){
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value ="/search/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getInquiryByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		logger.info("{}  Calling searchInqByCriteria method by for enquiry Id : {}",this.getClass().getName(), searchCriteria.getInquryId());
+		Response response=new Response();
+		try
+		{
+			List<AdmissionEnquiry> admissionInquiry = enquiryWorkflowManager.searchInqByCriteria(searchCriteria);
+			response.setResponseBody(admissionInquiry);
+			
+			if(admissionInquiry == null){
+				
+				response.setError("No such record found");
+			}
+			}
+		catch(EmptyResultDataAccessException e)
+		{
+			response.setError("No such record found");
+		}
+		catch(IncorrectResultSizeDataAccessException e)
+		{
+			response.setError("multiple record found for this idetifier");
+		}
+			catch(Exception e)
+			{
+			logger.error("{} :Error While Calling getInquiryByCriteria method for enquiry Id : {}",this.getClass().getName(),searchCriteria.getInquryId(),e);
+			response.setError(e.getMessage());
+			}
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		}
+
+	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
+	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTask enquirynTask) {  
+		logger.info("{}  Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		Response response=new Response();
+		try{
+			
+		Long enquiryId=enquiryWorkflowManager.proceedToAdmission(enquirynTask);
+		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		if(admissionInquiryDB != null){
+			response.setResponseBody(admissionInquiryDB);
+		}
+		}
+		catch(Exception e){
+			logger.error("{} :Error While Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/toggleEnquiryStatus",method = RequestMethod.PUT)
+	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTask enquirynTask) {  
+		logger.info("{}  Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		Response response=new Response();
+		try{
+			
+		Long enquiryId=enquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
+		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+		if(admissionInquiryDB != null){
+		}
+		response.setResponseBody(admissionInquiryDB);
+		}
+		catch(Exception e){
+			logger.error("{} :Error While Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
 }

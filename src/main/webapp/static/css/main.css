@@ -128,6 +128,7 @@ table {
 
 .content table{
     width:100%;
+    vertical-align: middle;
 }
 
 .content span {
@@ -405,6 +406,28 @@ height:600px;
 .discount-view table td:nth-child(8),
 .discount-view table th:nth-child(7),
 .discount-view table th:nth-child(8){
+	width:5%;
+}
+
+.academic-view table td:nth-child(1),
+.academic-view table td:nth-child(2),
+.academic-view table td:nth-child(3),
+.academic-view table td:nth-child(4),
+.academic-view table td:nth-child(5),
+.academic-view table td:nth-child(6),
+.academic-view table th:nth-child(1),
+.academic-view table th:nth-child(2),
+.academic-view table th:nth-child(3),
+.academic-view table th:nth-child(4),
+.academic-view table th:nth-child(5),
+.academic-view table th:nth-child(6){
+	width:15%;
+}
+
+.academic-view table td:nth-child(7),
+.academic-view table td:nth-child(8),
+.academic-view table th:nth-child(7),
+.academic-view table th:nth-child(8){
 	width:5%;
 }
 

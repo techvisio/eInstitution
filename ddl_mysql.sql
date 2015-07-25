@@ -95,6 +95,10 @@
         drop 
         foreign key FK_30jn4uaxemk1o0740sca6ijje;
 
+    alter table PRIVILEGE 
+        drop 
+        foreign key FK_hh60cotx6wbyv02wgi0dphp4y;
+
     alter table QUALIFICATION_SUBJECT_DTL 
         drop 
         foreign key FK_cstohfnj2itxfx6n124mwvhj;
@@ -113,11 +117,11 @@
 
     alter table ROLE_PRIVILEGE 
         drop 
-        foreign key FK_246137tlonap0m38a0iox7ycn;
+        foreign key FK_kul59s5xujjcsc5oo9dt711hf;
 
     alter table ROLE_PRIVILEGE 
         drop 
-        foreign key FK_tmaad96qmg825j8p7e1l3u50;
+        foreign key FK_lgu96j836vw9un8h2haudk8j4;
 
     alter table ROOM_ALLOCATION_DETAIL 
         drop 
@@ -159,6 +163,42 @@
         drop 
         foreign key FK_he0kdbn39qqv4vle76hrpse53;
 
+    alter table STUDENT_ACTIVITY 
+        drop 
+        foreign key FK_len3qh3y6sa2jj2ie7y0ysbea;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_5elx11ta4tl93pveu7owp1sbh;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_t0t28s1iyaw6689jvbbueixg0;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_lf7l4s05thr213i6erolc1ajq;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_72rbqljsrr5pfwjpl94fhp9qi;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_mluhcpaibf49jbjd7ggckww4b;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_fcxa0t13mq42les66nptmbf6d;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_ehau9m0pc8ahqt0o1o2n51igr;
+
+    alter table STUDENT_BASIC 
+        drop 
+        foreign key FK_3c4pwwo0vj2r3s6y37y7311hw;
+
     alter table STUDENT_DETAIL 
         drop 
         foreign key FK_8iimrp47q00ti7q7p2gknev0t;
@@ -186,6 +226,14 @@
     alter table VEHICLE_DETAIL 
         drop 
         foreign key FK_4mmiquwsacu8g006dqhmuebhm;
+
+    alter table Workflow_Dependency 
+        drop 
+        foreign key FK_33orsn1b4v5b9cissg9cqowpp;
+
+    alter table Workflow_Dependency 
+        drop 
+        foreign key FK_7s7wewlf3oh1rv32edt0qg2is;
 
     alter table admission_Enquiry 
         drop 
@@ -287,6 +335,8 @@
 
     drop table if exists STATE_MASTER;
 
+    drop table if exists STUDENT_ACTIVITY;
+
     drop table if exists STUDENT_BASIC;
 
     drop table if exists STUDENT_DETAIL;
@@ -312,6 +362,10 @@
     drop table if exists VEHICLE_TYPE_MASTER;
 
     drop table if exists WING_MASTER;
+
+    drop table if exists WORKFLOW;
+
+    drop table if exists Workflow_Dependency;
 
     drop table if exists admission_Enquiry;
 
@@ -631,13 +685,16 @@
     );
 
     create table PRIVILEGE (
-        PRIVILEGE_ID bigint not null auto_increment,
-        CREATED_BY varchar(255),
-        CREATED_ON datetime,
-        description varchar(255),
+        Activity_Id bigint not null,
+        Activity_Name varchar(255),
+        Privilege_Id bigint not null auto_increment,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
         privilege varchar(255),
-        type varchar(255),
-        primary key (PRIVILEGE_ID)
+        Type varchar(255),
+        primary key (Privilege_Id)
     );
 
     create table QUALIFICATION_MASTER (
@@ -677,17 +734,19 @@
     );
 
     create table ROLE (
-        ROLE_ID bigint not null auto_increment,
-        createdBy varchar(255),
-        createdOn datetime,
-        roleName varchar(255),
-        USER_ID bigint,
-        primary key (ROLE_ID)
+        Role_Id bigint not null auto_increment,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
+        Role_Name varchar(255),
+        User_Id bigint,
+        primary key (Role_Id)
     );
 
     create table ROLE_PRIVILEGE (
-        ROLE_ROLE_ID bigint not null,
-        privilegeList_PRIVILEGE_ID bigint not null
+        ROLE_Role_Id bigint not null,
+        privilegeList_Privilege_Id bigint not null
     );
 
     create table ROOM_ALLOCATION_DETAIL (
@@ -816,41 +875,52 @@
         primary key (State_Id)
     );
 
+    create table STUDENT_ACTIVITY (
+        Student_Activity_Id bigint not null auto_increment,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
+        File_No bigint,
+        Activity_Name bigint,
+        primary key (Student_Activity_Id)
+    );
+
     create table STUDENT_BASIC (
         FILE_NO bigint not null,
-        createdBy varchar(255),
-        createdOn datetime,
-        updatedBy varchar(255),
-        updatedOn datetime,
-        admissionMode varchar(255),
-        applicationStatus varchar(255),
-        batch tinyblob,
-        bloodGroup varchar(255),
-        category tinyblob,
-        centre tinyblob,
-        dob date,
-        emailId varchar(255),
-        enrollNo varchar(255),
-        fatherName varchar(255),
-        fatherOccupation varchar(255),
-        firstName varchar(255),
-        fixedlineNo varchar(255),
-        gaurdianEmailId varchar(255),
-        gaurdianMobileNo varchar(255),
-        gender varchar(255),
-        lastName varchar(255),
-        lateral bit not null,
-        motherName varchar(255),
-        parentMobileNo varchar(255),
-        photo tinyblob,
-        quotaCode tinyblob,
-        referredBy varchar(255),
-        section tinyblob,
-        selfMobileNo varchar(255),
-        semester varchar(255),
-        session tinyblob,
-        shift tinyblob,
-        uniEnrollNo varchar(255),
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
+        Admission_Mode varchar(255),
+        Application_Status varchar(255),
+        Blood_Group varchar(255),
+        DOB date,
+        Email_Id varchar(255),
+        Enroll_No varchar(255),
+        Father_Name varchar(255),
+        Father_Occupation varchar(255),
+        First_Name varchar(255),
+        FixedLine_No varchar(255),
+        Gaurdian_Email_Id varchar(255),
+        Gaurdian_Mobile_No varchar(255),
+        Gender varchar(255),
+        Last_Name varchar(255),
+        Is_Lateral bit,
+        Mother_Name varchar(255),
+        Parent_Mobile_No varchar(255),
+        Photo tinyblob,
+        Referred_By varchar(255),
+        Self_Mobile_No varchar(255),
+        Semester varchar(255),
+        Uni_Enroll_No varchar(255),
+        Batch_Id bigint,
+        Category_Id bigint,
+        Centre_Id bigint,
+        Quota_Id bigint,
+        Section_Id bigint,
+        Session_Id bigint,
+        Shift_Id bigint,
         primary key (FILE_NO)
     );
 
@@ -964,12 +1034,12 @@
     );
 
     create table USER (
-        USER_ID bigint not null auto_increment,
-        department varchar(255),
-        name varchar(255),
-        password varchar(255),
-        status varchar(255),
-        primary key (USER_ID)
+        User_Id bigint not null auto_increment,
+        Department varchar(255),
+        Name varchar(255),
+        Password varchar(255),
+        Status varchar(255),
+        primary key (User_Id)
     );
 
     create table VEHICLE_DETAIL (
@@ -1003,6 +1073,23 @@
         Updated_On datetime,
         Wing varchar(255),
         primary key (Wing_Id)
+    );
+
+    create table WORKFLOW (
+        Step_Id bigint not null auto_increment,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
+        Parent_Id bigint,
+        Step varchar(255),
+        Workflow varchar(255),
+        primary key (Step_Id)
+    );
+
+    create table Workflow_Dependency (
+        WORKFLOW_Step_Id bigint not null,
+        childWorkflow_Step_Id bigint not null
     );
 
     create table admission_Enquiry (
@@ -1059,6 +1146,9 @@
         workFlowOperation varchar(255),
         primary key (id)
     );
+
+    alter table Workflow_Dependency 
+        add constraint UK_33orsn1b4v5b9cissg9cqowpp  unique (childWorkflow_Step_Id);
 
     alter table ACADEMIC_DETAIL 
         add constraint FK_8d8m4sy6b4814lyj3bs6bqhv4 
@@ -1180,6 +1270,11 @@
         foreign key (Session_Id) 
         references SESSION_MASTER (Session_Id);
 
+    alter table PRIVILEGE 
+        add constraint FK_hh60cotx6wbyv02wgi0dphp4y 
+        foreign key (Activity_Id) 
+        references WORKFLOW (Step_Id);
+
     alter table QUALIFICATION_SUBJECT_DTL 
         add constraint FK_cstohfnj2itxfx6n124mwvhj 
         foreign key (Qualification_Id) 
@@ -1198,17 +1293,17 @@
     alter table ROLE 
         add constraint FK_jjqf2oo9s1e6xqlcc61hbcc54 
         foreign key (USER_ID) 
-        references USER (USER_ID);
+        references USER (User_Id);
 
     alter table ROLE_PRIVILEGE 
-        add constraint FK_246137tlonap0m38a0iox7ycn 
-        foreign key (privilegeList_PRIVILEGE_ID) 
-        references PRIVILEGE (PRIVILEGE_ID);
+        add constraint FK_kul59s5xujjcsc5oo9dt711hf 
+        foreign key (privilegeList_Privilege_Id) 
+        references PRIVILEGE (Privilege_Id);
 
     alter table ROLE_PRIVILEGE 
-        add constraint FK_tmaad96qmg825j8p7e1l3u50 
-        foreign key (ROLE_ROLE_ID) 
-        references ROLE (ROLE_ID);
+        add constraint FK_lgu96j836vw9un8h2haudk8j4 
+        foreign key (ROLE_Role_Id) 
+        references ROLE (Role_Id);
 
     alter table ROOM_ALLOCATION_DETAIL 
         add constraint FK_tpnfagdgeskvwtcafh232bvin 
@@ -1260,6 +1355,51 @@
         foreign key (Course_Id) 
         references COURSE_MASTER (Course_Id);
 
+    alter table STUDENT_ACTIVITY 
+        add constraint FK_len3qh3y6sa2jj2ie7y0ysbea 
+        foreign key (Activity_Name) 
+        references PRIVILEGE (Privilege_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_5elx11ta4tl93pveu7owp1sbh 
+        foreign key (Batch_Id) 
+        references BATCH_MASTER (Batch_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_t0t28s1iyaw6689jvbbueixg0 
+        foreign key (Category_Id) 
+        references CASTECATEGORY_MASTER (Categry_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_lf7l4s05thr213i6erolc1ajq 
+        foreign key (Centre_Id) 
+        references CENTRE_MASTER (Centre_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_72rbqljsrr5pfwjpl94fhp9qi 
+        foreign key (Quota_Id) 
+        references QUOTACODE_MASTER (Quota_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_mluhcpaibf49jbjd7ggckww4b 
+        foreign key (Section_Id) 
+        references SECTION_MASTER (Section_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_fcxa0t13mq42les66nptmbf6d 
+        foreign key (Session_Id) 
+        references SESSION_MASTER (Session_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_ehau9m0pc8ahqt0o1o2n51igr 
+        foreign key (Shift_Id) 
+        references SHIFT_MASTER (Shift_Id);
+
+    alter table STUDENT_BASIC 
+        add constraint FK_3c4pwwo0vj2r3s6y37y7311hw 
+        foreign key (FILE_NO) 
+        references STUDENT_DETAIL (File_No);
+
     alter table STUDENT_DETAIL 
         add constraint FK_8iimrp47q00ti7q7p2gknev0t 
         foreign key (Branch_Id) 
@@ -1294,6 +1434,16 @@
         add constraint FK_4mmiquwsacu8g006dqhmuebhm 
         foreign key (Type_Id) 
         references VEHICLE_TYPE_MASTER (Type_Id);
+
+    alter table Workflow_Dependency 
+        add constraint FK_33orsn1b4v5b9cissg9cqowpp 
+        foreign key (childWorkflow_Step_Id) 
+        references WORKFLOW (Step_Id);
+
+    alter table Workflow_Dependency 
+        add constraint FK_7s7wewlf3oh1rv32edt0qg2is 
+        foreign key (WORKFLOW_Step_Id) 
+        references WORKFLOW (Step_Id);
 
     alter table admission_Enquiry 
         add constraint FK_5n6yjv5u447gdnug38dlwkpja 

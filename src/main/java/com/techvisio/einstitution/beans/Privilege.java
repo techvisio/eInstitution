@@ -1,7 +1,5 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,20 +9,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRIVILEGE")    
-public class Privilege {
+public class Privilege extends BasicEntity{
 
-	//Privilege 
 	private String privilege;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "PRIVILEGE_ID")
+	@Column(name = "Privilege_Id")
 	private Long privilegeId;
+	@Column(name = "PRIVILEGE_ID")
 	private String description;
+	@Column(name = "Type")
 	private String type;
-	@Column(name="CREATED_ON")
-	private Date createdOn;
-	@Column(name="CREATED_BY")
-	private String createdBy;
 
 	public String getPrivilege() {
 		return privilege;
@@ -57,21 +52,4 @@ public class Privilege {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
 }

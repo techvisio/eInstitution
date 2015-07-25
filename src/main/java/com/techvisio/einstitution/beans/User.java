@@ -19,14 +19,18 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_ID")
+	@Column(name = "User_Id")
 	private Long userId;
+	@Column(name = "Department")
 	private String department;
+	@Column(name = "Name")
 	private String name;
 	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinColumn(name = "USER_ID")
 	private List<Role> roles;
+	@Column(name = "Password")
 	private char[] password;
+	@Column(name = "Status")
 	private String status;
 
 	public Long getUserId() {

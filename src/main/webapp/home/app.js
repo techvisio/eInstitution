@@ -6,12 +6,14 @@ var erp = angular
     'ui.bootstrap.pagination',
     'ngGrid',
     'ui.router',
+    //'smart-table',
     'erp.services',
     'admissionModule',
     'masterdataModule',
     'transportModule',
     'admissionModule',
-    'sidebarModule'
+    'sidebarModule',
+    'enquiryModule'
   ]);
 
 erp.config(function ($stateProvider, $urlRouterProvider) {
@@ -47,6 +49,28 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
     .state('admissionSearch', {
     	url: "/admission/search",
         templateUrl: 'home/admission/admissionSearch.html',
+        controller: "admissionController",
+        	resolve:{
+        		injectedData: ['$stateParams', function($stateParams){
+                    return {};
+                }]
+             }
+    })
+    
+    .state('newEnquiry', {
+    	url: "/enquiry/new",
+        templateUrl: 'home/enquiry/enquiryMain.html',
+        controller: "enquiryController",
+        	resolve:{
+        		injectedData: ['$stateParams', function($stateParams){
+                    return {};
+                }]
+             }
+    })
+    
+    .state('enquirySearch', {
+    	url: "/enquiry/search",
+        templateUrl: 'home/enquiry/enquirySearch.html',
         controller: "admissionController",
         	resolve:{
         		injectedData: ['$stateParams', function($stateParams){
@@ -114,7 +138,7 @@ erp.controller('ApplicationController',
 		function ($scope, $rootScope, $timeout, $modal) {
 		    $rootScope.enableSidebar = true;
 		    $rootScope.user={};
-		    $rootScope.user.privilege={"view":"VIEW_PERSONAL"};
+		    $rootScope.user.privilege=["VIEW_PERSONAL","ROLE_ADD_R"];
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;

@@ -21,7 +21,7 @@ import com.techvisio.einstitution.beans.StudentDocument;
 public interface AdmissionDao {
 	
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
-	public void saveStudent(Student student);
+	public Long saveStudent(Student student);
 	public Student getStudent(Long fileNo);
 
 	public StudentBasics getStudentBasics(Long fileNo);

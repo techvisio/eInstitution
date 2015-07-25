@@ -92,7 +92,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	@Override
-	public void saveStudent(Student student) {
+	public Long saveStudent(Student student) {
 
 		if(student.getFileNo()==null){
 			student.getStudentBasics().setStudent(student);
@@ -101,6 +101,9 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		else{
 			getCurrentSession().update(student);
 		}
+		
+		getCurrentSession().flush();
+		return student.getFileNo();
 	}
 
 	@Override

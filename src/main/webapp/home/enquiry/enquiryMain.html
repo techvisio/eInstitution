@@ -124,10 +124,7 @@
 					</tr>
 					<tr>
 						<td colspan=4>
-						<button type="button" class="btn btn-primary"
-								ng-click="backtoDashboard()"
-								>Back To
-								Dashboard</button>
+	
 						<button type="button" class="btn btn-primary"
 								ng-click="saveEnquiry()"
 								ng-disabled="isTaskClosedOrInAdmission()">Save Enquiry</button>
@@ -146,28 +143,4 @@
 		</form>
 	</div>
 		</div>
-			<div class="side-live-bar" ng-init="getDueEnquiry()">
-		<span class="header">Due Enquiries</span>
-		<table>
-			<tr>
-				<th>Student Name</th>
-				<th>Father Name</th>
-				<th>Course</th>
-
-			</tr>
-			<tr ng-repeat="object in dueEnquiries">
-				<td>{{object.name}}</td>
-				<td>{{object.fatherName}}</td>
-				<td>{{object.course.course}}</td>
-				<td><button type="button" class="btn btn-success btn-xs"
-						ng-click="showDetail($index)">Detail</button></td>
-			</tr>
-			<tr>
-				<td colspan=3><button type="button"
-						class="btn btn-primary showmore" ng-click="LoadMoreData()">Load
-						more data</button></td>
-			</tr>
-
-		</table>
-	</div>
-		
+			

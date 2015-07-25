@@ -10,6 +10,14 @@ import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.SearchCriteria;
 @Component
 public interface EnquiryWorkflowManager {
-	public AdmissionEnquiry getInquiry(Long inquiryId);
-	public void saveInquiry (AdmissionEnquiry admissionInquiry);
+	
+	public Long saveEnquiryAndTask (EnquiryAndTask enquiryAndTask);
+    
+	public EnquiryAndTask getEnquiryandTask(Long inquiryId);
+	
+	public List<AdmissionEnquiry> searchInqByCriteria(SearchCriteria  searchCriteria);
+
+	public Long proceedToAdmission(EnquiryAndTask enquiryAndTaskBean);
+
+	public Long toggleEnquiryStatus(EnquiryAndTask enquiryAndTaskBean);
 }

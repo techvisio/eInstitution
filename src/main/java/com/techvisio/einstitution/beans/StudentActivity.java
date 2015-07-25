@@ -2,26 +2,33 @@ package com.techvisio.einstitution.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+@Entity
+@Table(name = "STUDENT_ACTIVITY")    
+public class StudentActivity extends BasicEntity {
 
-public class StudentActivity {
-
-	private Long activityId;
-	private String activity;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="Student_Activity_Id")
+	private Long studentActivityId;
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="Activity_Name")
+	private Activity activity;
+	@Column(name="File_No")
 	private Long fileNo;
-	private Date date;
-
-	public Long getActivityId() {
-		return activityId;
-	}
-	public void setActivityId(Long activityId) {
-		this.activityId = activityId;
-	}
-	public String getActivity() {
+	
+	public Activity getActivity() {
 		return activity;
 	}
-	public void setActivity(String activity) {
+	public void setActivity(Activity activity) {
 		this.activity = activity;
 	}
 	public Long getFileNo() {
@@ -29,12 +36,6 @@ public class StudentActivity {
 	}
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 }
