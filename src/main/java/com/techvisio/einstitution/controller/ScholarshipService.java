@@ -31,11 +31,13 @@ public class ScholarshipService {
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
+		logger.info("{}  Calling getScholarship method for file no:{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarship);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getScholarship method for file no:{}",this.getClass().getName(),fileNo,e);
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -43,12 +45,14 @@ public class ScholarshipService {
 
 	@RequestMapping(value = "/{fileNo}", method = RequestMethod.POST)
 	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveScholarship method for file no:{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			schlrshpWorkflowManager.saveScholarship(scholarship);
 			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarshpFromDB);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveScholarship method for file no:{}",this.getClass().getName(),fileNo,e);
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

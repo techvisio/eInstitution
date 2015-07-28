@@ -49,6 +49,7 @@ public class EnquiryService {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask) {  
+		logger.info("{}  Calling saveEnquiryAndTask method for Name : {}",this.getClass().getName(),enquiryAndTask.getAdmissionEnquiry().getName());
 		Response response=new Response();
 		try{
 			Long enquiryId = enquiryWorkflowManager.saveEnquiryAndTask(enquiryAndTask);
@@ -58,7 +59,7 @@ public class EnquiryService {
 			}
 		}
 		catch(Exception e){
-			logger.error("Error while saving a new Enquiry",e);
+			logger.error("{} :Error While Calling saveEnquiryAndTask method for Name : {}",this.getClass().getName(),enquiryAndTask.getAdmissionEnquiry().getName(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -66,6 +67,7 @@ public class EnquiryService {
 
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.PUT)
 	public ResponseEntity<Response> UpdateEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask , @PathVariable Long enquiryId) {  
+		logger.info("{}  Calling saveEnquiryAndTask method for enquiry Id : {}",this.getClass().getName(),enquiryId);
 		Response response=new Response();
 		try{
 			enquiryWorkflowManager.saveEnquiryAndTask(enquiryAndTask);
@@ -75,6 +77,7 @@ public class EnquiryService {
 			}
 		}
 		catch(Exception e){
+			logger.error("{} :Error While Calling saveEnquiryAndTask method for enquiry Id : {}",this.getClass().getName(),enquiryId,e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -82,7 +85,7 @@ public class EnquiryService {
 
 	@RequestMapping(value ="/search/", method = RequestMethod.POST)
 	public ResponseEntity<Response> getInquiryByCriteria(@RequestBody SearchCriteria searchCriteria) {
-		logger.info("{}  Calling searchInqByCriteria method by for enquiry Id : {}",this.getClass().getName(), searchCriteria.getInquryId());
+		logger.info("{}  Calling searchInqByCriteria method  for enquiry Id : {}",this.getClass().getName(), searchCriteria.getInquryId());
 		Response response=new Response();
 		try
 		{
@@ -112,7 +115,7 @@ public class EnquiryService {
 
 	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
 	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTask enquirynTask) {  
-		logger.info("{}  Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
+		logger.info("{}  Calling proceedToAdmission method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
 
@@ -123,7 +126,7 @@ public class EnquiryService {
 			}
 		}
 		catch(Exception e){
-			logger.error("{} :Error While Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
+			logger.error("{} :Error While Calling proceedToAdmission method for  enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);

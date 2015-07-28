@@ -33,11 +33,13 @@ ConsultantWorkflowManager consltntWorkflowManager;
 
 @RequestMapping(value = "/{fileNo}", method = RequestMethod.GET)
 public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo){
+	logger.info("{}  Calling getAdmissnConsltntDtl method for file no:{}",this.getClass().getName(), fileNo);
 	Response response = new Response();
 	try {
 		List<AdmissnConsltntDtl> admissnConsltntDtls = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
 		response.setResponseBody(admissnConsltntDtls);
 	} catch (Exception e) {
+		logger.error("{} :Error while Calling getAdmissnConsltntDtl method for file no:{}",this.getClass().getName(),fileNo,e);
 		e.printStackTrace();
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
@@ -45,12 +47,14 @@ public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo)
 
 @RequestMapping(value = "/{fileNo}", method = RequestMethod.POST)
 public ResponseEntity<Response> saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
+	logger.info("{}  Calling saveAdmissionConsultantDtl method for file no:{}",this.getClass().getName(), fileNo);
 	Response response = new Response();
 	try {
 		consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
 		List<AdmissnConsltntDtl> consultntFromDB = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
 		response.setResponseBody(consultntFromDB);
 	} catch (Exception e) {
+		logger.error("{} :Error while Calling saveAdmissionConsultantDtl method for file no:{}",this.getClass().getName(),fileNo,e);
 		e.printStackTrace();
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);

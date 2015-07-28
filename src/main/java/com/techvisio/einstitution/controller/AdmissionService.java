@@ -69,12 +69,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/{fileNo}", method = RequestMethod.GET)
 	public Student getStudent(@PathVariable Long fileNo){
+		logger.info("{}  Calling getStudent method for file no:{}",this.getClass().getName(), fileNo);
 		Student student = admWorkflowManager.getStudent(fileNo);
 		return student;
 	}
 	
 	@RequestMapping(value = "/student/new", method = RequestMethod.GET)
 	public ResponseEntity<Response> getNewAdmission(){
+		logger.info("{}  Calling getNewAdmissionWorkFlow method ",this.getClass().getName());
 		Workflow wf=admWorkflowManager.getNewAdmissionWorkFlow();
 		Response response=new Response();
 		if(wf!= null){
@@ -88,6 +90,7 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student", method = RequestMethod.POST)
 	public ResponseEntity<Response> saveStudent(@RequestBody Student student){
+		logger.info("{}  Calling saveStudent method for file no:{}",this.getClass().getName(), student.getFileNo());
 		Response response = new Response();
 		try{
 			admWorkflowManager.saveStudent(student);
@@ -95,6 +98,7 @@ public class AdmissionService {
 			response.setResponseBody(studentFromDB);
 		}
 		catch(Exception e){
+			logger.error("{} :Error while Calling saveStudent method for file no:{}",this.getClass().getName(),student.getFileNo(),e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -103,11 +107,13 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/studentbasic/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> geStudentBasics(@PathVariable Long fileNo){
+		logger.info("{}  Calling getStudentBasics method for file no:{}",this.getClass().getName(), fileNo);
 		Response response =new Response();
 		try {
 			StudentBasics studentBasics = admWorkflowManager.getStudentBasics(fileNo);
 			response.setResponseBody(studentBasics);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getStudentBasics method for file no:{}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -116,12 +122,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/studentbasic/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> savestudentBasics(@RequestBody StudentBasics studentBasics, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveStudentBasics method for file no:{} and Name:{}",this.getClass().getName(), fileNo, studentBasics.getFirstName());
 		Response response =new Response();
 		try {
 			admWorkflowManager.saveStudentBasics(studentBasics);
 			StudentBasics studentBasicFromDB = admWorkflowManager.getStudentBasics(fileNo);
 			response.setResponseBody(studentBasicFromDB);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveStudentBasics method for file no:{} and Name:{}",this.getClass().getName(),fileNo,studentBasics.getFirstName(),e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -130,13 +138,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/academic/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentAcademic(@PathVariable Long fileNo){
-
+		logger.info("{}  Calling getAcademicDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try{
 			List<StudentAcademic> studentAcademics = admWorkflowManager.getAcademicDtl(fileNo);
 			response.setResponseBody(studentAcademics);
 		}
 		catch(Exception e){
+			logger.error("{} :Error while Calling getAcademicDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -145,7 +154,7 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/academic/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveStudentAcademicDtl(@RequestBody List<StudentAcademic> studentAcademics,@PathVariable Long fileNo){
-
+		logger.info("{}  Calling saveAcademicDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try{
 			admWorkflowManager.saveAcademicDtl(studentAcademics, fileNo);
@@ -153,6 +162,7 @@ public class AdmissionService {
 			response.setResponseBody(academicFromDB);
 		}
 		catch(Exception e){
+			logger.error("{} :Error while Calling saveAcademicDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -161,13 +171,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/discount/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getDiscountDtl(@PathVariable Long fileNo){
-
+		logger.info("{}  Calling getDiscountDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try{
 			List<AdmissionDiscount> admissionDiscounts = admWorkflowManager.getDiscountDtl(fileNo);
 			response.setResponseBody(admissionDiscounts);
 		} 
 		catch(Exception e){
+			logger.error("{} :Error while Calling getDiscountDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -176,6 +187,7 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/discount/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveDiscountDtl(@RequestBody List<AdmissionDiscount> admissionDiscounts, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveDiscountDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			admWorkflowManager.saveDiscountDtl(admissionDiscounts, fileNo);
@@ -183,6 +195,7 @@ public class AdmissionService {
 			response.setResponseBody(discountFromDB);
 		} 
 		catch (Exception e) {
+			logger.error("{} :Error while Calling saveDiscountDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -191,12 +204,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/address/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getAddressDtl(@PathVariable Long fileNo){
+		logger.info("{}  Calling getAddressDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			List<Address> addresses = admWorkflowManager.getAddressDtl(fileNo);
 			response.setResponseBody(addresses);
 		} 
 		catch (Exception e) {
+			logger.error("{} :Error while Calling getAddressDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -205,12 +220,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/address/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveAddressDtl(@RequestBody List<Address> addresses, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveAddressDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			admWorkflowManager.saveAddressDtl(addresses, fileNo);
 			List<Address> addressFromDB = admWorkflowManager.getAddressDtl(fileNo);
 			response.setResponseBody(addressFromDB);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveAddressDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -219,12 +236,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/branchpref/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getBranchPreference(@PathVariable Long fileNo){
+		logger.info("{}  Calling getBranchPreference method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			List<BranchPreference> branchPreferences = admWorkflowManager.getBranchPreference(fileNo);
 			response.setResponseBody(branchPreferences);
 		} 
 		catch (Exception e) {
+			logger.error("{} :Error while Calling getBranchPreference method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -233,12 +252,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/branchpref/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveBranchPreference(@RequestBody List<BranchPreference> branchPreferences, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveBranchPreference method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			admWorkflowManager.saveBranchPreference(branchPreferences, fileNo);
 			List<BranchPreference> branchPrefFromDB = admWorkflowManager.getBranchPreference(fileNo);
 			response.setResponseBody(branchPrefFromDB);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveBranchPreference method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -247,11 +268,13 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/counselling/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getCounsellingDtl(@PathVariable Long fileNo){
+		logger.info("{}  Calling getCounsellingDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			List<Counselling> counsellings = admWorkflowManager.getCounsellingDtl(fileNo);
 			response.setResponseBody(counsellings);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getCounsellingDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -260,12 +283,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/counselling/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveCounsellingDtl (@RequestBody List<Counselling> counsellings, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveCounsellingDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			admWorkflowManager.saveCounsellingDtl(counsellings, fileNo);
 			List<Counselling> counsellingFromDB = admWorkflowManager.getCounsellingDtl(fileNo);
 			response.setResponseBody(counsellingFromDB);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveCounsellingDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -274,11 +299,13 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/consultant/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo){
+		logger.info("{}  Calling getAdmissnConsltntDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			List<AdmissnConsltntDtl> admissnConsltntDtls = constntWorkflowManager.getAdmissnConsltntDtl(fileNo);
 			response.setResponseBody(admissnConsltntDtls);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getAdmissnConsltntDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -287,6 +314,7 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/consultant/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveAdmissionConsultantDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			constntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
@@ -294,6 +322,7 @@ public class AdmissionService {
 			response.setResponseBody(consultantFromDB);
 
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveAdmissionConsultantDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -302,11 +331,13 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/scholarship/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
+		logger.info("{}  Calling getScholarship method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response =new Response();
 		try {
 			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarship);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getScholarship method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -315,12 +346,14 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/scholarship/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveScholarship method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response =new Response();
 		try {
 			schlrshpWorkflowManager.saveScholarship(scholarship);
 			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
 			response.setResponseBody(scholarshpFromDB);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveScholarship method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -330,11 +363,13 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getDocumentDtl(@PathVariable Long fileNo){
+		logger.info("{}  Calling getDocumentDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			List<StudentDocument> studentDocuments = admWorkflowManager.getDocumentDtl(fileNo);
 			response.setResponseBody(studentDocuments);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getDocumentDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -344,6 +379,7 @@ public class AdmissionService {
 
 	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveDocumentDtl(@RequestBody List<StudentDocument> documents, @PathVariable Long fileNo){
+		logger.info("{}  Calling saveDocumentDtl method for file no:{} ",this.getClass().getName(), fileNo);
 		Response response = new Response();
 		try {
 			admWorkflowManager.saveDocumentDtl(documents, fileNo);
@@ -351,6 +387,7 @@ public class AdmissionService {
 			response.setResponseBody(documentFromDB);
 
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveDocumentDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -362,11 +399,13 @@ public class AdmissionService {
 	
 	@RequestMapping(value = "student/document", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentDocumentDtl(){
+		logger.info("{}  Calling getStudentDocumentDtl method  ",this.getClass().getName());
 		Response response = new Response();
 		try {
 			List<Object[]> studentDocuments = admWorkflowManager.getStudentDocumentDtl();
 			response.setResponseBody(studentDocuments);
 		} catch (Exception e) {
+			logger.error("{} :Error while Calling getStudentDocumentDtl method  ",this.getClass().getName(),e);
 			response.setError(e.getMessage());
 			e.printStackTrace();
 		}
