@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AdmissionEnquiry;
 import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.SearchCriteria;
 @Component
+@Transactional
 public interface EnquiryWorkflowManager {
 	
 	public Long saveEnquiryAndTask (EnquiryAndTask enquiryAndTask);

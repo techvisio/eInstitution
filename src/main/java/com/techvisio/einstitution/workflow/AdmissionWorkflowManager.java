@@ -17,6 +17,7 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
+import com.techvisio.einstitution.beans.Workflow;
 
 @Component
 @Transactional
@@ -66,5 +67,7 @@ public interface AdmissionWorkflowManager {
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 
 	public List<Object[]> getStudentDocumentDtl();
+
+	Workflow getNewAdmissionWorkFlow();
 
 }

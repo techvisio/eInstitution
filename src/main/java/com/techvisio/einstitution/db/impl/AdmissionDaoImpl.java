@@ -36,6 +36,7 @@ import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
+import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -95,6 +96,10 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	public Long saveStudent(Student student) {
 
 		if(student.getFileNo()==null){
+			Workflow wf=cacheManager.getNewAdmissionWorkFlow();
+			if(wf != null){
+				//student.getStudentBasics().set
+			}
 			student.getStudentBasics().setStudent(student);
 			getCurrentSession().save(student);
 		}

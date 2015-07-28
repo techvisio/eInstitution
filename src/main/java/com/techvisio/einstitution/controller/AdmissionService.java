@@ -24,6 +24,7 @@ import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
+import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
@@ -70,6 +71,19 @@ public class AdmissionService {
 	public Student getStudent(@PathVariable Long fileNo){
 		Student student = admWorkflowManager.getStudent(fileNo);
 		return student;
+	}
+	
+	@RequestMapping(value = "/student/new", method = RequestMethod.GET)
+	public ResponseEntity<Response> getNewAdmission(){
+		Workflow wf=admWorkflowManager.getNewAdmissionWorkFlow();
+		Response response=new Response();
+		if(wf!= null){
+			response.setResponseBody(wf);
+		}else{
+			response.setError("No Workflow is defined for Admission");
+		}
+			
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/student", method = RequestMethod.POST)

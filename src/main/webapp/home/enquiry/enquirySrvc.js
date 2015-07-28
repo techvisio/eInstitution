@@ -69,12 +69,12 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 return (request.then(handleSuccess, handleError));
 	}
 	
-	 function updateEnquiry(enquiryAndTaskBean){
+	 function updateEnquiry(enquiryAndTaskBean, enquiryId){
 		 
 		 console.log('update student called in service');
 		 var request = $http({
 			 method : "put",
-			 url : "enquiry",
+			 url : "enquiry/"+enquiryId,
 			 params : "",
 			 data : enquiryAndTaskBean
 

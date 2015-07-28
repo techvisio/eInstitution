@@ -7,6 +7,10 @@
         drop 
         foreign key FK_3q4hnklta6p8eu5s1ig5rukui;
 
+    alter table ACTIVITIES 
+        drop 
+        foreign key FK_rifjoeo8bt2meq18oagup0q2q;
+
     alter table ADDRESS_DETAIL 
         drop 
         foreign key FK_j7fxgtx4eic9112gcspuaifv9;
@@ -94,10 +98,6 @@
     alter table FEE_TRANSACTION_DEBIT 
         drop 
         foreign key FK_30jn4uaxemk1o0740sca6ijje;
-
-    alter table PRIVILEGE 
-        drop 
-        foreign key FK_hh60cotx6wbyv02wgi0dphp4y;
 
     alter table QUALIFICATION_SUBJECT_DTL 
         drop 
@@ -227,13 +227,13 @@
         drop 
         foreign key FK_4mmiquwsacu8g006dqhmuebhm;
 
-    alter table Workflow_Dependency 
+    alter table WORKFLOW_DEPENDENCY 
         drop 
-        foreign key FK_33orsn1b4v5b9cissg9cqowpp;
+        foreign key FK_2742163qwcaakvtlxa9tthmid;
 
-    alter table Workflow_Dependency 
+    alter table WORKFLOW_DEPENDENCY 
         drop 
-        foreign key FK_7s7wewlf3oh1rv32edt0qg2is;
+        foreign key FK_yygeej4cuditgscb7pqckq5o;
 
     alter table admission_Enquiry 
         drop 
@@ -256,6 +256,8 @@
         foreign key FK_f8xm3csvc8j8y0hxvt4qgxky;
 
     drop table if exists ACADEMIC_DETAIL;
+
+    drop table if exists ACTIVITIES;
 
     drop table if exists ADDRESS_DETAIL;
 
@@ -365,7 +367,7 @@
 
     drop table if exists WORKFLOW;
 
-    drop table if exists Workflow_Dependency;
+    drop table if exists WORKFLOW_DEPENDENCY;
 
     drop table if exists admission_Enquiry;
 
@@ -383,6 +385,13 @@
         University varchar(255),
         Qualification_Id bigint,
         primary key (Student_Qualification_Id)
+    );
+
+    create table ACTIVITIES (
+        Activity_Id bigint not null auto_increment,
+        Activity_Name varchar(255),
+        Step_Id bigint,
+        primary key (Activity_Id)
     );
 
     create table ADDRESS_DETAIL (
@@ -685,8 +694,6 @@
     );
 
     create table PRIVILEGE (
-        Activity_Id bigint not null,
-        Activity_Name varchar(255),
         Privilege_Id bigint not null auto_increment,
         Created_By varchar(255),
         Created_On datetime,
@@ -895,7 +902,7 @@
         Admission_Mode varchar(255),
         Application_Status varchar(255),
         Blood_Group varchar(255),
-        DOB date,
+        DOB datetime,
         Email_Id varchar(255),
         Enroll_No varchar(255),
         Father_Name varchar(255),
@@ -1081,13 +1088,12 @@
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
-        Parent_Id bigint,
         Step varchar(255),
         Workflow varchar(255),
         primary key (Step_Id)
     );
 
-    create table Workflow_Dependency (
+    create table WORKFLOW_DEPENDENCY (
         WORKFLOW_Step_Id bigint not null,
         childWorkflow_Step_Id bigint not null
     );
@@ -1147,8 +1153,8 @@
         primary key (id)
     );
 
-    alter table Workflow_Dependency 
-        add constraint UK_33orsn1b4v5b9cissg9cqowpp  unique (childWorkflow_Step_Id);
+    alter table WORKFLOW_DEPENDENCY 
+        add constraint UK_2742163qwcaakvtlxa9tthmid  unique (childWorkflow_Step_Id);
 
     alter table ACADEMIC_DETAIL 
         add constraint FK_8d8m4sy6b4814lyj3bs6bqhv4 
@@ -1159,6 +1165,11 @@
         add constraint FK_3q4hnklta6p8eu5s1ig5rukui 
         foreign key (File_No) 
         references STUDENT_DETAIL (File_No);
+
+    alter table ACTIVITIES 
+        add constraint FK_rifjoeo8bt2meq18oagup0q2q 
+        foreign key (Step_Id) 
+        references WORKFLOW (Step_Id);
 
     alter table ADDRESS_DETAIL 
         add constraint FK_j7fxgtx4eic9112gcspuaifv9 
@@ -1270,11 +1281,6 @@
         foreign key (Session_Id) 
         references SESSION_MASTER (Session_Id);
 
-    alter table PRIVILEGE 
-        add constraint FK_hh60cotx6wbyv02wgi0dphp4y 
-        foreign key (Activity_Id) 
-        references WORKFLOW (Step_Id);
-
     alter table QUALIFICATION_SUBJECT_DTL 
         add constraint FK_cstohfnj2itxfx6n124mwvhj 
         foreign key (Qualification_Id) 
@@ -1358,7 +1364,7 @@
     alter table STUDENT_ACTIVITY 
         add constraint FK_len3qh3y6sa2jj2ie7y0ysbea 
         foreign key (Activity_Name) 
-        references PRIVILEGE (Privilege_Id);
+        references ACTIVITIES (Activity_Id);
 
     alter table STUDENT_BASIC 
         add constraint FK_5elx11ta4tl93pveu7owp1sbh 
@@ -1435,13 +1441,13 @@
         foreign key (Type_Id) 
         references VEHICLE_TYPE_MASTER (Type_Id);
 
-    alter table Workflow_Dependency 
-        add constraint FK_33orsn1b4v5b9cissg9cqowpp 
+    alter table WORKFLOW_DEPENDENCY 
+        add constraint FK_2742163qwcaakvtlxa9tthmid 
         foreign key (childWorkflow_Step_Id) 
         references WORKFLOW (Step_Id);
 
-    alter table Workflow_Dependency 
-        add constraint FK_7s7wewlf3oh1rv32edt0qg2is 
+    alter table WORKFLOW_DEPENDENCY 
+        add constraint FK_yygeej4cuditgscb7pqckq5o 
         foreign key (WORKFLOW_Step_Id) 
         references WORKFLOW (Step_Id);
 

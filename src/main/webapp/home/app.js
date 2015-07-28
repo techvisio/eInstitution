@@ -45,7 +45,7 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
             }]
          }
     })
-    
+   
     .state('admissionSearch', {
     	url: "/admission/search",
         templateUrl: 'home/admission/admissionSearch.html',
@@ -57,6 +57,16 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
              }
     })
     
+    .state('enquiry', {
+            url: "/enquiry/{enquiryId:[0-9]{1,8}}",
+            templateUrl: 'home/enquiry/enquiryMain.html',
+            controller: "enquiryController",
+            resolve:{
+            	injectedData: ['$stateParams','enquiryService', function($stateParams,enquiryService){
+                    return enquiryService.getEnquiry($stateParams.enquiryId);
+                }]
+             }
+        }) 
     .state('newEnquiry', {
     	url: "/enquiry/new",
         templateUrl: 'home/enquiry/enquiryMain.html',
@@ -71,7 +81,7 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
     .state('enquirySearch', {
     	url: "/enquiry/search",
         templateUrl: 'home/enquiry/enquirySearch.html',
-        controller: "admissionController",
+        controller: "enquiryController",
         	resolve:{
         		injectedData: ['$stateParams', function($stateParams){
                     return {};
@@ -79,23 +89,7 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
              }
     });
     
-//    .state('newadmission',{
-//    views: {
-//      'fixedAdmissionInfo': {
-//        templateUrl: 'home/admission/fixedAdmissionInfo.html',
-//        controller: function($scope){}
-//      },
-//      'personalInfo': {
-//        templateUrl: 'home/admission/personalInfo.html',
-//        controller: "admissionController"
-//      },
-//      'academicDetail': {
-//        templateUrl: 'home/admission/academicDetail.html',
-//        controller: "admissionController"
-//      }
-//    }
-//  })
-//  
+ 
 });
 
 erp.config(['$httpProvider', '$sceProvider',
@@ -138,7 +132,7 @@ erp.controller('ApplicationController',
 		function ($scope, $rootScope, $timeout, $modal) {
 		    $rootScope.enableSidebar = true;
 		    $rootScope.user={};
-		    $rootScope.user.privilege=["VIEW_PERSONAL","ROLE_ADD_R"];
+		    $rootScope.user.privilege=["ROLE_PER_U","ROLE_ADD_U","ROLE_ACD_U","ROLE_DOC_U","ROLE_PER_R","ROLE_DOC_R","ROLE_ADD_R","ROLE_DIS_R","ROLE_SCH_R","ROLE_ACD_R","ROLE_COUN_R","ROLE_OFF_R","ROLE_DIS_R","ROLE_CON_R","ROLE_REF_R"];
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;

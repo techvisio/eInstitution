@@ -31,7 +31,7 @@ public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 	}
 
 	public List<TaskAndFollowUp> getTaskAndFollowUpByByModuleAndEntityId(Long entityId, String module) {
-		String queryString="FROM TaskAndFollowUp tf WHERE tf.entityId = "+entityId +"and tf.module = " + module;
+		String queryString="FROM TaskAndFollowUp tf WHERE tf.entityId = "+entityId +" and tf.module = '" + module +"'";
 		Query query=getCurrentSession().createQuery(queryString);
 		List<TaskAndFollowUp> result= query.list();
 		return result;	
@@ -57,6 +57,4 @@ public class TaskFollowDaoImpl extends BaseDao implements TaskFollowDao {
 			getCurrentSession().update(taskAndFollowUp);
 		}
 	}
-	
-	
 }

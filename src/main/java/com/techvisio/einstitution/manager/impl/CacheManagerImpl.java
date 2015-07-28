@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,7 @@ import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
+import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.db.impl.CacheDaoImpl;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -89,6 +91,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<String, RoomType> roomTypeMap = new HashMap<String, RoomType>();
 	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
 	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
+	private static Map<Long, Workflow> workflowMap = new TreeMap<Long, Workflow>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -352,6 +355,14 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Amenities>)entityListMap.get(AppConstants.AMENITIES);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public synchronized List<Workflow> getWorkflow(){
+		logger.info("{} : Mapping work for get workflow ",this.getClass().getName());	
+		if(entityListMap.get(AppConstants.ADMISSION_WORKFLOW) == null || entityListMap.get(AppConstants.ADMISSION_WORKFLOW).size() == 0 ){
+			refreshCacheList(AppConstants.ADMISSION_WORKFLOW);
+		}
+	return (List<Workflow>)entityListMap.get(AppConstants.ADMISSION_WORKFLOW);
+	}
 	
 	public void builtEntityListCache(){
 		List<Branch> branchs =new ArrayList<Branch>();
@@ -480,12 +491,16 @@ public class CacheManagerImpl implements CacheManager {
 		transports = cacheDao.getTransport();
 		entityListMap.put(AppConstants.TRANSPORT, transports);
 		
-		
 		List<Amenities> amenities = new ArrayList<Amenities>();
 		logger.info("{} : built entity list cache work for get amenities ",this.getClass().getName());	
 		amenities = cacheDao.getAmenitiesCharges();
 		entityListMap.put(AppConstants.AMENITIES, amenities);
 
+		List<Workflow> workflows = new ArrayList<Workflow>();
+		logger.info("{} : built entity list cache work for get workflow ",this.getClass().getName());	
+		workflows = cacheDao.getAdmissionWorkFlow();
+		entityListMap.put(AppConstants.ADMISSION_WORKFLOW, workflows);
+		
 		
 		buildEntityMap();
 
@@ -662,6 +677,11 @@ public class CacheManagerImpl implements CacheManager {
 			entityListMap.put(AppConstants.AMENITIES, amenities);
 	
 		
+		case AppConstants.ADMISSION_WORKFLOW:
+				logger.info("{} : refresh cache list work for get workflow ",this.getClass().getName());		
+				List<Workflow> workflows = new ArrayList<Workflow>();
+				workflows = cacheDao.getAdmissionWorkFlow();
+				entityListMap.put(AppConstants.ADMISSION_WORKFLOW, workflows);
 		default:
 
 		}
@@ -777,6 +797,9 @@ public class CacheManagerImpl implements CacheManager {
 			amenitiesMap.put(amenities.getFeeDiscountHead().getHeadId(), amenities);
 		}
 		
+		for(Workflow workflow : cacheDao.getAdmissionWorkFlow()){
+			workflowMap.put(workflow.getStepId(), workflow);
+		}
 	}
     
 	@Override
@@ -935,8 +958,24 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	@Override
+	public Workflow getWorkflowByStepId(Long stepId ){
+		return workflowMap.get(stepId);
+		
+	}
+
+	@Override
 	public List<MasterData> getBatchAsMasterdata() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Workflow getNewAdmissionWorkFlow(){
+		if(workflowMap != null && workflowMap.size()>0){
+			for(Long key:workflowMap.keySet()){
+				return workflowMap.get(key);
+			}	
+		}
 		return null;
 	}
 

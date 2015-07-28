@@ -65,7 +65,8 @@ public ResponseEntity<Response> getMasterDataforAdmission() {
 			AppConstants.ROOMNO, 
 			AppConstants.VEHICLE, 
 			AppConstants.VEHICLETYPE, 
-			AppConstants.AMENITIES
+			AppConstants.AMENITIES,
+			AppConstants.ADMISSION_WORKFLOW
 			};
 	
 	try{
@@ -85,7 +86,36 @@ public ResponseEntity<Response> getMasterDataforAdmission() {
 	
 }
 
-
+@RequestMapping(value = "/enquiry", method = RequestMethod.GET)	
+public ResponseEntity<Response> getMasterDataforEnquiry() {
+	logger.info("{} Get MasterData call for enquiry ",this.getClass().getName());
+	Response response=new Response();
+	String[] masterEntity=new String[]{
+			AppConstants.CATEGORY,
+			AppConstants.COURSE,
+			AppConstants.BRANCH,
+			AppConstants.STATE,
+			AppConstants.COUNSELLING,
+			AppConstants.CONSULTANT,
+			AppConstants.SEMESTER, 
+			};
+	
+	try{
+	Map<String,List> serverData=new HashMap<String, List>();
+	
+	for(String entity:masterEntity){
+		serverData.put(entity, cacheManager.getEntityList(entity));
+	}
+	
+	response.setResponseBody(serverData);
+	}
+	catch(Exception e){
+		logger.error("Error while fetching master data for admssion", e);
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+	
+}
 
 
 }

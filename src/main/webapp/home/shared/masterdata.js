@@ -3,8 +3,8 @@ var masterDataModule=angular.module('masterdataModule',[]);
 masterDataModule.service('masterdataService', function($http, $q){
 
 	 return ({
-         getAdmissionMasterData : getAdmissionMasterData
-         
+         getAdmissionMasterData : getAdmissionMasterData,
+         getAdmissionMasterDataEnquiry : getAdmissionMasterDataEnquiry
        });
 
        function getAdmissionMasterData() {
@@ -21,6 +21,20 @@ masterDataModule.service('masterdataService', function($http, $q){
 
        }
 
+       function getAdmissionMasterDataEnquiry() {
+
+           console.log('Getting masterdata for enquiry module');
+           var request = $http({
+             method : "get",
+             url : "masterdata/enquiry",
+             params : "",
+             data : ""
+           });
+
+           return (request.then(handleSuccess, handleError));
+
+         }
+       
         function handleError(response) {
          console.log('handle error');
          console.log(response);

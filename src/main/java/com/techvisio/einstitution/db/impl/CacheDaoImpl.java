@@ -39,6 +39,7 @@ import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
+import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.db.CacheDao;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
@@ -250,4 +251,11 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		return result;
 	}
 
+	@Override
+	public List<Workflow> getAdmissionWorkFlow() {
+		String queryString="FROM Workflow where workflow='ADMISSION'";
+		Query query=getCurrentSession().createQuery(queryString);
+		List<Workflow> result= query.list();
+		return result;
+	}
 }

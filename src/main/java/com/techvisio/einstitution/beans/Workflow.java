@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,17 +22,15 @@ public class Workflow extends BasicEntity{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Step_Id")
 	private Long stepId;
-	@Column(name = "Parent_Id")
-	private Long parentId;
 	@Column(name = "Step")
 	private String step;
 	@Column(name = "Workflow")
 	private String workflow;
-	@OneToMany(cascade={CascadeType.ALL})
-	@JoinColumn(name="Activity_Id")
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+	@JoinColumn(name="Step_Id")
 	private List<Activity> activity;
-	@OneToMany(cascade={CascadeType.ALL})
-	@JoinTable(name="Workflow_Dependency")
+	@OneToMany(cascade={CascadeType.ALL} , fetch=FetchType.EAGER)
+	@JoinTable(name="WORKFLOW_DEPENDENCY")
 	private List<Workflow> childWorkflow;
 	
 	
@@ -54,12 +53,6 @@ public class Workflow extends BasicEntity{
 		this.step = step;
 	}
 	
-	public Long getParentId() {
-		return parentId;
-	}
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
 	public List<Activity> getActivity() {
 		return activity;
 	}

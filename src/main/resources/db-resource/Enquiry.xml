@@ -33,24 +33,15 @@ AI.Admission_Mode,
 null Registration_No
 
 
-from admissioninquiry AI join taskandfollowup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and TF.Module='ENQUIRY' and TF.Status != 'C';     ]]>
-
-</entry>
-
-	<entry key="deleteAdmissionInquiry">
-    <![CDATA[
-      
-Delete from AdmissionInquiry where Inquiry_Id=:Inquiry_Id; 
-    ]]>
+from admission_enquiry AI join task_and_followup TF on AI.Inquiry_Id = TF.Entity_Id where TF.Task_Date=:Task_Date and TF.Module='ENQUIRY' and TF.Status != 'C';     
+]]>
 
 	</entry>
-	
-	
 	<entry key="searchInquiry">
     <![CDATA[
       
 SELECT 
-Inquiry_Id, 
+Enquiry_Id, 
 Name, 
 Father_Name,
 DOB, 
@@ -72,10 +63,10 @@ Gender,
 Consultant_Id,
 Referred_By,
 Category_Id,
-Admission_Mode,
-null Registration_No
+Admission_Mode
 
-FROM AdmissionInquiry where Inquiry_Id=IFNULL(:Inquiry_Id,Inquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
+
+FROM Admission_Enquiry where Enquiry_Id=IFNULL(:Enquiry_Id,Enquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
 IFNULL(Contact_No,'-1') =IFNULL(:Phone_No,IFNULL(Contact_No,'-1')) and Branch_Id = IFNULL(:Branch_Id,Branch_Id) and Name like :Name and Application_Status=IFNULL(:status,Application_Status); 
     ]]>
 

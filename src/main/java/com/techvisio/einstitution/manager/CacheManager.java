@@ -29,6 +29,7 @@ import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
+import com.techvisio.einstitution.beans.Workflow;
 
 @Component
 public interface CacheManager {
@@ -91,4 +92,8 @@ public interface CacheManager {
 	Transport getTransportByRouteCode(String routeCode);
 
 	Amenities getAmentiesByFeeId(Long feeId);
+
+	Workflow getWorkflowByStepId(Long stepId);
+
+	Workflow getNewAdmissionWorkFlow();
 }

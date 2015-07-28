@@ -25,7 +25,6 @@ import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 @Component
-@Transactional
 public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 
 	private static CustomLogger logger = CustomLogger.getLogger(EnquiryDaoImpl.class);
@@ -56,7 +55,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 
 
 	public AdmissionEnquiry getInquiry(Long inquiryId) {
-		String queryString="FROM AdmissionEnquiry ae WHERE ae.inquiryId = "+inquiryId;
+		String queryString="FROM AdmissionEnquiry ae WHERE ae.enquiryId = "+inquiryId;
 		Query query=getCurrentSession().createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<AdmissionEnquiry> result= (List<AdmissionEnquiry>)query.list();
@@ -86,7 +85,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 				.getProperty("searchInquiry");
 
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
-				"Inquiry_Id", searchCriteria.getInquryId()==null?null:searchCriteria.getInquryId())
+				"Enquiry_Id", searchCriteria.getInquryId()==null?null:searchCriteria.getInquryId())
 		.addValue("Email_Id", StringUtils.isEmpty(searchCriteria.getEmailId())?null:searchCriteria.getEmailId())
 		.addValue("Name", StringUtils.isEmpty(searchCriteria.getName())?"%":searchCriteria.getName()+"%")
 		.addValue("Phone_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
@@ -109,7 +108,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 			 logger.info("{} : Setting values in setter of AdmissionEnquiry bean through rowmapper  ",this.getClass().getName());
 					AdmissionEnquiry admissionInquiry = new AdmissionEnquiry();
 					admissionInquiry.setEnquiryId(CommonUtil.getLongValue(rs
-							.getLong("Inquiry_Id")));
+							.getLong("Enquiry_Id")));
 					admissionInquiry.setName(rs.getString("Name"));
 					admissionInquiry.setFatherName(rs
 							.getString("Father_Name"));
@@ -143,10 +142,12 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 					admissionInquiry.setEmailId(rs.getString("Email_Id"));
 					admissionInquiry.setLateral(rs.getBoolean("Lateral"));
 					admissionInquiry.setGender(rs.getString("Gender"));
-					admissionInquiry.getConsultant().setConsultantId((CommonUtil.getLongValue(rs.getLong("Consultant_Id"))));
+					if(admissionInquiry.getConsultant()!=null){
+					admissionInquiry.getConsultant().setConsultantId((CommonUtil.getLongValue(rs.getLong("Consultant_Id"))));}
 					admissionInquiry.setReferredBy(rs.getString("Referred_By"));
 					admissionInquiry.setAdmissionMode(rs.getString("Admission_Mode"));
-					admissionInquiry.getCategory().setCategoryId((CommonUtil.getLongValue(rs.getLong("Category_Id"))));
+					if(admissionInquiry.getCategory()!=null){
+					admissionInquiry.getCategory().setCategoryId((CommonUtil.getLongValue(rs.getLong("Category_Id"))));}
 					return admissionInquiry;
 		}
 		

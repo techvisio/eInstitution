@@ -17,7 +17,9 @@ import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
+import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.manager.AdmissionManager;
+import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.FeeManager;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
@@ -36,6 +38,9 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	@Autowired
 	FeeWorkflowManager feeWorkflowManager;
+	
+	@Autowired
+	CacheManager cacheManager;
 
 	@Override
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
@@ -227,6 +232,11 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	public List<Object[]> getStudentDocumentDtl() {
 		List<Object[]> studentDocuments = admissionManager.getStudentDocumentDtl();
 		return studentDocuments;
+	}
+	
+	@Override
+	public Workflow getNewAdmissionWorkFlow(){
+		return cacheManager.getNewAdmissionWorkFlow();
 	}
 
 }

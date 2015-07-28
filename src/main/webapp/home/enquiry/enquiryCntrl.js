@@ -16,7 +16,7 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 	
 	// Variables for show and hiding.
 	$scope.processing=false;
-	$scope.showCriteria=false;
+	$scope.showCriteria=true;
 	$scope.addReminder=false;
 	$scope.form.isNew=true;
 	$scope.form.isEdit=true;
@@ -29,18 +29,10 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 	  $scope.pageCount = function () {
 	    return Math.ceil($scope.searchEnquiryList.length / $scope.itemsPerPage);
 	  };
-	  
-//		 $scope.newEnquiry = function() {
-//			 $state.go('newEnquiry');
-//		 }
-//
-//		 $scope.enquirySearch = function() {
-//			 $state.go('enquirySearch');
-//		 }
-	 $scope.dummyTask = {
+
+	  $scope.dummyTask = {
 			 "taskDate" : null,
 			 "remark" : null,
-			
 	 };
 	 
 	 
@@ -72,15 +64,15 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
             return;
 		 }
 		 var cnfirm=confirm("closing a task can not be undone. \n would you like to continue?");
-		 
 		 if(cnfirm){
-			 
 			 task.status='C';
-			 
 		 }
-        
-	  
 	 }
+	 
+	 $scope.directViewEnquiry=function(currentEnquiryId){
+		 $state.go('enquiry',{enquiryId:currentEnquiryId});
+	 }
+	 
 	$scope.getEnquiryBySearchCriteria = function() {
 		 console.log('get enquiry by search criteria in controller');
 		 $scope.currentPage = 0;
@@ -179,11 +171,11 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 		 
 	console.log('getting masterdata for Enquiry module in init block');
 
-	 masterdataService.getAdmissionMasterData()
+	 masterdataService.getAdmissionMasterDataEnquiry()
 	 .then(function(data) {
 		 console.log(data);
 		 if (data != null) {
-			 $scope.serverModelData = data;
+			 $scope.serverModelData = data.responseBody;
 		 } else {
 			 console.log('error');
 		 }
@@ -205,7 +197,6 @@ $scope.saveEnquiry = function(){
 		 $scope.updateEnquiry();
 	 }
 
-	 $scope.getDueEnquiry();
 }
 
 	 $scope.addEnquiry = function() {
@@ -228,7 +219,7 @@ $scope.saveEnquiry = function(){
 
 	 $scope.updateEnquiry = function() {
 		 console.log('update enquiry called');
-		 enquiryService.updateEnquiry($scope.data)
+		 enquiryService.updateEnquiry($scope.data, $scope.data.admissionEnquiry.enquiryId)
 		 .then(function(response) {
 			 console.log('udpate Data received from service : ');
 			 console.log(response);

@@ -1,66 +1,60 @@
-<div class="module-dashboard-container">
-	<div class="module-dashboard-content">
-		<div ng-show="dashboard">
-			
-			<div class="searchcriteria">
-				<table>
-					<tr>
-						<td><span>Name</span></td>
-						<td><input type="text" ng-model="searchCriteria.name"
-							class="form-control"></td>
-					</tr>
-					<tr>
-						<td><span>Enquiry No</span></td>
-						<td><input type="text" ng-model="searchCriteria.inquryId"
-							class="form-control"></td>
-					</tr>
+<form name="enquiryFrom">
+	<div class="searchcriteria" ng-show="showCriteria">
+		<table>
+			<tr>
+				<td><span>Name</span></td>
+				<td><input type="text" ng-model="searchCriteria.name"
+					class="form-control"></td>
+			</tr>
+			<tr>
+				<td><span>Enquiry No</span></td>
+				<td><input type="text" ng-model="searchCriteria.inquryId"
+					class="form-control"></td>
+			</tr>
 
-					<tr>
-						<td><span>Course</span></td>
-						<td><select ng-model="searchCriteria.courseId"
-							class="form-control"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></td>
-					</tr>
-					<tr>
-						<td><span>Branch</span></td>
-						<td><select ng-model="searchCriteria.branchId"
-							class="form-control"
-							ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: searchCriteria.courseId}"></td>
-					</tr>
-					<tr>
-						<td><span>Email Id</span></td>
-						<td><input type="text" ng-model="searchCriteria.emailId"
-							class="form-control"></td>
-					</tr>
-					<tr>
-						<td><span>Mobile No</span></td>
-						<td><input type="text" ng-model="searchCriteria.mobileNo"
-							class="form-control"></td>
-					</tr>
-					<tr>
-						<td><span>Status</span></td>
-						<td><select ng-model="searchCriteria.status"
-							class="form-control">
-								<option value="OPEN">OPEN</option>
-								<option value="CLOSED">CLOSED</option>
-								<option value="MOVED_TO_ADMISSION">IN ADMISSION</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td><button type="button" class="btn btn-success"
-								ng-click="getEnquiryBySearchCriteria()">Search</button></td>
-					</tr>
-				</table>
-			</div>
-			<div class="searchList"
-				ng-show="!showCriteria && searchEnquiryList.length>0">
-				<span class="header">Double click a record to see Details</span>
-				<p>
-				<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
-				<pagination total-items="totalItems" items-per-page="itemsPerPage"
-					ng-model="currentPage" ng-change="pageChanged()"></pagination>
-
-			</div>
-		</div>
+			<tr>
+				<td><span>Course</span></td>
+				<td><select ng-model="searchCriteria.courseId"
+					class="form-control"
+					ng-options="item.courseId*1 as item.course  for item in serverModelData.COURSE"></td>
+			</tr>
+			<tr>
+				<td><span>Branch</span></td>
+				<td><select ng-model="searchCriteria.branchId"
+					class="form-control"
+					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH"></td>
+			</tr>
+			<tr>
+				<td><span>Email Id</span></td>
+				<td><input type="text" ng-model="searchCriteria.emailId"
+					class="form-control"></td>
+			</tr>
+			<tr>
+				<td><span>Mobile No</span></td>
+				<td><input type="text" ng-model="searchCriteria.mobileNo"
+					class="form-control"></td>
+			</tr>
+			<tr>
+				<td><span>Status</span></td>
+				<td><select ng-model="searchCriteria.status"
+					class="form-control">
+						<option value="OPEN">OPEN</option>
+						<option value="CLOSED">CLOSED</option>
+						<option value="MOVED_TO_ADMISSION">IN ADMISSION</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><button type="button" class="btn btn-success"
+						ng-click="getEnquiryBySearchCriteria()">Search</button></td>
+			</tr>
+		</table>
 	</div>
-</div>
+	<div class="searchList"
+		ng-show="!showCriteria && searchEnquiryList.length>0">
+		<span class="header">Double click a record to see Details</span>
+		<p>
+		<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+		<pagination total-items="totalItems" items-per-page="itemsPerPage"
+			ng-model="currentPage" ng-change="pageChanged()"></pagination>
+	</div>
+	</form>

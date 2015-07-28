@@ -1,4 +1,4 @@
- package com.techvisio.einstitution.controller;
+package com.techvisio.einstitution.controller;
 
 import java.util.List;
 
@@ -24,20 +24,20 @@ import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 @RestController
 @RequestMapping("/enquiry")
 public class EnquiryService {
-	
+
 	private static CustomLogger logger = CustomLogger.getLogger(EnquiryService.class);
-	
+
 	@Autowired
 	EnquiryWorkflowManager enquiryWorkflowManager;
-	
+
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.GET)
-	  public ResponseEntity<Response> getEnquiryandTask(@PathVariable Long enquiryId) {  
+	public ResponseEntity<Response> getEnquiryandTask(@PathVariable Long enquiryId) {  
 		logger.info("{}  Calling getEnquiryandTask method by passing enquiry Id : {}",this.getClass().getName(),enquiryId);
 		Response response=new Response();
 		try{
-		
-		EnquiryAndTask enquiryAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
-		response.setResponseBody(enquiryAndTask);
+
+			EnquiryAndTask enquiryAndTask= enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+			response.setResponseBody(enquiryAndTask);
 		}
 		catch(Exception e)
 		{
@@ -46,23 +46,24 @@ public class EnquiryService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/{enquiryId}",method = RequestMethod.POST)
-	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask , @PathVariable Long enquiryId) {  
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Response> addEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask) {  
 		Response response=new Response();
 		try{
-		enquiryWorkflowManager.saveEnquiryAndTask(enquiryAndTask);
-		EnquiryAndTask admissionEnquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
-		if(admissionEnquiryDB != null){
-			response.setResponseBody(admissionEnquiryDB);
-		}
+			Long enquiryId = enquiryWorkflowManager.saveEnquiryAndTask(enquiryAndTask);
+			EnquiryAndTask admissionEnquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+			if(admissionEnquiryDB != null){
+				response.setResponseBody(admissionEnquiryDB);
+			}
 		}
 		catch(Exception e){
+			logger.error("Error while saving a new Enquiry",e);
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/{enquiryId}",method = RequestMethod.PUT)
 	public ResponseEntity<Response> UpdateEnquiryandTask(@RequestBody EnquiryAndTask enquiryAndTask , @PathVariable Long enquiryId) {  
 		Response response=new Response();
@@ -71,14 +72,14 @@ public class EnquiryService {
 			EnquiryAndTask admissionEnquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
 			if(admissionEnquiryDB != null){
 				response.setResponseBody(admissionEnquiryDB);
-		}
+			}
 		}
 		catch(Exception e){
 			response.setError(e.getLocalizedMessage());
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value ="/search/", method = RequestMethod.POST)
 	public ResponseEntity<Response> getInquiryByCriteria(@RequestBody SearchCriteria searchCriteria) {
 		logger.info("{}  Calling searchInqByCriteria method by for enquiry Id : {}",this.getClass().getName(), searchCriteria.getInquryId());
@@ -87,12 +88,12 @@ public class EnquiryService {
 		{
 			List<AdmissionEnquiry> admissionInquiry = enquiryWorkflowManager.searchInqByCriteria(searchCriteria);
 			response.setResponseBody(admissionInquiry);
-			
+
 			if(admissionInquiry == null){
-				
+
 				response.setError("No such record found");
 			}
-			}
+		}
 		catch(EmptyResultDataAccessException e)
 		{
 			response.setError("No such record found");
@@ -101,25 +102,25 @@ public class EnquiryService {
 		{
 			response.setError("multiple record found for this idetifier");
 		}
-			catch(Exception e)
-			{
+		catch(Exception e)
+		{
 			logger.error("{} :Error While Calling getInquiryByCriteria method for enquiry Id : {}",this.getClass().getName(),searchCriteria.getInquryId(),e);
 			response.setError(e.getMessage());
-			}
-			return new ResponseEntity<Response>(response,HttpStatus.OK);
 		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
 
 	@RequestMapping(value="/proceedToAdmission/",method = RequestMethod.POST)
 	public ResponseEntity<Response> proceedToAdmission(@RequestBody EnquiryAndTask enquirynTask) {  
 		logger.info("{}  Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
-			
-		Long enquiryId=enquiryWorkflowManager.proceedToAdmission(enquirynTask);
-		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
-		if(admissionInquiryDB != null){
-			response.setResponseBody(admissionInquiryDB);
-		}
+
+			Long enquiryId=enquiryWorkflowManager.proceedToAdmission(enquirynTask);
+			EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+			if(admissionInquiryDB != null){
+				response.setResponseBody(admissionInquiryDB);
+			}
 		}
 		catch(Exception e){
 			logger.error("{} :Error While Calling proceedToAdmission method for : enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
@@ -127,19 +128,19 @@ public class EnquiryService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
-	
+
+
 	@RequestMapping(value="/toggleEnquiryStatus",method = RequestMethod.PUT)
 	public ResponseEntity<Response> toggleEnquiryStatus(@RequestBody EnquiryAndTask enquirynTask) {  
 		logger.info("{}  Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(), enquirynTask.getAdmissionEnquiry().getEnquiryId());
 		Response response=new Response();
 		try{
-			
-		Long enquiryId=enquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
-		EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
-		if(admissionInquiryDB != null){
-		}
-		response.setResponseBody(admissionInquiryDB);
+
+			Long enquiryId=enquiryWorkflowManager.toggleEnquiryStatus(enquirynTask);
+			EnquiryAndTask admissionInquiryDB=enquiryWorkflowManager.getEnquiryandTask(enquiryId);
+			if(admissionInquiryDB != null){
+			}
+			response.setResponseBody(admissionInquiryDB);
 		}
 		catch(Exception e){
 			logger.error("{} :Error While Calling toggleEnquiryStatus method for enquiry Id : {}",this.getClass().getName(),enquirynTask.getAdmissionEnquiry().getEnquiryId(),e);
@@ -147,5 +148,5 @@ public class EnquiryService {
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
+
 }

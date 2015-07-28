@@ -26,7 +26,7 @@ admissionModule
 			 $scope.form.processing = false;
 			 $scope.form.isEdit = true;
 			 $scope.dashboard = true;
-			 $scope.showCriteria = false;
+			 $scope.showCriteria = true;
 			 $scope.tab = 1;
 			 $scope.serverModelData = {};
 
@@ -1008,64 +1008,64 @@ admissionModule
 				 }
 			 }
 
-			 $scope.showTransportModal = function(size) {
+//			 $scope.showTransportModal = function(size) {
+//
+//				 if (!$scope.form.isEdit && !scope.form.isNew) {
+//					 return;
+//				 }
+//				 var fileNo = $scope.student.fileNo;
+//				 if ($scope.form.isNew) {
+//					 alert("Please save record before reserving transport");
+//					 return;
+//				 }
+//
+//				 var modalInstance = $modal.open({
+//					 templateUrl : 'transportReservation.html',
+//					 controller : 'transportController',
+//					 scope : $scope,
+//					 size : size,
+//					 resolve : {
+//						 items : function() {
+//							 return $scope.items;
+//						 }
+//					 }
+//				 });
+//
+//				 modalInstance.result
+//				 .then(function(selectedItem) {
+//					 $scope.selected = selectedItem;
+//				 });
+//			 };
 
-				 if (!$scope.form.isEdit && !scope.form.isNew) {
-					 return;
-				 }
-				 var fileNo = $scope.student.fileNo;
-				 if ($scope.form.isNew) {
-					 alert("Please save record before reserving transport");
-					 return;
-				 }
-
-				 var modalInstance = $modal.open({
-					 templateUrl : 'transportReservation.html',
-					 controller : 'transportController',
-					 scope : $scope,
-					 size : size,
-					 resolve : {
-						 items : function() {
-							 return $scope.items;
-						 }
-					 }
-				 });
-
-				 modalInstance.result
-				 .then(function(selectedItem) {
-					 $scope.selected = selectedItem;
-				 });
-			 };
-
-			 $scope.showHostelModal = function(size) {
-
-				 if (!$scope.form.isEdit && !scope.form.isNew) {
-					 return;
-				 }
-				 var fileNo = $scope.student.fileNo;
-
-				 if ($scope.form.isNew) {
-					 alert("Please save record before reserving hostel");
-					 return;
-				 }
-
-				 var modalInstance = $modal.open({
-					 templateUrl : 'hostelReservation.html',
-					 controller : 'hostelController',
-					 scope : $scope,
-					 size : size,
-					 resolve : {
-						 items : function() {
-							 return $scope.items;
-						 }
-					 }
-				 });
-
-				 modalInstance.result
-				 .then(function(selectedItem) {
-					 $scope.selected = selectedItem;
-				 });
-			 };
+//			 $scope.showHostelModal = function(size) {
+//
+//				 if (!$scope.form.isEdit && !scope.form.isNew) {
+//					 return;
+//				 }
+//				 var fileNo = $scope.student.fileNo;
+//
+//				 if ($scope.form.isNew) {
+//					 alert("Please save record before reserving hostel");
+//					 return;
+//				 }
+//
+//				 var modalInstance = $modal.open({
+//					 templateUrl : 'hostelReservation.html',
+//					 controller : 'hostelController',
+//					 scope : $scope,
+//					 size : size,
+//					 resolve : {
+//						 items : function() {
+//							 return $scope.items;
+//						 }
+//					 }
+//				 });
+//
+//				 modalInstance.result
+//				 .then(function(selectedItem) {
+//					 $scope.selected = selectedItem;
+//				 });
+//			 };
 
 			 $scope.saveAmenityPopup = function(size) {
 
@@ -1170,7 +1170,30 @@ admissionModule
 					 }
 				 }
 			 }
+			 
+			 $scope.isTabEditable=function(form){
+				 var userPrivilege=$rootScope.user.privilege;
+				 if(userPrivilege){
+					 var tab = $scope.formTabs[form];
+					 var tabPrivilege=tab.privilege.update;
+					 if(userPrivilege.indexOf(tabPrivilege) != -1)
+					 {
+						 return true;
+					 }
+				 }
+			 }
 
+			 $scope.isTabCreatable=function(form){
+				 var userPrivilege=$rootScope.user.privilege;
+				 if(userPrivilege){
+					 var tab = $scope.formTabs[form];
+					 var tabPrivilege=tab.privilege.create;
+					 if(userPrivilege.indexOf(tabPrivilege) != -1)
+					 {
+						 return true;
+					 }
+				 }
+			 }
 			 $scope.isAlltabsReadOnly=function(){
 				 for (var key in $scope.formTabs) {
 					 if(key["isEdit"]){

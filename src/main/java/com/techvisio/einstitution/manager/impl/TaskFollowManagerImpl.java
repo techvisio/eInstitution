@@ -46,21 +46,8 @@ public class TaskFollowManagerImpl implements TaskFollowManager {
 
 	public void saveTaskAndFollowUp(List<TaskAndFollowUp> taskAndFollowUps){
 		logger.info("{} : calling saveTaskAndFollowUp method by passing taskAndFollowUps:{}  ",this.getClass().getName(),taskAndFollowUps);
-if(taskAndFollowUps !=null){
-		for(TaskAndFollowUp taskAndFollowUp : taskAndFollowUps){
-			
-			if(taskAndFollowUp.getTaskId()==null){
-				
-				Long taskId = identifierGenerator.getUniqueIdentifierForTask();
-				
-				taskAndFollowUp.setTaskId(taskId);
-				taskAndFollowUp.setStatus("O");
-			}
-		}
-		
 		taskFollowDao.saveTaskAndFollowUp(taskAndFollowUps);
 }
-	}
 
 
 	/*public void deleteTaskAndFollowUp(TaskAndFollowUp taskAndFollowUp) {

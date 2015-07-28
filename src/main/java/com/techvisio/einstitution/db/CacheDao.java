@@ -31,6 +31,7 @@ import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
+import com.techvisio.einstitution.beans.Workflow;
 
 @Component
 public interface CacheDao {
@@ -86,4 +87,6 @@ public interface CacheDao {
 	public List<Transport> getTransport();
 
 	public List<Amenities> getAmenitiesCharges();
+
+	public List<Workflow> getAdmissionWorkFlow();
 }
