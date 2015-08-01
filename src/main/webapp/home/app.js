@@ -119,7 +119,7 @@ erp.config(['$httpProvider', '$sceProvider',
                                 
                              } else if (response && [400,403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
                                 
-                                 $rootScope.$broadcast('showError', response.data || 'Error '+response.status, response.status);
+                                 $rootScope.$broadcast('showError', response.data.error || 'Error '+response.status, response.status);
                              }
                              return $q.reject(response);
                          }
@@ -140,7 +140,7 @@ erp.controller('ApplicationController',
 		        $rootScope.curModal = $modal.open({
 		            templateUrl: 'home/modals/errorModalContent.html',
 		            controller: function ($scope) {
-		                var title = "Failed to Load Data";
+		                var title = "Something went wrong ";
 		                $scope._errorCode = type;
 		                $scope._errorTitle = title + " (HTTP: " + type + ")";
 		                $scope._errorMessage = e.data ? e.data : (e.message ? e.message : e);

@@ -78,21 +78,14 @@ public class AdmissionService {
 		logger.info("{}  Calling getStudent method for file no:{}",this.getClass().getName(), student.getFileNo());
 		Response response=new Response();
 		AdmissionData ad = new AdmissionData();
-		try
-		{
+		
 			admWorkflowManager.processWorkFlow(student, stepId, student.getFileNo());
 			Student studentDB = admWorkflowManager.getStudent(student.getFileNo());
 			Workflow wf=cacheManager.getWorkflowByStepId(studentDB.getStudentBasics().getApplicationStatus());
 			ad.setStudent(studentDB);
 			ad.setWorkflows(wf.getChildWorkflow());
 			response.setResponseBody(ad);
-		}
-		catch(Exception e)
-		{
-		logger.error("{} :Error while Calling processWorkflow method for name:{}",this.getClass().getName(),e);
-		response.setError(e.getMessage());
-		}
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/student/{fileNo}", method = RequestMethod.GET)
