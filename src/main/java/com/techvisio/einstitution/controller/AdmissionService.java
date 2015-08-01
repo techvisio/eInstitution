@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Address;
+import com.techvisio.einstitution.beans.AdmissionData;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
 import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.BranchPreference;
@@ -25,6 +27,7 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.beans.Workflow;
+import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
@@ -44,6 +47,9 @@ public class AdmissionService {
 
 	@Autowired
 	ScholarshipWorkflowManager schlrshpWorkflowManager;
+	
+	@Autowired
+	CacheManager cacheManager;
 
 	@RequestMapping(value ="/search/", method = RequestMethod.POST)
 	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
@@ -67,11 +73,48 @@ public class AdmissionService {
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
 		}
 
+	@RequestMapping(value ="/processWorkFlow/{stepId}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> processWorkFlow(@RequestBody Student student,@PathVariable Long stepId){
+		logger.info("{}  Calling getStudent method for file no:{}",this.getClass().getName(), student.getFileNo());
+		Response response=new Response();
+		AdmissionData ad = new AdmissionData();
+		try
+		{
+			admWorkflowManager.processWorkFlow(student, stepId, student.getFileNo());
+			Student studentDB = admWorkflowManager.getStudent(student.getFileNo());
+			Workflow wf=cacheManager.getWorkflowByStepId(studentDB.getStudentBasics().getApplicationStatus());
+			ad.setStudent(studentDB);
+			ad.setWorkflows(wf.getChildWorkflow());
+			response.setResponseBody(ad);
+		}
+		catch(Exception e)
+		{
+		logger.error("{} :Error while Calling processWorkflow method for name:{}",this.getClass().getName(),e);
+		response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/student/{fileNo}", method = RequestMethod.GET)
-	public Student getStudent(@PathVariable Long fileNo){
+	public ResponseEntity<Response> getStudent(@PathVariable Long fileNo){
 		logger.info("{}  Calling getStudent method for file no:{}",this.getClass().getName(), fileNo);
+		Response response=new Response();
+		AdmissionData ad=new AdmissionData();
+		try
+		{
 		Student student = admWorkflowManager.getStudent(fileNo);
-		return student;
+		Workflow wf=cacheManager.getWorkflowByStepId(student.getStudentBasics().getApplicationStatus());
+		ad.setStudent(student);
+		List<Workflow> childWorkflow = wf.getChildWorkflow();
+		ad.setWorkflows(childWorkflow);
+		response.setResponseBody(ad);
+		}
+		catch(Exception e)
+		{
+		logger.error("{} :Error while Calling getStudentDtl method for name:{}",this.getClass().getName(),fileNo,e);
+		response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/student/new", method = RequestMethod.GET)
@@ -100,7 +143,6 @@ public class AdmissionService {
 		catch(Exception e){
 			logger.error("{} :Error while Calling saveStudent method for file no:{}",this.getClass().getName(),student.getFileNo(),e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -115,7 +157,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling getStudentBasics method for file no:{}",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -131,7 +172,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveStudentBasics method for file no:{} and Name:{}",this.getClass().getName(),fileNo,studentBasics.getFirstName(),e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -147,7 +187,6 @@ public class AdmissionService {
 		catch(Exception e){
 			logger.error("{} :Error while Calling getAcademicDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -164,7 +203,6 @@ public class AdmissionService {
 		catch(Exception e){
 			logger.error("{} :Error while Calling saveAcademicDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -197,7 +235,6 @@ public class AdmissionService {
 		catch (Exception e) {
 			logger.error("{} :Error while Calling saveDiscountDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -213,7 +250,6 @@ public class AdmissionService {
 		catch (Exception e) {
 			logger.error("{} :Error while Calling getAddressDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -229,7 +265,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveAddressDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -245,7 +280,6 @@ public class AdmissionService {
 		catch (Exception e) {
 			logger.error("{} :Error while Calling getBranchPreference method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -261,7 +295,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveBranchPreference method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -276,7 +309,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling getCounsellingDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -292,7 +324,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveCounsellingDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -307,7 +338,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling getAdmissnConsltntDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -324,7 +354,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveAdmissionConsultantDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -339,7 +368,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling getScholarship method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -355,7 +383,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveScholarship method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -371,7 +398,6 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling getDocumentDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);		
 	}
@@ -389,11 +415,8 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling saveDocumentDtl method for file no:{} ",this.getClass().getName(),fileNo,e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
-
-		
 	}
 	
 	
@@ -407,10 +430,8 @@ public class AdmissionService {
 		} catch (Exception e) {
 			logger.error("{} :Error while Calling getStudentDocumentDtl method  ",this.getClass().getName(),e);
 			response.setError(e.getMessage());
-			e.printStackTrace();
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
-		
 	}
 	
 	

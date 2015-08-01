@@ -72,10 +72,10 @@
 				<tr>
 				<td></td>
 				<td></td>
-				<td><button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentBasics()">Save</button></td>
-				<td><button type="button" class="btn btn-success btn-sm" ng-show="isTabEditable('PERSONALINFO')"
+				<td><button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentBasics()" ng-show="isTabEnabled('PERSONALINFO')">Save</button></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('PERSONALINFO')" ng-show="!isTabEnabled('PERSONALINFO')"
 						ng-click="toggleReadOnly('PERSONALINFO')">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('PERSONALINFO')" ng-show="isTabEnabled('PERSONALINFO')">Cancel</button>
 					</td>
 					</tr>
 			</table>

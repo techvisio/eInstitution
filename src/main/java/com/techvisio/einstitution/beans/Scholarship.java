@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,10 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "SCHOLARSHIP_DETAIL")
 public class Scholarship extends BasicEntity{
 
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name="Scholarship_id")
-	private Long schlarshipId;
 	@Column(name="File_No")
 	private Long fileNo; 
 	@Column(name = "Amount")
@@ -42,11 +40,26 @@ public class Scholarship extends BasicEntity{
     private boolean conditional;
 	@Column(name = "Parent_Income")
     private Double parentIncome;
+	
+	@JsonIgnore
+	@MapsId
+	   @JoinColumn(name = "FILE_NO", referencedColumnName = "FILE_NO")
+	   @OneToOne(optional = false, fetch = FetchType.LAZY)
+	private Student student;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
 	@JoinColumn(name="Stdnt_Schlarshp_Id")
     private List<ScholarshipPayment> scholarshipPaymentDetail;
 	
+	@JsonIgnore
+	public Student getStudent() {
+		return student;
+	}
+	
+	@JsonIgnore
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 	public Double getAmount() {
 		return amount;
 	}
@@ -102,12 +115,6 @@ public class Scholarship extends BasicEntity{
 	}
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
-	}
-	public Long getSchlarshipId() {
-		return schlarshipId;
-	}
-	public void setSchlarshipId(Long schlarshipId) {
-		this.schlarshipId = schlarshipId;
 	}
 
 }

@@ -98,9 +98,16 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		if(student.getFileNo()==null){
 			Workflow wf=cacheManager.getNewAdmissionWorkFlow();
 			if(wf != null){
-				//student.getStudentBasics().set
+				if(student.getStudentBasics() != null){
+				student.getStudentBasics().setApplicationStatus(wf.getStepId());
+				}
 			}
+			if(student.getStudentBasics() != null){
 			student.getStudentBasics().setStudent(student);
+			}
+			if(student.getScholarship() != null){
+				student.getScholarship().setStudent(student);
+				}
 			getCurrentSession().save(student);
 		}
 		else{

@@ -143,6 +143,10 @@
         drop 
         foreign key FK_fcuj04r1h5wyextvtm0m2iqbi;
 
+    alter table SCHOLARSHIP_DETAIL 
+        drop 
+        foreign key FK_75r1ec58fkvtpcuu8qqdxpfq5;
+
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         drop 
         foreign key FK_2u7fgvgie8l2k4mro3njud4fh;
@@ -435,9 +439,12 @@
         Updated_By varchar(255),
         Updated_On datetime,
         Amount double precision,
+        Is_Approved bit,
+        Is_Conditional bit,
         Discout_Type varchar(255),
         File_No bigint,
         Percent float,
+        Is_ReOccuring bit,
         Head_Id bigint,
         primary key (Discount_Dtl_Id)
     );
@@ -801,7 +808,7 @@
     );
 
     create table SCHOLARSHIP_DETAIL (
-        Scholarship_id bigint not null auto_increment,
+        FILE_NO bigint not null,
         Created_By varchar(255),
         Created_On datetime,
         Updated_By varchar(255),
@@ -809,12 +816,11 @@
         Amount double precision,
         Is_Approved bit,
         Is_Conditional bit,
-        File_No bigint,
         Parent_Income double precision,
         Remark varchar(255),
         Is_Reoccuring bit,
         State_Id bigint,
-        primary key (Scholarship_id)
+        primary key (FILE_NO)
     );
 
     create table SCHOLARSHIP_PAYMENT_DETAIL (
@@ -900,7 +906,7 @@
         Updated_By varchar(255),
         Updated_On datetime,
         Admission_Mode varchar(255),
-        Application_Status varchar(255),
+        Application_Status bigint,
         Blood_Group varchar(255),
         DOB datetime,
         Email_Id varchar(255),
@@ -1117,6 +1123,7 @@
         Lateral bit,
         Name varchar(255),
         Referred_By varchar(255),
+        Registration_No varchar(255),
         Remarks varchar(255),
         Branch_Id bigint,
         Category_Id bigint,
@@ -1336,10 +1343,15 @@
         foreign key (Wing_Id) 
         references WING_MASTER (Wing_Id);
 
+    alter table SCHOLARSHIP_DETAIL 
+        add constraint FK_75r1ec58fkvtpcuu8qqdxpfq5 
+        foreign key (FILE_NO) 
+        references STUDENT_DETAIL (File_No);
+
     alter table SCHOLARSHIP_PAYMENT_DETAIL 
         add constraint FK_2u7fgvgie8l2k4mro3njud4fh 
         foreign key (Stdnt_Schlarshp_Id) 
-        references SCHOLARSHIP_DETAIL (Scholarship_id);
+        references SCHOLARSHIP_DETAIL (FILE_NO);
 
     alter table SECTION_MASTER 
         add constraint FK_49p5601yem7mxrt6kmp94og11 

@@ -17,10 +17,10 @@
 			<td><button type="button" class="btn btn-success btn-sm"
 					ng-click="addConsultantDetail()">Add Consultant</button></td>
 
-			<td><button type="button" class="btn btn-success btn-sm"
-					ng-click="">Edit</button>
-				<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-				<button type="button" class="btn btn-primary btn-sm" ng-click="updateConsultantDtl()">Save</button></td>
+			<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('CONSULTANT')" ng-show="!isTabEnabled('CONSULTANT')"
+					ng-click="toggleReadOnly('CONSULTANT')">Edit</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('CONSULTANT')" ng-show="isTabEnabled('CONSULTANT')">Cancel</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="updateConsultantDtl()" ng-show="isTabEnabled('CONSULTANT')">Save</button></td>
 				</tr>
 		</table>
 	</div>

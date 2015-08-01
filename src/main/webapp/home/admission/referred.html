@@ -5,16 +5,15 @@
 			<th><span>Referred By</span></th>
 			<td><input type="text" class="form-control"
 				aria-label="Amount (to the nearest dollar)"
-				ng-model="student.studentBasics.referredBy"
-				ng-disabled="!form.isEdit && !form.isNew"></td>
+				ng-model="student.studentBasics.referredBy"></td>
 		</tr>
 		        <td></td>
 				<td></td>
 				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm"
-						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Save</button></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('REFERRAL')" ng-show="!isTabEnabled('REFERRAL')"
+						ng-click="toggleReadOnly('REFERRAL')">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('REFERRAL')" ng-show="isTabEnabled('REFERRAL')">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentBasics()" ng-show="isTabEnabled('REFERRAL')">Save</button></td>
 	</table>
 
 </div>

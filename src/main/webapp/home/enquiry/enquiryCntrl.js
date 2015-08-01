@@ -6,6 +6,10 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 	$scope.form={};
 	$scope.data={};
 	$scope.data.admissionEnquiry={};
+	if(injectedData.data){
+		$scope.form.isNew=false;
+		 $scope.data = injectedData.data.responseBody;
+		 }
 	$scope.data.tasks=[];
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
@@ -69,8 +73,12 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 		 }
 	 }
 	 
-	 $scope.directViewEnquiry=function(currentEnquiryId){
+	 $scope.redirectViewEnquiry=function(currentEnquiryId){
 		 $state.go('enquiry',{enquiryId:currentEnquiryId});
+	 }
+	 
+	 $scope.resetSearchCriteria = function() {
+		 $scope.searchCriteria = {};
 	 }
 	 
 	$scope.getEnquiryBySearchCriteria = function() {
@@ -196,7 +204,6 @@ $scope.saveEnquiry = function(){
 	 {
 		 $scope.updateEnquiry();
 	 }
-
 }
 
 	 $scope.addEnquiry = function() {
@@ -207,6 +214,7 @@ $scope.saveEnquiry = function(){
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 $scope.data = response.data.responseBody;
+				 $scope.redirectViewEnquiry($scope.data.admissionEnquiry.enquiryId);
 				 $scope.form.isNew=false;
 				 $scope.form.isEdit=false;
 				 alert("Your Records Saved Successfully")
@@ -225,6 +233,7 @@ $scope.saveEnquiry = function(){
 			 console.log(response);
 			 if (response != null && response.data != null && response.data.responseBody != null) {
 				 $scope.data = response.data.responseBody;
+				 $scope.redirectViewEnquiry($scope.data.admissionEnquiry.enquiryId);
 				 $scope.form.isNew=false;
 				 $scope.form.isEdit=false;
 				 alert("Your Records has been updated Successfully")
@@ -282,7 +291,7 @@ $scope.saveEnquiry = function(){
 		  $scope.gridOptions = {
 			      multiSelect:false,
 			        data: 'filteredSearch',
-			        rowTemplate: '<div ng-dblclick="getEnquiry(row.config.selectedItems[0].enquiryId)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+			        rowTemplate: '<div ng-dblclick="redirectViewEnquiry(row.config.selectedItems[0].enquiryId)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
 			        columnDefs: [{ field: "name", width: 180,displayName :"Name"},
 			                    { field: "fatherName", width: 180,displayName :"Father Name" },
 			                    { field: "course.course", width: 140,displayName :"Course" },

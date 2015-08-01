@@ -40,10 +40,10 @@
 			 <tr>   <td></td>
 				<td></td>
 				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm"
-						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="updateScholarshipDtl()">Save</button></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('SCHOLARSHIP')" ng-show="!isTabEnabled('SCHOLARSHIP')"
+						ng-click="toggleReadOnly('SCHOLARSHIP')">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('SCHOLARSHIP')" ng-show="isTabEnabled('SCHOLARSHIP')">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="updateScholarshipDtl()" ng-show="isTabEnabled('SCHOLARSHIP')">Save</button></td>
 		</tr>
 		</table>
 	</div>

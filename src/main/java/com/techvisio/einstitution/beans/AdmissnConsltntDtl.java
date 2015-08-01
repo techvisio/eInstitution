@@ -28,7 +28,7 @@ public class AdmissnConsltntDtl extends BasicEntity {
 	private Long fileNo;
 	@ManyToOne
 	@JoinColumn(name="Consltant_Id")
-	private Consultant consultant;
+	private Consultant consultant = new Consultant();
 	@Column(name="Is_Consultancy_Agreed")
 	private boolean consultancyAgreed;
 	@Column(name="Payment_Mode")

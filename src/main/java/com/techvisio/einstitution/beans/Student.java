@@ -56,8 +56,10 @@ public class Student extends BasicEntity {
 	@JoinColumn(name="File_No")
 	private List<Address> addressDtl=new ArrayList<Address>();
 	
-	@OneToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="File_No")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
+	private StudentBasics studentBasics;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
 	private Scholarship scholarship;
 	
 	@OneToMany(cascade={CascadeType.ALL})
@@ -80,10 +82,6 @@ public class Student extends BasicEntity {
 	@JoinColumn(name = "File_No")
 	private List<StudentDocument> documents = new ArrayList<StudentDocument>();
    
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-	private StudentBasics studentBasics;
-    
-    
 	@JsonIgnore
 	public Scholarship getScholarship() {
 		return scholarship;

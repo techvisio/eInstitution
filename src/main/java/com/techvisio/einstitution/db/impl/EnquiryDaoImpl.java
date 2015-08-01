@@ -148,6 +148,7 @@ public class EnquiryDaoImpl extends BaseDao implements EnquiryDao {
 					admissionInquiry.setAdmissionMode(rs.getString("Admission_Mode"));
 					if(admissionInquiry.getCategory()!=null){
 					admissionInquiry.getCategory().setCategoryId((CommonUtil.getLongValue(rs.getLong("Category_Id"))));}
+					admissionInquiry.setRegistrationNo(rs.getString("Registration_No"));
 					return admissionInquiry;
 		}
 		

@@ -78,7 +78,15 @@ public class AdmissionEnquiry extends BasicEntity{
     @JoinColumn(name="Category_Id")
 	private CasteCategory category;
 	
+	@Column(name = "Registration_No")
+	private String registrationNo;
 	
+	public String getRegistrationNo() {
+		return registrationNo;
+	}
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
+	}
 	public Long getEnquiryId() {
 		return enquiryId;
 	}

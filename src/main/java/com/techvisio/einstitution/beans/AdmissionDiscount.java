@@ -22,6 +22,22 @@ public class AdmissionDiscount extends BasicEntity {
 	@ManyToOne
 	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead discountHead;
+	@Column(name="Amount")
+	private double amount;
+	@Column(name="Percent")
+	private float percent;
+	@Column(name="Discout_Type")
+	private String discountType;
+	
+	@Column(name="Is_Approved")
+	private boolean approved;
+	
+	@Column(name="Is_Conditional")
+	private boolean conditional;
+	
+	@Column(name="Is_ReOccuring")
+	private boolean reOccuring;
+
 	public FeeDiscountHead getDiscountHead() {
 		return discountHead;
 	}
@@ -30,13 +46,6 @@ public class AdmissionDiscount extends BasicEntity {
 		this.discountHead = discountHead;
 	}
 
-	@Column(name="Amount")
-	private double amount;
-	@Column(name="Percent")
-	private float percent;
-	@Column(name="Discout_Type")
-	private String discountType;
-	
 	public Long getFileNo() {
 		return fileNo;
 	}
@@ -44,8 +53,31 @@ public class AdmissionDiscount extends BasicEntity {
 	public void setFileNo(Long fileNo) {
 		this.fileNo = fileNo;
 	}
-
 	
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public boolean isConditional() {
+		return conditional;
+	}
+
+	public void setConditional(boolean conditional) {
+		this.conditional = conditional;
+	}
+
+	public boolean isReOccuring() {
+		return reOccuring;
+	}
+
+	public void setReOccuring(boolean reOccuring) {
+		this.reOccuring = reOccuring;
+	}
+
 	public double getAmount() {
 		return amount;
 	}

@@ -132,7 +132,7 @@ erp.controller('ApplicationController',
 		function ($scope, $rootScope, $timeout, $modal) {
 		    $rootScope.enableSidebar = true;
 		    $rootScope.user={};
-		    $rootScope.user.privilege=["ROLE_PER_U","ROLE_ADD_U","ROLE_ACD_U","ROLE_DOC_U","ROLE_PER_R","ROLE_DOC_R","ROLE_ADD_R","ROLE_DIS_R","ROLE_SCH_R","ROLE_ACD_R","ROLE_COUN_R","ROLE_OFF_R","ROLE_DIS_R","ROLE_CON_R","ROLE_REF_R"];
+		    $rootScope.user.privilege=["ROLE_PER_U","ROLE_DOC_U","ROLE_ADD_U","ROLE_DIS_U","ROLE_SCH_U","ROLE_ACD_U","ROLE_COUN_U","ROLE_OFF_U","ROLE_DIS_U","ROLE_CON_U","ROLE_REF_U","ROLE_TRA_U","ROLE_HOS_U","ROLE_AFE_U","ROLE_PER_R","ROLE_DOC_R","ROLE_ADD_R","ROLE_DIS_R","ROLE_SCH_R","ROLE_ACD_R","ROLE_COUN_R","ROLE_OFF_R","ROLE_DIS_R","ROLE_CON_R","ROLE_REF_R","ROLE_TRA_R","ROLE_HOS_R","ROLE_AFE_R"];
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;

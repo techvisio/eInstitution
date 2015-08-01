@@ -70,7 +70,7 @@ public class StudentBasics extends BasicEntity{
 	@Column(name = "Is_Lateral")
 	private boolean lateral;
 	@Column(name = "Application_Status")
-	private String applicationStatus;
+	private Long applicationStatus;
 	@ManyToOne
 	@JoinColumn(name="Section_Id")
 	private Section section;
@@ -317,14 +317,7 @@ public class StudentBasics extends BasicEntity{
 		this.lateral = lateral;
 	}
 
-	public String getApplicationStatus() {
-		return applicationStatus;
-	}
-
-	public void setApplicationStatus(String applicationStatus) {
-		this.applicationStatus = applicationStatus;
-	}
-
+	
 	public Date getDob() {
 		return dob;
 	}
@@ -349,6 +342,14 @@ public class StudentBasics extends BasicEntity{
 	@JsonIgnore
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+
+	public Long getApplicationStatus() {
+		return applicationStatus;
+	}
+
+	public void setApplicationStatus(Long applicationStatus) {
+		this.applicationStatus = applicationStatus;
 	}
 
 }

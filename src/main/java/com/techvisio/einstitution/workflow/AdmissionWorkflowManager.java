@@ -68,6 +68,8 @@ public interface AdmissionWorkflowManager {
 
 	public List<Object[]> getStudentDocumentDtl();
 
-	Workflow getNewAdmissionWorkFlow();
+	public Workflow getNewAdmissionWorkFlow();
+
+	public void processWorkFlow(Student student, Long stepId, Long fileNo);
 
 }

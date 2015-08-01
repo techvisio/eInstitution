@@ -66,10 +66,10 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm"
-						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentAcademicDtl()">Save</button></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('ACADEMIC')" ng-show="!isTabEnabled('ACADEMIC')"
+						ng-click="toggleReadOnly('ACADEMIC')">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('ACADEMIC')" ng-show="isTabEnabled('ACADEMIC')">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentAcademicDtl()" ng-show="isTabEnabled('ACADEMIC')">Save</button></td>
 					</table>
 	</div>
 </form>

@@ -14,6 +14,7 @@ import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
 import com.techvisio.einstitution.beans.EnquiryAndTask;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 import com.techvisio.einstitution.manager.DefaultManager;
 import com.techvisio.einstitution.manager.EnquiryManager;
@@ -83,7 +84,9 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 		Student studentDetail = getStudentFromEquiry(enquiry);
 
 		Long fileNo=admissionWorkflowManager.saveStudent(studentDetail);
-
+        
+		Student st = admissionWorkflowManager.getStudent(fileNo);
+		enquiry.setRegistrationNo(st.getRegistrationNo());
 		enquiry.setFileNo(fileNo);
 
 		enquiry.setApplicationStatus(EnquiryStatus.MOVED_TO_ADMISSION.name());
@@ -110,35 +113,44 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	}
 
 	private Student getStudentFromEquiry(AdmissionEnquiry enquiry) {
-		logger.info("{} : getStudentFromEquiry      enquiryId{}",this.getClass().getName(), enquiry.getEnquiryId());
+		logger.info("{} : getStudentFromEquiry enquiryId{}",this.getClass().getName(), enquiry.getEnquiryId());
+		
 		Student studentDetail = new Student();
-		String[] names=enquiry.getName().split(" ");
-		if(names.length==1){
-			studentDetail.getStudentBasics().setFirstName(names[0]);
-			studentDetail.getStudentBasics().setLastName(" ");
+		StudentBasics studentBasics = new StudentBasics();
+		if(studentBasics != null)
+		{
+			String[] names=enquiry.getName().split(" ");
+			if(names.length==1){
+				studentBasics.setFirstName(names[0]);
+				studentBasics.setLastName(" ");
+			}
+			else if(names.length==2){
+				studentBasics.setFirstName(names[0]);
+				studentBasics.setLastName(names[1]);
+			}
+			else if(names.length==3){
+				studentBasics.setFirstName(names[0]+" "+names[1]);
+				studentBasics.setLastName(names[2]);
+			}
+			studentBasics.setFatherName(enquiry.getFatherName());
+			studentBasics.setDob(enquiry.getDob());
+			studentBasics.setSelfMobile_No(enquiry.getContactNo());
+			studentBasics.setEmailId(enquiry.getEmailId());
+			studentBasics.setGender(enquiry.getGender());
+			studentBasics.setLateral(enquiry.isLateral());
+			studentBasics.setReferredBy(enquiry.getReferredBy());
+			studentBasics.setAdmissionMode(enquiry.getAdmissionMode());
+			studentBasics.setCategory(enquiry.getCategory());
 		}
-		else if(names.length==2){
-			studentDetail.getStudentBasics().setFirstName(names[0]);
-			studentDetail.getStudentBasics().setLastName(names[1]);
-		}
-		else if(names.length==3){
-			studentDetail.getStudentBasics().setFirstName(names[0]+" "+names[1]);
-			studentDetail.getStudentBasics().setLastName(names[2]);
-		}
-
-		studentDetail.getStudentBasics().setFatherName(enquiry.getFatherName());
-		studentDetail.getStudentBasics().setDob(enquiry.getDob());
-		studentDetail.getStudentBasics().setSelfMobile_No(enquiry.getContactNo());
+		
+		if(studentDetail != null){
+		studentDetail.setAcademicYear(defaultManager.getDefaultAcademicYear().toString());
 		studentDetail.setCourse(enquiry.getCourse());
 		studentDetail.setBranch(enquiry.getBranch());
-		studentDetail.getStudentBasics().setEmailId(enquiry.getEmailId());
-		studentDetail.getStudentBasics().setGender(enquiry.getGender());
-		studentDetail.getStudentBasics().setLateral(enquiry.isLateral());
-		studentDetail.setAcademicYear(defaultManager.getDefaultAcademicYear().toString());
-		studentDetail.getStudentBasics().setReferredBy(enquiry.getReferredBy());
-		studentDetail.getStudentBasics().setAdmissionMode(enquiry.getAdmissionMode());
-		studentDetail.getStudentBasics().setCategory(enquiry.getCategory());
-		if(enquiry.getConsultant().getConsultantId()!=null){
+		studentDetail.setStudentBasics(studentBasics);
+		}
+		
+		if(enquiry.getConsultant()!=null && enquiry.getConsultant().getConsultantId()!=null){
 
 			AdmissnConsltntDtl consultantDetail  =new AdmissnConsltntDtl();
 			consultantDetail.getConsultant().setConsultantId(enquiry.getConsultant().getConsultantId());         		

@@ -1,4 +1,5 @@
-    <div class="modal-content" ng-init="getReservedHostel(); getHostelAvailability()">  
+<form id="HOSTEL">
+    <div ng-init="getReservedHostel(); getHostelAvailability()">  
     <div class="inventory-view">
       <div id="hostel" class="panel-div-modal">Available Hostel Detail</div>
       <table>
@@ -40,10 +41,10 @@
 		ng-options="object.typeCode as object.description for object in hostelAvailability"></select>
        </td>
         <td>
-       <input type="button"  class="button" value="Reserve" ng-click="saveHostel()"/>
+       <input type="button"  class="btn btn-primary btn-sm" value="Reserve" ng-click="saveHostel()"/>
        </td>
        <td>
-       <input type="button"  class="button" value="Release" ng-click="cancelReservation()"/>
+       <input type="button"  class="btn btn-success btn-sm" value="Release" ng-click="cancelReservation()"/>
        </td>
       
        </tr>
@@ -69,3 +70,4 @@
 </table>
 </div>
 </div>
+</form>

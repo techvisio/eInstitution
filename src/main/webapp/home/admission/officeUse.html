@@ -11,7 +11,7 @@
 					<td><span> Semester </span></td>
 					<td><select select ng-model="student.studentBasics.semester"
 						 class="form-control"
-						ng-options="item.semesterId as item.semester  for item in serverModelData.SEMESTER"></select>
+						ng-options="item.semesterId*1 as item.semester  for item in serverModelData.SEMESTER"></select>
 					</td>
 				</tr>
 				<tr>
@@ -72,10 +72,10 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm"
-						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Save</button></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('OFFICEUSE')" ng-show="!isTabEnabled('OFFICEUSE')"
+						ng-click="toggleReadOnly('OFFICEUSE')">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('OFFICEUSE')" ng-show="isTabEnabled('OFFICEUSE')">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm"ng-click="updateStudentBasics()" ng-show="isTabEnabled('OFFICEUSE')">Save</button></td>
 			</table>
 		</div>
 	</div>

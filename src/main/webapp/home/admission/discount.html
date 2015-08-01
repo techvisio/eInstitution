@@ -25,7 +25,7 @@
 					<section title=".squaredOne">
 						<!-- .squaredOne -->
 						<div class="squaredOne">
-							<input type="checkbox" value="None" id="three" name="check"
+							<input type="checkbox" ng-model="discount.discountHead.approved" id="three" name="check"
 								checked /> <label for="three"></label>
 						</div>
 						<!-- end .squaredOne -->
@@ -35,7 +35,7 @@
 					<section title=".squaredOne">
 						<!-- .squaredOne -->
 						<div class="squaredOne">
-							<input type="checkbox" value="None" id="One" name="check"
+							<input type="checkbox" ng-model="discount.discountHead.conditional" id="One" name="check"
 								checked /> <label for="One"></label>
 						</div>
 						<!-- end .squaredOne -->
@@ -45,7 +45,7 @@
 					<section title=".squaredOne">
 						<!-- .squaredOne -->
 						<div class="squaredOne">
-							<input type="checkbox" value="None" id="two" name="check"
+							<input type="checkbox" ng-model="discount.discountHead.reOccuring" id="two" name="check"
 								checked /> <label for="two"></label>
 						</div>
 						<!-- end .squaredOne -->
@@ -59,10 +59,10 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td><button type="button" class="btn btn-success btn-sm"
-					ng-click="">Edit</button>
-				<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-				<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentDiscountDtl()">Save</button></td>
+			<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('DISCOUNT')" ng-show="!isTabEnabled('DISCOUNT')"
+					ng-click="toggleReadOnly('DISCOUNT')">Edit</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('DISCOUNT')" ng-show="isTabEnabled('DISCOUNT')">Cancel</button>
+				<button type="button" class="btn btn-primary btn-sm"  ng-click="updateStudentDiscountDtl()" ng-show="isTabEnabled('DISCOUNT')">Save</button></td>
 		</table>
 	</div>
 </form>

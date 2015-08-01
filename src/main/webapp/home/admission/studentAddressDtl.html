@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getAddress('P').state"
+					<td><select ng-model="getAddress('P').state.stateName"
 						class="form-control" class="form-control"
 						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>
@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getAddress('C').state"
+					<td><select ng-model="getAddress('C').state.stateName"
 						class="form-control"
 						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>
@@ -80,10 +80,10 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm"
-						ng-click="">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentAddress()">Save</button></td>
+				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('ADDRESS')" ng-show="!isTabEnabled('ADDRESS')"
+						ng-click="toggleReadOnly('ADDRESS')">Edit</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('ADDRESS')" ng-show="isTabEnabled('ADDRESS')">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="updateStudentAddress()" ng-show="isTabEnabled('ADDRESS')">Save</button></td>
 			</table>
 
 		</div>

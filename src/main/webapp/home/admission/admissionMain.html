@@ -13,9 +13,9 @@
 			heading="STUDENT">
 		<div class="tab-separator">
 			<tabset justified="true" type="pills"> <tab
-				heading="PERSONAL DETAIL" disabled="!isTabEnabled('PERSONALINFO')" ng-show="isTabViewable('PERSONALINFO')"  ng-click="getRelatedData('PERSONALINFO')">
-			<div ng-include src="'home/admission/personalInfo.html'"></div>
-			</tab> <tab heading="ACADEMIC INFO" disabled="!isTabEnabled('ACADEMIC')" ng-show="isTabViewable('ACADEMIC')" ng-click="getRelatedData('ACADEMIC')">
+				heading="PERSONAL DETAIL" ng-show="isTabViewable('PERSONALINFO')"  ng-click="getRelatedData('PERSONALINFO')">
+			<div ng-include src="'home/admission/personalInfo.html'" ng-if="isTabViewable('PERSONALINFO')"></div>
+			</tab> <tab heading="ACADEMIC INFO" ng-show="isTabViewable('ACADEMIC')" ng-click="getRelatedData('ACADEMIC')">
 			<div ng-include src="'home/admission/academicDetail.html'"></div>
 			</tab> <tab heading="ADDRESS INFO" ng-show="isTabViewable('ADDRESS')" ng-click="getRelatedData('ADDRESS')">
 			<div ng-include src="'home/admission/studentAddressDtl.html'">
@@ -57,7 +57,7 @@
 			<tab heading="REFERRAL" ng-show="isTabViewable('REFERRAL')" ng-click="getRelatedData('REFERRAL')">
 			<div ng-include src="'home/admission/referred.html'"></div>
 			</tab>
-			<tab heading="APPLICABLE FEE" ng-show="isTabViewable('')" ng-click="">
+			<tab heading="APPLICABLE FEE" ng-click="">
 			<div ng-include src=""></div>
 			</tab> 
 				</tabset>

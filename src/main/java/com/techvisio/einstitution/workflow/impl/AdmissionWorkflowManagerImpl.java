@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
@@ -237,6 +238,43 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	@Override
 	public Workflow getNewAdmissionWorkFlow(){
 		return cacheManager.getNewAdmissionWorkFlow();
+	}
+	@Override
+	public void processWorkFlow(Student student, Long stepId, Long fileNo){
+	
+		Workflow wf=cacheManager.getWorkflowByStepId(stepId);
+		//new admission case
+		if(student.getFileNo()==null){
+			Workflow newAdmWf = getNewAdmissionWorkFlow();
+			if(!stepId.equals(newAdmWf.getStepId())){
+				throw new RuntimeException("Workflow Mismatch");
+			}
+			student.getStudentBasics().setApplicationStatus(stepId);
+			saveStudent(student);
+		}
+		//other than new case
+		else
+		{
+			StudentBasics studentBasic = getStudentBasics(fileNo);
+			Long lastStep=studentBasic.getApplicationStatus();
+			Workflow lastWorkFLow=cacheManager.getWorkflowByStepId(lastStep);
+			List<Workflow> childWorkFlow=lastWorkFLow.getChildWorkflow();
+			if(!isValidWorkFlow(childWorkFlow,stepId)){
+				throw new RuntimeException("Workflow Mismatch");
+			}
+			studentBasic.setApplicationStatus(stepId);
+			saveStudentBasics(studentBasic);
+		}
+	};
+
+	
+	private boolean isValidWorkFlow(List<Workflow> childWorkFlow, Long stepId) {
+	for(Workflow wf:childWorkFlow){
+		if(wf.getStepId().equals(stepId)){
+			return true;
+		}
+	}
+		return false;
 	}
 
 }

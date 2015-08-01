@@ -39,10 +39,10 @@
 				<td></td>
 				<td></td>
 					<td></td>
-					<td><button type="button" class="btn btn-success btn-sm"
-							ng-click="">Edit</button>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="">Cancel</button>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="updateCounsellingDtl()">Save</button></td>
+					<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('COUNSELLING')" ng-show="!isTabEnabled('COUNSELLING')"
+							ng-click="toggleReadOnly('COUNSELLING')">Edit</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('COUNSELLING')" ng-show="isTabEnabled('COUNSELLING')">Cancel</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="updateCounsellingDtl()" ng-show="isTabEnabled('COUNSELLING')">Save</button></td>
 			</table>
 		</div>
 </form>

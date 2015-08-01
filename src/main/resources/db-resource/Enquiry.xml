@@ -63,7 +63,8 @@ Gender,
 Consultant_Id,
 Referred_By,
 Category_Id,
-Admission_Mode
+Admission_Mode,
+null Registration_No
 
 
 FROM Admission_Enquiry where Enquiry_Id=IFNULL(:Enquiry_Id,Enquiry_Id) and IFNULL(Email_Id,'-1') = IFNULL(:Email_Id,IFNULL(Email_Id,'-1')) and Course_Id = IFNULL(:Course_Id,Course_Id) and 
