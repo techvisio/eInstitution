@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
@@ -89,4 +90,6 @@ public interface CacheDao {
 	public List<Amenities> getAmenitiesCharges();
 
 	public List<Workflow> getAdmissionWorkFlow();
+
+	public List<Activity> getActivities();
 }

@@ -43,6 +43,9 @@ public interface AppConstants {
 	public static final Long SCHOLARSHIP_HEAD_ID=9993L;
 	public static final Long REVERSAL_ID=9992L;
 	
+	public static final String SCHOLARSHIP_ACTIVITY="SCHOLARSHIP_ADJUSTMENT";
+	public static final String DISCOUNT_ACTIVITY="DISCOUNT_ADJUSTMENT";
+	
 	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,MOVED_TO_MANAGEMENT,APPROVED,FEE_DEPOSITED,COMPLETE};
 	
 	public enum EnquiryStatus{OPEN,CLOSED,MOVED_TO_ADMISSION};

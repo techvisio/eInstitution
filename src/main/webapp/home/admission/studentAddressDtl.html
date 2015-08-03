@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getAddress('P').state.stateName"
+					<td><select ng-model="getAddress('P').state"
 						class="form-control" class="form-control"
 						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>
@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 					<td><span>State</span></td>
-					<td><select ng-model="getAddress('C').state.stateName"
+					<td><select ng-model="getAddress('C').state"
 						class="form-control"
 						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE">
 					</select></td>

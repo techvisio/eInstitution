@@ -14,8 +14,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
@@ -33,6 +31,7 @@ import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentActivity;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
@@ -42,7 +41,6 @@ import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 
-@Transactional(propagation=Propagation.SUPPORTS)
 @Component
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private static CustomLogger logger = CustomLogger
@@ -468,8 +466,6 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		else{
 			getCurrentSession().update(document);
 		}
-
-
 	}
 
 	@Override
@@ -502,7 +498,38 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		List<Object[]> studentDocuments = query.list();
 		return studentDocuments;
 	}
+	
+	@Override
+	public List<StudentActivity> getStudentActivities(Long fileNo) {
 
+		String queryString="FROM StudentActivity sa WHERE sa.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		List<StudentActivity> result= query.list();
+		return result;
+	}
+
+
+	@Override
+	public void saveStudentActivity(List<StudentActivity> studentActivities, Long fileNo) {
+		if(studentActivities!=null && studentActivities.size()>0){
+			for(StudentActivity studentActivity : studentActivities){
+				studentActivity.setFileNo(fileNo);
+				saveStudentActivity(studentActivity);
+			}
+		}
+	}
+
+	@Override
+	public void saveStudentActivity(StudentActivity studentActivity) {
+		if(studentActivity.getStudentActivityId()==null){
+			getCurrentSession().persist(studentActivity);
+		}
+		else{
+			getCurrentSession().update(studentActivity);
+		}
+	}
+
+	
 	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 
 		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)

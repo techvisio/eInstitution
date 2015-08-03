@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
@@ -96,4 +97,6 @@ public interface CacheManager {
 	Workflow getWorkflowByStepId(Long stepId);
 
 	Workflow getNewAdmissionWorkFlow();
+
+	Activity getActivityByActivityName(String activity);
 }

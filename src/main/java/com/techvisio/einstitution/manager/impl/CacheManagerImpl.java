@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
@@ -92,6 +93,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
 	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
 	private static Map<Long, Workflow> workflowMap = new TreeMap<Long, Workflow>();
+	private static Map<String, Activity> activityMap = new HashMap<String, Activity>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -960,6 +962,12 @@ public class CacheManagerImpl implements CacheManager {
 	@Override
 	public Workflow getWorkflowByStepId(Long stepId ){
 		return workflowMap.get(stepId);
+		
+	}
+	
+	@Override
+	public Activity getActivityByActivityName(String activity){
+		return activityMap.get(activity);
 		
 	}
 

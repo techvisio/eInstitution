@@ -1,18 +1,15 @@
 package com.techvisio.einstitution.db.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Amenities;
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Block;
@@ -41,7 +38,6 @@ import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
 import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.db.CacheDao;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 
 @Transactional
@@ -256,6 +252,14 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		String queryString="FROM Workflow where workflow='ADMISSION'";
 		Query query=getCurrentSession().createQuery(queryString);
 		List<Workflow> result= query.list();
+		return result;
+	}
+	
+	@Override
+	public List<Activity> getActivities() {
+		String queryString="FROM Activity";
+		Query query=getCurrentSession().createQuery(queryString);
+		List<Activity> result= query.list();
 		return result;
 	}
 }

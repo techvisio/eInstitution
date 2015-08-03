@@ -28,6 +28,12 @@ public class StudentActivity extends BasicEntity {
 	public Activity getActivity() {
 		return activity;
 	}
+	public Long getStudentActivityId() {
+		return studentActivityId;
+	}
+	public void setStudentActivityId(Long studentActivityId) {
+		this.studentActivityId = studentActivityId;
+	}
 	public void setActivity(Activity activity) {
 		this.activity = activity;
 	}

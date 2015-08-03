@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
@@ -28,7 +29,7 @@ public class Address extends BasicEntity {
 	private String city;
 	@Column(name="Pincode")
 	private int pincode;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="State_Id")
 	private State State;
 	@Column(name="File_No")

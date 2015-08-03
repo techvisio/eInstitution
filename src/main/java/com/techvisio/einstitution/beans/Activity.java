@@ -11,18 +11,10 @@ import javax.persistence.Table;
 @Table(name = "ACTIVITIES")    
 public class Activity {
 
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "Activity_Id")
-	private Long activityId;
 	@Column(name = "Activity_Name")
 	private String activityName;
-	public Long getActivityId() {
-		return activityId;
-	}
-	public void setActivityId(Long activityId) {
-		this.activityId = activityId;
-	}
 	public String getActivityName() {
 		return activityName;
 	}

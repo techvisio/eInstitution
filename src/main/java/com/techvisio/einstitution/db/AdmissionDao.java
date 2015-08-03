@@ -13,6 +13,7 @@ import com.techvisio.einstitution.beans.QualificationSubject;
 import com.techvisio.einstitution.beans.Remark;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentAcademic;
+import com.techvisio.einstitution.beans.StudentActivity;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentBasics;
@@ -62,5 +63,10 @@ public interface AdmissionDao {
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 	
 	public List<Object[]> getStudentDocumentDtl();
+	
+	public void saveStudentActivity(StudentActivity studentActivity);
+	public void saveStudentActivity(List<StudentActivity> studentActivities,
+			Long fileNo);
+	public List<StudentActivity> getStudentActivities(Long fileNo);
 	
 	}

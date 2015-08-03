@@ -392,10 +392,9 @@
     );
 
     create table ACTIVITIES (
-        Activity_Id bigint not null auto_increment,
-        Activity_Name varchar(255),
+        Activity_Name varchar(255) not null,
         Step_Id bigint,
-        primary key (Activity_Id)
+        primary key (Activity_Name)
     );
 
     create table ADDRESS_DETAIL (
@@ -895,7 +894,7 @@
         Updated_By varchar(255),
         Updated_On datetime,
         File_No bigint,
-        Activity_Name bigint,
+        Activity_Name varchar(255),
         primary key (Student_Activity_Id)
     );
 
@@ -1376,7 +1375,7 @@
     alter table STUDENT_ACTIVITY 
         add constraint FK_len3qh3y6sa2jj2ie7y0ysbea 
         foreign key (Activity_Name) 
-        references ACTIVITIES (Activity_Id);
+        references ACTIVITIES (Activity_Name);
 
     alter table STUDENT_BASIC 
         add constraint FK_5elx11ta4tl93pveu7owp1sbh 

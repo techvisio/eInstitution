@@ -5,14 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.techvisio.einstitution.beans.FeeTransactionCredit;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.Student;
+import com.techvisio.einstitution.beans.StudentActivity;
+import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.manager.ActivityExecuter;
 
 public class ScholarshipActivityExecuter implements ActivityExecuter{
 
+	private static String ACTIVITY="SCHOLARSHIP_ADJUSTMENT";
+	
 	@Autowired
 	FeeDao feeDao;
 	
+	@Autowired
+	AdmissionDao admissionDao; 
+
 	@Override
 	public void execute(Student student) {
 
@@ -25,8 +32,13 @@ public class ScholarshipActivityExecuter implements ActivityExecuter{
 			feeTransactionCredit.setFileNo(student.getFileNo());
 			feeTransactionCredit.setAmount(scholarship.getAmount());
 
-			 feeDao.addFeeTransactionCredit(feeTransactionCredit);
+			feeDao.addFeeTransactionCredit(feeTransactionCredit);
 					}
+		
+		StudentActivity studentActivity = new StudentActivity();
+		studentActivity.setFileNo(student.getFileNo());
+		studentActivity.getActivity().setActivityName(ACTIVITY);
+		admissionDao.saveStudent(student);
 	}
 
 }
