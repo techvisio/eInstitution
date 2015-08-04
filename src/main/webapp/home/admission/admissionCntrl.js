@@ -1,4 +1,5 @@
-var admissionModule = angular.module('admissionModule', [ 'ui.bootstrap','ngGrid']);
+var admissionModule = angular.module('admissionModule', [ 'ui.bootstrap',
+                                                          'ngGrid' ]);
 
 admissionModule
 .controller(
@@ -8,17 +9,17 @@ admissionModule
 		 'admissionService',
 		 'masterdataService',
 		 '$modal',
-		 '$state',  
+		 '$state',
 		 '$rootScope',
 		 'injectedData',
 		 function($scope, admissionService, masterdataService,
-				 $modal, $state,$rootScope,injectedData) {
+				 $modal, $state, $rootScope, injectedData) {
 
 			 $scope.form = {};
 			 $scope.form.isNew = true;
 			 $scope.student = {};
-			 $scope.currentWorkflow=[];
-			 $scope.student.studentBasics={};
+			 $scope.currentWorkflow = [];
+			 $scope.student.studentBasics = {};
 
 			 $scope.form.sameAsAbove = false;
 			 $scope.form.processing = false;
@@ -29,81 +30,130 @@ admissionModule
 					 "DOCUMENT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_DOC_R","create":"ROLE_DOC_C","update":"ROLE_DOC_U"},
+						 "privilege" : {
+							 "view" : "ROLE_DOC_R",
+							 "create" : "ROLE_DOC_C",
+							 "update" : "ROLE_DOC_U"
+						 },
 						 "displayName" : "OFFICIAL -> DOCUMENT"
 					 },
 					 "PERSONALINFO" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_PER_R","create":"ROLE_PER_C","update":"ROLE_PER_U"},
+						 "privilege" : {
+							 "view" : "ROLE_PER_R",
+							 "create" : "ROLE_PER_C",
+							 "update" : "ROLE_PER_U"
+						 },
 						 "displayName" : "PERSONAL -> PERSONAL INFO"
 					 },
 					 "ADDRESS" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_ADD_R","create":"ROLE_ADD_C","update":"ROLE_ADD_U"},
+						 "privilege" : {
+							 "view" : "ROLE_ADD_R",
+							 "create" : "ROLE_ADD_C",
+							 "update" : "ROLE_ADD_U"
+						 },
 						 "displayName" : "PERSONAL -> ADDRESS"
 					 },
 					 "ACADEMIC" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_ACD_R","create":"ROLE_ACD_C","update":"ROLE_ACD_U"},
+						 "privilege" : {
+							 "view" : "ROLE_ACD_R",
+							 "create" : "ROLE_ACD_C",
+							 "update" : "ROLE_ACD_U"
+						 },
 						 "displayName" : "PERSONAL -> ACADEMIC"
 					 },
 					 "COUNSELLING" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_COUN_R","create":"ROLE_COUN_C","update":"ROLE_COUN_U"},
+						 "privilege" : {
+							 "view" : "ROLE_COUN_R",
+							 "create" : "ROLE_COUN_C",
+							 "update" : "ROLE_COUN_U"
+						 },
 						 "displayName" : "PERSONAL -> COUNSELLING"
 					 },
 					 "OFFICEUSE" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_OFF_R","create":"ROLE_OFF_C","update":"ROLE_OFF_U"},
+						 "privilege" : {
+							 "view" : "ROLE_OFF_R",
+							 "create" : "ROLE_OFF_C",
+							 "update" : "ROLE_OFF_U"
+						 },
 						 "displayName" : "OFFICIAL -> OFFICE USE"
 					 },
 					 "DISCOUNT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_DIS_R","create":"ROLE_DIS_C","update":"ROLE_DIS_U"},
+						 "privilege" : {
+							 "view" : "ROLE_DIS_R",
+							 "create" : "ROLE_DIS_C",
+							 "update" : "ROLE_DIS_U"
+						 },
 						 "displayName" : "OFFICIAL -> DISCOUNT"
 					 },
 					 "SCHOLARSHIP" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_SCH_R","create":"ROLE_SCH_C","update":"ROLE_SCH_U"},
+						 "privilege" : {
+							 "view" : "ROLE_SCH_R",
+							 "create" : "ROLE_SCH_C",
+							 "update" : "ROLE_SCH_U"
+						 },
 						 "displayName" : "OFFICIAL -> SCHOLARSHIP"
 					 },
 					 "CONSULTANT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_CON_R","create":"ROLE_CON_C","update":"ROLE_CON_U"},
+						 "privilege" : {
+							 "view" : "ROLE_CON_R",
+							 "create" : "ROLE_CON_C",
+							 "update" : "ROLE_CON_U"
+						 },
 						 "displayName" : "OFFICIAL -> CONSULTANT"
 					 },
 					 "REFERRAL" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_REF_R","create":"ROLE_REF_C","update":"ROLE_REF_U"},
+						 "privilege" : {
+							 "view" : "ROLE_REF_R",
+							 "create" : "ROLE_REF_C",
+							 "update" : "ROLE_REF_U"
+						 },
 						 "displayName" : "OFFICIAL -> REFERRAL"
 					 },
 					 "TRANSPORT" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_TRA_R","create":"ROLE_TRA_C","update":"ROLE_TRA_U"},
+						 "privilege" : {
+							 "view" : "ROLE_TRA_R",
+							 "create" : "ROLE_TRA_C",
+							 "update" : "ROLE_TRA_U"
+						 },
 						 "displayName" : "OFFICIAL -> TRANSPORT"
 					 },
 					 "HOSTEL" : {
 						 "isEdit" : false,
 						 "activities" : [],
-						 "privilege" :{"view":"ROLE_HOS_R","create":"ROLE_HOS_C","update":"ROLE_HOS_U"},
+						 "privilege" : {
+							 "view" : "ROLE_HOS_R",
+							 "create" : "ROLE_HOS_C",
+							 "update" : "ROLE_HOS_U"
+						 },
 						 "displayName" : "OFFICIAL -> HOSTEL"
 					 },
-//					 "APPLICABLEFEE" : {
-//					 "isEdit" : false,
-//					 "activities" : [],
-//					 "privilege" :{"view":"ROLE_AFE_R","create":"ROLE_AFE_C","update":"ROLE_AFE_U"},
-//					 "displayName" : "OFFICIAL -> APPLICABLEFEE"
-//					 }
+					 // "APPLICABLEFEE" : {
+					 // "isEdit" : false,
+					 // "activities" : [],
+					 // "privilege"
+					 // :{"view":"ROLE_AFE_R","create":"ROLE_AFE_C","update":"ROLE_AFE_U"},
+					 // "displayName" : "OFFICIAL -> APPLICABLEFEE"
+					 // }
 
 			 };
 
@@ -138,15 +188,17 @@ admissionModule
 			 $scope.student.counsellingDtl.push(angular
 					 .copy($scope.dummyCounsellingDtl));
 
-			 $scope.searchAdmissionList=[];
-			 $scope.filteredSearch=[];
+			 $scope.searchAdmissionList = [];
+			 $scope.filteredSearch = [];
 
 			 $scope.itemsPerPage = 3
 			 $scope.currentPage = 0;
 			 $scope.totalItems = 0;
 
-			 $scope.pageCount = function () {
-				 return Math.ceil($scope.searchAdmissionList.length / $scope.itemsPerPage);
+			 $scope.pageCount = function() {
+				 return Math
+				 .ceil($scope.searchAdmissionList.length
+						 / $scope.itemsPerPage);
 			 };
 
 			 $scope.admissionMode = {
@@ -156,9 +208,10 @@ admissionModule
 					 "A" : "Consultant"
 			 };
 
-
-			 $scope.directViewAdmission=function(currentFileNo){
-				 $state.go('admission',{fileNo:currentFileNo});
+			 $scope.directViewAdmission = function(currentFileNo) {
+				 $state.go('admission', {
+					 fileNo : currentFileNo
+				 });
 			 }
 
 			 $scope.checkAmout = function(index, type) {
@@ -179,15 +232,17 @@ admissionModule
 				 console
 				 .log('getting masterdata for admission module in init block');
 
-				 masterdataService.getAdmissionMasterData()
-				 .then(function(data) {
-					 console.log(data);
-					 if (data) {
-						 $scope.serverModelData = data.responseBody;
-					 } else {
-						 console.log('error');
-					 }
-				 })
+				 masterdataService
+				 .getAdmissionMasterData()
+				 .then(
+						 function(data) {
+							 console.log(data);
+							 if (data) {
+								 $scope.serverModelData = data.responseBody;
+							 } else {
+								 console.log('error');
+							 }
+						 })
 
 			 }
 
@@ -259,7 +314,7 @@ admissionModule
 
 			 $scope.getAddress = function(addressType) {
 				 var address = null;
-				 for (var i = 0; i <= ($scope.student.addressDtl.length||0) - 1; i++) {
+				 for (var i = 0; i <= ($scope.student.addressDtl.length || 0) - 1; i++) {
 					 var add = $scope.student.addressDtl[i];
 					 if (add.addressType == addressType) {
 						 address = add;
@@ -287,31 +342,31 @@ admissionModule
 				 }
 			 }
 
+			 $scope.processWorkflow = function() {
 
-			 $scope.processWorkflow = function(){
-				 
 				 var stepId = $scope.currentWorkflow[0].stepId;
 				 admissionService
-				 .processWorkflow($scope.student,stepId)
+				 .processWorkflow($scope.student, stepId)
 				 .then(
-				 function(response) {
-				 console
-				 .log('Data received from service : ');
-				 console.log(response);
-				 if (response != null
-				 && response.data != null
-				 && response.data.responseBody != null) {
-				 $scope.student = response.data.responseBody.student;
-				 $scope.currentWorkflow = response.data.responseBody.workflows;
-				 $scope.directViewAdmission($scope.student.fileNo);
-				 $scope
-				 .populateMissingData($scope.student);
-				 $scope.form.isNew = false;
-				 }
-				 $scope.processing = false;
-				 })
+						 function(response) {
+							 console
+							 .log('Data received from service : ');
+							 console.log(response);
+							 if (response != null
+									 && response.data != null
+									 && response.data.responseBody != null) {
+								 $scope.student = response.data.responseBody.student;
+								 $scope.currentWorkflow = response.data.responseBody.workflows;
+								 $scope
+								 .directViewAdmission($scope.student.fileNo);
+								 $scope
+								 .populateMissingData($scope.student);
+								 $scope.form.isNew = false;
+							 }
+							 $scope.processing = false;
+						 })
 			 }
-			 
+
 			 $scope.saveStudent = function() {
 				 console.log('add student called');
 				 console.log($scope.student);
@@ -327,36 +382,37 @@ admissionModule
 									 && response.data != null
 									 && response.data.responseBody != null) {
 								 $scope.student = response.data.responseBody;
-								 $scope.form.isNew=false;
+								 $scope.form.isNew = false;
 								 alert("Your Records Saved Successfully")
-								 $scope.directViewAdmission($scope.student.fileNo);
-							 } 
+								 $scope
+								 .directViewAdmission($scope.student.fileNo);
+							 }
 							 $scope.processing = false;
 						 })
 			 }
 
-//			 $scope.updateStudent = function() {
-//			 console.log('update student called');
-//			 console.log($scope.student);
-//			 $scope.processing = true;
-//			 admissionService
-//			 .updateStudent($scope.student)
-//			 .then(
-//			 function(response) {
-//			 console
-//			 .log('Data received from service : ');
-//			 console.log(response);
-//			 if (response != null
-//			 && response.data != null
-//			 && response.data.responseBody != null) {
-//			 $scope.student = response.data.responseBody;
-//			 $scope
-//			 .populateMissingData($scope.student);
-//			 $scope.form.isNew = false;
-//			 }
-//			 $scope.processing = false;
-//			 })
-//			 }
+			 // $scope.updateStudent = function() {
+			 // console.log('update student called');
+			 // console.log($scope.student);
+			 // $scope.processing = true;
+			 // admissionService
+			 // .updateStudent($scope.student)
+			 // .then(
+			 // function(response) {
+			 // console
+			 // .log('Data received from service : ');
+			 // console.log(response);
+			 // if (response != null
+			 // && response.data != null
+			 // && response.data.responseBody != null) {
+			 // $scope.student = response.data.responseBody;
+			 // $scope
+			 // .populateMissingData($scope.student);
+			 // $scope.form.isNew = false;
+			 // }
+			 // $scope.processing = false;
+			 // })
+			 // }
 
 			 $scope.getStudent = function(fileNo) {
 				 $scope.processing = true;
@@ -372,7 +428,8 @@ admissionModule
 									 && response.data.responseBody != null) {
 								 $scope.student = response.data.responseBody.student;
 								 $scope.currentWorkflow = response.data.responseBody.workflows;
-								 $scope.directViewAdmission(fileNo);
+								 $scope
+								 .directViewAdmission(fileNo);
 								 $scope
 								 .populateMissingData($scope.student);
 								 $scope.form.isNew = false;
@@ -381,48 +438,47 @@ admissionModule
 						 })
 			 }
 
-			 $scope.getNewAdmission = function(){
+			 $scope.getNewAdmission = function() {
 				 admissionService
 				 .getNewAdmission()
-				 .then(function(response) {
-					 console
-					 .log('Data received from service : ');
-					 console.log(response);
-					 if (response != null
-							 && response.data != null
-							 && response.data.responseBody != null) {
-						 $scope.currentWorkflow.push(response.data.responseBody);
-					 }
+				 .then(
+						 function(response) {
+							 console
+							 .log('Data received from service : ');
+							 console.log(response);
+							 if (response != null
+									 && response.data != null
+									 && response.data.responseBody != null) {
+								 $scope.currentWorkflow
+								 .push(response.data.responseBody);
+							 }
 
-				 })				 
+						 })
 			 }
 
-			 $scope.getSaveButtonText=function(){
-				 if($scope.currentWorkflow.length>1){
+			 $scope.getSaveButtonText = function() {
+				 if ($scope.currentWorkflow.length > 1) {
 					 return "Save";
-				 }
-				 else if($scope.currentWorkflow.length==1)
-				 {
+				 } else if ($scope.currentWorkflow.length == 1) {
 					 return $scope.currentWorkflow[0].step;
 				 }
 			 }
 
 			 $scope.getStudentBasics = function() {
 				 admissionService
-				 .getStudentBasics(
-						 $scope.student.fileNo)
-						 .then(
-								 function(response) {
-									 console
-									 .log('student basic detail received from service : ');
-									 console.log(response);
-									 if (response != null
-											 && response.data != null
-											 && response.data.responseBody != null) {
-										 $scope.student.studentBasics = response.data.responseBody;
+				 .getStudentBasics($scope.student.fileNo)
+				 .then(
+						 function(response) {
+							 console
+							 .log('student basic detail received from service : ');
+							 console.log(response);
+							 if (response != null
+									 && response.data != null
+									 && response.data.responseBody != null) {
+								 $scope.student.studentBasics = response.data.responseBody;
 
-									 }
-								 })
+							 }
+						 })
 			 }
 
 			 $scope.updateStudentBasics = function() {
@@ -699,26 +755,24 @@ admissionModule
 								 })
 			 }
 
-
-			 $scope.getdocuments = function(){
+			 $scope.getdocuments = function() {
 
 				 admissionService
-				 .getdocuments(
-						 $scope.student.fileNo)
-						 .then(
-								 function(response) {
-									 console
-									 .log('document detail received from service : ');
-									 console.log(response);
-									 if (response != null
-											 && response.data != null
-											 && response.data.responseBody != null) {
-										 $scope.student.documents = response.data.responseBody;
-									 }
-								 })
+				 .getdocuments($scope.student.fileNo)
+				 .then(
+						 function(response) {
+							 console
+							 .log('document detail received from service : ');
+							 console.log(response);
+							 if (response != null
+									 && response.data != null
+									 && response.data.responseBody != null) {
+								 $scope.student.documents = response.data.responseBody;
+							 }
+						 })
 			 }
 
-			 $scope.updateDocuments = function(){
+			 $scope.updateDocuments = function() {
 				 admissionService
 				 .updateDocuments(
 						 $scope.student.documents,
@@ -734,7 +788,7 @@ admissionModule
 										 $scope.student.documents = response.data.responseBody;
 
 									 }
-								 })								
+								 })
 			 }
 
 			 $scope.getStudentByCriteria = function() {
@@ -744,7 +798,7 @@ admissionModule
 				 $scope.processing = true;
 				 $scope.currentPage = 0;
 				 admissionService
-				 .StudentByCriteria(
+				 .getStudentByCriteria(
 						 $scope.searchCriteria)
 						 .then(
 								 function(response) {
@@ -755,38 +809,61 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.searchAdmissionList = response.data.responseBody;
-										 if($scope.searchAdmissionList.length>0){
-											 $scope.showCriteria=false;
-											 //$scope.dashboard = false;
-											 $scope.currentPage=1;
+										 if ($scope.searchAdmissionList.length > 0) {
+											 $scope.showCriteria = false;
+											 // $scope.dashboard
+											 // = false;
+											 $scope.currentPage = 1;
 											 $scope.totalItems = $scope.searchAdmissionList.length;
 										 }
-									 } 
+									 }
 
 									 $scope.processing = false;
 								 })
 			 }
 
-			 $scope.numPages = function () {
-				 return Math.ceil($scope.searchAdmissionList.length / $scope.itemsPerPage);
+			 $scope.numPages = function() {
+				 return Math
+				 .ceil($scope.searchAdmissionList.length
+						 / $scope.itemsPerPage);
 			 };
 
-			 $scope.$watch('currentPage + itemsPerPage', function() {
-				 var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
-				 , end = begin + $scope.itemsPerPage;
+			 $scope
+			 .$watch(
+					 'currentPage + itemsPerPage',
+					 function() {
+						 var begin = (($scope.currentPage - 1) * $scope.itemsPerPage), end = begin
+						 + $scope.itemsPerPage;
 
-				 $scope.filteredSearch = $scope.searchAdmissionList.slice(begin, end);
-			 });
+						 $scope.filteredSearch = $scope.searchAdmissionList
+						 .slice(begin, end);
+					 });
 
 			 $scope.gridOptions = {
-					 multiSelect:false,
-					 data: 'filteredSearch',
-					 rowTemplate: '<div ng-dblclick="Student(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
-					 columnDefs: [{field:"registrationNo",width:200,displayName :"Registration No"},
-					              { field: "firstName", width: 180,displayName :"Name"},
-					              { field: "fatherName", width: 180,displayName :"Father Name" },
-					              { field: "course.course", width: 140,displayName :"Course" },
-					              { field: "branch.branchName", width: 180,displayName :"Branch"}]
+					 multiSelect : false,
+					 data : 'filteredSearch',
+					 rowTemplate : '<div ng-dblclick="Student(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+					 columnDefs : [ {
+						 field : "registrationNo",
+						 width : 200,
+						 displayName : "Registration No"
+					 }, {
+						 field : "firstName",
+						 width : 180,
+						 displayName : "Name"
+					 }, {
+						 field : "fatherName",
+						 width : 180,
+						 displayName : "Father Name"
+					 }, {
+						 field : "course.course",
+						 width : 140,
+						 displayName : "Course"
+					 }, {
+						 field : "branch.branchName",
+						 width : 180,
+						 displayName : "Branch"
+					 } ]
 			 };
 
 			 $scope.resetAdmissionMode = function() {
@@ -839,66 +916,75 @@ admissionModule
 				 }
 			 }
 
-
 			 $scope.RelatedData = function(type) {
 
 				 if (!$scope.form.isNew) {
 					 switch (type) {
 					 case "DOCUMENT": {
-						 $scope.getDocuments($scope.student.fileNo);
+						 $scope
+						 .getDocuments($scope.student.fileNo);
 						 break;
 					 }
 
 					 case "PERSONALINFO": {
-						 $scope.getStudentBasics($scope.student.fileNo);
+						 $scope
+						 .getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
 
 					 case "ACADEMIC": {
-						 $scope.getStudentAcademicDtl($scope.student.fileNo);
+						 $scope
+						 .getStudentAcademicDtl($scope.student.fileNo);
 						 break;
 					 }
 
 					 case "ADDRESS": {
-						 $scope.getStudentAddress($scope.student.fileNo);
+						 $scope
+						 .getStudentAddress($scope.student.fileNo);
 						 break;
 					 }
 					 case "COUNSELLING": {
-						 $scope.getCounsellingDtl($scope.student.fileNo);
+						 $scope
+						 .getCounsellingDtl($scope.student.fileNo);
 						 break;
 					 }
 					 case "OFFICEUSE": {
-						 $scope.getStudentBasics($scope.student.fileNo);
+						 $scope
+						 .getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
 					 case "DISCOUNT": {
-						 $scope.getStudentDiscountDtl($scope.student.fileNo);
+						 $scope
+						 .getStudentDiscountDtl($scope.student.fileNo);
 						 break;
 					 }
 					 case "SCHOLARSHIP": {
-						 $scope.getScholarshipDtl($scope.student.fileNo);
+						 $scope
+						 .getScholarshipDtl($scope.student.fileNo);
 						 break;
 					 }
 					 case "CONSULTANT": {
-						 $scope.getConsultantDtl($scope.student.fileNo);
+						 $scope
+						 .getConsultantDtl($scope.student.fileNo);
 						 break;
 					 }
 					 case "REFERRAL": {
-						 $scope.getStudentBasics($scope.student.fileNo);
+						 $scope
+						 .getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
 
-					 default: 
-					 { 
-						 $scope.getStudent($scope.student.fileNo);
+					 default: {
+						 $scope
+						 .getStudent($scope.student.fileNo);
 					 }
 					 }
 				 }
 			 };
 
-			 $scope.makeAllReadOnly=function(){
+			 $scope.makeAllReadOnly = function() {
 
-				 for (var form in $scope.formTabs) {
+				 for ( var form in $scope.formTabs) {
 					 var tab = $scope.formTabs[form];
 					 if (tab) {
 
@@ -911,15 +997,16 @@ admissionModule
 				 }
 			 }
 
-			 if(injectedData.data){
-				 $scope.form.isNew=false;
+			 if (injectedData.data) {
+				 $scope.form.isNew = false;
 				 $scope.student = injectedData.data.responseBody.student;
-				 $scope.currentWorkflow=[];
-				 $scope.currentWorkflow.push(injectedData.data.responseBody.workflows[0]);
+				 $scope.currentWorkflow = [];
+				 $scope.currentWorkflow
+				 .push(injectedData.data.responseBody.workflows[0]);
 				 $scope.makeAllReadOnly();
 			 }
-			 
-			 if($scope.form.isNew){
+
+			 if ($scope.form.isNew) {
 				 $scope.getNewAdmission();
 			 }
 
@@ -943,60 +1030,57 @@ admissionModule
 			 };
 
 			 $scope.isTabEnabled = function(form) {
-				 if(!$scope.form.isNew && $scope.isEditing(form)){
+				 if (!$scope.form.isNew
+						 && $scope.isEditing(form)) {
 					 return true;
 				 }
 
 			 };
 
-			 $scope.isTabViewable=function(form){
-			
-				 var userPrivilege=$rootScope.user.privilege;
-				 if(userPrivilege){
+			 $scope.isTabViewable = function(form) {
+
+				 var userPrivilege = $rootScope.user.privilege;
+				 if (userPrivilege) {
 					 var tab = $scope.formTabs[form];
-					 var tabPrivilege=tab.privilege.view;
-					 if(userPrivilege.indexOf(tabPrivilege) != -1)
-					 {
+					 var tabPrivilege = tab.privilege.view;
+					 if (userPrivilege.indexOf(tabPrivilege) != -1) {
 						 return true;
 					 }
 				 }
 			 }
 
-			 $scope.isTabEditable=function(form){
-				 var userPrivilege=$rootScope.user.privilege;
-				 if(userPrivilege){
+			 $scope.isTabEditable = function(form) {
+				 var userPrivilege = $rootScope.user.privilege;
+				 if (userPrivilege) {
 					 var tab = $scope.formTabs[form];
-					 var tabPrivilege=tab.privilege.update;
-					 if(userPrivilege.indexOf(tabPrivilege) != -1)
-					 {
+					 var tabPrivilege = tab.privilege.update;
+					 if (userPrivilege.indexOf(tabPrivilege) != -1) {
 						 return true;
 					 }
 				 }
 			 }
 
-			 $scope.isEditing = function(form){
+			 $scope.isEditing = function(form) {
 				 var tab = $scope.formTabs[form];
-				 var isEdited=tab.isEdit;
+				 var isEdited = tab.isEdit;
 
 				 return isEdited;
 			 }
 
-			 $scope.isAlltabsReadOnly=function(){
-				 for (var key in $scope.formTabs) {
-					 if(key["isEdit"]){
+			 $scope.isAlltabsReadOnly = function() {
+				 for ( var key in $scope.formTabs) {
+					 if (key["isEdit"]) {
 						 return false;
 					 }
 				 }
 				 return true;
 			 }
 
-
-//			 angular.element(document).ready(function () {
-//
-//				 if(!$scope.form.isNew){
-//					 $scope.makeAllReadOnly();
-//				 }
-//			 });
-
+			 // angular.element(document).ready(function () {
+			 //
+			 // if(!$scope.form.isNew){
+			 // $scope.makeAllReadOnly();
+			 // }
+			 // });
 
 		 } ]);
