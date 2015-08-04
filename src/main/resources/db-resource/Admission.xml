@@ -34,7 +34,7 @@ sb.Is_Lateral
 from  student_detail s JOIN student_basic sb
 ON s.File_No = sb.FILE_NO
      
- WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and s.Course_Id = IFNULL(:Course_Id,s.Course_Id) and s.Branch_Id = IFNULL(:Branch_Id,s.Branch_Id) and ifnull(sb.Email_Id,'-1')=ifnull(:Email_Id,ifnull(sb.Email_Id,'-1')) and ifnull(sb.Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(sb.Enroll_No,'-1')) and ifnull(sb.Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(sb.Uni_Enroll_No,'-1')) and ifnull(sb.Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(sb.Self_Mobile_No,'-1')) and sb.First_Name like '%sandeep';    
+ WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and s.Course_Id = IFNULL(:Course_Id,s.Course_Id) and s.Branch_Id = IFNULL(:Branch_Id,s.Branch_Id) and ifnull(sb.Email_Id,'-1')=ifnull(:Email_Id,ifnull(sb.Email_Id,'-1')) and ifnull(sb.Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(sb.Enroll_No,'-1')) and ifnull(sb.Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(sb.Uni_Enroll_No,'-1')) and ifnull(sb.Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(sb.Self_Mobile_No,'-1')) and sb.First_Name like :First_Name;    
 
     
     ]]>
