@@ -71,7 +71,7 @@ public class AdmissionService {
 		Response response=new Response();
 		AdmissionData ad = new AdmissionData();
 
-		admWorkflowManager.processWorkFlow(student, stepId, student.getFileNo());
+		admWorkflowManager.processWorkFlow(student, stepId);
 		Student studentDB = admWorkflowManager.getStudent(student.getFileNo());
 		Workflow wf=cacheManager.getWorkflowByStepId(studentDB.getStudentBasics().getApplicationStatus());
 		ad.setStudent(studentDB);

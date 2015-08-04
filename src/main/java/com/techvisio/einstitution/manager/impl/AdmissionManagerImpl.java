@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
 import com.techvisio.einstitution.beans.BranchPreference;
@@ -18,6 +19,7 @@ import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
+import com.techvisio.einstitution.beans.Workflow;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.factory.UniqueIdentifierGenerator;
 import com.techvisio.einstitution.manager.AdmissionManager;
@@ -271,4 +273,5 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		List<Object[]> studentDocuments = admissionDao.getStudentDocumentDtl();
 		return studentDocuments;
 	}
+	
 }

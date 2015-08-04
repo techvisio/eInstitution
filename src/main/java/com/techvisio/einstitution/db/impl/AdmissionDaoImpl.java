@@ -137,6 +137,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		else{
 			getCurrentSession().update(studentBasics);
 		}
+		getCurrentSession().flush();
 	}
 	
 	@Override

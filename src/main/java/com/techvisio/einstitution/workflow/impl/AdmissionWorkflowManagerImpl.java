@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
 import com.techvisio.einstitution.beans.BranchPreference;
@@ -19,6 +20,9 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.beans.Workflow;
+import com.techvisio.einstitution.factory.ActivityExecuterFactory;
+import com.techvisio.einstitution.factory.ActivityType;
+import com.techvisio.einstitution.manager.ActivityExecuter;
 import com.techvisio.einstitution.manager.AdmissionManager;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.manager.FeeManager;
@@ -240,17 +244,20 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return cacheManager.getNewAdmissionWorkFlow();
 	}
 	@Override
-	public void processWorkFlow(Student student, Long stepId, Long fileNo){
+	public void processWorkFlow(Student student, Long stepId){
 	
+		Long fileNo = student.getFileNo();
+		
 		Workflow wf=cacheManager.getWorkflowByStepId(stepId);
 		//new admission case
-		if(student.getFileNo()==null){
+		if(fileNo==null){
 			Workflow newAdmWf = getNewAdmissionWorkFlow();
 			if(!stepId.equals(newAdmWf.getStepId())){
 				throw new RuntimeException("Workflow Mismatch");
 			}
 			student.getStudentBasics().setApplicationStatus(stepId);
-			saveStudent(student);
+			fileNo=saveStudent(student);
+			
 		}
 		//other than new case
 		else
@@ -265,6 +272,8 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 			studentBasic.setApplicationStatus(stepId);
 			saveStudentBasics(studentBasic);
 		}
+		
+		executeActivities(wf, fileNo);
 	};
 
 	
@@ -277,4 +286,15 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		return false;
 	}
 
+public void executeActivities(Workflow workflow,Long fileNo){
+	
+	if(workflow.getActivities()!=null && workflow.getActivities().size()>0){
+		StudentBasics studentBasics = getStudentBasics(fileNo);
+		for(Activity activity : workflow.getActivities()){
+			ActivityExecuter executer=ActivityExecuterFactory.getActivityExecuter(ActivityType.valueOf(activity.getActivityName()));
+			executer.execute(studentBasics);
+		} 
+	}
+	
+	}
 }

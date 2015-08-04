@@ -619,6 +619,7 @@
         Updated_By varchar(255),
         Updated_On datetime,
         Document_Name varchar(255),
+        Document_No varchar(255),
         Document_Type varchar(255),
         primary key (Document_Id)
     );

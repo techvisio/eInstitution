@@ -17,11 +17,7 @@ import javax.persistence.MappedSuperclass;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class BasicFeeTransaction extends BasicEntity{
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Id
-	@Column(name="Transaction_Id")
-	private Long transactionId;
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="Head_Id")
 	private FeeDiscountHead feeDiscountHead=new FeeDiscountHead();
 	@Column(name="User")
@@ -40,15 +36,6 @@ public abstract class BasicFeeTransaction extends BasicEntity{
 	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="Session_Id")
 	private Session session;
-
-	public Long getTransactionId() {
-		return transactionId;
-	}
-
-	public void setTransactionId(Long transactionId) {
-		this.transactionId = transactionId;
-	}
-
 
 	public BasicFeeTransaction(){
 

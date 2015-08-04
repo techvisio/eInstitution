@@ -70,6 +70,6 @@ public interface AdmissionWorkflowManager {
 
 	public Workflow getNewAdmissionWorkFlow();
 
-	public void processWorkFlow(Student student, Long stepId, Long fileNo);
+	public void processWorkFlow(Student student, Long stepId);
 
 }

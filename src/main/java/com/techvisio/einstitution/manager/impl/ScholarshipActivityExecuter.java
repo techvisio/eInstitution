@@ -2,43 +2,51 @@ package com.techvisio.einstitution.manager.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.techvisio.einstitution.beans.Activity;
 import com.techvisio.einstitution.beans.FeeTransactionCredit;
 import com.techvisio.einstitution.beans.Scholarship;
-import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentActivity;
+import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.db.FeeDao;
+import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.manager.ActivityExecuter;
 
 public class ScholarshipActivityExecuter implements ActivityExecuter{
 
-	private static String ACTIVITY="SCHOLARSHIP_ADJUSTMENT";
-	
+	private static String SCHOLARSHIP_ACTIVITY="SCHOLARSHIP_ADJUSTMENT";
+
 	@Autowired
 	FeeDao feeDao;
-	
+
 	@Autowired
 	AdmissionDao admissionDao; 
 
-	@Override
-	public void execute(Student student) {
+	@Autowired
+	ScholarshipDao scholarshipDao;
 
-		Scholarship scholarship = student.getScholarship();
+	@Override
+	public void execute(StudentBasics studentBasics) {
+
+		Scholarship scholarship = scholarshipDao.getScholarship(studentBasics.getFileNo());
+
 		if(scholarship.isApproved()){
-			
+
 			FeeTransactionCredit feeTransactionCredit = new FeeTransactionCredit();
-			feeTransactionCredit.setBatch(student.getStudentBasics().getBatch());
-			feeTransactionCredit.setSession(student.getStudentBasics().getSession());
-			feeTransactionCredit.setFileNo(student.getFileNo());
+			feeTransactionCredit.setBatch(studentBasics.getBatch());
+			feeTransactionCredit.setSession(studentBasics.getSession());
+			feeTransactionCredit.setFileNo(studentBasics.getFileNo());
 			feeTransactionCredit.setAmount(scholarship.getAmount());
 
 			feeDao.addFeeTransactionCredit(feeTransactionCredit);
-					}
-		
+		}
+
 		StudentActivity studentActivity = new StudentActivity();
-		studentActivity.setFileNo(student.getFileNo());
-		studentActivity.getActivity().setActivityName(ACTIVITY);
-		admissionDao.saveStudent(student);
+		studentActivity.setFileNo(studentBasics.getFileNo());
+		Activity activity=new Activity();
+		activity.setActivityName(SCHOLARSHIP_ACTIVITY);
+		studentActivity.setActivity(activity);
+		admissionDao.saveStudentActivity(studentActivity);
 	}
 
 }

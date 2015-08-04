@@ -28,7 +28,7 @@ public class Workflow extends BasicEntity{
 	private String workflow;
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinColumn(name="Step_Id")
-	private List<Activity> activity;
+	private List<Activity> activities;
 	@OneToMany(cascade={CascadeType.ALL} , fetch=FetchType.EAGER)
 	@JoinTable(name="WORKFLOW_DEPENDENCY")
 	private List<Workflow> childWorkflow;
@@ -53,11 +53,11 @@ public class Workflow extends BasicEntity{
 		this.step = step;
 	}
 	
-	public List<Activity> getActivity() {
-		return activity;
+	public List<Activity> getActivities() {
+		return activities;
 	}
-	public void setActivity(List<Activity> activity) {
-		this.activity = activity;
+	public void setActivities(List<Activity> activity) {
+		this.activities = activity;
 	}
 	public List<Workflow> getChildWorkflow() {
 		return childWorkflow;

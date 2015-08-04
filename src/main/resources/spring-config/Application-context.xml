@@ -131,5 +131,6 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<bean id="myAuthenticationProvider" 
          class="com.techvisio.einstitution.manager.AuthenticationManager">
 	</bean>
-
+	<bean id="scholarshipActivityExecuter" class="com.techvisio.einstitution.manager.impl.ScholarshipActivityExecuter"></bean>
+	<bean id="discountActivityExecuter" class="com.techvisio.einstitution.manager.impl.DiscountActivityExecuter"></bean>
 </beans>

@@ -303,6 +303,7 @@ admissionModule
 				 && response.data.responseBody != null) {
 				 $scope.student = response.data.responseBody.student;
 				 $scope.currentWorkflow = response.data.responseBody.workflows;
+				 $scope.directViewAdmission($scope.student.fileNo);
 				 $scope
 				 .populateMissingData($scope.student);
 				 $scope.form.isNew = false;

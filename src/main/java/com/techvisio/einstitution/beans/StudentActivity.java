@@ -19,7 +19,7 @@ public class StudentActivity extends BasicEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="Student_Activity_Id")
 	private Long studentActivityId;
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="Activity_Name")
 	private Activity activity;
 	@Column(name="File_No")
