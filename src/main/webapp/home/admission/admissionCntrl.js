@@ -916,7 +916,7 @@ admissionModule
 				 }
 			 }
 
-			 $scope.RelatedData = function(type) {
+			 $scope.getRelatedData = function(type) {
 
 				 if (!$scope.form.isNew) {
 					 switch (type) {
