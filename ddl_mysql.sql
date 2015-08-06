@@ -75,6 +75,30 @@
         drop 
         foreign key FK_8fppsodxueux3tx6j0fsxso9n;
 
+    alter table FEE_DETAIL_MASTER 
+        drop 
+        foreign key FK_d32s37hja7g5mioypnec33ccg;
+
+    alter table FEE_DETAIL_MASTER 
+        drop 
+        foreign key FK_53e493yu8wdlvd8wueuyf3dpa;
+
+    alter table FEE_DETAIL_MASTER 
+        drop 
+        foreign key FK_noo84328kns2ttg38me1uxay3;
+
+    alter table FEE_DETAIL_MASTER 
+        drop 
+        foreign key FK_kaxrd7k77viuam9gle3it4mk4;
+
+    alter table FEE_DETAIL_MASTER 
+        drop 
+        foreign key FK_7r5o03lir7rngukxj1tp1i1jk;
+
+    alter table FEE_DETAIL_MASTER 
+        drop 
+        foreign key FK_iq7eb2t6ytu1go48l2cr9aplp;
+
     alter table FEE_TRANSACTION_CREDIT 
         drop 
         foreign key FK_pgmibpt0w68w2nmdb8mxi9m7i;
@@ -298,6 +322,8 @@
     drop table if exists COURSE_MASTER;
 
     drop table if exists DOCUMENT_MASTER;
+
+    drop table if exists FEE_DETAIL_MASTER;
 
     drop table if exists FEE_DISCOUNTHEAD_MASTER;
 
@@ -622,6 +648,18 @@
         Document_No varchar(255),
         Document_Type varchar(255),
         primary key (Document_Id)
+    );
+
+    create table FEE_DETAIL_MASTER (
+        Fee_Detail_Id bigint not null auto_increment,
+        Fee_Amount double precision,
+        Branch_Id bigint,
+        Centre_Id bigint,
+        Course_Id bigint,
+        Head_Id bigint,
+        Sessiont_Id bigint,
+        Shift_Id bigint,
+        primary key (Fee_Detail_Id)
     );
 
     create table FEE_DISCOUNTHEAD_MASTER (
@@ -1257,6 +1295,36 @@
         add constraint FK_8fppsodxueux3tx6j0fsxso9n 
         foreign key (Course_Id) 
         references COURSE_MASTER (Course_Id);
+
+    alter table FEE_DETAIL_MASTER 
+        add constraint FK_d32s37hja7g5mioypnec33ccg 
+        foreign key (Branch_Id) 
+        references COURSE_BRANCH_MASTER (Branch_Id);
+
+    alter table FEE_DETAIL_MASTER 
+        add constraint FK_53e493yu8wdlvd8wueuyf3dpa 
+        foreign key (Centre_Id) 
+        references CENTRE_MASTER (Centre_Id);
+
+    alter table FEE_DETAIL_MASTER 
+        add constraint FK_noo84328kns2ttg38me1uxay3 
+        foreign key (Course_Id) 
+        references COURSE_MASTER (Course_Id);
+
+    alter table FEE_DETAIL_MASTER 
+        add constraint FK_kaxrd7k77viuam9gle3it4mk4 
+        foreign key (Head_Id) 
+        references FEE_DISCOUNTHEAD_MASTER (Head_Id);
+
+    alter table FEE_DETAIL_MASTER 
+        add constraint FK_7r5o03lir7rngukxj1tp1i1jk 
+        foreign key (Sessiont_Id) 
+        references SESSION_MASTER (Session_Id);
+
+    alter table FEE_DETAIL_MASTER 
+        add constraint FK_iq7eb2t6ytu1go48l2cr9aplp 
+        foreign key (Shift_Id) 
+        references SHIFT_MASTER (Shift_Id);
 
     alter table FEE_TRANSACTION_CREDIT 
         add constraint FK_pgmibpt0w68w2nmdb8mxi9m7i 
