@@ -1,5 +1,5 @@
 package com.techvisio.einstitution.factory;
 
 	public enum ActivityType {
-		SCHOLARSHIP_ADJUSTMENT, DISCOUNT_ADJUSTMENT
+		SCHOLARSHIP_ADJUSTMENT, DISCOUNT_ADJUSTMENT, FEE_GENERATION
        }

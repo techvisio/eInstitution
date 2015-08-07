@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "FEE_DETAIL_MASTER")   
 public class ApplicableFeeDetail {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Fee_Detail_Id")
 	private Long feeDetailId;	
 	@ManyToOne
@@ -29,13 +29,13 @@ public class ApplicableFeeDetail {
 	private Double feeAmount;
 	@ManyToOne
 	@JoinColumn(name="Centre_Id")
-	private Centre centreId;
+	private Centre centre;
 	@ManyToOne
 	@JoinColumn(name="Shift_Id")
-	private Shift shiftId;
+	private Shift shift;
 	@ManyToOne
-	@JoinColumn(name="Sessiont_Id")
-	private Session sessionId;
+	@JoinColumn(name="Session_Id")
+	private Session session;
 
 	public Long getFeeDetailId() {
 		return feeDetailId;
@@ -68,23 +68,30 @@ public class ApplicableFeeDetail {
 	public void setFeeAmount(Double feeAmount) {
 		this.feeAmount = feeAmount;
 	}
-	public Centre getCentreId() {
-		return centreId;
+	public Centre getCentre() {
+		return centre;
 	}
-	public void setCentreId(Centre centreId) {
-		this.centreId = centreId;
+	public void setCentre(Centre centre) {
+		this.centre = centre;
 	}
-	public Shift getShiftId() {
-		return shiftId;
+	public Shift getShift() {
+		return shift;
 	}
-	public void setShiftId(Shift shiftId) {
-		this.shiftId = shiftId;
+	public void setShift(Shift shift) {
+		this.shift = shift;
 	}
-	public Session getSessionId() {
-		return sessionId;
+	public Session getSession() {
+		return session;
 	}
-	public void setSessionId(Session sessionId) {
-		this.sessionId = sessionId;
+	public void setSession(Session session) {
+		this.session = session;
+	}
+	@Override
+	public String toString() {
+		return "ApplicableFeeDetail [feeDetailId=" + feeDetailId + ", course="
+				+ course + ", branch=" + branch + ", feeDetail=" + feeDetail
+				+ ", feeAmount=" + feeAmount + ", centre=" + centre
+				+ ", shift=" + shift + ", session=" + session + "]";
 	}
 
 }

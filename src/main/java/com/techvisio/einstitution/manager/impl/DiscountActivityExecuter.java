@@ -11,11 +11,10 @@ import com.techvisio.einstitution.beans.StudentActivity;
 import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.db.FeeDao;
+import com.techvisio.einstitution.factory.ActivityType;
 import com.techvisio.einstitution.manager.ActivityExecuter;
 public class DiscountActivityExecuter implements ActivityExecuter{
 
-	private static String DISCOUNT_ACTIVITY="DISCOUNT_ADJUSTMENT";
-	
 	@Autowired
 	FeeDao feeDao;
 	
@@ -26,6 +25,7 @@ public class DiscountActivityExecuter implements ActivityExecuter{
 	public void execute(StudentBasics studentBasics) {
 		
 List<AdmissionDiscount> admissionDiscounts = admissionDao.getDiscountDtl(studentBasics.getFileNo());
+
 
 		for(AdmissionDiscount admissionDiscount : admissionDiscounts){
 			
@@ -41,8 +41,9 @@ List<AdmissionDiscount> admissionDiscounts = admissionDao.getDiscountDtl(student
 		}
 
 		StudentActivity studentActivity = new StudentActivity();
+		studentActivity.setFileNo(studentBasics.getFileNo());
 		Activity activity=new Activity();
-		activity.setActivityName(DISCOUNT_ACTIVITY);
+		activity.setActivityName(ActivityType.DISCOUNT_ADJUSTMENT.toString());
 		studentActivity.setActivity(activity);
 		admissionDao.saveStudentActivity(studentActivity);
 	}

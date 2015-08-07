@@ -10,30 +10,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FEE_DISCOUNTHEAD_MASTER")    
 public class FeeDiscountHead extends BasicEntity {
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((headId == null) ? 0 : headId.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		FeeDiscountHead other = (FeeDiscountHead) obj;
-		if (headId == null) {
-			if (other.headId != null)
-				return false;
-		} else if (!headId.equals(other.headId))
-			return false;
-		return true;
-	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -92,5 +68,29 @@ public class FeeDiscountHead extends BasicEntity {
 	public void setRefundType(String refundType) {
 		this.refundType = refundType;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((headId == null) ? 0 : headId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FeeDiscountHead other = (FeeDiscountHead) obj;
+		if (headId == null) {
+			if (other.headId != null)
+				return false;
+		} else if (!headId.equals(other.headId))
+			return false;
+		return true;
+	}
+
 }

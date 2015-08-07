@@ -1,51 +1,88 @@
 <form id="SCHOLARSHIP">
-<div class="admission-tab-inner">
-	<div class="student-discount">
-		<table>
-			<tr>
-				<td><span> Scholarship </span></td>
-				<td><input type="checkbox" ng-model="isScholarship"
-					></td>
-				<td><span> Domicile State </span></td>
-				<td><select select ng-model="student.scholarship.stateId"
-					 class="form-control"
-					ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE"></select>
-				</td>
-			</tr>
-			<tr>
-				<td><span> Category </span></td>
-				<td><select select ng-model="student.studentBasics.category.categoryId"
-					 class="form-control"
-					ng-options="item.categoryId*1 as item.categoryName  for item in serverModelData.CATEGORY"></select>
-				</td>
-				<td><span> Family Income </span></td>
-				<td><input type="number"
-					ng-model="student.scholarship.parentIncome" class="form-control"
-					></td>
-			</tr>
+	<div class="admission-tab-inner">
+		<div class="student-discount">
+			<table>
+				<tr>
+					<td><span> Scholarship </span></td>
+					<td><input type="checkbox" ng-model="isScholarship"></td>
+					<td><span> Domicile State </span></td>
+					<td><select select ng-model="student.scholarship.stateId"
+						class="form-control"
+						ng-options="item.stateId*1 as item.stateName  for item in serverModelData.STATE"></select>
+					</td>
+				</tr>
+				<tr>
+					<td><span> Category </span></td>
+					<td><select select
+						ng-model="student.studentBasics.category.categoryId"
+						class="form-control"
+						ng-options="item.categoryId*1 as item.categoryName  for item in serverModelData.CATEGORY"></select>
+					</td>
+					<td><span> Family Income </span></td>
+					<td><input type="number"
+						ng-model="student.scholarship.parentIncome" class="form-control"></td>
+				</tr>
 
 
-			<tr>
-				<td><span> Remarks </span></td>
-				<td><textarea rows="3" cols="30"
-						ng-model="student.scholarship.remark" class="form-control"
-						>
+				<tr>
+					<td><span> Remarks </span></td>
+					<td><textarea rows="3" cols="30"
+							ng-model="student.scholarship.remark" class="form-control">
 										
 						</textarea></td>
-				<td><span> Amount </span></td>
-				<td><input type="number" class="form-control"
-					ng-model="student.scholarship.amount"
-					></td>
-			</tr>
-			 <tr>   <td></td>
-				<td></td>
-				<td></td>
-				<td><button type="button" class="btn btn-success btn-sm" ng-disabled="!isTabEditable('SCHOLARSHIP')" ng-show="!isTabEnabled('SCHOLARSHIP')"
-						ng-click="toggleReadOnly('SCHOLARSHIP')">Edit</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('SCHOLARSHIP')" ng-show="isTabEnabled('SCHOLARSHIP')">Cancel</button>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="updateScholarshipDtl()" ng-show="isTabEnabled('SCHOLARSHIP')">Save</button></td>
-		</tr>
-		</table>
+					<td><span> Amount </span></td>
+					<td><input type="number" class="form-control"
+						ng-model="student.scholarship.amount"></td>
+				</tr>
+				<tr>
+					<td>
+						<section title=".squaredOne">
+							<!-- .squaredOne -->
+							<div class="squaredOne">
+								<input type="checkbox" ng-model="student.scholarship.approved"
+									id="three" name="check" checked /> <label for="three"></label>
+							</div>
+							<!-- end .squaredOne -->
+						</section>
+					</td>
+					<td>
+						<section title=".squaredOne">
+							<!-- .squaredOne -->
+							<div class="squaredOne">
+								<input type="checkbox"
+									ng-model="student.scholarship.conditional" id="One"
+									name="check" checked /> <label for="One"></label>
+							</div>
+							<!-- end .squaredOne -->
+						</section>
+					</td>
+					<td>
+						<section title=".squaredOne">
+							<!-- .squaredOne -->
+							<div class="squaredOne">
+								<input type="checkbox"
+									ng-model="student.scholarship.reoccurring" id="two"
+									name="check" checked /> <label for="two"></label>
+							</div>
+							<!-- end .squaredOne -->
+						</section>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><button type="button" class="btn btn-success btn-sm"
+							ng-disabled="!isTabEditable('SCHOLARSHIP')" ng-show="!isTabEnabled('SCHOLARSHIP')"
+							ng-click="toggleReadOnly('SCHOLARSHIP')">Edit</button>
+						<button type="button" class="btn btn-primary btn-sm"
+							ng-click="toggleReadOnly('SCHOLARSHIP')"
+							ng-show="isTabEnabled('SCHOLARSHIP')">Cancel</button>
+						<button type="button" class="btn btn-primary btn-sm"
+							ng-click="updateScholarshipDtl()"
+							ng-show="isTabEnabled('SCHOLARSHIP')">Save</button></td>
+				</tr>
+			</table>
+		</div>
 	</div>
-</div>
 </form>

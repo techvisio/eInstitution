@@ -59,7 +59,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	@Override
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
-		 logger.info("{} : Getting Student detail bby searching criteria for enquiryId:{}",this.getClass().getName(), searchCriteria.getInquryId());		
+		logger.info("{} : Getting Student detail bby searching criteria for enquiryId:{}",this.getClass().getName(), searchCriteria.getInquryId());		
 		String getQuery = admissionQueryProps
 				.getProperty("getStudentDtlDynamically");
 
@@ -71,12 +71,13 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		.addValue("First_Name", StringUtils.isEmpty(searchCriteria.getFirstName())?"%":searchCriteria.getFirstName()+"%")
 		.addValue("Self_Mobile_No", StringUtils.isEmpty(searchCriteria.getMobileNo())?null:searchCriteria.getMobileNo())
 		.addValue("Course_Id", searchCriteria.getCourseId())
+		.addValue("File_No", searchCriteria.getFileNo())
 		.addValue("Branch_Id", searchCriteria.getBranchId());
-		
-	List<StudentBasicInfo> studentBasicInfos=getNamedParamJdbcTemplate().query(
+
+		List<StudentBasicInfo> studentBasicInfos=getNamedParamJdbcTemplate().query(
 				getQuery, namedParameter, new StudentBasicInfoRowMaper());
-		
-		    return studentBasicInfos;
+
+		return studentBasicInfos;
 	}
 	@Override
 	public Student getStudent(Long fileNo) {
@@ -97,21 +98,21 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			Workflow wf=cacheManager.getNewAdmissionWorkFlow();
 			if(wf != null){
 				if(student.getStudentBasics() != null){
-				student.getStudentBasics().setApplicationStatus(wf.getStepId());
+					student.getStudentBasics().setApplicationStatus(wf.getStepId());
 				}
 			}
 			if(student.getStudentBasics() != null){
-			student.getStudentBasics().setStudent(student);
+				student.getStudentBasics().setStudent(student);
 			}
 			if(student.getScholarship() != null){
 				student.getScholarship().setStudent(student);
-				}
+			}
 			getCurrentSession().save(student);
 		}
 		else{
 			getCurrentSession().update(student);
 		}
-		
+
 		getCurrentSession().flush();
 		return student.getFileNo();
 	}
@@ -139,7 +140,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		}
 		getCurrentSession().flush();
 	}
-	
+
 	@Override
 	public List<Address> getAddressDtl(Long fileNo) {
 
@@ -499,7 +500,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		List<Object[]> studentDocuments = query.list();
 		return studentDocuments;
 	}
-	
+
 	@Override
 	public List<StudentActivity> getStudentActivities(Long fileNo) {
 
@@ -530,7 +531,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 		}
 	}
 
-	
+
 	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo>{
 
 		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
@@ -541,13 +542,13 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			basicInfo.setLastName(rs.getString("Last_Name"));
 			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
 			Long branchId=(CommonUtil.getLongValue(rs.getLong("Branch_Id")));
-		    Branch branch=cacheManager.getBranchById(branchId);
+			Branch branch=cacheManager.getBranchById(branchId);
 			basicInfo.setBranch(branch); 
 			Long courseId=(CommonUtil.getLongValue(rs.getLong("Course_Id")));
-		    Course course=cacheManager.getCourseById(courseId);
+			Course course=cacheManager.getCourseById(courseId);
 			basicInfo.setCourse(course);
 			Long categoryId=(CommonUtil.getLongValue(rs.getLong("Category_Id")));
-		    CasteCategory category=cacheManager.getCategoryId(categoryId);
+			CasteCategory category=cacheManager.getCategoryId(categoryId);
 			basicInfo.setCasteCategory(category);
 			basicInfo.setDob(rs.getDate("DOB"));
 			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
@@ -557,25 +558,25 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
 			basicInfo.setSemester(rs.getString("Semester"));
 			Long sessionId=(CommonUtil.getLongValue(rs.getLong("Session_Id")));
-		    Session session=cacheManager.getSessionBySessionId(sessionId);
+			Session session=cacheManager.getSessionBySessionId(sessionId);
 			basicInfo.setSession(session);
 			Long batchId=(CommonUtil.getLongValue(rs.getLong("Batch_Id")));
-		    Batch batch=cacheManager.getBatchByBatchId(batchId);
+			Batch batch=cacheManager.getBatchByBatchId(batchId);
 			basicInfo.setBatch(batch);
 			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
-			
+
 			Long centreId=(CommonUtil.getLongValue(rs.getLong("Centre_id")));
-		    Centre centre=cacheManager.getCentreByCentreId(centreId);
+			Centre centre=cacheManager.getCentreByCentreId(centreId);
 			basicInfo.setCentre(centre);
-			
+
 			Long shiftId=(CommonUtil.getLongValue(rs.getLong("Shift_Id")));
-		    Shift shift=cacheManager.getShiftByShiftId(shiftId);
+			Shift shift=cacheManager.getShiftByShiftId(shiftId);
 			basicInfo.setShift(shift);
-			
+
 			Long sectionId=(CommonUtil.getLongValue(rs.getLong("Section_Id")));
 			Section section = cacheManager.getSectionBySectionId(sectionId);
 			basicInfo.setSection(section);
-			
+
 			return basicInfo;
 		}
 	}

@@ -10,11 +10,11 @@ import com.techvisio.einstitution.beans.StudentBasics;
 import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.db.ScholarshipDao;
+import com.techvisio.einstitution.factory.ActivityType;
 import com.techvisio.einstitution.manager.ActivityExecuter;
 
 public class ScholarshipActivityExecuter implements ActivityExecuter{
 
-	private static String SCHOLARSHIP_ACTIVITY="SCHOLARSHIP_ADJUSTMENT";
 
 	@Autowired
 	FeeDao feeDao;
@@ -44,7 +44,7 @@ public class ScholarshipActivityExecuter implements ActivityExecuter{
 		StudentActivity studentActivity = new StudentActivity();
 		studentActivity.setFileNo(studentBasics.getFileNo());
 		Activity activity=new Activity();
-		activity.setActivityName(SCHOLARSHIP_ACTIVITY);
+		activity.setActivityName(ActivityType.SCHOLARSHIP_ADJUSTMENT.toString());
 		studentActivity.setActivity(activity);
 		admissionDao.saveStudentActivity(studentActivity);
 	}

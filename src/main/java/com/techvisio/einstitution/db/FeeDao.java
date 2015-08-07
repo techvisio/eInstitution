@@ -1,7 +1,11 @@
 package com.techvisio.einstitution.db;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import com.techvisio.einstitution.beans.ApplicableFeeCriteria;
+import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeTransactionCredit;
 import com.techvisio.einstitution.beans.FeeTransactionDebit;
 
@@ -11,5 +15,7 @@ public interface FeeDao {
 	public void addFeeTransactionDebit(FeeTransactionDebit feeTransactionDebit);
 
 	public void addFeeTransactionCredit(FeeTransactionCredit feeTransactionCredit);
-		
+
+	public List<ApplicableFeeDetail> getApplicableFeeDetails(
+			ApplicableFeeCriteria criteria);
 }

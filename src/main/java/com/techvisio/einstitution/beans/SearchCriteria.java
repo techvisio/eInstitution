@@ -3,7 +3,7 @@ package com.techvisio.einstitution.beans;
 public class SearchCriteria {
 
 	private String registrationNo;
-	
+	private Long fileNo;	
 	private String firstName;
 	private String emailId;
 	private String mobileNo;
@@ -20,21 +20,11 @@ public class SearchCriteria {
 	//Specific to consultant 
 	private String primaryContactNo;
 	private String secondaryNo; 
-    private Long consultantId;
-   
-    
-	@Override
-	public String toString() {
-		return "AdmissionIdentifier [ emailId=" + emailId
-				+ ", mobileNo=" + mobileNo + ", enrollNo=" + enrollNo
-				+ ", uniEnrollNo=" + uniEnrollNo + "]";
-	}
-	
+	private Long consultantId;
 
 	public String getStatus() {
 		return status;
 	}
-
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -150,8 +140,28 @@ public class SearchCriteria {
 		return consultantId;
 	}
 
-
 	public void setConsultantId(Long consultantId) {
 		this.consultantId = consultantId;
 	}
+
+	public Long getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
+	}
+
+	@Override
+	public String toString() {
+		return "SearchCriteria [registrationNo=" + registrationNo + ", fileNo="
+				+ fileNo + ", firstName=" + firstName + ", emailId=" + emailId
+				+ ", mobileNo=" + mobileNo + ", enrollNo=" + enrollNo
+				+ ", uniEnrollNo=" + uniEnrollNo + ", inquryId=" + inquryId
+				+ ", courseId=" + courseId + ", name=" + name + ", branchId="
+				+ branchId + ", status=" + status + ", primaryContactNo="
+				+ primaryContactNo + ", secondaryNo=" + secondaryNo
+				+ ", consultantId=" + consultantId + "]";
+	}
+
 }

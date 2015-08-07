@@ -93,7 +93,7 @@
 
     alter table FEE_DETAIL_MASTER 
         drop 
-        foreign key FK_7r5o03lir7rngukxj1tp1i1jk;
+        foreign key FK_bhsc2lqf2v6rxmgpmlqxg6ndp;
 
     alter table FEE_DETAIL_MASTER 
         drop 
@@ -657,7 +657,7 @@
         Centre_Id bigint,
         Course_Id bigint,
         Head_Id bigint,
-        Sessiont_Id bigint,
+        Session_Id bigint,
         Shift_Id bigint,
         primary key (Fee_Detail_Id)
     );
@@ -1317,8 +1317,8 @@
         references FEE_DISCOUNTHEAD_MASTER (Head_Id);
 
     alter table FEE_DETAIL_MASTER 
-        add constraint FK_7r5o03lir7rngukxj1tp1i1jk 
-        foreign key (Sessiont_Id) 
+        add constraint FK_bhsc2lqf2v6rxmgpmlqxg6ndp 
+        foreign key (Session_Id) 
         references SESSION_MASTER (Session_Id);
 
     alter table FEE_DETAIL_MASTER 

@@ -15,8 +15,13 @@ public class ActivityExecuterFactory {
         case SCHOLARSHIP_ADJUSTMENT:
             activityExecuter = (ActivityExecuter) ContextProvider.getContext().getBean("scholarshipActivityExecuter");
             break;
- 
+        
+        case FEE_GENERATION:
+            activityExecuter = (ActivityExecuter) ContextProvider.getContext().getBean("feeActivityExecuter");
+            break;
         }
+        
+        
         return activityExecuter;
     }
 		

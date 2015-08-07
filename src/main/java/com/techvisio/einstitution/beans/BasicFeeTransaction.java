@@ -30,10 +30,10 @@ public abstract class BasicFeeTransaction extends BasicEntity{
 	private Long fileNo;
 	@Column(name="Amount")
 	private Double amount;
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="Batch_Id")
 	private Batch batch;
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="Session_Id")
 	private Session session;
 
