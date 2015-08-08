@@ -43,7 +43,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	@Autowired
 	FeeWorkflowManager feeWorkflowManager;
-	
+
 	@Autowired
 	CacheManager cacheManager;
 
@@ -53,12 +53,12 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		List<StudentBasicInfo> studentBasicInfos = admissionManager.getStudentDtlBySearchCriteria(searchCriteria);
 		return studentBasicInfos;
 	}
-	
+
 	@Override
 	public Long saveStudent(Student student) {
-	Long fileNo=admissionManager.saveStudent(student);
+		Long fileNo=admissionManager.saveStudent(student);
 		return fileNo;
-			}
+	}
 
 	@Override
 	public StudentBasics getStudentBasics(Long fileNo) {
@@ -238,16 +238,16 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		List<Object[]> studentDocuments = admissionManager.getStudentDocumentDtl();
 		return studentDocuments;
 	}
-	
+
 	@Override
 	public Workflow getNewAdmissionWorkFlow(){
 		return cacheManager.getNewAdmissionWorkFlow();
 	}
 	@Override
 	public void processWorkFlow(Student student, Long stepId){
-	
+
 		Long fileNo = student.getFileNo();
-		
+
 		Workflow wf=cacheManager.getWorkflowByStepId(stepId);
 		//new admission case
 		if(fileNo==null){
@@ -257,7 +257,7 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 			}
 			student.getStudentBasics().setApplicationStatus(stepId);
 			fileNo=saveStudent(student);
-			
+
 		}
 		//other than new case
 		else
@@ -272,29 +272,29 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 			studentBasic.setApplicationStatus(stepId);
 			saveStudentBasics(studentBasic);
 		}
-		
+
 		executeActivities(wf, fileNo);
 	};
 
-	
+
 	private boolean isValidWorkFlow(List<Workflow> childWorkFlow, Long stepId) {
-	for(Workflow wf:childWorkFlow){
-		if(wf.getStepId().equals(stepId)){
-			return true;
+		for(Workflow wf:childWorkFlow){
+			if(wf.getStepId().equals(stepId)){
+				return true;
+			}
 		}
-	}
 		return false;
 	}
 
-public void executeActivities(Workflow workflow,Long fileNo){
-	
-	if(workflow.getActivities()!=null && workflow.getActivities().size()>0){
-		StudentBasics studentBasics = getStudentBasics(fileNo);
-		for(Activity activity : workflow.getActivities()){
-			ActivityExecuter executer=ActivityExecuterFactory.getActivityExecuter(ActivityType.valueOf(activity.getActivityName()));
-			executer.execute(studentBasics);
-		} 
-	}
-	
+	public void executeActivities(Workflow workflow,Long fileNo){
+
+		if(workflow.getActivities()!=null && workflow.getActivities().size()>0){
+			StudentBasics studentBasics = getStudentBasics(fileNo);
+			for(Activity activity : workflow.getActivities()){
+				ActivityExecuter executer=ActivityExecuterFactory.getActivityExecuter(ActivityType.valueOf(activity.getActivityName()));
+				executer.execute(studentBasics);
+			} 
+		}
+
 	}
 }

@@ -16,6 +16,8 @@ public class Consultant extends BasicEntity {
 	private Long consultantId;
 	@Column(name = "Name")
 	private String name;
+	@Column(name="Consultancy_Name")
+	private String consultancyName;
 	@Column(name = "Primary_Contact_No")
 	private String primaryContactNo;
 	@Column(name = "Secondary_contact_No")
@@ -76,6 +78,14 @@ public class Consultant extends BasicEntity {
 	
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+	
+	public String getConsultancyName() {
+		return consultancyName;
+	}
+
+	public void setConsultancyName(String consultancyName) {
+		this.consultancyName = consultancyName;
 	}
 
 }

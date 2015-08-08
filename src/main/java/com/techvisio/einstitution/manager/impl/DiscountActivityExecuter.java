@@ -26,7 +26,6 @@ public class DiscountActivityExecuter implements ActivityExecuter{
 		
 List<AdmissionDiscount> admissionDiscounts = admissionDao.getDiscountDtl(studentBasics.getFileNo());
 
-
 		for(AdmissionDiscount admissionDiscount : admissionDiscounts){
 			
 			if(admissionDiscount.isApproved()){
@@ -47,5 +46,5 @@ List<AdmissionDiscount> admissionDiscounts = admissionDao.getDiscountDtl(student
 		studentActivity.setActivity(activity);
 		admissionDao.saveStudentActivity(studentActivity);
 	}
-
+ 
 }

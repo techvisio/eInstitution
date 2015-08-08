@@ -571,6 +571,7 @@
         Updated_By varchar(255),
         Updated_On datetime,
         Address varchar(255),
+        Consultancy_Name varchar(255),
         Email_Id varchar(255),
         Name varchar(255),
         Primary_Contact_No varchar(255),
