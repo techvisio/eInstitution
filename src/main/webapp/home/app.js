@@ -1,131 +1,208 @@
 var erp = angular
-  .module('erp', [
-    'ngRoute',
-    'ui.bootstrap',
-    'ngGrid',
-    'ui.bootstrap.pagination',
-    'ngGrid',
-    'ui.router',
-    //'smart-table',
-    'erp.services',
-    'admissionModule',
-    'masterdataModule',
-    'transportModule',
-    'admissionModule',
-    'sidebarModule',
-    'enquiryModule'
-  ]);
+.module('erp', [
+                'ngRoute',
+                'ui.bootstrap',
+                'ngGrid',
+                'ui.bootstrap.pagination',
+                'ngGrid',
+                'ui.router',
+                //'smart-table',
+                'erp.services',
+                'admissionModule',
+                'masterdataModule',
+                'transportModule',
+                'admissionModule',
+                'sidebarModule',
+                'enquiryModule',
+                'consultantModule',
+                'feeModule'
+                ]);
 
 erp.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/home");
-    // Now set up the states
-    $stateProvider
-        .state('home', {
-            // Use a url of "/" to set a state as the "index".
-            url: "/home",
-        })
-        .state('admission', {
-            // Use a url of "/" to set a state as the "index".
-            url: "/admission/{fileNo:[0-9]{1,8}}",
-            templateUrl: 'home/admission/admissionMain.html',
-            controller: "admissionController",
-            resolve:{
-            	injectedData: ['$stateParams','admissionService', function($stateParams,admissionService){
-                    return admissionService.getStudent($stateParams.fileNo);
-                }]
-             }
-        })
-      .state('newadmission', {
-    	url: "/admission/new",
-        templateUrl: 'home/admission/admissionMain.html',
-        controller: "admissionController",
-        resolve:{
-        	injectedData: ['$stateParams', function($stateParams){
-                return {};
-            }]
-         }
-    })
-   
-    .state('admissionSearch', {
-    	url: "/admission/search",
-        templateUrl: 'home/admission/admissionSearch.html',
-        controller: "admissionController",
-        	resolve:{
-        		injectedData: ['$stateParams', function($stateParams){
-                    return {};
-                }]
-             }
-    })
-    
-    .state('enquiry', {
-            url: "/enquiry/{enquiryId:[0-9]{1,8}}",
-            templateUrl: 'home/enquiry/enquiryMain.html',
-            controller: "enquiryController",
-            resolve:{
-            	injectedData: ['$stateParams','enquiryService', function($stateParams,enquiryService){
-                    return enquiryService.getEnquiry($stateParams.enquiryId);
-                }]
-             }
-        }) 
-    .state('newEnquiry', {
-    	url: "/enquiry/new",
-        templateUrl: 'home/enquiry/enquiryMain.html',
-        controller: "enquiryController",
-        	resolve:{
-        		injectedData: ['$stateParams', function($stateParams){
-                    return {};
-                }]
-             }
-    })
-    
-    .state('enquirySearch', {
-    	url: "/enquiry/search",
-        templateUrl: 'home/enquiry/enquirySearch.html',
-        controller: "enquiryController",
-        	resolve:{
-        		injectedData: ['$stateParams', function($stateParams){
-                    return {};
-                }]
-             }
-    });
-    
- 
+	$urlRouterProvider.otherwise("/home");
+	// Now set up the states
+	$stateProvider
+	.state('home', {
+		// Use a url of "/" to set a state as the "index".
+		url: "/home",
+	})
+	.state('admission', {
+		// Use a url of "/" to set a state as the "index".
+		url: "/admission/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/admission/admissionMain.html',
+		controller: "admissionController",
+		resolve:{
+			injectedData: ['$stateParams','admissionService', function($stateParams,admissionService){
+				return admissionService.getStudent($stateParams.fileNo);
+			}]
+		}
+	})
+	.state('newadmission', {
+		url: "/admission/new",
+		templateUrl: 'home/admission/admissionMain.html',
+		controller: "admissionController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+
+	.state('admissionSearch', {
+		url: "/admission/search",
+		templateUrl: 'home/admission/admissionSearch.html',
+		controller: "admissionController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+
+	.state('enquiry', {
+		url: "/enquiry/{enquiryId:[0-9]{1,8}}",
+		templateUrl: 'home/enquiry/enquiryMain.html',
+		controller: "enquiryController",
+		resolve:{
+			injectedData: ['$stateParams','enquiryService', function($stateParams,enquiryService){
+				return enquiryService.getEnquiry($stateParams.enquiryId);
+			}]
+		}
+	}) 
+	.state('newEnquiry', {
+		url: "/enquiry/new",
+		templateUrl: 'home/enquiry/enquiryMain.html',
+		controller: "enquiryController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+
+	.state('enquirySearch', {
+		url: "/enquiry/search",
+		templateUrl: 'home/enquiry/enquirySearch.html',
+		controller: "enquiryController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+
+	.state('consultant', {
+		url: "/consultant/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/consultant/consultantAdmissionInfo.html',
+		controller: "consultantController",
+		resolve:{
+			injectedData: ['$stateParams','consultantService', function($stateParams,consultantService){
+				return consultantService.getConsultantAdmissionDetail($stateParams.fileNo);
+			}]
+		}
+	}) 
+
+	.state('consultantM', {
+		url: "/consultantM/{consultantId:[0-9]{1,8}}",
+		templateUrl: 'home/consultant/newConsultant.html',
+		controller: "consultantController",
+		resolve:{
+			injectedData: ['$stateParams','consultantService', function($stateParams,consultantService){
+				return consultantService.getConsultant($stateParams.consultantId);
+			}]
+		}
+	}) 
+	.state('newConsultant', {
+		url: "/consultant/new",
+		templateUrl: 'home/consultant/newConsultant.html',
+		controller: "consultantController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+
+	.state('consultantSearch', {
+		url: "/consultant/search",
+		templateUrl: 'home/consultant/searchByStudent.html',
+		controller: "consultantController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	
+	.state('consultantSearchByC', {
+		url: "/consultant/searchC",
+		templateUrl: 'home/consultant/searchByConsultant.html',
+		controller: "consultantController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	
+	.state('SearchStudentForFee', {
+		url: "/fee/search",
+		templateUrl: 'home/fee/searchStudentForFee.html',
+		controller: "feeController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	
+	.state('feeDeposite', {
+		url: "/fee/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/fee/feeDeposite.html',
+		controller: "feeController",
+		resolve:{
+			injectedData: ['$stateParams','feeService', function($stateParams,feeService){
+				return feeService.getFeeTransactionAndBasicInfoDetail($stateParams.fileNo);
+			}]
+		}
+	});
+
 });
 
 erp.config(['$httpProvider', '$sceProvider',
-             function ($httpProvider, $sceProvider) {
-                 $sceProvider.enabled(false);
-                 $httpProvider.interceptors.push(
-                 ['$q', '$location', '$rootScope', 'deferredManager',
-                 function ($q, $location, $rootScope, deferredManager) {
-                     return {
-                         request: function (config) {
-                             if(config.url.search('/service/') > -1) {
-                                 config.timeout = deferredManager.deferService(config.url);
-                             }
-                             return config;
-                         },
-                         response: function (response) {
-                             if(response.data) {
-                                 if (response.data.error) {
-                                	 $rootScope.$broadcast('showError', response.data.error || 'Error '+response.status, response.status);
-                                	 return $q.reject(response);
-                                 }
-                             }
-                             return response;
-                         },
-                         responseError: function (response) {
-                             if(response.status == 401) {
-                                
-                             } else if (response && [400,403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
-                                
-                                 $rootScope.$broadcast('showError', response.data.error || 'Error '+response.status, response.status);
-                             }
-                             return $q.reject(response);
-                         }
-                     };
-                 }]);
-             }]);
+            function ($httpProvider, $sceProvider) {
+	$sceProvider.enabled(false);
+	$httpProvider.interceptors.push(
+			['$q', '$location', '$rootScope', 'deferredManager',
+			 function ($q, $location, $rootScope, deferredManager) {
+				return {
+					request: function (config) {
+						if(config.url.search('/service/') > -1) {
+							config.timeout = deferredManager.deferService(config.url);
+						}
+						return config;
+					},
+					response: function (response) {
+						if(response.data) {
+							if (response.data.error) {
+								$rootScope.$broadcast('showError', response.data.error || 'Error '+response.status, response.status);
+								return $q.reject(response);
+							}
+						}
+						return response;
+					},
+					responseError: function (response) {
+						if(response.status == 401) {
+
+						} else if (response && [400,403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
+
+							$rootScope.$broadcast('showError', response.data.error || 'Error '+response.status, response.status);
+						}
+						return $q.reject(response);
+					}
+				};
+			}]);
+}]);
 
 erp.controller('ApplicationController',
 		['$scope', '$rootScope', '$timeout', '$modal', '$http',
@@ -140,7 +217,7 @@ erp.controller('ApplicationController',
 		        $rootScope.curModal = $modal.open({
 		            templateUrl: 'home/modals/errorModalContent.html',
 		            controller: function ($scope) {
-		                var title = "Something went wrong ";
+		                var title = "Failed to Load Data";
 		                $scope._errorCode = type;
 		                $scope._errorTitle = title + " (HTTP: " + type + ")";
 		                $scope._errorMessage = e.data ? e.data : (e.message ? e.message : e);

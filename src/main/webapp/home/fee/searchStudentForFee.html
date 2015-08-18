@@ -1,0 +1,42 @@
+<form>
+	<div class="searchcriteria" ng-show="form.content==='dashboard'">
+	<table ng-show="showCriteria">
+<tr><td colspan=2><span class="header">Search Student</span></td></tr>
+		<tr>
+			<td><span>Name</span></td>
+			<td><input type="text" ng-model="searchCriteria.firstName"></td>
+		</tr>
+		<tr>
+			<td><span>Course</span></td>
+			<td><select ng-model="searchCriteria.courseId"
+				ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></td>
+		</tr>
+		<tr>
+			<td><span>Branch</span></td>
+			<td><select ng-model="searchCriteria.branchId"
+				ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: searchCriteria.courseId}"></td>
+		</tr>
+		<tr>
+			<td><span>Email Id</span></td>
+			<td><input type="text" ng-model="searchCriteria.emailId"></td>
+		</tr>
+		<tr>
+			<td><span>Mobile No</span></td>
+			<td><input type="text" ng-model="searchCriteria.mobileNo"></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="btn btn-success"
+					ng-click="getSearchResult()">Search</button></td>
+		</tr>
+	</table>
+	
+	<div class="searchList" ng-show="!showCriteria && searchResultList.length>0">
+				<span class="header">Double click a record to see Details</span>
+				<p>
+				<button type="button" class="btn btn-primary btn-xs" ng-click="showCriteria=true">Modify Search</button>
+			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+         ng-model="currentPage" ng-change="pageChanged()"></pagination>
+	</div>
+</div>
+</form>

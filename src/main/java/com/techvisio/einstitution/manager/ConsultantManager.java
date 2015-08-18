@@ -28,6 +28,10 @@ public interface ConsultantManager {
 	public void saveConsultantPaymentCriteria(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo);
 	public void saveConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
 	public void deleteConsultantPaymentCriteriaExclusion(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo);
-
-
+	public void saveConsultantAdmissionDetail(
+			ConsultantAdmissionDetail consultantAdmissionDetail);
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	public Long saveConsultant(Consultant consultant);
+	public Consultant getConsultant(Long consultantId);
+	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria);
 }

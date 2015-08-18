@@ -65,4 +65,6 @@ public interface AdmissionManager {
 
 	public List<Object[]> getStudentDocumentDtl();
 	
+	public StudentBasicInfo getStudentBsInfo(Long fileNo);
+	
 }

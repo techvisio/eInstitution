@@ -7,17 +7,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
+import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantPayment;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.manager.ConsultantManager;
 import com.techvisio.einstitution.util.CustomLogger;
+import com.techvisio.einstitution.workflow.AdmissionWorkflowManager;
 import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 @Component
 @Transactional
 public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	private static CustomLogger logger=CustomLogger.getLogger(ConsultantWorkflowManagerImpl.class);
 	private static final int ConsultantDetail = 0;
-	
+	@Autowired
+	AdmissionWorkflowManager admissionWorkflowManager;
+
 	@Autowired
 	ConsultantManager consultantManager;
 
@@ -28,7 +35,7 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 
 	@Override
 	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
-        consultantManager.saveAdmissionConsultantDtl(admissnConsltntDtl); 		
+		consultantManager.saveAdmissionConsultantDtl(admissnConsltntDtl); 		
 	}
 
 	@Override
@@ -85,4 +92,50 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 		return consultantPaymentCriterias;
 	}
 
+	@Override
+	public ConsultantAdmissionDetail getConsultantAdmissionDetail(Long fileNo){
+		logger.info("{} : getConsultantAdmissionDetail passing fileno:{}",this.getClass().getName(), fileNo);		
+		ConsultantAdmissionDetail consultantAdmissionDetail=new ConsultantAdmissionDetail();
+
+
+		StudentBasicInfo basicInfo=admissionWorkflowManager.getStudentBsInfo(fileNo);
+		consultantAdmissionDetail.setBasicInfo(basicInfo);
+
+		List<AdmissnConsltntDtl> consultantDetails = getAdmissnConsltntDtl(fileNo);
+		consultantAdmissionDetail.setConsultantDetails(consultantDetails);
+
+		return consultantAdmissionDetail;
+	}
+
+	@Override
+	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail ){
+		logger.info("{} :calling saveConsultantAdmissionDetail for Student:{} ",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());
+		consultantManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
+	}
+
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling getStudentDtlBySearchCriteria for Student:{}",this.getClass().getName(), searchCriteria.getFirstName());		
+		List<StudentBasicInfo> studentBasicInfos = consultantManager.getStudentDtlBySearchCriteria(searchCriteria);
+		return studentBasicInfos;
+	}
+
+	@Override
+	public Long saveConsultant(Consultant consultant) {
+		Long consultantId=consultantManager.saveConsultant(consultant);
+		return consultantId;
+	}
+
+	@Override
+	public Consultant getConsultant(Long consultantId) {
+		Consultant consultant = consultantManager.getConsultant(consultantId);
+		return consultant;
+	}
+
+	@Override
+	public List<Consultant> getConsultantBySearchCriteria(
+			SearchCriteria searchCriteria) {
+		List<Consultant> consultants = consultantManager.getConsultantBySearchCriteria(searchCriteria);
+		return consultants;
+	}
 }

@@ -68,5 +68,6 @@ public interface AdmissionDao {
 	public void saveStudentActivity(List<StudentActivity> studentActivities,
 			Long fileNo);
 	public List<StudentActivity> getStudentActivities(Long fileNo);
+	public StudentBasicInfo getStudentBsInfo(Long fileNo);
 	
 	}

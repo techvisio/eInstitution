@@ -273,5 +273,12 @@ public class AdmissionManagerImpl implements AdmissionManager {
 		List<Object[]> studentDocuments = admissionDao.getStudentDocumentDtl();
 		return studentDocuments;
 	}
+
+	@Override
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+
+		StudentBasicInfo basicInfo = admissionDao.getStudentBsInfo(fileNo);
+		return basicInfo;
+	}
 	
 }

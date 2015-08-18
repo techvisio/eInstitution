@@ -58,6 +58,16 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	@Override
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		logger.info("{} : Getting basic information of student, having  : file no : {}",this.getClass().getName(), fileNo);
+		String getQuery = admissionQueryProps.getProperty("getStudentBasicInfoByFileNo");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+		StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new StudentBasicInfoRowMaper());
+		
+		return info;
+	}
+	
+	@Override
 	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria){
 		logger.info("{} : Getting Student detail bby searching criteria for enquiryId:{}",this.getClass().getName(), searchCriteria.getInquryId());		
 		String getQuery = admissionQueryProps

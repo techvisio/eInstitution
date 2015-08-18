@@ -56,6 +56,7 @@
 				<td><img height="35" width="35" ng-src="images/minus.png"
 					ng-click="removeDiscountDtl($index)" ng-show="$index>0" /></td>
 			</tr>
+			<tr>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -63,6 +64,7 @@
 					ng-click="toggleReadOnly('DISCOUNT')">Edit</button>
 				<button type="button" class="btn btn-primary btn-sm" ng-click="toggleReadOnly('DISCOUNT')" ng-show="isTabEnabled('DISCOUNT')">Cancel</button>
 				<button type="button" class="btn btn-primary btn-sm"  ng-click="updateStudentDiscountDtl()" ng-show="isTabEnabled('DISCOUNT')">Save</button></td>
+				</tr>
 		</table>
 	</div>
 </form>

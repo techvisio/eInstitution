@@ -842,7 +842,7 @@ admissionModule
 			 $scope.gridOptions = {
 					 multiSelect : false,
 					 data : 'filteredSearch',
-					 rowTemplate : '<div ng-dblclick="Student(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+					 rowTemplate : '<div ng-dblclick="getStudent(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
 					 columnDefs : [ {
 						 field : "registrationNo",
 						 width : 200,

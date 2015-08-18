@@ -105,6 +105,40 @@ public class ConsultantManagerImpl implements ConsultantManager {
 		return consultantPaymentCriterias;
 	}
 	
-
+	@Override
+	public void saveConsultantAdmissionDetail(ConsultantAdmissionDetail consultantAdmissionDetail ){
+		logger.info("{} : calling saveConsultantDetail method for Student:{} ",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());
+		StudentBasicInfo basicInfo = consultantAdmissionDetail.getBasicInfo();
+		List<AdmissnConsltntDtl> consultantDetails = consultantAdmissionDetail.getConsultantDetails();
+	    saveAdmissionConsultantDtl(consultantDetails, basicInfo.getFileNo());  
+	}
 	
-}
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria) {
+		logger.info("{} : calling getStudentDtlBySearchCriteria method for student:{}",this.getClass().getName(), searchCriteria.getFirstName());	
+		List<StudentBasicInfo> studentBasicInfos = null;
+		studentBasicInfos=consultantDao.getStudentDtlBySearchCriteria(searchCriteria);
+		
+		return studentBasicInfos;
+	}
+
+	@Override
+	public Long saveConsultant(Consultant consultant) {
+		Long consultantId=consultantDao.saveConsultant(consultant);
+		return consultantId;
+	}
+	
+	@Override
+	public Consultant getConsultant(Long consultantId) {
+		Consultant consultant = consultantDao.getConsultant(consultantId);
+		return consultant;
+	}
+
+
+	@Override
+	public List<Consultant> getConsultantBySearchCriteria(
+			SearchCriteria searchCriteria) {
+		List<Consultant> consultants = consultantDao.getConsultantBySearchCriteria(searchCriteria);
+		return consultants;
+	}
+	}

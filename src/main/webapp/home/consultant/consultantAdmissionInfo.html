@@ -1,0 +1,142 @@
+<form>
+	<div class="fullscreen-left" ng-init="init()">
+		<table>
+			<tr>
+				<td colspan=2><span class="header">Student Info.</span></td>
+			</tr>
+			<tr>
+				<td><span> Registration No </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.registrationNo"
+					class="form-control"></td>
+				<td><span> Enrollment No </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.enrollmentNo"
+					class="form-control"></td>
+			</tr>
+			<tr>
+				<td><span> First Name </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.firstName"
+					class="form-control"></td>
+				<td><span> Last Name </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.lastName"
+					class="form-control"></td>
+
+			</tr>
+			<tr>
+				<td><span> Father Name </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.fatherName"
+					class="form-control"></td>
+				<td><span> Date Of Birth </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.dob"
+					class="form-control"></td>
+			</tr>
+			<tr>
+				<td><span> Course </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.course.course"
+					class="form-control"></td>
+				<td><span> Branch </span></td>
+				<td><input type="text"
+					ng-model="consultantAdmissionDetail.basicInfo.branch.branchName"
+					class="form-control"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="fullscreen-left">
+		<div class="tab-separator">
+			<tabset justified="true" type="pills"> <tab
+				ng-repeat="object in consultantAdmissionDetail.consultantDetails"
+				heading="{{object.consultant.name}}">
+			<div>
+				<table>
+					<tr>
+						<td><span> Consultant Id </span></td>
+						<td><input type="text"
+							ng-model="object.consultant.consultantId" class="form-control"></td>
+					</tr>
+
+					<tr>
+						<td><span> Contact No </span></td>
+						<td><input type="text"
+							ng-model="object.consultant.primaryContactNo"
+							class="form-control"></td>
+					</tr>
+
+					<tr>
+						<td><span> Consultancy Name </span></td>
+						<td><input type="text"
+							ng-model="object.consultant.consultancyName" class="form-control"></td>
+						<td><button type="button" class="btn btn-primary btn-xs"
+								ng-click="consultantPopup('lg')">add consultant</button></td>
+					</tr>
+					<tr>
+						<td colspan=2 ng-show="object.consultantPaymentCriterias.length>0"><span
+							class="header">{{object.consultant.name}}'s Payment Criteria Detail</span></td>
+						<td><button type="button" class="btn btn-primary btn-xs"
+								ng-click="addConsultantPaymentCriteria(object)">New
+								Criteria</button></td>
+					</tr>
+
+					<tr
+						ng-repeat="criteriaDetail in object.consultantPaymentCriterias track by $index">
+						<td><span> Fee Amount Received </span></td>
+						<td><input type="number"
+							ng-model="criteriaDetail.feeReceived"></td>
+						<td><span>Amount To Be Paid</span></td>
+						<td><input type="number"
+							ng-model="criteriaDetail.amountToBePaid"></td>
+						<td><a class='expandable'
+							ng-click="removeConsultantPaymentCriteria(object,$index)"> <i
+								class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
+						</a></td>
+					</tr>
+
+					<tr>
+						<td colspan=2 ng-show="object.consultantPaymentDetail.length>0"><span
+							class="header">{{object.consultant.name}}'s Payment Detail</span></td>
+						<td><button type="button" class="btn btn-primary btn-xs"
+								ng-click="addConsultantPaymentDtl(object)">New Payment</button></td>
+					</tr>
+					<tr
+						ng-repeat="payDetail in object.consultantPaymentDetail track by $index">
+						<td><span>Amount</span></td>
+						<td><input type="number" ng-model="payDetail.amount"></td>
+						<td><span>Pay Date</span></td>
+						<td><input type="Date" ng-model="payDetail.payDate"></td>
+						<td><a class='expandable'<td><a
+									class='expandable'
+									ng-click="removeConsultantPaymentDtl(object,$index)"> <i
+										class='glyphicon glyphicon glyphicon-remove collapsed-element'></i>
+								</a></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-success"
+								ng-click="addConsultantAdmissionDetail()">Save</button></td>
+					</tr>
+				</table>
+			</div>
+			</tab> </tabset>
+		</div>
+	</div>
+	<script type="text/ng-template" id="consultantPopup.html">
+<div class="baseFee-popUp" ng-repeat="object in consultantAdmissionDetail.consultantDetails">
+<table>
+<tr>
+<td><span class="header">Add Consultant</span></td></tr>
+<tr>
+    <td><select ng-model="object.consultant.consultantId"
+	ng-options="item.consultantId*1 as item.name  for item in serverModelData.CONSULTANT"
+	></select>
+	</td>	
+</tr>
+<tr><td><button type="button" class="btn btn-primary btn-xs"ng-click="">Add Consultant</button></td></tr>
+</table>
+</div>
+
+</script>
+</form>

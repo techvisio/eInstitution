@@ -3,7 +3,37 @@
 
 <properties>
 
-<entry key="getStudentDtlDynamically">
+	<entry key="getStudentBasicInfoByFileNo">
+    <![CDATA[
+    select 
+s.Registration_No,
+s.File_No,
+sb.Enroll_No,
+sb.Uni_Enroll_No,
+sb.First_Name,
+sb.Last_Name,
+sb.Father_Name,
+sb.Gender,
+sb.DOB,
+sb.Email_Id,
+sb.Category_Id,
+s.Course_Id,
+s.Branch_Id,
+sb.created_On,
+sb.Updated_On,   
+sb.Quota_Id,
+s.Academic_Year,
+sb.Semester,
+sb.Batch_Id,
+sb.Session_Id,
+sb.Shift_Id,
+sb.Centre_Id,
+sb.Section_Id,
+sb.Is_Lateral
+from Student_Detail s join student_basic sb on s.FILE_NO=sb.File_No where s.File_No=:File_No;
+ ]]>
+	</entry>
+	<entry key="getStudentDtlDynamically">
     <![CDATA[
 
      SELECT
@@ -39,7 +69,7 @@ ON s.File_No = sb.FILE_NO
     
     ]]>
 
-	</entry>    
+	</entry>
 
 	<entry key="deleteAcademicDtlExclusion">
     <![CDATA[
@@ -70,7 +100,7 @@ Delete from Qualification_Subject_Dtl where File_No =:File_No and Student_Qualif
 Delete from Qualification_Subject_Dtl where File_No =:File_No and Student_Qualification_Id not in (:Student_Qualification_Id) 
     ]]>
 	</entry>
-	
+
 	<entry key="deleteBranchPreferenceExclusion">
     <![CDATA[
       

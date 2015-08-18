@@ -7,8 +7,8 @@
 <entry key="getPreviousSemBalance">
     <![CDATA[
 select
-(select ifnull(sum(amount),0) from feetransactiondebit dr join studentDetail sd on dr.File_No = sd.File_No 
-where (sd.session_id != dr.session_id  or sd.batch_id != dr.batch_id) and  sd.file_no=:File_No)-(select sum(amount) from feetransactioncredit cr join studentDetail sd on cr.File_No = sd.File_No 
+(select ifnull(sum(amount),0) from fee_transaction_debit dr join student_Basic sd on dr.File_No = sd.File_No 
+where (sd.session_id != dr.session_id  or sd.batch_id != dr.batch_id) and  sd.file_no=:File_No)-(select sum(amount) from fee_transaction_credit cr join student_Basic sd on cr.File_No = sd.File_No 
 where (sd.session_id != cr.session_id  or sd.batch_id != cr.batch_id) and  sd.file_no=:File_No) as difference;
 ]]>
 </entry>
@@ -16,36 +16,20 @@ where (sd.session_id != cr.session_id  or sd.batch_id != cr.batch_id) and  sd.fi
 <entry key="getPendingFee">
     <![CDATA[
 select sd.File_No,
-sd.First_Name,
-sd.Last_Name,
-sd.Enroll_No,
-sd.Father_Name,
-sd.Gender,
-sd.DOB,
+sb.First_Name,
+sb.Last_Name,
+sb.Enroll_No,
+sb.Father_Name,
+sb.Gender,
+sb.DOB,
 cm.Course,
 bm.Branch,
-sd.Semester,
+sb.Semester,
 sd.Academic_Year,
 sd.Updated_On,
-balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from feetransactioncredit cr join feetransactiondebit dr on cr.File_No = dr.File_No) as balanceAmount join studentdetail sd on cr.file_No=sd.File_No join coursemaster cm ON cm.Id = sd.Course_Id join coursebranchmaster bm ON bm.Id = sd.Branch_Id where cr.session_id!=sd.session_id and cr.batch_id!=sd.batch group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
+balanceAmount.Pending_Fee from (select cr.file_no, sum(cr.amount)-sum(dr.amount) as Pending_Fee from fee_transaction_credit cr join fee_transaction_debit dr on cr.File_No = dr.File_No) as balanceAmount join student_detail sd on cr.file_No=sd.File_No join student_basic sb on cr.file_No=sb.File_No join course_master cm ON cm.Id = sd.Course_Id join course_branch_master bm ON bm.Id = sd.Branch_Id where cr.session_id!=sd.session_id and cr.batch_id!=sd.batch group by sd.File_No having balanceAmount.Pending_Fee > 0 limit :limit;
 ]]>
 </entry>
-
-		<entry key="deleteStudentFeeStaging">
-    <![CDATA[
-      
-Delete from studentfeestaging where File_No=:File_No and FeeHead_Id not in (:FeeHead_Id);
-    ]]>
-
-	</entry>
-
-<entry key="deleteStudentFeeStagingByFileNo">
-    <![CDATA[
-      
-Delete from studentfeestaging where File_No=:File_No and FeeHead_Id=:FeeHead_Id;
-    ]]>
-
-	</entry>
 
 	<entry key="deleteFeeDetailMaster">
     <![CDATA[

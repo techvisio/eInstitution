@@ -7,8 +7,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AdmissnConsltntDtl;
+import com.techvisio.einstitution.beans.Consultant;
+import com.techvisio.einstitution.beans.ConsultantAdmissionDetail;
 import com.techvisio.einstitution.beans.ConsultantPayment;
 import com.techvisio.einstitution.beans.ConsultantPaymentCriteria;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 @Component
 @Transactional
 public interface ConsultantWorkflowManager {
@@ -27,5 +31,12 @@ public interface ConsultantWorkflowManager {
 	public void saveConsultantPaymentCriteria(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo);
 	public void saveConsultantPaymentCriteria(ConsultantPaymentCriteria consultantPaymentCriteria);
 	public void deleteConsultantPaymentCriteriaExclusion(List<ConsultantPaymentCriteria> consultantPaymentCriterias, Long fileNo);
+	public void saveConsultantAdmissionDetail(
+			ConsultantAdmissionDetail consultantAdmissionDetail);
+	public ConsultantAdmissionDetail getConsultantAdmissionDetail(Long fileNo);
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(SearchCriteria searchCriteria);
+	public Long saveConsultant(Consultant consultant);
+	public Consultant getConsultant(Long consultantId);
+	public List<Consultant> getConsultantBySearchCriteria(SearchCriteria searchCriteria);
 
 }

@@ -72,4 +72,5 @@ public interface AdmissionWorkflowManager {
 
 	public void processWorkFlow(Student student, Long stepId);
 
+	public StudentBasicInfo getStudentBsInfo(Long fileNo);
 }

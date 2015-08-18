@@ -32,14 +32,11 @@ public class FeeActivityExecuter implements ActivityExecuter{
 	@Override
 	public void execute(StudentBasics studentBasics) {
 
-		SearchCriteria searchCriteria = new SearchCriteria();
-		searchCriteria.setFileNo(studentBasics.getFileNo());
+		
 		ApplicableFeeCriteria criteria = null;
-		List<StudentBasicInfo> basicInfo = admissionDao.getStudentDtlBySearchCriteria(searchCriteria);
-		if(basicInfo != null && basicInfo.size()>0){
-		for(StudentBasicInfo studentBasicInfo : basicInfo){
-		criteria = CommonUtil.getApplicableFeeCriteriaFromStudentBasicInfo(studentBasicInfo);
-		}
+		StudentBasicInfo basicInfo = admissionDao.getStudentBsInfo(studentBasics.getFileNo());
+		if(basicInfo != null){
+		criteria = CommonUtil.getApplicableFeeCriteriaFromStudentBasicInfo(basicInfo);
 		}
 		
 		List<ApplicableFeeDetail> applicableFeeDetails = feeDao.getApplicableFeeDetails(criteria);

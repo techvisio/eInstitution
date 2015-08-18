@@ -1,32 +1,44 @@
 var consultantModule = angular.module('consultantModule', []);
 
-consultantModule.controller('consultantController', ['$scope','consultantService','masterdataService',function($scope,consultantService,masterdataService) {
+consultantModule.controller('consultantController', ['$scope','consultantService','masterdataService','$state',
+                                                     '$rootScope',
+                                                     'injectedData','$modal','masterdataService',function($scope,consultantService,masterdataService,$state,
+                                                    		 $rootScope,
+                                                    		 injectedData,$modal,masterdataService) {
 
 	// Data variables.
 	$scope.form={};
 	$scope.consultantAdmissionDetail={};
 	$scope.consultantAdmissionDetail.consultantDetails=[];
 	$scope.consultantAdmissionDetail.consultantDetails.push(angular.copy($scope.dummyConsultantDetails));
-
+	if(injectedData.data){
+		 $scope.consultantAdmissionDetail = injectedData.data.responseBody;
+		 }
+	$scope.addNew=true;
 	$scope.searchCriteria={};
 	$scope.dueEnquiries=[];
 	$scope.consultant={};
+	if(injectedData.data){
+		 $scope.addNew=false;
+		 $scope.consultant = injectedData.data.responseBody;
+		 
+		 }
 	$scope.consultantList=[];
 	$scope.searchRes=[];
 	$scope.searchResultList=[];
 	$scope.filteredSearch=[];
 	$scope.form.content='dashboard';
+
 	// Variables for show and hiding.
 	$scope.processing=false;
-	$scope.showCriteria=false;
+	$scope.showCriteria=true;
 	$scope.form.isNew=true;
 	$scope.form.isEdit=false;
 	$scope.dashboard=true;
-	$scope.addNew=false;
+	
 	$scope.getConslt=false;
 	$scope.searchResult=false;
 	$scope.searchType="STUDENT";
-
 
 	$scope.dummyConsultantDetails = {"consultant":{},"consultantPaymentCriterias" : [ {} ], "consultantPaymentDetail" : [ {} ]};
 
@@ -34,6 +46,30 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 
 	$scope.dummyConsultantPaymentDetail = {};
 
+
+	$scope.redirectToConsultantScreen=function(currentFileNo){
+		$state.go('consultant',{fileNo:currentFileNo});
+	}
+
+	$scope.redirectToConsultantM=function(currentConsultantId){
+		$state.go('consultantM',{consultantId:currentConsultantId});
+	}
+	
+	 $scope.init=function(){	
+		 
+			console.log('getting masterdata for Enquiry module in init block');
+
+			 masterdataService.getAdmissionMasterDataEnquiry()
+			 .then(function(data) {
+				 console.log(data);
+				 if (data != null) {
+					 $scope.serverModelData = data.responseBody;
+				 } else {
+					 console.log('error');
+				 }
+			 })}
+
+	
 	$scope.itemsPerPage = 3;
 	$scope.currentPage = 0;
 	$scope.totalItems = 0;
@@ -56,7 +92,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.gridOptions = {
 			multiSelect:false,
 			data: 'filteredSearch',
-			rowTemplate: '<div ng-dblclick="getConsultantAdmissionDetail(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+			rowTemplate: '<div ng-dblclick="redirectToConsultantScreen(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
 			columnDefs: [{ field: "firstName", width: 100,displayName :"FirstName"},
 			             { field: "lastName", width: 100,displayName :"LastName"},
 			             { field: "fatherName", width: 180,displayName :"Father Name" },
@@ -68,13 +104,14 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.consultantGridOptions = {
 			multiSelect:false,
 			data: 'searchRes',
+			rowTemplate: '<div ng-dblclick="getConsultant(row.config.selectedItems[0].consultantId)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
 			columnDefs: [{ field: "name", width: 100,displayName :"Consultant Name"},
 			             { field: "primaryContactNo", width: 180,displayName :"Primary Contact No" },
 			             { field: "secondaryContactNo", width: 140,displayName :"Secondary Contact No" },
 			             { field: "emailId", width: 180,displayName :"Email Id" },
 			             {field:"address",width:200,displayName :"Address"}]
 	};
-
+	
 	$scope.getStudentByCriteria = function() {
 		console.log('get student by search criteria in controller');
 		console.log($scope.searchCriteria);
@@ -86,15 +123,12 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.searchResultList=response.data.responseBody;
-				$scope.consultantSearch=false;
-				$scope.studentSearch=false;
+//				$scope.consultantSearch=false;
+//				$scope.studentSearch=false;
+				$scope.showCriteria=false;
 				$scope.currentPage=1;
 				$scope.totalItems = $scope.searchResultList.length;
-			} else {
-				console.log(response.data.error);
-				alert(response.data.error);
-			}
-
+			} 
 			$scope.processing=false;
 		})
 	}
@@ -126,6 +160,23 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		object.consultantPaymentDetail.splice(index, 1);
 	};
 
+	$scope.addConsultantDetail = function() {
+
+		 var consultantDetail = angular
+		 .copy($scope.dummyConsultantDetails);
+		 $scope.consultantAdmissionDetail.consultantDetails.push(consultantDetail);
+	 };
+
+	 $scope.consultantPopup = function (size) {
+
+			var modalInstance = $modal.open({
+				templateUrl: 'consultantPopup.html',
+				scope:$scope,
+				size: size,
+			});
+		};
+
+	
 	$scope.getConsultantByCriteria = function(){
 		consultantService.getConsultantByCriteria($scope.searchCriteria)
 		.then(function(response) {
@@ -133,24 +184,33 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.searchRes = response.data.responseBody;
-				$scope.consultantSearch=false;
-				$scope.studentSearch=false;
-			} else {
-				console.log(response.data.error);
-				alert(response.data.error);
-			}
-
+				$scope.showCriteria=false;
+				
+			} 
 		})
 		searchResult = true;
 	}
 
-	$scope.saveConsultant=function(){
-		if($scope.consultant.consultantId){
-			$scope.updateConsultant();
-		}else{
-			$scope.addConsultant();
-		}
+	$scope.getConsultant = function(){
+		consultantService.getConsultant($scope.consultant.consultantId)
+		.then(function(response) {
+			console.log('consultant master Data received in controller : ');
+			console.log(response);
+			if (response != null && response.data != null && response.data.responseBody != null) {
+				$scope.consultant = response.data.responseBody;
+				$scope.addNew=false;
+			} 
+		})
+
 	}
+
+//	$scope.saveConsultant=function(){
+//	if($scope.consultant.consultantId){
+//	$scope.updateConsultant();
+//	}else{
+//	$scope.addConsultant();
+//	}
+//	}
 
 	$scope.init=function(){
 
@@ -175,12 +235,10 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.consultant = response.data.responseBody;
-
 				alert("Your Records Saved Successfully")
-			} else {
-				console.log(response.data.error);
-				alert(response.data.error);
-			}
+				$scope.addNew=false;
+				$scope.redirectToConsultantM($scope.consultant.consultantId);
+			} 
 		})
 	};
 
@@ -188,9 +246,10 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		consultantService.updateConsultant($scope.consultant);
 	}
 
-	$scope.getConsultantAdmissionDetail = function(fileNo){
+	$scope.getConsultantAdmissionDetail = function(){
 
 		console.log('getConsultantAdmissionDetail called in controller');
+		var fileNo = $scope.consultantAdmissionDetail.basicInfo.fileNo;
 		consultantService.getConsultantAdmissionDetail(fileNo)
 		.then(function(response) {
 			console.log('consultantAdmission Data received from service : ');
@@ -198,7 +257,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 			if (response != null && response.data != null && response.data.responseBody != null) {
 
 				$scope.consultantAdmissionDetail = response.data.responseBody;
-				$scope.form.content='consultantAdmission';
+//				$scope.form.content='consultantAdmission';
 			} 
 		})
 	};
@@ -221,19 +280,14 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	}
 
 	$scope.showDetail = function(index){
-		var consoltantId = $scope.searchRes[index].consultantId;
-		consultantService.getConsultant(consoltantId)
+		var consultantId = $scope.searchRes[index].consultantId;
+		consultantService.getConsultant(consultantId)
 		.then(function(response) {
 			console.log('Data received by consultantID in controller : ');
 			console.log(response);
 			if (response != null && response.data != null && response.data.responseBody != null) {
 				$scope.consultant = response.data.responseBody;
-
-			} else {
-				console.log(response.data.error);
-				alert(response.data.error);
-			}
-
+			} 
 		})
 		searchResult = false;
 		addNew = true;
@@ -241,148 +295,3 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	}
 
 } ]);
-
-consultantModule.service('consultantService', function($http, $q) {
-
-	// Return public API.
-	return ({
-		addConsultant  : addConsultant,
-		getConsultantByCriteria : getConsultantByCriteria,
-		getStudentByCriteria : getStudentByCriteria,
-		updateConsultant : updateConsultant,
-		getConsultant : getConsultant,
-		getConsultantAdmissionDetail : getConsultantAdmissionDetail,
-		addConsultantAdmissionDetail : addConsultantAdmissionDetail
-	});
-
-	function addConsultant(consultant){
-		console.log('add new enquiry');
-		var request = $http({
-			method : "post",
-			url : "consultant/consultantMaster",
-			params : "",
-			data: consultant
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-	function getConsultant(consultantId){
-		console.log('get due enquiries');
-		var request = $http({
-			method : "get",
-			url : "consultant/consultantMaster/"+consultantId,
-			params : "",
-			data: ""
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-	function getConsultantByCriteria(searchCriteria){
-		console.log('search enquiries');
-		var request = $http({
-			method : "post",
-			url : "consultant/search/",
-			params : "",
-			data: searchCriteria
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-	function addConsultant(consultant){
-		console.log('add new enquiry');
-		var request = $http({
-			method : "post",
-			url : "consultant/consultantMaster/",
-			params : "",
-			data: consultant
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-	function updateConsultant(consultant){
-		console.log('update consultant called in service');
-		var request = $http({
-			method : "put",
-			url : "consultant/consultantMaster/",
-			params : "",
-			data: consultant
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-	function getConsultantAdmissionDetail(fileNo){
-		console.log('getConsultantAdmissionDetail called in service')
-		var request = $http({
-			method : "get",
-			url : "consultant/consultantAdmission/"+fileNo,
-			params : {
-				action : "get"
-			}
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-	function addConsultantAdmissionDetail(consultantAdmissionDetail){
-		console.log('addConsultantAdmissionDetail called in service');
-		var request = $http({
-			method : "post",
-			url : "consultant/consultantAdmission/",
-			params : "",
-			data: consultantAdmissionDetail
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-
-	}
-
-	function getStudentByCriteria(searchCriteria){
-
-		console.log('Getting student by search criteria in service');
-		var request = $http({
-			method : "post",
-			url : "consultant/searchStudent/",
-			params : "",
-			data : searchCriteria
-
-		});
-
-		return (request.then(handleSuccess, handleError));
-	}
-
-
-	function handleError(response) {
-		console.log('Error occured while calling service');
-		console.log(response);
-		if (!angular.isObject(response.data) || !response.data.message) {
-
-			return ($q.reject("An unknown error occurred."));
-
-		}
-
-		// Otherwise, use expected error message.
-		return ($q.reject(response.data.message));
-
-	}
-
-	// I transform the successful response, unwrapping the application data
-	// from the API response payload.
-	function handleSuccess(response) {
-		console.log('handle success');
-		console.log(response);
-		return (response);
-
-	}
-
-});

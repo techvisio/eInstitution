@@ -297,4 +297,10 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 		}
 
 	}
+
+	@Override
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		StudentBasicInfo basicInfo = admissionManager.getStudentBsInfo(fileNo);
+		return basicInfo;
+	}
 }
