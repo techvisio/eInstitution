@@ -14,7 +14,7 @@ feeModule.service('feeService', function($http, $q){
 		console.log('Get unapproved list service');
 		var request = $http({
 			method : "get",
-			url : "management/uapprovedList/"+size,
+			url : "service/management/uapprovedList/"+size,
 			params : ""
 
 		});
@@ -26,7 +26,7 @@ feeModule.service('feeService', function($http, $q){
 		console.log('getting Admission detail for management in service');
 		var request = $http({
 			method : "get",
-			url : "management/admission/approval/"+fileNo,
+			url : "service/management/admission/approval/"+fileNo,
 			params : ""
 
 		});
@@ -37,7 +37,7 @@ feeModule.service('feeService', function($http, $q){
 		console.log('update Admission Detail for Management called in service');
 		var request = $http({
 			method : "put",
-			url : "management/updateManagementChanges/",
+			url : "service/management/updateManagementChanges/",
 			params : "",
 			data : student
 		});
@@ -48,7 +48,7 @@ feeModule.service('feeService', function($http, $q){
 		console.log('fee Transaction called in service');
 		var request = $http({
 			method : "get",
-			url : "fee/feeTransaction/" + fileNo,
+			url : "service/fee/feeTransaction/" + fileNo,
 			params : {
 				action : "get"
 			}
@@ -60,7 +60,7 @@ feeModule.service('feeService', function($http, $q){
 		console.log('fee deposite called in service');
 		var request = $http({
 			method : "post",
-			url : "fee/feeTransactionCredit/",
+			url : "service/fee/feeTransactionCredit/",
 			params : "",
 			data : newTransaction
 		});
@@ -72,7 +72,7 @@ feeModule.service('feeService', function($http, $q){
 		console.log('pending fee called in service');
 		var request = $http({
 			method : "get",
-			url : "fee/pandingFee/" + limit,
+			url : "service/fee/pandingFee/" + limit,
 			params : {
 				action : "get"
 			}

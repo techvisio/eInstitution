@@ -29,29 +29,14 @@ admissionModule.service("admissionService", function($http, $q) {
 				 getStudentByCriteria : getStudentByCriteria,
 				 submitToManagement:submitToManagement,
 				 saveAmenity:saveAmenity,
-				 getUser : getUser 
 			 });
 
-			 
-			 function getUser(){
-
-				 console.log('Getting user in service');
-					 var request = $http({
-						 method : "get",
-						 url : "user/loggedinuser/",
-						 params : {
-							 action : "get"
-						 }
-					 });
-					 return (request.then(handleSuccess, handleError));
-				 }
-				 
 			 function getStudentByCriteria(searchCriteria){
 
 				 console.log('Getting student by search criteria in service');
 				 var request = $http({
 					 method : "post",
-					 url : "admission/search/",
+					 url : "service/admission/search/",
 					 params : "",
 					 data : searchCriteria
 
@@ -65,7 +50,7 @@ admissionModule.service("admissionService", function($http, $q) {
 				 console.log('add student called in service');
 				 var request = $http({
 					 method : "post",
-					 url : "admission/student/",
+					 url : "service/admission/student/",
 					 params : "",
 					 data : student
 
@@ -78,7 +63,7 @@ admissionModule.service("admissionService", function($http, $q) {
 
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/"+fileNo,
+					 url : "service/admission/student/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -90,7 +75,7 @@ admissionModule.service("admissionService", function($http, $q) {
 
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/new/",
+					 url : "service/admission/student/new/",
 					 params : {
 						 action : "get"
 					 }
@@ -101,7 +86,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function processWorkflow(student,stepId){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/processWorkFlow/"+stepId,
+					 url : "service/admission/processWorkFlow/"+stepId,
 					 params : "",
 					 data : student
 				 });
@@ -111,7 +96,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getStudentBasics(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/studentbasic/"+fileNo,
+					 url : "service/admission/student/studentbasic/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -122,7 +107,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateStudentBasics(studentBasics, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/studentbasic/"+fileNo,
+					 url : "service/admission/student/studentbasic/"+fileNo,
 					 params : "",
 					 data : studentBasics
 				 });
@@ -132,7 +117,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getStudentAcademicDtl(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/academic/"+fileNo,
+					 url : "service/admission/student/academic/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -143,7 +128,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateStudentAcademicDtl(academicDtl, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/academic/"+fileNo,
+					 url : "service/admission/student/academic/"+fileNo,
 					 params : "",
 					 data : academicDtl
 				 });
@@ -153,7 +138,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getStudentAddress(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/address/"+fileNo,
+					 url : "service/admission/student/address/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -164,7 +149,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateStudentAddress(addressDtl,fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/address/"+fileNo,
+					 url : "service/admission/student/address/"+fileNo,
 					 params : "",
 					 data : addressDtl
 				 });
@@ -174,7 +159,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getStudentDiscountDtl(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/discount/"+fileNo,
+					 url : "service/admission/student/discount/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -186,7 +171,7 @@ admissionModule.service("admissionService", function($http, $q) {
 
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/discount/"+fileNo,
+					 url : "service/admission/student/discount/"+fileNo,
 					 params : "",
 					 data : DiscountDtl
 				 });
@@ -196,7 +181,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getBranchPref(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/branchpref/"+fileNo,
+					 url : "service/admission/student/branchpref/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -207,7 +192,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateBranchPref (branchPreference, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/branchpref/"+fileNo,
+					 url : "service/admission/student/branchpref/"+fileNo,
 					 params : "",
 					 data : branchPreference
 				 });
@@ -217,7 +202,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getCounsellingDtl(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/counselling/"+fileNo,
+					 url : "service/admission/student/counselling/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -228,7 +213,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateCounsellingDtl(counsellingDtl, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/counselling/"+fileNo,
+					 url : "service/admission/student/counselling/"+fileNo,
 					 params : "",
 					 data : counsellingDtl
 				 });
@@ -238,7 +223,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getScholarshipDtl(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/scholarship/"+fileNo,
+					 url : "service/admission/student/scholarship/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -249,7 +234,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateScholarshipDtl(scholarship, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/scholarship/"+fileNo,
+					 url : "service/admission/student/scholarship/"+fileNo,
 					 params : "",
 					 data : scholarship
 				 });
@@ -259,7 +244,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getConsultantDtl(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/consultant/"+fileNo,
+					 url : "service/admission/student/consultant/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -270,7 +255,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateConsultantDtl(consultantDetail, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/consultant/"+fileNo,
+					 url : "service/admission/student/consultant/"+fileNo,
 					 params : "",
 					 data : consultantDetail
 				 });
@@ -280,7 +265,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function getdocuments(fileNo){
 				 var request = $http({
 					 method : "get",
-					 url : "admission/student/document/"+fileNo,
+					 url : "service/admission/student/document/"+fileNo,
 					 params : {
 						 action : "get"
 					 }
@@ -291,7 +276,7 @@ admissionModule.service("admissionService", function($http, $q) {
 			 function updateDocuments(studentDocument, fileNo){
 				 var request = $http({
 					 method : "put",
-					 url : "admission/student/document/"+fileNo,
+					 url : "service/admission/student/document/"+fileNo,
 					 params : "",
 					 data : studentDocument
 				 });
@@ -303,7 +288,7 @@ admissionModule.service("admissionService", function($http, $q) {
 				 console.log("Latest Admission called from service")
 				 var request = $http({
 					 method : "get",
-					 url : "admission/LatestAdmissionInfo/"+limit,
+					 url : "service/admission/LatestAdmissionInfo/"+limit,
 					 params : {
 						 action : "get"
 					 }
@@ -317,7 +302,7 @@ admissionModule.service("admissionService", function($http, $q) {
 				 console.log('submit to management called in service');
 				 var request = $http({
 					 method : "post",
-					 url : "admission/submitToManagement/",
+					 url : "service/admission/submitToManagement/",
 					 params : "",
 					 data : student
 

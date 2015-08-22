@@ -18,7 +18,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('get due enquiries');
 		var request = $http({
 			method : "get",
-			url : "consultant/consultantMaster/"+consultantId,
+			url : "service/consultant/consultantMaster/"+consultantId,
 			params : "",
 			data: ""
 		});
@@ -29,7 +29,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('search enquiries');
 		var request = $http({
 			method : "post",
-			url : "consultant/search/",
+			url : "service/consultant/search/",
 			params : "",
 			data: searchCriteria
 
@@ -41,7 +41,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('add new consultant');
 		var request = $http({
 			method : "post",
-			url : "consultant/consultantMaster/",
+			url : "service/consultant/consultantMaster/",
 			params : "",
 			data: consultant
 
@@ -53,7 +53,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('update consultant called in service');
 		var request = $http({
 			method : "put",
-			url : "consultant/consultantMaster/",
+			url : "service/consultant/consultantMaster/",
 			params : "",
 			data: consultant
 
@@ -65,7 +65,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('update Admission consultant called in service');
 		var request = $http({
 			method : "put",
-			url : "consultant/admConsultant/",
+			url : "service/consultant/admservice/consultant/",
 			params : "",
 			data: AdmissnConsltntDtl
 
@@ -77,7 +77,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('getConsultantAdmissionDetail called in service')
 		var request = $http({
 			method : "get",
-			url : "consultant/consultantAdmission/"+fileNo,
+			url : "service/consultant/consultantAdmission/"+fileNo,
 			params : {
 				action : "get"
 			}
@@ -89,7 +89,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('addConsultantAdmissionDetail called in service');
 		var request = $http({
 			method : "post",
-			url : "consultant/consultantAdmission/",
+			url : "service/consultant/consultantAdmission/",
 			params : "",
 			data: consultantAdmissionDetail
 
@@ -102,7 +102,7 @@ consultantModule.service('consultantService', function($http, $q) {
 		console.log('Getting student by search criteria in service');
 		var request = $http({
 			method : "post",
-			url : "consultant/searchStudent/",
+			url : "service/consultant/searchStudent/",
 			params : "",
 			data : searchCriteria
 

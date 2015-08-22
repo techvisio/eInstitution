@@ -17,7 +17,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('get due enquiries');
 		 var request = $http({
 			 method : "get",
-			 url : "enquiry/enquiryByTaskDate/",
+			 url : "service/enquiry/enquiryByTaskDate/",
 			 params : {
 				 action : "get"
 			 }
@@ -31,7 +31,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 
 		 var request = $http({
 			 method : "get",
-			 url : "enquiry/"+enquiryId,
+			 url : "service/enquiry/"+enquiryId,
 			 params : {
 				 action : "get"
 			 }
@@ -46,7 +46,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('Getting enquiry by search criteria in service');
 		 var request = $http({
 			 method : "post",
-			 url : "enquiry/search/",
+			 url : "service/enquiry/search/",
 			 params : "",
 			 data : searchCriteria
 
@@ -74,7 +74,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('update student called in service');
 		 var request = $http({
 			 method : "put",
-			 url : "enquiry/"+enquiryId,
+			 url : "service/enquiry/"+enquiryId,
 			 params : "",
 			 data : enquiryAndTaskBean
 
@@ -87,7 +87,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('proceed to admission called ins service');
 		 var request = $http({
 			 method : "post",
-			 url : "enquiry/proceedToAdmission/",
+			 url : "service/enquiry/proceedToAdmission/",
 			 params : "",
 			 data: enquiryAndTaskBean
 
@@ -102,7 +102,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('close enquiry called in service');
 		 var request = $http({
 			 method : "put",
-			 url : "enquiry/toggleEnquiryStatus/",
+			 url : "service/enquiry/toggleEnquiryStatus/",
 			 params : "",
 			 data : enquiryAndTaskBean
 

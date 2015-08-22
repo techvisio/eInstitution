@@ -14,7 +14,7 @@ masterDataModule.service('masterdataService', function($http, $q){
          console.log('Getting masterdata for admission module');
          var request = $http({
            method : "get",
-           url : "masterdata/admission",
+           url : "service/masterdata/admission",
            params : "",
            data : ""
          });
@@ -28,7 +28,7 @@ masterDataModule.service('masterdataService', function($http, $q){
            console.log('Getting masterdata for enquiry module');
            var request = $http({
              method : "get",
-             url : "masterdata/enquiry",
+             url : "service/masterdata/enquiry",
              params : "",
              data : ""
            });
@@ -42,7 +42,7 @@ masterDataModule.service('masterdataService', function($http, $q){
            console.log('Getting masterdata for consultant module');
            var request = $http({
              method : "get",
-             url : "masterdata/consultant",
+             url : "service/masterdata/consultant",
              params : "",
              data : ""
            });
@@ -54,7 +54,7 @@ masterDataModule.service('masterdataService', function($http, $q){
            console.log('Getting masterdata for fee module');
            var request = $http({
              method : "get",
-             url : "masterdata/fee",
+             url : "service/masterdata/fee",
              params : "",
              data : ""
            });
