@@ -25,7 +25,7 @@ import com.techvisio.einstitution.workflow.TransportWorkflowManager;
 import com.techvisio.einstitution.workflow.impl.TransportWorkflowManagerImpl;
 
 @RestController
-@RequestMapping("/transport")
+@RequestMapping("/service/transport")
 
 public class TransportService {
 	

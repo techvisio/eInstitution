@@ -34,7 +34,7 @@ import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 
 @RestController
-@RequestMapping("/admission")
+@RequestMapping("/service/admission")
 public class AdmissionService {
 
 	private static CustomLogger logger = CustomLogger.getLogger(AdmissionService.class);

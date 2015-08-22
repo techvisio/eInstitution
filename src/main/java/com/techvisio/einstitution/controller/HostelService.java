@@ -24,7 +24,7 @@ import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 
 @RestController
-@RequestMapping("/hostel")
+@RequestMapping("/service/hostel")
 
 public class HostelService {
 //	private static CustomLogger logger = CustomLogger.getLogger(HostelService.class);

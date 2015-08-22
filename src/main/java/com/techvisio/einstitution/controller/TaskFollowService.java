@@ -13,7 +13,7 @@ import com.techvisio.einstitution.manager.impl.TaskFollowManagerImpl;
 import com.techvisio.einstitution.util.CustomLogger;
 
 @RestController
-@RequestMapping("/TaskFollow")
+@RequestMapping("/service/TaskFollow")
 public class TaskFollowService {
 	private static CustomLogger logger = CustomLogger.getLogger(TaskFollowService.class);
 	

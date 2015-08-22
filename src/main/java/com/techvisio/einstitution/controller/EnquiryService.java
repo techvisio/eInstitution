@@ -22,7 +22,7 @@ import com.techvisio.einstitution.workflow.EnquiryWorkflowManager;
 
 
 @RestController
-@RequestMapping("/enquiry")
+@RequestMapping("/service/enquiry")
 public class EnquiryService {
 
 	private static CustomLogger logger = CustomLogger.getLogger(EnquiryService.class);
