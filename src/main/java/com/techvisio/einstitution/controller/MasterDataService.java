@@ -26,7 +26,7 @@ import com.techvisio.einstitution.util.CustomLogger;
 
 @Component 
 @RestController
-@RequestMapping("/masterdata")
+@RequestMapping("/service/masterdata")
 public class MasterDataService {
 	private static CustomLogger logger = CustomLogger.getLogger(MasterDataService.class);
 @Autowired

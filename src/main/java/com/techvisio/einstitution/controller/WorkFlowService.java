@@ -15,7 +15,7 @@ import com.techvisio.einstitution.manager.impl.WorkFlowManagerImpl;
 import com.techvisio.einstitution.util.CustomLogger;
 
 @RestController
-@RequestMapping("/WorkFlow")
+@RequestMapping("/service/WorkFlow")
 
 public class WorkFlowService {
 	

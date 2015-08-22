@@ -22,7 +22,7 @@ import com.techvisio.einstitution.workflow.ConsultantWorkflowManager;
 
 
 @RestController
-@RequestMapping("/consultant")
+@RequestMapping("/service/consultant")
 public class ConsultantService {
 
 	private static CustomLogger logger = CustomLogger.getLogger(ConsultantService.class);

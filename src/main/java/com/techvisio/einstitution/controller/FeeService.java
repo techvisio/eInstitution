@@ -23,7 +23,7 @@ import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.FeeWorkflowManager;
 
 @RestController
-@RequestMapping("/fee")
+@RequestMapping("/service/fee")
 public class FeeService {
 
 	private static CustomLogger logger = CustomLogger.getLogger(FeeService.class);

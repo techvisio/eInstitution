@@ -31,7 +31,7 @@ import com.techvisio.einstitution.util.ObjectExcelMapper;
 import com.techvisio.einstitution.workflow.ReportWorkflowManager;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/service/report")
 
 
 public class ReportService {

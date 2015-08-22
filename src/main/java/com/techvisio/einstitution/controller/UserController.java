@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techvisio.einstitution.beans.Response;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/service/user")
 public class UserController {
 
 	@RequestMapping(value="/loggedinuser", method = RequestMethod.GET)
