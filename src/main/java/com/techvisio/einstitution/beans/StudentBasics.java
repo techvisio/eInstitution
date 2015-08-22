@@ -309,6 +309,7 @@ public class StudentBasics extends BasicEntity{
 	public void setReferredBy(String referredBy) {
 		this.referredBy = referredBy;
 	}
+	
 	public boolean isLateral() {
 		return lateral;
 	}
@@ -351,5 +352,4 @@ public class StudentBasics extends BasicEntity{
 	public void setApplicationStatus(Long applicationStatus) {
 		this.applicationStatus = applicationStatus;
 	}
-
 }

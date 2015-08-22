@@ -29,7 +29,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 		<property name="maxTotal" value="3"/>
 		<property name="maxWaitMillis" value="1000"/>
 		</bean>
-<!-- 		<import resource="classpath:spring-config/spring-security.xml" /> -->
+		<import resource="classpath:spring-config/spring-security.xml" />
 		
 		<!-- Enable Annotation based Declarative Transaction Management -->
     <tx:annotation-driven proxy-target-class="true"

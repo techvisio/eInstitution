@@ -8,6 +8,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 
 	// Data variables.
 	$scope.form={};
+	$scope.AdmissnConsltntDtl={};
 	$scope.consultantAdmissionDetail={};
 	$scope.consultantAdmissionDetail.consultantDetails=[];
 	$scope.consultantAdmissionDetail.consultantDetails.push(angular.copy($scope.dummyConsultantDetails));
@@ -170,7 +171,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	 $scope.consultantPopup = function (size) {
 
 			var modalInstance = $modal.open({
-				templateUrl: 'consultantPopup.html',
+				templateUrl: 'home/modals/consultantPopup.html',
 				scope:$scope,
 				size: size,
 			});
@@ -214,9 +215,9 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 
 	$scope.init=function(){
 
-		console.log('getting masterdata for admission module in init block');
+		console.log('getting masterdata for consultant module in init block');
 
-		masterdataService.getAdmissionMasterData()
+		masterdataService.getConsultantMasterData()
 		.then(function(data) {
 			console.log(data);
 			if (data != null) {
@@ -293,5 +294,20 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		addNew = true;
 		form.isEdit=true;
 	}
+
+	
+	$scope.addAdmConsultant = function(){
+		console.log('addAdmConsultant called in controller');
+		$scope.AdmissnConsltntDtl=$scope.consultantAdmissionDetail.consultantDetails[0];
+		consultantService.addAdmConsultant($scope.AdmissnConsltntDtl)
+		.then(function(response) {
+			console.log('addAdmConsultant Data received from service : ');
+			console.log(response);
+			if (response != null && response.data != null && response.data.responseBody != null) {
+				$scope.AdmissnConsltntDtl = response.data.responseBody;
+				alert("Your Records Saved Successfully")
+			} 
+		})
+	};
 
 } ]);

@@ -77,7 +77,7 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 	}
 
 	@Override
-	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
+	public Long saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
 
 		if (admissnConsltntDtl.getConsltantDtlId() == null) {
 			getCurrentSession().persist(admissnConsltntDtl);
@@ -90,6 +90,9 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 					admissnConsltntDtl.getConsultantPaymentCriterias(),
 					admissnConsltntDtl.getFileNo());
 		}
+		
+		getCurrentSession().flush();
+		return admissnConsltntDtl.getFileNo();
 	}
 
 	@Override
@@ -422,6 +425,20 @@ public class ConsultantDaoImpl extends BaseDao implements ConsultantDao {
 
 			return consultant;			
 		}
+	}
+
+	@Override
+	public AdmissnConsltntDtl getAdmissionConsltntDtl(Long fileNo) {
+		
+		String queryString="FROM AdmissnConsltntDtl ac WHERE ac.fileNo = "
+				+ fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<AdmissnConsltntDtl> result= (List<AdmissnConsltntDtl>)query.list();
+		if(result != null && result.size()>0){
+			return result.get(0);
+		}
+		return null;
 	}
 
 }

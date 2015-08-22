@@ -20,7 +20,7 @@
 							name="gender" value='F' /><span>Female</span></li>
 					</td>
 					<td><span> Date of Birth </span></td>
-					<td><input type="date" ng-model="student.studentBasics.dob"></td>
+					<td><input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-valid-required ng-valid-date ng-touched" datepicker-popup="dd-MMMM-yyyy" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-model="student.studentBasics.dob" ng-required="true" close-text="Close" required="required"></td>
 					<!-- <td><p class="input-group">
               <input type="dropdown" class="dropdown-toggle" datepicker-popup="{{format}}" ng-model="student.studentBasics.dob" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
@@ -47,10 +47,10 @@
 				</tr>
 				<tr>
 					<td><span> Mobile No </span></td>
-					<td><input type="text" class="form-control"
+					<td><input type='tel' pattern="[0-9]{10,10}" autocomplete="off"  maxlength="10" class="form-control"
 						ng-model="student.studentBasics.selfMobileNo" required></td>
 					<td><span> Email Id </span></td>
-					<td><input type="text" class="form-control"
+					<td><input type="text" class="form-control" id='txtEmail'
 						ng-model="student.studentBasics.emailId"></td>
 				</tr>
 				<tr>
@@ -66,7 +66,7 @@
 					<td><input type="text" class="form-control"
 						ng-model="student.studentBasics.gaurdianMobileNo"></td>
 					<td><span> Gaurdian Email Id </span></td>
-					<td><input type="text" class="form-control"
+					<td><input type="text" class="form-control" id='txtEmail'
 						ng-model="student.studentBasics.gaurdianEmailId"></td>
 				</tr>
 				<tr>

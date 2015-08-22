@@ -15,7 +15,8 @@ var erp = angular
                 'sidebarModule',
                 'enquiryModule',
                 'consultantModule',
-                'feeModule'
+                'feeModule',
+                'userModule'
                 ]);
 
 erp.config(function ($stateProvider, $urlRouterProvider) {
@@ -205,11 +206,71 @@ erp.config(['$httpProvider', '$sceProvider',
 }]);
 
 erp.controller('ApplicationController',
-		['$scope', '$rootScope', '$timeout', '$modal', '$http',
-		function ($scope, $rootScope, $timeout, $modal) {
+		['$scope', '$rootScope', '$timeout', '$modal','userService', '$http',
+		function ($scope, $rootScope, $timeout, $modal,userService,$http) {
 		    $rootScope.enableSidebar = true;
 		    $rootScope.user={};
 		    $rootScope.user.privilege=["ROLE_PER_U","ROLE_DOC_U","ROLE_ADD_U","ROLE_DIS_U","ROLE_SCH_U","ROLE_ACD_U","ROLE_COUN_U","ROLE_OFF_U","ROLE_DIS_U","ROLE_CON_U","ROLE_REF_U","ROLE_TRA_U","ROLE_HOS_U","ROLE_AFE_U","ROLE_PER_R","ROLE_DOC_R","ROLE_ADD_R","ROLE_DIS_R","ROLE_SCH_R","ROLE_ACD_R","ROLE_COUN_R","ROLE_OFF_R","ROLE_DIS_R","ROLE_CON_R","ROLE_REF_R","ROLE_TRA_R","ROLE_HOS_R","ROLE_AFE_R"];
+//	        $rootScope.user=null;
+		    
+		    if($rootScope.user==null){
+		    	userService.getUser();
+		        
+		        if(!$rootScope.user){
+		        	$rootScope.curModal = $modal.open({
+					templateUrl: 'home/modals/login.html',
+					controller: function ($scope) {
+						var title = "Login";
+						$scope.resetCurModal = function(time) { 
+							
+						};
+						$scope.closeErrorModal = function (back) {
+							if(back)
+								history.go(-1);
+							$rootScope.curModal.close();
+							$scope.resetCurModal();
+						};
+					}
+				// keyboard: false,
+				// backdrop: 'static'
+				});
+				}
+		       }
+			 $scope.getUser = function() {
+				 console
+				 .log('getting user in app.js');
+				 userService
+				 .getUser()
+				 .then(
+						 function(data) {
+							 console.log(data);
+							 if (data) {
+								 $rootScope.user = data.responseBody;
+							 } else {
+								 console.log('error');
+							 }
+						 })
+			 };
+		    
+//			if(!$rootScope.user){$rootScope.curModal = $modal.open({
+//				templateUrl: 'home/modals/login.html',
+//				controller: function ($scope) {
+//					var title = "Login";
+//					$scope.resetCurModal = function(time) { 
+//						
+//					};
+//					$scope.closeErrorModal = function (back) {
+//						if(back)
+//							history.go(-1);
+//						$rootScope.curModal.close();
+//						$scope.resetCurModal();
+//					};
+//				}
+//			// keyboard: false,
+//			// backdrop: 'static'
+//			});
+//			}
+		    
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;

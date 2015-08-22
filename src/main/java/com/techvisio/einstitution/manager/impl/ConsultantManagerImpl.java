@@ -38,8 +38,9 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 
 	@Override
-	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
-		consultantDao.saveAdmissionConsultantDtl(admissnConsltntDtl);
+	public Long saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
+		Long fileNo=consultantDao.saveAdmissionConsultantDtl(admissnConsltntDtl);
+		return fileNo;
 	}
 
 
@@ -140,5 +141,12 @@ public class ConsultantManagerImpl implements ConsultantManager {
 			SearchCriteria searchCriteria) {
 		List<Consultant> consultants = consultantDao.getConsultantBySearchCriteria(searchCriteria);
 		return consultants;
+	}
+
+
+	@Override
+	public AdmissnConsltntDtl getAdmissionConsltntDtl(Long fileNo) {
+        AdmissnConsltntDtl admissnConsltntDtl = consultantDao.getAdmissionConsltntDtl(fileNo); 	
+		return admissnConsltntDtl;
 	}
 	}

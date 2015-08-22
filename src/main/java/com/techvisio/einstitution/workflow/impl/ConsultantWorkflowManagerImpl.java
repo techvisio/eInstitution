@@ -34,8 +34,9 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 	}
 
 	@Override
-	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
-		consultantManager.saveAdmissionConsultantDtl(admissnConsltntDtl); 		
+	public Long saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl) {
+		Long fileNo=consultantManager.saveAdmissionConsultantDtl(admissnConsltntDtl);
+		return fileNo;
 	}
 
 	@Override
@@ -137,5 +138,11 @@ public class ConsultantWorkflowManagerImpl implements ConsultantWorkflowManager{
 			SearchCriteria searchCriteria) {
 		List<Consultant> consultants = consultantManager.getConsultantBySearchCriteria(searchCriteria);
 		return consultants;
+	}
+
+	@Override
+	public AdmissnConsltntDtl getAdmissionConsltntDtl(Long fileNo) {
+		AdmissnConsltntDtl admissnConsltntDtl = consultantManager.getAdmissionConsltntDtl(fileNo);
+		return admissnConsltntDtl;
 	}
 }

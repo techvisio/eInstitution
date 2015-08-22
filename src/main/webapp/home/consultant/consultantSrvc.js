@@ -10,7 +10,8 @@ consultantModule.service('consultantService', function($http, $q) {
 		updateConsultant : updateConsultant,
 		getConsultant : getConsultant,
 		getConsultantAdmissionDetail : getConsultantAdmissionDetail,
-		addConsultantAdmissionDetail : addConsultantAdmissionDetail
+		addConsultantAdmissionDetail : addConsultantAdmissionDetail,
+		addAdmConsultant : addAdmConsultant 
 	});
 
 	function getConsultant(consultantId){
@@ -60,6 +61,18 @@ consultantModule.service('consultantService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 	}
 
+	function addAdmConsultant(AdmissnConsltntDtl){
+		console.log('update Admission consultant called in service');
+		var request = $http({
+			method : "put",
+			url : "consultant/admConsultant/",
+			params : "",
+			data: AdmissnConsltntDtl
+
+		});
+		return (request.then(handleSuccess, handleError));
+	}
+	
 	function getConsultantAdmissionDetail(fileNo){
 		console.log('getConsultantAdmissionDetail called in service')
 		var request = $http({

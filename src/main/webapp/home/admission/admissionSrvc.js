@@ -28,9 +28,24 @@ admissionModule.service("admissionService", function($http, $q) {
 				 getLatestAdmission : getLatestAdmission,
 				 getStudentByCriteria : getStudentByCriteria,
 				 submitToManagement:submitToManagement,
-				 saveAmenity:saveAmenity
+				 saveAmenity:saveAmenity,
+				 getUser : getUser 
 			 });
 
+			 
+			 function getUser(){
+
+				 console.log('Getting user in service');
+					 var request = $http({
+						 method : "get",
+						 url : "user/loggedinuser/",
+						 params : {
+							 action : "get"
+						 }
+					 });
+					 return (request.then(handleSuccess, handleError));
+				 }
+				 
 			 function getStudentByCriteria(searchCriteria){
 
 				 console.log('Getting student by search criteria in service');

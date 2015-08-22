@@ -40,8 +40,7 @@
 
 				</td>
 				<td><span>Date Of Birth </span></td>
-				<td><input type="date" ng-model="data.admissionEnquiry.dob"
-					class="form-control" ng-disabled="isTaskClosedOrInAdmission()"></td>
+				<td><input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-valid-required ng-valid-date ng-touched" datepicker-popup="dd-MMMM-yyyy" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-disabled="isTaskClosedOrInAdmission()" ng-required="true" close-text="Close" ng-model="data.admissionEnquiry.dob" required="required"></td>
 
 			</tr>
 			<tr>
@@ -114,11 +113,11 @@
 			<tr ng-show="data.tasks.length == 0">
 				<td><span>--No Tasks--</span></td>
 			</tr>
-			<tr ng-repeat="task in data.tasks">
+			<tr ng-repeat="task in data.tasks" ng-show="data.tasks.length>0">
 				<td><span> Reminder Date </span></td>
-				<td><input type="date" ng-model="task.taskDate"
-					class="form-control"
-					ng-disabled="task.status=='C'||isTaskClosedOrInAdmission()">
+				<td><input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-valid-required ng-valid-date ng-touched" datepicker-popup="dd-MMMM-yyyy" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close"  ng-model="task.taskDate"
+					
+					ng-disabled="task.status=='C'||isTaskClosedOrInAdmission()" required="required"></td>
 				<td ng-show="task.taskId"><span> Follow-up Remark </span></td>
 				<td ng-show="task.taskId"><textarea cols="32" rows="3"
 						ng-model="task.remark"

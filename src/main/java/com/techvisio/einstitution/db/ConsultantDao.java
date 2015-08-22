@@ -16,8 +16,9 @@ import com.techvisio.einstitution.beans.StudentBasicInfo;
 public interface ConsultantDao {
 
 	public List<AdmissnConsltntDtl> getAdmissnConsltntDtl(Long fileNo);
+	public AdmissnConsltntDtl getAdmissionConsltntDtl(Long fileNo);
 	public void saveAdmissionConsultantDtl(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo);
-	public void saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl);
+	public Long saveAdmissionConsultantDtl(AdmissnConsltntDtl admissnConsltntDtl);
 	public void deleteAdmissionConsultantDtlExclusion(List<AdmissnConsltntDtl> admissnConsltntDtls, Long fileNo);
 	
 	public List<ConsultantPayment> getConsultantPayment(Long fileNo);

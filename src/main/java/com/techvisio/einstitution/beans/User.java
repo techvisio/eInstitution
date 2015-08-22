@@ -21,8 +21,6 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "User_Id")
 	private Long userId;
-	@Column(name = "Department")
-	private String department;
 	@Column(name = "Name")
 	private String name;
 	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
@@ -30,8 +28,8 @@ public class User {
 	private List<Role> roles;
 	@Column(name = "Password")
 	private char[] password;
-	@Column(name = "Status")
-	private String status;
+	@Column(name = "IS_ACTIVE")
+	private boolean active;
 
 	public Long getUserId() {
 		return userId;
@@ -47,14 +45,6 @@ public class User {
 
 	public void setPassword(char[] password) {
 		this.password = password;
-	}
-
-	public String getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
 	}
 
 	public String getName() {
@@ -73,11 +63,12 @@ public class User {
 		this.roles = roles;
 	}
 
-	public String getStatus() {
-		return status;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
+
 }

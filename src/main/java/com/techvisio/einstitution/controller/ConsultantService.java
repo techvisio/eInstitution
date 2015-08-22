@@ -59,6 +59,21 @@ public class ConsultantService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "admConsultant", method = RequestMethod.PUT)
+	public ResponseEntity<Response> addAdmissionConsultantDtl(@RequestBody AdmissnConsltntDtl admissnConsltntDtl){
+		Response response = new Response();
+		Long fileNo=null;
+		try {
+		    fileNo=consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtl);
+			AdmissnConsltntDtl consultntFromDB = consltntWorkflowManager.getAdmissionConsltntDtl(fileNo);
+			response.setResponseBody(consultntFromDB);
+		} catch (Exception e) {
+			logger.error("{} :Error while Calling saveAdmissionConsultantDtl method for file no:{}",this.getClass().getName(),fileNo,e);
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+
 	@RequestMapping(value="consultantAdmission",method = RequestMethod.POST)
 	public ResponseEntity<Response> addConsultantAdmissionDetail(@RequestBody ConsultantAdmissionDetail consultantAdmissionDetail) {
 		logger.info("{}:Calling getConsultantAdmissionDetail method for : Student : {}",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());

@@ -20,7 +20,7 @@
 			</tab> <tab heading="ADDRESS INFO" ng-show="isTabViewable('ADDRESS')" ng-click="getRelatedData('ADDRESS')">
 			<div ng-include src="'home/admission/studentAddressDtl.html'">
 			</div>
-			</tab> <tab heading="COUNSELLING" ng-show="isTabViewable('COUNSELLING')" ng-click="getRelatedData('COUNSELLING')">
+			</tab> <tab heading="COUNSELLING" ng-show="isTabViewable('COUNSELLING') && student.studentBasics.admissionMode == 'C'" ng-click="getRelatedData('COUNSELLING')">
 			<div ng-include src="'home/admission/counselling.html'"></div>
 			</tab> </tabset>
 		</div>
@@ -51,10 +51,10 @@
 			<tab heading="SCHOLARSHIP" ng-show="isTabViewable('SCHOLARSHIP')" ng-click="getRelatedData('SCHOLARSHIP')">
 			<div ng-include src="'home/admission/scholarship.html'"></div>
 			</tab> 
-			<tab heading="CONSULTANT" ng-show="isTabViewable('CONSULTANT')" ng-click="getRelatedData('CONSULTANT')">
+			<tab heading="CONSULTANT" ng-show="isTabViewable('CONSULTANT') && student.studentBasics.admissionMode == 'A'" ng-click="getRelatedData('CONSULTANT')">
 			<div ng-include src="'home/admission/consultant.html'"></div>
 			</tab> 
-			<tab heading="REFERRAL" ng-show="isTabViewable('REFERRAL')" ng-click="getRelatedData('REFERRAL')">
+			<tab heading="REFERRAL" ng-show="isTabViewable('REFERRAL') && student.studentBasics.admissionMode == 'R'" ng-click="getRelatedData('REFERRAL')">
 			<div ng-include src="'home/admission/referred.html'"></div>
 			</tab>
 			<tab heading="APPLICABLE FEE" ng-click="">

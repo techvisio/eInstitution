@@ -59,7 +59,9 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 	@Override
 	public Long saveEnquiryAndTask(EnquiryAndTask enquiryAndTaskBean ) {
 
-		enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());  
+		if(enquiryAndTaskBean.getAdmissionEnquiry().getApplicationStatus()==null){
+		enquiryAndTaskBean.getAdmissionEnquiry().setApplicationStatus(EnquiryStatus.OPEN.name());
+		}
 
 		Long enquiryId = enquiryManager.saveInquiry(enquiryAndTaskBean.getAdmissionEnquiry());
 
@@ -95,8 +97,6 @@ public class EnquiryWorkflowManagerImpl implements EnquiryWorkflowManager {
 
 		saveEnquiryAndTask(enquiryAndTaskBean);
 		return enquiry.getEnquiryId();
-
-
 	}
 
 	private void closeAllTasks(EnquiryAndTask enquiryAndTaskBean) {

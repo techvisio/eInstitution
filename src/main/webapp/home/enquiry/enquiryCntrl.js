@@ -76,6 +76,9 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 	 $scope.redirectViewEnquiry=function(currentEnquiryId){
 		 $state.go('enquiry',{enquiryId:currentEnquiryId});
 	 }
+	 $scope.redirectToNewEnquiry=function(){
+		 $state.go('newEnquiry');
+	 }
 	 
 	 $scope.resetSearchCriteria = function() {
 		 $scope.searchCriteria = {};
@@ -106,7 +109,7 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 						 $scope.data.admissionEnquiry.name=angular.copy($scope.searchCriteria.name);
 						 $scope.data.admissionEnquiry.emailId=angular.copy($scope.searchCriteria.emailId);
 						 $scope.data.admissionEnquiry.contactNo=angular.copy($scope.searchCriteria.mobileNo);
-						 $scope.dashboard = false;
+						 $scope.redirectToNewEnquiry();
 					 }
 					 }
 			 } else {
@@ -179,7 +182,7 @@ enquiryModule.controller('enquiryController', ['$scope','$rootScope','enquirySer
 		 
 	console.log('getting masterdata for Enquiry module in init block');
 
-	 masterdataService.getAdmissionMasterDataEnquiry()
+	 masterdataService.getEnquiryMasterData()
 	 .then(function(data) {
 		 console.log(data);
 		 if (data != null) {
@@ -298,4 +301,73 @@ $scope.saveEnquiry = function(){
 			                    { field: "branch.branchName", width: 180,displayName :"Branch" },
 			                    {field:"applicationStatus",width:200,displayName :"Status"}]
 			    };
+		  
+			 //date picker work
+			 
+			 $scope.today = function() {
+				    $scope.dt = new Date();
+				  };
+				  $scope.today();
+
+				  $scope.clear = function () {
+				    $scope.dt = null;
+				  };
+
+				  // Disable weekend selection
+				  $scope.disabled = function(date, mode) {
+				    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+				  };
+
+				  $scope.toggleMin = function() {
+				    $scope.minDate = $scope.minDate ? null : new Date();
+				  };
+				  $scope.toggleMin();
+
+				  $scope.open = function($event) {
+				    $scope.status.opened = true;
+				  };
+
+				  $scope.dateOptions = {
+				    formatYear: 'yy',
+				    startingDay: 1
+				  };
+
+				  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+				  $scope.format = $scope.formats[0];
+
+				  $scope.status = {
+				    opened: false
+				  };
+
+				  var tomorrow = new Date();
+				  tomorrow.setDate(tomorrow.getDate() + 1);
+				  var afterTomorrow = new Date();
+				  afterTomorrow.setDate(tomorrow.getDate() + 2);
+				  $scope.events =
+				    [
+				      {
+				        date: tomorrow,
+				        status: 'full'
+				      },
+				      {
+				        date: afterTomorrow,
+				        status: 'partially'
+				      }
+				    ];
+
+				  $scope.getDayClass = function(date, mode) {
+				    if (mode === 'day') {
+				      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+				      for (var i=0;i<$scope.events.length;i++){
+				        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+				        if (dayToCheck === currentDay) {
+				          return $scope.events[i].status;
+				        }
+				      }
+				    }
+
+				    return '';
+				  };
 } ]);

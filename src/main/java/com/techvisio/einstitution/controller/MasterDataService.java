@@ -110,7 +110,32 @@ public ResponseEntity<Response> getMasterDataforEnquiry() {
 	response.setResponseBody(serverData);
 	}
 	catch(Exception e){
-		logger.error("Error while fetching master data for admssion", e);
+		logger.error("Error while fetching master data for enquiry", e);
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+	
+}
+
+@RequestMapping(value = "/consultant", method = RequestMethod.GET)	
+public ResponseEntity<Response> getMasterDataforConsultant() {
+	logger.info("{} Get MasterData call for consultant ",this.getClass().getName());
+	Response response=new Response();
+	String[] masterEntity=new String[]{
+			AppConstants.CONSULTANT,
+			};
+	
+	try{
+	Map<String,List> serverData=new HashMap<String, List>();
+	
+	for(String entity:masterEntity){
+		serverData.put(entity, cacheManager.getEntityList(entity));
+	}
+	
+	response.setResponseBody(serverData);
+	}
+	catch(Exception e){
+		logger.error("Error while fetching master data for consultant", e);
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);

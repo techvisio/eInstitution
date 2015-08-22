@@ -438,6 +438,22 @@ admissionModule
 						 })
 			 }
 
+			 $scope.getUser = function() {
+				 admissionService
+				 .getUser()
+				 .then(
+						 function(response) {
+							 console
+							 .log('Data received from service : ');
+							 console.log(response);
+							 if (response != null
+									 && response.data != null
+									 && response.data.responseBody != null) {
+								 $scope.user = response.data.responseBody.student;
+							 }
+						 })
+			 }
+
 			 $scope.getNewAdmission = function() {
 				 admissionService
 				 .getNewAdmission()
@@ -513,7 +529,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.academicDtl = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.academicDtl);
 									 }
 								 })
 			 }
@@ -532,7 +548,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.academicDtl = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.academicDtl); 
 									 }
 								 })
 			 }
@@ -550,7 +566,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.addressDtl = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.addressDtl);
 									 }
 								 })
 			 }
@@ -569,6 +585,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.addressDtl = response.data.responseBody;
+										 $scope.populateMissingData(response.data.responseBody.addressDtl);
 										 alert("Your Records Saved Successfully")
 									 }
 								 })
@@ -587,6 +604,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.discountDtl = response.data.responseBody;
+										 $scope.populateMissingData(response.data.responseBody.DiscountDtl);
 									 }
 								 })
 			 }
@@ -605,6 +623,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.discountDtl = response.data.responseBody;
+										 $scope.populateMissingData(response.data.responseBody.DiscountDtl);
 									 }
 								 })
 			 }
@@ -658,7 +677,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.counsellingDtl = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.counsellingDtl);
 									 }
 								 })
 			 }
@@ -677,7 +696,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.counsellingDtl = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.counsellingDtl);
 									 }
 								 })
 			 }
@@ -694,7 +713,7 @@ admissionModule
 									 && response.data != null
 									 && response.data.responseBody != null) {
 								 $scope.student.consultantDetail = response.data.responseBody;
-
+								 $scope.populateMissingData(response.data.responseBody.consultantDetail);
 							 }
 						 })
 			 }
@@ -713,7 +732,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.counsellingDtl = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.consultantDetail);
 									 }
 								 })
 			 }
@@ -731,7 +750,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.scholarship = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.scholarship);
 									 }
 								 })
 			 }
@@ -750,7 +769,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.scholarship = response.data.responseBody;
-
+										 $scope.populateMissingData(response.data.responseBody.scholarship);
 									 }
 								 })
 			 }
@@ -1076,11 +1095,82 @@ admissionModule
 				 return true;
 			 }
 
+			 
 			 // angular.element(document).ready(function () {
 			 //
 			 // if(!$scope.form.isNew){
 			 // $scope.makeAllReadOnly();
 			 // }
 			 // });
+			 
+			 
+			 //date picker work
+			 
+			 $scope.today = function() {
+				    $scope.dt = new Date();
+				  };
+				  $scope.today();
+
+				  $scope.clear = function () {
+				    $scope.dt = null;
+				  };
+
+				  // Disable weekend selection
+				  $scope.disabled = function(date, mode) {
+				    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+				  };
+
+				  $scope.toggleMin = function() {
+				    $scope.minDate = $scope.minDate ? null : new Date();
+				  };
+				  $scope.toggleMin();
+
+				  $scope.open = function($event) {
+				    $scope.status.opened = true;
+				  };
+
+				  $scope.dateOptions = {
+				    formatYear: 'yy',
+				    startingDay: 1
+				  };
+
+				  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+				  $scope.format = $scope.formats[0];
+
+				  $scope.status = {
+				    opened: false
+				  };
+
+				  var tomorrow = new Date();
+				  tomorrow.setDate(tomorrow.getDate() + 1);
+				  var afterTomorrow = new Date();
+				  afterTomorrow.setDate(tomorrow.getDate() + 2);
+				  $scope.events =
+				    [
+				      {
+				        date: tomorrow,
+				        status: 'full'
+				      },
+				      {
+				        date: afterTomorrow,
+				        status: 'partially'
+				      }
+				    ];
+
+				  $scope.getDayClass = function(date, mode) {
+				    if (mode === 'day') {
+				      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+				      for (var i=0;i<$scope.events.length;i++){
+				        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+				        if (dayToCheck === currentDay) {
+				          return $scope.events[i].status;
+				        }
+				      }
+				    }
+
+				    return '';
+				  };
 
 		 } ]);
