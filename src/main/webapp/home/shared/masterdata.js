@@ -5,7 +5,8 @@ masterDataModule.service('masterdataService', function($http, $q){
 	 return ({
          getAdmissionMasterData : getAdmissionMasterData,
          getEnquiryMasterData : getEnquiryMasterData,
-         getConsultantMasterData : getConsultantMasterData
+         getConsultantMasterData : getConsultantMasterData,
+         getFeeMasterData : getFeeMasterData
        });
 
        function getAdmissionMasterData() {
@@ -42,6 +43,18 @@ masterDataModule.service('masterdataService', function($http, $q){
            var request = $http({
              method : "get",
              url : "masterdata/consultant",
+             params : "",
+             data : ""
+           });
+           return (request.then(handleSuccess, handleError));
+         }
+
+       function  getFeeMasterData() {
+
+           console.log('Getting masterdata for fee module');
+           var request = $http({
+             method : "get",
+             url : "masterdata/fee",
              params : "",
              data : ""
            });

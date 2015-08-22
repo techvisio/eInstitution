@@ -142,5 +142,31 @@ public ResponseEntity<Response> getMasterDataforConsultant() {
 	
 }
 
+@RequestMapping(value = "/fee", method = RequestMethod.GET)
+public ResponseEntity<Response> getMasterDataforFee() {
+	logger.info("{} Get MasterData call for Fee ",this.getClass().getName());
+	Response response=new Response();
+	String[] masterEntity=new String[]{
+			AppConstants.COURSE,
+			AppConstants.BRANCH
+			};
+	
+	try{
+	Map<String,List> serverData=new HashMap<String, List>();
+	
+	for(String entity:masterEntity){
+		serverData.put(entity, cacheManager.getEntityList(entity));
+	}
+	
+	response.setResponseBody(serverData);
+	}
+	catch(Exception e){
+		logger.error("Error while fetching master data for consultant", e);
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+	
+}
+
 
 }

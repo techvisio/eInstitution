@@ -1,5 +1,5 @@
 <form>
-	<div class="searchcriteria" ng-show="form.content==='dashboard'">
+	<div class="searchcriteria" ng-show="form.content==='dashboard'" ng-init="init()">
 	<table ng-show="showCriteria">
 <tr><td colspan=2><span class="header">Search Student</span></td></tr>
 		<tr>
@@ -9,12 +9,12 @@
 		<tr>
 			<td><span>Course</span></td>
 			<td><select ng-model="searchCriteria.courseId"
-				ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.COURSE"></td>
+				ng-options="item.courseId as item.course  for item in serverModelData.COURSE"></td>
 		</tr>
 		<tr>
 			<td><span>Branch</span></td>
 			<td><select ng-model="searchCriteria.branchId"
-				ng-options="item.id*1 as item.value  for item in serverModelData.dropdownMasterData.BRANCH|filter: {parentId: searchCriteria.courseId}"></td>
+				ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH"></td>
 		</tr>
 		<tr>
 			<td><span>Email Id</span></td>

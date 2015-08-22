@@ -1,4 +1,4 @@
-<form id="FIXEDINFO">
+<form id="FIXEDINFO" name="FIXEDINFO">
 	<div ng-init="init()">
 		<table>
 			<tr>
@@ -30,7 +30,7 @@
 				<td><span> Branch </span></td>
 				<td><select select ng-model="student.branch.branchId"
 					class="form-control"
-					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH"
+					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH|filter: {courseId: student.courseId}"
 					required></select></td>
 			</tr>
 			<tr>
