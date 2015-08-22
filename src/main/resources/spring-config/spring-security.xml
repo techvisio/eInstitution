@@ -8,10 +8,11 @@
 
 	<http use-expressions="true" entry-point-ref="restAuthenticationEntryPoint">
 	<csrf disabled="true"/>
-      <intercept-url pattern="/service/*" access="isAuthenticated()"/>
-	 <intercept-url pattern="/**" access="isAnonymous()" />
+      <intercept-url pattern="/service/**" access="isAuthenticated()"/>
+	 <intercept-url pattern="/home**" access="isAnonymous()" />
       <form-login 
-      default-target-url="/home/index.html"/>
+      default-target-url="/#/home/"
+      login-processing-url="/j_spring_security_check"/>
 
    </http>
    <authentication-manager>

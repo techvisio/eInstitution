@@ -69,7 +69,7 @@ userModule.service('userService', function($http, $q) {
 		 console.log('Getting user in service');
 			 var request = $http({
 				 method : "get",
-				 url : "user/loggedinuser/",
+				 url : "service/user/loggedinuser/",
 				 params : {
 					 action : "get"
 				 }
