@@ -32,7 +32,7 @@ public class SecurityDaoImpl extends BaseDao implements SecurityDao {
 
 	@Override
 	public Set<Privilege> getUserPrivilege(Long userId) {
-		String queryString="p.type from User as u INNER JOIN Role r INNER JOIN Privilege p WHERE u.userId = "+userId;
+		String queryString=" from Privilege as p , Role as r , User as u  where u.userId = "+userId;
 		Query query=getCurrentSession().createQuery(queryString);
 		List<Privilege> result= query.list();
 		Set<Privilege> privileges = new HashSet<Privilege>(result);

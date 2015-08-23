@@ -174,8 +174,8 @@ erp.config(['$httpProvider', '$sceProvider',
             function ($httpProvider, $sceProvider) {
 	$sceProvider.enabled(false);
 	$httpProvider.interceptors.push(
-			['$q', '$location', '$rootScope', 'deferredManager','$modal',
-			 function ($q, $location, $rootScope, deferredManager,$modal) {
+			['$q', '$location', '$rootScope', 'deferredManager',
+			 function ($q, $location, $rootScope, deferredManager) {
 				return {
 					request: function (config) {
 						if(config.url.search('/service/') > -1) {
@@ -190,27 +190,16 @@ erp.config(['$httpProvider', '$sceProvider',
 								return $q.reject(response);
 							}
 						}
+						if(response.status == 202) {
+							$rootScope.$broadcast('authorized',null, response.status);
+						}
 						return response;
 					},
 					responseError: function (response) {
 						if(response.status == 401) {
-							$rootScope.curModal = $modal.open({
-								templateUrl: 'home/modals/login.html',
-								controller: function ($scope) {
-									var title = "Login";
-									$scope.resetCurModal = function(time) { 
-										
-									};
-									$scope.closeErrorModal = function (back) {
-										if(back)
-											history.go(-1);
-										$rootScope.curModal.close();
-										$scope.resetCurModal();
-									};
-								}
-							});
+							$rootScope.$broadcast('unauthorized',null, response.status);
+							return $q.reject(response);
 						} else if (response && [400,403, 404, 405, 415, 500, 501, 502, 503, 504].indexOf(response.status) > -1) {
-
 							$rootScope.$broadcast('showError', response.data.error || 'Error '+response.status, response.status);
 						}
 						return $q.reject(response);
@@ -227,9 +216,6 @@ erp.controller('ApplicationController',
 		    $rootScope.user.privilege=["ROLE_PER_U","ROLE_DOC_U","ROLE_ADD_U","ROLE_DIS_U","ROLE_SCH_U","ROLE_ACD_U","ROLE_COUN_U","ROLE_OFF_U","ROLE_DIS_U","ROLE_CON_U","ROLE_REF_U","ROLE_TRA_U","ROLE_HOS_U","ROLE_AFE_U","ROLE_PER_R","ROLE_DOC_R","ROLE_ADD_R","ROLE_DIS_R","ROLE_SCH_R","ROLE_ACD_R","ROLE_COUN_R","ROLE_OFF_R","ROLE_DIS_R","ROLE_CON_R","ROLE_REF_R","ROLE_TRA_R","ROLE_HOS_R","ROLE_AFE_R"];
 	        $rootScope.user=null;
 		    
-		    if($rootScope.user==null){
-		    	userService.getUser();
-		       }
 			 $scope.getUser = function() {
 				 console
 				 .log('getting user in app.js');
@@ -240,31 +226,35 @@ erp.controller('ApplicationController',
 							 console.log(data);
 							 if (data) {
 								 $rootScope.user = data.responseBody;
+								 $rootScope.curModal.close();
 							 } else {
 								 console.log('error');
 							 }
 						 })
 			 };
-		    
-//			if(!$rootScope.user){$rootScope.curModal = $modal.open({
-//				templateUrl: 'home/modals/login.html',
-//				controller: function ($scope) {
-//					var title = "Login";
-//					$scope.resetCurModal = function(time) { 
-//						
-//					};
-//					$scope.closeErrorModal = function (back) {
-//						if(back)
-//							history.go(-1);
-//						$rootScope.curModal.close();
-//						$scope.resetCurModal();
-//					};
-//				}
-//			// keyboard: false,
-//			// backdrop: 'static'
-//			});
-//			}
-		    
+			 
+			 if($rootScope.user==null){
+		    	 $scope.getUser();
+		       }
+			 
+			 $rootScope.$on('authorized', function (o, e, type) {
+				 $scope.getUser();
+			 });
+
+			 $rootScope.$on('unauthorized', function (o, e, type) {
+			        if (!$.isEmptyObject($rootScope.curModal)) {
+			            return;
+			        }
+			        $rootScope.curModal = $modal.open({
+			            templateUrl: 'home/modals/login.html'
+			        });
+			        $rootScope.curModal.result.finally(
+			            function() {
+			                $rootScope.curModal = {}
+			            }
+			        );
+			    });
+			 
 		    $rootScope.$on('showError', function (o, e, type) {
 		        if (!$.isEmptyObject($rootScope.curModal)) {
 		            return;

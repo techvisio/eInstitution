@@ -343,11 +343,7 @@ admissionModule
 			 }
 
 			 $scope.processWorkflow = function() {
-
-				 if(!$scope.PERSONALINFO.$valid){
-					 alert('Form is invalid');
-					 return;
-				 }
+				 
 				 var stepId = $scope.currentWorkflow[0].stepId;
 				 admissionService
 				 .processWorkflow($scope.student, stepId)

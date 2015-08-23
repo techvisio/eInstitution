@@ -11,18 +11,27 @@
       <intercept-url pattern="/service/**" access="isAuthenticated()"/>
 	 <intercept-url pattern="/home**" access="isAnonymous()" />
       <form-login 
-      default-target-url="/#/home/"
-      login-processing-url="/j_spring_security_check"/>
+      username-parameter="j_username" 
+      password-parameter="j_password" 
+      login-processing-url="/j_spring_security_check"
+      authentication-success-handler-ref="restAuthenticationSuccessHandler"
+      authentication-failure-handler-ref="restAuthenticationFailureHandler"
+      default-target-url="/#/home/" />
 
    </http>
    <authentication-manager>
-      <authentication-provider>
-         <user-service>
-            <user name="user1" password="user1Pass" authorities="ROLE_USER" />
-         </user-service>
-      </authentication-provider>
+      <security:authentication-provider ref="authenticationProvider"/>
    </authentication-manager>
    
    <beans:bean id="restAuthenticationEntryPoint" class="com.techvisio.einstitution.security.RestAuthenticationEntryPoint">
+    </beans:bean> 
+  
+    <beans:bean id="restAuthenticationSuccessHandler" class="com.techvisio.einstitution.security.RestAuthenticationSuccessHandler">
+    </beans:bean> 
+    
+    <beans:bean id="restAuthenticationFailureHandler" class="com.techvisio.einstitution.security.RestAuthenticationFailureHandler">
+    </beans:bean> 
+    
+    <beans:bean id="authenticationProvider" class="com.techvisio.einstitution.manager.AuthenticationManager">
     </beans:bean> 
 </beans:beans>
