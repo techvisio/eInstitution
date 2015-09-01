@@ -12,20 +12,30 @@ admissionModule
 		 '$state',
 		 '$rootScope',
 		 'injectedData',
+		 'transportService',
+		 'hostelService',
 		 function($scope, admissionService, masterdataService,
-				 $modal, $state, $rootScope, injectedData) {
+				 $modal, $state, $rootScope, injectedData,transportService,hostelService) {
 
 			 $scope.form = {};
 			 $scope.form.isNew = true;
 			 $scope.student = {};
 			 $scope.currentWorkflow = [];
 			 $scope.student.studentBasics = {};
-
+			 $scope.student.documents={};
 			 $scope.form.sameAsAbove = false;
 			 $scope.form.processing = false;
 			 $scope.showCriteria = true;
 			 $scope.serverModelData = {};
 
+			 $scope.availableTransport = {};
+			 $scope.transportReservation = {};
+			 $scope.currentTransportReservation={};
+
+			 $scope.hostelAvailability = {};
+			 $scope.hostelReservation = {};
+			 $scope.currentHostelReservation={};
+			 
 			 $scope.formTabs = {
 					 "DOCUMENT" : {
 						 "isEdit" : false,
@@ -244,7 +254,7 @@ admissionModule
 							 }
 						 })
 
-			 }
+			 };
 
 			 $scope.addConsultantDetail = function() {
 
@@ -314,7 +324,13 @@ admissionModule
 
 			 $scope.getAddress = function(addressType) {
 				 var address = null;
-				 for (var i = 0; i <= ($scope.student.addressDtl.length || 0) - 1; i++) {
+				 var addressSize=0;
+				 if(!$scope.student.addressDtl){
+					 $scope.student.addressDtl=[];
+				 }
+				 addressSize =$scope.student.addressDtl.length;
+
+				 for (var i = 0; i <= addressSize - 1; i++) {
 					 var add = $scope.student.addressDtl[i];
 					 if (add.addressType == addressType) {
 						 address = add;
@@ -343,7 +359,7 @@ admissionModule
 			 }
 
 			 $scope.processWorkflow = function() {
-				 
+
 				 var stepId = $scope.currentWorkflow[0].stepId;
 				 admissionService
 				 .processWorkflow($scope.student, stepId)
@@ -365,7 +381,7 @@ admissionModule
 							 }
 							 $scope.processing = false;
 						 })
-			 }
+			 };
 
 			 $scope.saveStudent = function() {
 				 console.log('add student called');
@@ -389,30 +405,8 @@ admissionModule
 							 }
 							 $scope.processing = false;
 						 })
-			 }
+			 };
 
-			 // $scope.updateStudent = function() {
-			 // console.log('update student called');
-			 // console.log($scope.student);
-			 // $scope.processing = true;
-			 // admissionService
-			 // .updateStudent($scope.student)
-			 // .then(
-			 // function(response) {
-			 // console
-			 // .log('Data received from service : ');
-			 // console.log(response);
-			 // if (response != null
-			 // && response.data != null
-			 // && response.data.responseBody != null) {
-			 // $scope.student = response.data.responseBody;
-			 // $scope
-			 // .populateMissingData($scope.student);
-			 // $scope.form.isNew = false;
-			 // }
-			 // $scope.processing = false;
-			 // })
-			 // }
 
 			 $scope.getStudent = function(fileNo) {
 				 $scope.processing = true;
@@ -436,23 +430,7 @@ admissionModule
 							 }
 							 $scope.processing = false;
 						 })
-			 }
-
-			 $scope.getUser = function() {
-				 admissionService
-				 .getUser()
-				 .then(
-						 function(response) {
-							 console
-							 .log('Data received from service : ');
-							 console.log(response);
-							 if (response != null
-									 && response.data != null
-									 && response.data.responseBody != null) {
-								 $scope.user = response.data.responseBody.student;
-							 }
-						 })
-			 }
+			 };
 
 			 $scope.getNewAdmission = function() {
 				 admissionService
@@ -470,7 +448,7 @@ admissionModule
 							 }
 
 						 })
-			 }
+			 };
 
 			 $scope.getSaveButtonText = function() {
 				 if ($scope.currentWorkflow.length > 1) {
@@ -495,7 +473,7 @@ admissionModule
 
 							 }
 						 })
-			 }
+			 };
 
 			 $scope.updateStudentBasics = function() {
 				 admissionService
@@ -513,7 +491,7 @@ admissionModule
 										 $scope.student.studentBasics = response.data.responseBody;
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getStudentAcademicDtl = function() {
 
@@ -532,7 +510,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.academicDtl);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.updateStudentAcademicDtl = function() {
 				 admissionService
@@ -551,7 +529,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.academicDtl); 
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getStudentAddress = function() {
 				 admissionService
@@ -569,7 +547,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.addressDtl);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.updateStudentAddress = function() {
 				 admissionService
@@ -589,7 +567,7 @@ admissionModule
 										 alert("Your Records Saved Successfully")
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getStudentDiscountDtl = function() {
 				 admissionService
@@ -607,7 +585,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.DiscountDtl);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.updateStudentDiscountDtl = function() {
 				 admissionService
@@ -626,7 +604,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.DiscountDtl);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getBranchPref = function() {
 				 admissionService
@@ -643,7 +621,7 @@ admissionModule
 
 							 }
 						 })
-			 }
+			 };
 
 			 $scope.updateBranchPref = function() {
 				 admissionService
@@ -662,7 +640,7 @@ admissionModule
 
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getCounsellingDtl = function() {
 				 admissionService
@@ -680,7 +658,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.counsellingDtl);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.updateCounsellingDtl = function() {
 				 admissionService
@@ -699,7 +677,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.counsellingDtl);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getConsultantDtl = function() {
 				 admissionService
@@ -716,7 +694,7 @@ admissionModule
 								 $scope.populateMissingData(response.data.responseBody.consultantDetail);
 							 }
 						 })
-			 }
+			 };
 
 			 $scope.updateConsultantDtl = function() {
 				 admissionService
@@ -735,7 +713,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.consultantDetail);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getScholarshipDtl = function() {
 				 admissionService
@@ -753,7 +731,7 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.scholarship);
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.updateScholarshipDtl = function() {
 				 admissionService
@@ -772,16 +750,15 @@ admissionModule
 										 $scope.populateMissingData(response.data.responseBody.scholarship);
 									 }
 								 })
-			 }
+			 };
 
-			 $scope.getdocuments = function() {
-
+			 $scope.getstudentDocument = function() {
 				 admissionService
-				 .getdocuments($scope.student.fileNo)
+				 .getStudentDocument($scope.student.fileNo)
 				 .then(
 						 function(response) {
 							 console
-							 .log('document detail received from service : ');
+							 .log('Student document Data received in controller : ');
 							 console.log(response);
 							 if (response != null
 									 && response.data != null
@@ -789,7 +766,7 @@ admissionModule
 								 $scope.student.documents = response.data.responseBody;
 							 }
 						 })
-			 }
+			 };
 
 			 $scope.updateDocuments = function() {
 				 admissionService
@@ -808,7 +785,7 @@ admissionModule
 
 									 }
 								 })
-			 }
+			 };
 
 			 $scope.getStudentByCriteria = function() {
 				 console
@@ -839,7 +816,7 @@ admissionModule
 
 									 $scope.processing = false;
 								 })
-			 }
+			 };
 
 			 $scope.numPages = function() {
 				 return Math
@@ -933,7 +910,7 @@ admissionModule
 								 .copy($scope.dummyQualificationSubDtl))
 					 }
 				 }
-			 }
+			 };
 
 			 $scope.getRelatedData = function(type) {
 
@@ -941,7 +918,7 @@ admissionModule
 					 switch (type) {
 					 case "DOCUMENT": {
 						 $scope
-						 .getDocuments($scope.student.fileNo);
+						 .getstudentDocument($scope.student.fileNo);
 						 break;
 					 }
 
@@ -992,7 +969,14 @@ admissionModule
 						 .getStudentBasics($scope.student.fileNo);
 						 break;
 					 }
-
+					 case "TRANSPORT": {
+						 $scope.getReservedTransport($scope.student.fileNo);
+						 break;
+					 }
+					 case "HOSTEL": {
+						 $scope.getReservedHostel($scope.student.fileNo);
+						 break;
+					 }
 					 default: {
 						 $scope
 						 .getStudent($scope.student.fileNo);
@@ -1095,82 +1079,172 @@ admissionModule
 				 return true;
 			 }
 
-			 
+
 			 // angular.element(document).ready(function () {
 			 //
 			 // if(!$scope.form.isNew){
 			 // $scope.makeAllReadOnly();
 			 // }
 			 // });
-			 
-			 
+
+
 			 //date picker work
-			 
+
 			 $scope.today = function() {
-				    $scope.dt = new Date();
-				  };
-				  $scope.today();
+				 $scope.dt = new Date();
+			 };
+			 $scope.today();
 
-				  $scope.clear = function () {
-				    $scope.dt = null;
-				  };
+			 $scope.clear = function () {
+				 $scope.dt = null;
+			 };
 
-				  // Disable weekend selection
-				  $scope.disabled = function(date, mode) {
-				    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-				  };
+			 // Disable weekend selection
+			 $scope.disabled = function(date, mode) {
+				 return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+			 };
 
-				  $scope.toggleMin = function() {
-				    $scope.minDate = $scope.minDate ? null : new Date();
-				  };
-				  $scope.toggleMin();
+			 $scope.toggleMin = function() {
+				 $scope.minDate = $scope.minDate ? null : new Date();
+			 };
+			 $scope.toggleMin();
 
-				  $scope.open = function($event) {
-				    $scope.status.opened = true;
-				  };
+			 $scope.open = function($event) {
+				 $scope.status.opened = true;
+			 };
 
-				  $scope.dateOptions = {
-				    formatYear: 'yy',
-				    startingDay: 1
-				  };
+			 $scope.dateOptions = {
+					 formatYear: 'yy',
+					 startingDay: 1
+			 };
 
-				  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-				  $scope.format = $scope.formats[0];
+			 $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+			 $scope.format = $scope.formats[0];
 
-				  $scope.status = {
-				    opened: false
-				  };
+			 $scope.status = {
+					 opened: false
+			 };
 
-				  var tomorrow = new Date();
-				  tomorrow.setDate(tomorrow.getDate() + 1);
-				  var afterTomorrow = new Date();
-				  afterTomorrow.setDate(tomorrow.getDate() + 2);
-				  $scope.events =
-				    [
-				      {
-				        date: tomorrow,
-				        status: 'full'
-				      },
-				      {
-				        date: afterTomorrow,
-				        status: 'partially'
-				      }
-				    ];
+			 var tomorrow = new Date();
+			 tomorrow.setDate(tomorrow.getDate() + 1);
+			 var afterTomorrow = new Date();
+			 afterTomorrow.setDate(tomorrow.getDate() + 2);
+			 $scope.events =
+				 [
+				  {
+					  date: tomorrow,
+					  status: 'full'
+				  },
+				  {
+					  date: afterTomorrow,
+					  status: 'partially'
+				  }
+				  ];
 
-				  $scope.getDayClass = function(date, mode) {
-				    if (mode === 'day') {
-				      var dayToCheck = new Date(date).setHours(0,0,0,0);
+			 $scope.getDayClass = function(date, mode) {
+				 if (mode === 'day') {
+					 var dayToCheck = new Date(date).setHours(0,0,0,0);
 
-				      for (var i=0;i<$scope.events.length;i++){
-				        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+					 for (var i=0;i<$scope.events.length;i++){
+						 var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
 
-				        if (dayToCheck === currentDay) {
-				          return $scope.events[i].status;
-				        }
-				      }
-				    }
+						 if (dayToCheck === currentDay) {
+							 return $scope.events[i].status;
+						 }
+					 }
+				 }
 
-				    return '';
-				  };
+				 return '';
+			 };
+
+			 //transport work
+
+			 $scope.getAvailableTransport = function() {
+
+				 transportService.getAvailableTransport().then(function(response) {
+					 console.log('Data received from service : ');
+					 console.log(response);
+					 if(response.data != null)
+					 {
+						 $scope.availableTransport=response.data;
+					 }
+				 })
+
+			 };
+
+			 $scope.getReservedTransport = function(){
+				 var fileNo=$scope.student.fileNo;
+				 if(!fileNo){
+					 return;
+				 }
+				 console.log('Getting current transport reservation for student : '+fileNo);
+				 if(fileNo){				
+					 transportService.getReservedTransport(fileNo)
+					 .then(function(response){
+						 console.log('Data received from getReservedTransport controller : ');
+						 console.log(response);
+						 if (response !=null && response.data != null && response.data.responseBody != null) {
+							 $scope.currentTransportReservation = response.data.responseBody;
+						 }
+					 })
+				 }
+			 };
+
+
+			 $scope.reserveTransport = function(){
+
+				 var fileNo=$scope.student.fileNo;
+
+				 $scope.transportReservation.fileNo=fileNo;
+
+				 transportService.reserveTransport($scope.transportReservation)
+				 .then(function(response){
+					 console.log('Transport Reservation callback');
+					 console.log(response.data.responseBody);
+					 $scope.currentTransportReservation=response.data;
+				 })
+			 };
+
+			 //hostel work
+
+			 $scope.getHostelAvailability=function(){
+
+				 hostelService.getHostelAvailability().then(function(response) {
+					 console.log('getHostelAvailability call back : ');
+					 console.log(response);
+					 if(response.data != null)
+					 {
+						 $scope.hostelAvailability=response.data;
+					 }
+				 })
+			 };
+
+			 $scope.getReservedHostel = function(){
+				 var fileNo=$scope.student.fileNo;
+				 console.log('Getting current hostel reservation for student : '+fileNo);
+				 if(fileNo){				
+
+					 hostelService.getReservedHostel(fileNo)
+					 .then(function(response){
+						 console.log('Getting reserved hosetl in controller : ');
+						 console.log(response);
+						 if (response !=null && response.data != null && response.data.responseBody != null) {
+							 $scope.currentHostelReservation = response.data.responseBody;
+						 } 					 })
+				 }
+			 };
+
+			 $scope.reserveRoom = function(){
+
+				 var fileNo=$scope.student.fileNo;
+				 $scope.hostelReservation.fileNo=fileNo;
+
+				 hostelService.reserveRoom($scope.hostelReservation)
+				 .then(function(response){
+					 console.log('Hostel Reservation callback');
+					 console.log(response.data.responseBody);
+					 $scope.currentHostelReservation=response.data.responseBody;
+				 })
+			 };
 
 		 } ]);

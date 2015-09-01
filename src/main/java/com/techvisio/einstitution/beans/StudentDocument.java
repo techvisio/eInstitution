@@ -9,9 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @Entity
 @Table(name = "STUDENT_DOCUMENTS")    
 
+@JsonIgnoreType
 public class StudentDocument extends BasicEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,6 +30,9 @@ public class StudentDocument extends BasicEntity {
 	
 	@Column(name = "Is_Received")
 	private boolean received;
+
+	@Column(name = "Document_No")
+	private String documentNo;
 
 	public Long getFileNo() {
 		return fileNo;
@@ -61,5 +67,12 @@ public class StudentDocument extends BasicEntity {
 	public void setReceived(boolean received) {
 		this.received = received;
 	}
-
+	
+	public String getDocumentNo() {
+		return documentNo;
+	}
+	
+	public void setDocumentNo(String documentNo) {
+		this.documentNo = documentNo;
+	}
 }

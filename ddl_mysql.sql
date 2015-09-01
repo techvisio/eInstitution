@@ -167,6 +167,10 @@
         drop 
         foreign key FK_fcuj04r1h5wyextvtm0m2iqbi;
 
+    alter table ROUTE_MAPPING 
+        drop 
+        foreign key FK_3alf3xuqxj5ty6waoeqv5pyaj;
+
     alter table SCHOLARSHIP_DETAIL 
         drop 
         foreign key FK_75r1ec58fkvtpcuu8qqdxpfq5;
@@ -250,6 +254,10 @@
     alter table TRANSPORT_ALLOCATION 
         drop 
         foreign key FK_7ql1o270wrslsg3dkqhugyjmo;
+
+    alter table VEHICLE_DETAIL 
+        drop 
+        foreign key FK_bmngobbyma9vt09gpf4utomdb;
 
     alter table VEHICLE_DETAIL 
         drop 
@@ -353,6 +361,10 @@
 
     drop table if exists ROOM_TYPE_MASTER;
 
+    drop table if exists ROUTE_MAPPING;
+
+    drop table if exists ROUTE_MASTER;
+
     drop table if exists SCHOLARSHIP_DETAIL;
 
     drop table if exists SCHOLARSHIP_PAYMENT_DETAIL;
@@ -382,8 +394,6 @@
     drop table if exists TASK_AND_FOLLOWUP;
 
     drop table if exists TRANSPORT_ALLOCATION;
-
-    drop table if exists TRANSPORT_MASTER;
 
     drop table if exists TRANSPORT_RESERVATION;
 
@@ -646,7 +656,6 @@
         Updated_By varchar(255),
         Updated_On datetime,
         Document_Name varchar(255),
-        Document_No varchar(255),
         Document_Type varchar(255),
         primary key (Document_Id)
     );
@@ -722,21 +731,17 @@
     );
 
     create table HOSTEL_RESERVATION (
-        hostl_Rsrvation_Id bigint not null auto_increment,
+        File_No bigint not null,
         Created_By varchar(255),
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
         Is_Active bit,
         Allocation_Status varchar(255),
-        Charges double precision,
         Description varchar(255),
-        Is_Fee_Generated bit,
-        Is_Fee_Paid bit,
-        File_No bigint,
         Price double precision,
         Type_Code varchar(255),
-        primary key (hostl_Rsrvation_Id)
+        primary key (File_No)
     );
 
     create table PRIVILEGE (
@@ -844,6 +849,20 @@
         Threshold integer,
         Type_Code varchar(255),
         primary key (Room_Type_Id)
+    );
+
+    create table ROUTE_MAPPING (
+        Route_Map_Id bigint not null auto_increment,
+        Price double precision,
+        Stop varchar(255),
+        Route_Id bigint,
+        primary key (Route_Map_Id)
+    );
+
+    create table ROUTE_MASTER (
+        Route_Id bigint not null auto_increment,
+        Description varchar(255),
+        primary key (Route_Id)
     );
 
     create table SCHOLARSHIP_DETAIL (
@@ -995,6 +1014,7 @@
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
+        Document_No varchar(255),
         File_No bigint,
         Is_Received bit,
         Document_Id bigint,
@@ -1060,37 +1080,25 @@
         primary key (transport_Alloctionn_Id)
     );
 
-    create table TRANSPORT_MASTER (
-        Route_Id bigint not null auto_increment,
+    create table TRANSPORT_RESERVATION (
+        File_No bigint not null,
         Created_By varchar(255),
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
-        Description varchar(255),
-        Price double precision,
-        Route_Code varchar(255),
-        Threshold varchar(255),
-        primary key (Route_Id)
-    );
-
-    create table TRANSPORT_RESERVATION (
-        Id bigint not null auto_increment,
         Allocation_Status varchar(255),
         Description varchar(255),
-        Fee_Paid bit,
-        File_No bigint,
         Is_Active bit,
         Price double precision,
-        Route_Code varchar(255),
-        primary key (Id)
+        Route_Id bigint,
+        primary key (File_No)
     );
 
     create table USER (
         User_Id bigint not null auto_increment,
-        Department varchar(255),
+        IS_ACTIVE bit,
         Name varchar(255),
         Password varchar(255),
-        Status varchar(255),
         primary key (User_Id)
     );
 
@@ -1101,8 +1109,8 @@
         Updated_By varchar(255),
         Updated_On datetime,
         Capacity varchar(255),
-        Route_Code varchar(255),
         Vehicle_No varchar(255),
+        Route_Id bigint,
         Type_Id bigint,
         primary key (Vehicle_Id)
     );
@@ -1412,6 +1420,11 @@
         foreign key (Wing_Id) 
         references WING_MASTER (Wing_Id);
 
+    alter table ROUTE_MAPPING 
+        add constraint FK_3alf3xuqxj5ty6waoeqv5pyaj 
+        foreign key (Route_Id) 
+        references ROUTE_MASTER (Route_Id);
+
     alter table SCHOLARSHIP_DETAIL 
         add constraint FK_75r1ec58fkvtpcuu8qqdxpfq5 
         foreign key (FILE_NO) 
@@ -1516,6 +1529,11 @@
         add constraint FK_7ql1o270wrslsg3dkqhugyjmo 
         foreign key (Type_Id) 
         references VEHICLE_DETAIL (Vehicle_Id);
+
+    alter table VEHICLE_DETAIL 
+        add constraint FK_bmngobbyma9vt09gpf4utomdb 
+        foreign key (Route_Id) 
+        references ROUTE_MASTER (Route_Id);
 
     alter table VEHICLE_DETAIL 
         add constraint FK_4mmiquwsacu8g006dqhmuebhm 

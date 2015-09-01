@@ -2,11 +2,12 @@ package com.techvisio.einstitution.beans;
 
 public class AvailableTransport {
 
-	private String routeCode;
+	private Long routeId;
+	private String stop;
 	private String description;
 	private int reserved;
 	private int available;
-	private String threshold;
+	private String capacity;
 	private Double price;
 
 
@@ -18,15 +19,6 @@ public class AvailableTransport {
 		this.reserved = reserved;
 	}
 
-
-	public String getThreshold() {
-		return threshold;
-	}
-
-	public void setThreshold(String threshold) {
-		this.threshold = threshold;
-	}
-
 	public Double getPrice() {
 		return price;
 	}
@@ -35,20 +27,12 @@ public class AvailableTransport {
 		this.price = price;
 	}
 
-	public String getRouteCode() {
-		return routeCode;
+	public Long getRouteId() {
+		return routeId;
 	}
 
-	public void setRouteCode(String routeCode) {
-		this.routeCode = routeCode;
-	}
-
-	@Override
-	public String toString() {
-		return "AvailableTransport [routeCode=" + routeCode + ", description="
-				+ description + ", reserved=" + reserved + ", available="
-				+ available + ", threshold=" + threshold + ", price=" + price
-				+ "]";
+	public void setRouteId(Long routeId) {
+		this.routeId = routeId;
 	}
 
 	public int getAvailable() {
@@ -67,5 +51,21 @@ public class AvailableTransport {
 		this.description = description;
 	}
 
-	
+	public String getStop() {
+		return stop;
+	}
+
+	public void setStop(String stop) {
+		this.stop = stop;
+	}
+
+	public String getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(String capacity) {
+		this.capacity = capacity;
+	}
+
+
 }

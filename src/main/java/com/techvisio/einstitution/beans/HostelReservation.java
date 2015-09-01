@@ -11,16 +11,10 @@ import javax.persistence.Table;
 @Table(name = "HOSTEL_RESERVATION")
 public class HostelReservation extends BasicEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "hostl_Rsrvation_Id")
-	private Long hostlRsrvationId;
-
 	@Column(name = "File_No")
 	private Long fileNo;
 
-	@Column(name = "Is_Fee_Paid")
-	private boolean feePaid;
-	
+
 	@Column(name = "Type_Code")
 	private String typeCode;
 
@@ -29,12 +23,6 @@ public class HostelReservation extends BasicEntity {
 
 	@Column(name = "Is_Active")
 	private boolean active;
-	
-	@Column(name = "Charges")
-	private Double charges;
-	
-	@Column(name = "Is_Fee_Generated")
-	private boolean feeGenerated;
 
 	@Column(name = "Price")
 	private Double price;
@@ -45,22 +33,6 @@ public class HostelReservation extends BasicEntity {
 
 	public void setActive(boolean active) {
 		this.active = active;
-	}
-
-	public Double getCharges() {
-		return charges;
-	}
-
-	public void setCharges(Double charges) {
-		this.charges = charges;
-	}
-
-	public boolean isFeeGenerated() {
-		return feeGenerated;
-	}
-
-	public void setFeeGenerated(boolean feeGenerated) {
-		this.feeGenerated = feeGenerated;
 	}
 
 	@Column(name = "Description")
@@ -80,14 +52,6 @@ public class HostelReservation extends BasicEntity {
 
 	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
-	}
-
-	public boolean isFeePaid() {
-		return feePaid;
-	}
-
-	public void setFeePaid(boolean feePaid) {
-		this.feePaid = feePaid;
 	}
 
 	public String getAllocationStatus() {
@@ -112,14 +76,6 @@ public class HostelReservation extends BasicEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Long getHostlRsrvationId() {
-		return hostlRsrvationId;
-	}
-
-	public void setHostlRsrvationId(Long hostlRsrvationId) {
-		this.hostlRsrvationId = hostlRsrvationId;
 	}
 
 }

@@ -39,7 +39,6 @@ public class TransportService {
 			logger.info("{}:  Calling getAvailableTransport method",this.getClass().getName());
 			List<AvailableTransport> availableTransports=transportWorkflowManager.getAvailableTransport();
 			return availableTransports;  
-			
 		  }
 		@RequestMapping(value="/reservation/{fileNo}",method = RequestMethod.GET)
 		  public ResponseEntity<Response> getTransportReservation(@PathVariable Long fileNo) {  

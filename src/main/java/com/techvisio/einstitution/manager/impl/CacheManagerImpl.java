@@ -90,7 +90,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, VehicleDetail> vehicleDetailMap  = new HashMap<Long, VehicleDetail>();
 	private static Map<Long, VehicleType> vehicleTypeMap = new HashMap<Long, VehicleType>();
 	private static Map<String, RoomType> roomTypeMap = new HashMap<String, RoomType>();
-	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
+//	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
 	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
 	private static Map<Long, Workflow> workflowMap = new TreeMap<Long, Workflow>();
 	private static Map<String, Activity> activityMap = new HashMap<String, Activity>();
@@ -337,15 +337,15 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
-	public synchronized List<Transport> getTransports(){
-		logger.info("{} : Mapping work for get transport ",this.getClass().getName());		
-		if(entityListMap.get(AppConstants.TRANSPORT) == null || entityListMap.get(AppConstants.TRANSPORT).size() == 0){
-			refreshCacheList(AppConstants.TRANSPORT);
-		}
-		return (List<Transport>)entityListMap.get(AppConstants.TRANSPORT);
-		
-	}
+//	@SuppressWarnings("unchecked")
+//	public synchronized List<Transport> getTransports(){
+//		logger.info("{} : Mapping work for get transport ",this.getClass().getName());		
+//		if(entityListMap.get(AppConstants.TRANSPORT) == null || entityListMap.get(AppConstants.TRANSPORT).size() == 0){
+//			refreshCacheList(AppConstants.TRANSPORT);
+//		}
+//		return (List<Transport>)entityListMap.get(AppConstants.TRANSPORT);
+//		
+//	}
 	
 	
 	@SuppressWarnings("unchecked")
@@ -488,10 +488,10 @@ public class CacheManagerImpl implements CacheManager {
 		roomTypeMasters = cacheDao.getRoomType();
 		entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
 
-		List<Transport> transports = new ArrayList<Transport>();
-		logger.info("{} : built entity list cache work for get transport ",this.getClass().getName());
-		transports = cacheDao.getTransport();
-		entityListMap.put(AppConstants.TRANSPORT, transports);
+//		List<Transport> transports = new ArrayList<Transport>();
+//		logger.info("{} : built entity list cache work for get transport ",this.getClass().getName());
+//		transports = cacheDao.getTransport();
+//		entityListMap.put(AppConstants.TRANSPORT, transports);
 		
 		List<Amenities> amenities = new ArrayList<Amenities>();
 		logger.info("{} : built entity list cache work for get amenities ",this.getClass().getName());	
@@ -666,11 +666,11 @@ public class CacheManagerImpl implements CacheManager {
 			roomTypeMasters = cacheDao.getRoomType();
 			entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
 		
-		case AppConstants.TRANSPORT:
-			logger.info("{} : refresh cache list work for get transport ",this.getClass().getName());			
-			List<Transport> transports =new ArrayList<Transport>();
-			transports = cacheDao.getTransport();
-			entityListMap.put(AppConstants.TRANSPORT, transports);
+//		case AppConstants.TRANSPORT:
+//			logger.info("{} : refresh cache list work for get transport ",this.getClass().getName());			
+//			List<Transport> transports =new ArrayList<Transport>();
+//			transports = cacheDao.getTransport();
+//			entityListMap.put(AppConstants.TRANSPORT, transports);
 
 		case AppConstants.AMENITIES:
 			logger.info("{} : refresh cache list work for get amenities ",this.getClass().getName());		
@@ -791,9 +791,9 @@ public class CacheManagerImpl implements CacheManager {
 			roomTypeMap.put(roomTypeMaster.getTypeCode(), roomTypeMaster);
 		}
 		
-		for(Transport transport : cacheDao.getTransport()){
-			transportMap.put(transport.getRouteCode(), transport);
-		}
+//		for(Transport transport : cacheDao.getTransport()){
+//			transportMap.put(transport.getRouteCode(), transport);
+//		}
 		
 		for(Amenities amenities : cacheDao.getAmenitiesCharges()){
 			amenitiesMap.put(amenities.getFeeDiscountHead().getHeadId(), amenities);
@@ -947,12 +947,12 @@ public class CacheManagerImpl implements CacheManager {
 		return roomTypeMap.get(typeCode);
 	}
 	
-	@Override
-	public Transport getTransportByRouteCode(String routeCode){
-		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
-		return transportMap.get(routeCode);
-	}
-	
+//	@Override
+//	public Transport getTransportByRouteCode(String routeCode){
+//		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
+//		return transportMap.get(routeCode);
+//	}
+//	
 	@Override
 	public Amenities getAmentiesByFeeId(Long feeId ){
 		return amenitiesMap.get(feeId);

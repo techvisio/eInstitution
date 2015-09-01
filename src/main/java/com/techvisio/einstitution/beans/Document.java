@@ -21,15 +21,6 @@ public class Document extends BasicEntity {
 	@Column(name = "Document_Type")
 	private String documentType;
 	
-	public String getDocumentNo() {
-		return documentNo;
-	}
-	public void setDocumentNo(String documentNo) {
-		this.documentNo = documentNo;
-	}
-	@Column(name = "Document_No")
-	private String documentNo;
-	
 	public Long getDocumentId() {
 		return documentId;
 	}
@@ -48,4 +39,5 @@ public class Document extends BasicEntity {
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+
 }

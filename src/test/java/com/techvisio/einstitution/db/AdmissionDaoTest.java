@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.Branch;
@@ -17,8 +18,8 @@ import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-
-
+import com.techvisio.einstitution.beans.StudentDocument;
+@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-config/Application-context.xml" })
 public class AdmissionDaoTest {
@@ -85,10 +86,13 @@ public void testSearch(){
 	System.out.println("Data is:"+basicInfos);
 }
 
+@Test
+public void testGetStudentDoc(){
+	
+	List<StudentDocument> documents = dao.getDocumentDtl(1L);
 
-
-
-
+	System.out.println("data is :" + documents);
+}
 
 }
   

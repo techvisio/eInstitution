@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.db;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -62,7 +63,7 @@ public interface AdmissionDao {
 	public void saveDocumentDtl(StudentDocument document);
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 	
-	public List<Object[]> getStudentDocumentDtl();
+	public Map<String,List<List<StudentDocument>>> getStudentDocumentForUI(Long fileNo);
 	
 	public void saveStudentActivity(StudentActivity studentActivity);
 	public void saveStudentActivity(List<StudentActivity> studentActivities,

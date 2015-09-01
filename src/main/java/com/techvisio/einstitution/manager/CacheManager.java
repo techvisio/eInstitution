@@ -90,7 +90,7 @@ public interface CacheManager {
 
 	RoomType getRoomTypeMasterByTypeCode(String typeCode);
 
-	Transport getTransportByRouteCode(String routeCode);
+//	Transport getTransportByRouteCode(String routeCode);
 
 	Amenities getAmentiesByFeeId(Long feeId);
 

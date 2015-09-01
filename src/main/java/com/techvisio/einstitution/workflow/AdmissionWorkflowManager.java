@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.workflow;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,7 +67,7 @@ public interface AdmissionWorkflowManager {
 	public void saveDocumentDtl(StudentDocument document);
 	public void deleteDocumentDtlExclusion(List<StudentDocument> documents, Long fileNo);
 
-	public List<Object[]> getStudentDocumentDtl();
+	public Map<String,List<List<StudentDocument>>> getStudentDocumentForUI(Long fileNo);
 
 	public Workflow getNewAdmissionWorkFlow();
 

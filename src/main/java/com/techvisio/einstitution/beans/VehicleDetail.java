@@ -1,17 +1,14 @@
 package com.techvisio.einstitution.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "VEHICLE_DETAIL")
@@ -28,10 +25,19 @@ public class VehicleDetail extends BasicEntity{
 	private String capacity;
 	@Column(name = "Vehicle_No")
 	private String vehicleNo;
-	@Column(name = "Route_Code")
-	private String routeCode;
+	@ManyToOne
+	@JoinColumn(name = "Route_Id")
+	private Route route;
 
 	
+
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
 
 	public String getCapacity() {
 		return capacity;
@@ -47,14 +53,6 @@ public class VehicleDetail extends BasicEntity{
 
 	public void setVehicleNo(String vehicleNo) {
 		this.vehicleNo = vehicleNo;
-	}
-
-	public String getRouteCode() {
-		return routeCode;
-	}
-
-	public void setRouteCode(String routeCode) {
-		this.routeCode = routeCode;
 	}
 
 	public Long getVehicleId() {

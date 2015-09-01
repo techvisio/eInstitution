@@ -40,12 +40,13 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 
 				AvailableTransport availableTransport = new AvailableTransport();
 
-				availableTransport.setRouteCode(rs.getString("Route_Code"));
+				availableTransport.setRouteId(rs.getLong("Route_Id"));
 				availableTransport.setAvailable(rs.getInt("Available_Seat"));
 				availableTransport.setReserved(rs.getInt("Reserved_Seat"));
-				availableTransport.setThreshold(rs.getString("Threshold"));
+				availableTransport.setCapacity(rs.getString("Capacity"));
 				availableTransport.setPrice(rs.getDouble("Price"));
 				availableTransport.setDescription(rs.getString("Description"));
+				availableTransport.setStop(rs.getString("Stop"));
 				return availableTransport;
 			}
 		});
@@ -64,12 +65,7 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	public void saveTransportReservationDtl(TransportReservation transportReservation) {
-		if(transportReservation.getFileNo()==null){
-			getCurrentSession().persist(transportReservation);
-		}
-		else{
-			getCurrentSession().update(transportReservation);
-		}
+			getCurrentSession().merge(transportReservation);
 	}
 
 	

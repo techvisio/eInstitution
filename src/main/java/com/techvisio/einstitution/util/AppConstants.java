@@ -49,4 +49,6 @@ public interface AppConstants {
 	public enum AdmissionWorkFlowStatus{NEW,DOC_RECEIVED,DOC_VERIFIED,FEE_NEGOTIATED,MOVED_TO_MANAGEMENT,APPROVED,FEE_DEPOSITED,COMPLETE};
 	
 	public enum EnquiryStatus{OPEN,CLOSED,MOVED_TO_ADMISSION};
+	
+	public enum DocumentType{IDENTITY,ADDRESS,QUALIFICATION,DOB};
 }

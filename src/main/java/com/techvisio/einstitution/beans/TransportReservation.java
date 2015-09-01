@@ -12,26 +12,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TRANSPORT_RESERVATION")
-public class TransportReservation {
+public class TransportReservation extends BasicEntity{
 
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Id")
-	private Long trnsprtRsrvtnId;
     @Column(name="File_No")
 	private Long fileNo;
-	public Long getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(Long fileNo) {
-		this.fileNo = fileNo;
-	}
-
-	@Column(name = "Route_Code")
-	private String routeCode;
-	@Column(name = "Fee_Paid")
-	private boolean feePaid;
+	@Column(name = "Route_Id")
+	private Long routeId;
 	@Column(name = "Is_Active")
     private boolean isActive;
 	@Column(name = "Allocation_Status")
@@ -42,22 +29,21 @@ public class TransportReservation {
     private String description;
  
 
-	public String getRouteCode() {
-		return routeCode;
+	public Long getFileNo() {
+		return fileNo;
 	}
 
-	public void setRouteCode(String routeCode) {
-		this.routeCode = routeCode;
+	public void setFileNo(Long fileNo) {
+		this.fileNo = fileNo;
 	}
 
-	public boolean isFeePaid() {
-		return feePaid;
+	public Long getRouteId() {
+		return routeId;
 	}
 
-	public void setFeePaid(boolean feePaid) {
-		this.feePaid = feePaid;
+	public void setRouteId(Long routeId) {
+		this.routeId = routeId;
 	}
-
 
 	public boolean isActive() {
 		return isActive;
@@ -89,14 +75,6 @@ public class TransportReservation {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Long getTrnsprtRsrvtnId() {
-		return trnsprtRsrvtnId;
-	}
-
-	public void setTrnsprtRsrvtnId(Long trnsprtRsrvtnId) {
-		this.trnsprtRsrvtnId = trnsprtRsrvtnId;
 	}
 
 }

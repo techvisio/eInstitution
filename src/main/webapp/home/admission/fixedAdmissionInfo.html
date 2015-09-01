@@ -30,7 +30,7 @@
 				<td><span> Branch </span></td>
 				<td><select select ng-model="student.branch.branchId"
 					class="form-control"
-					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH|filter: {courseId: student.courseId}"
+					ng-options="item.branchId*1 as item.branchName  for item in serverModelData.BRANCH"
 					required></select></td>
 			</tr>
 			<tr>

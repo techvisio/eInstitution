@@ -3,17 +3,21 @@ package com.techvisio.einstitution.db.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Address;
 import com.techvisio.einstitution.beans.AdmissionDiscount;
@@ -24,6 +28,7 @@ import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Counselling;
 import com.techvisio.einstitution.beans.Course;
+import com.techvisio.einstitution.beans.Document;
 import com.techvisio.einstitution.beans.QualificationSubject;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Section;
@@ -40,8 +45,8 @@ import com.techvisio.einstitution.db.AdmissionDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
-
 @Component
+@Transactional
 public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	private static CustomLogger logger = CustomLogger
 			.getLogger(AdmissionDaoImpl.class);
@@ -503,12 +508,13 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 	}
 
 	@Override
-	public List<Object[]> getStudentDocumentDtl() {
-		String queryString="Select stdoc.File_No, docm.Document_Id as DocId,docm.Document_Name as DocName,  (case when stdoc.File_No is null then 0 else 1end) as Received" +
-				"FROM Document as docm left join StudentDocument as stdoc" ;
-		Query query=getCurrentSession().createQuery(queryString);
-		List<Object[]> studentDocuments = query.list();
-		return studentDocuments;
+	public Map<String,List<List<StudentDocument>>> getStudentDocumentForUI(Long fileNo) {
+		String queryString="Select stdoc.File_No,stdoc.document_No,stdoc.Student_Doc_Id,docm.Created_By,docm.Created_On,docm.Updated_by,docm.Updated_On, docm.Document_Id,docm.Document_Name,docm.Document_Type , stdoc.is_received,(case when stdoc.File_No is null then 0 else 1 end) as Received FROM Document_Master as docm left join Student_Documents as stdoc on docm.document_id=stdoc.document_id where file_No =" + fileNo ;
+		SQLQuery query=getCurrentSession().createSQLQuery(queryString);
+		query.addEntity(StudentDocument.class);
+		List<StudentDocument> studentDocuments = (List<StudentDocument>)query.list();
+		
+		return CommonUtil.getDocUIView(studentDocuments);
 	}
 
 	@Override
@@ -590,4 +596,5 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 			return basicInfo;
 		}
 	}
+	
 }

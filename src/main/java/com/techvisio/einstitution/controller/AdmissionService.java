@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -271,16 +272,15 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-
-	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.GET)
-	public ResponseEntity<Response> getDocumentDtl(@PathVariable Long fileNo){
-		logger.info("{}  Calling getDocumentDtl method for file no:{} ",this.getClass().getName(), fileNo);
-		Response response = new Response();
-		List<StudentDocument> studentDocuments = admWorkflowManager.getDocumentDtl(fileNo);
-		response.setResponseBody(studentDocuments);
-		return new ResponseEntity<Response>(response,HttpStatus.OK);		
-	}
-
+//
+//	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.GET)
+//	public ResponseEntity<Response> getDocumentDtl(@PathVariable Long fileNo){
+//		logger.info("{}  Calling getDocumentDtl method for file no:{} ",this.getClass().getName(), fileNo);
+//		Response response = new Response();
+//		List<StudentDocument> studentDocuments = admWorkflowManager.getDocumentDtl(fileNo);
+//		response.setResponseBody(studentDocuments);
+//		return new ResponseEntity<Response>(response,HttpStatus.OK);		
+//	}
 
 	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveDocumentDtl(@RequestBody List<StudentDocument> documents, @PathVariable Long fileNo){
@@ -293,11 +293,11 @@ public class AdmissionService {
 	}
 
 
-	@RequestMapping(value = "student/document", method = RequestMethod.GET)
-	public ResponseEntity<Response> getStudentDocumentDtl(){
+	@RequestMapping(value = "student/document/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getStudentDocumentDtl(@PathVariable Long fileNo){
 		logger.info("{}  Calling getStudentDocumentDtl method  ",this.getClass().getName());
 		Response response = new Response();
-		List<Object[]> studentDocuments = admWorkflowManager.getStudentDocumentDtl();
+		Map<String,List<List<StudentDocument>>> studentDocuments = admWorkflowManager.getStudentDocumentForUI(fileNo);
 		response.setResponseBody(studentDocuments);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}

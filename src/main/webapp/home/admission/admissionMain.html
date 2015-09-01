@@ -33,11 +33,11 @@
 			</tab> <tab heading="DOCUMENTS" ng-show="isTabViewable('DOCUMENT')" ng-click="getRelatedData('DOCUMENT')">
 			<div ng-include src="'home/admission/document.html'"></div>
 			</tab>
-			</tab> <tab heading="TRANSPORT" ng-show="isTabViewable('TRANSPORT')">
-			<div ng-include src="'home/admission/transportReservation.html'"></div>
+			</tab> <tab heading="TRANSPORT" ng-show="isTabViewable('TRANSPORT')" >
+			<div ng-include src="'home/admission/transportReservation.html'" ng-click="getRelatedData('TRANSPORT')"></div>
 			</tab>
 			</tab> <tab heading="HOSTEL" ng-show="isTabViewable('HOSTEL')">
-			<div ng-include src="'home/admission/hostelReservation.html'"></div>
+			<div ng-include src="'home/admission/hostelReservation.html'" ng-click="getRelatedData('HOSTEL')"></div>
 			</tab>
 			 </tabset>
 		</div>

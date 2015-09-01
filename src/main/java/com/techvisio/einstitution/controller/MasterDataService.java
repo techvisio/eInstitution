@@ -63,8 +63,8 @@ public ResponseEntity<Response> getMasterDataforAdmission() {
 			AppConstants.FLOOR, 
 			AppConstants.BLOCK, 
 			AppConstants.ROOMNO, 
-			AppConstants.VEHICLE, 
-			AppConstants.VEHICLETYPE, 
+//			AppConstants.VEHICLE, 
+//			AppConstants.VEHICLETYPE, 
 			AppConstants.AMENITIES,
 			AppConstants.ADMISSION_WORKFLOW
 			};

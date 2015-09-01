@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.manager.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -269,8 +270,8 @@ public class AdmissionManagerImpl implements AdmissionManager {
 	}
 
 	@Override
-	public List<Object[]> getStudentDocumentDtl() {
-		List<Object[]> studentDocuments = admissionDao.getStudentDocumentDtl();
+	public Map<String,List<List<StudentDocument>>> getStudentDocumentForUI(Long fileNo) {
+		Map<String,List<List<StudentDocument>>> studentDocuments = admissionDao.getStudentDocumentForUI(fileNo);
 		return studentDocuments;
 	}
 

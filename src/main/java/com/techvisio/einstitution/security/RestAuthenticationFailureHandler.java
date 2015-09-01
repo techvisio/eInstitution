@@ -16,7 +16,8 @@ public class RestAuthenticationFailureHandler implements
 	public void onAuthenticationFailure(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException authenticationException)
 			throws IOException, ServletException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getLocalizedMessage());
+		response.addHeader("Error", authenticationException.getLocalizedMessage());
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 
 	}
 

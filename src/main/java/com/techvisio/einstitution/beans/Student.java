@@ -2,6 +2,7 @@ package com.techvisio.einstitution.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -78,6 +78,7 @@ public class Student extends BasicEntity {
 	@JoinColumn(name="File_No")
 	private List<Remark> remarks=new ArrayList<Remark>();
 	
+	@JsonIgnore
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name = "File_No")
 	private List<StudentDocument> documents = new ArrayList<StudentDocument>();
@@ -211,9 +212,14 @@ public class Student extends BasicEntity {
 		return documents;
 	}
 
-	@JsonProperty("documents")
+	@JsonIgnore
 	public void setDocuments(List<StudentDocument> documents) {
 		this.documents = documents;
+	}
+	
+	@JsonProperty("documents")
+	public void  setDocumentUI(Map<String,List<List<StudentDocument>>> uiDocs){
+		this.documents=CommonUtil.convertFromDocumentUI(uiDocs);
 	}
 
 	

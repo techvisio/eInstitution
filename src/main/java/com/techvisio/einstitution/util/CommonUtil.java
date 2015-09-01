@@ -7,11 +7,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.formula.functions.T;
 
@@ -28,6 +29,7 @@ import com.techvisio.einstitution.beans.QualificationSubject;
 import com.techvisio.einstitution.beans.Student;
 import com.techvisio.einstitution.beans.StudentAcademic;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
+import com.techvisio.einstitution.beans.StudentDocument;
 import com.techvisio.einstitution.beans.StudentFeeStaging;
 import com.techvisio.einstitution.beans.TaskAndFollowUp;
 
@@ -239,5 +241,48 @@ public class CommonUtil {
 				iterator.remove();
 			}
 		}
+	}
+	
+	public static List<StudentDocument> convertFromDocumentUI(Map<String,List<List<StudentDocument>>> docMap){
+	    List<StudentDocument> studentDocuments = new ArrayList<StudentDocument>();
+	    for(List<List<StudentDocument>>  docs:docMap.values()){
+	    	for(List<StudentDocument> rootDocList : docs){
+	    		studentDocuments.addAll(rootDocList);
+	    	}
+	    }
+	    
+		return studentDocuments;
+	}
+	
+	public static Map<String,List<List<StudentDocument>>> getDocUIView(List<StudentDocument> docs){
+		List<StudentDocument> documents=new ArrayList<StudentDocument>(docs);
+		Map<String,List<List<StudentDocument>>> result=new HashMap<String, List<List<StudentDocument>>>();
+		
+		Map<String,List<StudentDocument>> firstLevelList=new HashMap<String, List<StudentDocument>>();
+		for(StudentDocument doc:documents){
+			String docType=doc.getDocument().getDocumentType();
+			if(firstLevelList.get(docType)==null){
+				firstLevelList.put(docType, new ArrayList<StudentDocument>());
+			}
+			firstLevelList.get(docType).add(doc);
+		}
+		
+		for(String docType:firstLevelList.keySet()){
+			List<List<StudentDocument>> studentDoc=new ArrayList<List<StudentDocument>>();
+			List<StudentDocument> originalList=firstLevelList.get(docType);
+			List<StudentDocument> innerList=new ArrayList<StudentDocument>();
+			for(int i=0;i<originalList.size();i++){
+				if(i%2==0){
+					innerList=new ArrayList<StudentDocument>();
+				}
+				innerList.add(originalList.get(i));
+				
+				if(i%2!=0||i==originalList.size()-1){
+					studentDoc.add(innerList);
+				}
+			}
+			result.put(docType, studentDoc);
+		}
+		return result;
 	}
 }

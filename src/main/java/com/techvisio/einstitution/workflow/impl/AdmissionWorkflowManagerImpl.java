@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.workflow.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -234,8 +235,8 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 	}
 
 	@Override
-	public List<Object[]> getStudentDocumentDtl() {
-		List<Object[]> studentDocuments = admissionManager.getStudentDocumentDtl();
+	public Map<String,List<List<StudentDocument>>> getStudentDocumentForUI(Long fileNo) {
+		Map<String,List<List<StudentDocument>>> studentDocuments = admissionManager.getStudentDocumentForUI(fileNo);
 		return studentDocuments;
 	}
 
