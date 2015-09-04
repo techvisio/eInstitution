@@ -11,13 +11,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROUTE_MAPPING")
-public class RouteMapping {
+@Table(name = "ROUTE_STOPPAGE")
+public class RouteStoppage {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Route_Map_Id")
-	private Long routeMapId;
+	@Column(name = "Route_Stop_Id")
+	private Long routeStopId;
 	@ManyToOne
 	@JoinColumn(name = "Route_Id")
 	private Route route;
@@ -25,14 +25,6 @@ public class RouteMapping {
 	private String stop;
 	@Column(name = "Price")
 	private Double price;
-
-	public Long getRouteMapId() {
-		return routeMapId;
-	}
-
-	public void setRouteMapId(Long routeMapId) {
-		this.routeMapId = routeMapId;
-	}
 
 	public Route getRoute() {
 		return route;
@@ -57,5 +49,14 @@ public class RouteMapping {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	public Long getRouteStopId() {
+		return routeStopId;
+	}
+
+	public void setRouteStopId(Long routeStopId) {
+		this.routeStopId = routeStopId;
+	}
+
 	
 }

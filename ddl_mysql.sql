@@ -161,15 +161,15 @@
 
     alter table ROOM_TYPE_DETAIL 
         drop 
-        foreign key FK_qffmjcu73ar83e877g40d66cg;
+        foreign key FK_7e7hvv6u1y3onyg6whlh15po2;
 
     alter table ROOM_TYPE_DETAIL 
         drop 
         foreign key FK_fcuj04r1h5wyextvtm0m2iqbi;
 
-    alter table ROUTE_MAPPING 
+    alter table ROUTE_STOPPAGE 
         drop 
-        foreign key FK_3alf3xuqxj5ty6waoeqv5pyaj;
+        foreign key FK_iywgu2sot7b04tlj1j20cbk5k;
 
     alter table SCHOLARSHIP_DETAIL 
         drop 
@@ -254,6 +254,10 @@
     alter table TRANSPORT_ALLOCATION 
         drop 
         foreign key FK_7ql1o270wrslsg3dkqhugyjmo;
+
+    alter table TRANSPORT_RESERVATION 
+        drop 
+        foreign key FK_lgwgeek9u7r1hkyve67xlkv8s;
 
     alter table VEHICLE_DETAIL 
         drop 
@@ -361,9 +365,9 @@
 
     drop table if exists ROOM_TYPE_MASTER;
 
-    drop table if exists ROUTE_MAPPING;
-
     drop table if exists ROUTE_MASTER;
+
+    drop table if exists ROUTE_STOPPAGE;
 
     drop table if exists SCHOLARSHIP_DETAIL;
 
@@ -829,10 +833,11 @@
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
+        Room_Capacity integer,
         Room_No varchar(255),
         Block_Id bigint,
         Floor_Id bigint,
-        Type_Code bigint,
+        Room_Type_Id bigint,
         Wing_Id bigint,
         primary key (Room_Detail_Id)
     );
@@ -845,24 +850,22 @@
         Updated_On datetime,
         Description varchar(255),
         Price double precision,
-        Room_Capacity integer,
-        Threshold integer,
         Type_Code varchar(255),
         primary key (Room_Type_Id)
-    );
-
-    create table ROUTE_MAPPING (
-        Route_Map_Id bigint not null auto_increment,
-        Price double precision,
-        Stop varchar(255),
-        Route_Id bigint,
-        primary key (Route_Map_Id)
     );
 
     create table ROUTE_MASTER (
         Route_Id bigint not null auto_increment,
         Description varchar(255),
         primary key (Route_Id)
+    );
+
+    create table ROUTE_STOPPAGE (
+        Route_Stop_Id bigint not null auto_increment,
+        Price double precision,
+        Stop varchar(255),
+        Route_Id bigint,
+        primary key (Route_Stop_Id)
     );
 
     create table SCHOLARSHIP_DETAIL (
@@ -1090,7 +1093,7 @@
         Description varchar(255),
         Is_Active bit,
         Price double precision,
-        Route_Id bigint,
+        Route_Stop_Id bigint,
         primary key (File_No)
     );
 
@@ -1206,9 +1209,6 @@
         workFlowOperation varchar(255),
         primary key (id)
     );
-
-    alter table WORKFLOW_DEPENDENCY 
-        add constraint UK_2742163qwcaakvtlxa9tthmid  unique (childWorkflow_Step_Id);
 
     alter table ACADEMIC_DETAIL 
         add constraint FK_8d8m4sy6b4814lyj3bs6bqhv4 
@@ -1411,8 +1411,8 @@
         references FLOOR_MASTER (Floor_id);
 
     alter table ROOM_TYPE_DETAIL 
-        add constraint FK_qffmjcu73ar83e877g40d66cg 
-        foreign key (Type_Code) 
+        add constraint FK_7e7hvv6u1y3onyg6whlh15po2 
+        foreign key (Room_Type_Id) 
         references ROOM_TYPE_MASTER (Room_Type_Id);
 
     alter table ROOM_TYPE_DETAIL 
@@ -1420,8 +1420,8 @@
         foreign key (Wing_Id) 
         references WING_MASTER (Wing_Id);
 
-    alter table ROUTE_MAPPING 
-        add constraint FK_3alf3xuqxj5ty6waoeqv5pyaj 
+    alter table ROUTE_STOPPAGE 
+        add constraint FK_iywgu2sot7b04tlj1j20cbk5k 
         foreign key (Route_Id) 
         references ROUTE_MASTER (Route_Id);
 
@@ -1529,6 +1529,11 @@
         add constraint FK_7ql1o270wrslsg3dkqhugyjmo 
         foreign key (Type_Id) 
         references VEHICLE_DETAIL (Vehicle_Id);
+
+    alter table TRANSPORT_RESERVATION 
+        add constraint FK_lgwgeek9u7r1hkyve67xlkv8s 
+        foreign key (Route_Stop_Id) 
+        references ROUTE_STOPPAGE (Route_Stop_Id);
 
     alter table VEHICLE_DETAIL 
         add constraint FK_bmngobbyma9vt09gpf4utomdb 

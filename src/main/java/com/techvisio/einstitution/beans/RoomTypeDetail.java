@@ -1,6 +1,5 @@
 package com.techvisio.einstitution.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +21,8 @@ public class RoomTypeDetail extends BasicEntity {
 	@Column(name = "Room_No")
 	private String	roomNo;
 	@ManyToOne
-	@JoinColumn(name="Type_Code")
-	private RoomType roomType;
+	@JoinColumn(name="Room_Type_Id")
+	private RoomType roomTypeId;
 	@ManyToOne
 	@JoinColumn(name="Wing_Id")
 	private Wing wing;
@@ -33,7 +32,16 @@ public class RoomTypeDetail extends BasicEntity {
 	@ManyToOne
 	@JoinColumn(name="Block_Id")
 	private Block block;
+	@Column(name = "Room_Capacity")
+	private int	roomCapacity;
 
+	
+	public int getRoomCapacity() {
+		return roomCapacity;
+	}
+	public void setRoomCapacity(int roomCapacity) {
+		this.roomCapacity = roomCapacity;
+	}
 	public String getRoomNo() {
 		return roomNo;
 	}
@@ -41,11 +49,11 @@ public class RoomTypeDetail extends BasicEntity {
 		this.roomNo = roomNo;
 	}
 	
-	public RoomType getRoomType() {
-		return roomType;
+	public RoomType getRoomTypeId() {
+		return roomTypeId;
 	}
-	public void setRoomType(RoomType roomType) {
-		this.roomType = roomType;
+	public void setRoomTypeId(RoomType roomTypeId) {
+		this.roomTypeId = roomTypeId;
 	}
 	public Wing getWing() {
 		return wing;

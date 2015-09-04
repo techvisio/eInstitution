@@ -6,14 +6,17 @@
 <entry key="getHostelAvailability">
     <![CDATA[
 SELECT 
-	HI.THRESHOLD,
-	HI.TYPE_CODE,
-	HI.DESCRIPTION,
-	HI.PRICE,
-	COUNT(HR.TYPE_CODE) AS RESERVED_ROOM,
-	HI.THRESHOLD-COUNT(HR.TYPE_CODE) AS AVAILABLE
-	 
-FROM Room_type_master HI left JOIN  hostel_reservation HR ON HI.Type_Code = HR.Type_Code GROUP BY HI.Type_Code;        
+ sum(RD.Room_Capacity) as Threshold,
+ RM.TYPE_CODE,
+ RM.DESCRIPTION,
+ RM.PRICE,
+ COUNT(HR.TYPE_CODE) AS RESERVED_ROOM,
+ sum(RD.Room_Capacity)-COUNT(HR.TYPE_CODE) AS AVAILABLE
+  
+FROM room_type_detail RD  left join Room_type_master RM on RD.Room_Type_Id = RM.Room_Type_Id 
+ left JOIN  hostel_reservation HR 
+ON RM.Type_Code = HR.Type_Code 
+GROUP BY RM.Type_Code;        
     ]]>
 
 	</entry>

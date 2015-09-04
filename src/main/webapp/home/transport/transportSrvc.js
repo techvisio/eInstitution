@@ -40,12 +40,12 @@ transportModule.service('transportService', function($http, $q) {
 	}
 
 
-	function reserveTransport(transportReservation) {
+	function reserveTransport(transportReservation, fileNo) {
 
 		console.log('Transport reservation called in service');
 		var request = $http({
 			method : "post",
-			url : "service/transport/reservation/",
+			url : "service/transport/reservation/" + fileNo,
 			params : "",
 			data : transportReservation
 

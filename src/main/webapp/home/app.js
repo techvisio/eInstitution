@@ -17,7 +17,9 @@ var erp = angular
                 'enquiryModule',
                 'consultantModule',
                 'feeModule',
-                'userModule'
+                'userModule',
+                'hostelModule',
+                'transportModule'
                 ]);
 
 erp.config(function ($stateProvider, $urlRouterProvider) {
@@ -165,6 +167,28 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 		resolve:{
 			injectedData: ['$stateParams','feeService', function($stateParams,feeService){
 				return feeService.getFeeTransactionAndBasicInfoDetail($stateParams.fileNo);
+			}]
+		}
+	})
+	
+	.state('reserveTransport', {
+		url: "/transport/reservation",
+		templateUrl: 'home/transport/transportReservation.html',
+		controller: "transportController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	
+	.state('reserveHostel', {
+		url: "/hostel/reservation",
+		templateUrl: 'home/hostel/hostelReservation.html',
+		controller: "hostelController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
 			}]
 		}
 	});

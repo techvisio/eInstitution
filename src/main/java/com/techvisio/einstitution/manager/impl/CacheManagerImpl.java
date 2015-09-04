@@ -28,6 +28,8 @@ import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.Route;
+import com.techvisio.einstitution.beans.RouteStoppage;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -91,6 +93,8 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, VehicleType> vehicleTypeMap = new HashMap<Long, VehicleType>();
 	private static Map<String, RoomType> roomTypeMap = new HashMap<String, RoomType>();
 //	private static Map<String, Transport> transportMap = new HashMap<String, Transport>();
+	private static Map<Long, Route> routeMap = new HashMap<Long, Route>();
+	private static Map<Long, RouteStoppage> routeStoppageMap = new HashMap<Long, RouteStoppage>();
 	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
 	private static Map<Long, Workflow> workflowMap = new TreeMap<Long, Workflow>();
 	private static Map<String, Activity> activityMap = new HashMap<String, Activity>();
@@ -347,6 +351,25 @@ public class CacheManagerImpl implements CacheManager {
 //		
 //	}
 	
+	@SuppressWarnings("unchecked")
+	public synchronized List<Route> getRoutes(){
+		logger.info("{} : Mapping work for get route ",this.getClass().getName());		
+		if(entityListMap.get(AppConstants.ROUTE) == null || entityListMap.get(AppConstants.ROUTE).size() == 0){
+			refreshCacheList(AppConstants.ROUTE);
+		}
+		return (List<Route>)entityListMap.get(AppConstants.ROUTE);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized List<RouteStoppage> getRouteStoppages(){
+		logger.info("{} : Mapping work for get Stoppage ",this.getClass().getName());		
+		if(entityListMap.get(AppConstants.STOPPPAGE) == null || entityListMap.get(AppConstants.STOPPPAGE).size() == 0){
+			refreshCacheList(AppConstants.STOPPPAGE);
+		}
+		return (List<RouteStoppage>)entityListMap.get(AppConstants.STOPPPAGE);
+		
+	}
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Amenities> getAmenities(){
@@ -492,7 +515,17 @@ public class CacheManagerImpl implements CacheManager {
 //		logger.info("{} : built entity list cache work for get transport ",this.getClass().getName());
 //		transports = cacheDao.getTransport();
 //		entityListMap.put(AppConstants.TRANSPORT, transports);
-		
+
+		List<Route> routes = new ArrayList<Route>();
+		logger.info("{} : built entity list cache work for get route ",this.getClass().getName());
+		routes = cacheDao.getRoutes();
+		entityListMap.put(AppConstants.ROUTE, routes);
+
+		List<RouteStoppage> stoppages = new ArrayList<RouteStoppage>();
+		logger.info("{} : built entity list cache work for get stoppages ",this.getClass().getName());
+		stoppages = cacheDao.getRouteStoppages();
+		entityListMap.put(AppConstants.STOPPPAGE, stoppages);
+
 		List<Amenities> amenities = new ArrayList<Amenities>();
 		logger.info("{} : built entity list cache work for get amenities ",this.getClass().getName());	
 		amenities = cacheDao.getAmenitiesCharges();
@@ -672,6 +705,18 @@ public class CacheManagerImpl implements CacheManager {
 //			transports = cacheDao.getTransport();
 //			entityListMap.put(AppConstants.TRANSPORT, transports);
 
+			case AppConstants.ROUTE:
+			logger.info("{} : refresh cache list work for get route ",this.getClass().getName());			
+			List<Route> routes =new ArrayList<Route>();
+			routes = cacheDao.getRoutes();
+			entityListMap.put(AppConstants.ROUTE, routes);
+
+			case AppConstants.STOPPPAGE:
+			logger.info("{} : refresh cache list work for get stoppages ",this.getClass().getName());			
+			List<RouteStoppage> stoppages =new ArrayList<RouteStoppage>();
+			stoppages = cacheDao.getRouteStoppages();
+			entityListMap.put(AppConstants.STOPPPAGE, stoppages);
+
 		case AppConstants.AMENITIES:
 			logger.info("{} : refresh cache list work for get amenities ",this.getClass().getName());		
 			List<Amenities> amenities = new ArrayList<Amenities>();
@@ -794,6 +839,14 @@ public class CacheManagerImpl implements CacheManager {
 //		for(Transport transport : cacheDao.getTransport()){
 //			transportMap.put(transport.getRouteCode(), transport);
 //		}
+		
+		for(Route route : cacheDao.getRoutes()){
+		routeMap.put(route.getRouteId(), route);
+	}
+		
+		for(RouteStoppage stoppage : cacheDao.getRouteStoppages()){
+		routeStoppageMap.put(stoppage.getRouteStopId(), stoppage);
+	}
 		
 		for(Amenities amenities : cacheDao.getAmenitiesCharges()){
 			amenitiesMap.put(amenities.getFeeDiscountHead().getHeadId(), amenities);
@@ -952,7 +1005,19 @@ public class CacheManagerImpl implements CacheManager {
 //		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
 //		return transportMap.get(routeCode);
 //	}
-//	
+
+	@Override
+	public Route getRouteByRouteId(Long routeId){
+		logger.info("{} : Get transport By route Id:{} ",this.getClass().getName(), routeId);
+		return routeMap.get(routeId);
+	}
+	
+	@Override
+	public RouteStoppage getTransportByStopId(Long stopId){
+		logger.info("{} : Get transport By stopId:{} ",this.getClass().getName(), stopId);
+		return routeStoppageMap.get(stopId);
+	}
+	
 	@Override
 	public Amenities getAmentiesByFeeId(Long feeId ){
 		return amenitiesMap.get(feeId);

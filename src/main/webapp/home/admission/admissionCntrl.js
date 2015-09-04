@@ -20,7 +20,8 @@ admissionModule
 			 $scope.form = {};
 			 $scope.form.isNew = true;
 			 $scope.student = {};
-			 $scope.currentWorkflow = [];
+			 $scope.currentWorkflow ={};
+			 $scope.availableWorkflows=[];
 			 $scope.student.studentBasics = {};
 			 $scope.student.documents={};
 			 $scope.form.sameAsAbove = false;
@@ -35,7 +36,7 @@ admissionModule
 			 $scope.hostelAvailability = {};
 			 $scope.hostelReservation = {};
 			 $scope.currentHostelReservation={};
-			 
+
 			 $scope.formTabs = {
 					 "DOCUMENT" : {
 						 "isEdit" : false,
@@ -360,7 +361,7 @@ admissionModule
 
 			 $scope.processWorkflow = function() {
 
-				 var stepId = $scope.currentWorkflow[0].stepId;
+				 var stepId = $scope.currentWorkflow.stepId;
 				 admissionService
 				 .processWorkflow($scope.student, stepId)
 				 .then(
@@ -372,7 +373,10 @@ admissionModule
 									 && response.data != null
 									 && response.data.responseBody != null) {
 								 $scope.student = response.data.responseBody.student;
-								 $scope.currentWorkflow = response.data.responseBody.workflows;
+								 $scope.availableWorkflows = response.data.responseBody.workflows;
+								 if( $scope.availableWorkflows[0]){
+									 $scope.currentWorkflow=$scope.availableWorkflows[0];
+								 }
 								 $scope
 								 .directViewAdmission($scope.student.fileNo);
 								 $scope
@@ -421,7 +425,7 @@ admissionModule
 									 && response.data != null
 									 && response.data.responseBody != null) {
 								 $scope.student = response.data.responseBody.student;
-								 $scope.currentWorkflow = response.data.responseBody.workflows;
+								 $scope.availableWorkflows = response.data.responseBody.workflows;
 								 $scope
 								 .directViewAdmission(fileNo);
 								 $scope
@@ -443,18 +447,23 @@ admissionModule
 							 if (response != null
 									 && response.data != null
 									 && response.data.responseBody != null) {
-								 $scope.currentWorkflow
-								 .push(response.data.responseBody);
+								 $scope.availableWorkflows = response.data.responseBody.workflows;
+								 if( $scope.availableWorkflows[0]){
+									 $scope.currentWorkflow=$scope.availableWorkflows[0];
+								 }
 							 }
 
 						 })
 			 };
 
+			 
+			 
 			 $scope.getSaveButtonText = function() {
-				 if ($scope.currentWorkflow.length > 1) {
-					 return "Save";
-				 } else if ($scope.currentWorkflow.length == 1) {
-					 return $scope.currentWorkflow[0].step;
+				 if($scope.availableWorkflows.length>1){
+					 return "Update Status";
+				 }
+				if ($scope.currentWorkflow) {
+					 return $scope.currentWorkflow.step;
 				 }
 			 }
 
@@ -834,6 +843,7 @@ admissionModule
 						 $scope.filteredSearch = $scope.searchAdmissionList
 						 .slice(begin, end);
 					 });
+			 
 
 			 $scope.gridOptions = {
 					 multiSelect : false,
@@ -893,9 +903,7 @@ admissionModule
 						 || data.counsellingDtl == null
 						 || data.counsellingDtl.length == 0) {
 					 $scope.student.counsellingDtl = [];
-					 $scope.student.counsellingDtl.push(angular
-							 .copy($scope.dummyCounsellingDtl))
-				 }
+					 $scope.student.counsellingDtl.push(angular.copy($scope.dummyCounsellingDtl))}
 
 				 for (var i = 0; i < $scope.student.academicDtl.length; i++) {
 
@@ -1003,9 +1011,11 @@ admissionModule
 			 if (injectedData.data) {
 				 $scope.form.isNew = false;
 				 $scope.student = injectedData.data.responseBody.student;
-				 $scope.currentWorkflow = [];
-				 $scope.currentWorkflow
-				 .push(injectedData.data.responseBody.workflows[0]);
+				 $scope.availableWorkflows = [];
+				 $scope.availableWorkflows = injectedData.data.responseBody.workflows;
+				 if( $scope.availableWorkflows[0]){
+					 $scope.currentWorkflow=$scope.availableWorkflows[0];
+				 }
 				 $scope.makeAllReadOnly();
 			 }
 
@@ -1197,7 +1207,7 @@ admissionModule
 
 				 $scope.transportReservation.fileNo=fileNo;
 
-				 transportService.reserveTransport($scope.transportReservation)
+				 transportService.reserveTransport($scope.transportReservation, fileNo)
 				 .then(function(response){
 					 console.log('Transport Reservation callback');
 					 console.log(response.data.responseBody);
@@ -1239,7 +1249,7 @@ admissionModule
 				 var fileNo=$scope.student.fileNo;
 				 $scope.hostelReservation.fileNo=fileNo;
 
-				 hostelService.reserveRoom($scope.hostelReservation)
+				 hostelService.reserveRoom($scope.hostelReservation, fileNo)
 				 .then(function(response){
 					 console.log('Hostel Reservation callback');
 					 console.log(response.data.responseBody);

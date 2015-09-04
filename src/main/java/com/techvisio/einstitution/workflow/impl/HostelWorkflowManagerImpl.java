@@ -40,12 +40,13 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 		return hostelReservation;	}
 
 	@Override
-	public void saveHostelReservation(HostelReservation hostelReservation) {
+	public void saveHostelReservation(HostelReservation hostelReservation, Long fileNo) {
 		logger.info("{} : calling addHostelReservation method for fileNo:{} ",this.getClass().getName(),hostelReservation.getFileNo());
 		RoomType roomType = cacheManager.getRoomTypeMasterByTypeCode(hostelReservation.getTypeCode());
 		hostelReservation.setPrice(roomType.getPrice());
 		hostelReservation.setDescription(roomType.getDescription());
-		hostelManager.saveHostelReservation(hostelReservation);
+		hostelReservation.setActive(true);
+		hostelManager.saveHostelReservation(hostelReservation,fileNo);
 	}
 
 	@Override

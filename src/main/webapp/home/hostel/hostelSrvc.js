@@ -38,12 +38,12 @@ hostelModule.service('hostelService', function($http, $q) {
 
 	}
 
-	function reserveRoom(hostelReservation) {
+	function reserveRoom(hostelReservation, fileNo) {
 
 		console.log('Hostel reservation called in service');
 		var request = $http({
 			method : "post",
-			url : "service/hostel/hostelReservation/",
+			url : "service/hostel/hostelReservation/" + fileNo,
 			params : "",
 			data : hostelReservation
 

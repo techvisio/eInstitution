@@ -52,9 +52,9 @@ public class TransportManagerImpl implements TransportManager {
 		return transportReservation;
 	}
 
-	public void saveTransportReservationDtl(TransportReservation transportReservation) {
+	public void saveTransportReservationDtl(TransportReservation transportReservation, Long fileNo) {
 		logger.info("{} : calling addTransportReservationDtl method for fileno:{}  ",this.getClass().getName(), transportReservation.getFileNo());
-		transportDao.saveTransportReservationDtl(transportReservation);
+		transportDao.saveTransportReservationDtl(transportReservation, fileNo);
 	}
 
 	public void deleteTransportReservationDtl(Long fileNo) {

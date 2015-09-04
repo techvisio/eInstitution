@@ -1,48 +1,30 @@
 var hostelModule = angular.module('hostelModule', []);
 
-hostelModule.controller('hostelController', ['$scope','hostelService','masterdataService',function($scope,hostelService,masterdataService) {
+hostelModule.controller('hostelController', ['$scope','hostelService','masterdataService','injectedData',function($scope,hostelService,masterdataService,injectedData) {
 
 	$scope.form={};
 	$scope.form.content='dashboard';
-	$scope.hostelAvailability={};
-	$scope.currentReservation={};
-	$scope.hostelReservation={};
+	$scope.hostelAvailability = {};
+	$scope.hostelReservation = {};
+	$scope.currentHostelReservation={};
 	$scope.isNew=false;
 	$scope.hostelAllocationAdmissionDtl={};
-	$scope.getHostelAvailability = function() {
 
 		$scope.init=function(){
 
-			console.log('getting masterdata for admission module in init block');
+			console.log('getting masterdata for hostel module in init block');
 
-			masterdataService.getAdmissionMasterData()
-			.then(function(data) {
-				console.log(data);
-				if (data != null) {
-					$scope.serverModelData = data;
-				} else {
-					console.log('error');
-				}
-			})
-
+			masterdataService.getHostelMasterData()
+			.then(
+					function(data) {
+						console.log(data);
+						if (data) {
+							$scope.serverModelData = data.responseBody;
+						} else {
+							console.log('error');
+						}
+					})
 		}
-
-
-		hostelService.getHostelAvailability().then(function(response) {
-			console.log('getHostelAvailability call back : ');
-			console.log(response);
-			if(response.data != null)
-			{
-				$scope.hostelAvailability=response.data;
-			}
-			else
-			{
-				console.log('Error getting hostel inventory:'+data.error);
-				alert('Error getting hostel inventory:'+data.error);
-			}
-		})
-
-	}
 
 	$scope.syncReservationStatus = function(){
 
@@ -56,6 +38,17 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 		}
 	}
 
+	$scope.getHostelAvailability=function(){
+
+		hostelService.getHostelAvailability().then(function(response) {
+			console.log('getHostelAvailability call back : ');
+			console.log(response);
+			if(response.data != null)
+			{
+				$scope.hostelAvailability=response.data;
+			}
+		})
+	};
 
 	$scope.getReservedHostel = function(){
 		var fileNo=$scope.student.fileNo;
@@ -67,62 +60,23 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 				console.log('Getting reserved hosetl in controller : ');
 				console.log(response);
 				if (response !=null && response.data != null && response.data.responseBody != null) {
-					$scope.currentReservation = response.data.responseBody;
-
-				} else {
-					console.log(response.data.error);
-				}
-
-			})
+					$scope.currentHostelReservation = response.data.responseBody;
+				} 					 })
 		}
-
-	}
-
-	$scope.saveHostel = function(){
-
-		if($scope.currentReservation.typeCode){
-			$scope.updateReservation();
-		}
-		else
-		{
-			$scope.reserveRoom();
-		}
-	}
+	};
 
 	$scope.reserveRoom = function(){
 
 		var fileNo=$scope.student.fileNo;
 		$scope.hostelReservation.fileNo=fileNo;
 
-		hostelService.reserveRoom($scope.hostelReservation)
+		hostelService.reserveRoom($scope.hostelReservation, fileNo)
 		.then(function(response){
 			console.log('Hostel Reservation callback');
 			console.log(response.data.responseBody);
-			$scope.currentReservation=response.data.responseBody;
-			$scope.isNew=true;
-			$scope.syncReservationStatus();
+			$scope.currentHostelReservation=response.data.responseBody;
 		})
-	}
-
-
-	$scope.updateReservation = function(){
-
-		var fileNo=$scope.student.fileNo;
-
-		$scope.hostelReservation.fileNo=fileNo;
-		if($scope.hostelReservation.typeCode != null)
-		{            	 
-
-			hostelService.updateReservation($scope.hostelReservation)
-			.then(function(response){
-				console.log('update hostel Reservation callback');
-				console.log(response.data.responseBody);
-				$scope.currentReservation=response.data.responseBody;
-				$scope.isNew=false;
-				$scope.syncReservationStatus();
-			})
-		}
-	}
+	};
 
 	$scope.cancelReservation = function(){
 
@@ -205,7 +159,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 			})
 		};
 
-		
+
 		$scope.getRoomAllocationDtlForStudent = function(){
 
 			console.log('getRoomAllocationDtlForStudent called in controller');
@@ -224,6 +178,6 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 			})
 		};
 
-		
+
 
 } ]);

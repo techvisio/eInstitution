@@ -21,7 +21,7 @@ public interface HostelWorkflowManager {
 
 	public HostelReservation getHostelReservation(Long fileNo);
 
-	public void saveHostelReservation(HostelReservation hostelReservation);
+	public void saveHostelReservation(HostelReservation hostelReservation, Long fileNo);
 
 	public void deleteHostelReservation(Long fileNo);
 }

@@ -22,6 +22,8 @@ import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomType;
+import com.techvisio.einstitution.beans.Route;
+import com.techvisio.einstitution.beans.RouteStoppage;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -92,4 +94,8 @@ public interface CacheDao {
 	public List<Workflow> getAdmissionWorkFlow();
 
 	public List<Activity> getActivities();
+
+	public List<Route> getRoutes();
+
+	public List<RouteStoppage> getRouteStoppages();
 }

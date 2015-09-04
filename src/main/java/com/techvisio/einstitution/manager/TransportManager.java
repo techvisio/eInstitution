@@ -16,6 +16,6 @@ public interface TransportManager {
 	public List<AvailableTransport> getAvailableTransport();
 	
 	public TransportReservation getTransportReservationDtl(Long fileNo);
-	public void saveTransportReservationDtl(TransportReservation transportReservation);
+	public void saveTransportReservationDtl(TransportReservation transportReservation, Long fileNo);
 	public void deleteTransportReservationDtl(Long fileNo);
 }

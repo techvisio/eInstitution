@@ -1,7 +1,11 @@
-<div>
-	<tr><img src="static/images/no-image.gif" alt="No Image" height="100px" width="100px"  onclick="$('#myInput').click();">
-	<input id="myInput" type="file" style="visibility:hidden" ng-model="student.url" /></tr>
+<div ng-init="getAvailableWorkflows()">
+<table>
+	<tr><td colspan="2"><img src="static/images/no-image.gif" alt="No Image" height="100px" width="100px"  onclick="$('#myInput').click();">
+	<input id="myInput" type="file" style="visibility:hidden" ng-model="student.url" /></td></tr>
 	
-	<tr><button type="button" class="btn btn-success btn-sm" ng-click="processWorkflow()" ng-bind="getSaveButtonText()">Save Sudent</button></tr>
-	
+	<tr><td ng-show="availableWorkflows.length>1"><select select ng-model="currentWorkflow"
+					class="form-control"
+					ng-options="item.step for item in availableWorkflows"
+					required></select></td><td><button type="button" class="btn btn-success btn-sm" ng-click="processWorkflow()" ng-bind="getSaveButtonText()">Save Sudent</button></td></tr>
+</table>
 </div>

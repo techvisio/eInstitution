@@ -21,6 +21,8 @@ import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomType;
+import com.techvisio.einstitution.beans.Route;
+import com.techvisio.einstitution.beans.RouteStoppage;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
@@ -99,4 +101,8 @@ public interface CacheManager {
 	Workflow getNewAdmissionWorkFlow();
 
 	Activity getActivityByActivityName(String activity);
+
+	Route getRouteByRouteId(Long routeId);
+
+	RouteStoppage getTransportByStopId(Long stopId);
 }

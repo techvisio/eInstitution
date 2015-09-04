@@ -1,0 +1,65 @@
+
+          <form>
+				<div class="enquiry-detail-div">
+					<table>
+                <tr><td colspan=2><span class="header">Student Info.</span></td></tr>
+		<tr>
+			<td><span> Registration No </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.registrationNo"></td>
+			<td><span> Enrollment No </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.enrollmentNo"></td>
+		</tr>
+		<tr>
+			<td><span> First Name </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.firstName"></td>
+			<td><span> Last Name </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.lastName"></td>
+
+		</tr>
+		<tr>
+			<td><span> Father Name </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.fatherName"></td>
+			<td><span> Date Of Birth </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.dob"></td>
+		</tr>
+		<tr>
+			<td><span> Course </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.course.course"></td>
+			<td><span> Branch </span></td>
+			<td><input type="text"
+				ng-model="transportAllocationAdmissionDtl.basicInfo.branch.branchName"></td>
+		</tr>
+		
+         <tr><td colspan=2><span class="header">Transport Allocation Detail</span></td></tr>      
+        
+         <tr>
+		
+         	<td><span>Wing</span></td>
+            <td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.wing" /></td>
+			<td><span> Block </span></td>
+			<td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.block"/></td>
+		</tr>
+           <tr>
+		
+         	<td><span>Floor</span></td>
+            <td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.floor" /></td>
+			<td><span> Room No </span></td>
+			<td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomNo"/></td>
+		</tr>
+		
+		<tr><td><button type="button" class="btn btn-success"
+							ng-click="addConsultantAdmissionDetail()">Add</button></td>
+<td><button type="button" class="btn btn-success"
+							ng-click="getTransportlAllocationAdmissionDetail()">Get</button></td>
+</tr>
+
+				</table>
+				</div>
+			</form>

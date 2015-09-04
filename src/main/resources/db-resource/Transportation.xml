@@ -8,17 +8,14 @@
 select
 
 sum(vd.Capacity) as Capacity,
-vd.Route_Id,
+
 rm.Description,
-rom.Price,
-rom.Stop,
-count(tr.Route_Id) as Reserved_Seat,
-sum(vd.Capacity) - count(tr.Route_Id) as available_seat
+count(tr.Route_Stop_Id) as Reserved_Seat,
+sum(vd.Capacity) - count(tr.Route_Stop_Id) as available_seat
 from vehicle_detail vd left join route_master rm 
 on vd.Route_Id = rm.Route_Id
-left join route_mapping rom on rm.Route_Id = rom.Route_Id
-left join transport_reservation tr on rm.Route_Id = tr.Route_Id
-group by rom.Stop ;   ]]>
+left join transport_reservation tr on rm.Route_Id = tr.Route_Stop_Id
+group by rm.route_id;      ]]>
 
 	</entry>
 

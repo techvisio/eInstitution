@@ -60,13 +60,13 @@ public class TransportService {
 			return new ResponseEntity<Response>(response,HttpStatus.OK);
       		}
 
-		@RequestMapping(value="/reservation",method = RequestMethod.POST)
-		public ResponseEntity<Response> addTransporReservation(@RequestBody TransportReservation transportReservation) {  
+		@RequestMapping(value="/reservation/{fileNo}",method = RequestMethod.POST)
+		public ResponseEntity<Response> addTransporReservation(@RequestBody TransportReservation transportReservation, @PathVariable Long fileNo) {  
 			logger.info("{} : Calling addTransportReservationDtl method for fileNo :{}",this.getClass().getName(), transportReservation.getFileNo());
 			Response response = new Response();
 			try
 			{
-			   transportWorkflowManager.saveTransportReservationDtl(transportReservation);
+			   transportWorkflowManager.saveTransportReservationDtl(transportReservation, fileNo);
 			   TransportReservation updatedReservation=transportWorkflowManager.getTransportReservationDtl(transportReservation.getFileNo());
 			   response.setResponseBody(updatedReservation);
 			}

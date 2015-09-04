@@ -84,7 +84,7 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	}
 
 	@Override
-	public void saveHostelReservation(HostelReservation hostelReservation) {
+	public void saveHostelReservation(HostelReservation hostelReservation, Long fileNo) {
 			getCurrentSession().merge(hostelReservation);
 	}
 

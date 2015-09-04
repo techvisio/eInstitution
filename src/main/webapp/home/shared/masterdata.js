@@ -6,7 +6,9 @@ masterDataModule.service('masterdataService', function($http, $q){
          getAdmissionMasterData : getAdmissionMasterData,
          getEnquiryMasterData : getEnquiryMasterData,
          getConsultantMasterData : getConsultantMasterData,
-         getFeeMasterData : getFeeMasterData
+         getFeeMasterData : getFeeMasterData,
+         getTransportMasterData : getTransportMasterData,
+         getHostelMasterData : getHostelMasterData
        });
 
        function getAdmissionMasterData() {
@@ -60,8 +62,32 @@ masterDataModule.service('masterdataService', function($http, $q){
            });
            return (request.then(handleSuccess, handleError));
          }
+
+       function  getTransportMasterData() {
+
+           console.log('Getting masterdata for transport module');
+           var request = $http({
+             method : "get",
+             url : "service/masterdata/transport",
+             params : "",
+             data : ""
+           });
+           return (request.then(handleSuccess, handleError));
+         }
        
-        function handleError(response) {
+       function  getHostelMasterData() {
+
+           console.log('Getting masterdata for hostel module');
+           var request = $http({
+             method : "get",
+             url : "service/masterdata/hostel",
+             params : "",
+             data : ""
+           });
+           return (request.then(handleSuccess, handleError));
+         }
+       
+              function handleError(response) {
          console.log('handle error');
          console.log(response);
         

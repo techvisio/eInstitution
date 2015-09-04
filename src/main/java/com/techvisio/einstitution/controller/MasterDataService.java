@@ -1,6 +1,5 @@
 package com.techvisio.einstitution.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,15 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techvisio.einstitution.beans.Amenities;
-import com.techvisio.einstitution.beans.FieldDesc;
-import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.Response;
-import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.AppConstants;
-import com.techvisio.einstitution.util.CommonUtil;
 import com.techvisio.einstitution.util.CustomLogger;
 
 @Component 
@@ -63,8 +56,8 @@ public ResponseEntity<Response> getMasterDataforAdmission() {
 			AppConstants.FLOOR, 
 			AppConstants.BLOCK, 
 			AppConstants.ROOMNO, 
-//			AppConstants.VEHICLE, 
-//			AppConstants.VEHICLETYPE, 
+			AppConstants.ROUTE, 
+			AppConstants.STOPPPAGE, 
 			AppConstants.AMENITIES,
 			AppConstants.ADMISSION_WORKFLOW
 			};
@@ -83,7 +76,6 @@ public ResponseEntity<Response> getMasterDataforAdmission() {
 		response.setError(e.getMessage());
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
-	
 }
 
 @RequestMapping(value = "/enquiry", method = RequestMethod.GET)	
@@ -166,6 +158,58 @@ public ResponseEntity<Response> getMasterDataforFee() {
 	}
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
 	
+}
+
+@RequestMapping(value = "/hostel", method = RequestMethod.GET)	
+public ResponseEntity<Response> getMasterDataforHostel() {
+	logger.info("{} Get MasterData call for hostel ",this.getClass().getName());
+	Response response=new Response();
+	String[] masterEntity=new String[]{
+			AppConstants.WING, 
+			AppConstants.FLOOR, 
+			AppConstants.BLOCK, 
+			AppConstants.ROOMNO, 
+			};
+	
+	try{
+	Map<String,List> serverData=new HashMap<String, List>();
+	
+	for(String entity:masterEntity){
+		serverData.put(entity, cacheManager.getEntityList(entity));
+	}
+	
+	response.setResponseBody(serverData);
+	}
+	catch(Exception e){
+		logger.error("Error while fetching master data for hostel", e);
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+}
+
+@RequestMapping(value = "/transport", method = RequestMethod.GET)	
+public ResponseEntity<Response> getMasterDataforTransport() {
+	logger.info("{} Get MasterData call for transport ",this.getClass().getName());
+	Response response=new Response();
+	String[] masterEntity=new String[]{
+			AppConstants.ROUTE, 
+			AppConstants.STOPPPAGE, 
+			};
+	
+	try{
+	Map<String,List> serverData=new HashMap<String, List>();
+	
+	for(String entity:masterEntity){
+		serverData.put(entity, cacheManager.getEntityList(entity));
+	}
+	
+	response.setResponseBody(serverData);
+	}
+	catch(Exception e){
+		logger.error("Error while fetching master data for transport", e);
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
 }
 
 

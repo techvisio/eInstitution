@@ -13,10 +13,11 @@ import com.techvisio.einstitution.beans.VehicleDetail;
 
 @Component
 public interface TransportDao {
-	
+
 	public List<AvailableTransport> getAvailableTransports();
 	public TransportReservation getTransportReservationDtl(Long fileNo);
-	public void saveTransportReservationDtl(TransportReservation transportReservation);
+	public void saveTransportReservationDtl(TransportReservation transportReservation,Long fileNo);
 	public void deleteTransportReservationDtl(Long fileNo);
+
 
 }

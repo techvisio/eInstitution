@@ -31,6 +31,8 @@ public interface AppConstants {
 	public static final String VEHICLETYPE = "VEHICLETYPE";
 	public static final String ROOMTYPE = "ROOMTYPE";
 	public static final String TRANSPORT = "TRANSPORT";
+	public static final String ROUTE = "ROUTE";
+	public static final String STOPPPAGE = "STOPPPAGE";
 	public static final String AMENITIES = "AMENITIES";
 	public static final String ADMISSION_WORKFLOW = "ADMISSION_WORKFLOW";
 	

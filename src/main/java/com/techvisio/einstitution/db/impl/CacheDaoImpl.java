@@ -26,6 +26,8 @@ import com.techvisio.einstitution.beans.Qualification;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.Route;
+import com.techvisio.einstitution.beans.RouteStoppage;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Semester;
 import com.techvisio.einstitution.beans.Session;
@@ -236,6 +238,22 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		String queryString="FROM Transport";
 		Query query=getCurrentSession().createQuery(queryString);
 		List<Transport> result= query.list();
+		return result;
+	}
+	
+	@Override
+	public List<Route> getRoutes() {
+		String queryString="FROM Route";
+		Query query=getCurrentSession().createQuery(queryString);
+		List<Route> result= query.list();
+		return result;
+	}
+	
+	@Override
+	public List<RouteStoppage> getRouteStoppages() {
+		String queryString="FROM RouteStoppage";
+		Query query=getCurrentSession().createQuery(queryString);
+		List<RouteStoppage> result= query.list();
 		return result;
 	}
 

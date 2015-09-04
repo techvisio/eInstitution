@@ -54,9 +54,9 @@ public class HostelManagerImpl implements HostelManager {
 		return hostelReservation;	}
 
 	@Override
-	public void saveHostelReservation(HostelReservation hostelReservation) {
+	public void saveHostelReservation(HostelReservation hostelReservation, Long fileNo) {
 		logger.info("{} : calling addHostelReservation method for fileNo:{} ",this.getClass().getName(),hostelReservation.getFileNo());
-		hostelDao.saveHostelReservation(hostelReservation);
+		hostelDao.saveHostelReservation(hostelReservation, fileNo);
 	}
 
 	@Override

@@ -67,13 +67,13 @@ public class HostelService {
 
 	}
 
-	@RequestMapping(value ="/hostelReservation",method = RequestMethod.POST)
-	public ResponseEntity<Response> addHostelReservation(@RequestBody HostelReservation hostelReservation){
+	@RequestMapping(value ="/hostelReservation/{fileNo}",method = RequestMethod.POST)
+	public ResponseEntity<Response> addHostelReservation(@RequestBody HostelReservation hostelReservation, @PathVariable Long fileNo){
 		logger.info("{}:  Calling addHostelReservation method for  fileno : {}",this.getClass().getName(), hostelReservation.getFileNo());
 		Response response = new Response();
 		try
 		{
-			hostelWorkflowManager.saveHostelReservation(hostelReservation);
+			hostelWorkflowManager.saveHostelReservation(hostelReservation, fileNo);
 			HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(hostelReservation.getFileNo());
 			response.setResponseBody(updatedReservation);
 		}

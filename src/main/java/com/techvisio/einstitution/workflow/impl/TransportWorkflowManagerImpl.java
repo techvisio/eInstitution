@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
+import com.techvisio.einstitution.beans.RouteStoppage;
 import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
@@ -34,9 +35,14 @@ public class TransportWorkflowManagerImpl implements TransportWorkflowManager {
 		return transportManager.getTransportReservationDtl(fileNo);
 	}
 
-	public void saveTransportReservationDtl(TransportReservation transportReservation) {
-         transportManager.saveTransportReservationDtl(transportReservation);
-//         VehicleDetail vehicleType = cacheManager.getVehicleDeatilByVehicleId(transportReservation.get) 
+	public void saveTransportReservationDtl(TransportReservation transportReservation, Long fileNo) {
+         
+		RouteStoppage routeStoppage = cacheManager.getTransportByStopId(transportReservation.getRouteStoppage().getRouteStopId());
+		transportReservation.setDescription(routeStoppage.getRoute().getDescription());
+		transportReservation.setPrice(routeStoppage.getPrice());
+		transportReservation.setActive(true);
+		transportManager.saveTransportReservationDtl(transportReservation, fileNo);
+         
 	}
 
 	public void deleteTransportReservationDtl(Long fileNo) {
