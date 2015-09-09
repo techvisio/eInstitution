@@ -16,11 +16,13 @@ consultantModule.service('consultantService', function($http, $q) {
 
 	function getConsultant(consultantId){
 		console.log('get due enquiries');
+		
 		var request = $http({
 			method : "get",
 			url : "service/consultant/consultantMaster/"+consultantId,
-			params : "",
-			data: ""
+			params : {
+				action : "get"
+			}
 		});
 		return (request.then(handleSuccess, handleError));
 	}

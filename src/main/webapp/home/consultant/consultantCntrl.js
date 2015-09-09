@@ -52,6 +52,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 		$state.go('consultant',{fileNo:currentFileNo});
 	}
 
+
 	$scope.redirectToConsultantM=function(currentConsultantId){
 		$state.go('consultantM',{consultantId:currentConsultantId});
 	}
@@ -105,7 +106,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 	$scope.consultantGridOptions = {
 			multiSelect:false,
 			data: 'searchRes',
-			rowTemplate: '<div ng-dblclick="getConsultant(row.config.selectedItems[0].consultantId)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+			rowTemplate: '<div ng-dblclick="redirectToConsultantM(row.config.selectedItems[0].consultantId)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
 			columnDefs: [{ field: "name", width: 100,displayName :"Consultant Name"},
 			             { field: "primaryContactNo", width: 180,displayName :"Primary Contact No" },
 			             { field: "secondaryContactNo", width: 140,displayName :"Secondary Contact No" },
