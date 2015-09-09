@@ -1,5 +1,6 @@
 package com.techvisio.einstitution.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,14 +26,27 @@ public class User {
 	private Long userId;
 	@Column(name = "Name")
 	private String name;
-	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
-	@JoinColumn(name = "USER_ID")
+	@ManyToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
+	@JoinTable(name="USER_ROLE")
 	private List<Role> roles;
 	@Column(name = "Password")
 	private char[] password;
 	@Column(name = "IS_ACTIVE")
 	private boolean active;
-
+	@Column(name = "Force_Password_Change")
+	private boolean forcePasswordChange;
+	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
+	@JoinColumn(name="User_Id")
+	private List<SecurityQuestion> securityQuestions;
+	@Column(name = "User_Name")
+	private String userName;
+	@Column(name = "Department")
+	private String department;
+	@Column(name = "Designation")
+	private String designation;
+	@Column(name = "DOB")
+	private Date DOB; 
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -71,4 +87,53 @@ public class User {
 		this.active = active;
 	}
 
+	public boolean isForcePasswordChange() {
+		return forcePasswordChange;
+	}
+
+	public void setForcePasswordChange(boolean forcePasswordChange) {
+		this.forcePasswordChange = forcePasswordChange;
+	}
+
+	public List<SecurityQuestion> getSecurityQuestions() {
+		return securityQuestions;
+	}
+
+	public void setSecurityQuestions(List<SecurityQuestion> securityQuestions) {
+		this.securityQuestions = securityQuestions;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public Date getDOB() {
+		return DOB;
+	}
+
+	public void setDOB(Date dOB) {
+		DOB = dOB;
+	}
+
+	
 }

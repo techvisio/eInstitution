@@ -509,7 +509,7 @@ public class AdmissionDaoImpl extends BaseDao implements AdmissionDao {
 
 	@Override
 	public Map<String,List<List<StudentDocument>>> getStudentDocumentForUI(Long fileNo) {
-		String queryString="Select stdoc.File_No,stdoc.document_No,stdoc.Student_Doc_Id,docm.Created_By,docm.Created_On,docm.Updated_by,docm.Updated_On, docm.Document_Id,docm.Document_Name,docm.Document_Type , stdoc.is_received,(case when stdoc.File_No is null then 0 else 1 end) as Received FROM Document_Master as docm left join Student_Documents as stdoc on docm.document_id=stdoc.document_id where file_No =" + fileNo ;
+		String queryString="Select stdoc.File_No,stdoc.document_No,stdoc.Student_Doc_Id,docm.Created_By,docm.Created_On,docm.Updated_by,docm.Updated_On, docm.Document_Id,docm.Document_Name,docm.Document_Type , stdoc.is_received,(case when stdoc.File_No is null then 0 else 1 end) as Received FROM Document_Master as docm left join Student_Documents as stdoc on docm.document_id=stdoc.document_id where stdoc.file_No =" + fileNo ;
 		SQLQuery query=getCurrentSession().createSQLQuery(queryString);
 		query.addEntity(StudentDocument.class);
 		List<StudentDocument> studentDocuments = (List<StudentDocument>)query.list();

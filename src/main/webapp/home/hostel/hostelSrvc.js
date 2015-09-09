@@ -6,6 +6,8 @@ hostelModule.service('hostelService', function($http, $q) {
 		reserveRoom : reserveRoom,
 		getReservedHostel : getReservedHostel,
 		cancelReservation : cancelReservation,
+		getHostelAllocationAdmissionDetail : getHostelAllocationAdmissionDetail,
+		addHostelAllocationAdmissionDetail : addHostelAllocationAdmissionDetail
 	});
 
 	function getHostelAvailability() {
@@ -61,11 +63,33 @@ hostelModule.service('hostelService', function($http, $q) {
 				action : "delete"
 			}
 		});
-
 		return (request.then(handleSuccess, handleError));
-
 	}
 
+	function getHostelAllocationAdmissionDetail(fileNo){
+		console.log('getHostelAllocationAdmissionDetail called in service')
+		var request = $http({
+			method : "get",
+			url : "hostel/hostelAllocationAdmission/"+fileNo,
+			params : {
+				action : "get"
+			}
+		});
+		return (request.then(handleSuccess, handleError));
+	}
+
+	function addHostelAllocationAdmissionDetail(hostelAllocationAdmissionDtl){
+		console.log('addHostelAllocationAdmissionDetail called in service');
+		var request = $http({
+			method : "post",
+			url : "hostel/hostelAllocationAdmission/",
+			params : "",
+			data: hostelAllocationAdmissionDtl
+
+		});
+
+		return (request.then(handleSuccess, handleError));
+	}
 	
 	function handleError(response) {
 		console.log('handle error');

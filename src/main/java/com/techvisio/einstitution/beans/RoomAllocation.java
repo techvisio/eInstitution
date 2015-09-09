@@ -27,11 +27,11 @@ public class RoomAllocation extends BasicEntity {
     private RoomTypeDetail roomTypeDetail;
 	@Column(name = "Allocated_On")
     private Date allocatedOn;
-	@Column(name = "Alocated_By")
+	@Column(name = "Allocated_By")
     private String allocatedBy;
 	@Column(name = "Checkout_On")
     private Date checkoutOn;
-	@Column(name = "Allocated")
+	@Column(name = "Is_Allocated")
     private boolean allocated;
 	@Column(name = "Remark")
     private String remark;

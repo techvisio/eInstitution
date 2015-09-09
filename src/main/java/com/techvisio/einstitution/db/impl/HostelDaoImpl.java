@@ -95,4 +95,98 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		int result = query.executeUpdate();
 	}
 
+	@Override
+	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo){
+		logger.info("{} : get current allocation by room no :{}",this.getClass().getName(), roomNo);
+
+
+		String getQuery = hostelQueryProps.getProperty("getCurrentAllocation");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_No", roomNo);
+
+		RoomAllocationDetailForRoom currentAllocation = new RoomAllocationDetailForRoom();
+		List<StudentBasicInfo> basicInfos = new ArrayList<StudentBasicInfo>();
+		currentAllocation.setBasicInfos(basicInfos);
+		List<Map<String, Object>> roomAllocationMaps = getNamedParamJdbcTemplate().queryForList(getQuery, namedParameter);
+
+		for (Map<String, Object> allocationMap : roomAllocationMaps) {
+
+			currentAllocation.setCapacity((Integer) (allocationMap.get("Room_Capacity")));
+			currentAllocation.setRoomNo((String) (allocationMap.get("Room_No")));
+
+			StudentBasicInfo basicInfo= new StudentBasicInfo();
+			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+			basicInfo.setFileNo((CommonUtil.getLongToObject(allocationMap.get("File_No"))));
+			basicInfo.setFirstName((String)(allocationMap.get("First_Name")));
+			basicInfo.setLastName((String)(allocationMap.get("Last_Name")));
+			basicInfo.setFatherName((String)(allocationMap.get("Father_name")));
+			basicInfo.setGender((String)(allocationMap.get("Gender")));
+			basicInfo.setDob((Date)(allocationMap.get("DOB")));
+			basicInfo.setEnrollmentNo((String)(allocationMap.get("Enroll_No")));
+			Long courseId=((CommonUtil.getLongToObject(allocationMap.get("Course_Id"))));
+			Course course = cacheManager.getCourseById(courseId);
+			basicInfo.setCourse(course);
+			Long branchId=((CommonUtil.getLongToObject(allocationMap.get("Branch_Id"))));
+			Branch branch = cacheManager.getBranchById(branchId);
+			basicInfo.setBranch(branch);
+			basicInfo.setSemester((String)(allocationMap.get("Semester")));
+			basicInfo.setAcademicYear((String)(allocationMap.get("Academic_Year")));
+			Long batchId=((CommonUtil.getLongToObject(allocationMap.get("Batch_Id"))));
+			Batch batch = cacheManager.getBatchByBatchId(batchId);
+			basicInfo.setBatch(batch);			
+			Long sectionId=((CommonUtil.getLongToObject(allocationMap.get("Section_Id"))));
+			Section section = cacheManager.getSectionBySectionId(sectionId);
+			basicInfo.setSection(section);
+			Long shiftId=((CommonUtil.getLongToObject(allocationMap.get("Shift_Id"))));
+			Shift shift = cacheManager.getShiftByShiftId(shiftId);
+			basicInfo.setShift(shift);
+			Long centreId=((CommonUtil.getLongToObject(allocationMap.get("Centre_Id"))));
+			Centre centre = cacheManager.getCentreByCentreId(centreId);
+			basicInfo.setCentre(centre);
+			basicInfo.setRegistrationNo((String)(allocationMap.get("Registration_No")));
+			Long sessionId=((CommonUtil.getLongToObject(allocationMap.get("Session_Id"))));
+			Session session = cacheManager.getSessionBySessionId(sessionId);
+			basicInfo.setSession(session);
+			basicInfo.setLateral((Boolean)(allocationMap.get("Lateral")));
+
+			basicInfos.add(basicInfo);
+
+		}	
+
+		return currentAllocation;
+
+	}
+
+	@Override
+	public RoomAllocation getActiveRoomAllocationDtl(Long fileNo) {
+		logger.info("{} : Get room allocation detail for file no:{}",this.getClass().getName(), fileNo);
+		String getQuery = hostelQueryProps.getProperty("getRoomAllocatedDetail");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("file_no",fileNo);
+		List<RoomAllocation> roomAllocationDetails = getNamedParamJdbcTemplate().query(getQuery, namedParameter,  new RowMapper<RoomAllocation>(){
+
+			@Override
+			public RoomAllocation mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				RoomAllocation allocationDetail = new RoomAllocation();
+				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
+				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
+				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
+				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
+				allocationDetail.setFileNo(CommonUtil.getLongValue(rs.getLong("file_no")));
+				allocationDetail.setRemark(rs.getString("Remark"));
+				String roomNo = rs.getString("Room_No");
+				RoomTypeDetail typeDetail=cacheManager.getroomDetailByRoomNo(roomNo);
+				allocationDetail.setRoomTypeDetail(typeDetail);
+				allocationDetail.setUpdatedBy(rs.getString("updated_by"));
+				return allocationDetail;
+			}
+
+		});
+		RoomAllocation roomAllocationDetail = null;
+		if(roomAllocationDetails != null && roomAllocationDetails.size()>0 ){
+			roomAllocationDetail = roomAllocationDetails.get(0);
+		}
+
+		return roomAllocationDetail;
+	}
 }

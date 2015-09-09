@@ -102,7 +102,7 @@ public class AdmissionService {
 		Workflow wf=admWorkflowManager.getNewAdmissionWorkFlow();
 		Response response=new Response();
 		if(wf!= null){
-			response.setResponseBody(wf);
+			response.setResponseBody(new Workflow[]{wf});
 		}else{
 			response.setError("No Workflow is defined for Admission");
 		}

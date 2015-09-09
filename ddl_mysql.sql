@@ -135,18 +135,6 @@
         drop 
         foreign key FK_962v6vhntr4hlxfk7vj67bf4b;
 
-    alter table ROLE 
-        drop 
-        foreign key FK_jjqf2oo9s1e6xqlcc61hbcc54;
-
-    alter table ROLE_PRIVILEGE 
-        drop 
-        foreign key FK_kul59s5xujjcsc5oo9dt711hf;
-
-    alter table ROLE_PRIVILEGE 
-        drop 
-        foreign key FK_lgu96j836vw9un8h2haudk8j4;
-
     alter table ROOM_ALLOCATION_DETAIL 
         drop 
         foreign key FK_tpnfagdgeskvwtcafh232bvin;
@@ -186,6 +174,10 @@
     alter table SECTION_MASTER 
         drop 
         foreign key FK_9pyhiqmlx09ty2ss1uqy4pj0i;
+
+    alter table SECURITY_QUESTION 
+        drop 
+        foreign key FK_ru58t5o3o75jn03x7e764fp3c;
 
     alter table SEMESTER_MASTER 
         drop 
@@ -258,6 +250,22 @@
     alter table TRANSPORT_RESERVATION 
         drop 
         foreign key FK_lgwgeek9u7r1hkyve67xlkv8s;
+
+    alter table USER_ROLE 
+        drop 
+        foreign key FK_2992kd8m4xa5ci4rji4xhvgnd;
+
+    alter table USER_ROLE 
+        drop 
+        foreign key FK_j2j8kpywaghe8i36swcxv8784;
+
+    alter table USER_ROLE_PRIVILEGE 
+        drop 
+        foreign key FK_lnkcei25ko963dkyj9eekq5xk;
+
+    alter table USER_ROLE_PRIVILEGE 
+        drop 
+        foreign key FK_prup18myibgxuhk2hxso40gga;
 
     alter table VEHICLE_DETAIL 
         drop 
@@ -353,11 +361,11 @@
 
     drop table if exists QUALIFICATION_SUBJECT_DTL;
 
+    drop table if exists QUESTION_MASTER;
+
     drop table if exists QUOTACODE_MASTER;
 
-    drop table if exists ROLE;
-
-    drop table if exists ROLE_PRIVILEGE;
+    drop table if exists ROLE_MASTER;
 
     drop table if exists ROOM_ALLOCATION_DETAIL;
 
@@ -374,6 +382,8 @@
     drop table if exists SCHOLARSHIP_PAYMENT_DETAIL;
 
     drop table if exists SECTION_MASTER;
+
+    drop table if exists SECURITY_QUESTION;
 
     drop table if exists SEMESTER_MASTER;
 
@@ -402,6 +412,10 @@
     drop table if exists TRANSPORT_RESERVATION;
 
     drop table if exists USER;
+
+    drop table if exists USER_ROLE;
+
+    drop table if exists USER_ROLE_PRIVILEGE;
 
     drop table if exists VEHICLE_DETAIL;
 
@@ -784,6 +798,11 @@
         primary key (Stdnt_Subjct_Id)
     );
 
+    create table QUESTION_MASTER (
+        Question varchar(255) not null,
+        primary key (Question)
+    );
+
     create table QUOTACODE_MASTER (
         Quota_Id bigint not null auto_increment,
         Created_By varchar(255),
@@ -795,20 +814,15 @@
         primary key (Quota_Id)
     );
 
-    create table ROLE (
+    create table ROLE_MASTER (
         Role_Id bigint not null auto_increment,
         Created_By varchar(255),
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
+        Description varchar(255),
         Role_Name varchar(255),
-        User_Id bigint,
         primary key (Role_Id)
-    );
-
-    create table ROLE_PRIVILEGE (
-        ROLE_Role_Id bigint not null,
-        privilegeList_Privilege_Id bigint not null
     );
 
     create table ROOM_ALLOCATION_DETAIL (
@@ -817,8 +831,8 @@
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
-        Allocated bit,
-        Alocated_By varchar(255),
+        Is_Allocated bit,
+        Allocated_By varchar(255),
         Allocated_On date,
         Checkout_On date,
         File_No bigint,
@@ -903,6 +917,14 @@
         Branch_Id bigint,
         Course_Id bigint,
         primary key (Section_Id)
+    );
+
+    create table SECURITY_QUESTION (
+        Security_Qustn_Id bigint not null,
+        Answer varchar(255),
+        Question varchar(255),
+        User_Id bigint,
+        primary key (Security_Qustn_Id)
     );
 
     create table SEMESTER_MASTER (
@@ -1099,10 +1121,31 @@
 
     create table USER (
         User_Id bigint not null auto_increment,
+        DOB datetime,
         IS_ACTIVE bit,
+        Department varchar(255),
+        Designation varchar(255),
+        Force_Password_Change bit,
         Name varchar(255),
         Password varchar(255),
+        User_Name varchar(255),
         primary key (User_Id)
+    );
+
+    create table USER_ROLE (
+        User_Role_Id bigint not null auto_increment,
+        Created_By varchar(255),
+        Created_On datetime,
+        Updated_By varchar(255),
+        Updated_On datetime,
+        User_Id bigint,
+        Role_Id bigint,
+        primary key (User_Role_Id)
+    );
+
+    create table USER_ROLE_PRIVILEGE (
+        USER_ROLE_User_Role_Id bigint not null,
+        privilegeList_Privilege_Id bigint not null
     );
 
     create table VEHICLE_DETAIL (
@@ -1380,21 +1423,6 @@
         foreign key (Student_Qualification_Id) 
         references ACADEMIC_DETAIL (Student_Qualification_Id);
 
-    alter table ROLE 
-        add constraint FK_jjqf2oo9s1e6xqlcc61hbcc54 
-        foreign key (USER_ID) 
-        references USER (User_Id);
-
-    alter table ROLE_PRIVILEGE 
-        add constraint FK_kul59s5xujjcsc5oo9dt711hf 
-        foreign key (privilegeList_Privilege_Id) 
-        references PRIVILEGE (Privilege_Id);
-
-    alter table ROLE_PRIVILEGE 
-        add constraint FK_lgu96j836vw9un8h2haudk8j4 
-        foreign key (ROLE_Role_Id) 
-        references ROLE (Role_Id);
-
     alter table ROOM_ALLOCATION_DETAIL 
         add constraint FK_tpnfagdgeskvwtcafh232bvin 
         foreign key (Room_No) 
@@ -1444,6 +1472,11 @@
         add constraint FK_9pyhiqmlx09ty2ss1uqy4pj0i 
         foreign key (Course_Id) 
         references COURSE_MASTER (Course_Id);
+
+    alter table SECURITY_QUESTION 
+        add constraint FK_ru58t5o3o75jn03x7e764fp3c 
+        foreign key (User_Id) 
+        references USER (User_Id);
 
     alter table SEMESTER_MASTER 
         add constraint FK_i326udq6jurs8a41ui018q42q 
@@ -1534,6 +1567,26 @@
         add constraint FK_lgwgeek9u7r1hkyve67xlkv8s 
         foreign key (Route_Stop_Id) 
         references ROUTE_STOPPAGE (Route_Stop_Id);
+
+    alter table USER_ROLE 
+        add constraint FK_2992kd8m4xa5ci4rji4xhvgnd 
+        foreign key (Role_Id) 
+        references ROLE_MASTER (Role_Id);
+
+    alter table USER_ROLE 
+        add constraint FK_j2j8kpywaghe8i36swcxv8784 
+        foreign key (USER_ID) 
+        references USER (User_Id);
+
+    alter table USER_ROLE_PRIVILEGE 
+        add constraint FK_lnkcei25ko963dkyj9eekq5xk 
+        foreign key (privilegeList_Privilege_Id) 
+        references PRIVILEGE (Privilege_Id);
+
+    alter table USER_ROLE_PRIVILEGE 
+        add constraint FK_prup18myibgxuhk2hxso40gga 
+        foreign key (USER_ROLE_User_Role_Id) 
+        references USER_ROLE (User_Role_Id);
 
     alter table VEHICLE_DETAIL 
         add constraint FK_bmngobbyma9vt09gpf4utomdb 

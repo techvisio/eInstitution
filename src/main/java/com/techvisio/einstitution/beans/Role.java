@@ -1,56 +1,48 @@
 package com.techvisio.einstitution.beans;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROLE")    
+@Table(name = "ROLE_MASTER")   
 public class Role extends BasicEntity{
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Role_Id")
 	private Long roleId;
 	@Column(name = "Role_Name")
 	private String roleName;
-	@ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
-	@JoinColumn(name="Privilege_Id")
-	private List<Privilege> privilegeList;
-	@Column(name ="User_Id")
-	private Long userId;
-
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
+	@Column(name = "Description")
+	private String description;
+	private boolean selected;
 	public Long getRoleId() {
 		return roleId;
 	}
-
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-
-	public List<Privilege> getPrivilegeList() {
-		return privilegeList;
+	public String getRoleName() {
+		return roleName;
 	}
-
-	public void setPrivilegeList(List<Privilege> privilegeList) {
-		this.privilegeList = privilegeList;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
 }

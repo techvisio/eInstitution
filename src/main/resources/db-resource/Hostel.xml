@@ -3,7 +3,7 @@
 
 <properties>
 
-<entry key="getHostelAvailability">
+	<entry key="getHostelAvailability">
     <![CDATA[
 SELECT 
  sum(RD.Room_Capacity) as Threshold,
@@ -61,29 +61,47 @@ Delete from RoomTypeDetail where Type_Code=:Type_Code;
    select 
    sd.File_No,
    sd.Registration_No,
-   sd.First_Name,
-   sd.Last_Name,
-   sd.Father_name,
-   sd.Gender,
-   sd.DOB,
-   sd.Enroll_No,
+   sb.First_Name,
+   sb.Last_Name,
+   sb.Father_name,
+   sb.Gender,
+   sb.DOB,
+   sb.Enroll_No,
    sd.Course_Id,
    sd.Branch_Id,
-   sd.Semester,
+   sb.Semester,
    sd.Academic_Year,
-   sd.Batch_Id,
-   sd.Section_Id,
-   sd.Session_Id,
-   sd.Shift_Id,
-   sd.Centre_Id,
-   sd.Lateral,
+   sb.Batch_Id,
+   sb.Section_Id,
+   sb.Session_Id,
+   sb.Shift_Id,
+   sb.Centre_Id,
+   
     rtd.Room_No,
-    rtm.Room_Capacity
+    rtd.Room_Capacity
      
-   from studentdetail sd join room_Allocation_Detail rad on rad.file_no = sd.File_No
-    join roomtypedetail rtd on rad.Room_No = rtd.Room_No
-     join Room_type_master rtm on rtd.Type_Code = rtm.Type_Code
-      where rad.isAllocated=1 and rtd.Room_No=:Room_No;   ]]>
+   from student_detail sd join room_Allocation_Detail rad on rad.file_no = sd.File_No join student_basic sb on sd.File_No = sb.FILE_NO
+    join room_type_detail rtd on rad.Room_No = rtd.Room_No
+     join Room_type_master rtm on rtd.room_Type_id = rtm.room_Type_id
+      where rad.is_Allocated=1 and rtd.Room_No=:Room_No;   ]]>
+
+	</entry>
+
+	<entry key="getRoomAllocatedDetail">
+    <![CDATA[
+select 
+	file_no,
+  	Room_No,
+  	Allocated_on,
+  	Allocated_By,
+  	updated_by,
+  	Checkout_on,
+  	isAllocated,
+  	Remark 
+
+from roomallocationdetail where file_no=:file_no And isAllocated = 1;
+      
+    ]]>
 
 	</entry>
 

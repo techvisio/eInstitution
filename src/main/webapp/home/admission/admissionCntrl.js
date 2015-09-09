@@ -447,7 +447,7 @@ admissionModule
 							 if (response != null
 									 && response.data != null
 									 && response.data.responseBody != null) {
-								 $scope.availableWorkflows = response.data.responseBody.workflows;
+								 $scope.availableWorkflows = response.data.responseBody;
 								 if( $scope.availableWorkflows[0]){
 									 $scope.currentWorkflow=$scope.availableWorkflows[0];
 								 }
@@ -456,7 +456,6 @@ admissionModule
 						 })
 			 };
 
-			 
 			 
 			 $scope.getSaveButtonText = function() {
 				 if($scope.availableWorkflows.length>1){

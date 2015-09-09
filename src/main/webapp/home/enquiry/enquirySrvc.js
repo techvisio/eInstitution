@@ -60,7 +60,7 @@ enquiryModule.service('enquiryService', function($http, $q) {
 		 console.log('add new enquiry');
 		 var request = $http({
 			 method : "post",
-			 url : "enquiry",
+			 url : "service/enquiry/",
 			 params : "",
 			 data: enquiryAndTaskBean
 

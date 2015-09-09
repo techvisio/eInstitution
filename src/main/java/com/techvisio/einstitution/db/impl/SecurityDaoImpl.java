@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.techvisio.einstitution.beans.AdmissionDiscount;
 import com.techvisio.einstitution.beans.Privilege;
 import com.techvisio.einstitution.beans.Role;
 import com.techvisio.einstitution.beans.User;
+import com.techvisio.einstitution.beans.UserRole;
 import com.techvisio.einstitution.db.SecurityDao;
 
 @Transactional

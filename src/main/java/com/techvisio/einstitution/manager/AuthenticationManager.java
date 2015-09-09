@@ -45,5 +45,4 @@ public class AuthenticationManager implements AuthenticationProvider {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 
-
 }

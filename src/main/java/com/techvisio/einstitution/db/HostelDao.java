@@ -23,6 +23,10 @@ public interface HostelDao {
 
 	public void deleteHostelReservation(Long fileNo);
 
+	public RoomAllocation getActiveRoomAllocationDtl(Long fileNo);
+
+	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo);
+
 	
 
 

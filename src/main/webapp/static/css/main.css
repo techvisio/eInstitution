@@ -431,6 +431,10 @@ height:600px;
 	width:5%;
 }
 
+.searchcriteria table {
+	width: 60%;
+    vertical-align: middle;
+}
 /* special css for fancy check box */
 .squaredOne {
   width: 28px;

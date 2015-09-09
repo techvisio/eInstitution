@@ -191,6 +191,39 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 				return {};
 			}]
 		}
+	})
+	
+	.state('hostelAllocation', {
+		url: "/hostel/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/hostel/hostelAllocation.html',
+		controller: "hostelController",
+		resolve:{
+			injectedData: ['$stateParams','hostelService', function($stateParams,hostelService){
+				return feeService.getFeeTransactionAndBasicInfoDetail($stateParams.fileNo);
+			}]
+		}
+	})
+	
+		.state('getUser', {
+		url: "/user/{userId:[0-9]{1,8}}",
+		templateUrl: 'home/user/user.html',
+		controller: "userController",
+		resolve:{
+			injectedData: ['$stateParams','userService', function($stateParams,userService){
+				return userService.getUser($stateParams.userId);
+			}]
+		}
+	})
+	
+	.state('saveNewUser', {
+		url: "/user",
+		templateUrl: 'home/user/user.html',
+		controller: "userController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
 	});
 
 });
@@ -241,11 +274,11 @@ erp.controller('ApplicationController',
 		    $rootScope.user.privilege=["ROLE_PER_U","ROLE_DOC_U","ROLE_ADD_U","ROLE_DIS_U","ROLE_SCH_U","ROLE_ACD_U","ROLE_COUN_U","ROLE_OFF_U","ROLE_DIS_U","ROLE_CON_U","ROLE_REF_U","ROLE_TRA_U","ROLE_HOS_U","ROLE_AFE_U","ROLE_PER_R","ROLE_DOC_R","ROLE_ADD_R","ROLE_DIS_R","ROLE_SCH_R","ROLE_ACD_R","ROLE_COUN_R","ROLE_OFF_R","ROLE_DIS_R","ROLE_CON_R","ROLE_REF_R","ROLE_TRA_R","ROLE_HOS_R","ROLE_AFE_R"];
 //	        $rootScope.user=null;
 		    
-			 $scope.getUser = function() {
+			 $scope.getAuthenticatedUser = function() {
 				 console
 				 .log('getting user in app.js');
 				 userService
-				 .getUser()
+				 .getAuthenticatedUser()
 				 .then(
 						 function(data) {
 							 console.log(data);
@@ -259,11 +292,11 @@ erp.controller('ApplicationController',
 			 };
 			 
 			 if($rootScope.user==null){
-		    	 $scope.getUser();
+		    	 $scope.getAuthenticatedUser();
 		       }
 			 
 			 $rootScope.$on('authorized', function (o, e, type) {
-				 $scope.getUser();
+				 $scope.getAuthenticatedUser();
 			 });
 
 			 $rootScope.$on('unauthorized', function (o, e, type) {
