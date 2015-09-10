@@ -13,6 +13,7 @@ userModule
 			 $scope.form={};
 			 $scope.user={};
 			 $scope.user.roles=[];
+			 
 			 $scope.allUserRoles=[];
 			 if(injectedData.data){
 				 $scope.user = injectedData.data.responseBody;
@@ -26,6 +27,16 @@ userModule
 				 $state.go('getUser',{userId:currentUserId});
 			 }
 
+			 
+			 $scope.addAndRemoveRoleFromUser = function(object){
+				 
+				 if($scope.user.roles.indexOf(object)<0){
+					 $scope.user.roles.push(object);					 
+				 }
+				 else{
+					 $scope.user.roles.splice(object);					 
+				 }
+			 }
 
 			 $scope.getAuthenticatedUser=function(){
 				 userService.getAuthenticatedUser()

@@ -6,8 +6,11 @@ hostelModule.service('hostelService', function($http, $q) {
 		reserveRoom : reserveRoom,
 		getReservedHostel : getReservedHostel,
 		cancelReservation : cancelReservation,
-		getHostelAllocationAdmissionDetail : getHostelAllocationAdmissionDetail,
-		addHostelAllocationAdmissionDetail : addHostelAllocationAdmissionDetail
+		getStudentByCriteria : getStudentByCriteria,
+		getStudentBasicInfo : getStudentBasicInfo,
+		AllocateRoom : AllocateRoom,
+		getAllocatedRoom : getAllocatedRoom,
+		cancelAllocation : cancelAllocation
 	});
 
 	function getHostelAvailability() {
@@ -66,31 +69,74 @@ hostelModule.service('hostelService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 	}
 
-	function getHostelAllocationAdmissionDetail(fileNo){
-		console.log('getHostelAllocationAdmissionDetail called in service')
+	function getAllocatedRoom(fileNo) {
+
+		console.log('getAllocatedRoom called in service');
 		var request = $http({
 			method : "get",
-			url : "hostel/hostelAllocationAdmission/"+fileNo,
+			url : "service/hostel/roomAllocation/" + fileNo,
 			params : {
 				action : "get"
 			}
 		});
+		
 		return (request.then(handleSuccess, handleError));
+
 	}
 
-	function addHostelAllocationAdmissionDetail(hostelAllocationAdmissionDtl){
-		console.log('addHostelAllocationAdmissionDetail called in service');
+	function AllocateRoom(hostelReservation, fileNo) {
+
+		console.log('Room Allocation called in service');
 		var request = $http({
 			method : "post",
-			url : "hostel/hostelAllocationAdmission/",
+			url : "service/hostel/roomAllocation/" + fileNo,
 			params : "",
-			data: hostelAllocationAdmissionDtl
+			data : hostelReservation
 
 		});
 
 		return (request.then(handleSuccess, handleError));
+
+	}
+
+	function cancelAllocation(fileNo) {
+		var request = $http({
+			method : "delete",
+			url : "service/hostel/roomAllocation/" + fileNo,
+			params : {
+				action : "delete"
+			}
+		});
+		return (request.then(handleSuccess, handleError));
+	}
+	function getStudentByCriteria(searchCriteria){
+
+		console.log('Getting student by search criteria in service');
+		var request = $http({
+			method : "post",
+			url : "service/hostel/searchStudent/",
+			params : "",
+			data : searchCriteria
+
+		});
+		return (request.then(handleSuccess, handleError));
 	}
 	
+	function getStudentBasicInfo(fileNo) {
+
+		console.log('getStudentBasicInfo called in service');
+		var request = $http({
+			method : "get",
+			url : "service/hostel/basicInfo/" + fileNo,
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
+
 	function handleError(response) {
 		console.log('handle error');
 		console.log(response);

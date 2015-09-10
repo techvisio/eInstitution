@@ -182,9 +182,9 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 		}
 	})
 	
-	.state('reserveHostel', {
+	.state('SearchreserveHostelReservation', {
 		url: "/hostel/reservation",
-		templateUrl: 'home/hostel/hostelReservation.html',
+		templateUrl: 'home/hostel/searchStudentReservation.html',
 		controller: "hostelController",
 		resolve:{
 			injectedData: ['$stateParams', function($stateParams){
@@ -193,13 +193,34 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 		}
 	})
 	
-	.state('hostelAllocation', {
-		url: "/hostel/{fileNo:[0-9]{1,8}}",
+	.state('reserveHostel', {
+		url: "/hostel/reservation/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/hostel/hostelReservation.html',
+		controller: "hostelController",
+		resolve:{
+			injectedData: ['$stateParams','hostelService', function($stateParams,hostelService){
+				return hostelService.getStudentBasicInfo($stateParams.fileNo);
+			}]
+		}
+	})
+	
+	.state('SearchreserveHostelAllocation', {
+		url: "/hostel/Allocation",
+		templateUrl: 'home/hostel/searchStudentAllocation.html',
+		controller: "hostelController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	.state('AllocateHostel', {
+		url: "/hostel/Allocation/{fileNo:[0-9]{1,8}}",
 		templateUrl: 'home/hostel/hostelAllocation.html',
 		controller: "hostelController",
 		resolve:{
 			injectedData: ['$stateParams','hostelService', function($stateParams,hostelService){
-				return feeService.getFeeTransactionAndBasicInfoDetail($stateParams.fileNo);
+				return hostelService.getStudentBasicInfo($stateParams.fileNo);
 			}]
 		}
 	})

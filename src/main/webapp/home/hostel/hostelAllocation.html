@@ -1,57 +1,74 @@
 
           <form>
-				<div class="enquiry-detail-div">
+				<div class="enquiry-detail-div" ng-init="init(); getHostelAvailability()">
 					<table>
                 <tr><td colspan=2><span class="header">Student Info.</span></td></tr>
 		<tr>
 			<td><span> Registration No </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.registrationNo"></td>
+				ng-model="basicInfo.registrationNo"></td>
 			<td><span> Enrollment No </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.enrollmentNo"></td>
+				ng-model="basicInfo.enrollmentNo"></td>
 		</tr>
 		<tr>
 			<td><span> First Name </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.firstName"></td>
+				ng-model="basicInfo.firstName"></td>
 			<td><span> Last Name </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.lastName"></td>
+				ng-model="basicInfo.lastName"></td>
 
 		</tr>
 		<tr>
 			<td><span> Father Name </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.fatherName"></td>
+				ng-model="basicInfo.fatherName"></td>
 			<td><span> Date Of Birth </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.dob"></td>
+				ng-model="basicInfo.dob"></td>
 		</tr>
 		<tr>
 			<td><span> Course </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.course.course"></td>
+				ng-model="basicInfo.course.course"></td>
 			<td><span> Branch </span></td>
 			<td><input type="text"
-				ng-model="transportAllocationAdmissionDtl.basicInfo.branch.branchName"></td>
+				ng-model="basicInfo.branch.branchName"></td>
 		</tr>
 		
-         <tr><td colspan=2><span class="header">Transport Allocation Detail</span></td></tr>      
-        
+         <tr><td colspan=2><span class="header">Hostel Allocation Detail</span></td></tr>      
+
+<tr>
+<td><span> Room Type</span></td>
+<td>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="object.typeCode as object.description for object in hostelAvailability"></select>
+       </td></tr>        
          <tr>
-		
          	<td><span>Wing</span></td>
-            <td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.wing" /></td>
+            <td>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="item.wingId*1 as item.wing  for item in serverModelData.WING"></select>
+       </td>
 			<td><span> Block </span></td>
-			<td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.block"/></td>
+			<td>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="item.blockId*1 as item.block  for item in serverModelData.BLOCK"></select>
+       </td>
 		</tr>
            <tr>
 		
          	<td><span>Floor</span></td>
-            <td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.floor" /></td>
+            <td>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="item.floorId*1 as item.floor  for item in serverModelData.FLOOR"></select>
+       </td>
 			<td><span> Room No </span></td>
-			<td><input type="text" ng-model="hostelAllocationAdmissionDtl.hostelAllocation.roomNo"/></td>
+			<td>
+       <select ng-model="hostelReservation.typeCode"
+		ng-options="item.roomNo as item.roomNo  for item in serverModelData.ROOMNO"></select>
+       </td>
 		</tr>
 		
 		<tr><td><button type="button" class="btn btn-success"

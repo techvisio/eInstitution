@@ -11,6 +11,8 @@ import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 
 @Component
 public interface HostelDao {
@@ -27,7 +29,15 @@ public interface HostelDao {
 
 	public RoomAllocationDetailForRoom getCurrentAllocationByRoom(String roomNo);
 
-	
+	List<StudentBasicInfo> getStudentDtlBySearchCriteria(
+			SearchCriteria searchCriteria);
 
+	StudentBasicInfo getStudentBsInfo(Long fileNo);
+
+	RoomAllocation getRoomAllocation(Long fileNo);
+
+	void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo);
+
+	void deleteRoomAllocation(Long fileNo);
 
 }

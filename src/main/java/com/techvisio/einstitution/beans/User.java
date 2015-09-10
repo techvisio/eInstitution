@@ -27,7 +27,9 @@ public class User {
 	@Column(name = "Name")
 	private String name;
 	@ManyToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
-	@JoinTable(name="USER_ROLE")
+	@JoinTable(name="USER_ROLE", joinColumns = { 
+			@JoinColumn(name = "User_Id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "Role_Id") })
 	private List<Role> roles;
 	@Column(name = "Password")
 	private char[] password;

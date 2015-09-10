@@ -12,6 +12,7 @@ import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.HostelManager;
@@ -65,4 +66,35 @@ public class HostelManagerImpl implements HostelManager {
 		hostelDao.deleteHostelReservation(fileNo);
 	}
 
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(
+			SearchCriteria searchCriteria) {
+		
+		List<StudentBasicInfo> basicInfos = hostelDao.getStudentDtlBySearchCriteria(searchCriteria);
+		
+		return basicInfos;
+	}
+	
+	@Override
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		
+		StudentBasicInfo basicInfo = hostelDao.getStudentBsInfo(fileNo);
+		return basicInfo;
+	}
+
+	@Override
+	public RoomAllocation getRoomAllocation(Long fileNo) {
+	    RoomAllocation allocation = hostelDao.getRoomAllocation(fileNo);
+		return allocation;
+	}
+
+	@Override
+	public void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo) {
+        hostelDao.saveRoomAllocation(roomAllocation, fileNo);		
+	}
+
+	@Override
+	public void deleteRoomAllocation(Long fileNo) {
+		hostelDao.deleteRoomAllocation(fileNo);
+	}
 }

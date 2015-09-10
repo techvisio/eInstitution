@@ -20,6 +20,8 @@ import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomAllocationForStudent;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
+import com.techvisio.einstitution.beans.SearchCriteria;
+import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.util.CustomLogger;
 import com.techvisio.einstitution.workflow.HostelWorkflowManager;
 
@@ -74,7 +76,7 @@ public class HostelService {
 		try
 		{
 			hostelWorkflowManager.saveHostelReservation(hostelReservation, fileNo);
-			HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(hostelReservation.getFileNo());
+			HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(fileNo);
 			response.setResponseBody(updatedReservation);
 		}
 		catch(Exception e)
@@ -94,4 +96,80 @@ public class HostelService {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	@RequestMapping(value ="/searchStudent/", method = RequestMethod.POST)
+	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
+		logger.info("{}  Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(), searchCriteria.getFirstName());
+		Response response=new Response();
+		try
+		{
+			List<StudentBasicInfo> studentBasicInfo = hostelWorkflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+			response.setResponseBody(studentBasicInfo);
+
+			if(studentBasicInfo == null){
+
+				response.setError("No such record found");
+			}
+		}
+		catch(Exception e)
+		{
+			logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+
+	@RequestMapping(value ="/basicInfo/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getStudentBasicInfo(@PathVariable Long fileNo){
+		Response response=new Response();
+		try
+		{
+			StudentBasicInfo basicInfo = hostelWorkflowManager.getStudentBsInfo(fileNo);
+			response.setResponseBody(basicInfo);
+		}
+		catch(Exception e)
+		{
+			response.setError(e.getMessage());
+		}
+
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+
+	}
+
+	
+	@RequestMapping(value ="/roomAllocation/{fileNo}", method = RequestMethod.GET)
+	public ResponseEntity<Response> getRoomAllocation(@PathVariable Long fileNo){
+		Response response=new Response();
+		try
+		{
+			RoomAllocation roomAllocation = hostelWorkflowManager.getRoomAllocation(fileNo);
+			response.setResponseBody(roomAllocation);
+		}
+		catch(Exception e)
+		{
+			response.setError(e.getMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+
+	@RequestMapping(value ="/roomAllocation/{fileNo}",method = RequestMethod.POST)
+	public ResponseEntity<Response> addHostelAllocation(@RequestBody RoomAllocation roomAllocation, @PathVariable Long fileNo){
+		Response response = new Response();
+		try
+		{
+			hostelWorkflowManager.saveRoomAllocation(roomAllocation, fileNo);
+			RoomAllocation updatedAllocation=hostelWorkflowManager.getRoomAllocation(fileNo);
+			response.setResponseBody(updatedAllocation);
+		}
+		catch(Exception e){
+			response.setError(e.getLocalizedMessage());
+		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value ="/roomAllocation/{fileNo}",method = RequestMethod.DELETE)
+	public ResponseEntity deleteRoomAllocation(@PathVariable Long fileNo){
+		hostelWorkflowManager.deleteRoomAllocation(fileNo);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
 }

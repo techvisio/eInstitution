@@ -257,15 +257,7 @@
 
     alter table USER_ROLE 
         drop 
-        foreign key FK_j2j8kpywaghe8i36swcxv8784;
-
-    alter table USER_ROLE_PRIVILEGE 
-        drop 
-        foreign key FK_lnkcei25ko963dkyj9eekq5xk;
-
-    alter table USER_ROLE_PRIVILEGE 
-        drop 
-        foreign key FK_prup18myibgxuhk2hxso40gga;
+        foreign key FK_btm57dtvxhd4096q9bo6i8tum;
 
     alter table VEHICLE_DETAIL 
         drop 
@@ -414,8 +406,6 @@
     drop table if exists USER;
 
     drop table if exists USER_ROLE;
-
-    drop table if exists USER_ROLE_PRIVILEGE;
 
     drop table if exists VEHICLE_DETAIL;
 
@@ -822,6 +812,7 @@
         Updated_On datetime,
         Description varchar(255),
         Role_Name varchar(255),
+        selected bit not null,
         primary key (Role_Id)
     );
 
@@ -1133,19 +1124,8 @@
     );
 
     create table USER_ROLE (
-        User_Role_Id bigint not null auto_increment,
-        Created_By varchar(255),
-        Created_On datetime,
-        Updated_By varchar(255),
-        Updated_On datetime,
-        User_Id bigint,
-        Role_Id bigint,
-        primary key (User_Role_Id)
-    );
-
-    create table USER_ROLE_PRIVILEGE (
-        USER_ROLE_User_Role_Id bigint not null,
-        privilegeList_Privilege_Id bigint not null
+        User_Id bigint not null,
+        Role_Id bigint not null
     );
 
     create table VEHICLE_DETAIL (
@@ -1574,19 +1554,9 @@
         references ROLE_MASTER (Role_Id);
 
     alter table USER_ROLE 
-        add constraint FK_j2j8kpywaghe8i36swcxv8784 
-        foreign key (USER_ID) 
+        add constraint FK_btm57dtvxhd4096q9bo6i8tum 
+        foreign key (User_Id) 
         references USER (User_Id);
-
-    alter table USER_ROLE_PRIVILEGE 
-        add constraint FK_lnkcei25ko963dkyj9eekq5xk 
-        foreign key (privilegeList_Privilege_Id) 
-        references PRIVILEGE (Privilege_Id);
-
-    alter table USER_ROLE_PRIVILEGE 
-        add constraint FK_prup18myibgxuhk2hxso40gga 
-        foreign key (USER_ROLE_User_Role_Id) 
-        references USER_ROLE (User_Role_Id);
 
     alter table VEHICLE_DETAIL 
         add constraint FK_bmngobbyma9vt09gpf4utomdb 

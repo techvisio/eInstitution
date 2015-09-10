@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ROLE_MASTER")   
@@ -19,6 +20,7 @@ public class Role extends BasicEntity{
 	private String roleName;
 	@Column(name = "Description")
 	private String description;
+	@Transient
 	private boolean selected;
 	public Long getRoleId() {
 		return roleId;

@@ -13,13 +13,7 @@ public class UserDaoImpl extends BaseDao implements UserDao{
 
 	@Override
 	public void addUser(User user){
-		
-		if(user.getUserId() == null){
-			getCurrentSession().persist(user);
-		}
-		else{
-			getCurrentSession().update(user);
-		}
+			getCurrentSession().merge(user);
 	}
 	
 	@Override

@@ -30,13 +30,13 @@
 					ng-model="user.designation">
 			</tr>
 			<tr ng-repeat="role in allUserRoles">
-			<td>&nbsp;&nbsp;<input type="checkbox" ng-model="role.selected" />&nbsp;&nbsp;&nbsp;&nbsp;{{role.roleName}}</td>
+			<td>&nbsp;&nbsp;<input type="checkbox" ng-click="addAndRemoveRoleFromUser(role)" ng-model="role.selected" />&nbsp;&nbsp;&nbsp;&nbsp;{{role.roleName}}</td>
 			<td>{{role.description}}</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><button type="button" class="btn btn-primary"
-						ng-click="addUser()">Save</button></td>
+						ng-click="addUser()" >Save</button></td>
 			</tr>
 		</table>
 	</div>

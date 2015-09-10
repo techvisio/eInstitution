@@ -105,4 +105,69 @@ from roomallocationdetail where file_no=:file_no And isAllocated = 1;
 
 	</entry>
 
+	<entry key="getStudentDtlForHostel">
+    <![CDATA[
+SELECT
+s.Registration_No,
+s.File_No,
+sb.Enroll_No,
+sb.Uni_Enroll_No,
+sb.First_Name,
+sb.Last_Name,
+sb.Father_Name,
+sb.Gender,
+sb.DOB,
+sb.Email_Id,
+sb.Category_Id,
+s.Course_Id,
+s.Branch_Id,
+sb.created_On,
+sb.Updated_On,   
+sb.Quota_Id,
+s.Academic_Year,
+sb.Semester,
+sb.Batch_Id,
+sb.Session_Id,
+sb.Shift_Id,
+sb.Centre_Id,
+sb.Section_Id,
+sb.Is_Lateral
+from  student_detail s JOIN student_basic sb
+ON s.File_No = sb.FILE_NO
+     
+WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and s.File_No = IFNULL(:File_No,s.File_No) and s.Course_Id = IFNULL(:Course_Id,s.Course_Id) and s.Branch_Id = IFNULL(:Branch_Id,s.Branch_Id) and ifnull(sb.Email_Id,'-1')=ifnull(:Email_Id,ifnull(sb.Email_Id,'-1')) and ifnull(sb.Enroll_No,'-1')=ifnull(:Enroll_No,ifnull(sb.Enroll_No,'-1')) and ifnull(sb.Uni_Enroll_No,'-1')=ifnull(:Uni_Enroll_No,ifnull(sb.Uni_Enroll_No,'-1')) and ifnull(sb.Self_Mobile_No,'-1') = ifnull(:Self_Mobile_No,ifnull(sb.Self_Mobile_No,'-1')) and sb.First_Name like :First_Name;    
+    
+    ]]>
+	</entry>
+	
+		<entry key="getStudentBasicInfoByFileNo">
+    <![CDATA[
+    select 
+s.Registration_No,
+s.File_No,
+sb.Enroll_No,
+sb.Uni_Enroll_No,
+sb.First_Name,
+sb.Last_Name,
+sb.Father_Name,
+sb.Gender,
+sb.DOB,
+sb.Email_Id,
+sb.Category_Id,
+s.Course_Id,
+s.Branch_Id,
+sb.created_On,
+sb.Updated_On,   
+sb.Quota_Id,
+s.Academic_Year,
+sb.Semester,
+sb.Batch_Id,
+sb.Session_Id,
+sb.Shift_Id,
+sb.Centre_Id,
+sb.Section_Id,
+sb.Is_Lateral
+from Student_Detail s join student_basic sb on s.FILE_NO=sb.File_No where s.File_No=:File_No;
+ ]]>
+	</entry>
 </properties>

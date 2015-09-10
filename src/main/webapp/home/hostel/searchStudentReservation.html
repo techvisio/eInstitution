@@ -1,0 +1,52 @@
+<form>
+	<div class="searchcriteria" ng-show="showCriteria">
+		<table>
+			<tr>
+				<td><span>Registration No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.registrationNo"></td>
+			</tr>
+			<tr>
+				<td><span>Name</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.firstName"></td>
+			</tr>
+			<tr>
+				<td><span>Enrollment No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.enrollNo"></td>
+			</tr>
+			<tr>
+				<td><span>University Enroll No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.uniEnrollNo"></td>
+			</tr>
+			<tr>
+				<td><span>Email Id</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.emailId"></td>
+			</tr>
+			<tr>
+				<td><span>Mobile No</span></td>
+				<td><input type="text" class="form-control"
+					ng-model="searchCriteria.mobileNo"></td>
+			</tr>
+
+			<tr>
+				<td><button type="button" class="btn btn-success"
+						ng-click="getStudentByCriteria()">Get Details</button></td>
+			</tr>
+		</table>
+	</div>
+			<div class="searchList" ng-show="!showCriteria && searchResultList.length>0">
+				<span class="header">Double click a record to see Details</span>
+				<p>
+			<div class="gridStyle" ng-grid="gridOptions" id="gridStyle"></div>
+			<pagination total-items="totalItems" items-per-page="itemsPerPage" 
+         ng-model="currentPage" ng-change="pageChanged()"></pagination>
+        
+        
+	</div>
+		<div>
+	</div>
+</form>

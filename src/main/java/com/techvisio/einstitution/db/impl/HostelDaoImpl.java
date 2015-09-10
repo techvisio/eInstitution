@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
+import com.techvisio.einstitution.beans.CasteCategory;
 import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.HostelAvailability;
@@ -25,12 +27,11 @@ import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
-import com.techvisio.einstitution.beans.RoomType;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.Section;
 import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
-import com.techvisio.einstitution.beans.TransportReservation;
 import com.techvisio.einstitution.db.HostelDao;
 import com.techvisio.einstitution.manager.CacheManager;
 import com.techvisio.einstitution.util.CommonUtil;
@@ -73,7 +74,7 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 
 	@Override
 	public HostelReservation getHostelReservation(Long fileNo) {
-		String queryString="FROM HostelReservation tr WHERE tr.fileNo = "+fileNo;
+		String queryString="FROM HostelReservation hr WHERE hr.fileNo = "+fileNo;
 		Query query=getCurrentSession().createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<HostelReservation> result= (List<HostelReservation>)query.list();
@@ -85,12 +86,37 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 
 	@Override
 	public void saveHostelReservation(HostelReservation hostelReservation, Long fileNo) {
-			getCurrentSession().merge(hostelReservation);
+		getCurrentSession().merge(hostelReservation);
 	}
 
 	@Override
 	public void deleteHostelReservation(Long fileNo) {
 		String queryString="delete HostelReservation where fileNo =" + fileNo;
+		Query query = getCurrentSession().createQuery(queryString);
+		int result = query.executeUpdate();
+	}
+
+	
+	@Override
+	public RoomAllocation getRoomAllocation(Long fileNo) {
+		String queryString="FROM RoomAllocation ra WHERE ra.fileNo = "+fileNo;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<RoomAllocation> result= (List<RoomAllocation>)query.list();
+		if(result != null && result.size()>0){
+			return result.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo) {
+		getCurrentSession().merge(roomAllocation);
+	}
+
+	@Override
+	public void deleteRoomAllocation(Long fileNo) {
+		String queryString="delete RoomAllocation where fileNo =" + fileNo;
 		Query query = getCurrentSession().createQuery(queryString);
 		int result = query.executeUpdate();
 	}
@@ -189,4 +215,112 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 
 		return roomAllocationDetail;
 	}
+
+
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(
+			SearchCriteria searchCriteria) {
+		logger.info(
+				"{} : Getting Student detail bby searching criteria for enquiryId:{}",
+				this.getClass().getName(), searchCriteria.getInquryId());
+		String getQuery = hostelQueryProps
+				.getProperty("getStudentDtlForHostel");
+
+		SqlParameterSource namedParameter = new MapSqlParameterSource(
+				"Registration_No", StringUtils.isEmpty(searchCriteria
+						.getRegistrationNo()) ? null
+						: searchCriteria.getRegistrationNo())
+				.addValue(
+						"Email_Id",
+						StringUtils.isEmpty(searchCriteria.getEmailId()) ? null
+								: searchCriteria.getEmailId())
+				.addValue(
+						"Enroll_No",
+						StringUtils.isEmpty(searchCriteria.getEnrollNo()) ? null
+								: searchCriteria.getEnrollNo())
+				.addValue(
+						"Uni_Enroll_No",
+						StringUtils.isEmpty(searchCriteria.getUniEnrollNo()) ? null
+								: searchCriteria.getUniEnrollNo())
+				.addValue(
+						"First_Name",
+						StringUtils.isEmpty(searchCriteria.getFirstName()) ? "%"
+								: searchCriteria.getFirstName() + "%")
+				.addValue(
+						"Self_Mobile_No",
+						StringUtils.isEmpty(searchCriteria.getMobileNo()) ? null
+								: searchCriteria.getMobileNo())
+				.addValue("Course_Id", searchCriteria.getCourseId())
+				.addValue("File_No", searchCriteria.getFileNo())
+				.addValue("Branch_Id", searchCriteria.getBranchId());
+
+		List<StudentBasicInfo> studentBasicInfos = getNamedParamJdbcTemplate()
+				.query(getQuery, namedParameter, new StudentBasicInfoRowMaper());
+
+		return studentBasicInfos;
+	}
+
+	@Override
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		logger.info("{} : Getting basic information of student, having  : file no : {}",this.getClass().getName(), fileNo);
+		String getQuery = hostelQueryProps.getProperty("getStudentBasicInfoByFileNo");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
+		StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new StudentBasicInfoRowMaper());
+		
+		return info;
+	}
+	
+	
+	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo> {
+
+		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			logger.info(
+					"{} : Putting value in setter of studentBasicInfo bean  : {}",
+					this.getClass().getName());
+			StudentBasicInfo basicInfo = new StudentBasicInfo();
+			basicInfo.setFirstName(rs.getString("First_Name"));
+			basicInfo.setLastName(rs.getString("Last_Name"));
+			basicInfo.setAcademicYear(rs.getString("Academic_Year"));
+			Long branchId = (CommonUtil.getLongValue(rs.getLong("Branch_Id")));
+			Branch branch = cacheManager.getBranchById(branchId);
+			basicInfo.setBranch(branch);
+			Long courseId = (CommonUtil.getLongValue(rs.getLong("Course_Id")));
+			Course course = cacheManager.getCourseById(courseId);
+			basicInfo.setCourse(course);
+			Long categoryId = (CommonUtil.getLongValue(rs
+					.getLong("Category_Id")));
+			CasteCategory category = cacheManager.getCategoryId(categoryId);
+			basicInfo.setCasteCategory(category);
+			basicInfo.setDob(rs.getDate("DOB"));
+			basicInfo.setEnrollmentNo(rs.getString("Enroll_No"));
+			basicInfo.setFatherName(rs.getString("Father_Name"));
+			basicInfo.setFileNo(CommonUtil.getLongValue(rs.getLong("File_No")));
+			basicInfo.setGender(rs.getString("Gender"));
+			basicInfo.setModifiedDate(rs.getDate("Updated_On"));
+			basicInfo.setSemester(rs.getString("Semester"));
+			Long sessionId = (CommonUtil.getLongValue(rs.getLong("Session_Id")));
+			Session session = cacheManager.getSessionBySessionId(sessionId);
+			basicInfo.setSession(session);
+			Long batchId = (CommonUtil.getLongValue(rs.getLong("Batch_Id")));
+			Batch batch = cacheManager.getBatchByBatchId(batchId);
+			basicInfo.setBatch(batch);
+			basicInfo.setRegistrationNo(rs.getString("Registration_No"));
+
+			Long centreId = (CommonUtil.getLongValue(rs.getLong("Centre_id")));
+			Centre centre = cacheManager.getCentreByCentreId(centreId);
+			basicInfo.setCentre(centre);
+
+			Long shiftId = (CommonUtil.getLongValue(rs.getLong("Shift_Id")));
+			Shift shift = cacheManager.getShiftByShiftId(shiftId);
+			basicInfo.setShift(shift);
+
+			Long sectionId = (CommonUtil.getLongValue(rs.getLong("Section_Id")));
+			Section section = cacheManager.getSectionBySectionId(sectionId);
+			basicInfo.setSection(section);
+
+			return basicInfo;
+		}
+	}
+
 }

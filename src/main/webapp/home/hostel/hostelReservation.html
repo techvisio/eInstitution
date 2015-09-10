@@ -1,35 +1,71 @@
 <form id="HOSTEL">
-    <div ng-init="getHostelAvailability(); init()">  
+
+<div class="enquiry-detail-div">
+					<table>
+                <tr><td colspan=2><span class="header">Student Info.</span></td></tr>
+		<tr>
+			<td><span> Registration No </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.registrationNo"></td>
+			<td><span> Enrollment No </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.enrollmentNo"></td>
+		</tr>
+		<tr>
+			<td><span> First Name </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.firstName"></td>
+			<td><span> Last Name </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.lastName"></td>
+
+		</tr>
+		<tr>
+			<td><span> Father Name </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.fatherName"></td>
+			<td><span> Date Of Birth </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.dob"></td>
+		</tr>
+		<tr>
+			<td><span> Course </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.course.course"></td>
+			<td><span> Branch </span></td>
+			<td><input type="text"
+				ng-model="basicInfo.branch.branchName"></td>
+		</tr>
+</table></div>
+
+</br>
+    <div ng-init="getHostelAvailability(); init(); getReservedHostel()">  
     <div class="inventory-view">
+    
       <table>
+    <tr><td colspan=2><span class="header">Reservation Detail</span></td></tr>  
+      <tr>
+      <th>Description</th>
+      <th>Threshold</th>
+      <th>Reserved</th>
+      <th>Available</th>
+      <th>Price</th>
+      </tr>
       
-      <tr> 
-           <td><span>Type Code</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.typeCode}}</td>     
+      <tr ng-repeat="object in hostelAvailability"> 
+           
+           <td>{{object.description}}</td>
+                 
+           <td>{{object.threshold}}</td>
+                 
+           <td>{{object.reservedRoom}}</td>
+                 
+           <td>{{object.available}}</td>
+                 
+           <td>{{object.price }}</td>     
        </tr>
 
-        <tr> 
-           <td><span>Description</span></td>      
-           <td ng-repeat="object in hostelAvailability">{{object.description}}</td>     
-       </tr>
-       
-       <tr> 
-           <td><span>Threshold</span></td>      
-           <td ng-repeat="object in hostelAvailability">{{object.threshold}}</td>     
-       </tr>
-       
-       <tr> 
-           <td><span>Reserved</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.reservedRoom}}</td>     
-       </tr>
-       <tr> 
-           <td><span>Available</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.available}}</td>     
-       </tr>
-       <tr> 
-           <td><span>Price</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.price }}</td>     
-       </tr>
+
        <tr>
        <td>
        </td>
