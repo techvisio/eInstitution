@@ -211,9 +211,6 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 					$scope.showCriteria=false;
 					$scope.currentPage=1;
 					$scope.totalItems = $scope.searchResultList.length;
-					if($scope.searchResultList[0]){
-						$scope.basicInfo = $scope.searchResultList[0]; 
-					}
 				} 
 			})
 		}

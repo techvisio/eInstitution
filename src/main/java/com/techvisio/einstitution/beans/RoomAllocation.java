@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ public class RoomAllocation extends BasicEntity {
 	@Column(name="File_No")
 	private Long fileNo;
 	@OneToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name="Room_No")
+    @JoinColumn(name="Room_Id")
     private RoomTypeDetail roomTypeDetail;
 	@Column(name = "Allocated_On")
     private Date allocatedOn;
@@ -33,6 +34,15 @@ public class RoomAllocation extends BasicEntity {
     private Date checkoutOn;
 	@Column(name = "Is_Allocated")
     private boolean allocated;
+	@ManyToOne
+	@JoinColumn(name="Wing_Id")
+	private Wing wing;
+	@ManyToOne
+	@JoinColumn(name="Floor_Id")
+	private Floor floor;
+	@ManyToOne
+	@JoinColumn(name="Block_Id")
+	private Block block;
 	@Column(name = "Remark")
     private String remark;
 
@@ -100,4 +110,29 @@ public class RoomAllocation extends BasicEntity {
 		this.fileNo = fileNo;
 	}
 
+	public Wing getWing() {
+		return wing;
+	}
+
+	public void setWing(Wing wing) {
+		this.wing = wing;
+	}
+
+	public Floor getFloor() {
+		return floor;
+	}
+
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
+
+	public Block getBlock() {
+		return block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	
 }

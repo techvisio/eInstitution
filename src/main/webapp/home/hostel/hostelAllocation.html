@@ -48,12 +48,12 @@
          <tr>
          	<td><span>Wing</span></td>
             <td>
-       <select ng-model="hostelReservation.typeCode"
+       <select ng-model="roomAllocation.wing.wingId"
 		ng-options="item.wingId*1 as item.wing  for item in serverModelData.WING"></select>
        </td>
 			<td><span> Block </span></td>
 			<td>
-       <select ng-model="hostelReservation.typeCode"
+       <select ng-model="roomAllocation.block.blockId"
 		ng-options="item.blockId*1 as item.block  for item in serverModelData.BLOCK"></select>
        </td>
 		</tr>
@@ -61,7 +61,7 @@
 		
          	<td><span>Floor</span></td>
             <td>
-       <select ng-model="hostelReservation.typeCode"
+       <select ng-model="roomAllocation.floor,floorId"
 		ng-options="item.floorId*1 as item.floor  for item in serverModelData.FLOOR"></select>
        </td>
 			<td><span> Room No </span></td>

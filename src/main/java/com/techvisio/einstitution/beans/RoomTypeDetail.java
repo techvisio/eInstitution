@@ -16,8 +16,8 @@ public class RoomTypeDetail extends BasicEntity {
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	@Column(name = "Room_Detail_Id")
-	private Long roomDetailId;
+	@Column(name = "Room_Id")
+	private Long roomId;
 	@Column(name = "Room_No")
 	private String	roomNo;
 	@ManyToOne
@@ -73,10 +73,11 @@ public class RoomTypeDetail extends BasicEntity {
 	public void setBlock(Block block) {
 		this.block = block;
 	}
-	public Long getRoomDetailId() {
-		return roomDetailId;
+	public Long getRoomId() {
+		return roomId;
 	}
-	public void setRoomDetailId(Long roomDetailId) {
-		this.roomDetailId = roomDetailId;
+	public void setRoomId(Long roomId) {
+		this.roomId = roomId;
 	}
+	
 }
