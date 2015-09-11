@@ -137,7 +137,19 @@
 
     alter table ROOM_ALLOCATION_DETAIL 
         drop 
-        foreign key FK_tpnfagdgeskvwtcafh232bvin;
+        foreign key FK_kv5jd1fn25tv4u1ae8api9kbm;
+
+    alter table ROOM_ALLOCATION_DETAIL 
+        drop 
+        foreign key FK_6f7hom0d8h51ryl4f7posek95;
+
+    alter table ROOM_ALLOCATION_DETAIL 
+        drop 
+        foreign key FK_frdkto5bmtr18i8dsdlibpq8;
+
+    alter table ROOM_ALLOCATION_DETAIL 
+        drop 
+        foreign key FK_piddnx58afvt8oeor14pfwj9x;
 
     alter table ROOM_TYPE_DETAIL 
         drop 
@@ -812,7 +824,6 @@
         Updated_On datetime,
         Description varchar(255),
         Role_Name varchar(255),
-        selected bit not null,
         primary key (Role_Id)
     );
 
@@ -828,12 +839,15 @@
         Checkout_On date,
         File_No bigint,
         Remark varchar(255),
-        Room_No bigint,
+        Block_Id bigint,
+        Floor_Id bigint,
+        Room_Id bigint,
+        Wing_Id bigint,
         primary key (Room_Allocation_Id)
     );
 
     create table ROOM_TYPE_DETAIL (
-        Room_Detail_Id bigint not null auto_increment,
+        Room_Id bigint not null auto_increment,
         Created_By varchar(255),
         Created_On datetime,
         Updated_By varchar(255),
@@ -844,7 +858,7 @@
         Floor_Id bigint,
         Room_Type_Id bigint,
         Wing_Id bigint,
-        primary key (Room_Detail_Id)
+        primary key (Room_Id)
     );
 
     create table ROOM_TYPE_MASTER (
@@ -1404,9 +1418,24 @@
         references ACADEMIC_DETAIL (Student_Qualification_Id);
 
     alter table ROOM_ALLOCATION_DETAIL 
-        add constraint FK_tpnfagdgeskvwtcafh232bvin 
-        foreign key (Room_No) 
-        references ROOM_TYPE_DETAIL (Room_Detail_Id);
+        add constraint FK_kv5jd1fn25tv4u1ae8api9kbm 
+        foreign key (Block_Id) 
+        references BLOCK_MASTER (Block_id);
+
+    alter table ROOM_ALLOCATION_DETAIL 
+        add constraint FK_6f7hom0d8h51ryl4f7posek95 
+        foreign key (Floor_Id) 
+        references FLOOR_MASTER (Floor_id);
+
+    alter table ROOM_ALLOCATION_DETAIL 
+        add constraint FK_frdkto5bmtr18i8dsdlibpq8 
+        foreign key (Room_Id) 
+        references ROOM_TYPE_DETAIL (Room_Id);
+
+    alter table ROOM_ALLOCATION_DETAIL 
+        add constraint FK_piddnx58afvt8oeor14pfwj9x 
+        foreign key (Wing_Id) 
+        references WING_MASTER (Wing_Id);
 
     alter table ROOM_TYPE_DETAIL 
         add constraint FK_4psgd91iqalghmefmuguamucp 
