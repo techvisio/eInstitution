@@ -34,6 +34,8 @@ public class RoomAllocation extends BasicEntity {
     private Date checkoutOn;
 	@Column(name = "Is_Allocated")
     private boolean allocated;
+	@Column(name = "Is_Active")
+	private boolean isActive;
 	@ManyToOne
 	@JoinColumn(name="Wing_Id")
 	private Wing wing;
@@ -132,6 +134,14 @@ public class RoomAllocation extends BasicEntity {
 
 	public void setBlock(Block block) {
 		this.block = block;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	
