@@ -22,7 +22,7 @@ public class RoomTypeDetail extends BasicEntity {
 	private String	roomNo;
 	@ManyToOne
 	@JoinColumn(name="Room_Type_Id")
-	private RoomType roomTypeId;
+	private RoomType roomType;
 	@ManyToOne
 	@JoinColumn(name="Wing_Id")
 	private Wing wing;
@@ -49,11 +49,11 @@ public class RoomTypeDetail extends BasicEntity {
 		this.roomNo = roomNo;
 	}
 	
-	public RoomType getRoomTypeId() {
-		return roomTypeId;
+	public RoomType getRoomType() {
+		return roomType;
 	}
-	public void setRoomTypeId(RoomType roomTypeId) {
-		this.roomTypeId = roomTypeId;
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
 	}
 	public Wing getWing() {
 		return wing;
@@ -79,5 +79,6 @@ public class RoomTypeDetail extends BasicEntity {
 	public void setRoomId(Long roomId) {
 		this.roomId = roomId;
 	}
+	
 	
 }

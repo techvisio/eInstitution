@@ -48,14 +48,8 @@ public class FeeService {
 	public ResponseEntity<Response> getDebitedFeeTransaction(@PathVariable Long fileNo){
 		logger.info("{}: Calling getDebitedFeeTransaction method by passing  fileNo : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try {
-			List<FeeTransactionDebit> transactionDebits = feeWorkflowManager.getDebitedFeeTransaction(fileNo);
-			response.setResponseBody(transactionDebits);
-		} catch (Exception e) {
-			logger.error("{}:Error while Calling getDebitedFeeTransaction method by passing fileNo : {}",this.getClass().getName(), fileNo,e);
-			response.setError(e.getMessage());
-		}
-
+		List<FeeTransactionDebit> transactionDebits = feeWorkflowManager.getDebitedFeeTransaction(fileNo);
+		response.setResponseBody(transactionDebits);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 
 	}
@@ -65,13 +59,8 @@ public class FeeService {
 	public ResponseEntity<Response> addFeeTransactionDebit(@RequestBody FeeTransactionDebit feeTransactionDebit){
 		logger.info("{}:  Calling addFeeTransactionDebit method for : fileNo : {}",this.getClass().getName(), feeTransactionDebit.getFileNo());
 		Response response = new Response();
-		try {
-			feeWorkflowManager.addFeeTransactionDebit(feeTransactionDebit);
-			response.setResponseBody(feeTransactionDebit);
-		} catch (Exception e) {
-			logger.error("{}:Error while Calling addFeeTransactionDebit method for fileNo : {}",this.getClass().getName(), feeTransactionDebit.getFileNo(),e);
-			response.setError(e.getLocalizedMessage());
-		}
+		feeWorkflowManager.addFeeTransactionDebit(feeTransactionDebit);
+		response.setResponseBody(feeTransactionDebit);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -79,31 +68,17 @@ public class FeeService {
 	public ResponseEntity<Response> getCreditedFeeTransaction(@PathVariable Long fileNo){
 		logger.info("{}:  Calling getCreditedFeeTransaction method by passing fileNo :{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try {
-			List<FeeTransactionCredit> transactionCredits = feeWorkflowManager.getCreditedFeeTransaction(fileNo);
-			response.setResponseBody(transactionCredits);
-		} catch (Exception e) {
-
-			logger.error("{}:Error while Calling getCreditedFeeTransaction method by passing fileNo :{}",this.getClass().getName(),fileNo,e);
-			response.setError(e.getMessage());
-		}
-
+		List<FeeTransactionCredit> transactionCredits = feeWorkflowManager.getCreditedFeeTransaction(fileNo);
+		response.setResponseBody(transactionCredits);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
-
-
 	}
 
 	@RequestMapping(value="/feeTransactionCredit" , method = RequestMethod.POST)
 	public ResponseEntity<Response> addFeeTransactionCredit(@RequestBody FeeTransactionCredit feeTransactionCredit){
 		logger.info("{} : Calling addFeeTransactionCredit method for fileNo : {}",this.getClass().getName(), feeTransactionCredit.getFileNo());
 		Response response = new Response();
-		try {
-			feeWorkflowManager.addFeeTransactionCredit(feeTransactionCredit);
-			response.setResponseBody(feeTransactionCredit);
-		} catch (Exception e) {
-			logger.error("{} :Error while Calling addFeeTransactionCredit method for  fileNo : {}",this.getClass().getName(),feeTransactionCredit.getFileNo(),e);
-			response.setError(e.getLocalizedMessage());
-		}
+		feeWorkflowManager.addFeeTransactionCredit(feeTransactionCredit);
+		response.setResponseBody(feeTransactionCredit);
 
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -113,15 +88,8 @@ public class FeeService {
 		logger.info("{}:  Calling getFeeTransactionDetail method by passing File no : {}",this.getClass().getName(), fileNo);
 		Response response = new Response();
 
-		try {
-			FeeTransactionAdmission admissionBean = feeWorkflowManager.getFeeTransactionDetail(fileNo);
-			response.setResponseBody(admissionBean);
-		} catch (Exception e) {
-
-			logger.error("{} :Error while Calling getFeeTransactionDetail method for : File no : {}",this.getClass().getName(),fileNo,e);
-			response.setError(e.getMessage());
-		}
-
+		FeeTransactionAdmission admissionBean = feeWorkflowManager.getFeeTransactionDetail(fileNo);
+		response.setResponseBody(admissionBean);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -129,16 +97,8 @@ public class FeeService {
 	public  ResponseEntity<Response> getPendingFeeInfo(@PathVariable int limit){
 		logger.info("{}:  Calling getPendingfeeInfo method by passing Limit : {}",this.getClass().getName(), limit);
 		Response response = new Response();
-		try
-		{
-			List<FeeAdmission> feeAdmissionBeans = feeWorkflowManager.getPendingfeeInfo(limit);
-			response.setResponseBody(feeAdmissionBeans);
-		}
-		catch(Exception e)
-		{
-			logger.error("{}: Error while Calling getPendingfeeInfo method by passing Limit :{}",this.getClass().getName(), limit,e);
-			response.setError(e.getMessage());
-		}
+		List<FeeAdmission> feeAdmissionBeans = feeWorkflowManager.getPendingfeeInfo(limit);
+		response.setResponseBody(feeAdmissionBeans);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 

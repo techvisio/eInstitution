@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.RoomAllocation;
+import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.beans.TransportAllocation;
 import com.techvisio.einstitution.beans.TransportAllocationAdmission;
@@ -61,5 +62,41 @@ public class TransportManagerImpl implements TransportManager {
 		logger.info("{} : calling deleteTransportReservationDtl method by passing fileno:{}  ",this.getClass().getName(), fileNo);
 		transportDao.deleteTransportReservationDtl(fileNo);
 	}
+
+	@Override
+	public TransportAllocation getTransportAllocation(Long fileNo) {
+		
+		TransportAllocation transportAllocation = transportDao.getTransportAllocation(fileNo);
+		return transportAllocation;
+	}
 	
+	@Override
+	public void saveTransportAllocationDtl(TransportAllocation transportAllocation, Long fileNo) {
+		transportDao.saveTransportAllocationDtl(transportAllocation, fileNo);
+	}
+	
+	@Override
+	public void deleteTransportAllocationDtl(Long fileNo) {
+		transportDao.deleteTransportAllocationDtl(fileNo);
+	}
+	
+	@Override
+	public List<StudentBasicInfo> getStudentDtlBySearchCriteria(
+			SearchCriteria searchCriteria) {
+		
+		List<StudentBasicInfo> basicInfos = transportDao.getStudentDtlBySearchCriteria(searchCriteria);
+		return basicInfos;
+	}
+	
+	@Override
+	public StudentBasicInfo getStudentBsInfo(Long fileNo) {
+		StudentBasicInfo basicInfo = transportDao.getStudentBsInfo(fileNo);
+		return basicInfo;
+	}
+
+	@Override
+	public List<VehicleDetail> getAvailableVehicles() {
+		List<VehicleDetail> vehicleDetails = transportDao.getAvailableVehicles();
+		return vehicleDetails;
+	}
 }

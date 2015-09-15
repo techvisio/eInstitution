@@ -34,13 +34,10 @@ public class ConsultantService {
 	public ResponseEntity<Response> getAdmissnConsltntDtl(@PathVariable Long fileNo){
 		logger.info("{}  Calling getAdmissnConsltntDtl method for file no:{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try {
-			List<AdmissnConsltntDtl> admissnConsltntDtls = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
-			response.setResponseBody(admissnConsltntDtls);
-		} catch (Exception e) {
-			logger.error("{} :Error while Calling getAdmissnConsltntDtl method for file no:{}",this.getClass().getName(),fileNo,e);
-			e.printStackTrace();
-		}
+
+		List<AdmissnConsltntDtl> admissnConsltntDtls = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
+		response.setResponseBody(admissnConsltntDtls);
+
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -48,14 +45,10 @@ public class ConsultantService {
 	public ResponseEntity<Response> saveAdmissionConsultantDtl(@RequestBody List<AdmissnConsltntDtl> admissnConsltntDtls, @PathVariable Long fileNo){
 		logger.info("{}  Calling saveAdmissionConsultantDtl method for file no:{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try {
-			consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
-			List<AdmissnConsltntDtl> consultntFromDB = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
-			response.setResponseBody(consultntFromDB);
-		} catch (Exception e) {
-			logger.error("{} :Error while Calling saveAdmissionConsultantDtl method for file no:{}",this.getClass().getName(),fileNo,e);
-			e.printStackTrace();
-		}
+		consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtls, fileNo);
+		List<AdmissnConsltntDtl> consultntFromDB = consltntWorkflowManager.getAdmissnConsltntDtl(fileNo);
+		response.setResponseBody(consultntFromDB);
+
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -63,14 +56,11 @@ public class ConsultantService {
 	public ResponseEntity<Response> addAdmissionConsultantDtl(@RequestBody AdmissnConsltntDtl admissnConsltntDtl){
 		Response response = new Response();
 		Long fileNo=null;
-		try {
-		    fileNo=consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtl);
-			AdmissnConsltntDtl consultntFromDB = consltntWorkflowManager.getAdmissionConsltntDtl(fileNo);
-			response.setResponseBody(consultntFromDB);
-		} catch (Exception e) {
-			logger.error("{} :Error while Calling saveAdmissionConsultantDtl method for file no:{}",this.getClass().getName(),fileNo,e);
-			e.printStackTrace();
-		}
+
+		fileNo=consltntWorkflowManager.saveAdmissionConsultantDtl(admissnConsltntDtl);
+		AdmissnConsltntDtl consultntFromDB = consltntWorkflowManager.getAdmissionConsltntDtl(fileNo);
+		response.setResponseBody(consultntFromDB);
+
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -78,21 +68,13 @@ public class ConsultantService {
 	public ResponseEntity<Response> addConsultantAdmissionDetail(@RequestBody ConsultantAdmissionDetail consultantAdmissionDetail) {
 		logger.info("{}:Calling getConsultantAdmissionDetail method for : Student : {}",this.getClass().getName(), consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName());
 		Response response = new Response();
-		try{
 
-			consltntWorkflowManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
+		consltntWorkflowManager.saveConsultantAdmissionDetail(consultantAdmissionDetail);
 
-			Long fileNo = consultantAdmissionDetail.getBasicInfo().getFileNo();
-			consultantAdmissionDetail = consltntWorkflowManager.getConsultantAdmissionDetail(fileNo);
+		Long fileNo = consultantAdmissionDetail.getBasicInfo().getFileNo();
+		consultantAdmissionDetail = consltntWorkflowManager.getConsultantAdmissionDetail(fileNo);
 
-			response.setResponseBody(consultantAdmissionDetail);
-		}
-		catch(Exception e)
-		{
-			logger.error("{}: Error While ConsultantService Calling getConsultantAdmissionDetail method for : Student : {}",this.getClass().getName(),consultantAdmissionDetail.getBasicInfo().getFirstName()+consultantAdmissionDetail.getBasicInfo().getLastName(),e);
-			response.setError(e.getLocalizedMessage());
-
-		}
+		response.setResponseBody(consultantAdmissionDetail);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -100,16 +82,10 @@ public class ConsultantService {
 	public ResponseEntity<Response> getConsultantAdmissionDetail(@PathVariable Long fileNo){
 		logger.info("{} Calling getConsultantAdmissionDetail method  by passing file no :{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try{
-			ConsultantAdmissionDetail consultantAdmissionDetail = consltntWorkflowManager.getConsultantAdmissionDetail(fileNo);
+		ConsultantAdmissionDetail consultantAdmissionDetail = consltntWorkflowManager.getConsultantAdmissionDetail(fileNo);
 
-			response.setResponseBody(consultantAdmissionDetail);
-		}
-		catch(Exception e)
-		{
-			logger.error("{} :Error While  ConsultantService Calling getConsultantAdmissionDetail method by passing file no  :{}",this.getClass().getName(),fileNo,e);
-			response.setError(e.getLocalizedMessage());
-		}
+		response.setResponseBody(consultantAdmissionDetail);
+
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}	
 
@@ -117,20 +93,12 @@ public class ConsultantService {
 	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
 		logger.info("{}  Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(), searchCriteria.getFirstName());
 		Response response=new Response();
-		try
-		{
-			List<StudentBasicInfo> studentBasicInfo = consltntWorkflowManager.getStudentDtlBySearchCriteria(searchCriteria);
-			response.setResponseBody(studentBasicInfo);
+		List<StudentBasicInfo> studentBasicInfo = consltntWorkflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+		response.setResponseBody(studentBasicInfo);
 
-			if(studentBasicInfo == null){
+		if(studentBasicInfo == null){
 
-				response.setError("No such record found");
-			}
-		}
-		catch(Exception e)
-		{
-			logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
-			response.setError(e.getMessage());
+			response.setError("No such record found");
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -139,17 +107,8 @@ public class ConsultantService {
 	public ResponseEntity<Response> getConsultant(@PathVariable Long consultantId){
 		logger.info("{}: Calling getConsultant method by passing Consultant Id : {}",this.getClass().getName(), consultantId);
 		Response response = new Response();
-
-		try
-		{
-			Consultant consultant = consltntWorkflowManager.getConsultant(consultantId);
-			response.setResponseBody(consultant);
-		}
-		catch(Exception e)
-		{
-			logger.error("{}:Error While  ConsultantService Calling getConsultant method by passing Consultant Id : {}",this.getClass().getName(),consultantId,e);
-			response.setError(e.getMessage());
-		}
+		Consultant consultant = consltntWorkflowManager.getConsultant(consultantId);
+		response.setResponseBody(consultant);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -157,17 +116,9 @@ public class ConsultantService {
 	public ResponseEntity<Response> saveConsultant(@RequestBody Consultant consultant){
 		logger.info("{}: Calling saveConsultant method for : Consultant  : {}",this.getClass().getName(), consultant.getConsultantId());
 		Response response = new Response();
-		try
-		{
-			Long consultantId = consltntWorkflowManager.saveConsultant(consultant);
-			Consultant consultantFromDb = consltntWorkflowManager.getConsultant(consultantId);
-			response.setResponseBody(consultantFromDb);
-		}
-		catch(Exception e)
-		{
-			logger.error("{}:Error While ConsultantService Calling saveConsultant method for : Consultant  : {}",this.getClass().getName(),consultant.getConsultantId(),e);
-			response.setError(e.getLocalizedMessage());
-		}
+		Long consultantId = consltntWorkflowManager.saveConsultant(consultant);
+		Consultant consultantFromDb = consltntWorkflowManager.getConsultant(consultantId);
+		response.setResponseBody(consultantFromDb);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -175,22 +126,14 @@ public class ConsultantService {
 	public ResponseEntity<Response> getConsultantByCriteria(@RequestBody SearchCriteria searchCriteria) {
 		logger.info("{}:  Calling getConsultantBySearchCriteria method  for: Name:{}",this.getClass().getName(), searchCriteria.getFirstName());
 		Response response=new Response();
-		try
-		{
-			List<Consultant> consultants = consltntWorkflowManager.getConsultantBySearchCriteria(searchCriteria);
-			response.setResponseBody(consultants);
-			
-			if(consultants == null){
-				
-				response.setError("No such record found");
-			}
-			}
-			catch(Exception e)
-			{
-			logger.error("{}:Error While ConsultantService Calling getStudentDtlByCriteria method fo name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
-			response.setError(e.getMessage());
-			}
-			return new ResponseEntity<Response>(response,HttpStatus.OK);
+		List<Consultant> consultants = consltntWorkflowManager.getConsultantBySearchCriteria(searchCriteria);
+		response.setResponseBody(consultants);
+
+		if(consultants == null){
+
+			response.setError("No such record found");
 		}
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
 
 }

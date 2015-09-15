@@ -10,6 +10,7 @@ import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
 import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.RoomType;
+import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.SearchCriteria;
 import com.techvisio.einstitution.beans.StudentBasicInfo;
 import com.techvisio.einstitution.manager.CacheManager;
@@ -87,5 +88,11 @@ public class HostelWorkflowManagerImpl implements HostelWorkflowManager {
 	@Override
 	public void deleteRoomAllocation(Long fileNo) {
 		hostelManager.deleteRoomAllocation(fileNo);
+	}
+	
+	@Override
+	public List<RoomTypeDetail> getAvailableRooms(){
+		List<RoomTypeDetail> roomTypeDetails = hostelManager.getAvailableRooms();
+		return roomTypeDetails;
 	}
 }

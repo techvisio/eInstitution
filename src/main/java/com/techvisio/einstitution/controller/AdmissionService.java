@@ -272,16 +272,6 @@ public class AdmissionService {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-//
-//	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.GET)
-//	public ResponseEntity<Response> getDocumentDtl(@PathVariable Long fileNo){
-//		logger.info("{}  Calling getDocumentDtl method for file no:{} ",this.getClass().getName(), fileNo);
-//		Response response = new Response();
-//		List<StudentDocument> studentDocuments = admWorkflowManager.getDocumentDtl(fileNo);
-//		response.setResponseBody(studentDocuments);
-//		return new ResponseEntity<Response>(response,HttpStatus.OK);		
-//	}
-
 	@RequestMapping(value = "/student/document/{fileNo}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> saveDocumentDtl(@RequestBody List<StudentDocument> documents, @PathVariable Long fileNo){
 		logger.info("{}  Calling saveDocumentDtl method for file no:{} ",this.getClass().getName(), fileNo);

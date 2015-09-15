@@ -10,12 +10,14 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Batch;
 import com.techvisio.einstitution.beans.Branch;
@@ -24,6 +26,7 @@ import com.techvisio.einstitution.beans.Centre;
 import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.HostelAvailability;
 import com.techvisio.einstitution.beans.HostelReservation;
+import com.techvisio.einstitution.beans.Role;
 import com.techvisio.einstitution.beans.RoomAllocation;
 import com.techvisio.einstitution.beans.RoomAllocationDetailForRoom;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -96,10 +99,10 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		int result = query.executeUpdate();
 	}
 
-	
+
 	@Override
-	public RoomAllocation getRoomAllocation(Long fileNo) {
-		String queryString="FROM RoomAllocation ra WHERE ra.fileNo = "+fileNo;
+	public RoomAllocation getActiveRoomAllocation(Long fileNo) {
+		String queryString="FROM RoomAllocation ra WHERE ra.active=1 and ra.fileNo= "+fileNo;
 		Query query=getCurrentSession().createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<RoomAllocation> result= (List<RoomAllocation>)query.list();
@@ -111,7 +114,25 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 
 	@Override
 	public void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo) {
-		getCurrentSession().merge(roomAllocation);
+
+		RoomAllocation currentAllocation = getActiveRoomAllocation(fileNo);
+
+		if(currentAllocation==null){
+			roomAllocation.setActive(true);
+			roomAllocation.setAllocatedOn(new Date());
+			getCurrentSession().persist(roomAllocation);
+		}
+
+		if(currentAllocation != null && currentAllocation.getRoomTypeDetail().getRoomId() != roomAllocation.getRoomTypeDetail().getRoomId()){
+
+			currentAllocation.setActive(false);
+			currentAllocation.setCheckoutOn(new Date());
+			getCurrentSession().update(currentAllocation);
+
+			roomAllocation.setActive(true);
+			roomAllocation.setAllocatedOn(new Date());
+			getCurrentSession().persist(roomAllocation);
+		}	
 	}
 
 	@Override
@@ -194,7 +215,6 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 			public RoomAllocation mapRow(ResultSet rs, int arg1)
 					throws SQLException {
 				RoomAllocation allocationDetail = new RoomAllocation();
-				allocationDetail.setAllocated(rs.getBoolean("isAllocated"));
 				allocationDetail.setAllocatedBy(rs.getString("Allocated_By"));
 				allocationDetail.setAllocatedOn(rs.getDate("Allocated_on"));
 				allocationDetail.setCheckoutOn(rs.getDate("Checkout_on"));
@@ -229,30 +249,30 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		SqlParameterSource namedParameter = new MapSqlParameterSource(
 				"Registration_No", StringUtils.isEmpty(searchCriteria
 						.getRegistrationNo()) ? null
-						: searchCriteria.getRegistrationNo())
-				.addValue(
-						"Email_Id",
-						StringUtils.isEmpty(searchCriteria.getEmailId()) ? null
-								: searchCriteria.getEmailId())
-				.addValue(
-						"Enroll_No",
-						StringUtils.isEmpty(searchCriteria.getEnrollNo()) ? null
-								: searchCriteria.getEnrollNo())
-				.addValue(
-						"Uni_Enroll_No",
-						StringUtils.isEmpty(searchCriteria.getUniEnrollNo()) ? null
-								: searchCriteria.getUniEnrollNo())
-				.addValue(
-						"First_Name",
-						StringUtils.isEmpty(searchCriteria.getFirstName()) ? "%"
-								: searchCriteria.getFirstName() + "%")
-				.addValue(
-						"Self_Mobile_No",
-						StringUtils.isEmpty(searchCriteria.getMobileNo()) ? null
-								: searchCriteria.getMobileNo())
-				.addValue("Course_Id", searchCriteria.getCourseId())
-				.addValue("File_No", searchCriteria.getFileNo())
-				.addValue("Branch_Id", searchCriteria.getBranchId());
+								: searchCriteria.getRegistrationNo())
+		.addValue(
+				"Email_Id",
+				StringUtils.isEmpty(searchCriteria.getEmailId()) ? null
+						: searchCriteria.getEmailId())
+						.addValue(
+								"Enroll_No",
+								StringUtils.isEmpty(searchCriteria.getEnrollNo()) ? null
+										: searchCriteria.getEnrollNo())
+										.addValue(
+												"Uni_Enroll_No",
+												StringUtils.isEmpty(searchCriteria.getUniEnrollNo()) ? null
+														: searchCriteria.getUniEnrollNo())
+														.addValue(
+																"First_Name",
+																StringUtils.isEmpty(searchCriteria.getFirstName()) ? "%"
+																		: searchCriteria.getFirstName() + "%")
+																		.addValue(
+																				"Self_Mobile_No",
+																				StringUtils.isEmpty(searchCriteria.getMobileNo()) ? null
+																						: searchCriteria.getMobileNo())
+																						.addValue("Course_Id", searchCriteria.getCourseId())
+																						.addValue("File_No", searchCriteria.getFileNo())
+																						.addValue("Branch_Id", searchCriteria.getBranchId());
 
 		List<StudentBasicInfo> studentBasicInfos = getNamedParamJdbcTemplate()
 				.query(getQuery, namedParameter, new StudentBasicInfoRowMaper());
@@ -266,11 +286,21 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 		String getQuery = hostelQueryProps.getProperty("getStudentBasicInfoByFileNo");
 		SqlParameterSource namedParameter = new MapSqlParameterSource("File_No", fileNo);
 		StudentBasicInfo info = getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new StudentBasicInfoRowMaper());
-		
+
 		return info;
 	}
-	
-	
+
+	@Override
+	public List<RoomTypeDetail> getAvailableRooms() {
+		String queryString="select RD.Room_Id,RD.Room_No,RD.Room_Capacity,RD.Created_By,RD.Created_On,RD.Updated_By,RD.Updated_On,RD.Block_Id,RD.Floor_Id,RD.Room_Type_Id,RD.Wing_Id from room_type_detail RD left join room_allocation_detail RAD on RD.Room_Id = RAD.Room_Id group by RD.Room_Id having RD.Room_Capacity > count(RAD.Is_Active)" ;
+		SQLQuery query=getCurrentSession().createSQLQuery(queryString);
+		query.addEntity(RoomTypeDetail.class);
+		List<RoomTypeDetail> roomTypeDetails = (List<RoomTypeDetail>)query.list();
+
+		return roomTypeDetails;
+	}
+
+
 	class StudentBasicInfoRowMaper implements RowMapper<StudentBasicInfo> {
 
 		public StudentBasicInfo mapRow(ResultSet rs, int rowNum)

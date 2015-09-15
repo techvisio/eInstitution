@@ -194,6 +194,8 @@ public ResponseEntity<Response> getMasterDataforTransport() {
 	String[] masterEntity=new String[]{
 			AppConstants.ROUTE, 
 			AppConstants.STOPPPAGE, 
+			AppConstants.VEHICLETYPE,
+			AppConstants.VEHICLE
 			};
 	
 	try{

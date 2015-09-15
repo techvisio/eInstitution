@@ -36,7 +36,6 @@ import com.techvisio.einstitution.beans.Session;
 import com.techvisio.einstitution.beans.Shift;
 import com.techvisio.einstitution.beans.State;
 import com.techvisio.einstitution.beans.Subject;
-import com.techvisio.einstitution.beans.Transport;
 import com.techvisio.einstitution.beans.VehicleDetail;
 import com.techvisio.einstitution.beans.VehicleType;
 import com.techvisio.einstitution.beans.Wing;
@@ -339,18 +338,7 @@ public class CacheManagerImpl implements CacheManager {
 		}
 	return (List<RoomType>)entityListMap.get(AppConstants.ROOMTYPE);
 	}
-	
-	
-//	@SuppressWarnings("unchecked")
-//	public synchronized List<Transport> getTransports(){
-//		logger.info("{} : Mapping work for get transport ",this.getClass().getName());		
-//		if(entityListMap.get(AppConstants.TRANSPORT) == null || entityListMap.get(AppConstants.TRANSPORT).size() == 0){
-//			refreshCacheList(AppConstants.TRANSPORT);
-//		}
-//		return (List<Transport>)entityListMap.get(AppConstants.TRANSPORT);
-//		
-//	}
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized List<Route> getRoutes(){
 		logger.info("{} : Mapping work for get route ",this.getClass().getName());		
@@ -510,11 +498,6 @@ public class CacheManagerImpl implements CacheManager {
 		logger.info("{} : built entity list cache work for get RoomTypeMaster ",this.getClass().getName());
 		roomTypeMasters = cacheDao.getRoomType();
 		entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
-
-//		List<Transport> transports = new ArrayList<Transport>();
-//		logger.info("{} : built entity list cache work for get transport ",this.getClass().getName());
-//		transports = cacheDao.getTransport();
-//		entityListMap.put(AppConstants.TRANSPORT, transports);
 
 		List<Route> routes = new ArrayList<Route>();
 		logger.info("{} : built entity list cache work for get route ",this.getClass().getName());
@@ -698,12 +681,6 @@ public class CacheManagerImpl implements CacheManager {
 			List<RoomType> roomTypeMasters = new ArrayList<RoomType>();
 			roomTypeMasters = cacheDao.getRoomType();
 			entityListMap.put(AppConstants.ROOMTYPE, roomTypeMasters);
-		
-//		case AppConstants.TRANSPORT:
-//			logger.info("{} : refresh cache list work for get transport ",this.getClass().getName());			
-//			List<Transport> transports =new ArrayList<Transport>();
-//			transports = cacheDao.getTransport();
-//			entityListMap.put(AppConstants.TRANSPORT, transports);
 
 			case AppConstants.ROUTE:
 			logger.info("{} : refresh cache list work for get route ",this.getClass().getName());			
@@ -835,11 +812,7 @@ public class CacheManagerImpl implements CacheManager {
 		for (RoomType roomTypeMaster : cacheDao.getRoomType()) {
 			roomTypeMap.put(roomTypeMaster.getTypeCode(), roomTypeMaster);
 		}
-		
-//		for(Transport transport : cacheDao.getTransport()){
-//			transportMap.put(transport.getRouteCode(), transport);
-//		}
-		
+
 		for(Route route : cacheDao.getRoutes()){
 		routeMap.put(route.getRouteId(), route);
 	}
@@ -1000,11 +973,6 @@ public class CacheManagerImpl implements CacheManager {
 		return roomTypeMap.get(typeCode);
 	}
 	
-//	@Override
-//	public Transport getTransportByRouteCode(String routeCode){
-//		logger.info("{} : Get transport By route Code:{} ",this.getClass().getName(), routeCode);
-//		return transportMap.get(routeCode);
-//	}
 
 	@Override
 	public Route getRouteByRouteId(Long routeId){

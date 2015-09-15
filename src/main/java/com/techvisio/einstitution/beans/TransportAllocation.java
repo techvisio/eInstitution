@@ -1,16 +1,17 @@
 package com.techvisio.einstitution.beans;
 
-import java.sql.Date;
 
-import javax.persistence.CascadeType;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TRANSPORT_ALLOCATION")
@@ -22,8 +23,8 @@ public class TransportAllocation extends BasicEntity {
 	private Long trnsprtAllctnId;
 	@Column(name="File_No")
 	private Long fileNo;
-	@OneToOne
-	@JoinColumn(name = "Type_Id")
+	@ManyToOne
+	@JoinColumn(name = "Vehicle_Id")
 	private VehicleDetail vehicleDetail;
 	@Column(name = "Allocated_On")
 	private Date allocatedOn;
@@ -31,8 +32,8 @@ public class TransportAllocation extends BasicEntity {
 	private String allocatedBy;
 	@Column(name = "Switched_On")
 	private Date switchedOn;
-	@Column(name = "Is_Allocated")
-	private boolean allocated;
+	@Column(name = "Is_Active")
+	private boolean active;
 	
 	public Long getFielNo() {
 		return fileNo;
@@ -70,14 +71,6 @@ public class TransportAllocation extends BasicEntity {
 		this.allocatedBy = allocatedBy;
 	}
 
-	public boolean isAllocated() {
-		return allocated;
-	}
-
-	public void setAllocated(boolean allocated) {
-		this.allocated = allocated;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
@@ -110,5 +103,14 @@ public class TransportAllocation extends BasicEntity {
 		this.trnsprtAllctnId = trnsprtAllctnId;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	
 }
 

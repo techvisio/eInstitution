@@ -1,63 +1,99 @@
 <form id="TRANSPORT">
-   <div ng-init="getAvailableTransport(); init()">  
-      <div class="inventory-view">
-      <table>
 
-      <tr> 
-           <td><span>Description</span></td>      
-           <td ng-repeat="object in availableTransport" >{{object.description}}</td>     
-       </tr>
-        <tr> 
-           <td><span>Threshold</span></td>      
-           <td ng-repeat="object in availableTransport" >{{object.capacity}}</td>     
-       </tr>
-       <tr> 
-           <td><span>Reserved</span></td>      
-           <td ng-repeat="object in availableTransport" >{{object.reserved}}</td>     
-       </tr>
-       <tr> 
-           <td><span>Available</span></td>      
-           <td ng-repeat="object in availableTransport" >{{object.available}}</td>     
-       </tr>
-        <tr>
-       <td>
-       </td>
-       </tr>
-       <tr>
-       <td>
-       <select ng-model="transportReservation.routeStoppage.route.routeId" class="form-control"
-		ng-options="item.routeId*1 as item.description  for item in serverModelData.ROUTE"></select>
-       </td>
-       <td>
-       <select ng-model="transportReservation.routeStoppage.routeStopId" class="form-control"
-		ng-options="item.routeStopId*1 as item.stop  for item in serverModelData.STOPPPAGE"></select>
-       </td>
-        <td>
-       <input type="button" class="btn btn-primary btn-sm" value="Reserve" ng-click="reserveTransport()"/>
-       </td>
-        <td>
-       <input type="button" class="btn btn-success btn-sm" value="Release" ng-click="cancelReservation()"/>
-       </td>
-       </tr>
-             
-      </table> 
-   
-    </div>
+	<div class="enquiry-detail-div">
+		<table>
+			<tr>
+				<td colspan=2><span class="header">Student Info.</span></td>
+			</tr>
+			<tr>
+				<td><span> Registration No </span></td>
+				<td><input type="text" ng-model="basicInfo.registrationNo"></td>
+				<td><span> Enrollment No </span></td>
+				<td><input type="text" ng-model="basicInfo.enrollmentNo"></td>
+			</tr>
+			<tr>
+				<td><span> First Name </span></td>
+				<td><input type="text" ng-model="basicInfo.firstName"></td>
+				<td><span> Last Name </span></td>
+				<td><input type="text" ng-model="basicInfo.lastName"></td>
 
-<div ng-show="currentTransportReservation.fileNo" class="six-column-view">
-<table>
+			</tr>
+			<tr>
+				<td><span> Father Name </span></td>
+				<td><input type="text" ng-model="basicInfo.fatherName"></td>
+				<td><span> Date Of Birth </span></td>
+				<td><input type="text" ng-model="basicInfo.dob"></td>
+			</tr>
+			<tr>
+				<td><span> Course </span></td>
+				<td><input type="text" ng-model="basicInfo.course.course"></td>
+				<td><span> Branch </span></td>
+				<td><input type="text" ng-model="basicInfo.branch.branchName"></td>
+			</tr>
+		</table>
+	</div>
+
+	</br>
+
+
+	<div ng-init="getAvailableTransport(); init(); getReservedTransport()">
+		<div class="inventory-view">
+			<table>
 <tr>
-<tr>
-<td><strong>Route Code</strong></td>
-<td><span>{{currentTransportReservation.routeStoppage.route.routeId}}</span></td>
+				<td colspan=2><span class="header">Transport Reservation</span></td>
+			</tr>
+				<tr>
+					<th>Description</th>
+					<th>Threshold</th>
+					<th>Reserved</th>
+					<th>Available</th>
+				</tr>
+				<tr ng-repeat="object in availableTransport">
+					<td>{{object.description}}</td>
+					<td>{{object.capacity}}</td>
+					<td>{{object.reserved}}</td>
+					<td>{{object.available}}</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
 
-<td><strong>Description</strong></td>
-<td><span>{{currentTransportReservation.routeStoppage.route.description}}</span></td>
+				<tr>
+					<td><select
+						ng-model="transportReservation.routeStoppage.route.routeId"
+						class="form-control"
+						ng-options="item.routeId*1 as item.description  for item in serverModelData.ROUTE"></select>
+					</td>
+					<td><select
+						ng-model="transportReservation.routeStoppage.routeStopId"
+						class="form-control"
+						ng-options="item.routeStopId*1 as item.stop  for item in serverModelData.STOPPPAGE"></select>
+					</td>
+					<td><input type="button" class="btn btn-primary btn-sm"
+						value="Reserve" ng-click="reserveTransport()" /></td>
+					<td><input type="button" class="btn btn-success btn-sm"
+						value="Release" ng-click="cancelReservation()" /></td>
+				</tr>
 
-<td><strong>Price</strong></td>
-<td><span>{{currentTransportReservation.price}}</span></td>
-</tr>
-</table>
-</div>
-   </div>
+			</table>
+
+		</div>
+
+		<div ng-show="currentTransportReservation.fileNo"
+			class="six-column-view">
+			<table>
+				<tr>
+				<tr>
+					<td><strong>Route Code</strong></td>
+					<td><span>{{currentTransportReservation.routeStoppage.route.routeId}}</span></td>
+
+					<td><strong>Description</strong></td>
+					<td><span>{{currentTransportReservation.routeStoppage.route.description}}</span></td>
+
+					<td><strong>Price</strong></td>
+					<td><span>{{currentTransportReservation.price}}</span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </form>

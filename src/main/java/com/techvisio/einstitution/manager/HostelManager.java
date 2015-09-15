@@ -34,4 +34,6 @@ public interface HostelManager {
 
 	void deleteRoomAllocation(Long fileNo);
 
+	List<RoomTypeDetail> getAvailableRooms();
+
 }

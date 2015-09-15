@@ -25,7 +25,7 @@ import com.techvisio.einstitution.workflow.ScholarshipWorkflowManager;
 public class ScholarshipService {
 
 	private static CustomLogger logger = CustomLogger.getLogger(ScholarshipService.class);
-	
+
 	@Autowired
 	ScholarshipWorkflowManager schlrshpWorkflowManager;
 
@@ -33,13 +33,8 @@ public class ScholarshipService {
 	public ResponseEntity<Response> getScholarship(@PathVariable Long fileNo){
 		logger.info("{}  Calling getScholarship method for file no:{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try {
-			Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
-			response.setResponseBody(scholarship);
-		} catch (Exception e) {
-			logger.error("{} :Error while Calling getScholarship method for file no:{}",this.getClass().getName(),fileNo,e);
-			e.printStackTrace();
-		}
+		Scholarship scholarship = schlrshpWorkflowManager.getScholarship(fileNo);
+		response.setResponseBody(scholarship);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
@@ -47,16 +42,11 @@ public class ScholarshipService {
 	public ResponseEntity<Response> saveScholarship(@RequestBody Scholarship scholarship, @PathVariable Long fileNo){
 		logger.info("{}  Calling saveScholarship method for file no:{}",this.getClass().getName(), fileNo);
 		Response response = new Response();
-		try {
-			schlrshpWorkflowManager.saveScholarship(scholarship);
-			Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
-			response.setResponseBody(scholarshpFromDB);
-		} catch (Exception e) {
-			logger.error("{} :Error while Calling saveScholarship method for file no:{}",this.getClass().getName(),fileNo,e);
-			e.printStackTrace();
-		}
+		schlrshpWorkflowManager.saveScholarship(scholarship);
+		Scholarship scholarshpFromDB = schlrshpWorkflowManager.getScholarship(fileNo);
+		response.setResponseBody(scholarshpFromDB);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-	
+
 }

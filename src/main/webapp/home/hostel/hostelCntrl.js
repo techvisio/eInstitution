@@ -12,7 +12,6 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 	$scope.hostelAvailability = {};
 	$scope.hostelReservation = {};
 	$scope.roomAllocation = {};
-	$scope.currentAlocation = {};
 	$scope.basicInfo={};
 	if(injectedData.data){
 		 $scope.basicInfo = injectedData.data.responseBody;
@@ -117,6 +116,18 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 		})
 	};
 
+	$scope.getAvailableRooms=function(){
+
+		hostelService.getAvailableRooms().then(function(response) {
+			console.log('available rooms call back : ');
+			console.log(response);
+			if(response !=null && response.data != null && response.data.responseBody != null)
+			{
+				$scope.availableRooms=response.data.responseBody;
+			}
+		})
+	};
+	
 	$scope.getReservedHostel = function(){
 		var fileNo=$scope.basicInfo.fileNo;
 		console.log('Getting current hostel reservation for student : '+fileNo);
@@ -127,7 +138,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 				console.log('Getting reserved hosetl in controller : ');
 				console.log(response);
 				if (response !=null && response.data != null && response.data.responseBody != null) {
-					$scope.currentHostelReservation = response.data.responseBody;
+					$scope.hostelReservation = response.data.responseBody;
 				} 					 })
 		}
 	};
@@ -141,7 +152,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 		.then(function(response){
 			console.log('Hostel Reservation callback');
 			console.log(response.data.responseBody);
-			$scope.currentHostelReservation=response.data.responseBody;
+			$scope.hostelReservation=response.data.responseBody;
 		})
 	};
 
@@ -153,21 +164,22 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 			hostelService.cancelReservation(fileNo)
 			.then(function(response){
 
-				$scope.currentReservation = {};
+				$scope.hostelReservation = {};
 			})
 		}};
 
 		$scope.getAllocatedRoom = function(){
 			var fileNo=$scope.basicInfo.fileNo;
-			console.log('Getting current hostel reservation for student : '+fileNo);
+			console.log('Getting current allocated room for student : '+fileNo);
 			if(fileNo){				
 
 				hostelService.getAllocatedRoom(fileNo)
 				.then(function(response){
-					console.log('Getting reserved hosetl in controller : ');
+					console.log('Getting allocated room in controller : ');
 					console.log(response);
 					if (response !=null && response.data != null && response.data.responseBody != null) {
-						$scope.currentAllocation = response.data.responseBody;
+						$scope.roomAllocation = response.data.responseBody;
+						$scope.getReservedHostel();
 					} 					 })
 			}
 		};
@@ -179,9 +191,9 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 
 			hostelService.AllocateRoom($scope.roomAllocation, fileNo)
 			.then(function(response){
-				console.log('Hostel Reservation callback');
+				console.log('Hostel allocation callback');
 				console.log(response.data.responseBody);
-				$scope.currentAllocation=response.data.responseBody;
+				$scope.roomAllocation=response.data.responseBody;
 			})
 		};
 
@@ -193,7 +205,7 @@ hostelModule.controller('hostelController', ['$scope','hostelService','masterdat
 				hostelService.cancelAllocation(fileNo)
 				.then(function(response){
 
-					$scope.currentAllocation = {};
+					$scope.roomAllocation = {};
 				})
 			}};
 

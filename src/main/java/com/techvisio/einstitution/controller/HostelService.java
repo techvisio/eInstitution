@@ -45,26 +45,13 @@ public class HostelService {
 	public ResponseEntity<Response> getHostelReservation(@PathVariable Long fileNo){
 		logger.info("{}:  Calling getHostelReservation method by passing fileno : {}",this.getClass().getName(), fileNo);	
 		Response response=new Response();
-		try
-		{
 
-			HostelReservation hostelReservation = hostelWorkflowManager.getHostelReservation(fileNo);
-			response.setResponseBody(hostelReservation);
+		HostelReservation hostelReservation = hostelWorkflowManager.getHostelReservation(fileNo);
+		response.setResponseBody(hostelReservation);
 
-			if(hostelReservation==null){
-				response.setError("No record available");
-			}
+		if(hostelReservation==null){
+			response.setError("No record available");
 		}
-		catch(EmptyResultDataAccessException e)
-		{
-			response.setError("No such record found");
-		}
-		catch(Exception e)
-		{
-			response.setError(e.getMessage());
-			logger.error("{}: Error While Calling getHostelReservation method by passing fileno :{}",this.getClass().getName(),fileNo,e);
-		}
-
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 
 	}
@@ -73,17 +60,9 @@ public class HostelService {
 	public ResponseEntity<Response> addHostelReservation(@RequestBody HostelReservation hostelReservation, @PathVariable Long fileNo){
 		logger.info("{}:  Calling addHostelReservation method for  fileno : {}",this.getClass().getName(), hostelReservation.getFileNo());
 		Response response = new Response();
-		try
-		{
-			hostelWorkflowManager.saveHostelReservation(hostelReservation, fileNo);
-			HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(fileNo);
-			response.setResponseBody(updatedReservation);
-		}
-		catch(Exception e)
-		{
-			logger.error("{}: Error While Calling addHostelReservation method for fileno : {}",this.getClass().getName(),hostelReservation.getFileNo(),e);
-			response.setError(e.getLocalizedMessage());
-		}
+		hostelWorkflowManager.saveHostelReservation(hostelReservation, fileNo);
+		HostelReservation updatedReservation=hostelWorkflowManager.getHostelReservation(fileNo);
+		response.setResponseBody(updatedReservation);
 
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -100,20 +79,12 @@ public class HostelService {
 	public ResponseEntity<Response> getStudentDtlByCriteria(@RequestBody SearchCriteria searchCriteria) {
 		logger.info("{}  Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(), searchCriteria.getFirstName());
 		Response response=new Response();
-		try
-		{
-			List<StudentBasicInfo> studentBasicInfo = hostelWorkflowManager.getStudentDtlBySearchCriteria(searchCriteria);
-			response.setResponseBody(studentBasicInfo);
+		List<StudentBasicInfo> studentBasicInfo = hostelWorkflowManager.getStudentDtlBySearchCriteria(searchCriteria);
+		response.setResponseBody(studentBasicInfo);
 
-			if(studentBasicInfo == null){
+		if(studentBasicInfo == null){
 
-				response.setError("No such record found");
-			}
-		}
-		catch(Exception e)
-		{
-			logger.error("{} :Error while Calling getStudentDtlBySearchCriteria method for name:{}",this.getClass().getName(),searchCriteria.getFirstName(),e);
-			response.setError(e.getMessage());
+			response.setError("No such record found");
 		}
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
@@ -121,55 +92,45 @@ public class HostelService {
 	@RequestMapping(value ="/basicInfo/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getStudentBasicInfo(@PathVariable Long fileNo){
 		Response response=new Response();
-		try
-		{
-			StudentBasicInfo basicInfo = hostelWorkflowManager.getStudentBsInfo(fileNo);
-			response.setResponseBody(basicInfo);
-		}
-		catch(Exception e)
-		{
-			response.setError(e.getMessage());
-		}
+		StudentBasicInfo basicInfo = hostelWorkflowManager.getStudentBsInfo(fileNo);
+		response.setResponseBody(basicInfo);
 
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 
 	}
 
-	
+
 	@RequestMapping(value ="/roomAllocation/{fileNo}", method = RequestMethod.GET)
 	public ResponseEntity<Response> getRoomAllocation(@PathVariable Long fileNo){
 		Response response=new Response();
-		try
-		{
-			RoomAllocation roomAllocation = hostelWorkflowManager.getRoomAllocation(fileNo);
-			response.setResponseBody(roomAllocation);
-		}
-		catch(Exception e)
-		{
-			response.setError(e.getMessage());
-		}
+		RoomAllocation roomAllocation = hostelWorkflowManager.getRoomAllocation(fileNo);
+		response.setResponseBody(roomAllocation);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 	@RequestMapping(value ="/roomAllocation/{fileNo}",method = RequestMethod.POST)
 	public ResponseEntity<Response> addHostelAllocation(@RequestBody RoomAllocation roomAllocation, @PathVariable Long fileNo){
 		Response response = new Response();
-		try
-		{
-			hostelWorkflowManager.saveRoomAllocation(roomAllocation, fileNo);
-			RoomAllocation updatedAllocation=hostelWorkflowManager.getRoomAllocation(fileNo);
-			response.setResponseBody(updatedAllocation);
-		}
-		catch(Exception e){
-			response.setError(e.getLocalizedMessage());
-		}
+
+		hostelWorkflowManager.saveRoomAllocation(roomAllocation, fileNo);
+		RoomAllocation updatedAllocation=hostelWorkflowManager.getRoomAllocation(fileNo);
+		response.setResponseBody(updatedAllocation);
+
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value ="/roomAllocation/{fileNo}",method = RequestMethod.DELETE)
 	public ResponseEntity deleteRoomAllocation(@PathVariable Long fileNo){
 		hostelWorkflowManager.deleteRoomAllocation(fileNo);
 		return new ResponseEntity(HttpStatus.OK);
 	}
-	
+
+	@RequestMapping(value ="/availableRooms/", method = RequestMethod.GET)
+	public ResponseEntity<Response> getAvailableRooms(){
+		Response response=new Response();
+		List<RoomTypeDetail> roomTypeDetails = hostelWorkflowManager.getAvailableRooms();
+		response.setResponseBody(roomTypeDetails);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+
 }

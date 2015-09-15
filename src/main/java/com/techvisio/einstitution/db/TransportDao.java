@@ -3,6 +3,7 @@ package com.techvisio.einstitution.db;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.AvailableTransport;
 import com.techvisio.einstitution.beans.SearchCriteria;
@@ -23,6 +24,11 @@ public interface TransportDao {
 	List<StudentBasicInfo> getStudentDtlBySearchCriteria(
 			SearchCriteria searchCriteria);
 	StudentBasicInfo getStudentBsInfo(Long fileNo);
+	void saveTransportAllocationDtl(TransportAllocation transportAllocation,
+			Long fileNo);
+	void deleteTransportAllocationDtl(Long fileNo);
+	TransportAllocation getTransportAllocation(Long fileNo);
+	List<VehicleDetail> getAvailableVehicles();
 
 
 }

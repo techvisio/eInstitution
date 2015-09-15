@@ -10,9 +10,25 @@ hostelModule.service('hostelService', function($http, $q) {
 		getStudentBasicInfo : getStudentBasicInfo,
 		AllocateRoom : AllocateRoom,
 		getAllocatedRoom : getAllocatedRoom,
-		cancelAllocation : cancelAllocation
+		cancelAllocation : cancelAllocation,
+		getAvailableRooms : getAvailableRooms 
 	});
 
+	function getAvailableRooms() {
+
+		console.log('get available rooms called in service');
+		var request = $http({
+			method : "get",
+			url : "service/hostel/availableRooms/",
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
+	
 	function getHostelAvailability() {
 
 		console.log('getHostelAvailability called in service');

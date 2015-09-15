@@ -3,32 +3,25 @@
     <div class="inventory-view">
       <table>
       
-      <tr> 
-           <td><span>Type Code</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.typeCode}}</td>     
-       </tr>
-
-        <tr> 
-           <td><span>Description</span></td>      
-           <td ng-repeat="object in hostelAvailability">{{object.description}}</td>     
-       </tr>
-       
-       <tr> 
-           <td><span>Threshold</span></td>      
-           <td ng-repeat="object in hostelAvailability">{{object.threshold}}</td>     
-       </tr>
-       
-       <tr> 
-           <td><span>Reserved</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.reservedRoom}}</td>     
-       </tr>
-       <tr> 
-           <td><span>Available</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.available}}</td>     
-       </tr>
-       <tr> 
-           <td><span>Price</span></td>      
-           <td ng-repeat="object in hostelAvailability" >{{object.price }}</td>     
+            <tr>
+      <th>Description</th>
+      <th>Threshold</th>
+      <th>Reserved</th>
+      <th>Available</th>
+      <th>Price</th>
+      </tr>
+      
+      <tr ng-repeat="object in hostelAvailability"> 
+           
+           <td>{{object.description}}</td>
+                 
+           <td>{{object.threshold}}</td>
+                 
+           <td>{{object.reservedRoom}}</td>
+                 
+           <td>{{object.available}}</td>
+                 
+           <td>{{object.price }}</td>     
        </tr>
        <tr>
        <td>

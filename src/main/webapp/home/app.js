@@ -171,18 +171,7 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 		}
 	})
 	
-	.state('reserveTransport', {
-		url: "/transport/reservation",
-		templateUrl: 'home/transport/transportReservation.html',
-		controller: "transportController",
-		resolve:{
-			injectedData: ['$stateParams', function($stateParams){
-				return {};
-			}]
-		}
-	})
-	
-	.state('SearchreserveHostelReservation', {
+	.state('SearchHostelReservation', {
 		url: "/hostel/reservation",
 		templateUrl: 'home/hostel/searchStudentReservation.html',
 		controller: "hostelController",
@@ -204,7 +193,7 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 		}
 	})
 	
-	.state('SearchreserveHostelAllocation', {
+	.state('SearchHostelAllocation', {
 		url: "/hostel/Allocation",
 		templateUrl: 'home/hostel/searchStudentAllocation.html',
 		controller: "hostelController",
@@ -225,7 +214,51 @@ erp.config(function ($stateProvider, $urlRouterProvider) {
 		}
 	})
 	
-		.state('getUser', {
+	.state('SearchTransportReservation', {
+		url: "/transport/reservation",
+		templateUrl: 'home/transport/searchStudentReservation.html',
+		controller: "transportController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	
+	.state('reserveTransport', {
+		url: "/transport/reservation/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/transport/transportReservation.html',
+		controller: "transportController",
+		resolve:{
+			injectedData: ['$stateParams','transportService', function($stateParams,transportService){
+				return transportService.getStudentBasicInfo($stateParams.fileNo);
+			}]
+		}
+	})
+	
+	.state('SearchTransportAllocation', {
+		url: "/transport/Allocation",
+		templateUrl: 'home/transport/searchStudentAllocation.html',
+		controller: "transportController",
+		resolve:{
+			injectedData: ['$stateParams', function($stateParams){
+				return {};
+			}]
+		}
+	})
+	.state('AllocateTransport', {
+		url: "/transport/Allocation/{fileNo:[0-9]{1,8}}",
+		templateUrl: 'home/transport/transportAllocation.html',
+		controller: "transportController",
+		resolve:{
+			injectedData: ['$stateParams','transportService', function($stateParams,transportService){
+				return transportService.getStudentBasicInfo($stateParams.fileNo);
+			}]
+		}
+	})
+	
+	
+	.state('getUser', {
 		url: "/user/{userId:[0-9]{1,8}}",
 		templateUrl: 'home/user/user.html',
 		controller: "userController",

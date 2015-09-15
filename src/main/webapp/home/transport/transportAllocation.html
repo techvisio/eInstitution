@@ -1,0 +1,76 @@
+<form>
+	<div class="enquiry-detail-div">
+
+		<table>
+			<tr>
+				<td colspan=2><span class="header">Student Info.</span></td>
+			</tr>
+			<tr>
+				<td><span> Registration No </span></td>
+				<td><input type="text" ng-model="basicInfo.registrationNo"></td>
+				<td><span> Enrollment No </span></td>
+				<td><input type="text" ng-model="basicInfo.enrollmentNo"></td>
+			</tr>
+			<tr>
+				<td><span> First Name </span></td>
+				<td><input type="text" ng-model="basicInfo.firstName"></td>
+				<td><span> Last Name </span></td>
+				<td><input type="text" ng-model="basicInfo.lastName"></td>
+
+			</tr>
+			<tr>
+				<td><span> Father Name </span></td>
+				<td><input type="text" ng-model="basicInfo.fatherName"></td>
+				<td><span> Date Of Birth </span></td>
+				<td><input type="text" ng-model="basicInfo.dob"></td>
+			</tr>
+			<tr>
+				<td><span> Course </span></td>
+				<td><input type="text" ng-model="basicInfo.course.course"></td>
+				<td><span> Branch </span></td>
+				<td><input type="text" ng-model="basicInfo.branch.branchName"></td>
+			</tr>
+</table>
+</div
+
+</br>
+
+<div ng-init="init(); getHostelAvailability(); getAllocatedTransport(); getAvailableVehicles()">
+<table>
+			<tr>
+				<td colspan=2><span class="header">Transport Allocation
+						Detail</span></td>
+			</tr>
+
+<tr>
+				<td><span>Route</span></td>
+				<td><select ng-model="transportReservation.routeStoppage.route.routeId"
+					ng-options="item.routeId*1 as item.description  for item in serverModelData.ROUTE"></select>
+				</td>
+				<td><span>Stop</span></td>
+				<td><select ng-model="transportReservation.routeStoppage.routeStopId"
+					ng-options="item.routeStopId*1 as item.stop  for item in serverModelData.STOPPPAGE"></select>
+				</td>
+			</tr>
+			<tr>
+				<td><span>Vehicle Type</span></td>
+				<td><select ng-model="transportAllocation.vehicleDetail.vehicleType.vehicleTypeId"
+					ng-options="item.vehicleTypeId*1 as item.type  for item in serverModelData.VEHICLETYPE"></select>
+				</td>
+				
+				<td><span>Vehicle No</span></td>
+				<td><select ng-model="transportAllocation.vehicleDetail.vehicleId"
+					ng-options="object.vehicleId*1 as object.vehicleNo for object in availableVehicles"></select>
+				</td>
+				
+			</tr>
+
+			<tr>
+				<td><button type="button" class="btn btn-success"
+						ng-click="AllocateTransport()">Add</button></td>
+				
+			</tr>
+
+		</table>
+	</div>
+</form>

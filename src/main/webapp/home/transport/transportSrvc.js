@@ -6,12 +6,29 @@ transportModule.service('transportService', function($http, $q) {
 		reserveTransport : reserveTransport,
 		cancelReservation : cancelReservation,
 		getReservedTransport : getReservedTransport,
-//		getTransportlAllocationAdmissionDetail : getTransportlAllocationAdmissionDetail,
-//		addTransportAllocationAdmissionDetail : addTransportAllocationAdmissionDetail,
-//		updateTransportAllocationAdmissionDetail : updateTransportAllocationAdmissionDetail,
-//		getTransportAllocationDtlForStudent : getTransportAllocationDtlForStudent,
-//		getTransportAllocationDtlForVehicle : getTransportAllocationDtlForVehicle
+		getAllocatedTransport : getAllocatedTransport,
+		AllocateTransport : AllocateTransport,
+		cancelAllocation : cancelAllocation,
+		getStudentByCriteria : getStudentByCriteria,
+		getStudentBasicInfo : getStudentBasicInfo,
+		getAvailableVehicles : getAvailableVehicles 
 	});
+
+	
+	function getAvailableVehicles() {
+
+		console.log('get available vehicle called in service');
+		var request = $http({
+			method : "get",
+			url : "service/transport/availableVehicles/",
+			params : {
+				action : "get"
+			}
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
 
 	function getAvailableTransport() {
 
@@ -64,74 +81,73 @@ transportModule.service('transportService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 	}
 
-//	function getTransportlAllocationAdmissionDetail(fileNo){
-//		console.log('getTransportlAllocationAdmissionDetail called in service')
-//		var request = $http({
-//			 method : "get",
-//			 url : "service/transport/transportAllocationAdmission/"+fileNo,
-//			 params : {
-//				 action : "get"
-//			 }
-//		 });
-//
-//		 return (request.then(handleSuccess, handleError));
-//	}
-//
-//	function addTransportAllocationAdmissionDetail(transportAllocationAdmissionDtl){
-//		console.log('addTransportlAllocationAdmissionDetail called in service');
-//		 var request = $http({
-//			 method : "post",
-//			 url : "service/transport/transportAllocationAdmission/",
-//			 params : "",
-//			 data: transportAllocationAdmissionDtl
-//
-//		 });
-//		 
-//		 return (request.then(handleSuccess, handleError));
-//		
-//	}
-//
-//	function updateTransportAllocationAdmissionDetail(transportAllocationAdmissionDtl) {
-//
-//		console.log('updateTransportlAllocationAdmissionDetail reservation called in service');
-//		var request = $http({
-//			method : "put",
-//			url : "service/transport/transportAllocationAdmission",
-//			params : "",
-//			data : transportAllocationAdmissionDtl
-//
-//		});
-//
-//		return (request.then(handleSuccess, handleError));
-//	}
-//	
-//	function getTransportAllocationDtlForStudent(fileNo){
-//		console.log('getTransportAllocationDtlForStudent called in service');
-//		var request = $http({
-//			method : "get",
-//			url : "service/transport/studentTransportAllocationDtl/"+fileNo,
-//			params : {
-//				action : "get"
-//			}
-//		});
-//
-//		return (request.then(handleSuccess, handleError));
-//
-//	}
+	function getAllocatedTransport(fileNo) {
 
-//	function getTransportAllocationDtlForVehicle(vehicleId){
-//		console.log('getTransportAllocationDtlForVehicle called in service');
-//		var request = $http({
-//			method : "get",
-//			url : "service/transport/transportAllocationDetailForVehicle/"+vehicleId,
-//			params : {
-//				action : "get"
-//			}
-//		});
-//
-//		return (request.then(handleSuccess, handleError));
-//
-//	}
+		console.log('getAllocatedTransport called in service');
+		var request = $http({
+			method : "get",
+			url : "service/transport/transportAllocation/" + fileNo,
+			params : {
+				action : "get"
+			}
+		});
+		
+		return (request.then(handleSuccess, handleError));
+
+	}
+
+	function AllocateTransport(transportAllocation, fileNo) {
+
+		console.log('Transport Allocation called in service');
+		var request = $http({
+			method : "post",
+			url : "service/transport/transportAllocation/" + fileNo,
+			params : "",
+			data : transportAllocation
+
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
+
+	function cancelAllocation(fileNo) {
+		var request = $http({
+			method : "delete",
+			url : "service/transport/transportAllocation/" + fileNo,
+			params : {
+				action : "delete"
+			}
+		});
+		return (request.then(handleSuccess, handleError));
+	}
+	
+	function getStudentByCriteria(searchCriteria){
+
+		console.log('Getting student by search criteria in service');
+		var request = $http({
+			method : "post",
+			url : "service/transport/searchStudent/",
+			params : "",
+			data : searchCriteria
+
+		});
+		return (request.then(handleSuccess, handleError));
+	}
+	
+	function getStudentBasicInfo(fileNo) {
+
+		console.log('getStudentBasicInfo called in service');
+		var request = $http({
+			method : "get",
+			url : "service/transport/basicInfo/" + fileNo,
+			params : {
+				action : "get"
+			}
+		});
+		return (request.then(handleSuccess, handleError));
+	}
+
 
 	function handleError(response) {
 		console.log('handle error');

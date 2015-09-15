@@ -84,7 +84,7 @@ public class HostelManagerImpl implements HostelManager {
 
 	@Override
 	public RoomAllocation getRoomAllocation(Long fileNo) {
-	    RoomAllocation allocation = hostelDao.getRoomAllocation(fileNo);
+	    RoomAllocation allocation = hostelDao.getActiveRoomAllocation(fileNo);
 		return allocation;
 	}
 
@@ -96,5 +96,11 @@ public class HostelManagerImpl implements HostelManager {
 	@Override
 	public void deleteRoomAllocation(Long fileNo) {
 		hostelDao.deleteRoomAllocation(fileNo);
+	}
+	
+	@Override
+	public List<RoomTypeDetail> getAvailableRooms(){
+		List<RoomTypeDetail> roomTypeDetails = hostelDao.getAvailableRooms();
+		return roomTypeDetails;
 	}
 }

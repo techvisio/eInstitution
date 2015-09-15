@@ -1,14 +1,24 @@
 var transportModule = angular.module('transportModule', []);
 
-transportModule.controller('transportController', ['$scope','transportService','injectedData','masterdataService',function($scope,transportService,injectedData,masterdataService) {
+transportModule.controller('transportController', ['$scope','transportService','injectedData','masterdataService','$state',
+                                                   '$rootScope',function($scope,transportService,injectedData,masterdataService,$state,$rootScope) {
 
-	$scope.transportAllocationAdmissionDtl={};
+
 	$scope.availableTransport = {};
 	$scope.transportReservation = {};
 	$scope.currentTransportReservation={};
 	$scope.form={};
 	$scope.form.content='dashboard';
 	$scope.serverModelData={};
+	$scope.searchCriteria = {};
+	$scope.searchResultList=[];
+	$scope.filteredSearch=[];
+	$scope.showCriteria=true;
+	$scope.transportAllocation = {};
+	$scope.basicInfo={};
+	if(injectedData.data){
+		$scope.basicInfo = injectedData.data.responseBody;
+	}
 
 	$scope.init=function(){
 
@@ -26,6 +36,73 @@ transportModule.controller('transportController', ['$scope','transportService','
 				})
 	}
 
+	$scope.itemsPerPage = 3;
+	$scope.currentPage = 0;
+	$scope.totalItems = 0;
+
+	$scope.pageCount = function () {
+		return Math.ceil($scope.searchResultList.length / $scope.itemsPerPage);
+	};
+
+	$scope.numPages = function () {
+		return Math.ceil($scope.searchResultList.length / $scope.numPerPage);
+	};
+
+	$scope.$watch('currentPage + numPerPage', function() {
+		var begin = (($scope.currentPage - 1) * $scope.itemsPerPage)
+		, end = begin + $scope.itemsPerPage;
+
+		$scope.filteredSearch = $scope.searchResultList.slice(begin, end);
+	});
+
+	$scope.gridOptions = {
+			multiSelect:false,
+			data: 'filteredSearch',
+			rowTemplate: '<div ng-dblclick="redirectToTransportReservationScreen(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+			columnDefs: [{ field: "firstName", width: 100,displayName :"FirstName"},
+			             { field: "lastName", width: 100,displayName :"LastName"},
+			             { field: "fatherName", width: 180,displayName :"Father Name" },
+			             { field: "course.course", width: 140,displayName :"Course" },
+			             { field: "branch.branchName", width: 180,displayName :"Branch" },
+			             {field:"applicationStatus",width:200,displayName :"Status"}]
+	};
+
+
+	$scope.AllocationGridOptions = {
+			multiSelect:false,
+			data: 'filteredSearch',
+			rowTemplate: '<div ng-dblclick="redirectTotransportAllocationScreen(row.config.selectedItems[0].fileNo)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+			columnDefs: [{ field: "firstName", width: 100,displayName :"FirstName"},
+			             { field: "lastName", width: 100,displayName :"LastName"},
+			             { field: "fatherName", width: 180,displayName :"Father Name" },
+			             { field: "course.course", width: 140,displayName :"Course" },
+			             { field: "branch.branchName", width: 180,displayName :"Branch" },
+			             {field:"applicationStatus",width:200,displayName :"Status"}]
+	};
+
+	$scope.redirectToTransportReservationScreen=function(currentFileNo){
+		$state.go('reserveTransport',{fileNo:currentFileNo});
+	}
+
+	$scope.redirectTotransportAllocationScreen=function(currentFileNo){
+		$state.go('AllocateTransport',{fileNo:currentFileNo});
+	}
+
+	$scope.getStudentBasicInfo = function(){
+		var fileNo=$scope.searchResultList[0].fileNo;
+		if(fileNo){				
+
+			hostelService.getStudentBasicInfo(fileNo)
+			.then(function(response){
+				console.log('Getting student basic in controller : ');
+				console.log(response);
+				if (response !=null && response.data != null && response.data.responseBody != null) {
+					$scope.studentBasicInfo = response.data.responseBody;
+				} 					 })
+		}
+	};
+
+
 	$scope.getAvailableTransport = function() {
 
 		transportService.getAvailableTransport().then(function(response) {
@@ -39,8 +116,33 @@ transportModule.controller('transportController', ['$scope','transportService','
 
 	};
 
+	$scope.getAvailableRooms=function(){
+
+		hostelService.getAvailableRooms().then(function(response) {
+			console.log('available rooms call back : ');
+			console.log(response);
+			if(response !=null && response.data != null && response.data.responseBody != null)
+			{
+				$scope.availableRooms=response.data.responseBody;
+			}
+		})
+	};
+	
+	$scope.getAvailableVehicles=function(){
+
+		transportService.getAvailableVehicles().then(function(response) {
+			console.log('available vehicles call back : ');
+			console.log(response);
+			if(response !=null && response.data != null && response.data.responseBody != null)
+			{
+				$scope.availableVehicles=response.data.responseBody;
+			}
+		})
+	};
+
+	
 	$scope.getReservedTransport = function(){
-		var fileNo=$scope.student.fileNo;
+		var fileNo=$scope.basicInfo.fileNo;
 		if(!fileNo){
 			return;
 		}
@@ -51,7 +153,7 @@ transportModule.controller('transportController', ['$scope','transportService','
 				console.log('Data received from getReservedTransport controller : ');
 				console.log(response);
 				if (response !=null && response.data != null && response.data.responseBody != null) {
-					$scope.currentTransportReservation = response.data.responseBody;
+					$scope.transportReservation = response.data.responseBody;
 				}
 			})
 		}
@@ -60,7 +162,7 @@ transportModule.controller('transportController', ['$scope','transportService','
 
 	$scope.reserveTransport = function(){
 
-		var fileNo=$scope.student.fileNo;
+		var fileNo=$scope.basicInfo.fileNo;
 
 		$scope.transportReservation.fileNo=fileNo;
 
@@ -68,111 +170,84 @@ transportModule.controller('transportController', ['$scope','transportService','
 		.then(function(response){
 			console.log('Transport Reservation callback');
 			console.log(response.data.responseBody);
-			$scope.currentTransportReservation=response.data;
+			if (response !=null && response.data != null && response.data.responseBody != null) {
+				$scope.transportReservation = response.data.responseBody;
+			}
 		})
 	};
 
 	$scope.cancelReservation = function(){
 
-		var fileNo=$scope.student.fileNo;
+		var fileNo=$scope.basicInfo.fileNo;
 
 		if(fileNo){
 			transportService.cancelReservation(fileNo)
 			.then(function(response){
 
-				$scope.currentReservation = {};
-				$scope.syncReservationStatus();
+				$scope.transportReservation = {};
 			})
 		}};
 
-//		$scope.getTransportlAllocationAdmissionDetail = function(){
+		$scope.getAllocatedTransport = function(){
+			var fileNo=$scope.basicInfo.fileNo;
+			console.log('Getting current transport allocation for student : '+fileNo);
+			if(fileNo){				
 
-//		console.log('getTransportlAllocationAdmissionDetail called in controller');
-//		var fileNo = prompt("enter file no" + " ")
-//		transportService.getTransportlAllocationAdmissionDetail(fileNo)
-//		.then(function(response) {
-//		console.log('getTransportlAllocationAdmissionDetail Data received from service : ');
-//		console.log(response);
-//		if (response != null && response.data != null && response.data.responseBody != null) {
-//		$scope.transportAllocationAdmissionDtl = response.data.responseBody;
+				transportService.getAllocatedTransport(fileNo)
+				.then(function(response){
+					console.log('Getting allocated transport in controller : ');
+					console.log(response);
+					if (response !=null && response.data != null && response.data.responseBody != null) {
+						$scope.transportAllocation = response.data.responseBody;
+						$scope.getReservedTransport();
+					} 					 
+					})
+			}
+		};
 
-//		} else {
-//		console.log(response.data.error);
-//		alert(response.data.error);
-//		}
-//		})
-//		};
+		$scope.AllocateTransport = function(){
 
-//		$scope.addTransportAllocationAdmissionDetail = function(){
-//		console.log('addTransportAllocationAdmissionDetail called in controller');
-//		transportService.addTransportAllocationAdmissionDetail($scope.transportAllocationAdmissionDtl)
-//		.then(function(response) {
-//		console.log('addTransportAllocationAdmissionDetail Data received from service : ');
-//		console.log(response);
-//		if (response != null && response.data != null && response.data.responseBody != null) {
-//		$scope.transportAllocationAdmissionDtl = response.data.responseBody;
-//		alert("Your Records Saved Successfully")
-//		} else {
-//		console.log(response.data.error);
-//		alert(response.data.error);
-//		}
-//		})
-//		};
+			var fileNo=$scope.basicInfo.fileNo;
+			$scope.transportAllocation.fileNo=fileNo;
 
-//		$scope.updateTransportAllocationAdmissionDetail = function(){
-//		console.log('updateTransportAllocationAdmissionDetail called in controller');
-//		transportService.updateTransportAllocationAdmissionDetail($scope.transportAllocationAdmissionDtl)
-//		.then(function(response) {
-//		console.log('updateTransportAllocationAdmissionDetail Data received from service : ');
-//		console.log(response);
-//		if (response != null && response.data != null && response.data.responseBody != null) {
-//		$scope.transportAllocationAdmissionDtl = response.data.responseBody;
-//		alert("Your Records Saved Successfully")
-//		} else {
-//		console.log(response.data.error);
-//		alert(response.data.error);
-//		}
-//		})
-//		};
+			transportService.AllocateTransport($scope.transportAllocation, fileNo)
+			.then(function(response){
+				console.log('transport allocation callback');
+				console.log(response.data.responseBody);
+				if (response !=null && response.data != null && response.data.responseBody != null) {
+					$scope.transportAllocation = response.data.responseBody;
+					}
+			})
+		};
+
+		$scope.cancelAllocation = function(){
+
+			var fileNo=$scope.basicInfo.fileNo;
+
+			if(fileNo){
+				transportService.cancelAllocation(fileNo)
+				.then(function(response){
+
+					$scope.transportAllocation = {};
+				})
+			}};
 
 
-
-//		$scope.getTransportAllocationDtlForStudent = function(){
-
-//		console.log('getTransportAllocationDtlForStudent called in controller');
-//		var fileNo = prompt("enter file no" + " ") 
-//		transportService.getTransportAllocationDtlForStudent(fileNo)
-//		.then(function(response) {
-//		console.log(' getTransportAllocationDtlForStudent Data received from service in controller : ');
-//		console.log(response);
-//		if (response != null && response.data != null && response.data.responseBody != null) {
-//		$scope.TransportAllocationForStudent = response.data.responseBody;
-
-//		} else {
-//		console.log(response.data.error);
-//		alert(response.data.error);
-//		}
-//		})
-//		};
-
-
-//		$scope.getTransportAllocationDtlForVehicle = function(){
-
-//		console.log('getTransportAllocationDtlForVehicle called in controller');
-//		var vehicleId = prompt("enter vehicle id" + " ") 
-//		transportService.getTransportAllocationDtlForVehicle(vehicleId)
-//		.then(function(response) {
-//		console.log(' getTransportAllocationDtlForVehicle Data received from service in controller : ');
-//		console.log(response);
-//		if (response != null && response.data != null && response.data.responseBody != null) {
-//		$scope.TransportAllocationDtlForVehicle = response.data.responseBody;
-
-//		} else {
-//		console.log(response.data.error);
-//		alert(response.data.error);
-//		}
-//		})
-//		};
-
+			$scope.getStudentByCriteria = function() {
+				console.log('get student by search criteria in controller');
+				console.log($scope.searchCriteria);
+				$scope.currentPage=0;
+				transportService.getStudentByCriteria($scope.searchCriteria)
+				.then(function(response) {
+					console.log('get student Data received from service in controller : ');
+					console.log(response);
+					if (response != null && response.data != null && response.data.responseBody != null) {
+						$scope.searchResultList=response.data.responseBody;
+						$scope.showCriteria=false;
+						$scope.currentPage=1;
+						$scope.totalItems = $scope.searchResultList.length;
+					} 
+				})
+			}
 
 } ]);

@@ -137,19 +137,7 @@
 
     alter table ROOM_ALLOCATION_DETAIL 
         drop 
-        foreign key FK_kv5jd1fn25tv4u1ae8api9kbm;
-
-    alter table ROOM_ALLOCATION_DETAIL 
-        drop 
-        foreign key FK_6f7hom0d8h51ryl4f7posek95;
-
-    alter table ROOM_ALLOCATION_DETAIL 
-        drop 
         foreign key FK_frdkto5bmtr18i8dsdlibpq8;
-
-    alter table ROOM_ALLOCATION_DETAIL 
-        drop 
-        foreign key FK_piddnx58afvt8oeor14pfwj9x;
 
     alter table ROOM_TYPE_DETAIL 
         drop 
@@ -257,7 +245,7 @@
 
     alter table TRANSPORT_ALLOCATION 
         drop 
-        foreign key FK_7ql1o270wrslsg3dkqhugyjmo;
+        foreign key FK_ic6lykeuq7jnsem2lov2rgtk;
 
     alter table TRANSPORT_RESERVATION 
         drop 
@@ -833,16 +821,13 @@
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
-        Is_Allocated bit,
+        Is_Active bit,
         Allocated_By varchar(255),
-        Allocated_On date,
-        Checkout_On date,
+        Allocated_On datetime,
+        Checkout_On datetime,
         File_No bigint,
         Remark varchar(255),
-        Block_Id bigint,
-        Floor_Id bigint,
         Room_Id bigint,
-        Wing_Id bigint,
         primary key (Room_Allocation_Id)
     );
 
@@ -1100,13 +1085,13 @@
         Created_On datetime,
         Updated_By varchar(255),
         Updated_On datetime,
-        Is_Allocated bit,
+        Is_Active bit,
         Allocated_By varchar(255),
-        Allocated_On date,
+        Allocated_On datetime,
         File_No bigint,
         Remark varchar(255),
-        Switched_On date,
-        Type_Id bigint,
+        Switched_On datetime,
+        Vehicle_Id bigint,
         primary key (transport_Alloctionn_Id)
     );
 
@@ -1418,24 +1403,9 @@
         references ACADEMIC_DETAIL (Student_Qualification_Id);
 
     alter table ROOM_ALLOCATION_DETAIL 
-        add constraint FK_kv5jd1fn25tv4u1ae8api9kbm 
-        foreign key (Block_Id) 
-        references BLOCK_MASTER (Block_id);
-
-    alter table ROOM_ALLOCATION_DETAIL 
-        add constraint FK_6f7hom0d8h51ryl4f7posek95 
-        foreign key (Floor_Id) 
-        references FLOOR_MASTER (Floor_id);
-
-    alter table ROOM_ALLOCATION_DETAIL 
         add constraint FK_frdkto5bmtr18i8dsdlibpq8 
         foreign key (Room_Id) 
         references ROOM_TYPE_DETAIL (Room_Id);
-
-    alter table ROOM_ALLOCATION_DETAIL 
-        add constraint FK_piddnx58afvt8oeor14pfwj9x 
-        foreign key (Wing_Id) 
-        references WING_MASTER (Wing_Id);
 
     alter table ROOM_TYPE_DETAIL 
         add constraint FK_4psgd91iqalghmefmuguamucp 
@@ -1568,8 +1538,8 @@
         references FEE_DISCOUNTHEAD_MASTER (Head_Id);
 
     alter table TRANSPORT_ALLOCATION 
-        add constraint FK_7ql1o270wrslsg3dkqhugyjmo 
-        foreign key (Type_Id) 
+        add constraint FK_ic6lykeuq7jnsem2lov2rgtk 
+        foreign key (Vehicle_Id) 
         references VEHICLE_DETAIL (Vehicle_Id);
 
     alter table TRANSPORT_RESERVATION 

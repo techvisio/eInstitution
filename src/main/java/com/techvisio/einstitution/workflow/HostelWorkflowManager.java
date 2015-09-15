@@ -38,4 +38,6 @@ public interface HostelWorkflowManager {
 
 	void deleteRoomAllocation(Long fileNo);
 
+	List<RoomTypeDetail> getAvailableRooms();
+
 }

@@ -29,8 +29,6 @@ public class VehicleDetail extends BasicEntity{
 	@JoinColumn(name = "Route_Id")
 	private Route route;
 
-	
-
 	public Route getRoute() {
 		return route;
 	}

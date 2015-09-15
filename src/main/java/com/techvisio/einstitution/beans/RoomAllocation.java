@@ -1,6 +1,7 @@
 package com.techvisio.einstitution.beans;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class RoomAllocation extends BasicEntity {
 	private Long roomAllocationId;
 	@Column(name="File_No")
 	private Long fileNo;
-	@OneToOne(cascade={CascadeType.ALL})
+	@ManyToOne
     @JoinColumn(name="Room_Id")
     private RoomTypeDetail roomTypeDetail;
 	@Column(name = "Allocated_On")
@@ -32,19 +33,8 @@ public class RoomAllocation extends BasicEntity {
     private String allocatedBy;
 	@Column(name = "Checkout_On")
     private Date checkoutOn;
-	@Column(name = "Is_Allocated")
-    private boolean allocated;
 	@Column(name = "Is_Active")
-	private boolean isActive;
-	@ManyToOne
-	@JoinColumn(name="Wing_Id")
-	private Wing wing;
-	@ManyToOne
-	@JoinColumn(name="Floor_Id")
-	private Floor floor;
-	@ManyToOne
-	@JoinColumn(name="Block_Id")
-	private Block block;
+	private boolean active;
 	@Column(name = "Remark")
     private String remark;
 
@@ -62,14 +52,6 @@ public class RoomAllocation extends BasicEntity {
 
 	public void setAllocatedBy(String allocatedBy) {
 		this.allocatedBy = allocatedBy;
-	}
-
-	public boolean isAllocated() {
-		return allocated;
-	}
-
-	public void setAllocated(boolean allocated) {
-		this.allocated = allocated;
 	}
 
 	public String getRemark() {
@@ -112,36 +94,12 @@ public class RoomAllocation extends BasicEntity {
 		this.fileNo = fileNo;
 	}
 
-	public Wing getWing() {
-		return wing;
-	}
-
-	public void setWing(Wing wing) {
-		this.wing = wing;
-	}
-
-	public Floor getFloor() {
-		return floor;
-	}
-
-	public void setFloor(Floor floor) {
-		this.floor = floor;
-	}
-
-	public Block getBlock() {
-		return block;
-	}
-
-	public void setBlock(Block block) {
-		this.block = block;
-	}
-
 	public boolean isActive() {
-		return isActive;
+		return active;
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	
