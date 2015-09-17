@@ -9515,12 +9515,14 @@ roles-request-form .btn-primary {
 }
 .event-item.event-high,
 .event-item.event-medium,
-.event-item.event-low {
+.event-item.event-low,
+.event-item.event-no {
   color: #333;
 }
 .event-item.event-high:before,
 .event-item.event-medium:before,
-.event-item.event-low:before {
+.event-item.event-low:before,
+.event-item.event-no:before {
   content: '';
   top: 0;
   left: -30px;
@@ -9535,7 +9537,8 @@ roles-request-form .btn-primary {
 .event-item.event-medium:before {
   background-color: #f5a623;
 }
-.event-item.event-low:before {
+.event-item.event-low:before,
+.event-item.event-no:before {
   background-color: #545f6c;
 }
 .event-high {
@@ -11131,8 +11134,10 @@ dashboard-overview .activity-summary {
 .sidebar .list > ul > li:hover .task-actions {
   display: block;
 }
-.sidebar > select {
+.sidebar #loginAs {
   margin-bottom: 30px;
+  max-width: 255px;
+  min-width: 225px;
 }
 .sidebar .task-actions {
   display: none;

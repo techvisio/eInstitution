@@ -29,6 +29,7 @@ public interface TransportDao {
 	void deleteTransportAllocationDtl(Long fileNo);
 	TransportAllocation getTransportAllocation(Long fileNo);
 	List<VehicleDetail> getAvailableVehicles();
+	Boolean isSeatAvailable(Long vehicleId);
 
 
 }

@@ -106,9 +106,27 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 	}
 
 	@Override
-	public void saveTransportAllocationDtl(TransportAllocation transportAllocation, Long fileNo) {
+	public Boolean isSeatAvailable(Long vehicleId){
+		String getQuery = transportQueryProps.getProperty("getAvailableSeat");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Vehicle_Id",vehicleId);
+		
+		Boolean isAvailable = false;
+		
+		isAvailable=getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<Boolean>(){
+
+			@Override
+			public Boolean mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				return rs.getBoolean("Result");
+			}
+		});	
+		return isAvailable;
+	}
+	@Override
+	public synchronized void saveTransportAllocationDtl(TransportAllocation transportAllocation, Long fileNo) {
 		TransportAllocation currentAllocation = getTransportAllocation(fileNo);
 
+		if(isSeatAvailable(transportAllocation.getVehicleDetail().getVehicleId())){
 		if(currentAllocation==null){
 			transportAllocation.setActive(true);
 			transportAllocation.setAllocatedOn(new Date());
@@ -121,11 +139,16 @@ public class TransportDaoImpl extends BaseDao implements TransportDao {
 			currentAllocation.setSwitchedOn(new Date());
 			getCurrentSession().update(currentAllocation);
 
+			transportAllocation.setTrnsprtAllctnId(null);
 			transportAllocation.setActive(true);
 			transportAllocation.setAllocatedOn(new Date());
 			getCurrentSession().persist(transportAllocation);
 		}	
+		}
 
+		else {
+			throw new RuntimeException("No seat availble in this vehicle");
+		}
 	}
 
 	@Override

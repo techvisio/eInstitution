@@ -68,13 +68,13 @@ feeModule
 			 $scope.newTransaction = {};
 			 $scope.transactionTypes = [ {
 				 "id" : "9996",
-				 "value" : "CASH DEPOSITE"
+				 "value" : "CASH DEPOSIT"
 			 }, {
 				 "id" : "9995",
 				 "value" : "DEMAND DRAFT"
 			 }, {
 				 "id" : "9994",
-				 "value" : "CHEQUE DEPOSITE"
+				 "value" : "CHEQUE DEPOSIT"
 			 } ];
 
 			 $scope.updateAmenityCharges = function(temp) {

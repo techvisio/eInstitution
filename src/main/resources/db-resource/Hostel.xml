@@ -139,8 +139,8 @@ WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and s.File_No
     
     ]]>
 	</entry>
-	
-		<entry key="getStudentBasicInfoByFileNo">
+
+	<entry key="getStudentBasicInfoByFileNo">
     <![CDATA[
     select 
 s.Registration_No,
@@ -170,4 +170,22 @@ sb.Is_Lateral
 from Student_Detail s join student_basic sb on s.FILE_NO=sb.File_No where s.File_No=:File_No;
  ]]>
 	</entry>
+
+	<entry key="getRoomAvailability">
+    <![CDATA[
+ 
+ select 
+
+
+CASE WHEN  (RD.Room_Capacity > count(RAD.Is_Active)) = 0
+  THEN 0 
+  ELSE 1 
+END as Result
+
+
+from room_type_detail RD join room_allocation_detail RAD on RD.Room_Id = RAD.Room_Id where RD.room_Id= :Room_Id;
+
+]]>
+	</entry>
+
 </properties>

@@ -37,10 +37,13 @@ public interface HostelDao {
 
 	RoomAllocation getActiveRoomAllocation(Long fileNo);
 
-	void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo);
 
 	void deleteRoomAllocation(Long fileNo);
 
 	List<RoomTypeDetail> getAvailableRooms();
+
+	Boolean isRoomAvailable(Long roomId);
+
+	void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo);
 
 }

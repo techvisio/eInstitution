@@ -54,7 +54,7 @@ from transportallocation where File_No=:File_No and isAllocated = 0;
  
     ]]>
 	</entry>
-	
+
 	<entry key="getCurrentAllocation">
     <![CDATA[
       
@@ -84,8 +84,8 @@ select
    join vehicledetail vd on ta.Vehicle_Id = vd.Vehicle_Id where ta.isAllocated = 1 and ta.Vehicle_Id = :Vehicle_Id
      ]]>
 	</entry>
-	
-		<entry key="getStudentDtlForTransport">
+
+	<entry key="getStudentDtlForTransport">
     <![CDATA[
 SELECT
 s.Registration_No,
@@ -119,8 +119,8 @@ WHERE s.Registration_No=IFNULL(:Registration_No,s.Registration_No) and s.File_No
     
     ]]>
 	</entry>
-	
-		<entry key="getStudentBasicInfoByFileNo">
+
+	<entry key="getStudentBasicInfoByFileNo">
     <![CDATA[
     select 
 s.Registration_No,
@@ -149,5 +149,20 @@ sb.Section_Id,
 sb.Is_Lateral
 from Student_Detail s join student_basic sb on s.FILE_NO=sb.File_No where s.File_No=:File_No;
  ]]>
+	</entry>
+
+	<entry key="getAvailableSeat">
+    <![CDATA[
+	select 
+
+CASE WHEN  (VD.Capacity > count(TA.Is_Active)) = 0
+  THEN 0 
+  ELSE 1 
+END as Result
+
+
+FROM vehicle_detail VD join transport_allocation TA on VD.Vehicle_Id = TA.Vehicle_Id  where Vd.vehicle_Id=:Vehicle_Id;
+
+]]>
 	</entry>
 </properties>

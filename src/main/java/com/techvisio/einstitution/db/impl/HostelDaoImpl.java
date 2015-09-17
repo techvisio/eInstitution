@@ -113,8 +113,27 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 	}
 
 	@Override
-	public void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo) {
+	public Boolean isRoomAvailable(Long roomId){
+		String getQuery = hostelQueryProps.getProperty("getRoomAvailability");
+		SqlParameterSource namedParameter = new MapSqlParameterSource("Room_Id",roomId);
+		
+		Boolean isAvailable = false;
+		
+		isAvailable=getNamedParamJdbcTemplate().queryForObject(getQuery, namedParameter, new RowMapper<Boolean>(){
 
+			@Override
+			public Boolean mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				return rs.getBoolean("Result");
+			}
+		});	
+		return isAvailable;
+	}
+	
+	@Override
+	public synchronized void saveRoomAllocation(RoomAllocation roomAllocation, Long fileNo) {
+
+		if(isRoomAvailable(roomAllocation.getRoomTypeDetail().getRoomId())){
 		RoomAllocation currentAllocation = getActiveRoomAllocation(fileNo);
 
 		if(currentAllocation==null){
@@ -129,10 +148,16 @@ public class HostelDaoImpl extends BaseDao implements HostelDao {
 			currentAllocation.setCheckoutOn(new Date());
 			getCurrentSession().update(currentAllocation);
 
+			roomAllocation.setRoomAllocationId(null);
 			roomAllocation.setActive(true);
 			roomAllocation.setAllocatedOn(new Date());
 			getCurrentSession().persist(roomAllocation);
 		}	
+		}
+		
+		else{
+			throw new RuntimeException("No Bed Available in this room");
+		}
 	}
 
 	@Override
