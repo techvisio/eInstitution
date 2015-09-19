@@ -231,6 +231,40 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 
 	$scope.addConsultant = function() {
 		console.log('add consultant called');
+		
+		if(!$scope.consultant.name && !$scope.consultant.primaryContactNo){
+	
+			alert("Must provide consultant's name")
+			return;
+		}
+		if(!$scope.consultant.primaryContactNo){
+			
+			alert("Must provide consultant's primary No")
+			return;
+		}
+	
+		if(!$scope.consultant.address){
+			
+			alert("Must provide  address")
+			return;
+		}
+		if(!$scope.consultant.consultancyName){
+			
+			alert("Must provide consultant's consultancy name")
+			return;
+		}
+		if(!$scope.consultant.emailId){
+			
+			alert("Must provide consultant's email Id")
+			return;
+		}
+		if(!$scope.consultant.secondaryContactNo){
+			
+			alert("Must provide consultant's secondary No")
+			return;
+		}
+		
+		else{
 		consultantService.addConsultant($scope.consultant)
 		.then(function(response) {
 			console.log('Data received from service : ');
@@ -242,6 +276,7 @@ consultantModule.controller('consultantController', ['$scope','consultantService
 				$scope.redirectToConsultantM($scope.consultant.consultantId);
 			} 
 		})
+		}
 	};
 
 	$scope.updateConsultant=function(){

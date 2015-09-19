@@ -89,6 +89,11 @@ public class AdmissionWorkflowManagerImpl implements AdmissionWorkflowManager{
 
 	@Override
 	public void saveAddressDtl(List<Address> addresses, Long fileNo) {
+		for(Address address : addresses ){
+			if(address.getFileNo()==null){
+				address.setFileNo(fileNo);
+			}
+		}
 		admissionManager.saveAddressDtl(addresses, fileNo);
 	}
 

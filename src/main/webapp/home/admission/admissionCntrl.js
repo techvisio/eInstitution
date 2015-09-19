@@ -382,8 +382,8 @@ admissionModule
 								 $scope
 								 .populateMissingData($scope.student);
 								 $scope.form.isNew = false;
+								 alert("Your Records Saved Successfully")
 							 }
-							 $scope.processing = false;
 						 })
 			 };
 
@@ -497,6 +497,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.studentBasics = response.data.responseBody;
+										 alert("Your Records Updated Successfully")
 									 }
 								 })
 			 };
@@ -534,7 +535,8 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.academicDtl = response.data.responseBody;
-										 $scope.populateMissingData(response.data.responseBody.academicDtl); 
+										 alert("Academic Info Updated Successfully");
+										
 									 }
 								 })
 			 };
@@ -571,8 +573,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.addressDtl = response.data.responseBody;
-										 $scope.populateMissingData(response.data.responseBody.addressDtl);
-										 alert("Your Records Saved Successfully")
+										 alert("Address Updated Successfully")
 									 }
 								 })
 			 };
@@ -609,7 +610,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.discountDtl = response.data.responseBody;
-										 $scope.populateMissingData(response.data.responseBody.DiscountDtl);
+										 alert("Discount Info Updated Successfully")
 									 }
 								 })
 			 };
@@ -682,7 +683,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.counsellingDtl = response.data.responseBody;
-										 $scope.populateMissingData(response.data.responseBody.counsellingDtl);
+										 alert("Counselling Info Updated Successfully")
 									 }
 								 })
 			 };
@@ -718,7 +719,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.counsellingDtl = response.data.responseBody;
-										 $scope.populateMissingData(response.data.responseBody.consultantDetail);
+										 alert("Consultant Info Updated Successfully")
 									 }
 								 })
 			 };
@@ -755,7 +756,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.scholarship = response.data.responseBody;
-										 $scope.populateMissingData(response.data.responseBody.scholarship);
+										 alert("Scholarship Info Updated Successfully")
 									 }
 								 })
 			 };
@@ -790,7 +791,7 @@ admissionModule
 											 && response.data != null
 											 && response.data.responseBody != null) {
 										 $scope.student.documents = response.data.responseBody;
-
+										 alert("Document Updated Successfully")
 									 }
 								 })
 			 };
@@ -1211,6 +1212,7 @@ admissionModule
 					 console.log('Transport Reservation callback');
 					 console.log(response.data.responseBody);
 					 $scope.currentTransportReservation=response.data;
+					 alert("Transport Reserved Successfully")
 				 })
 			 };
 
@@ -1253,6 +1255,7 @@ admissionModule
 					 console.log('Hostel Reservation callback');
 					 console.log(response.data.responseBody);
 					 $scope.currentHostelReservation=response.data.responseBody;
+					 alert("Hostel Reserved Successfully")
 				 })
 			 };
 
