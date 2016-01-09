@@ -214,5 +214,28 @@ public ResponseEntity<Response> getMasterDataforTransport() {
 	return new ResponseEntity<Response>(response,HttpStatus.OK);
 }
 
+@RequestMapping(value = "/user", method = RequestMethod.GET)	
+public ResponseEntity<Response> getMasterDataforUser() {
+	logger.info("{} Get MasterData call for user ",this.getClass().getName());
+	Response response=new Response();
+	String[] masterEntity=new String[]{
+			AppConstants.QUESTION
+			};
+	
+	try{
+	Map<String,List> serverData=new HashMap<String, List>();
+	
+	for(String entity:masterEntity){
+		serverData.put(entity, cacheManager.getEntityList(entity));
+	}
+	
+	response.setResponseBody(serverData);
+	}
+	catch(Exception e){
+		logger.error("Error while fetching master data for user", e);
+		response.setError(e.getMessage());
+	}
+	return new ResponseEntity<Response>(response,HttpStatus.OK);
+}
 
 }

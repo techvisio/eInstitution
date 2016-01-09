@@ -3,6 +3,7 @@ package com.techvisio.einstitution.manager.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.techvisio.einstitution.beans.Activity;
+import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.FeeTransactionCredit;
 import com.techvisio.einstitution.beans.Scholarship;
 import com.techvisio.einstitution.beans.StudentActivity;
@@ -12,6 +13,7 @@ import com.techvisio.einstitution.db.FeeDao;
 import com.techvisio.einstitution.db.ScholarshipDao;
 import com.techvisio.einstitution.factory.ActivityType;
 import com.techvisio.einstitution.manager.ActivityExecuter;
+import com.techvisio.einstitution.util.AppConstants;
 
 public class ScholarshipActivityExecuter implements ActivityExecuter{
 
@@ -37,7 +39,9 @@ public class ScholarshipActivityExecuter implements ActivityExecuter{
 			feeTransactionCredit.setSession(studentBasics.getSession());
 			feeTransactionCredit.setFileNo(studentBasics.getFileNo());
 			feeTransactionCredit.setAmount(scholarship.getAmount());
-
+            FeeDiscountHead discountHead = new FeeDiscountHead();
+            discountHead.setHeadId(AppConstants.SCHOLARSHIP_HEAD_ID);
+            feeTransactionCredit.setFeeDiscountHead(discountHead);
 			feeDao.addFeeTransactionCredit(feeTransactionCredit);
 		}
 

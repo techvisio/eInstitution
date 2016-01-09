@@ -12,8 +12,10 @@ userModule
 		 function($scope, $state, $rootScope,userService,injectedData) {
 			 $scope.form={};
 			 $scope.user={};
+			 $scope.securityQuestion={};
 			 $scope.user.roles=[];
-			 
+			 $scope.searchCriteria = {};
+			 $scope.users = [];
 			 $scope.allUserRoles=[];
 			 if(injectedData.data){
 				 $scope.user = injectedData.data.responseBody;
@@ -27,9 +29,9 @@ userModule
 				 $state.go('getUser',{userId:currentUserId});
 			 }
 
-			 
+
 			 $scope.addAndRemoveRoleFromUser = function(object){
-				 
+
 				 if($scope.user.roles.indexOf(object)<0){
 					 $scope.user.roles.push(object);					 
 				 }
@@ -37,6 +39,24 @@ userModule
 					 $scope.user.roles.splice(object);					 
 				 }
 			 }
+
+			 $scope.init = function() {
+				 console
+				 .log('getting masterdata for admission module in init block');
+
+				 masterdataService
+				 .getUserMasterData()
+				 .then(
+						 function(data) {
+							 console.log(data);
+							 if (data) {
+								 $scope.serverModelData = data.responseBody;
+							 } else {
+								 console.log('error');
+							 }
+						 })
+			 };
+
 
 			 $scope.getAuthenticatedUser=function(){
 				 userService.getAuthenticatedUser()
@@ -52,6 +72,27 @@ userModule
 							 }
 						 })
 			 }
+
+			 $scope.getUserByCriteria = function() {
+				 console
+				 .log('get user by search criteria in controller');
+				 console.log($scope.searchCriteria);
+				 userService
+				 .getUserByCriteria(
+						 $scope.searchCriteria)
+						 .then(
+								 function(response) {
+									 console
+									 .log('Data received from service in controller : ');
+									 console.log(response);
+									 if (response != null
+											 && response.data != null
+											 && response.data.responseBody != null) {
+										 $scope.users = response.data.responseBody;
+										 }
+								 })
+			 };
+
 
 			 $scope.addUser=function(){
 				 userService.addUser($scope.user)
@@ -69,6 +110,22 @@ userModule
 
 						 })
 			 }
+
+			 $scope.saveQuestion=function(){
+				 userService.saveQuestion($scope.securityQuestion)
+				 .then(
+						 function(response) {
+							 console
+							 .log('security question Data received from service in controller : ');
+							 console.log(response);
+							 if (response != null
+									 && response.data != null
+									 && response.data.responseBody != null) {
+								 $scope.securityQuestion=response.data.responseBody;
+							 }
+						 })
+			 }
+
 
 			 $scope.getUserRole=function(){
 				 userService.getUserRole($scope.user.userId)

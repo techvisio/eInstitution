@@ -35,6 +35,7 @@ public interface AppConstants {
 	public static final String STOPPPAGE = "STOPPPAGE";
 	public static final String AMENITIES = "AMENITIES";
 	public static final String ADMISSION_WORKFLOW = "ADMISSION_WORKFLOW";
+	public static final String QUESTION = "QUESTION";
 	
 	public static final String TASK="TASK";
 	public static final Long HOSTEL_FEE_ID=9999L;

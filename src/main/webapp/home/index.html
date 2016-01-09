@@ -1,94 +1,113 @@
-<!doctype html>
-<html>
-  <head>
-    <link href="static/css/main.css" rel="stylesheet" />
-     <link href="static/css/login.css" rel="stylesheet" />
-    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="lib/ng-grid/ng-grid.css" rel="stylesheet" />
-    <script src="lib/jquery/dist/jquery.js"></script>
-    <script src="lib/angular/angular.min.js"></script>
-	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="lib/angular-cookies.min.js"></script>
-    <script src="lib/angular-route.min.js"></script>
-    <script src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-    <script src="lib/ng-grid/ng-grid.js"></script>
-    <script src="lib/angular-ui-router.min.js"></script>
-    <script src="home/app.js"></script>
-    <script src="home/admission/admissionCntrl.js"></script>
-    <script src="home/admission/admissionSrvc.js"></script>
-    <script src="home/enquiry/enquiryCntrl.js"></script>
-    <script src="home/enquiry/enquirySrvc.js"></script>
-    <script src="home/consultant/consultantCntrl.js"></script>
-    <script src="home/consultant/consultantSrvc.js"></script>
-    <script src="home/transport/transportCntrl.js"></script>
-    <script src="home/transport/transportSrvc.js"></script>
-    <script src="home/user/userCntrl.js"></script>
-    <script src="home/user/userSrvc.js"></script>
-    <script src="home/hostel/hostelCntrl.js"></script>
-    <script src="home/hostel/hostelSrvc.js"></script>
-    <script src="home/fee/feeCntrl.js"></script>
-    <script src="home/fee/feeSrvc.js"></script>
-    <script src="home/shared/masterdata.js"></script>
-    <script src="home/shared/services.js"></script>
-    <script src="home/sidebar/sidebarcntrl.js"></script>
-    
-    
-    <!-- endbuild -->
-    <meta charset="utf-8">
-    <title>eInstitution</title>
-  </head>
-  <body ng-app="erp" ng-controller="ApplicationController">
-    <div class="navigation-main">
-      <div class="brand-logo">
-        <img src="images/MIT-LOGO.jpg" height="45" width="140">
-        <p>
-        <p>Modinagar Institute of Technology</p>
-      </div>  
+<!DOCTYPE html>
+<html class="devf">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eServe / techVisio</title>
 
-       <div class="company-logo">
-           <img src="images/company.png" height="30">
-        </div>
-     
-       <div class="header-menu">
-       <ul>
-          <li class='active'>
-          <a class='expandable' href='#/' title='Dashboard'>
-            <span class='glyphicon glyphicon-home collapsed-element'></span>
-            <span class='expanded-element'>Dashboard</span>
-          </a>
-        </li>
-         <li>
-          <a class='expandable' href='#/' title='Account'>
-            <span class='glyphicon glyphicon-user collapsed-element'></span>
-            <span class='expanded-element'>Account</span>
-          </a>
-        </li>
-         <li>
-          <a class='expandable' href='#/' title='Keep Eye'>
-            <span class='glyphicon glyphicon-eye-open collapsed-element'></span>
-            <span class='expanded-element'>Keep Eye</span>
-          </a>
-        </li>
-        <li>
-          <a href='#/' id='logout-icon' title='Logout'>
-        <span class='glyphicon glyphicon-off'></span>
-        <span class='expanded-element'>Logout</span>
-      </a>
-        </li>
-      </ul>
-    </div>
-      </div>
- <div class="content">
-	<div class="side-menu"  ng-include src="'home/sidebar/sidebar.html'">
+<link href="static/css/main.css" rel="stylesheet" />
+<link href="static/css/login.css" rel="stylesheet" />
+<link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+<link href="lib/ng-grid/ng-grid.css" rel="stylesheet" />
+<script src="lib/jquery/dist/jquery.js"></script>
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/angular-cookies.min.js"></script>
+<script src="lib/angular-route.min.js"></script>
+<script src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script src="lib/ng-grid/ng-grid.js"></script>
+<script src="lib/angular-ui-router.min.js"></script>
+<script src="home/app.js"></script>
+<script src="home/admission/admissionCntrl.js"></script>
+<script src="home/admission/admissionSrvc.js"></script>
+<script src="home/enquiry/enquiryCntrl.js"></script>
+<script src="home/enquiry/enquirySrvc.js"></script>
+<script src="home/consultant/consultantCntrl.js"></script>
+<script src="home/consultant/consultantSrvc.js"></script>
+<script src="home/transport/transportCntrl.js"></script>
+<script src="home/transport/transportSrvc.js"></script>
+<script src="home/user/userCntrl.js"></script>
+<script src="home/user/userSrvc.js"></script>
+<script src="home/hostel/hostelCntrl.js"></script>
+<script src="home/hostel/hostelSrvc.js"></script>
+<script src="home/fee/feeCntrl.js"></script>
+<script src="home/fee/feeSrvc.js"></script>
+<script src="home/shared/masterdata.js"></script>
+<script src="home/shared/services.js"></script>
+<script src="home/sidebar/sidebarcntrl.js"></script>
+
+<link href="static/css/vendors.css" rel="stylesheet" type="text/css">
+<link href="static/css/app.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="erp" ng-controller="ApplicationController">
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="wrapper">
+			<ul class="nav navbar-nav">
+				<li class="pull-right icon profile"
+					ng-class="isSel('user') || isSel('company')"><a ui-sref="home"><i></i></a>
+					<ul>
+						<li><a ui-sref="home">My Profile</a></li>
+						<li><a ui-sref="home">Master Data</a></li>
+						<li><a href="../support.html">Support</a></li>
+						<li class="divider"></li>
+						<li><a href="../j_myApplication_logout">Logout</a></li>
+					</ul></li>
+
+				<li ng-class="isSel('dashboard')"><a ui-sref="app.dashboard"
+					ui-sref-opts="{reload: true}"> <span>Easing Service &
+							AMC</span>
+				</a></li>
+
+				
+				<li class="menu pull-right" ng-class="isSel('events')"><a
+					ui-sref="app.events.all">Admin</a>
+					<ul>
+						<li><a ui-sref=" ">Office Use</a></li>
+						<li><a ui-sref=" ">Documents</a></li>
+						<li><a ui-sref=" ">Transport</a></li>
+						<li><a ui-sref=" ">Hostel</a></li>
+					</ul></li>
+					<li class="menu pull-right" ng-class="isSel('events')"><a
+					ui-sref="app.events.all">Finace & Accounts</a>
+					<ul>
+						<li><a ui-sref=" ">Discounts</a></li>
+						<li><a ui-sref=" ">Scholaship</a></li>
+						<li><a ui-sref=" ">Applicable Fee</a></li>
+						<li><a ui-sref=" ">Fee Deposit</a></li>
+					</ul></li>
+					
+					<li class="menu pull-right" ng-class="isSel('events')"><a
+					ui-sref="app.events.all">Student Info</a>
+					<ul>
+						<li><a ui-sref=" ">Personal Info</a></li>
+						<li><a ui-sref=" ">Academics</a></li>
+						<li><a ui-sref=" ">Address</a></li>
+					</ul></li>
+					
+				<!-- 				<li class="menu pull-right" ng-cloak ng-class="isSel('companies')"><a -->
+				<!-- 					ui-sref="home">Master</a> -->
+				<!-- 					<ul> -->
+				<!-- 						<li><a ui-sref="home">Employee Master</a></li> -->
+				<!-- 						<li><a ui-sref="home">Equipment Master</a></li> -->
+				<!-- 						<li><a ui-sref="home">Item Master</a></li> -->
+				<!-- 					</ul></li> -->
+			</ul>
+		</div>
 	</div>
-     <div class="module-content">
-      <div ui-view></div>
-    </div>
-</div>
-<div class="footer">
-<p>&copy; 2015 Techvisio Solution Pvt Ltd.<p>
-</div>
-   
+
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="module-container">
+				<div ui-view></div>
+			</div>
+			<div class="sidebar" ng-include="'home/sidebar/sidebar.html'"></div>
+
+		</div>
+	</div>
+
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 import com.techvisio.einstitution.db.SecurityDao;
 import com.techvisio.einstitution.db.UserDao;
@@ -31,5 +32,16 @@ public class UserManagerImpl implements UserManager{
 		
 		List<Role> userRoles = userDao.getUserRole(userId);
 		return userRoles;
-	}	
+	}
+	
+	@Override
+	public void saveSecurityQuestion(SecurityQuestion securityQuestion){
+	    userDao.saveSecurityQuestion(securityQuestion);	
+	}
+	
+	@Override
+	public SecurityQuestion getSecurityQuestion(Long questionId){
+		SecurityQuestion securityQuestion = userDao.getSecurityQuestion(questionId);
+		return securityQuestion;
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techvisio.einstitution.beans.Response;
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 import com.techvisio.einstitution.workflow.UserWorkflowManager;
 
@@ -57,6 +58,15 @@ public class UserController {
 		Response response = new Response();
 		List<Role> userRoles=userWorkflowManager.getUserRole(userId);
 		response.setResponseBody(userRoles);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/saveQuestion/", method = RequestMethod.POST)
+	public ResponseEntity<Response> saveSecurityQuestion(@RequestBody SecurityQuestion securityQuestion){
+		Response response = new Response();
+		userWorkflowManager.saveSecurityQuestion(securityQuestion);
+		SecurityQuestion questionFromDB = userWorkflowManager.getSecurityQuestion(securityQuestion.getSecurityQustnId());
+		response.setResponseBody(questionFromDB);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 }

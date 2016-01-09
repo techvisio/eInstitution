@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 import com.techvisio.einstitution.manager.UserManager;
 import com.techvisio.einstitution.workflow.UserWorkflowManager;
@@ -34,5 +35,16 @@ public class UserWorkflowManagerImpl implements UserWorkflowManager {
 		
 		List<Role> userRoles = userManager.getUserRole(userId);
 		return userRoles;
+	}
+	
+	@Override
+	public void saveSecurityQuestion(SecurityQuestion securityQuestion){
+	    userManager.saveSecurityQuestion(securityQuestion);	
+	}
+	
+	@Override
+	public SecurityQuestion getSecurityQuestion(Long questionId){
+		SecurityQuestion securityQuestion = userManager.getSecurityQuestion(questionId);
+		return securityQuestion;
 	}
 }

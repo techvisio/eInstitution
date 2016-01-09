@@ -47,6 +47,14 @@ public class SecurityQuestion {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+
+	public Long getSecurityQustnId() {
+		return securityQustnId;
+	}
+
+	public void setSecurityQustnId(Long securityQustnId) {
+		this.securityQustnId = securityQustnId;
+	}
 	
 	
 }

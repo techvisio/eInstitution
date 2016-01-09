@@ -6604,9 +6604,9 @@ body {
   font-weight: 400;
 }
 .wrapper {
-  width: 100%;
+  width: 99.5%;
   height: 100%;
-  max-width: 1200px;
+/*   max-width: 1200px; */
   margin: 0 auto;
 }
 @media (max-width: 800px) {
@@ -9515,14 +9515,12 @@ roles-request-form .btn-primary {
 }
 .event-item.event-high,
 .event-item.event-medium,
-.event-item.event-low,
-.event-item.event-no {
+.event-item.event-low {
   color: #333;
 }
 .event-item.event-high:before,
 .event-item.event-medium:before,
-.event-item.event-low:before,
-.event-item.event-no:before {
+.event-item.event-low:before {
   content: '';
   top: 0;
   left: -30px;
@@ -9537,8 +9535,7 @@ roles-request-form .btn-primary {
 .event-item.event-medium:before {
   background-color: #f5a623;
 }
-.event-item.event-low:before,
-.event-item.event-no:before {
+.event-item.event-low:before {
   background-color: #545f6c;
 }
 .event-high {
@@ -11134,10 +11131,8 @@ dashboard-overview .activity-summary {
 .sidebar .list > ul > li:hover .task-actions {
   display: block;
 }
-.sidebar #loginAs {
+.sidebar > select {
   margin-bottom: 30px;
-  max-width: 255px;
-  min-width: 225px;
 }
 .sidebar .task-actions {
   display: none;

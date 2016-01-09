@@ -3,6 +3,7 @@ package com.techvisio.einstitution.manager;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 
 public interface UserManager {
@@ -12,4 +13,8 @@ public interface UserManager {
 	User getUser(Long userId);
 
 	List<Role> getUserRole(Long userId);
+
+	void saveSecurityQuestion(SecurityQuestion securityQuestion);
+
+	SecurityQuestion getSecurityQuestion(Long questionId);
 }

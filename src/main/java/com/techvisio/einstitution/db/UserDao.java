@@ -3,6 +3,7 @@ package com.techvisio.einstitution.db;
 import java.util.List;
 
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 
 public interface UserDao {
@@ -12,5 +13,9 @@ public interface UserDao {
 	User getUser(Long userId);
 
 	List<Role> getUserRole(Long userId);
+
+	void saveSecurityQuestion(SecurityQuestion securityQuestion);
+
+	SecurityQuestion getSecurityQuestion(Long questionId);
 
 }

@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 import com.techvisio.einstitution.db.UserDao;
 
@@ -13,9 +14,9 @@ public class UserDaoImpl extends BaseDao implements UserDao{
 
 	@Override
 	public void addUser(User user){
-			getCurrentSession().merge(user);
+		getCurrentSession().merge(user);
 	}
-	
+
 	@Override
 	public User getUser(Long userId) {
 		String queryString="FROM User u WHERE u.userId = "+userId;
@@ -34,8 +35,25 @@ public class UserDaoImpl extends BaseDao implements UserDao{
 		SQLQuery query=getCurrentSession().createSQLQuery(queryString);
 		query.addEntity(Role.class);
 		List<Role> userRoles = (List<Role>)query.list();
-		
+
 		return userRoles;
+	}
+
+	@Override
+	public void saveSecurityQuestion(SecurityQuestion securityQuestion){
+		getCurrentSession().merge(securityQuestion);
+	}	
+
+	@Override
+	public SecurityQuestion getSecurityQuestion(Long questionId) {
+		String queryString="FROM SecurityQuestion u WHERE u.securityQustnId = "+questionId;
+		Query query=getCurrentSession().createQuery(queryString);
+		@SuppressWarnings("unchecked")
+		List<SecurityQuestion> result= (List<SecurityQuestion>)query.list();
+		if(result != null && result.size()>0){
+			return result.get(0);
+		}
+		return null;
 	}
 
 }

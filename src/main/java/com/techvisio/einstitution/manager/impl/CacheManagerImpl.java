@@ -25,6 +25,7 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.Qualification;
+import com.techvisio.einstitution.beans.QuestionMaster;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -97,6 +98,7 @@ public class CacheManagerImpl implements CacheManager {
 	private static Map<Long, Amenities> amenitiesMap = new HashMap<Long, Amenities>();
 	private static Map<Long, Workflow> workflowMap = new TreeMap<Long, Workflow>();
 	private static Map<String, Activity> activityMap = new HashMap<String, Activity>();
+	private static Map<String, QuestionMaster> questionMap = new HashMap<String, QuestionMaster>();
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<Branch> getBranchs(){
@@ -377,6 +379,15 @@ public class CacheManagerImpl implements CacheManager {
 	return (List<Workflow>)entityListMap.get(AppConstants.ADMISSION_WORKFLOW);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public synchronized List<QuestionMaster> getQuestion(){
+		logger.info("{} : Mapping work for get workflow ",this.getClass().getName());	
+		if(entityListMap.get(AppConstants.QUESTION) == null || entityListMap.get(AppConstants.QUESTION).size() == 0 ){
+			refreshCacheList(AppConstants.QUESTION);
+		}
+	return (List<QuestionMaster>)entityListMap.get(AppConstants.QUESTION);
+	}
+	
 	public void builtEntityListCache(){
 		List<Branch> branchs =new ArrayList<Branch>();
 		logger.info("{} : built entity list cache work for get branch ",this.getClass().getName());
@@ -519,6 +530,9 @@ public class CacheManagerImpl implements CacheManager {
 		workflows = cacheDao.getAdmissionWorkFlow();
 		entityListMap.put(AppConstants.ADMISSION_WORKFLOW, workflows);
 		
+		List<QuestionMaster> questions =new ArrayList<QuestionMaster>();
+		questions=cacheDao.getQuestions();
+		entityListMap.put(AppConstants.QUESTION, questions);
 		
 		buildEntityMap();
 
@@ -706,6 +720,13 @@ public class CacheManagerImpl implements CacheManager {
 				List<Workflow> workflows = new ArrayList<Workflow>();
 				workflows = cacheDao.getAdmissionWorkFlow();
 				entityListMap.put(AppConstants.ADMISSION_WORKFLOW, workflows);
+				
+		case AppConstants.QUESTION:
+			List<QuestionMaster> questions =new ArrayList<QuestionMaster>();
+			questions=cacheDao.getQuestions();
+			entityListMap.put(AppConstants.QUESTION, questions);
+			break;
+			
 		default:
 
 		}
@@ -827,6 +848,10 @@ public class CacheManagerImpl implements CacheManager {
 		
 		for(Workflow workflow : cacheDao.getAdmissionWorkFlow()){
 			workflowMap.put(workflow.getStepId(), workflow);
+		}
+		
+		for(QuestionMaster question:getQuestion()){
+			questionMap.put(question.getQuestion(), question);
 		}
 	}
     
@@ -997,6 +1022,13 @@ public class CacheManagerImpl implements CacheManager {
 		return workflowMap.get(stepId);
 		
 	}
+	
+	@Override
+	public QuestionMaster getQuestionByQuestion(String question ){
+		return questionMap.get(question);
+		
+	}
+	
 	
 	@Override
 	public Activity getActivityByActivityName(String activity){

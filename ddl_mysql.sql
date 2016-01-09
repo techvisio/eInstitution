@@ -1115,6 +1115,7 @@
         IS_ACTIVE bit,
         Department varchar(255),
         Designation varchar(255),
+        Email_Id varchar(255),
         Force_Password_Change bit,
         Name varchar(255),
         Password varchar(255),

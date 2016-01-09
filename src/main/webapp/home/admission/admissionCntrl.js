@@ -353,9 +353,11 @@ admissionModule
 				 if ($scope.form.sameAsAbove == true) {
 					 console.log('same as above');
 					 var cAddress = $scope.getAddress('C');
+					 var cAddressId=cAddress.addressId;
 					 angular.copy($scope.getAddress('P'),
 							 cAddress)
 							 cAddress.addressType = 'C';
+					 cAddress.addressId=cAddressId;
 				 }
 			 }
 

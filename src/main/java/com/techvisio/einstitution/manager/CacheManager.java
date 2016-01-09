@@ -18,6 +18,7 @@ import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.MasterData;
 import com.techvisio.einstitution.beans.Qualification;
+import com.techvisio.einstitution.beans.QuestionMaster;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomType;
@@ -105,4 +106,6 @@ public interface CacheManager {
 	Route getRouteByRouteId(Long routeId);
 
 	RouteStoppage getTransportByStopId(Long stopId);
+
+	QuestionMaster getQuestionByQuestion(String question);
 }

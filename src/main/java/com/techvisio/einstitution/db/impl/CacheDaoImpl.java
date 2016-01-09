@@ -23,6 +23,7 @@ import com.techvisio.einstitution.beans.Course;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
+import com.techvisio.einstitution.beans.QuestionMaster;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomType;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
@@ -278,6 +279,14 @@ public class CacheDaoImpl extends BaseDao implements CacheDao {
 		String queryString="FROM Activity";
 		Query query=getCurrentSession().createQuery(queryString);
 		List<Activity> result= query.list();
+		return result;
+	}
+	
+	@Override
+	public List<QuestionMaster> getQuestions() {
+		String queryString="FROM QuestionMaster";
+		Query query=getCurrentSession().createQuery(queryString);
+		List<QuestionMaster> result= query.list();
 		return result;
 	}
 }

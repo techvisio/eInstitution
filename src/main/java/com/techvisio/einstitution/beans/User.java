@@ -26,6 +26,9 @@ public class User {
 	private Long userId;
 	@Column(name = "Name")
 	private String name;
+	@Column(name = "Email_Id")
+	private String emailId;
+
 	@ManyToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinTable(name="USER_ROLE", joinColumns = { 
 			@JoinColumn(name = "User_Id") }, 
@@ -136,6 +139,12 @@ public class User {
 	public void setDOB(Date dOB) {
 		DOB = dOB;
 	}
+	public String getEmailId() {
+		return emailId;
+	}
 
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 	
 }

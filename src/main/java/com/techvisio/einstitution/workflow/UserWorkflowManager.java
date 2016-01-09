@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.techvisio.einstitution.beans.Role;
+import com.techvisio.einstitution.beans.SecurityQuestion;
 import com.techvisio.einstitution.beans.User;
 
 @Component
@@ -17,5 +18,9 @@ public interface UserWorkflowManager {
 	User getUser(Long userId);
 
 	List<Role> getUserRole(Long userId);
+
+	void saveSecurityQuestion(SecurityQuestion securityQuestion);
+
+	SecurityQuestion getSecurityQuestion(Long questionId);
 
 }

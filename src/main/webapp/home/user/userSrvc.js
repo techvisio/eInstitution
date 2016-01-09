@@ -5,7 +5,9 @@ userModule.service('userService', function($http, $q) {
 		authenticateUser : authenticateUser,
 		getUser : getUser,
 		addUser : addUser,
-		getUserRole : getUserRole
+		getUserRole : getUserRole,
+		saveQuestion : saveQuestion,
+		getUserByCriteria: getUserByCriteria
 	});
 
 	function authenticateUser(form) {
@@ -42,6 +44,21 @@ userModule.service('userService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 	}
 
+	function getUserByCriteria(searchCriteria){
+
+		console.log('Getting user by search criteria in service');
+		var request = $http({
+			method : "post",
+			url : "service/user/search/",
+			params : "",
+			data : searchCriteria
+
+		});
+
+		return (request.then(handleSuccess, handleError));
+	}
+
+	
 	function getUser(userId){
 
 		console.log('Getting user in service');
@@ -70,7 +87,7 @@ userModule.service('userService', function($http, $q) {
 
 	function addUser(user){
 
-		console.log('add student called in service');
+		console.log('add user called in service');
 		var request = $http({
 			method : "post",
 			url : "service/user/adduser/",
@@ -82,7 +99,22 @@ userModule.service('userService', function($http, $q) {
 		return (request.then(handleSuccess, handleError));
 
 	}
+	
+	function saveQuestion(question){
 
+		console.log('saveSecurityQuestion called in service');
+		var request = $http({
+			method : "post",
+			url : "service/user/saveQuestion/",
+			params : "",
+			data : question
+
+		});
+
+		return (request.then(handleSuccess, handleError));
+
+	}
+	
 	function handleError(response) {
 		console.log('Error occured while calling service');
 		console.log(response);

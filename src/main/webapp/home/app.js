@@ -22,6 +22,21 @@ var erp = angular
                 'transportModule'
                 ]);
 
+erp.run(['$rootScope', '$location',
+      function ( $rootScope, $location) {
+	
+	 $rootScope.showSidebar = true;
+	 
+	 $rootScope.isSel = function (page) {
+	        var currentRoute = $location.path().substring(1) || 'home',
+	            pageR = new RegExp(page + "\/");
+	        return page === currentRoute || currentRoute.match(pageR)
+	            ? 'selected' : '';
+	    };
+	    
+}]
+);
+
 erp.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/home");
 	// Now set up the states

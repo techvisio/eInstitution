@@ -19,6 +19,7 @@ import com.techvisio.einstitution.beans.ApplicableFeeDetail;
 import com.techvisio.einstitution.beans.FeeDiscountHead;
 import com.techvisio.einstitution.beans.Floor;
 import com.techvisio.einstitution.beans.Qualification;
+import com.techvisio.einstitution.beans.QuestionMaster;
 import com.techvisio.einstitution.beans.QuotaCode;
 import com.techvisio.einstitution.beans.RoomTypeDetail;
 import com.techvisio.einstitution.beans.RoomType;
@@ -98,4 +99,6 @@ public interface CacheDao {
 	public List<Route> getRoutes();
 
 	public List<RouteStoppage> getRouteStoppages();
+
+	public List<QuestionMaster> getQuestions();
 }
